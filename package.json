@@ -1,1 +1,6 @@
-{"name":"guptasiddhant", "version":"0.0.1", "bin":"./index.js"}
+{
+  "name":"guptasiddhant", 
+  "version":"0.0.1", 
+  "bin":"./index.js",
+  "author":"Siddhant Gupta <me@guptasiddhant.com>"
+}
