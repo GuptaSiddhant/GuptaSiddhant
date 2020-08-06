@@ -1,9 +1,7 @@
-### Hi there 👋
-
-`npx GuptaSiddhant/GuptaSiddhant`
-
 <h1 align="center">Hi 👋, I'm Siddhant Gupta</h1>
 <h3 align="center">UI and Front-end developer</h3>
+
+`npx GuptaSiddhant/GuptaSiddhant`
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" /> </p>
 
