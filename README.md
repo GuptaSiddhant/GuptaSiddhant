@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, I'm Siddhant Gupta</h1>
 <h3 align="center">UI and Front-end developer</h3>
 
-`npx GuptaSiddhant/GuptaSiddhant`
+`npx GuptaSiddhant`
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" /> </p>
 
@@ -12,8 +12,6 @@
 <img align="left" src="https://github-readme-stats.vercel.app/api/top-langs/?username=guptasiddhant&layout=compact&hide=html" alt="guptasiddhant" />
 
 <img align="center" src="https://github-readme-stats.vercel.app/api?username=guptasiddhant&show_icons=true" alt="guptasiddhant" />
-
-
 
 **GuptaSiddhant/GuptaSiddhant** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
@@ -27,4 +25,4 @@ Here are some ideas to get you started:
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
--->
+  -->
