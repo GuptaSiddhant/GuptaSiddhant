@@ -3,7 +3,11 @@
   "title": "UI and Frontend Developer",
   "dateOfBirth": "19940920",
   "dob": 780051600000,
-  "github": "guptasiddhant",
-  "linkedIn": "guptasiddhant9",
-  "email": "me@guptasiddhant.com"
+  "about": "Design is a vast field. As I grow and learn more, my understanding of it evolves. What began as a juvenile curiosity for me, has matured into a career, a compulsion and a way of experiencing the life itself. Front-end development was a natural succession for me as it allowed me convert my designs into reality, into something others can use and enjoy. I dabble with management and entrepreneurship in order to better understand the practicality, communicate smoothly with all parties involved, and become a better designer in the process. If I had to describe myself in one word, that’d be, STALWART.",
+  "contact": {
+    "Website": "https://guptasiddhant.com",
+    "GitHub": "https://github.com/guptasiddhant",
+    "LinkedIn": "https://linkedin.com/in/guptasiddhant9",
+    "Email": "me@guptasiddhant.com"
+  }
 }

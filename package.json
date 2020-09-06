@@ -2,6 +2,7 @@
   "name": "guptasiddhant",
   "version": "0.0.2",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
+  "displayName": "Gupta Siddhant",
   "description": "CLI Resume of Siddhant Gupta",
   "main": "lib/index.js",
   "bin": "bin/index.js",
@@ -16,9 +17,11 @@
   },
   "scripts": {
     "start": "tsc -w",
-    "build": "tsc",
+    "build": "yarn clear && tsc",
     "prepublishOnly": "yarn build",
+    "clear": "rm -R bin",
     "watch": "nodemon bin",
-    "test": "node bin"
+    "test": "node bin",
+    "script": "node scripts"
   }
 }

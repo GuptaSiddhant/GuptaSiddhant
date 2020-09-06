@@ -1,16 +1,5 @@
 #!/usr/bin/env node
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -66,72 +55,131 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.inquirer = void 0;
+var ansi_colors_1 = require("ansi-colors");
 var enquirer_1 = require("enquirer");
-var welcome = __importStar(require("./welcome"));
+var choices_1 = __importDefault(require("./choices"));
 var log = console.log, clear = console.clear;
-var menu = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var response;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                log("");
-                return [4 /*yield*/, enquirer_1.prompt([
-                        {
-                            type: "select",
-                            name: "option",
-                            message: "What would you like to know?",
-                            choices: ["about", "education", "experience", "skills", "exit"],
-                        },
-                    ])];
-            case 1:
-                response = _a.sent();
-                clear();
-                return [4 /*yield*/, welcome.header()];
-            case 2:
-                _a.sent();
-                return [2 /*return*/, __assign({}, response)];
-        }
+function header() {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, name, title, heading, makeLine, separator, spacing;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    clear();
+                    clear();
+                    return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./database/about.json")); })];
+                case 1:
+                    _a = _b.sent(), name = _a.name, title = _a.title;
+                    heading = name.split("").join(" ").toUpperCase();
+                    makeLine = function (length, char) {
+                        if (length === void 0) { length = 2; }
+                        if (char === void 0) { char = " "; }
+                        return Array(length).fill(char).join("");
+                    };
+                    separator = makeLine(heading.length + 2, "─");
+                    spacing = makeLine((heading.length - title.length - 2) / 2);
+                    log("\u256D" + separator + "\u256E");
+                    log("│", ansi_colors_1.green.bold(heading), "│");
+                    log("│", spacing, ansi_colors_1.yellow(title), spacing, "│");
+                    log("\u2570" + separator + "\u256F");
+                    return [2 /*return*/];
+            }
+        });
     });
-}); };
-var init = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var option, _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, menu()];
-            case 1:
-                option = (_b.sent()).option;
-                _a = option;
-                switch (_a) {
-                    case "about": return [3 /*break*/, 2];
-                    case "exit": return [3 /*break*/, 4];
-                }
-                return [3 /*break*/, 5];
-            case 2: return [4 /*yield*/, welcome.about()];
-            case 3:
-                _b.sent();
-                return [3 /*break*/, 6];
-            case 4:
-                process.exit(0);
-                _b.label = 5;
-            case 5:
-                log(option);
-                _b.label = 6;
-            case 6: return [4 /*yield*/, init()];
-            case 7:
-                _b.sent();
-                return [2 /*return*/];
-        }
+}
+var menuMessages = [
+    "What would you like to know?",
+    "Where to next?",
+    "What's next?",
+    "Wanna continue with",
+];
+// Function to handle prompts
+function inquirer(firstTime) {
+    return __awaiter(this, void 0, void 0, function () {
+        var message, response, option, match, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    if (!firstTime) return [3 /*break*/, 2];
+                    // Clean slate and render header
+                    return [4 /*yield*/, header()];
+                case 1:
+                    // Clean slate and render header
+                    _b.sent();
+                    log("  Welcome to my CLI resume.\n  Feel free to roam around.");
+                    return [3 /*break*/, 3];
+                case 2:
+                    log("");
+                    _b.label = 3;
+                case 3:
+                    message = firstTime
+                        ? "Where to begin?"
+                        : menuMessages[Math.floor(Math.random() * menuMessages.length)];
+                    return [4 /*yield*/, enquirer_1.prompt([
+                            {
+                                type: "select",
+                                name: "option",
+                                message: message,
+                                choices: Object.keys(choices_1.default),
+                            },
+                        ])];
+                case 4:
+                    response = _b.sent();
+                    // ------------------
+                    // Clean slate and render header
+                    return [4 /*yield*/, header()];
+                case 5:
+                    // ------------------
+                    // Clean slate and render header
+                    _b.sent();
+                    option = response.option;
+                    // Print Choice
+                    log(ansi_colors_1.cyan("•"), ansi_colors_1.bold(option.toUpperCase()));
+                    match = Object.entries(choices_1.default).find(function (_a) {
+                        var choice = _a[0];
+                        return choice === option;
+                    });
+                    // Execute choice callback
+                    _a = match;
+                    if (!_a) 
+                    // Execute choice callback
+                    return [3 /*break*/, 7];
+                    return [4 /*yield*/, match[1]()];
+                case 6:
+                    _a = (_b.sent());
+                    _b.label = 7;
+                case 7:
+                    // Execute choice callback
+                    _a;
+                    // Recurse till Exit
+                    return [4 /*yield*/, inquirer()];
+                case 8:
+                    // Recurse till Exit
+                    _b.sent();
+                    return [2 /*return*/];
+            }
+        });
     });
-}); };
+}
+exports.inquirer = inquirer;
+function exitErrorCallback() {
+    clear();
+    log(ansi_colors_1.bold("Siddhant Gupta's Resume"));
+    log("Thank you for using the CLI.");
+    log("`npx guptasiddhant`");
+}
+// Entry point - AsyncIIFE
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, welcome.header()];
-            case 1:
-                _a.sent();
-                init();
-                return [2 /*return*/];
-        }
+        // Handle exit with error
+        process.on("exit", function (code) { return code > 0 && exitErrorCallback(); });
+        // firstTime inquiring
+        inquirer(true);
+        return [2 /*return*/];
     });
 }); })();
