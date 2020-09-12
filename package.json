@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "displayName": "Gupta Siddhant",
   "description": "CLI Resume of Siddhant Gupta",
@@ -8,20 +8,23 @@
   "bin": "bin/index.js",
   "repository": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
   "license": "MIT",
-  "dependencies": {
-    "enquirer": "^2.3.6"
-  },
-  "devDependencies": {
-    "@types/node": "^14.6.2",
-    "nodemon": "^2.0.4"
-  },
+  "files": [
+    "bin"
+  ],
   "scripts": {
     "start": "tsc -w",
     "build": "yarn clear && tsc",
     "prepublishOnly": "yarn build",
     "clear": "rm -R bin",
     "watch": "nodemon bin",
-    "test": "node bin",
+    "test": "yarn build && node bin",
     "script": "node scripts"
+  },
+  "dependencies": {
+    "enquirer": "^2.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^14.6.2",
+    "nodemon": "^2.0.4"
   }
 }

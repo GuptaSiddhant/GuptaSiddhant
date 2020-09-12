@@ -1,19 +1,43 @@
-import { blue } from "ansi-colors";
+import { bold, cyan } from "ansi-colors";
 import { logTable, wrapText } from "./helpers";
-import aboutJson from "./database/about.json";
 const { log } = console;
 
 async function About() {
-  log(wrapText(aboutJson.about, 50));
+  const { about } = await import("./database/about.json");
+  log(wrapText(about, 50));
 }
 
 async function Contact() {
+  const { contact } = await import("./database/about.json");
   logTable(
-    Object.entries(aboutJson.contact).map(([key, value]) => ({
+    Object.entries(contact).map(([key, value]) => ({
       key,
-      value: blue(value),
+      value,
+      color: "cyan",
     }))
   );
+}
+
+async function Education() {
+  const eduFields = ["Degree", "University", "Status"];
+  const education = (await import("./database/education.json")).default;
+  education.map((e) => {
+    logTable(
+      Object.entries(e)
+        .filter(([key]) => eduFields.includes(key))
+        .map(([key, value]) => ({
+          key,
+          value,
+          color: key === "Degree" ? "bold" : "reset",
+        }))
+    );
+  });
+  // logTable(
+  //   education.map((e) => ({
+  //     key: e.title,
+  //     value: e.subtitle.replace("\n", " "),
+  //   }))
+  // );
 }
 
 async function Exit() {
@@ -22,7 +46,7 @@ async function Exit() {
 }
 
 // Export PROMPT CHOICES AND CALLBACKS
-export default { About, Contact, Exit } as {
+export default { About, Education, Contact, Exit } as {
   [choice: string]: () => Promise<void>;
 };
 // Education: async () => {},

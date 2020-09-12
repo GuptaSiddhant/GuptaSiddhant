@@ -1,19 +1,25 @@
-import { dim } from "ansi-colors";
+import colors, { StylesType } from "ansi-colors";
+
+interface LogTableItem {
+  key: string;
+  value: string;
+  color?: keyof StylesType<any>;
+}
 
 /** Log information in tabular columns */
-export const logTable = (
-  info: {
-    key: string;
-    value: string;
-  }[]
-) => {
+export const logTable = (info: LogTableItem[]) => {
   const maxKeyLength = info.reduce(
     (acc, cur) => Math.max(acc, cur.key.length),
     0
   );
-  info.forEach(({ key, value }) => {
+  console.log(""); // Line break
+  info.forEach(({ key, value, color }) => {
     const keySpace = new Array(maxKeyLength - key.length).fill(" ").join("");
-    console.log(" ", dim(key + ":" + keySpace), value);
+    console.log(
+      " ",
+      colors["dim"](key + keySpace + " :"),
+      colors[color || "reset"](value.replace("\n", " "))
+    );
   });
 };
 

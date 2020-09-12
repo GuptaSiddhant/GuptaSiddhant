@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,33 +54,71 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var ansi_colors_1 = require("ansi-colors");
 var helpers_1 = require("./helpers");
-var about_json_1 = __importDefault(require("./database/about.json"));
 var log = console.log;
 function About() {
     return __awaiter(this, void 0, void 0, function () {
+        var about;
         return __generator(this, function (_a) {
-            log(helpers_1.wrapText(about_json_1.default.about, 50));
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./database/about.json")); })];
+                case 1:
+                    about = (_a.sent()).about;
+                    log(helpers_1.wrapText(about, 50));
+                    return [2 /*return*/];
+            }
         });
     });
 }
 function Contact() {
     return __awaiter(this, void 0, void 0, function () {
+        var contact;
         return __generator(this, function (_a) {
-            helpers_1.logTable(Object.entries(about_json_1.default.contact).map(function (_a) {
-                var key = _a[0], value = _a[1];
-                return ({
-                    key: key,
-                    value: ansi_colors_1.blue(value),
-                });
-            }));
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./database/about.json")); })];
+                case 1:
+                    contact = (_a.sent()).contact;
+                    helpers_1.logTable(Object.entries(contact).map(function (_a) {
+                        var key = _a[0], value = _a[1];
+                        return ({
+                            key: key,
+                            value: value,
+                            color: "cyan",
+                        });
+                    }));
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function Education() {
+    return __awaiter(this, void 0, void 0, function () {
+        var eduFields, education;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    eduFields = ["Degree", "University", "Status"];
+                    return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./database/education.json")); })];
+                case 1:
+                    education = (_a.sent()).default;
+                    education.map(function (e) {
+                        helpers_1.logTable(Object.entries(e)
+                            .filter(function (_a) {
+                            var key = _a[0];
+                            return eduFields.includes(key);
+                        })
+                            .map(function (_a) {
+                            var key = _a[0], value = _a[1];
+                            return ({
+                                key: key,
+                                value: value,
+                                color: key === "Degree" ? "bold" : "reset",
+                            });
+                        }));
+                    });
+                    return [2 /*return*/];
+            }
         });
     });
 }
@@ -75,7 +132,7 @@ function Exit() {
     });
 }
 // Export PROMPT CHOICES AND CALLBACKS
-exports.default = { About: About, Contact: Contact, Exit: Exit };
+exports.default = { About: About, Education: Education, Contact: Contact, Exit: Exit };
 // Education: async () => {},
 // Experience: async () => {},
 // Skills: async () => {},
