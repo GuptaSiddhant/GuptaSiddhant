@@ -32,12 +32,22 @@ async function Education() {
         }))
     );
   });
-  // logTable(
-  //   education.map((e) => ({
-  //     key: e.title,
-  //     value: e.subtitle.replace("\n", " "),
-  //   }))
-  // );
+}
+
+async function Experience() {
+  const expFields = ["Position", "Company", "Status"];
+  const experience = (await import("./database/experience.json")).default;
+  experience.map((e) => {
+    logTable(
+      Object.entries(e)
+        .filter(([key]) => expFields.includes(key))
+        .map(([key, value]) => ({
+          key,
+          value,
+          color: key === "Company" ? "bold" : "reset",
+        }))
+    );
+  });
 }
 
 async function Exit() {
@@ -46,7 +56,7 @@ async function Exit() {
 }
 
 // Export PROMPT CHOICES AND CALLBACKS
-export default { About, Education, Contact, Exit } as {
+export default { About, Experience, Education, Contact, Exit } as {
   [choice: string]: () => Promise<void>;
 };
 // Education: async () => {},

@@ -2,7 +2,7 @@ import colors, { StylesType } from "ansi-colors";
 
 interface LogTableItem {
   key: string;
-  value: string;
+  value?: string;
   color?: keyof StylesType<any>;
 }
 
@@ -13,7 +13,7 @@ export const logTable = (info: LogTableItem[]) => {
     0
   );
   console.log(""); // Line break
-  info.forEach(({ key, value, color }) => {
+  info.forEach(({ key, value = "", color }) => {
     const keySpace = new Array(maxKeyLength - key.length).fill(" ").join("");
     console.log(
       " ",

@@ -10,7 +10,7 @@ exports.logTable = function (info) {
     var maxKeyLength = info.reduce(function (acc, cur) { return Math.max(acc, cur.key.length); }, 0);
     console.log(""); // Line break
     info.forEach(function (_a) {
-        var key = _a.key, value = _a.value, color = _a.color;
+        var key = _a.key, _b = _a.value, value = _b === void 0 ? "" : _b, color = _a.color;
         var keySpace = new Array(maxKeyLength - key.length).fill(" ").join("");
         console.log(" ", ansi_colors_1.default["dim"](key + keySpace + " :"), ansi_colors_1.default[color || "reset"](value.replace("\n", " ")));
     });

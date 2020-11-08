@@ -122,6 +122,36 @@ function Education() {
         });
     });
 }
+function Experience() {
+    return __awaiter(this, void 0, void 0, function () {
+        var expFields, experience;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    expFields = ["Position", "Company", "Status"];
+                    return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require("./database/experience.json")); })];
+                case 1:
+                    experience = (_a.sent()).default;
+                    experience.map(function (e) {
+                        helpers_1.logTable(Object.entries(e)
+                            .filter(function (_a) {
+                            var key = _a[0];
+                            return expFields.includes(key);
+                        })
+                            .map(function (_a) {
+                            var key = _a[0], value = _a[1];
+                            return ({
+                                key: key,
+                                value: value,
+                                color: key === "Company" ? "bold" : "reset",
+                            });
+                        }));
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
 function Exit() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -132,7 +162,7 @@ function Exit() {
     });
 }
 // Export PROMPT CHOICES AND CALLBACKS
-exports.default = { About: About, Education: Education, Contact: Contact, Exit: Exit };
+exports.default = { About: About, Experience: Experience, Education: Education, Contact: Contact, Exit: Exit };
 // Education: async () => {},
 // Experience: async () => {},
 // Skills: async () => {},

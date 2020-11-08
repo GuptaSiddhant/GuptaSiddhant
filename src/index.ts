@@ -74,7 +74,7 @@ function exitErrorCallback() {
   log("`npx guptasiddhant`");
 }
 
-// Entry point - AsyncIIFE
+// Entry point
 (async (): Promise<void> => {
   // Handle exit with error
   process.on("exit", (code) => code > 0 && exitErrorCallback());

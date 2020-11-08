@@ -173,7 +173,7 @@ function exitErrorCallback() {
     log("Thank you for using the CLI.");
     log("`npx guptasiddhant`");
 }
-// Entry point - AsyncIIFE
+// Entry point
 (function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         // Handle exit with error
