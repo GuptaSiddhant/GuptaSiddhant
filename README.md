@@ -1,15 +1,11 @@
-# Siddhant Gupta 
-
-
-<img align="right" src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" /><br>
-<img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=guptasiddhant&layout=compact" alt="guptasiddhant" /><br>
-<img align="right" src="https://github-readme-stats.vercel.app/api?username=guptasiddhant&show_icons=true" alt="guptasiddhant" />
-
+# Siddhant Gupta <img align="right" src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" />
 
 **UI and Front-end developer** 
 
     # Get an interactive resume in your terminal
     npx GuptaSiddhant
+    
+<img  src="https://github-readme-stats.vercel.app/api?username=guptasiddhant&show_icons=true" alt="guptasiddhant" /><img  src="https://github-readme-stats.vercel.app/api/top-langs/?username=guptasiddhant&layout=compact" alt="guptasiddhant" /><br>
 
 ## Pojects
 
