@@ -1,8 +1,10 @@
 # Siddhant Gupta 
 
-<img align="right" src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" />
-<img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=guptasiddhant&layout=compact" alt="guptasiddhant" />
+
+<img align="right" src="https://komarev.com/ghpvc/?username=guptasiddhant" alt="guptasiddhant" /><br>
+<img align="right" src="https://github-readme-stats.vercel.app/api/top-langs/?username=guptasiddhant&layout=compact" alt="guptasiddhant" /><br>
 <img align="right" src="https://github-readme-stats.vercel.app/api?username=guptasiddhant&show_icons=true" alt="guptasiddhant" />
+
 
 **UI and Front-end developer** 
 
