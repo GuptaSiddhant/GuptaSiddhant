@@ -1,29 +1,19 @@
 {
-  "name": "guptasiddhant",
-  "version": "0.0.5",
+  "name": "guptasiddhant",  
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
-  "displayName": "Gupta Siddhant",
-  "description": "CLI Resume of Siddhant Gupta",
-  "main": "lib/index.js",
-  "bin": "bin/index.js",
+  "bin": "cli/bin/index.js",
   "repository": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
   "license": "MIT",
-  "files": [
-    "bin"
+  "private": true,
+  "workspaces": [
+    "cli"
   ],
   "scripts": {
-    "start": "tsc -w",
-    "build": "yarn clear && tsc",
-    "prepublishOnly": "yarn build",
-    "clear": "rm -R bin",
-    "watch": "nodemon bin",
-    "test": "yarn build && node bin",
-    "script": "node scripts"
+    "cli:build": "cd cli; yarn build"
   },
-  "dependencies": {
-    "enquirer": "^2.3.6"
-  },
+  "dependencies": {    },
   "devDependencies": {
+    "typescript": "^4.2.2",
     "@types/node": "^14.6.2",
     "nodemon": "^2.0.4"
   }

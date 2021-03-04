@@ -2,7 +2,7 @@
 //@ts-check
 
 // Yarn check
-if (process.env.npm_execpath.indexOf("yarn") === -1)
+if (process.env?.npm_execpath?.indexOf("yarn") === -1)
   throw new Error("You must use Yarn, not NPM");
 
 // Get package.json values from process environment.

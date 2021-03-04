@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.wrapText = exports.logTable = void 0;
 var ansi_colors_1 = __importDefault(require("ansi-colors"));
 /** Log information in tabular columns */
-exports.logTable = function (info) {
+var logTable = function (info) {
     var maxKeyLength = info.reduce(function (acc, cur) { return Math.max(acc, cur.key.length); }, 0);
     console.log(""); // Line break
     info.forEach(function (_a) {
@@ -15,8 +15,9 @@ exports.logTable = function (info) {
         console.log(" ", ansi_colors_1.default["dim"](key + keySpace + " :"), ansi_colors_1.default[color || "reset"](value.replace("\n", " ")));
     });
 };
+exports.logTable = logTable;
 /** Wrap text with charLimit per sentence */
-exports.wrapText = function (text, charLimit) {
+var wrapText = function (text, charLimit) {
     if (charLimit === void 0) { charLimit = 40; }
     var newStr = [];
     var sentence = "";
@@ -30,3 +31,4 @@ exports.wrapText = function (text, charLimit) {
     newStr.push(sentence);
     return "  " + newStr.join("\n  ");
 };
+exports.wrapText = wrapText;
