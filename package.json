@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "cli"
+    "cli", "website"
   ],
   "scripts": {
     "cli:build": "cd cli; yarn build"
