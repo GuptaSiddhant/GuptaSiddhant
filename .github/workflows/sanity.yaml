@@ -7,10 +7,14 @@ jobs:
   sanity-deploy:
     name: Deploy Sanity
     runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: server
     steps:
       - uses: actions/checkout@v2
-      - uses: sanity-io/github-action-sanity@v0.2-alpha
-        env:
-          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+      - uses: actions/setup-node@v2
         with:
-          args: deploy
+          node-version: 12
+      - run: npm install -g @sanity/cli
+      - run: yarn install
+      - run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_AUTH_TOKEN }} sanity deploy
