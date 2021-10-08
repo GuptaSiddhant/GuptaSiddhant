@@ -18,3 +18,4 @@ jobs:
       - run: npm install -g @sanity/cli
       - run: yarn install
       - run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_AUTH_TOKEN }} sanity deploy
+      - run: SANITY_AUTH_TOKEN=${{ secrets.SANITY_AUTH_TOKEN }} sanity graphql deploy
