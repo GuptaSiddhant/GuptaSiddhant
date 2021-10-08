@@ -1,17 +1,19 @@
 {
-  "name": "guptasiddhant",  
+  "name": "guptasiddhant",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "bin": "cli/bin/index.js",
   "repository": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "cli", "website"
+    "cli",
+    "website",
+    "server"
   ],
   "scripts": {
     "cli:build": "cd cli; yarn build"
   },
-  "dependencies": {    },
+  "dependencies": {},
   "devDependencies": {
     "typescript": "^4.2.2",
     "@types/node": "^14.6.2",
