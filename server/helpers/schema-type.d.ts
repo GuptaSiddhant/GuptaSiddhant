@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { ReactComponentLike } from "prop-types";
+import type { ReactNode } from "react";
 
 export type Document = {
   type: "document";
@@ -48,7 +49,7 @@ export type RuleType = {
   max: (max: number) => RuleType;
   length: (exactLength: number) => RuleType;
   greaterThan: (gt: number) => RuleType;
-  uri: (options: { scheme: string[] }) => RuleType;
+  uri: (options: { scheme: string[]; allowRelative?: boolean }) => RuleType;
 };
 
 type Validation = (rule: RuleType) => RuleType;
@@ -113,6 +114,10 @@ export type BlockField = {
     };
     icon?: ReactComponentLike;
   }[];
+  marks?: {
+    decorators?: Array<{ title: string; value: string }>;
+    annotations?: Array<Field>;
+  };
   children: (Field | Span)[];
 };
 
@@ -137,10 +142,11 @@ type FilterFunction = (args: {
   parentPath: string[];
   parent: {}[];
 }) => FilterFunctionResult;
+
 type ReferenceField = CommonFieldProps & {
   to: { type: string }[];
-  options: {
-    filter: string | FilterFunction;
+  options?: {
+    filter?: string | FilterFunction;
     filterParams?: { [key: string]: string };
   };
 };
@@ -178,6 +184,7 @@ export type ObjectType = {
   fieldsets?: Fieldset[];
   description?: string;
   options?: { collapsible?: boolean; collapsed?: boolean };
+  blockEditor?: { icon: ReactNode };
 };
 
 export type PreviewProps = {

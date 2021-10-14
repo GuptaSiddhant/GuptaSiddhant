@@ -1,9 +1,11 @@
 import { createDocumentPreview } from "../helpers/schema-helpers";
 import type { Document } from "../helpers/schema-type";
+import { actionsField } from "./action";
+import { dateFields } from "./date";
 import { galleryField } from "./gallery";
 import { tagsField } from "./tag";
 
-export const careerDocument: Document = {
+export const CareerDocument: Document = {
   name: "career",
   title: "Career",
   type: "document",
@@ -64,23 +66,7 @@ export const careerDocument: Document = {
       title: "Type",
       type: "string",
     },
-    {
-      name: "startDate",
-      title: "Start date",
-      type: "date",
-    },
-    {
-      name: "isCurrent",
-      title: "Current working here",
-      type: "boolean",
-      initialValue: false,
-    },
-    {
-      name: "endDate",
-      title: "End date",
-      type: "date",
-      hidden: ({ document }) => Boolean(document?.isCurrent),
-    },
+    ...dateFields,
     {
       name: "description",
       title: "Description",
@@ -89,19 +75,6 @@ export const careerDocument: Document = {
     },
     tagsField,
     galleryField,
-    {
-      name: "actions",
-      title: "Actions",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            { name: "title", title: "Title", type: "string" },
-            { name: "link", title: "URL", type: "url" },
-          ],
-        },
-      ],
-    },
+    actionsField,
   ],
 };

@@ -5,7 +5,5 @@ export function createDocumentPreview(
   subtitle: string,
   media: string = ""
 ): Preview {
-  return {
-    select: { title, subtitle, media },
-  };
+  return { select: { title, subtitle, media } };
 }

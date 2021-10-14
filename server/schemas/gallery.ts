@@ -1,7 +1,8 @@
 import { ArrayField, ImageField } from "../helpers/schema-type";
 
-export const imageField: ImageField = {
-  name: "image",
+export const ImageWithCaption: ImageField = {
+  title: "Image with caption",
+  name: "imageWithCaption",
   type: "image",
   options: { hotspot: true },
   fields: [
@@ -16,9 +17,34 @@ export const imageField: ImageField = {
   ],
 };
 
+export const FileWithCaption: ImageField = {
+  title: "File with caption",
+  name: "fileWithCaption",
+  type: "file",
+  fields: [
+    {
+      name: "title",
+      type: "string",
+      title: "Title",
+    },
+    {
+      name: "caption",
+      type: "string",
+      title: "Caption",
+    },
+  ],
+};
+
 export const galleryField: ArrayField = {
   name: "gallery",
   title: "Gallery",
   type: "array",
-  of: [imageField],
+  of: [ImageWithCaption],
+};
+
+export const filesField: ArrayField = {
+  name: "files",
+  title: "Files",
+  type: "array",
+  of: [FileWithCaption],
 };

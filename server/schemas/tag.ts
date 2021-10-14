@@ -1,6 +1,6 @@
 import type { Document, ArrayField } from "../helpers/schema-type";
 
-export const tagDocument: Document = {
+export const TagDocument: Document = {
   name: "tag",
   title: "Tag",
   type: "document",
