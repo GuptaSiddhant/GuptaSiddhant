@@ -1,5 +1,5 @@
 import { createDocumentPreview } from "../../helpers/schema-helpers";
-import type { Document } from "../../helpers/schema-type";
+import type { Document, Field } from "../../helpers/schema-type";
 import { ImageWithCaption } from "../gallery";
 import { tagsField } from "../tag";
 import { blogContentField } from "./annotations";
@@ -35,7 +35,6 @@ export const BlogDocument: Document = {
     },
     {
       ...ImageWithCaption,
-      name: "hero",
       title: "Hero image",
     },
     tagsField,

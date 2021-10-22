@@ -1,4 +1,3 @@
-import { bold, cyan } from "ansi-colors";
 import { logTable, wrapText } from "./helpers";
 const { log } = console;
 
@@ -16,22 +15,6 @@ async function Contact() {
       color: "cyan",
     }))
   );
-}
-
-async function Education() {
-  const eduFields = ["Degree", "University", "Status"];
-  const education = (await import("./database/education.json")).default;
-  education.map((e) => {
-    logTable(
-      Object.entries(e)
-        .filter(([key]) => eduFields.includes(key))
-        .map(([key, value]) => ({
-          key,
-          value,
-          color: key === "Degree" ? "bold" : "reset",
-        }))
-    );
-  });
 }
 
 async function Experience() {
@@ -56,6 +39,7 @@ async function Exit() {
 }
 
 // Export PROMPT CHOICES AND CALLBACKS
+import Education from "./education";
 export default { About, Experience, Education, Contact, Exit } as {
   [choice: string]: () => Promise<void>;
 };

@@ -1,24 +1,11 @@
 #!/usr/bin/env node
 
-import { bold, cyan, green, yellow } from "ansi-colors";
+import { bold, cyan } from "ansi-colors";
 import { prompt } from "enquirer";
 import choices from "./choices";
-const { log, clear } = console;
+import Header from "./Header";
 
-async function header() {
-  clear();
-  clear();
-  const { name, title } = await import("./database/about.json");
-  const heading = name.split("").join(" ").toUpperCase();
-  const makeLine = (length = 2, char = " ") =>
-    Array(length).fill(char).join("");
-  const separator = makeLine(heading.length + 2, "─");
-  const spacing = makeLine((heading.length - title.length - 2) / 2);
-  log(`╭${separator}╮`);
-  log("│", green.bold(heading), "│");
-  log("│", spacing, yellow(title), spacing, "│");
-  log(`╰${separator}╯`);
-}
+const { log, clear } = console;
 
 const menuMessages: string[] = [
   "What would you like to know?",
@@ -32,7 +19,7 @@ export async function inquirer(firstTime?: boolean): Promise<void> {
   // Log welcome message
   if (firstTime) {
     // Clean slate and render header
-    await header();
+    await Header();
     log("  Welcome to my CLI resume.\n  Feel free to roam around.");
   } else log("");
 
@@ -52,13 +39,13 @@ export async function inquirer(firstTime?: boolean): Promise<void> {
   ]);
   // ------------------
   // Clean slate and render header
-  await header();
+  await Header();
   // Get choice
   const { option } = response as {
     option: string;
   };
   // Print Choice
-  log(cyan("•"), bold(option.toUpperCase()));
+  log("\n  " + cyan(bold(option.toUpperCase())));
   // Find matching Choice
   const match = Object.entries(choices).find(([choice]) => choice === option);
   // Execute choice callback

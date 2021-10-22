@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "displayName": "Gupta Siddhant",
   "description": "CLI Resume of Siddhant Gupta",
@@ -16,8 +16,8 @@
     "bin"
   ],
   "scripts": {
-    "start": "tsc -w",
-    "build": "yarn clear && tsc",
+    "start": "bash ./scripts/watch.sh",
+    "build": "bash ./scripts/build.sh",
     "prepublishOnly": "yarn build",
     "clear": "rm -R bin",
     "watch": "nodemon bin",
@@ -25,7 +25,14 @@
     "script": "node scripts"
   },
   "dependencies": {
-    "enquirer": "^2.3.6"
+    "ink": "^3.2.0",
+    "node-abort-controller": "^3.0.1",
+    "node-fetch": "^3.0.0",
+    "open": "^8.3.0",
+    "react": "^17.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node-fetch": "^3.0.3",
+    "esbuild": "^0.13.8"
+  }
 }
