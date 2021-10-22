@@ -19,16 +19,23 @@ interface EducationType {
 const educationQuery = `* | [_type == "education"] | { slug, degree, field, school, isCurrent, startDate, endDate, "city": location -> city, "country": location -> country } | order(isCurrent desc, endDate desc)`;
 
 export default function Education(): JSX.Element {
-  const { data, loading, error } = useQuery<EducationType[]>(educationQuery);
+  const {
+    data = [],
+    loading,
+    error,
+  } = useQuery<EducationType[]>(educationQuery);
 
   if (loading) return <LoadingText />;
   if (error) return <ErrorText error={error} />;
 
   return (
-    <Box flexDirection="column">
-      {data?.map((eduction) => (
+    <Box flexDirection="column" marginX={1}>
+      {data.slice(0, 5).map((eduction) => (
         <EducationItem key={eduction.slug.current} {...eduction} />
       ))}
+      {data.length > 5 ? (
+        <Text dimColor>{"View more on Linkedin."}</Text>
+      ) : null}
     </Box>
   );
 }
@@ -37,7 +44,7 @@ function EducationItem(eduction: EducationType): JSX.Element {
   const { slug, isCurrent, degree, school, field } = eduction;
   const { city, country, startDate, endDate } = eduction;
   return (
-    <Box key={slug.current} flexDirection="column" marginBottom={1} marginX={1}>
+    <Box key={slug.current} flexDirection="column" marginBottom={1}>
       <Text color={isCurrent ? "green" : "yellow"}>
         {degree} - {field}
       </Text>

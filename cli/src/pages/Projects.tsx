@@ -18,16 +18,17 @@ interface ProjectType {
 const projectsQuery = `* | [_type == "project"] | { slug, title, "tags": tags[] -> value, isCurrent, startDate, endDate, "association": association -> company } | order(isCurrent desc, endDate desc)`;
 
 export default function Projects(): JSX.Element {
-  const { data, loading, error } = useQuery<ProjectType[]>(projectsQuery);
+  const { data = [], loading, error } = useQuery<ProjectType[]>(projectsQuery);
 
   if (loading) return <LoadingText />;
   if (error) return <ErrorText error={error} />;
 
   return (
     <Box flexDirection="column">
-      {data?.map((career) => (
+      {data.slice(0, 5).map((career) => (
         <CareerItem key={career.slug.current} {...career} />
       ))}
+      {data.length > 5 ? <Text dimColor>{"View more on Website."}</Text> : null}
     </Box>
   );
 }

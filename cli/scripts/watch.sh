@@ -4,10 +4,8 @@ esbuild ./src/index.tsx \
     --outfile=./bin/index.js \
     --bundle \
     --platform=node \
+    --external:axios \
     --external:ink \
-    --external:node-abort-controller \
-    --external:node-fetch \
     --external:open \
     --external:react \
-    --sourcemap \
     --watch

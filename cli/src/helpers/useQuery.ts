@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { AbortController } from "node-abort-controller";
-import fetch from "node-fetch";
+import axios, { CancelTokenSource } from "axios";
 
 export default function useQuery<T>(query: string) {
   const encodedQuery = encodeURIComponent(query);
@@ -12,9 +11,9 @@ export default function useQuery<T>(query: string) {
     setLoading(true);
     setError(null);
     let isMounted = true;
-    const controller = new AbortController();
+    const cancelTokenSource = axios.CancelToken.source();
 
-    fetcher(encodedQuery, controller)
+    fetcher(encodedQuery, cancelTokenSource)
       .then((data: any) => {
         if (isMounted) setData(data as T);
       })
@@ -27,7 +26,7 @@ export default function useQuery<T>(query: string) {
 
     return () => {
       isMounted = false;
-      controller.abort();
+      cancelTokenSource.cancel();
     };
   }, [encodedQuery]);
 
@@ -37,20 +36,20 @@ export default function useQuery<T>(query: string) {
 const cache: Record<string, { data: any; timestamp: number }> = {};
 const CACHE_TIME = 60 * 60; // 1 hour
 
-async function fetcher(query: string, controller: AbortController) {
+async function fetcher(query: string, cancelTokenSource: CancelTokenSource) {
   try {
     return getFromCache(query);
   } catch {
-    return fetchFromServer(query, controller);
+    return fetchFromServer(query, cancelTokenSource);
   }
 }
 
-async function fetchFromServer(query: string, { signal }: AbortController) {
-  const res = await fetch(
+async function fetchFromServer(query: string, { token }: CancelTokenSource) {
+  const res = await axios.get<any>(
     "https://lxjtqhm1.api.sanity.io/v1/data/query/production?query=" + query,
-    { signal }
+    { cancelToken: token }
   );
-  const data = ((await res.json()) as any).result;
+  const data = res.data.result;
   cache[query] = { data, timestamp: Date.now() };
   return data;
 }

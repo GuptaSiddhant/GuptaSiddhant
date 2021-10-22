@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "displayName": "Gupta Siddhant",
   "description": "CLI Resume of Siddhant Gupta",
@@ -25,9 +25,8 @@
     "script": "node scripts"
   },
   "dependencies": {
+    "axios": "^0.23.0",
     "ink": "^3.2.0",
-    "node-abort-controller": "^3.0.1",
-    "node-fetch": "^3.0.0",
     "open": "^8.3.0",
     "react": "^17.0.2"
   },
