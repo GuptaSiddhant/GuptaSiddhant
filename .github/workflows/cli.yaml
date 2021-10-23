@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "cli/**"
 jobs:
   sanity-deploy:
     name: Deploy CLI
@@ -18,7 +20,7 @@ jobs:
       - run: yarn install
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - if: steps.publish.outputs.type != 'none'
         run: |
