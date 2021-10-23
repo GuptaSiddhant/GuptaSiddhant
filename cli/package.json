@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "description": "Siddhant Gupta's CLI.",
   "bin": "build/cli.js",
