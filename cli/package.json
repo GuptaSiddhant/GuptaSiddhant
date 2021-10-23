@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "description": "Siddhant Gupta's CLI.",
   "bin": "bin/index.js",
