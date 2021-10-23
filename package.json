@@ -1,8 +1,7 @@
 {
   "name": "guptasiddhant",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
-  "bin": "cli/bin/index.js",
-  "repository": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
+  "repository": "GuptaSiddhant/GuptaSiddhant",
   "license": "MIT",
   "private": true,
   "workspaces": [
@@ -11,6 +10,8 @@
     "server"
   ],
   "scripts": {
+    "cli": "cd cli; yarn start",
+    "cli:dev": "cd cli; yarn dev",
     "cli:build": "cd cli; yarn build"
   },
   "dependencies": {},
