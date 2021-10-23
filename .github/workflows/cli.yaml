@@ -18,5 +18,5 @@ jobs:
         with:
           node-version: 12
       - run: npm install -g @jsdevtools/npm-publish
-      - run: yarn install --focus
+      - run: yarn install
       - run: npm-publish --token ${{ secrets.NPM_AUTH_TOKEN }} #cli/package.json
