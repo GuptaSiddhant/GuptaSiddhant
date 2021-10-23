@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "ink";
+import { Box, render } from "ink";
 
 import { RouterContext, useRouterState } from "./Router";
 
@@ -31,3 +31,5 @@ export default function App(): JSX.Element {
     </Box>
   );
 }
+
+render(<App />);
