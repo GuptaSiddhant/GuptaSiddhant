@@ -18,7 +18,7 @@
     "dev": "pastel dev",
     "start": "node build/cli.js",
     "prepublishOnly": "yarn build",
-    "prebuild": "rm -R build"
+    "clean": "rm -R build"
   },
   "dependencies": {
     "axios": "^0.23.0",
