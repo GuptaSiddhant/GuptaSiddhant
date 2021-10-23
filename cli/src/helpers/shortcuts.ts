@@ -1,5 +1,5 @@
 import open from "open";
-import { useInput, useApp } from "ink";
+import { useInput, useApp } from "../ink";
 import { contacts } from "./contacts";
 
 export const shortcuts: Array<{ key: string; label: string; url?: string }> = [

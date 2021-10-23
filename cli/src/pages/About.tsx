@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Text } from "ink";
+import { Box, Text } from "../ink";
 import { contactList } from "../helpers/contacts";
 
 const about = `Ever since I could first remember, I’ve been fascinated by how things work. While it took me some time to discover my zeal for design, I haven’t stopped pursuing it ever since. Started with self-taught graphical design and then advanced on to visual and interface design overtime. With a professional education in hand, I expanded to tackling user/customer experience design. 

@@ -1,6 +1,4 @@
-import React from "react";
-import { Box, Text } from "ink";
-
+import { Box, Text } from "../ink";
 import { projectsQuery } from "../helpers/queries";
 import DateLine from "../components/DateLine";
 import Page from "../components/Page";

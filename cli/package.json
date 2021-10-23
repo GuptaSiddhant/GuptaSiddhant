@@ -1,6 +1,6 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "description": "Siddhant Gupta's CLI.",
   "bin": "bin/index.js",
@@ -15,8 +15,8 @@
     "bin"
   ],
   "scripts": {
-    "build": "bash scripts/build.sh",
-    "dev": "bash scripts/dev.sh",
+    "build": "node scripts/esbuild.js",
+    "dev": "node scripts/esbuild.js watch",
     "start": "node bin",
     "prepublishOnly": "yarn build",
     "clean": "rm -R bin"

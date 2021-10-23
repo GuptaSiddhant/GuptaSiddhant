@@ -1,5 +1,4 @@
-import React from "react";
-import { Newline, Text } from "ink";
+import { Newline, Text } from "../ink";
 
 export default function Title({ children }: { children: string }): JSX.Element {
   return (

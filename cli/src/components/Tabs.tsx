@@ -1,6 +1,5 @@
-import React from "react";
 import readline from "readline";
-import { Box, StdinProps, BoxProps, Text, useStdin, TextProps } from "ink";
+import { Box, StdinProps, BoxProps, Text, useStdin, TextProps } from "../ink";
 
 /**
  * Represent props of a <Tab>

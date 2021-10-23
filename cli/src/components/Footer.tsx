@@ -1,5 +1,4 @@
-import React from "react";
-import { Text, Box } from "ink";
+import { Box, Text } from "../ink";
 import { shortcuts } from "../helpers/shortcuts";
 
 export default function Footer() {

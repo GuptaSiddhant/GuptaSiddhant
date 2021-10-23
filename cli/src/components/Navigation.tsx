@@ -1,6 +1,4 @@
-import React from "react";
 import { Tab, Tabs } from "./Tabs";
-
 import routes, { useRouter } from "../Router";
 
 export default function Navigation(): JSX.Element {

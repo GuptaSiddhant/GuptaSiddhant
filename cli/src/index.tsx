@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-import React from "react";
-import { Box, render } from "ink";
-
+import { Box, render } from "./ink";
 import { RouterContext, useRouterState } from "./Router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";

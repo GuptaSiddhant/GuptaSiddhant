@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Text, TextProps } from "ink";
+import { Box, Text, TextProps } from "../ink";
 
 export default function Divider({
   width = 0,

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { measureElement, DOMElement } from "ink";
+import { measureElement, DOMElement } from "../ink";
+import { useState, useRef, useEffect } from "react";
 
 export default function useBoxWidth() {
   const ref = useRef<DOMElement>(null);

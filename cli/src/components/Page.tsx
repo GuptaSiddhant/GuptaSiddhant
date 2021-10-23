@@ -1,5 +1,4 @@
-import React from "react";
-import { Box, Text } from "ink";
+import { Box, Text } from "../ink";
 
 import useQuery from "../helpers/useQuery";
 import Loading from "./Loading";

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-
 import About from "./pages/About";
 import Education from "./pages/Education";
 import Career from "./pages/Career";
