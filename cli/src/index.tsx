@@ -2,7 +2,6 @@ import React from "react";
 import { Box, render } from "ink";
 
 import { RouterContext, useRouterState } from "./Router";
-
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
@@ -11,7 +10,7 @@ import useBoxWidth from "./helpers/useBoxWidth";
 import { useShortcuts } from "./helpers/shortcuts";
 import { appBoxStyle } from "./helpers/styles";
 
-export default function App(): JSX.Element {
+function App(): JSX.Element {
   const { ref, width } = useBoxWidth();
   const { routerState, PageComponent } = useRouterState();
   useShortcuts();

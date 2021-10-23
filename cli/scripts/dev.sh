@@ -8,4 +8,5 @@ esbuild ./src/index.tsx \
     --external:ink \
     --external:open \
     --external:react \
+    --external:readline \
     --watch

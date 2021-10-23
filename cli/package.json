@@ -1,9 +1,10 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "description": "Siddhant Gupta's CLI.",
   "bin": "bin/index.js",
+  "main": "bin/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
