@@ -1,11 +1,10 @@
 {
   "name": "guptasiddhant",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "displayName": "Gupta Siddhant",
-  "description": "CLI Resume of Siddhant Gupta",
-  "main": "lib/index.js",
-  "bin": "bin/index.js",
+  "description": "Siddhant Gupta's CLI.",
+  "bin": "build/cli.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
@@ -13,25 +12,21 @@
   },
   "license": "MIT",
   "files": [
-    "bin"
+    "build"
   ],
   "scripts": {
-    "start": "bash ./scripts/watch.sh",
-    "build": "bash ./scripts/build.sh",
+    "build": "pastel build",
+    "dev": "pastel dev",
+    "start": "node build/cli.js",
     "prepublishOnly": "yarn build",
-    "clear": "rm -R bin",
-    "watch": "nodemon bin",
-    "test": "yarn build && node bin",
-    "script": "node scripts"
+    "prebuild": "rm -R build"
   },
   "dependencies": {
     "axios": "^0.23.0",
     "ink": "^3.2.0",
     "open": "^8.3.0",
+    "pastel": "^1.1.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2"
-  },
-  "devDependencies": {
-    "@types/node-fetch": "^3.0.3",
-    "esbuild": "^0.13.8"
   }
 }
