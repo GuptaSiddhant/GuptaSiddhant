@@ -1,10 +1,14 @@
+import { ItemProps } from "../ink/Select";
+
 export interface PageProps<T> {
   query: string;
   limit?: number;
-  itemBuilder: (item: T) => JSX.Element;
+  Item: (props: PageItemProps<T>) => JSX.Element;
 }
 
 export type PartialPageProps<T> = Partial<PageProps<T>>;
+
+export type PageItemProps<T> = ItemProps<T>;
 
 export interface CareerType extends Common, DateTime, Location {
   position: string;

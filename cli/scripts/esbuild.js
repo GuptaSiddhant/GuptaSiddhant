@@ -3,10 +3,6 @@
 
 const args = process.argv.slice(2);
 const watch = args.includes("watch");
-const banner = `
-// GuptaSiddhant Interactive Resume CLI.
-// © Copyright 2021 Siddhant Gupta.
-`;
 
 /** @type import("esbuild").BuildOptions */
 const buildOptions = {
@@ -15,16 +11,14 @@ const buildOptions = {
   bundle: true,
   platform: "node",
   target: ["node12"],
-  external: ["react", "ink", "readline", "axios", "open", "ink-*"],
+  external: ["react*", "ink*", "axios", "open"],
   inject: ["scripts/react_shim.js"],
-  banner: { js: banner },
-  minify: !watch,
+  // minify: !watch,
   watch,
   color: true,
-  logLevel: watch ? "debug" : "info",
+  logLevel: "info",
 };
 
 require("esbuild")
   .build(buildOptions)
-  // .then((res) => console.log(res))
   .catch(() => process.exit(1));

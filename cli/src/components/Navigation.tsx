@@ -1,5 +1,6 @@
-import { Tab, Tabs } from "./Tabs";
-import routes, { useRouter } from "../Router";
+import { Tab, Tabs } from "../ink/Tabs";
+import routes, { useRouter } from "../routes";
+import Divider from "./Divider";
 
 export default function Navigation(): JSX.Element {
   const [activeRoute, setActiveRoute] = useRouter();
@@ -9,11 +10,16 @@ export default function Navigation(): JSX.Element {
     if (path) setActiveRoute(path);
   };
 
+  const tabIndex = routes.findIndex((route) => route.path === activeRoute) || 0;
+
   return (
-    <Tabs defaultValue={activeRoute} onChange={handleChange} width="100%">
-      {routes.map(({ path, title }) => (
-        <Tab name={title} key={path} />
-      ))}
-    </Tabs>
+    <>
+      <Tabs tabIndex={tabIndex} onChange={handleChange} width="100%">
+        {routes.map(({ path, title }) => (
+          <Tab key={path} name={title} />
+        ))}
+      </Tabs>
+      <Divider />
+    </>
   );
 }

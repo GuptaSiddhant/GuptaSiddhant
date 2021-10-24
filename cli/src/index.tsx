@@ -1,34 +1,32 @@
 #!/usr/bin/env node
 
-import { Box, render } from "./ink";
-import { RouterContext, useRouterState } from "./Router";
+import { Box, render } from "ink";
+import { RouterContext, useRouterState, RoutePath } from "./routes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Navigation from "./components/Navigation";
-import Divider from "./components/Divider";
-import useBoxWidth from "./helpers/useBoxWidth";
 import { useShortcuts } from "./helpers/shortcuts";
-import { appBoxStyle } from "./helpers/styles";
+import { useEffect } from "react";
 
-function App(): JSX.Element {
-  const { ref, width } = useBoxWidth();
-  const { routerState, PageComponent } = useRouterState();
+function App({ path }: { path?: RoutePath }): JSX.Element {
+  const { routerState, PageComponent } = useRouterState(path);
   useShortcuts();
 
+  useEffect(console.clear);
+
   return (
-    <Box ref={ref} {...appBoxStyle}>
+    <Box flexDirection={"column"} paddingY={1} paddingX={2}>
       <RouterContext.Provider value={routerState}>
         <Header />
         <Navigation />
-        <Divider width={width - 6} />
         <Box marginTop={1}>
           <PageComponent />
         </Box>
-        <Divider width={width - 6} />
         <Footer />
       </RouterContext.Provider>
     </Box>
   );
 }
 
-render(<App />);
+const path = process.argv[2] as RoutePath | undefined;
+render(<App path={path} />);

@@ -1,13 +1,12 @@
-import { Box, Text, TextProps } from "../ink";
+import { Box, Text, TextProps } from "ink";
+import useBoxWidth from "../helpers/useBoxWidth";
 
-export default function Divider({
-  width = 0,
-  ...props
-}: { width: number } & TextProps): JSX.Element | null {
+export default function Divider(props: TextProps): JSX.Element | null {
+  const { ref, width } = useBoxWidth();
   const divider = "─";
-  if (width < 0) return null;
+
   return (
-    <Box width={"100%"}>
+    <Box width={"100%"} ref={ref}>
       <Text {...props}>{Array(width).fill(divider).join("")}</Text>
     </Box>
   );

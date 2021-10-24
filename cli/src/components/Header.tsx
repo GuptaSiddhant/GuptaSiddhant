@@ -1,4 +1,4 @@
-import { Box, Text, Newline } from "../ink";
+import { Box, Text, Newline } from "ink";
 
 const name = "Siddhant Gupta";
 const title = "Frontend and UI Developer";

@@ -73,5 +73,6 @@
   },
   "exclude": ["node_modules", "bin", "scripts"],
   "include": ["src"],
+
   "compileOnSave": true
 }

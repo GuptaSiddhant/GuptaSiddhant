@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import About from "./pages/About";
-import Education from "./pages/Education";
-import Career from "./pages/Career";
-import Projects from "./pages/Projects";
-import ErrorText from "./components/Error";
+import About from "./About";
+import Education from "./Education";
+import Career from "./Career";
+import Projects from "./Projects";
+import ErrorText from "../components/Error";
 
 const routes = [
   { path: "about", title: "About", Component: About },
@@ -13,20 +13,18 @@ const routes = [
   // "Blog"
 ] as const;
 
-export const initialRoute = routes[0].path;
 export default routes;
 
-export const RouterContext = createContext<RouterState>([
-  routes[0].path,
-  () => {},
-]);
+export const RouterContext = createContext<RouterState | undefined>(undefined);
 
-export function useRouter() {
-  return useContext(RouterContext);
+export function useRouter(): RouterState {
+  const ctx = useContext(RouterContext);
+  if (!ctx) throw new Error("Route outside Router provider.");
+  return ctx;
 }
 
-export function useRouterState() {
-  const routerState = useState<RoutePath>(initialRoute);
+export function useRouterState(path?: RoutePath) {
+  const routerState = useState<RoutePath>(path || routes[0].path);
   const PageComponent =
     routes.find((route) => route.path === routerState[0])?.Component ||
     ErrorText;
