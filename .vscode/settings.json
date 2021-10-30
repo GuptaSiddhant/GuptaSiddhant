@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["groq"]
+  "cSpell.words": ["groq"],
+  "markdownlint.config": { "MD033": false }
 }
