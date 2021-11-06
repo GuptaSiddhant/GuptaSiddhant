@@ -1,50 +1,32 @@
 {
-  "name": "gs-website",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5",
-    "@guptasiddhant/react-trigger": "^1.0.2",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-router-dom": "^5.1.7",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "react-slideshow-image": "^3.4.3",
-    "rxjs": "^6.6.6",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
-  },
+  "name": "remix-app-template",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "remix build",
+    "dev": "remix watch",
+    "postinstall": "remix setup node",
+    "dev:netlify": "cross-env NODE_ENV=development netlify dev"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@remix-run/react": "^0.20.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "6.0.0-beta.8",
+    "remix": "^0.20.1",
+    "@netlify/functions": "^0.7.2",
+    "@remix-run/netlify": "^0.20.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "devDependencies": {
+    "@remix-run/dev": "^0.20.1",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "typescript": "^4.1.2",
+    "cross-env": "^7.0.3"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "sideEffects": false
 }
