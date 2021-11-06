@@ -3,60 +3,56 @@
 - [Remix Docs](https://docs.remix.run)
 - [Customer Dashboard](https://remix.run/dashboard)
 
-## Netlify Setup
+## Vercel Setup
 
-1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
-
-```sh
-npm i -g netlify-cli
-```
-
-2. Sign up and log in to Netlify:
+First you'll need the [Vercel CLI](https://vercel.com/docs/cli):
 
 ```sh
-  netlify login
+npm i -g vercel
 ```
 
-3. Create a new site:
+Before you can run the app in development, you need to link this project to a new Vercel project on your account.
+
+**It is important that you use a new project. If you try to link this project to an existing project (like a Next.js site) you will have problems.**
 
 ```sh
-  netlify init
+$ vercel link
 ```
 
-4. You'll need to tell Netlify to use Node 14, as at the time of writing Netlify uses Node 12 by [default](https://docs.netlify.com/functions/build-with-javascript/#runtime-settings)
-
- ```sh
-   netlify env:set AWS_LAMBDA_JS_RUNTIME nodejs14.x
- ```
+Follow the prompts, and when it's done you should be able to get started.
 
 ## Development
 
-You will be running two processes during development when using Netlify as your server.
+You will be running two processes during development when using Vercel as your server.
 
-- Your Netlify server in one
+- Your Vercel server in one
 - The Remix development server in another
 
 ```sh
 # in one tab
-$ npm run dev:netlify
+$ vercel dev
 
 # in another
 $ npm run dev
 ```
 
-Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
+Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
 
 If you'd rather run everything in a single tab, you can look at [concurrently](https://npm.im/concurrently) or similar tools to run both processes in one tab.
 
-## Deployment
-
-There are two ways to deploy your app to Netlify, you can either link your app to your git repo and have it auto deploy changes to Netlify, or you can deploy your app manually. If you've followed the setup instructions already, all you need to do is run this:
+## Deploying
 
 ```sh
 $ npm run build
 # preview deployment
-$ netlify deploy
+$ vercel
 
 # production deployment
-$ netlify deploy --prod
+$ vercel --prod
 ```
+
+### GitHub Automatic Deployments
+
+For some reason the GitHub integration doesn't deploy the public folder. We're working with Vercel to figure this out.
+
+For now, [you can set up a GitHub action with this config](https://gist.github.com/mcansh/91f8effda798b41bb373351fad217070) from our friend [@mcansh](https://github.com/mcansh).

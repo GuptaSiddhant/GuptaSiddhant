@@ -1,5 +1,5 @@
 node_modules
+
 /.cache
-/netlify/functions/server/build
+/server/build
 /public/build
-/.netlify
