@@ -1,6 +1,7 @@
-import { Tab, Tabs } from "../ink/Tabs";
+import { Box } from "ink";
+import { Tab, Tabs } from "./Tabs";
 import routes, { useRouter } from "../routes";
-import Divider from "./Divider";
+import { PADDING_X } from "../helpers/constants";
 
 export default function Navigation(): JSX.Element {
   const [activeRoute, setActiveRoute] = useRouter();
@@ -13,13 +14,12 @@ export default function Navigation(): JSX.Element {
   const tabIndex = routes.findIndex((route) => route.path === activeRoute) || 0;
 
   return (
-    <>
+    <Box paddingX={PADDING_X - 1} flexDirection="column">
       <Tabs tabIndex={tabIndex} onChange={handleChange} width="100%">
         {routes.map(({ path, title }) => (
           <Tab key={path} name={title} />
         ))}
       </Tabs>
-      <Divider />
-    </>
+    </Box>
   );
 }

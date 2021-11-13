@@ -1,4 +1,4 @@
-export const contacts: Array<{
+const contacts: Array<{
   key: string;
   label: string;
   value?: string;
@@ -19,13 +19,4 @@ export const contacts: Array<{
   },
 ];
 
-const maxLabelSpace = contacts.reduce(
-  (space, { label }) => Math.max(space, label.length),
-  0
-);
-
-export const contactList = contacts
-  .map(
-    ({ label, value, url }) => `${label.padEnd(maxLabelSpace)}: ${value || url}`
-  )
-  .join("\n");
+export default contacts;

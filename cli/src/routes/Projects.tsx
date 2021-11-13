@@ -1,7 +1,12 @@
 import { projectsQuery } from "../helpers/queries";
 import DateLine from "../components/DateLine";
 import Page from "../components/Page";
-import { ItemBox, ItemTitle, ItemSubTitle } from "../components/Item";
+import {
+  ItemBox,
+  ItemTitle,
+  ItemSubTitle,
+  ItemDescription,
+} from "../components/Item";
 import type { PageItemProps, PartialPageProps, ProjectType } from "../types";
 
 export default function Projects(
@@ -22,8 +27,9 @@ function ProjectItem({
       <ItemSubTitle selected={selected}>{association}</ItemSubTitle>
       <DateLine
         {...{ startDate, endDate, isCurrent }}
-        additionalText={tags.join(", ")}
+        // additionalText={tags.join(", ")}
       />
+      <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription>
     </ItemBox>
   );
 }

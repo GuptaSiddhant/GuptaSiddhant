@@ -1,13 +1,19 @@
 import { Box, Text, TextProps } from "ink";
-import useBoxWidth from "../helpers/useBoxWidth";
+import useWindowSize from "../helpers/useWindowSize";
 
 export default function Divider(props: TextProps): JSX.Element | null {
-  const { ref, width } = useBoxWidth();
+  const { width } = useWindowSize();
   const divider = "─";
 
   return (
-    <Box width={"100%"} ref={ref}>
-      <Text {...props}>{Array(width).fill(divider).join("")}</Text>
+    <Box>
+      <Text {...props}>
+        {width > 5
+          ? Array(width - 2)
+              .fill(divider)
+              .join("")
+          : ""}
+      </Text>
     </Box>
   );
 }

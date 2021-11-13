@@ -1,4 +1,4 @@
-import { ItemProps } from "../ink/Select";
+import { ItemProps } from "../components/Select";
 
 export interface PageProps<T> {
   query: string;
@@ -27,9 +27,16 @@ export interface ProjectType extends Common, DateTime {
   association: string;
 }
 
+export interface BlogType extends Common {
+  title: string;
+  date: string;
+  content: string;
+}
+
 export interface Common {
   slug: { current: string };
   tags: string[];
+  link?: string;
 }
 
 export interface DateTime {

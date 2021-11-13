@@ -1,20 +1,20 @@
 import open from "open";
 import { useInput, useApp } from "ink";
-import { contacts } from "./contacts";
+import contacts from "./contacts";
 
 export const shortcuts: Array<{ key: string; label: string; url?: string }> = [
   ...contacts,
-  { key: "x", label: "Exit" },
+  { key: "Esc", label: "Exit" },
 ];
 
 export function useShortcuts() {
   const { exit } = useApp();
 
-  useInput((input) => {
-    if (input === "x" || input === "X") {
+  useInput((input, key) => {
+    if (input === "x" || input === "X" || key.escape) {
       exit();
-      console.clear();
-      console.clear();
+      // console.clear();
+      // console.clear();
     } else {
       shortcuts.forEach(({ key, url }) => {
         if ([key.toLowerCase(), key.toUpperCase()].includes(input)) {

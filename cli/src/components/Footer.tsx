@@ -1,20 +1,16 @@
 import { Box, Text } from "ink";
 import { shortcuts } from "../helpers/shortcuts";
-import Divider from "./Divider";
+import { PADDING_X } from "../helpers/constants";
 
-export default function Footer() {
+export default function Footer(): JSX.Element {
   return (
-    <>
-      <Divider />
-      <Box width="100%" justifyContent="space-between">
-        {shortcuts.map(({ key, label }) => (
-          <Box key={key}>
-            <Text dimColor>[</Text>
-            <Text color="cyanBright">{key}</Text>
-            <Text dimColor>] {label}</Text>
-          </Box>
-        ))}
-      </Box>
-    </>
+    <Box justifyContent="space-between" paddingX={PADDING_X}>
+      {shortcuts.map(({ key, label }) => (
+        <Box key={key}>
+          <Text color="cyanBright">{key.toUpperCase()}</Text>
+          <Text dimColor>: {label}</Text>
+        </Box>
+      ))}
+    </Box>
   );
 }
