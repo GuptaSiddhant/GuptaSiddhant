@@ -18,7 +18,7 @@
     "build": "node scripts/esbuild.js",
     "dev": "node scripts/esbuild.js watch",
     "start": "node bin",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "npm run build",
     "clean": "rm -R bin"
   },
   "dependencies": {
