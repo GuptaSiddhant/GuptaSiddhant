@@ -1,14 +1,13 @@
-// import { Text, Box } from "ink";
 import open from "open";
-import { Box, Newline, Text } from "ink";
 import Select, { Item } from "./Select";
 
 import useQuery from "../helpers/useQuery";
 import Loading from "./Loading";
 import ErrorText from "./Error";
-import type { Common, PageProps } from "../types";
 import useWindowSize from "../helpers/useWindowSize";
 import { useCurrentRoute } from "../routes";
+import HelpBox from "./HelpBox";
+import type { Common, PageProps } from "../types";
 
 export default function Page<T extends Common>({
   query,
@@ -30,18 +29,14 @@ export default function Page<T extends Common>({
 
   return (
     <>
-      <Box flexDirection="column" flexGrow={1}>
-        <Text bold>
-          {title.toUpperCase()} <Newline />
-        </Text>
-        <Select
-          isFocused
-          items={items}
-          limit={limit}
-          ItemComponent={Item}
-          onSelect={handleSelect}
-        />
-      </Box>
+      <Select
+        isFocused
+        items={items}
+        limit={limit}
+        ItemComponent={Item}
+        onSelect={handleSelect}
+      />
+
       {/* Footer */}
       <HelpBox
         {...{
@@ -50,18 +45,5 @@ export default function Page<T extends Common>({
         }}
       />
     </>
-  );
-}
-
-function HelpBox(props: Record<string, string>): JSX.Element {
-  return (
-    <Box flexDirection="column">
-      {Object.entries(props).map(([key, value]) => (
-        <Box key={key + value}>
-          <Text color="cyan">{key} </Text>
-          <Text dimColor>{value}</Text>
-        </Box>
-      ))}
-    </Box>
   );
 }

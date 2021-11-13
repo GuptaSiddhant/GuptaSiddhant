@@ -13,7 +13,7 @@ const buildOptions = {
   target: ["node12"],
   external: ["react*", "ink*", "axios", "open"],
   inject: ["scripts/react_shim.js"],
-  // minify: !watch,
+  minify: !watch,
   watch,
   color: true,
   logLevel: "info",

@@ -148,28 +148,17 @@ function Tabs(props: TabsProps) {
       width={width}
       {...rest}
       justifyContent="space-between"
-      marginBottom={1}
     >
       {children.map((child, key) => {
         const { name } = child.props;
-        let textProps: TextProps = {};
-        if (isFocused !== false) {
-          textProps = {
-            backgroundColor: activeTab === key ? "cyan" : undefined,
-            color: activeTab === key ? "black" : undefined,
-          };
-        } else {
-          textProps = {
-            color: activeTab === key ? "cyan" : undefined,
-            dimColor: activeTab === key ? undefined : true,
-          };
-        }
+        const isActive = activeTab === key;
 
-        return (
-          <Box key={name}>
-            <Text {...textProps}>{` ${name} `}</Text>
-          </Box>
-        );
+        const textProps: TextProps = {
+          backgroundColor: isActive ? "cyan" : undefined,
+          color: isActive ? "black" : undefined,
+        };
+
+        return <Text {...textProps} key={name}>{` ${name} `}</Text>;
       })}
     </Box>
   );

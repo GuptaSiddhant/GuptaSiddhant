@@ -1,5 +1,5 @@
 import { Box } from "ink";
-import { Tab, Tabs } from "./Tabs";
+import { Tab, Tabs } from "../components/Tabs";
 import routes, { useRouter } from "../routes";
 import { PADDING_X } from "../helpers/constants";
 
@@ -15,7 +15,7 @@ export default function Navigation(): JSX.Element {
 
   return (
     <Box paddingX={PADDING_X - 1} flexDirection="column">
-      <Tabs tabIndex={tabIndex} onChange={handleChange} width="100%">
+      <Tabs tabIndex={tabIndex} onChange={handleChange}>
         {routes.map(({ path, title }) => (
           <Tab key={path} name={title} />
         ))}

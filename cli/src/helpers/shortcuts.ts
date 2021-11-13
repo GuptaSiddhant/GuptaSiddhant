@@ -1,6 +1,6 @@
 import open from "open";
 import { useInput, useApp } from "ink";
-import contacts from "./contacts";
+import { contacts } from "./about";
 
 export const shortcuts: Array<{ key: string; label: string; url?: string }> = [
   ...contacts,
@@ -13,8 +13,8 @@ export function useShortcuts() {
   useInput((input, key) => {
     if (input === "x" || input === "X" || key.escape) {
       exit();
-      // console.clear();
-      // console.clear();
+      console.clear();
+      console.clear();
     } else {
       shortcuts.forEach(({ key, url }) => {
         if ([key.toLowerCase(), key.toUpperCase()].includes(input)) {

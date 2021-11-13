@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import About from "./About";
 import Education from "./Education";
 import Career from "./Career";
@@ -35,13 +35,17 @@ export function useRouterState(path?: RoutePath) {
 
 export function useCurrentRoute(): Route {
   const currentRoutePath = useRouter()[0];
-  return routes.find((route) => route.path === currentRoutePath) || routes[0];
+  return findMatchingRoute(currentRoutePath);
+}
+
+export function findMatchingRoute(path: RoutePath): Route {
+  return routes.find((route) => route.path === path) || routes[0];
 }
 
 export type RoutePath = "about" | "career" | "education" | "projects" | "blog";
 export interface Route {
   path: RoutePath;
   title: string;
-  Component: ReactNode;
+  Component: (props: any) => JSX.Element;
 }
 export type RouterState = [RoutePath, (path: RoutePath) => void];
