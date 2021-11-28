@@ -12,7 +12,7 @@ export default function Footer(): JSX.Element {
       <Box justifyContent="space-between">
         {shortcuts.map(({ key, label }) => (
           <Box key={key}>
-            <Text color="cyanBright">{key.toUpperCase()}</Text>
+            <Text color="cyan">{key.toUpperCase()}</Text>
             <Text dimColor> {label}</Text>
           </Box>
         ))}

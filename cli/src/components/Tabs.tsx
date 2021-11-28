@@ -154,7 +154,7 @@ function Tabs(props: TabsProps) {
         const isActive = activeTab === key;
 
         const textProps: TextProps = {
-          backgroundColor: isActive ? "cyan" : undefined,
+          backgroundColor: isActive ? "cyanBright" : undefined,
           color: isActive ? "black" : undefined,
         };
 
