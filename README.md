@@ -40,6 +40,7 @@ Hi, I am Siddhant and I am a ...
     <a title="HTML" href="https://html.spec.whatwg.org"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="20" height="20"/></a>
     <a title="CSS" href="https://www.w3.org/Style/CSS/Overview.en.html"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="css3" width="20" height="20"/></a>
     <a title="SASS" href="https://sass-lang.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" alt="sass" width="20" height="20" /></a>
+    <a title="Remix" href="https://remix.run"><img src="https://pbs.twimg.com/profile_images/1425897037602586625/ID6pueIo_400x400.png" alt="Remix" width="20" height="20" /></a>
   </td></tr>
   <tr><td>Backend</td><td>
     <a title="NodeJS" href="https://nodejs.org/"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="nodejs" width="20" height="20" /><a>
@@ -85,6 +86,5 @@ Dabbling with:
 <a title="GatsbyJS" href="https://www.gatsbyjs.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-original.svg" alt="gatsby" width="20" height="20" /></a>
 <a title="Django" href="https://www.djangoproject.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-original.svg" alt="django" width="20" height="20" /></a>
 <a title="Flutter" href="https://flutter.dev"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="flutter" width="20" height="20" /></a>
-<a title="Remix" href="https://remix.run"><img src="https://pbs.twimg.com/profile_images/1425897037602586625/ID6pueIo_400x400.png" alt="Remix" width="20" height="20" /></a>
 
 ---

@@ -3,8 +3,9 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - apps/cli/**
+    paths:
+      - apps/website/**
+      - .github/workflows/deploy-app.yaml
 
 env:
   DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
