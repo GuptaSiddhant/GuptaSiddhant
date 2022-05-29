@@ -1,0 +1,38 @@
+{
+  "name": "guptasiddhant",
+  "version": "0.3.8",
+  "description": "Siddhant Gupta's CLI.",
+  "bin": "./bin/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
+    "directory": "apps/cli"
+  },
+  "author": "Siddhant Gupta <me@guptasiddhant.com>",
+  "license": "MIT",
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "build": "node scripts/esbuild.js",
+    "dev": "node scripts/esbuild.js watch",
+    "start": "node bin",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -R bin"
+  },
+  "dependencies": {
+    "axios": "^0.23.0",
+    "ink": "^3.2.0",
+    "open": "^8.3.0",
+    "react": "^18.0.2"
+  },
+  "devDependencies": {
+    "@jsdevtools/npm-publish": "^1.4.3",
+    "@types/node": "^14.0.0",
+    "@types/react": "^18.0.0",
+    "esbuild": "^0.13.8",
+    "eslint": "^8.3.0",
+    "prettier": "^2.5.0",
+    "typescript": "^4.5"
+  }
+}

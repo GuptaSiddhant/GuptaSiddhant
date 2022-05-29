@@ -1,11 +1,18 @@
 {
-  "name": "guptasiddhant",
+  "name": "guptasiddhant-monorepo",
   "private": true,
+  "bin": "apps/cli/bin/index.js",
   "workspaces": [
     "apps/*",
     "features/*",
     "packages/*"
   ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "cli:build": "turbo run build --filter=guptasiddhant",
+    "cli:publish": "turbo run publish --filter=guptasiddhant"
+  },
   "devDependencies": {
     "turbo": "^1.2.14"
   },

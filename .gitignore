@@ -18,3 +18,7 @@ build
 
 # Local Netlify folder
 .netlify
+
+*.log
+
+.turbo

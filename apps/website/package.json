@@ -1,0 +1,59 @@
+{
+  "name": "website",
+  "description": "Personal website of Siddhant Gupta, build with Remix.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "remix build",
+    "prebuild": "tailwindcss --minify -o ./app/styles/tailwind.css",
+    "dev": "concurrently \"npm:dev:remix\" \"npm:dev:css\"",
+    "dev:remix": "remix dev",
+    "dev:css": "tailwindcss -w -o ./app/styles/tailwind.css",
+    "clear": "rm -rf api; rm -rf public/build; rm -rf .cache/",
+    "emulator": "firebase emulators:start",
+    "functions:build": "cd functions; yarn build"
+  },
+  "workspaces": [
+    "functions"
+  ],
+  "dependencies": {
+    "@reach/dialog": "^0.17.0",
+    "@remix-run/node": "^1.5.0",
+    "@remix-run/react": "^1.5.0",
+    "@remix-run/server-runtime": "^1.5.0",
+    "@remix-run/vercel": "^1.5.0",
+    "@vercel/node": "^1.8.3",
+    "clsx": "^1.1.1",
+    "firebase": "^9.6.2",
+    "lru-cache": "^7.10.1",
+    "markdown-to-jsx": "^7.1.7",
+    "marked": "^4.0.14",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remix-auth": "^3.2.2",
+    "remixicon-react": "^1.0.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.5.0",
+    "@remix-run/eslint-config": "^1.5.0",
+    "@remix-run/serve": "^1.5.0",
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "@types/marked": "^4.0.3",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/tailwindcss": "^2.2.4",
+    "autoprefixer": "^10.0.2",
+    "concurrently": "^6.4.0",
+    "esbuild": "^0.14.0",
+    "eslint": "^8.11.0",
+    "postcss": "^8.0.9",
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.0.0",
+    "typescript": "^4.5.5"
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14"
+  }
+}
