@@ -28,3 +28,5 @@ build
 **/*/.cache
 
 tailwind.css
+
+apps/website/api

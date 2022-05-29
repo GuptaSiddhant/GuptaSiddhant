@@ -1,4 +1,4 @@
-import type { MetaFunction, LinkFunction } from "@remix-run/deno"
+import type { MetaFunction, LinksFunction } from "@remix-run/server-runtime"
 import {
   Links,
   LiveReload,
@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 })
 
-export const links: LinkFunction = () => [{ rel: "stylesheet", href: styles }]
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }]
 
 export default function App() {
   return (
