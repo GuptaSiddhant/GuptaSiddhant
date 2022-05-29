@@ -1,21 +1,24 @@
 {
   "name": "guptasiddhant",
-  "author": "Siddhant Gupta <me@guptasiddhant.com>",
-  "repository": "GuptaSiddhant/GuptaSiddhant",
-  "license": "MIT",
   "private": true,
   "workspaces": [
-    "server"
+    "apps/*",
+    "features/*",
+    "packages/*"
   ],
-  "scripts": {
-    "cli": "cd cli; yarn start",
-    "cli:dev": "cd cli; yarn dev",
-    "cli:build": "cd cli; yarn build"
-  },
-  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^14.6.2",
-    "nodemon": "^2.0.4",
-    "typescript": "^4.2.2"
+    "turbo": "^1.2.14"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": false,
+    "arrowParens": "always",
+    "printWidth": 80
+  },
+  "sideEffects": false,
+  "engines": {
+    "node": ">=14"
   }
 }
