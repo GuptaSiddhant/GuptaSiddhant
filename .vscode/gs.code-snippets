@@ -1,0 +1,33 @@
+{
+  // VS Code snippets for Harmony
+  // @see https://code.visualstudio.com/docs/editor/userdefinedsnippets
+  "new-react-component": {
+    "scope": "typescript,typescriptreact",
+    "prefix": ["nrc"],
+    "description": "Create a new react function component",
+    "body": [
+      "/** ${TM_FILENAME_BASE} component */",
+      "export function ${TM_FILENAME_BASE}(): JSX.Element | null {",
+      "  return <div></div>;",
+      "}"
+    ]
+  },
+  "new-react-file": {
+    "scope": "typescript,typescriptreact",
+    "prefix": ["nrf"],
+    "description": "Create a new react function component",
+    "body": [
+      "import clsx from 'clsx'",
+      "",
+      "import type { BaseComponentProps } from '~/types'",
+      "",
+      "export interface ${TM_FILENAME_BASE}Props extends BaseComponentProps {}",
+      "",
+      "/** ${TM_FILENAME_BASE} component */",
+      "export default function ${TM_FILENAME_BASE}({className, children}: ${TM_FILENAME_BASE}Props): JSX.Element | null {",
+      "  return <div className={clsx(className)}>{children}</div>;",
+      "}",
+      ""
+    ]
+  }
+}

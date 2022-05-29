@@ -26,3 +26,5 @@ build
 .cache
 **/.cache
 **/*/.cache
+
+tailwind.css
