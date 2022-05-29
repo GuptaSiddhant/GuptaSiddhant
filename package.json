@@ -1,7 +1,6 @@
 {
-  "name": "guptasiddhant-monorepo",
+  "name": "gs-monorepo",
   "private": true,
-  "bin": "apps/cli/bin/index.js",
   "workspaces": [
     "apps/*",
     "features/*",

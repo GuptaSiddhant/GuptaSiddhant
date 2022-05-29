@@ -1,0 +1,10 @@
+{
+  "name": "config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "files": [
+    "eslint",
+    "tsconfig",
+    "jest"
+  ]
+}

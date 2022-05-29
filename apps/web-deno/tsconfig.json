@@ -1,0 +1,9 @@
+{
+  "extends": "config/tsconfig.json",
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "scripts/backup.js"],
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./app/*"]
+    }
+  }
+}
