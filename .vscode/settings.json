@@ -32,6 +32,6 @@
   "deno.enable": true,
   "deno.lint": true,
   "deno.unstable": true,
-  "deno.enablePaths": ["./apps/web-deno"],
+  "deno.enablePaths": ["./apps/website"],
   "deno.importMap": "./.vscode/resolve_npm_imports.json"
 }

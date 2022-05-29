@@ -22,3 +22,7 @@ build
 *.log
 
 .turbo
+
+.cache
+**/.cache
+**/*/.cache
