@@ -1,0 +1,8 @@
+{
+  "name": "gs-hooks",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "react": "*"
+  }
+}

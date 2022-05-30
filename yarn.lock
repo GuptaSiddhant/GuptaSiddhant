@@ -1785,6 +1785,11 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
 
+clsx@*, clsx@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
+  integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
+
 code-excerpt@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/code-excerpt/-/code-excerpt-3.0.0.tgz#fcfb6748c03dba8431c19f5474747fad3f250f10"
@@ -4287,6 +4292,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lru-cache@^7.10.1:
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.10.1.tgz#db577f42a94c168f676b638d15da8fb073448cab"
+  integrity sha512-BQuhQxPuRl79J5zSXRP+uNzPOyZw2oFI9JLRQ80XswSvg21KMKNtQza9eF42rfI/3Z40RvzBdXgziEkudzjo8A==
+
 lz-string@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.4.4.tgz#c0d8eaf36059f705796e1e344811cf4c498d3a26"
@@ -5701,7 +5711,7 @@ react-router@6.3.0:
   dependencies:
     history "^5.2.0"
 
-react@^18.0.0, react@^18.0.2:
+react@*, react@^18.0.0, react@^18.0.2:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.1.0.tgz#6f8620382decb17fdc5cc223a115e2adbf104890"
   integrity sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ==
@@ -5848,6 +5858,11 @@ remark-rehype@^9.0.0:
     "@types/mdast" "^3.0.0"
     mdast-util-to-hast "^11.0.0"
     unified "^10.0.0"
+
+remixicon-react@*, remixicon-react@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/remixicon-react/-/remixicon-react-1.0.0.tgz#7500e3e4d4daeaf7e9d7231f0f60dbb081727825"
+  integrity sha512-KOXlc8EdKdujr2f/2idyFSQRjUB8p0HNiWZYBBzRsTRlTXFuSAFfnGq9culNjhCGmc92Jbtfr9OP0MXWvTMdsQ==
 
 repeat-element@^1.1.2:
   version "1.1.4"

@@ -1,5 +1,5 @@
 {
-  "extends": "config/tsconfig.json",
+  "extends": "gs-config/tsconfig.json",
   "compilerOptions": {
     "target": "ES2015",
     "module": "commonjs",

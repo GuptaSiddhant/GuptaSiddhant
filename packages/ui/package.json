@@ -1,0 +1,11 @@
+{
+  "name": "gs-ui",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "gs-hooks": "*",
+    "clsx": "*",
+    "react": "*",
+    "remixicon-react": "*"
+  }
+}
