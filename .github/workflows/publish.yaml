@@ -33,7 +33,7 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn workspaces focus guptasiddhant
 
       - name: Publish to NPM
         run: node scripts/publish.js

@@ -1,5 +1,5 @@
 {
-  "extends": "config/tsconfig.json",
+  "extends": "gs-config/tsconfig.json",
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "paths": {

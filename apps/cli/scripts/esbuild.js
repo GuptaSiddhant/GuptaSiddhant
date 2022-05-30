@@ -11,7 +11,7 @@ const buildOptions = {
   bundle: true,
   platform: "node",
   target: ["node12"],
-  external: ["react*", "ink*", "axios", "open"],
+  external: ["react", "ink", "axios", "open"],
   inject: ["./scripts/react_shim.js"],
   minify: !watch,
   watch,

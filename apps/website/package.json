@@ -6,18 +6,19 @@
   "scripts": {
     "build": "remix build",
     "prebuild": "tailwindcss --minify -o ./app/styles/tailwind.css",
-    "dev": "run-p dev:*",
+    "dev": "run-p dev:css dev:remix",
     "dev:css": "tailwindcss -w -o ./app/styles/tailwind.css",
-    "dev:remix": "remix dev"
+    "dev:remix": "remix dev",
+    "clear": "rm -rf api .cache build public/build"
   },
   "dependencies": {
-    "gs-hooks": "*",
-    "gs-ui": "*",
     "@remix-run/node": "^1.5.0",
     "@remix-run/react": "^1.5.0",
     "@remix-run/server-runtime": "^1.5.0",
     "@remix-run/vercel": "^1.5.0",
     "clsx": "^1.1.1",
+    "gs-hooks": "workspace:*",
+    "gs-ui": "workspace:*",
     "lru-cache": "^7.10.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -33,6 +34,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/tailwindcss": "^2.2.4",
     "cross-env": "^7.0.3",
+    "gs-config": "workspace:*",
     "npm-run-all": "^4.1.5",
     "tailwindcss": "^3.0.0"
   },

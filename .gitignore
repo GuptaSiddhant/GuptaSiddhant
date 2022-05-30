@@ -30,3 +30,11 @@ build
 tailwind.css
 
 apps/website/api
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

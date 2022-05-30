@@ -7,14 +7,11 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "web:dev": "turbo run dev --filter=website",
-    "cli:build": "turbo run build --filter=guptasiddhant",
-    "cli:publish": "turbo run publish --filter=guptasiddhant"
-  },
-  "devDependencies": {
-    "turbo": "^1.2.14"
+    "build": "yarn workspaces foreach -pi --topological-dev run build",
+    "dev": "yarn workspaces foreach -pi run dev",
+    "clear": "yarn workspaces foreach -pi run clear",
+    "cli:build": "yarn workspace guptasiddhant build",
+    "web:dev": "yarn workspace website dev"
   },
   "prettier": {
     "trailingComma": "all",
@@ -27,5 +24,6 @@
   "sideEffects": false,
   "engines": {
     "node": ">=14"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }
