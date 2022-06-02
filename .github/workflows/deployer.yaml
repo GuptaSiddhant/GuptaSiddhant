@@ -1,0 +1,39 @@
+name: "Deploy"
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/cli/**
+      - .github/workflows/publish.yaml
+
+env:
+  INPUT_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+jobs:
+  publish:
+    name: Publish CLI
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./apps/cli"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: Setup NPM TOKEN
+        run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
+
+      - name: Install dependencies
+        run: yarn workspaces focus guptasiddhant
+
+      - name: Publish to NPM
+        run: node scripts/publish.js

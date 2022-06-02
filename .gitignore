@@ -38,3 +38,4 @@ apps/website/api
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.vercel
