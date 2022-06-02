@@ -1,63 +1,93 @@
+import { Link } from "@remix-run/react"
 import clsx from "clsx"
-import { ReactNode, useRef } from "react"
+import { useCallback, type ReactNode } from "react"
+import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import useEventListener from "gs-hooks/useEventListener"
+import useOffsetScroll from "gs-hooks/useOffsetScroll"
+import useSetHeaderHeight from "gs-hooks/useSetHeaderHeight"
+import Button from "gs-ui/components/Button"
+import RoundedCorner from "gs-ui/icons/RoundedCorner"
 
-import RoundedCorner from "./RoundedCorner"
-import Footer from "./Footer"
+import Navigation, { type NavigationLinkProps } from "./Navigation"
+
+export { type NavigationLinkProps } from "./Navigation"
 
 export default function Layout({
   children,
+  logoElement,
+  navigationLinks = [],
 }: {
   children: ReactNode
+  logoElement: ReactNode
+  navigationLinks?: NavigationLinkProps[]
 }): JSX.Element {
+  const headerRef = useSetHeaderHeight()
+  const { isOffsetScrolled: scrollButtonVisible } = useOffsetScroll()
+
+  const handleScrollToTop = useCallback(() => {
+    window?.scrollTo({ top: 0, behavior: "smooth" })
+  }, [])
+
   return (
     <>
-      <Header />
+      <header
+        data-header
+        ref={headerRef}
+        className={clsx(
+          "fixed top-0 left-0 right-0 z-40 bg-default",
+          "grid grid-rows-2 sm:grid-rows-none sm:grid-cols-[1fr_max-content] items-baseline",
+          "py-2 px-4 sm:px-8",
+        )}
+      >
+        <Link
+          to="/"
+          data-custom-color
+          data-custom-border
+          className={
+            "select-none text-ellipsis overflow-hidden whitespace-nowrap"
+          }
+        >
+          {logoElement}
+        </Link>
+        <Navigation links={navigationLinks} />
+        <RoundedCorner className="top-full left-4 rotate-0" />
+        <RoundedCorner className="top-full right-4 rotate-90" />
+      </header>
+
       <main
         id="main"
         className={clsx(
           "relative mx-4 rounded-xl",
           "bg-primary text-lg",
           "flex flex-col gap-10",
-          "min-h-[100vh]",
+          "min-h-[100vh] py-16",
         )}
       >
         {children}
       </main>
-      <Footer />
+
+      <footer
+        data-footer
+        className={clsx(
+          "fixed bottom-0 right-0 left-0",
+          "h-4 z-40 bg-default px-4",
+        )}
+      >
+        {scrollButtonVisible ? (
+          <Button
+            className={clsx(
+              "absolute right-4 bottom-full m-0.5",
+              "rounded-br-xl",
+            )}
+            onClick={handleScrollToTop}
+            title="Scroll to top"
+          >
+            <UpIcon aria-label="Scroll to top" />
+          </Button>
+        ) : null}
+        <RoundedCorner className="bottom-full left-4 -rotate-90" />
+        <RoundedCorner className="bottom-full right-4 rotate-180" />
+      </footer>
     </>
-  )
-}
-
-function Header(): JSX.Element {
-  const headerRef = useRef<HTMLElement>(null)
-
-  useEventListener(
-    "resize",
-    () => {
-      const headerHeight =
-        headerRef.current?.getBoundingClientRect().height || 0
-      document.documentElement.style.setProperty(
-        "--header-height",
-        `${headerHeight}px`,
-      )
-    },
-    { immediate: true },
-  )
-
-  return (
-    <header
-      data-header
-      ref={headerRef}
-      className={clsx(
-        "fixed top-0 left-0 right-0 z-40 bg-default",
-        "grid grid-rows-2 sm:grid-rows-none sm:grid-cols-[1fr_max-content] items-baseline",
-        "py-2 px-8",
-      )}
-    >
-      <RoundedCorner />
-      <RoundedCorner right />
-    </header>
   )
 }

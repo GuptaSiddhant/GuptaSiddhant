@@ -1,0 +1,8 @@
+{
+  "name": "gs-types",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "peer-dependencies": {
+    "react": "*"
+  }
+}

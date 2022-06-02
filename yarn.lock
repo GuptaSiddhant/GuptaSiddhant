@@ -4757,6 +4757,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"gs-constants@workspace:packages/constants":
+  version: 0.0.0-use.local
+  resolution: "gs-constants@workspace:packages/constants"
+  languageName: unknown
+  linkType: soft
+
+"gs-helpers@workspace:packages/helpers":
+  version: 0.0.0-use.local
+  resolution: "gs-helpers@workspace:packages/helpers"
+  languageName: unknown
+  linkType: soft
+
 "gs-hooks@workspace:*, gs-hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
   resolution: "gs-hooks@workspace:packages/hooks"
@@ -4768,6 +4780,12 @@ __metadata:
 "gs-monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "gs-monorepo@workspace:."
+  languageName: unknown
+  linkType: soft
+
+"gs-types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "gs-types@workspace:packages/types"
   languageName: unknown
   linkType: soft
 

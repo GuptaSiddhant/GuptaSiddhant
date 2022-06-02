@@ -29,5 +29,11 @@
       "}",
       ""
     ]
+  },
+  "return-type-jsx-element-or-null": {
+    "scope": "typescriptreact",
+    "prefix": [":jen"],
+    "description": "Return type of JSX.Element or null",
+    "body": [": JSX.Element | null"]
   }
 }
