@@ -7,10 +7,6 @@ import {
 } from "firebase-admin/firestore"
 import LRUCache from "lru-cache"
 
-const db = getFirestore()
-
-export default db
-
 export enum CacheType {
   FirestoreCollection = "firestoreCollection",
   FirestoreDocument = "firestoreDocument",
@@ -29,26 +25,7 @@ const _1_DAY_IN_MS_ = 1_000 * 60 * 60 * 24
 const cacheTtlInMs =
   Number.parseInt(process.env?.CACHE_TTL || "0", 10) || _1_DAY_IN_MS_
 
-const keySeparator = "---"
-
-async function fetchMethod(key: string): Promise<any> {
-  console.log("[Fetching]", key)
-  const [type, path] = key.split(keySeparator)
-
-  switch (type) {
-    case CacheType.FirestoreCollection: {
-      return await db.collection(path).get()
-    }
-    case CacheType.FirestoreDocument: {
-      const [collection, docId] = path.split("/")
-      return await db.collection(collection).doc(docId).get()
-    }
-    default:
-      return undefined
-  }
-}
-
-const cache =
+export const cache =
   global.cache ||
   (global.cache = new LRUCache<string, Firestore>({
     max: 100,
@@ -82,6 +59,31 @@ export async function readDocument<T = DocumentData>(
   return data
 }
 
+// Helpers
+const keySeparator = "---"
+
 function createKey(type: CacheType, value: string) {
   return [type, value].join(keySeparator)
+}
+
+async function fetchMethod(key: string): Promise<any> {
+  logCache("Fetching:", key)
+  const [type, path] = key.split(keySeparator)
+  const db = getFirestore()
+
+  switch (type) {
+    case CacheType.FirestoreCollection: {
+      return await db.collection(path).get()
+    }
+    case CacheType.FirestoreDocument: {
+      const [collection, docId] = path.split("/")
+      return await db.collection(collection).doc(docId).get()
+    }
+    default:
+      return undefined
+  }
+}
+
+export function logCache(...message: any[]) {
+  console.log("[Cache]", ...message)
 }
