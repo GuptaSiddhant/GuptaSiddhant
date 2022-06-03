@@ -34,7 +34,7 @@ const backgroundColor = ({ theme }) => ({
 
 /** @type {TailwindConfig} */
 const config = {
-  content: ["./app/**/*.{ts,tsx}", "../../packages/ui/**/*.{ts,tsx}"],
+  content: ["./app/**/*.{ts,tsx}", "./packages/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
       sans: ["Nunito", "sans-serif"],
