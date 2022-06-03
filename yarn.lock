@@ -4744,7 +4744,27 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gs-monorepo@workspace:."
   dependencies:
+    "@remix-run/dev": ^1.5.0
+    "@remix-run/eslint-config": ^1.5.0
+    "@remix-run/node": ^1.5.0
+    "@remix-run/react": ^1.5.0
+    "@remix-run/serve": ^1.5.0
+    "@remix-run/server-runtime": ^1.5.0
+    "@remix-run/vercel": ^1.5.0
+    "@tailwindcss/forms": ^0.4.0
+    "@tailwindcss/typography": ^0.5.0
+    "@types/react": ^17.0.0
+    "@types/react-dom": ^17.0.0
+    "@types/tailwindcss": ^2.2.4
+    clsx: ^1.1.1
+    cross-env: ^7.0.3
+    lru-cache: ^7.10.1
+    npm-run-all: ^4.1.5
+    react: ^17.0.0
+    react-dom: ^17.0.0
+    remixicon-react: ^1.0.0
     tailwindcss: ^3.0.0
+    typescript: ^4.7.2
   languageName: unknown
   linkType: soft
 
@@ -9369,7 +9389,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.5":
+"typescript@npm:^4.5, typescript@npm:^4.7.2":
   version: 4.7.2
   resolution: "typescript@npm:4.7.2"
   bin:
@@ -9379,7 +9399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.5#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.2#~builtin<compat/typescript>":
   version: 4.7.2
   resolution: "typescript@patch:typescript@npm%3A4.7.2#~builtin<compat/typescript>::version=4.7.2&hash=7ad353"
   bin:
@@ -9735,33 +9755,6 @@ __metadata:
   checksum: c92a0a6ab95314bde9c32e1d0a6dfac83b578f8fa5f21e675bc2706ed6981bc26b7eb7e6a1fab158e5ce4adf9caa4a0aee49a52505d4d13c7be545f15021b17c
   languageName: node
   linkType: hard
-
-"website@workspace:website":
-  version: 0.0.0-use.local
-  resolution: "website@workspace:website"
-  dependencies:
-    "@remix-run/dev": ^1.5.0
-    "@remix-run/eslint-config": ^1.5.0
-    "@remix-run/node": ^1.5.0
-    "@remix-run/react": ^1.5.0
-    "@remix-run/serve": ^1.5.0
-    "@remix-run/server-runtime": ^1.5.0
-    "@remix-run/vercel": ^1.5.0
-    "@tailwindcss/forms": ^0.4.0
-    "@tailwindcss/typography": ^0.5.0
-    "@types/react": ^17.0.0
-    "@types/react-dom": ^17.0.0
-    "@types/tailwindcss": ^2.2.4
-    clsx: ^1.1.1
-    cross-env: ^7.0.3
-    lru-cache: ^7.10.1
-    npm-run-all: ^4.1.5
-    react: ^17.0.0
-    react-dom: ^17.0.0
-    remixicon-react: ^1.0.0
-    tailwindcss: ^3.0.0
-  languageName: unknown
-  linkType: soft
 
 "whatwg-url@npm:^5.0.0":
   version: 5.0.0
