@@ -1,0 +1,24 @@
+{
+  "name": "functions",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "sideEffects": false,
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start:shell": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "devDependencies": {
+    "@remix-run/express": "^1.5.0",
+    "@remix-run/react": "^1.5.0",
+    "firebase-admin": "10.2.0",
+    "firebase-functions": "3.21.0",
+    "react": "18"
+  },
+  "engines": {
+    "node": "16"
+  }
+}
