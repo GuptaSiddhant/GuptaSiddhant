@@ -2,7 +2,7 @@ import { NavLink } from "@remix-run/react"
 import type { To } from "react-router"
 import type { ReactNode } from "react"
 
-import { isExternalLink } from "gs-helpers"
+import { isExternalLink } from "@gs/helpers"
 
 export interface NavigationProps {
   links: Array<NavigationLinkProps>

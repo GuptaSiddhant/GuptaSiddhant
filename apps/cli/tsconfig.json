@@ -1,10 +1,18 @@
 {
-  "extends": "gs-config/tsconfig.json",
   "compilerOptions": {
     "target": "ES2015",
     "module": "commonjs",
     "jsx": "react-jsx",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "baseUrl": ".",
+    "noEmit": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules", "bin", "scripts"],
   "include": ["src"],
