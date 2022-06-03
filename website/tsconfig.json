@@ -1,9 +1,9 @@
 {
-  "extends": "gs-config/tsconfig.json",
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "traits/*": ["app/traits/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

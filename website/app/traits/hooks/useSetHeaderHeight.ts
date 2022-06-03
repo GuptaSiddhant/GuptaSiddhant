@@ -1,7 +1,7 @@
 import { useRef } from "react"
 
-import { CSS_VAR_HEADER_HEIGHT } from "gs-constants"
-import useEventListener from "gs-hooks/useEventListener"
+import { CSS_VAR_HEADER_HEIGHT } from "~/traits/constants"
+import useEventListener from "~/traits/hooks/useEventListener"
 
 export default function useSetHeaderHeight() {
   const ref = useRef<HTMLElement>(null)

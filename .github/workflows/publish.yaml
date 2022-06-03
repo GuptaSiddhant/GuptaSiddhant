@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - apps/cli/**
+      - cli/**
       - .github/workflows/publish.yaml
 
 env:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./apps/cli"
+        working-directory: "./cli"
     steps:
       - name: Checkout
         uses: actions/checkout@v3

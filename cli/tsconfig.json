@@ -1,19 +1,22 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
+  
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "target": "ES2015",
+    "module": "commonjs",
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "skipLibCheck": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "target": "ES2019",
+    "resolveJsonModule": true,    
     "strict": true,
     "baseUrl": ".",
     "noEmit": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "bin", "scripts"],
+  "include": ["src"],
+  "compileOnSave": true
 }

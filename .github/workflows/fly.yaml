@@ -5,7 +5,7 @@ on:
       - main
       - fly
     paths:
-      - apps/website/**
+      - website/**
       - .github/workflows/fly.yaml
 
 env:
@@ -38,4 +38,4 @@ jobs:
         run: yarn web:build
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only ./apps/website
+      - run: flyctl deploy --remote-only ./website

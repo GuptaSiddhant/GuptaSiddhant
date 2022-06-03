@@ -3,10 +3,10 @@ import clsx from "clsx"
 import { useCallback, type ReactNode } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import useOffsetScroll from "gs-hooks/useOffsetScroll"
-import useSetHeaderHeight from "gs-hooks/useSetHeaderHeight"
-import Button from "gs-ui/components/Button"
-import RoundedCorner from "gs-ui/icons/RoundedCorner"
+import useOffsetScroll from "~/traits/hooks/useOffsetScroll"
+import useSetHeaderHeight from "~/traits/hooks/useSetHeaderHeight"
+import Button from "~/traits/ui/components/Button"
+import RoundedCorner from "~/traits/ui/icons/RoundedCorner"
 
 import Navigation, { type NavigationLinkProps } from "./Navigation"
 

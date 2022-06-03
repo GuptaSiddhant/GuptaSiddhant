@@ -15,7 +15,7 @@ import SearchIcon from "remixicon-react/Search2LineIcon"
 
 import fontStyles from "~/styles/font.css"
 import tailwindStyles from "~/styles/tailwind.css"
-import Layout, { type NavigationLinkProps } from "gs-ui/Layout"
+import Layout, { type NavigationLinkProps } from "~/traits/ui/Layout"
 
 const intlListFormatPolyfillScript =
   "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"

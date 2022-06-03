@@ -2,9 +2,8 @@
   "name": "gs-monorepo",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "features/*",
-    "packages/*"
+    "cli",
+    "website"
   ],
   "scripts": {
     "build": "yarn workspaces foreach -pi --topological-dev run build",
@@ -13,7 +12,7 @@
     "cli:build": "yarn workspace guptasiddhant build",
     "web:dev": "yarn workspace website dev",
     "web:build": "yarn workspace website build",
-    "web:deploy": "flyctl deploy --remote-only ./apps/website"
+    "web:deploy": "flyctl deploy --remote-only ./website"
   },
   "prettier": {
     "trailingComma": "all",
