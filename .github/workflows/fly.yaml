@@ -38,4 +38,4 @@ jobs:
         run: yarn web:build
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: yarn web:deploy
+      - run: flyctl deploy --remote-only ./apps/website
