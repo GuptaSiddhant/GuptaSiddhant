@@ -4751,25 +4751,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gs-config@workspace:*, gs-config@workspace:packages/config":
+"gs-config@*, gs-config@workspace:*, gs-config@workspace:packages/config":
   version: 0.0.0-use.local
   resolution: "gs-config@workspace:packages/config"
   languageName: unknown
   linkType: soft
 
-"gs-constants@workspace:packages/constants":
+"gs-constants@*, gs-constants@workspace:packages/constants":
   version: 0.0.0-use.local
   resolution: "gs-constants@workspace:packages/constants"
   languageName: unknown
   linkType: soft
 
-"gs-helpers@workspace:packages/helpers":
+"gs-helpers@*, gs-helpers@workspace:packages/helpers":
   version: 0.0.0-use.local
   resolution: "gs-helpers@workspace:packages/helpers"
   languageName: unknown
   linkType: soft
 
-"gs-hooks@workspace:*, gs-hooks@workspace:packages/hooks":
+"gs-hooks@*, gs-hooks@workspace:*, gs-hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
   resolution: "gs-hooks@workspace:packages/hooks"
   dependencies:
@@ -4780,16 +4780,20 @@ __metadata:
 "gs-monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "gs-monorepo@workspace:."
+  dependencies:
+    tailwindcss: ^3.0.0
   languageName: unknown
   linkType: soft
 
-"gs-types@workspace:packages/types":
+"gs-types@*, gs-types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "gs-types@workspace:packages/types"
+  peerDependencies:
+    react: "*"
   languageName: unknown
   linkType: soft
 
-"gs-ui@workspace:*, gs-ui@workspace:packages/ui":
+"gs-ui@*, gs-ui@workspace:packages/ui":
   version: 0.0.0-use.local
   resolution: "gs-ui@workspace:packages/ui"
   dependencies:
@@ -9824,9 +9828,12 @@ __metadata:
     "@types/tailwindcss": ^2.2.4
     clsx: ^1.1.1
     cross-env: ^7.0.3
-    gs-config: "workspace:*"
-    gs-hooks: "workspace:*"
-    gs-ui: "workspace:*"
+    gs-config: "*"
+    gs-constants: "*"
+    gs-helpers: "*"
+    gs-hooks: "*"
+    gs-types: "*"
+    gs-ui: "*"
     lru-cache: ^7.10.1
     npm-run-all: ^4.1.5
     react: ^18.0.0
