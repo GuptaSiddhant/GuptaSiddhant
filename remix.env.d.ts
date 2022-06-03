@@ -1,6 +1,7 @@
 /// <reference types="@remix-run/dev" />
 /// <reference types="@remix-run/node/globals" />
 
+import type { App } from "firebase-admin/app"
 import type LRUCache from "lru-cache"
 
 declare module "react-overdrive" {
@@ -30,6 +31,7 @@ declare namespace NodeJS {
 
 declare global {
   var cache: LRUCache<string, any>
+  var firebaseApp: App
 }
 
 declare namespace Intl {

@@ -1,6 +1,13 @@
 import type { EntryContext } from "@remix-run/server-runtime"
 import { RemixServer } from "@remix-run/react"
 import { renderToString } from "react-dom/server"
+import { initializeApp, applicationDefault } from "firebase-admin/app"
+
+global.firebaseApp ||
+  (global.firebaseApp = initializeApp({
+    credential: applicationDefault(),
+    databaseURL: "https://guptasiddhant-com.firebaseio.com",
+  }))
 
 export default function handleRequest(
   request: Request,
