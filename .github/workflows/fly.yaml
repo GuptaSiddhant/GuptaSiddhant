@@ -32,7 +32,7 @@ jobs:
       #   run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: yarn workspaces focus website
 
       - name: Build
         run: yarn web:build
