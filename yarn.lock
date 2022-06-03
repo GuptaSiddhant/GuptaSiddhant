@@ -1329,27 +1329,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.0":
-  version: 18.0.5
-  resolution: "@types/react-dom@npm:18.0.5"
+"@types/react-dom@npm:^17.0.0":
+  version: 17.0.17
+  resolution: "@types/react-dom@npm:17.0.17"
   dependencies:
-    "@types/react": "*"
-  checksum: cd48b81950f499b52a3f0c08261f00046f9b7c96699fa249c9664e257e820daf6ecac815cd1028cebc9d105094adc39d047d1efd79214394b8b2d515574c0787
+    "@types/react": ^17
+  checksum: 23caf98aa03e968811560f92a2c8f451694253ebe16b670929b24eaf0e7fa62ba549abe9db0ac028a9d8a9086acd6ab9c6c773f163fa21224845edbc00ba6232
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.0.0":
-  version: 18.0.9
-  resolution: "@types/react@npm:18.0.9"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: 162364dad716d9017ee34aabf2ea37499709ebbdef70392ae1b39225985971e1a46f121efb9c5c7da92144ee1d96d4525df806a7c1c03a5db7fd31dd034ddc7a
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^17.0.0":
+"@types/react@npm:^17, @types/react@npm:^17.0.0":
   version: 17.0.45
   resolution: "@types/react@npm:17.0.45"
   dependencies:
@@ -2483,7 +2472,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:*, clsx@npm:^1.1.1":
+"clsx@npm:^1.1.1":
   version: 1.1.1
   resolution: "clsx@npm:1.1.1"
   checksum: ff052650329773b9b245177305fc4c4dc3129f7b2be84af4f58dc5defa99538c61d4207be7419405a5f8f3d92007c954f4daba5a7b74e563d5de71c28c830063
@@ -4751,56 +4740,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gs-config@*, gs-config@workspace:*, gs-config@workspace:packages/config":
-  version: 0.0.0-use.local
-  resolution: "gs-config@workspace:packages/config"
-  languageName: unknown
-  linkType: soft
-
-"gs-constants@*, gs-constants@workspace:packages/constants":
-  version: 0.0.0-use.local
-  resolution: "gs-constants@workspace:packages/constants"
-  languageName: unknown
-  linkType: soft
-
-"gs-helpers@*, gs-helpers@workspace:packages/helpers":
-  version: 0.0.0-use.local
-  resolution: "gs-helpers@workspace:packages/helpers"
-  languageName: unknown
-  linkType: soft
-
-"gs-hooks@*, gs-hooks@workspace:*, gs-hooks@workspace:packages/hooks":
-  version: 0.0.0-use.local
-  resolution: "gs-hooks@workspace:packages/hooks"
-  dependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
 "gs-monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "gs-monorepo@workspace:."
   dependencies:
     tailwindcss: ^3.0.0
-  languageName: unknown
-  linkType: soft
-
-"gs-types@*, gs-types@workspace:packages/types":
-  version: 0.0.0-use.local
-  resolution: "gs-types@workspace:packages/types"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"gs-ui@*, gs-ui@workspace:packages/ui":
-  version: 0.0.0-use.local
-  resolution: "gs-ui@workspace:packages/ui"
-  dependencies:
-    clsx: "*"
-    gs-hooks: "workspace:*"
-    react: "*"
-    remixicon-react: "*"
   languageName: unknown
   linkType: soft
 
@@ -4820,9 +4764,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"guptasiddhant@workspace:apps/cli":
+"guptasiddhant@workspace:cli":
   version: 0.0.0-use.local
-  resolution: "guptasiddhant@workspace:apps/cli"
+  resolution: "guptasiddhant@workspace:cli"
   dependencies:
     "@jsdevtools/npm-publish": ^1.4.3
     "@types/node": ^14.0.0
@@ -4830,7 +4774,6 @@ __metadata:
     axios: ^0.23.0
     esbuild: ^0.13.8
     eslint: ^8.3.0
-    gs-config: "workspace:*"
     ink: ^3.2.0
     open: ^8.3.0
     prettier: ^2.5.0
@@ -7964,15 +7907,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.0.0":
-  version: 18.1.0
-  resolution: "react-dom@npm:18.1.0"
+"react-dom@npm:^17.0.0":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
   dependencies:
     loose-envify: ^1.1.0
-    scheduler: ^0.22.0
+    object-assign: ^4.1.1
+    scheduler: ^0.20.2
   peerDependencies:
-    react: ^18.1.0
-  checksum: bb0d48eeb0b297c79c2a03978baa29f5b3ff7ba3d070b21e34c9af1a6e7fdf0ca8b8d73e41f9214d91ad40eeb6d1f3559f884cbbc338713374a51320637c23df
+    react: 17.0.2
+  checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
   languageName: node
   linkType: hard
 
@@ -8027,16 +7971,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:*, react@npm:^18.0.0":
-  version: 18.1.0
-  resolution: "react@npm:18.1.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 5bb296b561b43ef2220395da4faac86c14a087c8c80e1a7598a5740f01ee605c11eaf249985c1e2000971c4cd32ccb46d40f00479bbd9fb6b1c7cf857393b7d4
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.2":
+"react@npm:^17.0.0, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -8219,7 +8154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remixicon-react@npm:*, remixicon-react@npm:^1.0.0":
+"remixicon-react@npm:^1.0.0":
   version: 1.0.0
   resolution: "remixicon-react@npm:1.0.0"
   peerDependencies:
@@ -8478,15 +8413,6 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.22.0":
-  version: 0.22.0
-  resolution: "scheduler@npm:0.22.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: a8ef5cab769c020cd6382ad9ecc3f72dbde56a50a36639b3a42ad9c11f7724f03700bcad373044059b8067d4a6365154dc7c0ca8027ef20ff4900cf58a0fc2c5
   languageName: node
   linkType: hard
 
@@ -9810,9 +9736,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"website@workspace:apps/website":
+"website@workspace:website":
   version: 0.0.0-use.local
-  resolution: "website@workspace:apps/website"
+  resolution: "website@workspace:website"
   dependencies:
     "@remix-run/dev": ^1.5.0
     "@remix-run/eslint-config": ^1.5.0
@@ -9823,21 +9749,15 @@ __metadata:
     "@remix-run/vercel": ^1.5.0
     "@tailwindcss/forms": ^0.4.0
     "@tailwindcss/typography": ^0.5.0
-    "@types/react": ^18.0.0
-    "@types/react-dom": ^18.0.0
+    "@types/react": ^17.0.0
+    "@types/react-dom": ^17.0.0
     "@types/tailwindcss": ^2.2.4
     clsx: ^1.1.1
     cross-env: ^7.0.3
-    gs-config: "*"
-    gs-constants: "*"
-    gs-helpers: "*"
-    gs-hooks: "*"
-    gs-types: "*"
-    gs-ui: "*"
     lru-cache: ^7.10.1
     npm-run-all: ^4.1.5
-    react: ^18.0.0
-    react-dom: ^18.0.0
+    react: ^17.0.0
+    react-dom: ^17.0.0
     remixicon-react: ^1.0.0
     tailwindcss: ^3.0.0
   languageName: unknown

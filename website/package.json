@@ -4,8 +4,9 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "prebuild": "tailwindcss --minify -o ./app/styles/tailwind.css",
+    "build": "run-s -l build:css build:remix",
+    "build:css": "tailwindcss --minify -o ./app/styles/tailwind.css",
+    "build:remix": "remix build",
     "dev": "run-p dev:css dev:remix",
     "dev:css": "tailwindcss -w -o ./app/styles/tailwind.css",
     "dev:remix": "remix dev",
@@ -18,8 +19,8 @@
     "@remix-run/vercel": "^1.5.0",
     "clsx": "^1.1.1",
     "lru-cache": "^7.10.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "remixicon-react": "^1.0.0"
   },
   "devDependencies": {
@@ -28,8 +29,8 @@
     "@remix-run/serve": "^1.5.0",
     "@tailwindcss/forms": "^0.4.0",
     "@tailwindcss/typography": "^0.5.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/tailwindcss": "^2.2.4",
     "cross-env": "^7.0.3",
     "npm-run-all": "^4.1.5",
