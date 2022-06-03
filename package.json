@@ -11,7 +11,9 @@
     "dev": "yarn workspaces foreach -pi run dev",
     "clear": "yarn workspaces foreach -pi run clear",
     "cli:build": "yarn workspace guptasiddhant build",
-    "web:dev": "yarn workspace website dev"
+    "web:dev": "yarn workspace website dev",
+    "web:build": "yarn workspace website build",
+    "web:deploy": "fly deploy --remote-only ./apps/website"
   },
   "prettier": {
     "trailingComma": "all",

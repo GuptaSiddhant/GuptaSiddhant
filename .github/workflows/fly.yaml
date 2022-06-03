@@ -1,0 +1,41 @@
+name: "Deploy"
+on:
+  push:
+    branches:
+      - main
+      - fly
+    paths:
+      - apps/website/**
+      - .github/workflows/fly.yaml
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+jobs:
+  deploy-fly:
+    name: Deploy remix to fly.io
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      # - name: Setup NPM TOKEN
+      #   run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn web:build
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: yarn web:deploy
