@@ -1,11 +1,15 @@
 import type { EntryContext } from "@remix-run/server-runtime"
 import { RemixServer } from "@remix-run/react"
 import { renderToString } from "react-dom/server"
-import { initializeApp, applicationDefault } from "firebase-admin/app"
+import { initializeApp, cert } from "firebase-admin/app"
+
+const serviceAccount = JSON.parse(
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "",
+)
 
 global.firebaseApp ||
   (global.firebaseApp = initializeApp({
-    credential: applicationDefault(),
+    credential: cert(serviceAccount),
     databaseURL: "https://guptasiddhant-com.firebaseio.com",
   }))
 
