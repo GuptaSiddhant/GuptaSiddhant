@@ -5,22 +5,22 @@ import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
 import useOffsetScroll from "@gs/hooks/useOffsetScroll"
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight"
-import Button from "@gs/ui/components/Button"
-import RoundedCorner from "@gs/ui/icons/RoundedCorner"
+import Button from "@gs/components/Button"
+import RoundedCorner from "@gs/icons/RoundedCorner"
 
-import Navigation, { type NavigationLinkProps } from "./Navigation"
+import Navigation, { type NavigationLinkProps } from "@gs/components/Navigation"
 
-export { type NavigationLinkProps } from "./Navigation"
-
-export default function Layout({
-  children,
-  logoElement,
-  navigationLinks = [],
-}: {
+export interface AppLayoutProps {
   children: ReactNode
   logoElement: ReactNode
   navigationLinks?: NavigationLinkProps[]
-}): JSX.Element {
+}
+
+export default function AppLayout({
+  children,
+  logoElement,
+  navigationLinks = [],
+}: AppLayoutProps): JSX.Element {
   const headerRef = useSetHeaderHeight()
   const { isOffsetScrolled: scrollButtonVisible } = useOffsetScroll()
 

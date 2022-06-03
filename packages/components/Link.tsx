@@ -4,7 +4,7 @@ import { type ComponentPropsWithoutRef } from "react"
 
 import { isExternalLink } from "@gs/helpers"
 import type { BaseProps } from "@gs/types"
-import ExternalLinkIcon from "@gs/ui/icons/ExternalLink"
+import ExternalLinkIcon from "@gs/icons/ExternalLinkIcon"
 
 export { Link, type LinkProps }
 
@@ -48,14 +48,14 @@ export function InternalLink({
 
 /** ExternalLink component */
 export function ExternalLink({
-  children = <ExternalLinkIcon />,
+  children,
   className,
   href,
   tooltipLabel,
   enableIcon,
   ...props
 }: BaseProps & ExternalLinkProps): JSX.Element | null {
-  if (!href) return null
+  if (!href) return <>{children}</>
 
   return (
     <a

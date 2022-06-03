@@ -1,6 +1,6 @@
 import LinkIcon from "remixicon-react/ExternalLinkLineIcon"
 
-export default function ExternalLink(): JSX.Element {
+export default function ExternalLinkIcon(): JSX.Element {
   return (
     <LinkIcon
       aria-label="External link"
