@@ -15,6 +15,7 @@ const textColor = ({ theme }) => ({
   tertiary: gray[300],
   quaternary: gray[400],
   disabled: gray[500],
+  inverse: gray[800],
   link: theme("colors.blue.400"),
   "link-hover": theme("colors.blue.300"),
   error: theme("colors.red.400"),
@@ -29,6 +30,7 @@ const backgroundColor = ({ theme }) => ({
   tertiary: gray[700],
   quaternary: gray[600],
   disabled: gray[500],
+  inverse: gray[200],
   progress: theme("colors.blue.400"),
 })
 

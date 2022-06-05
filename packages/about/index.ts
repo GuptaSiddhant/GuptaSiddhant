@@ -1,5 +1,4 @@
 export const title = "Siddhant Gupta"
-export const npx = "npx guptasiddhant"
 export const currentCompany = {
   name: "Accenture Song",
   link: undefined,

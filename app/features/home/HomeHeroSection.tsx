@@ -1,17 +1,9 @@
-import {
-  heroAdjectives,
-  techStackList,
-  title,
-  npx,
-  currentCompany,
-} from "@gs/about"
+import { heroAdjectives, techStackList, title, currentCompany } from "@gs/about"
+import CodeBlock from "@gs/components/CodeBlock"
 import { InternalLink, ExternalLink } from "@gs/components/Link"
 import { ChangingText, H1 } from "@gs/components/Text"
 import { formatList } from "@gs/helpers/format"
 import Section from "@gs/layouts/Section"
-
-import clsx from "clsx"
-import { useCallback, useEffect, useState } from "react"
 
 export default function HomeHeroSection(): JSX.Element {
   return (
@@ -31,7 +23,10 @@ export default function HomeHeroSection(): JSX.Element {
         </InternalLink>
       </div>
 
-      <TerminalResume code={npx} />
+      <CodeBlock lang="bash" copyText="npx guptasiddhant">
+        {`# An interactive resume in your terminal, made with React and ink.
+$ npx guptasiddhant`}
+      </CodeBlock>
     </Section.Hero>
   )
 }
@@ -57,54 +52,5 @@ function CurrentCompany() {
       ) : null}
       .
     </p>
-  ) : null
-}
-
-function TerminalResume({ code }: { code?: string }): JSX.Element | null {
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (copied) {
-      const timeout = setTimeout(() => setCopied(false), 3000)
-      return () => clearTimeout(timeout)
-    }
-  }, [copied])
-
-  const handleCopy = useCallback(
-    (data: string) =>
-      window.navigator.clipboard.writeText(data).then(() => setCopied(true)),
-    [setCopied],
-  )
-
-  return code ? (
-    <pre
-      className="-mx-4 whitespace-pre-line rounded-lg bg-default p-4 text-base cursor-pointer"
-      title="Click to copy"
-      onClick={() => handleCopy(code)}
-    >
-      {/* <code className="mb-1 block select-none text-sm text-disabled">
-          [shell]
-        </code> */}
-      <code className="block select-none text-sm text-disabled">
-        # An interactive resume for your terminal, made with React and ink. Run:
-      </code>
-      <code
-        className={clsx(
-          "text-primary",
-          "before:content-['$'] before:select-none before:text-disabled before:mr-2",
-          "grid grid-cols-[max-content_1fr_max-content]",
-        )}
-      >
-        <span>{code}</span>
-        <span
-          className={clsx(
-            "select-none text-sm text-disabled",
-            !copied && "border-[1px] border-gray-500 rounded-sm px-1",
-          )}
-        >
-          {copied ? "Copied ✅" : "Copy"}
-        </span>
-      </code>
-    </pre>
   ) : null
 }

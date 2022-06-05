@@ -15,6 +15,7 @@ import SearchIcon from "remixicon-react/Search2LineIcon"
 
 import fontStyles from "~/styles/font.css"
 import tailwindStyles from "~/styles/tailwind.css"
+import prismRhemeStyles from "~/styles/prism-theme-dark.css"
 import AppLayout, { type AppLayoutProps } from "@gs/layouts/AppLayout"
 
 const intlListFormatPolyfillScript =
@@ -110,6 +111,7 @@ export const links: LinksFunction = () => [
   { rel: "manifest", href: "/site.webmanifest" },
   { rel: "stylesheet", href: fontStyles },
   { rel: "stylesheet", href: tailwindStyles },
+  { rel: "stylesheet", href: prismRhemeStyles },
 ]
 
 function Logo(): JSX.Element | null {
