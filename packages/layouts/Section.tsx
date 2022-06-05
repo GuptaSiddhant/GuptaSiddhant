@@ -1,9 +1,7 @@
+import type { BaseProps } from "@gs/types"
 import clsx from "clsx"
 
-import type { BaseProps } from "@gs/types"
-
 export const proseWidth = clsx("md:min-w-[64ch] max-w-[64ch] mx-auto px-4")
-
 export default function Section({
   children,
   className,
@@ -13,7 +11,7 @@ export default function Section({
   return (
     <section
       {...props}
-      className={clsx("w-full py-24", "flex flex-col gap-12", className)}
+      className={clsx("w-full py-[10vh]", "flex flex-col gap-12", className)}
       ref={elementRef}
     >
       {children}

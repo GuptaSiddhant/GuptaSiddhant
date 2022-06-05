@@ -1,11 +1,17 @@
-import { heroAdjectives, techStackList, title, currentCompany } from "@gs/about"
+import { heroAdjectives, techStackList } from "@gs/about"
 import CodeBlock from "@gs/components/CodeBlock"
 import { InternalLink, ExternalLink } from "@gs/components/Link"
 import { ChangingText, H1 } from "@gs/components/Text"
 import { formatList } from "@gs/helpers/format"
 import Section from "@gs/layouts/Section"
+import { useLoaderData } from "@remix-run/react"
+import { type HomeLoaderData } from "."
 
 export default function HomeHeroSection(): JSX.Element {
+  const {
+    about: { title, terminalResume },
+  } = useLoaderData<HomeLoaderData>()
+
   return (
     <Section.Hero>
       <H1>
@@ -23,15 +29,18 @@ export default function HomeHeroSection(): JSX.Element {
         </InternalLink>
       </div>
 
-      <CodeBlock lang="bash" copyText="npx guptasiddhant">
-        {`# An interactive resume in your terminal, made with React and ink.
-$ npx guptasiddhant`}
+      <CodeBlock copyText={terminalResume.copyText}>
+        {JSON.parse(terminalResume.code)}
       </CodeBlock>
     </Section.Hero>
   )
 }
 
 function CurrentCompany() {
+  const {
+    about: { currentCompany },
+  } = useLoaderData<HomeLoaderData>()
+
   if (!currentCompany?.name) return null
   const { name, hiringLink, link } = currentCompany
 

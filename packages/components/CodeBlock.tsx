@@ -30,14 +30,11 @@ export default function CodeBlock({
               <CopyButton className="text-sm font-monospace border-r-[1px] border-gray-400 pr-1">
                 {copyText || children.trim()}
               </CopyButton>
-              {lang || "text"}
+              {language}
             </div>
-            <div
-              className="rounded-md font-normal w-full border border-gray-200
-                dark:border-0 text-sm"
-            >
+            <div className="rounded-md font-normal w-full border border-gray-200 dark:border-0 text-sm">
               <pre className={`overflow-scroll ${className}`} style={{}}>
-                <code className={className} style={{}}>
+                <code className={clsx(className, "match-braces")} style={{}}>
                   {tokens.map((line, i) => (
                     <div key={i} {...getLineProps({ line, key: i })} style={{}}>
                       {line.map((token, key) => (

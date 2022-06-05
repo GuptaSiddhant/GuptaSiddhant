@@ -4,6 +4,11 @@ export const currentCompany = {
   link: undefined,
   hiringLink: undefined,
 }
+export const npx = {
+  children: `# An interactive resume in your terminal, made with React and ink.
+$ npx guptasiddhant`,
+  copyText: "npx guptasiddhant",
+}
 
 export const socialLinks = {
   linkedin: "https://linkedin.com/in/guptasiddhant9",
