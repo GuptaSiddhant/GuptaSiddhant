@@ -57,7 +57,7 @@ export default function AppLayout({
       <main
         id="main"
         className={clsx(
-          "relative mx-4 rounded-xl",
+          "relative mx-4 rounded-xl ",
           "bg-primary text-lg",
           "flex flex-col gap-10",
           "min-h-[100vh] py-16",

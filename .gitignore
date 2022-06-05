@@ -29,7 +29,7 @@ build
 
 tailwind.css
 
-api/
+/api/
 
 .pnp.*
 .yarn/*

@@ -1,27 +1,27 @@
-import { heroAdjectives, techStackList } from "@gs/about"
 import CodeBlock from "@gs/components/CodeBlock"
 import { InternalLink, ExternalLink } from "@gs/components/Link"
 import { ChangingText, H1 } from "@gs/components/Text"
 import { formatList } from "@gs/helpers/format"
 import Section from "@gs/layouts/Section"
 import { useLoaderData } from "@remix-run/react"
+
 import { type HomeLoaderData } from "."
 
 export default function HomeHeroSection(): JSX.Element {
   const {
-    about: { title, terminalResume },
+    about: { title, terminalResume, techStack = [], heroAdjectives = [] },
   } = useLoaderData<HomeLoaderData>()
 
   return (
     <Section.Hero>
       <H1>
         Hi, I bring designs to life on your screen,
-        <ChangingText texts={heroAdjectives} />.
+        <ChangingText texts={heroAdjectives.sort()} />.
       </H1>
       <div className="flex flex-col gap-4">
         <p>
           I am a <strong>{title}</strong> with a drive for creating beautiful
-          web and mobile apps with {formatList(techStackList)}.
+          web and mobile apps with {formatList(techStack)}.
         </p>
         <CurrentCompany />
         <InternalLink to="/about" prefetch="intent">

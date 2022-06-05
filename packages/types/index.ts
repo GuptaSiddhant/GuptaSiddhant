@@ -6,6 +6,9 @@ export interface TeaserProps {
   subtitle?: string
   cover?: string
   icon?: string
+  draft?: boolean
+  dateStart?: string
+  date?: string
 }
 
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {

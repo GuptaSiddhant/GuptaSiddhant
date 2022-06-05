@@ -1,7 +1,9 @@
-export {}
+import type { TeaserProps } from "@gs/types"
 
 export interface HomeLoaderData {
   about: About
+  projects: TeaserProps[]
+  blogPosts: TeaserProps[]
 }
 
 export interface About {
@@ -13,4 +15,6 @@ export interface About {
     copyText?: string
   }
   currentCompany: { name: string; hiringLink?: string; link?: string }
+  techStack?: string[]
+  heroAdjectives?: string[]
 }
