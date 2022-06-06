@@ -14,9 +14,9 @@ import {
   useCatch,
 } from "@remix-run/react"
 
-import fontStyles from "~/styles/font.css"
-import tailwindStyles from "~/styles/tailwind.css"
-import prismRhemeStyles from "~/styles/prism-vscode-dark.css"
+import fontStyles from "~/packages/styles/font.css"
+import tailwindStyles from "~/packages/styles/tailwind.css"
+import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 
 import AppLayout from "~/packages/components/AppLayout"
 import useNavigationLinks from "~/features/home/useNavigationLinks"
