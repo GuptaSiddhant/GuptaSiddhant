@@ -1,4 +1,4 @@
-import type { TeaserProps } from "@gs/types"
+import type { TeaserProps } from "@gs/helpers/teaser"
 
 export interface HomeLoaderData {
   about: About

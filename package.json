@@ -7,10 +7,10 @@
   "scripts": {
     "cli:dev": "yarn workspaces guptasiddhant dev",
     "cli:build": "yarn workspace guptasiddhant build",
-    "web:build": "run-s -l web:build:css web:build:remix",
+    "build": "run-s -l web:build:css web:build:remix",
     "web:build:css": "tailwindcss --minify -o ./app/styles/tailwind.css",
     "web:build:remix": "remix build",
-    "web:dev": "run-p web:dev:css web:dev:remix",
+    "dev": "run-p web:dev:css web:dev:remix",
     "web:dev:css": "tailwindcss -w -o ./app/styles/tailwind.css",
     "web:dev:remix": "remix dev",
     "clear": "yarn workspaces foreach -pi run clear",

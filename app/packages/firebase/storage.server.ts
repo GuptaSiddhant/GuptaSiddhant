@@ -12,13 +12,19 @@ export async function getFirebaseStorageFileUrl(path: string) {
 // Fetchers
 
 export async function fetchFirebaseStorageFileUrl(name: string) {
-  const fileResponse = await getStorage()
-    .bucket()
-    .file(name)
-    .getSignedUrl({
-      expires: new Date(Date.now() + 86400000),
-      action: "read",
-    })
+  if (name.startsWith("/") || name.startsWith("http")) return name
 
-  return fileResponse.toString()
+  try {
+    const fileResponse = await getStorage()
+      .bucket()
+      .file(name)
+      .getSignedUrl({
+        expires: new Date(Date.now() + 86400000),
+        action: "read",
+      })
+
+    return fileResponse.toString()
+  } catch {
+    return name
+  }
 }

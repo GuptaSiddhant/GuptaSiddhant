@@ -11,7 +11,21 @@ import { json } from "@remix-run/server-runtime"
 import { fetchBlogPostList } from "~/features/blog/service"
 import { type HomeLoaderData, type About } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
-import { fetchProjectsAll } from "~/features/projects/service"
+import { getProjectList } from "~/features/projects/service"
+
+export async function loader() {
+  const about = await getFirestoreDocument<About>(
+    FirestoreCollection.Info,
+    "about",
+  )
+  if (!about) {
+    throw new Error("No about info found")
+  }
+  const projects = await getProjectList(6)
+  const blogPosts = await fetchBlogPostList(6)
+
+  return json<HomeLoaderData>({ about, projects, blogPosts })
+}
 
 export default function Index() {
   const { projects, blogPosts } = useLoaderData<HomeLoaderData>()
@@ -37,18 +51,4 @@ export default function Index() {
       </TeaserSection>
     </>
   )
-}
-
-export async function loader() {
-  const about = await getFirestoreDocument<About>(
-    FirestoreCollection.Info,
-    "about",
-  )
-  if (!about) {
-    throw new Error("No about info found")
-  }
-  const projects = await fetchProjectsAll(6)
-  const blogPosts = await fetchBlogPostList(6)
-
-  return json<HomeLoaderData>({ about, projects, blogPosts })
 }

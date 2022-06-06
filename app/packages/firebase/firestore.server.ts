@@ -1,13 +1,7 @@
-import {
-  getFirestore,
-  type Timestamp,
-  type DocumentSnapshot,
-  type DocumentData,
-} from "firebase-admin/firestore"
-import type { Gallery, TeaserProps } from "@gs/types"
+import { getFirestore, type DocumentData } from "firebase-admin/firestore"
 
 import cache, { createCacheKey, CacheType } from "./cache.server"
-import { getFirebaseStorageFileUrl } from "./storage.server"
+import { docTransformer } from "@gs/helpers/firestore-helpers.server"
 
 export enum FirestoreCollection {
   Projects = "projects",
@@ -66,48 +60,5 @@ function verifyFirestoreCollection(collectionPath: string) {
     )
   ) {
     throw new Error(`FirestoreCollection '${collectionPath}' does not exist.`)
-  }
-}
-
-async function docTransformer<T extends DocumentData & DummyData>(
-  doc?: DocumentSnapshot<T>,
-): Promise<T> {
-  if (!doc?.exists) throw new Error(`FirestoreDocument does not exist.`)
-
-  const data = doc.data()
-  if (!data) throw new Error(`FirestoreDocument is empty.`)
-
-  const gallery = await Promise.all(
-    (data?.gallery || []).map(async (i) => ({
-      ...i,
-      url: await toImageUrl(i.url),
-    })),
-  )
-
-  return {
-    id: doc.id,
-    ...data,
-    date: data?.date?.toDate?.().toString(),
-    dateStart: data?.dateStart?.toDate?.().toString(),
-    dateEnd: data?.dateEnd?.toDate?.().toString(),
-    gallery,
-    cover: gallery?.[0]?.url,
-  }
-}
-
-interface DummyData {
-  date?: Timestamp
-  dateStart?: Timestamp
-  dateEnd?: Timestamp
-  icon?: string
-  gallery?: Gallery
-}
-
-async function toImageUrl(path: string) {
-  if (path.startsWith("/") || path.startsWith("http")) return path
-  try {
-    return getFirebaseStorageFileUrl(path)
-  } catch {
-    return path
   }
 }
