@@ -1,4 +1,4 @@
-import type { BaseProps } from "@gs/types"
+import type { BaseProps } from "~/packages/types"
 import clsx from "clsx"
 import Logo from "./Logo"
 import { Caption, H1, Paragraph } from "./Text"

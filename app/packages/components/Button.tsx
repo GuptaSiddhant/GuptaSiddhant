@@ -1,4 +1,4 @@
-import useCopy from "@gs/hooks/useCopy"
+import useCopy from "~/packages/hooks/useCopy"
 import clsx from "clsx"
 import {
   forwardRef,

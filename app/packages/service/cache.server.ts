@@ -1,4 +1,4 @@
-import { _1_DAY_IN_MS_ } from "@gs/constants"
+import { _1_DAY_IN_MS_ } from "~/packages/constants"
 import LRUCache from "lru-cache"
 import {
   fetchFireStoreCollection,

@@ -1,5 +1,5 @@
-import { getFirebaseStorageFileUrl } from "@gs/service/storage.server"
-import type { Gallery } from "@gs/types"
+import { getFirebaseStorageFileUrl } from "~/packages/service/storage.server"
+import type { Gallery } from "~/packages/types"
 import type {
   Timestamp,
   DocumentSnapshot,

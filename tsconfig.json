@@ -2,8 +2,7 @@
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "paths": {
-      "~/*": ["./app/*"],
-      "@gs/*": ["./app/packages/*"]
+      "~/*": ["./app/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

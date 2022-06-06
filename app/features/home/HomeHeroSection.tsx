@@ -1,7 +1,7 @@
-import CodeBlock from "@gs/components/CodeBlock"
-import { InternalLink, ExternalLink } from "@gs/components/Link"
-import { ChangingText, H1 } from "@gs/components/Text"
-import { formatList } from "@gs/helpers/format"
+import CodeBlock from "~/packages/components/CodeBlock"
+import { InternalLink, ExternalLink } from "~/packages/components/Link"
+import { ChangingText, H1 } from "~/packages/components/Text"
+import { formatList } from "~/packages/helpers/format"
 import Section from "~/packages/components/Section"
 import { useLoaderData } from "@remix-run/react"
 

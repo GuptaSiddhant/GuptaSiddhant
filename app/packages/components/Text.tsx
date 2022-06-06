@@ -6,8 +6,8 @@ import {
   type ComponentPropsWithoutRef,
 } from "react"
 import { Link } from "@remix-run/react"
-import { toKebabCase } from "@gs/helpers/format"
-import type { BaseProps } from "@gs/types"
+import { toKebabCase } from "~/packages/helpers/format"
+import type { BaseProps } from "~/packages/types"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 

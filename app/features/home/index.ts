@@ -1,4 +1,4 @@
-import type { TeaserProps } from "@gs/helpers/teaser"
+import type { TeaserProps } from "~/packages/helpers/teaser"
 import type { NavigationRemoteConfig } from "../navigation/index.server"
 
 export interface RootLoaderData {

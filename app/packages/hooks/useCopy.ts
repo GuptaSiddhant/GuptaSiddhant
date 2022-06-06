@@ -1,4 +1,4 @@
-import { __IS_SERVER__ } from "@gs/constants"
+import { __IS_SERVER__ } from "~/packages/constants"
 import { useCallback, useEffect, useState } from "react"
 
 export default function useCopy(data: string, timeoutInMs = 3000) {

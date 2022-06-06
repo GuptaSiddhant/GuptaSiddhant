@@ -1,8 +1,8 @@
 import clsx from "clsx"
 
-import { Link } from "@gs/components/Link"
+import { Link } from "~/packages/components/Link"
 import Section, { proseWidth } from "./Section"
-import type { TeaserProps } from "@gs/helpers/teaser"
+import type { TeaserProps } from "~/packages/helpers/teaser"
 
 export interface TeaserSectionProps {
   id?: string

@@ -1,7 +1,7 @@
 import { getFirestore, type DocumentData } from "firebase-admin/firestore"
 
 import cache, { createCacheKey, CacheType } from "./cache.server"
-import { docTransformer } from "@gs/helpers/firestore-helpers.server"
+import { docTransformer } from "~/packages/helpers/firestore-helpers.server"
 
 export enum FirestoreCollection {
   Projects = "projects",

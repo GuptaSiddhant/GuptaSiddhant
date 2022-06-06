@@ -1,6 +1,6 @@
-import { InternalLink } from "@gs/components/Link"
-import { Caption, H2 } from "@gs/components/Text"
-import TeaserSection from "@gs/components/TeaserSection"
+import { InternalLink } from "~/packages/components/Link"
+import { Caption, H2 } from "~/packages/components/Text"
+import TeaserSection from "~/packages/components/TeaserSection"
 import { Link, useLoaderData } from "@remix-run/react"
 
 import { json } from "@remix-run/server-runtime"

@@ -1,5 +1,5 @@
-import { __IS_DEV__ } from "@gs/constants"
-import type { TeaserProps } from "@gs/types"
+import { __IS_DEV__ } from "~/packages/constants"
+import type { TeaserProps } from "~/packages/types"
 import { type DocumentData } from "firebase-admin/firestore"
 
 export { TeaserProps }

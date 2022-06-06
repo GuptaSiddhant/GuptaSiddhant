@@ -2,12 +2,14 @@ import clsx from "clsx"
 import { useCallback, type ReactNode } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import useOffsetScroll from "@gs/hooks/useOffsetScroll"
-import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight"
-import Button from "@gs/components/Button"
-import RoundedCorner from "@gs/icons/RoundedCorner"
+import useOffsetScroll from "~/packages/hooks/useOffsetScroll"
+import useSetHeaderHeight from "~/packages/hooks/useSetHeaderHeight"
+import Button from "~/packages/components/Button"
+import RoundedCorner from "~/packages/icons/RoundedCorner"
 
-import Navigation, { type NavigationLinkProps } from "@gs/components/Navigation"
+import Navigation, {
+  type NavigationLinkProps,
+} from "~/packages/components/Navigation"
 import Logo from "./Logo"
 
 export interface AppLayoutProps {
