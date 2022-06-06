@@ -1,7 +1,10 @@
 import type { TeaserProps } from "@gs/helpers/teaser"
-import { type NavigationRemoteConfig } from "./navigation"
+import type { NavigationRemoteConfig } from "../navigation/index.server"
 
-export interface RootLoaderData extends NavigationRemoteConfig {}
+export interface RootLoaderData {
+  about: About
+  navigationRemoteConfig: NavigationRemoteConfig
+}
 
 export interface HomeLoaderData {
   about: About

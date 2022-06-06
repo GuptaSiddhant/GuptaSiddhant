@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import { useCallback, type ReactNode } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
@@ -9,16 +8,15 @@ import Button from "@gs/components/Button"
 import RoundedCorner from "@gs/icons/RoundedCorner"
 
 import Navigation, { type NavigationLinkProps } from "@gs/components/Navigation"
+import Logo from "./Logo"
 
 export interface AppLayoutProps {
   children: ReactNode
-  logoElement: ReactNode
   navigationLinks?: NavigationLinkProps[]
 }
 
 export default function AppLayout({
   children,
-  logoElement,
   navigationLinks = [],
 }: AppLayoutProps): JSX.Element {
   const headerRef = useSetHeaderHeight()
@@ -39,16 +37,8 @@ export default function AppLayout({
           "py-2 px-4 sm:px-8",
         )}
       >
-        <Link
-          to="/"
-          data-custom-color
-          data-custom-border
-          className={
-            "select-none text-ellipsis overflow-hidden whitespace-nowrap"
-          }
-        >
-          {logoElement}
-        </Link>
+        <Logo />
+
         <Navigation links={navigationLinks} />
         <RoundedCorner className="top-full left-4 rotate-0" />
         <RoundedCorner className="top-full right-4 rotate-90" />

@@ -1,22 +1,14 @@
-import { useLoaderData } from "@remix-run/react"
 import { useMemo } from "react"
+import type { NavigationLinkProps } from "~/packages/components/Navigation"
+import type { NavigationRemoteConfig } from "./service.server"
 import GithubIcon from "remixicon-react/GithubFillIcon"
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
-import { type NavigationLinkProps } from "@gs/components/Navigation"
-import { type RootLoaderData } from "."
-import {
-  getAreFeaturesEnabled,
-  RemoteConfigKey,
-} from "~/packages/service/remote-config.server"
 
-const navigationRemoteConfigKeys = [
-  RemoteConfigKey.About,
-  RemoteConfigKey.Search,
-] as const
-
-export function useNavigationLinks(): NavigationLinkProps[] {
-  const { enableAbout, enableSearch } = useLoaderData<RootLoaderData>()
+export default function useNavigationLinks(
+  navigationRemoteConfig: NavigationRemoteConfig,
+): NavigationLinkProps[] {
+  const { enableAbout, enableSearch } = navigationRemoteConfig
 
   return useMemo(() => {
     const aboutLinks: NavigationLinkProps[] = enableAbout
@@ -47,26 +39,4 @@ export function useNavigationLinks(): NavigationLinkProps[] {
       ...searchLinks,
     ]
   }, [enableAbout, enableSearch])
-}
-
-export function Logo(): JSX.Element | null {
-  return (
-    <span
-      role="presentation"
-      className={
-        "text-xl font-black uppercase leading-normal tracking-widest text-primary"
-      }
-    >
-      Siddhant Gupta
-    </span>
-  )
-}
-
-// Helpers
-
-export interface NavigationRemoteConfig
-  extends Record<typeof navigationRemoteConfigKeys[number], boolean> {}
-
-export async function getNavigationRemoteConfig() {
-  return getAreFeaturesEnabled(...navigationRemoteConfigKeys)
 }

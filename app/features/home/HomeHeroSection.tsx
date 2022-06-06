@@ -2,7 +2,7 @@ import CodeBlock from "@gs/components/CodeBlock"
 import { InternalLink, ExternalLink } from "@gs/components/Link"
 import { ChangingText, H1 } from "@gs/components/Text"
 import { formatList } from "@gs/helpers/format"
-import Section from "@gs/layouts/Section"
+import Section from "~/packages/components/Section"
 import { useLoaderData } from "@remix-run/react"
 
 import { type HomeLoaderData } from "."

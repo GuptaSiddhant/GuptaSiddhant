@@ -1,26 +1,17 @@
 import { InternalLink } from "@gs/components/Link"
 import { Caption, H2 } from "@gs/components/Text"
-import {
-  getFirestoreDocument,
-  FirestoreCollection,
-} from "@gs/service/firestore.server"
-import TeaserSection from "@gs/layouts/TeaserSection"
+import TeaserSection from "@gs/components/TeaserSection"
 import { Link, useLoaderData } from "@remix-run/react"
 
 import { json } from "@remix-run/server-runtime"
-import { fetchBlogPostList } from "~/features/blog/service"
-import { type HomeLoaderData, type About } from "~/features/home"
+import { fetchBlogPostList } from "~/features/blog/service.server"
+import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
-import { getProjectList } from "~/features/projects/service"
+import { getProjectList } from "~/features/projects/service.server"
+import { getAboutInfo } from "~/features/home/service.server"
 
 export async function loader() {
-  const about = await getFirestoreDocument<About>(
-    FirestoreCollection.Info,
-    "about",
-  )
-  if (!about) {
-    throw new Error("No about info found")
-  }
+  const about = await getAboutInfo()
   const projects = await getProjectList(6)
   const blogPosts = await fetchBlogPostList(6)
 
