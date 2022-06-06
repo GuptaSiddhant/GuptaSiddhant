@@ -9,6 +9,8 @@ export interface TeaserProps {
   draft?: boolean
   dateStart?: string
   date?: string
+  dateEnd?: string
+  gallery?: Gallery
 }
 
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {

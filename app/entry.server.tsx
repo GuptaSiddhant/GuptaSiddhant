@@ -11,6 +11,7 @@ global.firebaseApp ||
   (global.firebaseApp = initializeApp({
     credential: cert(serviceAccount),
     databaseURL: "https://guptasiddhant-com.firebaseio.com",
+    storageBucket: "guptasiddhant-com.appspot.com",
   }))
 
 export default function handleRequest(

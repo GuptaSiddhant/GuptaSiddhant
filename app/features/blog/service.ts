@@ -1,27 +1,17 @@
 import { __IS_DEV__ } from "@gs/constants"
 import {
   FirestoreCollection,
-  readDocument,
+  getFirestoreCollection,
 } from "@gs/firebase/firestore.server"
 import type { TeaserProps } from "@gs/types"
 
 const collectionName = FirestoreCollection.Blog
 
-export async function fetchBlogPostList(): Promise<TeaserProps[]> {
-  return readDocument(FirestoreCollection.Info, collectionName).then(
-    transformDataToTeaserList,
-  )
-}
+export async function fetchBlogPostList(limit = 10): Promise<TeaserProps[]> {
+  const collection =
+    (await getFirestoreCollection<TeaserProps>(collectionName)) || []
 
-function transformDataToTeaserList(data: Record<string, TeaserProps>) {
-  return Object.values(data)
+  return collection
     .filter((teaser) => __IS_DEV__ || !teaser.draft)
-    .map((teaser) => ({
-      ...teaser,
-      date:
-        typeof teaser.date === "string"
-          ? teaser.date
-          : (teaser.date as any).toDate(),
-    }))
-    .sort((a, b) => (b.date > a.date ? 1 : -1))
+    .slice(0, limit)
 }

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "paths": {
       "~/*": ["./app/*"],
-      "@gs/*": ["./packages/*"]
+      "@gs/*": ["./app/packages/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

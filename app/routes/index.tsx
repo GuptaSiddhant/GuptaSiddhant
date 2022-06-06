@@ -1,7 +1,7 @@
 import { InternalLink } from "@gs/components/Link"
 import { Caption, H2 } from "@gs/components/Text"
 import {
-  readDocument,
+  getFirestoreDocument,
   FirestoreCollection,
 } from "@gs/firebase/firestore.server"
 import TeaserSection from "@gs/layouts/TeaserSection"
@@ -11,7 +11,7 @@ import { json } from "@remix-run/server-runtime"
 import { fetchBlogPostList } from "~/features/blog/service"
 import { type HomeLoaderData, type About } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
-import { fetchProjectList } from "~/features/projects/service"
+import { fetchProjectsAll } from "~/features/projects/service"
 
 export default function Index() {
   const { projects, blogPosts } = useLoaderData<HomeLoaderData>()
@@ -40,9 +40,15 @@ export default function Index() {
 }
 
 export async function loader() {
-  const about = await readDocument<About>(FirestoreCollection.Info, "about")
-  const projects = (await fetchProjectList()).slice(0, 6)
-  const blogPosts = (await fetchBlogPostList()).slice(0, 6)
+  const about = await getFirestoreDocument<About>(
+    FirestoreCollection.Info,
+    "about",
+  )
+  if (!about) {
+    throw new Error("No about info found")
+  }
+  const projects = await fetchProjectsAll(6)
+  const blogPosts = await fetchBlogPostList(6)
 
   return json<HomeLoaderData>({ about, projects, blogPosts })
 }

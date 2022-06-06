@@ -21,7 +21,7 @@ export default function TeaserSection({
   className,
   crossSell,
 }: TeaserSectionProps): JSX.Element | null {
-  if (items.length === 0) return null
+  if (items?.length === 0) return null
 
   return (
     <Section id={id}>
@@ -44,10 +44,10 @@ export default function TeaserSection({
       >
         {items.map((item) => (
           <TeaserCard
-            key={item.id}
             {...item}
             linkBaseUrl={linkBaseUrl}
             small={crossSell}
+            key={item.id}
           />
         ))}
       </ul>
