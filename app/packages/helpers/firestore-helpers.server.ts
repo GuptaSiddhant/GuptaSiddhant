@@ -1,4 +1,4 @@
-import { getFirebaseStorageFileUrl } from "@gs/firebase/storage.server"
+import { getFirebaseStorageFileUrl } from "@gs/service/storage.server"
 import type { Gallery } from "@gs/types"
 import type {
   Timestamp,

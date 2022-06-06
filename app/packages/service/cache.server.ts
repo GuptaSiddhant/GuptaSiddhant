@@ -5,6 +5,7 @@ import {
   fetchFireStoreDocument,
 } from "./firestore.server"
 import { fetchFirebaseStorageFileUrl } from "./storage.server"
+import { fetchRemoteConfig } from "./remote-config.server"
 
 const cacheKeySeparator = "---"
 
@@ -12,18 +13,21 @@ export enum CacheType {
   FirestoreCollection = "firestoreCollection",
   FirestoreDocument = "firestoreDocument",
   FirebaseStorageFileUrl = "firebaseStorageFileUrl",
+  RemoteConfig = "remoteConfig",
 }
 
 const cacheFetchMethod: Record<CacheType, (value: string) => Promise<any>> = {
   [CacheType.FirestoreCollection]: fetchFireStoreCollection,
   [CacheType.FirestoreDocument]: fetchFireStoreDocument,
   [CacheType.FirebaseStorageFileUrl]: fetchFirebaseStorageFileUrl,
+  [CacheType.RemoteConfig]: fetchRemoteConfig,
 }
 
 const cache =
   global.cache ||
   (global.cache = new LRUCache<string, any>({
     max: 100,
+    allowStale: true,
     ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || _1_DAY_IN_MS_,
     fetchMethod: (key) => {
       const [type, value] = key.split(cacheKeySeparator)
@@ -39,8 +43,8 @@ const cache =
 
 export default cache
 
-export function createCacheKey(type: CacheType, value: string) {
-  return [type, value].join(cacheKeySeparator)
+export function createCacheKey(type: CacheType, value?: string) {
+  return [type, value].filter(Boolean).join(cacheKeySeparator)
 }
 
 export function logCache(...message: any[]) {

@@ -1,7 +1,7 @@
 import {
   FirestoreCollection,
   getFirestoreCollection,
-} from "@gs/firebase/firestore.server"
+} from "@gs/service/firestore.server"
 import { getTeasersFromCollection, type TeaserProps } from "@gs/helpers/teaser"
 
 const collectionName = FirestoreCollection.Projects

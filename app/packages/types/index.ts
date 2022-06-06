@@ -1,5 +1,15 @@
 import type { CSSProperties, ReactNode } from "react"
 
+export interface TeaserProps {
+  id: string
+  title: string
+  subtitle?: string
+  cover?: string
+  icon?: string
+  draft?: boolean
+  date?: string
+}
+
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {
   id?: string
   className?: string

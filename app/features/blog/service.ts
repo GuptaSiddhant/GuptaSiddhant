@@ -2,8 +2,8 @@ import { __IS_DEV__ } from "@gs/constants"
 import {
   FirestoreCollection,
   getFirestoreCollection,
-} from "@gs/firebase/firestore.server"
-import type { TeaserProps } from "@gs/types"
+} from "@gs/service/firestore.server"
+import type { TeaserProps } from "@gs/helpers/teaser"
 
 const collectionName = FirestoreCollection.Blog
 

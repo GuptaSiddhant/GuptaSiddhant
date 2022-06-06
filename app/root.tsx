@@ -1,4 +1,8 @@
-import type { MetaFunction, LinksFunction } from "@remix-run/server-runtime"
+import {
+  json,
+  type MetaFunction,
+  type LinksFunction,
+} from "@remix-run/server-runtime"
 import {
   Links,
   LiveReload,
@@ -8,47 +12,31 @@ import {
   ScrollRestoration,
 } from "@remix-run/react"
 import clsx from "clsx"
-import { useMemo } from "react"
-import GithubIcon from "remixicon-react/GithubFillIcon"
-import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
-import SearchIcon from "remixicon-react/Search2LineIcon"
 
 import fontStyles from "~/styles/font.css"
 import tailwindStyles from "~/styles/tailwind.css"
 import prismRhemeStyles from "~/styles/prism-vscode-dark.css"
 
-import AppLayout, { type AppLayoutProps } from "@gs/layouts/AppLayout"
+import AppLayout from "@gs/layouts/AppLayout"
+import {
+  Logo,
+  getNavigationRemoteConfig,
+  useNavigationLinks,
+} from "./features/home/navigation"
+import { type RootLoaderData } from "./features/home"
 
 const intlListFormatPolyfillScript =
   "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"
 
 export default function App() {
-  const navigationLinks: AppLayoutProps["navigationLinks"] = useMemo(
-    () => [
-      { id: "about", to: "/about", children: "About" },
-      { id: "projects", to: "/projects", children: "Projects" },
-      { id: "blog", to: "/blog", children: "Blog" },
-      {
-        id: "GitHub",
-        to: "https://",
-        children: <GithubIcon />,
-      },
-      {
-        id: "LinkedIn",
-        to: "https://",
-        children: <LinkedinIcon />,
-      },
-      {
-        id: "Search",
-        onClick: () => {},
-        children: <SearchIcon />,
-      },
-    ],
-    [],
-  )
+  const navigationLinks = useNavigationLinks()
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      dir="ltr"
+      className="text-[14px] sm:text-[16px] lg:text-[18px] m-0 p-0"
+    >
       <head>
         <Meta />
         <Links />
@@ -64,6 +52,11 @@ export default function App() {
       </body>
     </html>
   )
+}
+
+export async function loader() {
+  const enabledNavigation = await getNavigationRemoteConfig()
+  return json<RootLoaderData>({ ...enabledNavigation })
 }
 
 export const meta: MetaFunction = () => {
@@ -114,16 +107,3 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: tailwindStyles },
   { rel: "stylesheet", href: prismRhemeStyles },
 ]
-
-function Logo(): JSX.Element | null {
-  return (
-    <span
-      role="presentation"
-      className={
-        "text-xl font-black uppercase leading-normal tracking-widest text-primary"
-      }
-    >
-      Siddhant Gupta
-    </span>
-  )
-}

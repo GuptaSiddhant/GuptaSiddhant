@@ -3,7 +3,7 @@ import { Caption, H2 } from "@gs/components/Text"
 import {
   getFirestoreDocument,
   FirestoreCollection,
-} from "@gs/firebase/firestore.server"
+} from "@gs/service/firestore.server"
 import TeaserSection from "@gs/layouts/TeaserSection"
 import { Link, useLoaderData } from "@remix-run/react"
 

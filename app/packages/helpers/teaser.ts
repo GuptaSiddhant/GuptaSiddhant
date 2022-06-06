@@ -1,15 +1,8 @@
 import { __IS_DEV__ } from "@gs/constants"
+import type { TeaserProps } from "@gs/types"
 import { type DocumentData } from "firebase-admin/firestore"
 
-export interface TeaserProps {
-  id: string
-  title: string
-  subtitle?: string
-  cover?: string
-  icon?: string
-  draft?: boolean
-  date?: string
-}
+export { TeaserProps }
 
 export function getTeasersFromCollection(
   collection: DocumentData[] = [],

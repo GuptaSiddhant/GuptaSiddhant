@@ -1,4 +1,4 @@
-import cache, { logCache } from "@gs/firebase/cache.server"
+import cache, { logCache } from "@gs/service/cache.server"
 import { json, redirect, type LoaderFunction } from "@remix-run/node"
 
 /**
