@@ -10,7 +10,7 @@ import RoundedCorner from "~/packages/icons/RoundedCorner"
 import Navigation, {
   type NavigationLinkProps,
 } from "~/packages/components/Navigation"
-import Logo from "./Logo"
+import Logo from "../components/Logo"
 
 export interface AppLayoutProps {
   children: ReactNode

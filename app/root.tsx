@@ -18,7 +18,7 @@ import fontStyles from "~/packages/styles/font.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
 import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 
-import AppLayout from "~/packages/components/AppLayout"
+import AppLayout from "~/packages/layouts/AppLayout"
 import useNavigationLinks from "~/features/home/useNavigationLinks"
 import { type RootLoaderData } from "~/features/home"
 import {
