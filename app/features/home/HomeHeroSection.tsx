@@ -16,7 +16,7 @@ export default function HomeHeroSection(): JSX.Element {
     <Section.Hero>
       <H1>
         Hi, I bring designs to life on your screen,
-        <ChangingText texts={heroAdjectives.sort()} />.
+        <ChangingText texts={heroAdjectives} />.
       </H1>
       <div className="flex flex-col gap-4">
         <p>

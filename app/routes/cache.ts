@@ -1,5 +1,6 @@
+import { type LoaderFunction, json, redirect } from "@remix-run/node"
+
 import cache, { logCache } from "~/packages/service/cache.server"
-import { json, redirect, type LoaderFunction } from "@remix-run/node"
 
 /**
  * Cache API endpoint for all fetched data.

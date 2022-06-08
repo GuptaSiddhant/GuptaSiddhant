@@ -1,14 +1,14 @@
-import { InternalLink } from "~/packages/components/Link"
-import { Caption, H2 } from "~/packages/components/Text"
-import TeaserSection from "~/packages/components/TeaserSection"
 import { Link, useLoaderData } from "@remix-run/react"
-
 import { json } from "@remix-run/server-runtime"
+
 import { fetchBlogPostList } from "~/features/blog/service.server"
 import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
-import { getProjectList } from "~/features/projects/service.server"
 import { getAboutInfo } from "~/features/home/service.server"
+import { getProjectList } from "~/features/projects/service.server"
+import { InternalLink } from "~/packages/components/Link"
+import { Caption, H2 } from "~/packages/components/Text"
+import TeaserSection from "~/packages/ui/TeaserSection"
 
 export async function loader() {
   const about = await getAboutInfo()
