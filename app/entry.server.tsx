@@ -1,7 +1,7 @@
-import type { EntryContext } from "@remix-run/server-runtime"
 import { RemixServer } from "@remix-run/react"
+import type { EntryContext } from "@remix-run/server-runtime"
+import { cert,initializeApp } from "firebase-admin/app"
 import { renderToString } from "react-dom/server"
-import { initializeApp, cert } from "firebase-admin/app"
 
 const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "",

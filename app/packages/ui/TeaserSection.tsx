@@ -1,4 +1,5 @@
 import clsx from "clsx"
+
 import Section, { proseWidth } from "~/packages/components/Section"
 import TeaserCard from "~/packages/components/TeaserCard"
 import type { TeaserProps } from "~/packages/helpers/teaser"

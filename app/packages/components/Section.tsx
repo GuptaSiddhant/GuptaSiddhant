@@ -1,5 +1,7 @@
-import type { BaseProps } from "~/packages/types"
 import clsx from "clsx"
+
+import type { BaseProps } from "~/packages/types"
+
 import Logo from "./Logo"
 import { Caption, H1, Paragraph } from "./Text"
 

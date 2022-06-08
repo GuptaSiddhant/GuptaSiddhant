@@ -1,10 +1,11 @@
+import type {
+  DocumentData,
+  DocumentSnapshot,
+  Timestamp,
+} from "firebase-admin/firestore"
+
 import { getFirebaseStorageFileUrl } from "~/packages/service/storage.server"
 import type { Gallery } from "~/packages/types"
-import type {
-  Timestamp,
-  DocumentSnapshot,
-  DocumentData,
-} from "firebase-admin/firestore"
 
 export interface BaseData {
   date?: Timestamp

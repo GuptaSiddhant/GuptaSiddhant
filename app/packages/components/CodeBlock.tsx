@@ -1,9 +1,11 @@
 import clsx from "clsx"
-import Highlight, { defaultProps, type Language } from "prism-react-renderer"
+import Highlight, { type Language,defaultProps } from "prism-react-renderer"
+
 import {
-  isLanguageSupported,
   getLanguageBadgeProperties,
+  isLanguageSupported,
 } from "~/packages/helpers/code-lang"
+
 import { CopyButton } from "./Button"
 
 export interface CodeBlockProps {

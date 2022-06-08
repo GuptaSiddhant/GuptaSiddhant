@@ -1,11 +1,11 @@
 import {
+  type TeaserProps,
+  getTeasersFromCollection,
+} from "~/packages/helpers/teaser"
+import {
   FirestoreCollection,
   getFirestoreCollection,
 } from "~/packages/service/firestore.server"
-import {
-  getTeasersFromCollection,
-  type TeaserProps,
-} from "~/packages/helpers/teaser"
 
 const collectionName = FirestoreCollection.Projects
 

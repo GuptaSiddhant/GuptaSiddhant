@@ -1,6 +1,6 @@
 import { NavLink } from "@remix-run/react"
-import type { To } from "react-router"
 import type { ReactNode } from "react"
+import type { To } from "react-router"
 
 import { isExternalLink } from "~/packages/helpers"
 

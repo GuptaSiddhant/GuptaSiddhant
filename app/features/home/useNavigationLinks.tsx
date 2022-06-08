@@ -1,9 +1,11 @@
 import { useMemo } from "react"
-import type { NavigationLinkProps } from "~/packages/components/Navigation"
-import type { NavigationRemoteConfig } from "./service.server"
 import GithubIcon from "remixicon-react/GithubFillIcon"
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
+
+import type { NavigationLinkProps } from "~/packages/components/Navigation"
+
+import type { NavigationRemoteConfig } from "./service.server"
 
 export default function useNavigationLinks(
   navigationRemoteConfig: NavigationRemoteConfig,

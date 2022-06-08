@@ -1,12 +1,12 @@
-import { Link, type LinkProps } from "@remix-run/react"
+import { type LinkProps,Link } from "@remix-run/react"
 import clsx from "clsx"
 import { type ComponentPropsWithoutRef } from "react"
 
 import { isExternalLink } from "~/packages/helpers"
-import type { BaseProps } from "~/packages/types"
 import ExternalLinkIcon from "~/packages/icons/ExternalLinkIcon"
+import type { BaseProps } from "~/packages/types"
 
-export { Link, type LinkProps }
+export { type LinkProps,Link }
 
 export interface ExternalLinkProps {
   href?: string

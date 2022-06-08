@@ -1,11 +1,12 @@
+import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import {
+  type ComponentPropsWithoutRef,
   Children,
   useEffect,
   useState,
-  type ComponentPropsWithoutRef,
 } from "react"
-import { Link } from "@remix-run/react"
+
 import { toKebabCase } from "~/packages/helpers/format"
 import type { BaseProps } from "~/packages/types"
 

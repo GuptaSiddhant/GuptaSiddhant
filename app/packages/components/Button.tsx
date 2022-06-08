@@ -1,11 +1,12 @@
-import useCopy from "~/packages/hooks/useCopy"
 import clsx from "clsx"
 import {
-  forwardRef,
-  type ForwardedRef,
   type ComponentPropsWithoutRef,
+  type ForwardedRef,
+  forwardRef,
 } from "react"
 import CopyIcon from "remixicon-react/FileCopyLineIcon"
+
+import useCopy from "~/packages/hooks/useCopy"
 
 export default function Button({
   className,

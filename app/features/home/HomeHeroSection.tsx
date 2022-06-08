@@ -1,9 +1,10 @@
+import { useLoaderData } from "@remix-run/react"
+
 import CodeBlock from "~/packages/components/CodeBlock"
-import { InternalLink, ExternalLink } from "~/packages/components/Link"
+import { ExternalLink,InternalLink } from "~/packages/components/Link"
+import Section from "~/packages/components/Section"
 import { ChangingText, H1 } from "~/packages/components/Text"
 import { formatList } from "~/packages/helpers/format"
-import Section from "~/packages/components/Section"
-import { useLoaderData } from "@remix-run/react"
 
 import { type HomeLoaderData } from "."
 

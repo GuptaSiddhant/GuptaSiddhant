@@ -1,34 +1,34 @@
 import {
-  json,
-  type MetaFunction,
-  type LinksFunction,
-} from "@remix-run/server-runtime"
-import {
+  Links,
   LiveReload,
+  Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  Links,
-  useLoaderData,
-  Meta,
   useCatch,
+  useLoaderData,
 } from "@remix-run/react"
+import {
+  type LinksFunction,
+  type MetaFunction,
+  json,
+} from "@remix-run/server-runtime"
+import clsx from "clsx"
+import type { ReactNode } from "react"
 
-import fontStyles from "~/packages/styles/font.css"
-import tailwindStyles from "~/packages/styles/tailwind.css"
-import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
-
-import AppLayout from "~/packages/layouts/AppLayout"
-import useNavigationLinks from "~/features/home/useNavigationLinks"
 import { type RootLoaderData } from "~/features/home"
 import {
   getAboutInfo,
   getNavigationRemoteConfig,
 } from "~/features/home/service.server"
-import Section from "./packages/components/Section"
-import clsx from "clsx"
-import type { ReactNode } from "react"
+import useNavigationLinks from "~/features/home/useNavigationLinks"
+import AppLayout from "~/packages/layouts/AppLayout"
+import fontStyles from "~/packages/styles/font.css"
+import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
+import tailwindStyles from "~/packages/styles/tailwind.css"
+
 import CodeBlock from "./packages/components/CodeBlock"
+import Section from "./packages/components/Section"
 
 export async function loader() {
   const about = await getAboutInfo()

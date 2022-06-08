@@ -1,6 +1,6 @@
 import {
-  getFirestoreDocument,
   FirestoreCollection,
+  getFirestoreDocument,
 } from "~/packages/service/firestore.server"
 import {
   getAreFeaturesEnabled,
