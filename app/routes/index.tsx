@@ -20,25 +20,32 @@ export async function loader() {
 
 export default function Index() {
   const { projects, blogPosts } = useLoaderData<HomeLoaderData>()
+  const projectsId = "projects"
+  const blogId = "blog"
 
   return (
     <>
       <HomeHeroSection />
 
-      <TeaserSection items={projects} linkBaseUrl="/projects/">
+      <TeaserSection
+        id={projectsId}
+        items={projects}
+        linkBaseUrl={`/${projectsId}/`}
+        className="bg-gradient-to-t from-gray-900 to-gray-800"
+      >
         <Caption>
-          <Link to={"#projects"}>Projects</Link>
+          <Link to={"#" + projectsId}>Projects</Link>
         </Caption>
         <H2 className="!p-0">Stuff I've been tinkering with</H2>
-        <InternalLink to="/projects">View all projects</InternalLink>
+        <InternalLink to={`/${projectsId}/`}>View all projects</InternalLink>
       </TeaserSection>
 
-      <TeaserSection items={blogPosts} linkBaseUrl="/blog/">
+      <TeaserSection id={blogId} items={blogPosts} linkBaseUrl={`/${blogId}/`}>
         <Caption>
-          <Link to={"#blog"}>Recent posts</Link>
+          <Link to={"#" + blogId}>Recent posts</Link>
         </Caption>
         <H2 className="!p-0">Recent thoughts and ideas...</H2>
-        <InternalLink to="/blog">View all blog posts</InternalLink>
+        <InternalLink to={`/${blogId}/`}>View all blog posts</InternalLink>
       </TeaserSection>
     </>
   )

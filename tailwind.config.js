@@ -1,5 +1,5 @@
 const colors = require("tailwindcss/colors")
-const { gray, emerald, rose, sky, white, black } = colors
+const { emerald, rose, sky } = colors
 
 /**
  * @typedef {import("@types/tailwindcss/tailwind-config").TailwindThemeColors} TailwindThemeColors
@@ -9,13 +9,13 @@ const { gray, emerald, rose, sky, white, black } = colors
 
 /** @type {TailwindThemeColors} */
 const textColor = ({ theme }) => ({
-  default: gray[100],
-  primary: white,
-  secondary: gray[200],
-  tertiary: gray[300],
-  quaternary: gray[400],
-  disabled: gray[500],
-  inverse: gray[800],
+  default: theme("colors.gray.100"),
+  primary: theme("colors.white"),
+  secondary: theme("colors.gray.200"),
+  tertiary: theme("colors.gray.300"),
+  quaternary: theme("colors.gray.400"),
+  disabled: theme("colors.gray.500"),
+  inverse: theme("colors.gray.800"),
   link: theme("colors.blue.400"),
   "link-hover": theme("colors.blue.300"),
   error: theme("colors.red.400"),
@@ -24,13 +24,13 @@ const textColor = ({ theme }) => ({
 
 /** @type {TailwindThemeColors} */
 const backgroundColor = ({ theme }) => ({
-  default: black,
-  primary: gray[900],
-  secondary: gray[800],
-  tertiary: gray[700],
-  quaternary: gray[600],
-  disabled: gray[500],
-  inverse: gray[200],
+  default: theme("colors.black"),
+  primary: theme("colors.gray.900"),
+  secondary: theme("colors.gray.800"),
+  tertiary: theme("colors.gray.700"),
+  quaternary: theme("colors.gray.600"),
+  disabled: theme("colors.gray.500"),
+  inverse: theme("colors.gray.200"),
   progress: theme("colors.blue.400"),
 })
 
@@ -59,14 +59,14 @@ const config = {
         "2xl": "1700px",
         "3xl": "2200px",
       },
+      animation: {
+        appear: "appear 0.2s linear",
+      },
       keyframes: {
         appear: {
           "0%": { transform: "translateY(50%)", opacity: "0" },
           "100%": { transform: "translateY(0)" },
         },
-      },
-      animation: {
-        appear: "appear 0.2s linear",
       },
       maxHeight: {
         "screen-main": "calc(100vh - 100px)",
@@ -82,6 +82,9 @@ const config = {
       },
       gridTemplateColumns: {
         markdown: "200px auto 200px",
+      },
+      scrollMargin: {
+        "header-height": `var(--header-height)`,
       },
     },
   },

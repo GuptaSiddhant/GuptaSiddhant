@@ -32,7 +32,7 @@ export default function TeaserCard({
         <div
           className={clsx(
             "absolute bottom-0 left-0 right-0",
-            "bg-gradient-to-t from-gray-900",
+            "bg-gradient-to-t from-gray-900 to-transparent",
             "p-4 transition-[padding] duration-300 group-hover:py-8 group-focus:py-8",
           )}
         >

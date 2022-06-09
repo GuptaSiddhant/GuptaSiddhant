@@ -16,8 +16,8 @@ export default function Section({
     <section
       {...props}
       className={clsx(
-        "relative ",
-        "w-full py-[10vh]",
+        "relative",
+        "w-full py-[10vh] scroll-mt-header-height",
         "flex flex-col gap-12",
         className,
       )}

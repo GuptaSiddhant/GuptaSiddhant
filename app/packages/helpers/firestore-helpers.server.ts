@@ -62,9 +62,10 @@ async function convertAllStorageFilesToUrls(data: BaseData) {
 }
 
 async function convertImageLinksInText(content: string) {
+  const markdownImageRegex = /!\[[^\]]*\]\([^)]*\)?\)/g
   const imageLinks =
     content
-      .match(/!\[[^\]]*\]\([^\)]*\)?\)/g)
+      .match(markdownImageRegex)
       ?.map(
         (markdown) => markdown.split("](")[1].split(")")[0].split(" ")[0],
       ) || []

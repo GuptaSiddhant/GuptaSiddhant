@@ -24,6 +24,7 @@ import {
 import useNavigationLinks from "~/features/home/useNavigationLinks"
 import AppLayout from "~/packages/layouts/AppLayout"
 import fontStyles from "~/packages/styles/font.css"
+import globalStyles from "~/packages/styles/global.css"
 import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
 
@@ -98,6 +99,7 @@ export const links: LinksFunction = () => [
   },
   { rel: "manifest", href: "/site.webmanifest" },
   { rel: "stylesheet", href: fontStyles },
+  { rel: "stylesheet", href: globalStyles },
   { rel: "stylesheet", href: tailwindStyles },
   { rel: "stylesheet", href: prismRhemeStyles },
 ]

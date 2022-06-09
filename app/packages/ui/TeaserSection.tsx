@@ -24,7 +24,7 @@ export default function TeaserSection({
   if (items?.length === 0) return null
 
   return (
-    <Section id={id}>
+    <Section id={id} className={className}>
       {children ? (
         <div className={clsx("flex flex-col gap-4 w-full", proseWidth)}>
           {children}
@@ -33,14 +33,12 @@ export default function TeaserSection({
 
       <ul
         className={clsx(
-          className,
+          "hide-scroll",
           "flex gap-4 sm:gap-10",
           "w-full overflow-auto py-4",
           "snap-x snap-mandatory",
         )}
-        style={{
-          paddingLeft: `calc((100vw - 64ch) / 2)`,
-        }}
+        style={{ paddingLeft: `max(1rem, calc((100vw - 64ch) / 2))` }}
       >
         {items.map((item) => (
           <TeaserCard
