@@ -11,12 +11,18 @@ type SortByType = "latest" | "oldest" | "featured"
 export default function filterSortTeasers(
   teasers: TeaserProps[],
   searchParams?: URLSearchParams,
+  options?: {
+    defaultViewAs?: ViewAsType
+    defaultSortBy?: SortByType
+  },
 ) {
+  const { defaultViewAs = "grid", defaultSortBy = "latest" } = options || {}
+
   const tags = getUniqueTagsFromTeaserProps(teasers)
 
   const selectedTag = searchParams?.get("tag") ?? undefined
-  const viewAs = (searchParams?.get("view") ?? "grid") as ViewAsType
-  const sortBy = (searchParams?.get("sort") || "latest") as SortByType
+  const viewAs = (searchParams?.get("view") ?? defaultViewAs) as ViewAsType
+  const sortBy = (searchParams?.get("sort") ?? defaultSortBy) as SortByType
 
   const sortPredicate =
     sortBy === "oldest"

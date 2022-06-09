@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/server-runtime"
 
-import { fetchBlogPostTeaserList } from "~/features/blog/service.server"
+import { getBlogPostTeaserList } from "~/features/blog/service.server"
 import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
 import { getAboutInfo } from "~/features/home/service.server"
@@ -13,7 +13,7 @@ import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 export async function loader() {
   const about = await getAboutInfo()
   const projects = await getProjectTeaserList(6)
-  const blogPosts = await fetchBlogPostTeaserList(6)
+  const blogPosts = await getBlogPostTeaserList(6)
 
   return json<HomeLoaderData>({ about, projects, blogPosts })
 }

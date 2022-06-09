@@ -1,7 +1,7 @@
 import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
-import { getProjectTeaserList } from "~/features/projects/service.server"
+import { getBlogPostTeaserList } from "~/features/blog/service.server"
 import { H1, Paragraph } from "~/packages/components/Text"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
@@ -14,27 +14,27 @@ interface LoaderData extends FilterSortTeasersReturn {}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
-  const projects = await getProjectTeaserList(100)
-  const filterSortTeasersReturn = filterSortTeasers(projects, searchParams)
+  const blogPosts = await getBlogPostTeaserList(100)
+  const filterSortTeasersReturn = filterSortTeasers(blogPosts, searchParams, {
+    defaultViewAs: "list",
+  })
 
   return json<LoaderData>({ ...filterSortTeasersReturn })
 }
 
-export default function Projects(): JSX.Element {
+export default function Blog(): JSX.Element {
   const { teasers, ...filterSortFormProps } = useLoaderData<LoaderData>()
 
   return (
     <>
       <TeaserHero
         {...filterSortFormProps}
-        filterPlaceholder="All projects"
+        filterPlaceholder="All posts"
         teasersCount={teasers.length}
       >
-        <H1>Projects</H1>
+        <H1>Blog</H1>
         <Paragraph className="text-secondary">
-          I have been busy over the years, trying different things. Some are
-          big, some are small and some are unfinished. Nonetheless, I am proud
-          of each one of them.
+          Thoughts on somethings. Sometimes everything.
         </Paragraph>
       </TeaserHero>
 
