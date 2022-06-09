@@ -9,19 +9,20 @@ import RadioGroup from "~/packages/components/RadioGroup"
 import Select from "~/packages/components/Select"
 import { capitalize } from "~/packages/helpers/format"
 
-export interface FilterSortFormProps {
-  sortBy?: string
-  tags?: { value: string; occurrence: number }[]
-  selectedTag?: string
-  viewAs?: string
+import type { FilterSortTeasersReturn } from "./filter-sort"
+
+export interface TeaserFilterSortFormProps
+  extends Omit<FilterSortTeasersReturn, "teasers"> {
+  filterPlaceholder?: string
 }
 
-export default function FilterSortForm({
+export default function TeaserFilterSortForm({
   sortBy,
   tags = [],
   selectedTag,
   viewAs,
-}: FilterSortFormProps): JSX.Element | null {
+  filterPlaceholder = "All",
+}: TeaserFilterSortFormProps): JSX.Element | null {
   const submit = useSubmit()
   const formId = "projects-filter-sort"
 
@@ -31,7 +32,7 @@ export default function FilterSortForm({
       id={formId}
       className={clsx(
         "grid grid-flow-row-dense gap-4 items-center",
-        "grid-cols-2 sm:grid-cols-4",
+        "sm:grid-cols-2 md:grid-cols-[1fr_2fr_1fr]",
       )}
     >
       <Select
@@ -50,7 +51,6 @@ export default function FilterSortForm({
         value={selectedTag}
         title="Filter by tag"
         label={<FilterIcon className="scale-90" />}
-        className="col-span-2"
         onClear={(selectRef) => {
           if (selectRef.current) {
             selectRef.current.value = ""
@@ -58,7 +58,8 @@ export default function FilterSortForm({
           }
         }}
       >
-        <Select.Option value="">All</Select.Option>
+        <Select.Option value="">{filterPlaceholder}</Select.Option>
+        <Select.Group label="Filter by tag" />
         {tags.map((tag) => (
           <Select.Option key={tag.value} value={tag.value}>
             {capitalize(tag.value)} ({tag.occurrence})
@@ -67,7 +68,7 @@ export default function FilterSortForm({
       </Select>
 
       <RadioGroup
-        className="flex"
+        className="hidden md:flex"
         name="view"
         value={viewAs}
         options={[

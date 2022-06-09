@@ -1,20 +1,53 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
-import type { TeaserProps } from "~/packages/types"
+import Section from "~/packages/components/Section"
 
-export default function ProjectCard({
-  project,
+import type { BaseProps } from "../types"
+import { type TeaserProps } from "."
+
+export interface TeaserGridProps extends BaseProps {
+  teasers: TeaserProps[]
+  linkBaseUrl?: string
+}
+
+export default function TeaserGrid({
+  teasers,
   className,
+  linkBaseUrl,
+  ...props
+}: TeaserGridProps) {
+  return (
+    <Section {...props} className={clsx(className, "px-4 md:px-10")}>
+      <div className="grid grid-flow-row-dense auto-rows-fr grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-h-[400px]">
+        {teasers.map((teaser) => (
+          <TeaserGridCard
+            key={teaser.id}
+            teaser={teaser}
+            className={teaser.featured ? "md:col-span-2" : "aspect-square"}
+            linkBaseUrl={linkBaseUrl}
+          />
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+function TeaserGridCard({
+  teaser,
+  className,
+  linkBaseUrl,
 }: {
-  project: TeaserProps
+  teaser: TeaserProps
   className?: string
+  linkBaseUrl?: string
 }): JSX.Element {
-  const { id, title, icon, cover, subtitle, description, featured } = project
+  const { id, title, icon, cover, subtitle, description, featured } = teaser
   const showDescription = Boolean(featured && description)
+  const to = linkBaseUrl ? `${linkBaseUrl}${id}` : id
 
   return (
-    <Link to={id} prefetch="intent" className={clsx("group", className)}>
+    <Link to={to} prefetch="intent" className={clsx("group", className)}>
       <article
         className={clsx(
           "relative",

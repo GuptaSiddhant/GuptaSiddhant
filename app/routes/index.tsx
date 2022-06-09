@@ -1,19 +1,19 @@
 import { Link, useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/server-runtime"
 
-import { fetchBlogPostList } from "~/features/blog/service.server"
+import { fetchBlogPostTeaserList } from "~/features/blog/service.server"
 import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
 import { getAboutInfo } from "~/features/home/service.server"
-import { getProjectList } from "~/features/projects/service.server"
+import { getProjectTeaserList } from "~/features/projects/service.server"
 import { InternalLink } from "~/packages/components/Link"
 import { Caption, H2 } from "~/packages/components/Text"
-import TeaserSection from "~/packages/ui/TeaserSection"
+import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 
 export async function loader() {
   const about = await getAboutInfo()
-  const projects = await getProjectList(6)
-  const blogPosts = await fetchBlogPostList(6)
+  const projects = await getProjectTeaserList(6)
+  const blogPosts = await fetchBlogPostTeaserList(6)
 
   return json<HomeLoaderData>({ about, projects, blogPosts })
 }
@@ -27,9 +27,9 @@ export default function Index() {
     <>
       <HomeHeroSection />
 
-      <TeaserSection
+      <TeaserCarousel
         id={projectsId}
-        items={projects}
+        teasers={projects}
         linkBaseUrl={`/${projectsId}/`}
         className="bg-gradient-to-t from-gray-900 to-gray-800"
       >
@@ -38,15 +38,19 @@ export default function Index() {
         </Caption>
         <H2 className="!p-0">Stuff I've been tinkering with</H2>
         <InternalLink to={`/${projectsId}/`}>View all projects</InternalLink>
-      </TeaserSection>
+      </TeaserCarousel>
 
-      <TeaserSection id={blogId} items={blogPosts} linkBaseUrl={`/${blogId}/`}>
+      <TeaserCarousel
+        id={blogId}
+        teasers={blogPosts}
+        linkBaseUrl={`/${blogId}/`}
+      >
         <Caption>
           <Link to={"#" + blogId}>Recent posts</Link>
         </Caption>
         <H2 className="!p-0">Recent thoughts and ideas...</H2>
         <InternalLink to={`/${blogId}/`}>View all blog posts</InternalLink>
-      </TeaserSection>
+      </TeaserCarousel>
     </>
   )
 }

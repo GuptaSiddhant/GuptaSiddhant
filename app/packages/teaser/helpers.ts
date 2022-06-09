@@ -1,9 +1,8 @@
 import { type DocumentData } from "firebase-admin/firestore"
 
 import { __IS_DEV__ } from "~/packages/constants"
-import type { TeaserProps } from "~/packages/types"
 
-export { TeaserProps }
+import type { TeaserProps } from "."
 
 export function getTeasersFromCollection(
   collection: DocumentData[] = [],
@@ -57,10 +56,15 @@ export function filterPublishedTeaser(teaser: TeaserProps) {
 
 export function getUniqueTagsFromTeaserProps<T extends { tags?: string[] }>(
   teasers: T[],
-): { value: string; occurrence: number }[] {
+): UniqueTag[] {
   const availableTags = teasers.flatMap((item) => item.tags).filter(Boolean)
 
   return filterUniqueTagsByOccurrence(availableTags)
+}
+
+export interface UniqueTag {
+  value: string
+  occurrence: number
 }
 
 export function filterUniqueTagsByOccurrence(

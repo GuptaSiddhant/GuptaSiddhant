@@ -1,15 +1,13 @@
 import {
-  type TeaserProps,
-  getTeasersFromCollection,
-} from "~/packages/helpers/teaser"
-import {
   FirestoreCollection,
   getFirestoreCollection,
 } from "~/packages/service/firestore.server"
+import { type TeaserProps } from "~/packages/teaser"
+import { getTeasersFromCollection } from "~/packages/teaser/helpers"
 
 const collectionName = FirestoreCollection.Projects
 
-export async function getProjectList(limit = 10): Promise<TeaserProps[]> {
+export async function getProjectTeaserList(limit = 10): Promise<TeaserProps[]> {
   const collection = await getFirestoreCollection(collectionName)
 
   return getTeasersFromCollection(collection, limit)
