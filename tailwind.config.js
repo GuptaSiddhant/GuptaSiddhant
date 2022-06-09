@@ -13,8 +13,7 @@ const textColor = ({ theme }) => ({
   primary: theme("colors.white"),
   secondary: theme("colors.gray.200"),
   tertiary: theme("colors.gray.300"),
-  quaternary: theme("colors.gray.400"),
-  disabled: theme("colors.gray.500"),
+  disabled: theme("colors.gray.400"),
   inverse: theme("colors.gray.800"),
   link: theme("colors.blue.400"),
   "link-hover": theme("colors.blue.300"),
@@ -28,14 +27,14 @@ const backgroundColor = ({ theme }) => ({
   primary: theme("colors.gray.900"),
   secondary: theme("colors.gray.800"),
   tertiary: theme("colors.gray.700"),
-  quaternary: theme("colors.gray.600"),
-  disabled: theme("colors.gray.500"),
+  disabled: theme("colors.gray.600"),
   inverse: theme("colors.gray.200"),
   progress: theme("colors.blue.400"),
 })
 
 /** @type {TailwindConfig} */
 const config = {
+  darkMode: "class",
   content: ["./app/**/*.{ts,tsx}", "./packages/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
@@ -68,6 +67,9 @@ const config = {
           "100%": { transform: "translateY(0)" },
         },
       },
+      minHeight: {
+        input: "2.5rem",
+      },
       maxHeight: {
         "screen-main": "calc(100vh - 100px)",
       },
@@ -89,7 +91,10 @@ const config = {
     },
   },
 
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+  plugins: [
+    // require("@tailwindcss/forms")({ strategy: "class" }),
+    require("@tailwindcss/typography"),
+  ],
 }
 
 module.exports = config

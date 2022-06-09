@@ -8,21 +8,22 @@ import CopyIcon from "remixicon-react/FileCopyLineIcon"
 
 import useCopy from "~/packages/hooks/useCopy"
 
+export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
+  buttonRef?: ForwardedRef<HTMLButtonElement> | null
+}
+
 export default function Button({
   className,
   buttonRef,
   ...props
-}: ComponentPropsWithoutRef<"button"> & {
-  buttonRef?: ForwardedRef<HTMLButtonElement> | null
-}): JSX.Element {
+}: ButtonProps): JSX.Element {
   return (
     <button
       {...props}
       ref={buttonRef}
       className={clsx(
-        "flex items-center p-2",
-        "cursor-pointer text-sm rounded",
-        "bg-default text-tertiary hover:text-secondary",
+        "flex items-center gap-2",
+        "cursor-pointer rounded",
         className,
       )}
     />
@@ -35,6 +36,31 @@ export const ButtonWithRef = forwardRef<
 >(function ButtonWithRef(props, ref) {
   return <Button {...props} buttonRef={ref} />
 })
+
+export function PrimaryButton(props: ButtonProps): JSX.Element | null {
+  return (
+    <Button
+      {...props}
+      className={clsx(
+        "px-4 h-10 flex items-center disabled:cursor-not-allowed",
+        "bg-secondary disabled:bg-disabled/10 hover:bg-tertiary focus:bg-tertiary",
+        "text-secondary disabled:text-disabled/50 hover:text-tertiary focus:text-tertiary",
+      )}
+    />
+  )
+}
+
+export function FAB(props: ButtonProps): JSX.Element | null {
+  return (
+    <Button
+      {...props}
+      className={clsx(
+        props.className,
+        "bg-default text-tertiary hover:text-secondary p-2 text-sm",
+      )}
+    />
+  )
+}
 
 export function CopyButton({
   children,

@@ -172,7 +172,7 @@ function Document({
     <html
       lang="en"
       dir="ltr"
-      className="text-[14px] sm:text-[16px] lg:text-[18px] m-0 p-0"
+      className="dark text-[14px] sm:text-[16px] lg:text-[18px] m-0 p-0"
     >
       <head>
         {error ? null : <Meta />}

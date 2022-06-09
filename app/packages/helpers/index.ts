@@ -11,3 +11,7 @@ export async function downloadFileWithUrl(
   link.download = name
   link.click()
 }
+
+export function generateUniqueId(prefix?: string): string {
+  return `${prefix || ""}${Math.random().toString(36).substr(2, 9)}`
+}

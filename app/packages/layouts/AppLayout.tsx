@@ -1,8 +1,8 @@
 import clsx from "clsx"
-import { type ReactNode,useCallback } from "react"
+import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import Button from "~/packages/components/Button"
+import { FAB } from "~/packages/components/Button"
 import Navigation, {
   type NavigationLinkProps,
 } from "~/packages/components/Navigation"
@@ -66,16 +66,13 @@ export default function AppLayout({
         )}
       >
         {scrollButtonVisible ? (
-          <Button
-            className={clsx(
-              "absolute right-4 bottom-full m-0.5",
-              "rounded-br-xl",
-            )}
+          <FAB
+            className={"absolute right-4 bottom-full m-0.5 rounded-br-xl"}
             onClick={handleScrollToTop}
             title="Scroll to top"
           >
             <UpIcon aria-label="Scroll to top" />
-          </Button>
+          </FAB>
         ) : null}
         <RoundedCorner className="bottom-full left-4 -rotate-90" />
         <RoundedCorner className="bottom-full right-4 rotate-180" />
