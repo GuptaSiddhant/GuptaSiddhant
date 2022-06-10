@@ -16,30 +16,37 @@ import {
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import { type RootLoaderData } from "~/features/home"
+import { type AboutInfo } from "~/features/about"
+import { getAboutInfo } from "~/features/about/service.server"
 import {
-  getAboutInfo,
+  type NavigationRemoteConfig,
   getNavigationRemoteConfig,
 } from "~/features/home/service.server"
 import useNavigationLinks from "~/features/home/useNavigationLinks"
+import CodeBlock from "~/packages/components/CodeBlock"
+import { ErrorPage } from "~/packages/components/Error"
 import AppLayout from "~/packages/layouts/AppLayout"
 import fontStyles from "~/packages/styles/font.css"
 import globalStyles from "~/packages/styles/global.css"
 import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
 
-import CodeBlock from "./packages/components/CodeBlock"
-import { ErrorPage } from "./packages/components/Error"
+interface LoaderData {
+  about: AboutInfo
+  navigationRemoteConfig: NavigationRemoteConfig
+}
 
 export async function loader() {
-  const about = await getAboutInfo()
-  const navigationRemoteConfig = await getNavigationRemoteConfig()
+  const [about, navigationRemoteConfig] = await Promise.all([
+    getAboutInfo(),
+    getNavigationRemoteConfig(),
+  ])
 
-  return json<RootLoaderData>({ about, navigationRemoteConfig })
+  return json<LoaderData>({ about, navigationRemoteConfig })
 }
 
 export default function App() {
-  const { about, navigationRemoteConfig } = useLoaderData<RootLoaderData>()
+  const { about, navigationRemoteConfig } = useLoaderData<LoaderData>()
   const navigationLinks = useNavigationLinks(about, navigationRemoteConfig)
 
   return (
@@ -54,7 +61,7 @@ export default function App() {
   )
 }
 
-export const meta: MetaFunction = ({ data }: { data: RootLoaderData }) => {
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
   const { name = "Siddhant Gupta" } = data.about
 
   return {
@@ -105,7 +112,7 @@ export const links: LinksFunction = () => [
 ]
 
 // export const handle = {
-//   breadcrumb: (match: MatchedCrumbProps<RootLoaderData>): JSX.Element => (
+//   breadcrumb: (match: MatchedCrumbProps<LoaderData>): JSX.Element => (
 //     <Crumb match={match} className="font-bold">
 //       {match.data.about.shortName || "GS"}
 //     </Crumb>

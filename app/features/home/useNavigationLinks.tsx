@@ -4,13 +4,13 @@ import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
 
+import { type AboutInfo } from "~/features/about"
 import type { NavigationLinkProps } from "~/packages/components/Navigation"
 
-import type { About } from "."
 import type { NavigationRemoteConfig } from "./service.server"
 
 export default function useNavigationLinks(
-  { link }: About,
+  { link }: AboutInfo,
   navigationRemoteConfig: NavigationRemoteConfig,
 ): NavigationLinkProps[] {
   const { enableAbout, enableSearch } = navigationRemoteConfig

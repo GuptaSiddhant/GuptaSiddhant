@@ -1,32 +1,41 @@
 import { Link, useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/server-runtime"
 
+import { type AboutInfo } from "~/features/about"
+import { getAboutInfo } from "~/features/about/service.server"
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
-import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
-import { getAboutInfo } from "~/features/home/service.server"
 import { getProjectTeaserList } from "~/features/projects/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import { InternalLink } from "~/packages/components/Link"
 import { Caption, H2 } from "~/packages/components/Text"
+import { type TeaserProps } from "~/packages/teaser"
 import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 
-export async function loader() {
-  const about = await getAboutInfo()
-  const projects = await getProjectTeaserList(6)
-  const blogPosts = await getBlogPostTeaserList(6)
+interface LoaderData {
+  about: AboutInfo
+  projects: TeaserProps[]
+  blogPosts: TeaserProps[]
+}
 
-  return json<HomeLoaderData>({ about, projects, blogPosts })
+export async function loader() {
+  const [about, projects, blogPosts] = await Promise.all([
+    getAboutInfo(),
+    getProjectTeaserList(6),
+    getBlogPostTeaserList(6),
+  ])
+
+  return json<LoaderData>({ about, projects, blogPosts })
 }
 
 export default function Index() {
-  const { projects, blogPosts } = useLoaderData<HomeLoaderData>()
+  const { about, projects, blogPosts } = useLoaderData<LoaderData>()
   const projectsId = "projects"
   const blogId = "blog"
 
   return (
     <>
-      <HomeHeroSection />
+      <HomeHeroSection {...about} />
 
       <TeaserCarousel
         id={projectsId}

@@ -1,3 +1,19 @@
+export interface AboutInfo {
+  name: string
+  shortName: string
+  title: string
+  terminalResume: {
+    code: string
+    copyText?: string
+  }
+  currentCompany: { name: string; hiringLink?: string; link?: string }
+  techStack?: string[]
+  heroAdjectives?: string[]
+  link?: Record<AboutLinkKey, string>
+}
+
+export type AboutLinkKey = "linkedin" | "github" | "email" | "homepage"
+
 export const gallery = [
   {
     url: "/favicon/android-chrome-384x384.png",

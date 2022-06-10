@@ -1,17 +1,18 @@
-import { useLoaderData } from "@remix-run/react"
-
+import { type AboutInfo } from "~/features/about"
 import CodeBlock from "~/packages/components/CodeBlock"
 import Hero from "~/packages/components/Hero"
 import { ExternalLink, InternalLink } from "~/packages/components/Link"
 import { ChangingText, H1 } from "~/packages/components/Text"
 import { formatList } from "~/packages/helpers/format"
 
-import { type HomeLoaderData } from "."
-
-export default function HomeHeroSection(): JSX.Element {
+export default function HomeHeroSection(about: AboutInfo): JSX.Element {
   const {
-    about: { title, terminalResume, techStack = [], heroAdjectives = [] },
-  } = useLoaderData<HomeLoaderData>()
+    title,
+    terminalResume,
+    techStack = [],
+    heroAdjectives = [],
+    currentCompany,
+  } = about
 
   return (
     <Hero>
@@ -24,7 +25,7 @@ export default function HomeHeroSection(): JSX.Element {
           I am a <strong>{title}</strong> with a drive for creating beautiful
           web and mobile apps with {formatList(techStack)}.
         </p>
-        <CurrentCompany />
+        <CurrentCompany {...currentCompany} />
         <InternalLink to="/about" prefetch="intent">
           Read more about me.
         </InternalLink>
@@ -37,11 +38,9 @@ export default function HomeHeroSection(): JSX.Element {
   )
 }
 
-function CurrentCompany() {
-  const {
-    about: { currentCompany },
-  } = useLoaderData<HomeLoaderData>()
-
+function CurrentCompany(
+  currentCompany: AboutInfo["currentCompany"],
+): JSX.Element | null {
   if (!currentCompany?.name) return null
   const { name, hiringLink, link } = currentCompany
 
