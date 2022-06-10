@@ -1,5 +1,6 @@
 import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
+import clsx from "clsx"
 
 import { type BlogPostProps } from "~/features/blog"
 import { getBlogPostDetails } from "~/features/blog/service.server"
@@ -26,7 +27,8 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function ProjectDetails(): JSX.Element {
   const { post } = useLoaderData<LoaderData>()
-  const { title, subtitle, description } = post
+  const { title, subtitle, description, gallery } = post
+  const cover: string | undefined = gallery?.[0]?.url
 
   return (
     <>
@@ -44,6 +46,22 @@ export default function ProjectDetails(): JSX.Element {
           <Paragraph className="text-tertiary">{description}</Paragraph>
         ) : null}
       </Hero>
+
+      <figure
+        className={clsx(
+          "relative",
+          "-w-full-m4 mx-4 md:-w-full-m8 md:mx-8",
+          "md:aspect-video",
+        )}
+      >
+        <img
+          src={cover}
+          alt={title}
+          className="object-cover h-full w-full min-h-[50vh] rounded-md"
+          loading="eager"
+        />
+        {/* <figcaption className="text-tertiary text-sm py-2">{title}</figcaption> */}
+      </figure>
     </>
   )
 }

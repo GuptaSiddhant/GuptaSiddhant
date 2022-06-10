@@ -51,8 +51,8 @@ export default function AppLayout({
         className={clsx(
           "relative mx-4 rounded-xl ",
           "bg-primary text-lg",
-          "flex flex-col gap-10",
-          "min-h-[100vh] py-16",
+          "flex flex-col",
+          "min-h-[100vh] py-8",
         )}
       >
         {children}
