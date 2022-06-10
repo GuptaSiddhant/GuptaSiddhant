@@ -65,6 +65,9 @@ const config = {
       },
       width: {
         "full-m4": "calc(100% + 2rem)",
+        "-full-m4": "calc(100% - 2rem)",
+        "full-m8": "calc(100% + 4rem)",
+        "-full-m8": "calc(100% - 4rem)",
       },
       borderColor: {
         highlight: "highlight",
