@@ -1,5 +1,5 @@
 export function isExternalLink(url: string): boolean {
-  return url.includes("://")
+  return ["://", "mailto:"].some((indicator) => url.includes(indicator))
 }
 
 export async function downloadFileWithUrl(

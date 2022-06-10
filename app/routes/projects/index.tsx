@@ -25,11 +25,7 @@ export default function Projects(): JSX.Element {
 
   return (
     <>
-      <TeaserHero
-        {...filterSortFormProps}
-        filterPlaceholder="All projects"
-        teasersCount={teasers.length}
-      >
+      <TeaserHero {...filterSortFormProps} filterPlaceholder="All projects">
         <H1>Projects</H1>
         <Paragraph className="text-secondary">
           I have been busy over the years, trying different things. Some are

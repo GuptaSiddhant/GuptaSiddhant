@@ -3,6 +3,8 @@ import clsx from "clsx"
 
 import Section from "~/packages/components/Section"
 
+import Img from "../components/Img"
+import { formatDate } from "../helpers/format"
 import type { BaseProps } from "../types"
 import { type TeaserProps } from "."
 
@@ -19,13 +21,12 @@ export default function TeaserList({
 }: TeaserGridProps) {
   return (
     <Section.Prose {...props} className={clsx(className)}>
-      <div className="flex flex-col gap-10">
+      <div className="grid auto-rows-fr gap-10">
         {teasers.map((teaser) => (
           <TeaserListCard
             key={teaser.id}
             teaser={teaser}
             linkBaseUrl={linkBaseUrl}
-            className="h-80"
           />
         ))}
       </div>
@@ -42,53 +43,60 @@ function TeaserListCard({
   className?: string
   linkBaseUrl?: string
 }): JSX.Element {
-  const { id, title, icon, cover, subtitle, description, featured } = teaser
-  const showDescription = Boolean(featured && description)
+  const { id, title, subtitle, description, date, cover } = teaser
   const to = linkBaseUrl ? `${linkBaseUrl}${id}` : id
 
   return (
-    <Link to={to} prefetch="intent" className={clsx("group", className)}>
+    <Link
+      to={to}
+      prefetch="intent"
+      className={clsx("group h-full")}
+      aria-label={title}
+    >
       <article
         className={clsx(
-          "relative",
-          "h-full overflow-hidden rounded-lg",
-          "bg-secondary bg-cover bg-center bg-no-repeat",
+          className,
+          "relative md:-mx-4 rounded-lg h-full",
+          "bg-default group-hover:bg-secondary group-focus:bg-secondary",
+          "grid overflow-clip grid-cols-1 grid-rows-[150px_auto] md:grid-cols-[250px_1fr] md:grid-rows-none",
         )}
-        style={{ backgroundImage: `url(${cover})` }}
       >
-        {icon ? (
-          <div className="absolute bottom-4 left-4">
-            <img
-              src={icon}
+        <aside className={clsx("w-full h-full self-stretch overflow-hidden")}>
+          {cover ? (
+            <Img
+              src={cover}
               alt={title}
-              className="h-12 rounded object-contain"
+              className={clsx(
+                "object-cover w-full h-full",
+                "transition-transform duration-300",
+                "group-hover:scale-105 group-focus:scale-105",
+              )}
             />
-          </div>
-        ) : null}
-        <div
-          className={clsx(
-            "rounded-lg",
-            "h-0 w-full p-4 pl-8 group-hocus:h-full",
-            "group-hocus:bg-tertiary/50 group-hocus:backdrop-blur",
-            "invisible transition-all  group-hocus:visible",
-            "flex flex-col items-start justify-center gap-2",
+          ) : null}
+        </aside>
+
+        <main className="p-4 flex-1 self-center">
+          <div className="font-bold text-xl my-2">{title}</div>
+          {subtitle ? (
+            <div className="italic text-base text-secondary">{subtitle}</div>
+          ) : null}
+          {date ? (
+            <time dateTime={date} className="text-sm text-tertiary">
+              {formatDate(date)}
+            </time>
+          ) : null}
+
+          {teaser ? null : (
+            <div className="mt-4 text-base">
+              {description ? (
+                <span className="text-tertiary">{description} </span>
+              ) : null}
+              <span className="text-link whitespace-nowrap">
+                {"Read post >"}
+              </span>
+            </div>
           )}
-        >
-          {icon ? (
-            <img
-              src={icon}
-              alt={title}
-              className="mb-2 h-12 rounded object-contain"
-            />
-          ) : null}
-          <strong className="white text-2xl font-bold">{title}</strong>
-          {subtitle ? <p className="white font-semibold">{subtitle}</p> : null}
-          {showDescription ? (
-            <p className="white hidden text-base italic sm:block">
-              {description}
-            </p>
-          ) : null}
-        </div>
+        </main>
       </article>
     </Link>
   )

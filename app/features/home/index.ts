@@ -24,4 +24,7 @@ export interface About {
   currentCompany: { name: string; hiringLink?: string; link?: string }
   techStack?: string[]
   heroAdjectives?: string[]
+  link?: Record<AboutLinkKey, string>
 }
+
+export type AboutLinkKey = "linkedin" | "github" | "email" | "homepage"

@@ -1050,6 +1050,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pdf-lib/upng@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@pdf-lib/upng@npm:1.0.1"
+  dependencies:
+    pako: ^1.0.10
+  checksum: acd8ac0974a3c2ed12c4e21d6340c4f77f8dde6727a74075b2faf69fb9dc4051b9e576479caf8e870f67d1bb37b953dfe50c4784892b466f01a29b55272d5e1f
+  languageName: node
+  linkType: hard
+
 "@protobufjs/aspromise@npm:^1.1.1, @protobufjs/aspromise@npm:^1.1.2":
   version: 1.1.2
   resolution: "@protobufjs/aspromise@npm:1.1.2"
@@ -1657,6 +1666,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^10.11.7":
+  version: 10.17.60
+  resolution: "@types/node@npm:10.17.60"
+  checksum: 2cdb3a77d071ba8513e5e8306fa64bf50e3c3302390feeaeff1fd325dd25c8441369715dfc8e3701011a72fed5958c7dfa94eb9239a81b3c286caa4d97db6eef
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^14.0.0":
   version: 14.18.18
   resolution: "@types/node@npm:14.18.18"
@@ -1873,6 +1889,15 @@ __metadata:
   version: 1.0.0
   resolution: "@web3-storage/multipart-parser@npm:1.0.0"
   checksum: d8bbb5b9b0a5c07b4119c33c64ef4b7cc8d74ca4de2dd783f608f2653f81ef298bf04136b7cdb7ce97306d5fe2217572b5655236b70e1b625ed18d4a21a81913
+  languageName: node
+  linkType: hard
+
+"@wokwi/bmp-ts@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@wokwi/bmp-ts@npm:3.0.0"
+  dependencies:
+    "@types/node": ^10.11.7
+  checksum: adf5db37a945eacd440af3efd3037216328c7921dfa7a004e73d765bf75e6a6424822fb0fb0db36bc36986538ce139b7731237581958fb349fef72eb445c6647
   languageName: node
   linkType: hard
 
@@ -3258,6 +3283,13 @@ __metadata:
   dependencies:
     character-entities: ^2.0.0
   checksum: 4f67b088213497f7e19faffc1d2bf470bd3ceffd01b3be17857d4bce455e03728b33d3770761745916b0a230ecd917a1cba3c61156f0bd13958dc4fada19580a
+  languageName: node
+  linkType: hard
+
+"decode-tiff@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "decode-tiff@npm:0.2.1"
+  checksum: 83e57af690cdb63dc4eb0915e195291ec4ed938cb8d14715231e6c2b4c6ad9ed6e9fea44c1830cac974eb73e90599dc70281840e98a4c800756a814a1dd0dad0
   languageName: node
   linkType: hard
 
@@ -4776,6 +4808,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-xml-parser@npm:^3.19.0":
+  version: 3.21.1
+  resolution: "fast-xml-parser@npm:3.21.1"
+  dependencies:
+    strnum: ^1.0.4
+  bin:
+    xml2js: cli.js
+  checksum: 73b9c907a424cc2f9b11a8a2f1b7448d936f1db6fa574b85cbe4be9739c2f77d99a827bb27d738a0db0047b20c71a5d663f64937fbdb9c38977fc6cd145221d2
+  languageName: node
+  linkType: hard
+
 "fastq@npm:^1.6.0":
   version: 1.13.0
   resolution: "fastq@npm:1.13.0"
@@ -4846,6 +4889,13 @@ __metadata:
   dependencies:
     to-regex-range: ^5.0.1
   checksum: cc283f4e65b504259e64fd969bcf4def4eb08d85565e906b7d36516e87819db52029a76b6363d0f02d0d532f0033c9603b9e2d943d56ee3b0d4f7ad3328ff917
+  languageName: node
+  linkType: hard
+
+"filter-obj@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "filter-obj@npm:1.1.0"
+  checksum: cf2104a7c45ff48e7f505b78a3991c8f7f30f28bd8106ef582721f321f1c6277f7751aacd5d83026cb079d9d5091082f588d14a72e7c5d720ece79118fa61e10
   languageName: node
   linkType: hard
 
@@ -5187,6 +5237,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"get-rgba-palette@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "get-rgba-palette@npm:2.0.1"
+  dependencies:
+    quantize: ^1.0.1
+  checksum: 6a144ceced0fa3831cadc76d50ac586fec28f089267e9981cf15a54f20b6a7a28503f6d7aa705f333fe4899f840c7a229a0f819de186458572bd65c8956f3647
+  languageName: node
+  linkType: hard
+
 "get-stream@npm:^5.1.0":
   version: 5.2.0
   resolution: "get-stream@npm:5.2.0"
@@ -5414,6 +5473,7 @@ __metadata:
     prism-react-renderer: ^1.3.3
     react: ^17.0.0
     react-dom: ^17.0.0
+    remix-image: ^0.3.18
     remixicon-react: ^1.0.0
     tailwindcss: ^3.1.0
     typescript: ^4.7.2
@@ -6275,6 +6335,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-svg@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "is-svg@npm:4.3.2"
+  dependencies:
+    fast-xml-parser: ^3.19.0
+  checksum: b3bce2395e25a0127e65e33fbfd8654225c303f7b45005af8eea69cc0870e252d8a01d62fd333c27247eadd38720b5459d623c292e02c14e328bf4970da891c7
+  languageName: node
+  linkType: hard
+
 "is-symbol@npm:^1.0.2, is-symbol@npm:^1.0.3":
   version: 1.0.4
   resolution: "is-symbol@npm:1.0.4"
@@ -6372,6 +6441,28 @@ __metadata:
   dependencies:
     "@panva/asn1.js": ^1.0.0
   checksum: 80a3447b51f794f8f2c7e21395dd880b55d374a055564595c69ff17722fb07aeb2dff722b5da9030651f67fafc7494e9ec5f5b56f5e1836d1ac94e604e6096ea
+  languageName: node
+  linkType: hard
+
+"jpeg-js@npm:^0.4.3":
+  version: 0.4.4
+  resolution: "jpeg-js@npm:0.4.4"
+  checksum: bd7cb61aa8df40a9ee2c2106839c3df6054891e56cfc22c0ac581402e06c6295f962a4754b0b2ac50a401789131b1c6dc9df8d24400f1352168be1894833c590
+  languageName: node
+  linkType: hard
+
+"js-image-lib@npm:^0.1.6":
+  version: 0.1.7
+  resolution: "js-image-lib@npm:0.1.7"
+  dependencies:
+    "@pdf-lib/upng": ^1.0.1
+    "@wokwi/bmp-ts": ^3.0.0
+    decode-tiff: ^0.2.1
+    get-rgba-palette: ^2.0.1
+    jpeg-js: ^0.4.3
+    mime-tree: ^0.1.4
+    omggif: ^1.0.10
+  checksum: 24485731d41154de8bbc44e8026324d4d62f88903d34d4c7001c49f960164ffb57be84bfcf5c0c63f2f37903d6ef9f037254c8b7d0d12a266a0a95b7da2b2c74
   languageName: node
   linkType: hard
 
@@ -6892,7 +6983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^7.10.1, lru-cache@npm:^7.7.1":
+"lru-cache@npm:^7.10.1, lru-cache@npm:^7.4.0, lru-cache@npm:^7.7.1":
   version: 7.10.1
   resolution: "lru-cache@npm:7.10.1"
   checksum: e8b190d71ed0fcd7b29c71a3e9b01f851c92d1ef8865ff06b5581ca991db1e5e006920ed4da8b56da1910664ed51abfd76c46fb55e82ac252ff6c970ff910d72
@@ -7600,6 +7691,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mime-tree@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "mime-tree@npm:0.1.4"
+  checksum: 25dd8fa3b1b620f520dd5d446e41b0dc2ae15ab698e1509c7ca06aab753bcc1758981abe3bc06a8957019da5b2609c8f5a4d20592a7678822a3616f03cd3f270
+  languageName: node
+  linkType: hard
+
 "mime-types@npm:^2.0.8, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
@@ -8155,6 +8253,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"omggif@npm:^1.0.10":
+  version: 1.0.10
+  resolution: "omggif@npm:1.0.10"
+  checksum: 15102e46b6fa0fba32d7e948f702623cdc3cdcdfd64b2d33c6e29a61f366ffd0f250da55d66f5217dce5b93ba9c67763fa998652791a5c7f2201a3bde2c4db45
+  languageName: node
+  linkType: hard
+
 "on-finished@npm:2.4.1":
   version: 2.4.1
   resolution: "on-finished@npm:2.4.1"
@@ -8328,6 +8433,13 @@ __metadata:
   version: 2.2.0
   resolution: "p-try@npm:2.2.0"
   checksum: f8a8e9a7693659383f06aec604ad5ead237c7a261c18048a6e1b5b85a5f8a067e469aa24f5bc009b991ea3b058a87f5065ef4176793a200d4917349881216cae
+  languageName: node
+  linkType: hard
+
+"pako@npm:^1.0.10":
+  version: 1.0.11
+  resolution: "pako@npm:1.0.11"
+  checksum: 1be2bfa1f807608c7538afa15d6f25baa523c30ec870a3228a89579e474a4d992f4293859524e46d5d87fd30fa17c5edf34dbef0671251d9749820b488660b16
   languageName: node
   linkType: hard
 
@@ -8858,6 +8970,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"quantize@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "quantize@npm:1.0.2"
+  checksum: 8f224e75f6102a52db9353c63ed2c1979e771e27a8ba781a4657d6c0029091920ff0d362e0a796e9a3b0bdc79ada338f60f4aed0ea610323a7f96d2c9bdb5826
+  languageName: node
+  linkType: hard
+
+"query-string@npm:^7.1.0":
+  version: 7.1.1
+  resolution: "query-string@npm:7.1.1"
+  dependencies:
+    decode-uri-component: ^0.2.0
+    filter-obj: ^1.1.0
+    split-on-first: ^1.0.0
+    strict-uri-encode: ^2.0.0
+  checksum: b227d1f588ae93f9f0ad078c6b811295fa151dc5a160a03bb2bac5fa0e6919cb1daa570aad1d288e77c8e89fde5362ba505b1014e6e793da9b1e885b59a690a6
+  languageName: node
+  linkType: hard
+
 "queue-microtask@npm:^1.2.2":
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
@@ -9173,6 +9304,26 @@ __metadata:
     mdast-util-to-hast: ^11.0.0
     unified: ^10.0.0
   checksum: 01d8177ce1a9138ead8779ec73cfef8d06669c4ebe7c4e94e804a1ddba12dca874131330f22e3979a4e0a4132239142dc93e7cfbd5d18b9250b4cc770557aff1
+  languageName: node
+  linkType: hard
+
+"remix-image@npm:^0.3.18":
+  version: 0.3.18
+  resolution: "remix-image@npm:0.3.18"
+  dependencies:
+    clsx: ^1.1.1
+    is-svg: ^4.3.2
+    js-image-lib: ^0.1.6
+    lru-cache: ^7.4.0
+    mime-tree: ^0.1.4
+    query-string: ^7.1.0
+  peerDependencies:
+    "@cloudflare/kv-asset-handler": ^0.2.0
+    "@next-boost/hybrid-disk-cache": ^0.3.0
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+    remix: ^1.0.0
+  checksum: 78c06401bd3e86408a0653e96d4257f4fe8aab475576fd0343a73252985e169ab0cd58a117a11825e8220a61521c4961d9a6c5dedc8421e26c5704208d6e30d7
   languageName: node
   linkType: hard
 
@@ -9867,6 +10018,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"split-on-first@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "split-on-first@npm:1.1.0"
+  checksum: 16ff85b54ddcf17f9147210a4022529b343edbcbea4ce977c8f30e38408b8d6e0f25f92cd35b86a524d4797f455e29ab89eb8db787f3c10708e0b47ebf528d30
+  languageName: node
+  linkType: hard
+
 "split-string@npm:^3.0.1, split-string@npm:^3.0.2":
   version: 3.1.0
   resolution: "split-string@npm:3.1.0"
@@ -9954,6 +10112,13 @@ __metadata:
   version: 1.1.0
   resolution: "streamsearch@npm:1.1.0"
   checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
+  languageName: node
+  linkType: hard
+
+"strict-uri-encode@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "strict-uri-encode@npm:2.0.0"
+  checksum: eaac4cf978b6fbd480f1092cab8b233c9b949bcabfc9b598dd79a758f7243c28765ef7639c876fa72940dac687181b35486ea01ff7df3e65ce3848c64822c581
   languageName: node
   linkType: hard
 
@@ -10081,6 +10246,13 @@ __metadata:
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 492f73e27268f9b1c122733f28ecb0e7e8d8a531a6662efbd08e22cccb3f9475e90a1b82cab06a392f6afae6d2de636f977e231296400d0ec5304ba70f166443
+  languageName: node
+  linkType: hard
+
+"strnum@npm:^1.0.4":
+  version: 1.0.5
+  resolution: "strnum@npm:1.0.5"
+  checksum: 651b2031db5da1bf4a77fdd2f116a8ac8055157c5420f5569f64879133825915ad461513e7202a16d7fec63c54fd822410d0962f8ca12385c4334891b9ae6dd2
   languageName: node
   linkType: hard
 

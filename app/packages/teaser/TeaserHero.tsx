@@ -7,20 +7,18 @@ import TeaserFilterSortForm, {
 } from "./TeaserFilterSortForm"
 
 export interface TeaserHeroProps extends TeaserFilterSortFormProps {
-  children: ReactNode
-  teasersCount: number
+  children?: ReactNode
 }
 
 export default function TeaserHero({
   children,
-  teasersCount,
   ...props
 }: TeaserHeroProps): JSX.Element | null {
   return (
     <Section.Hero>
-      <div className="flex flex-col gap-4">{children}</div>
+      {children ? <div className="flex flex-col gap-4">{children}</div> : null}
 
-      {teasersCount > 1 ? <TeaserFilterSortForm {...props} /> : null}
+      <TeaserFilterSortForm {...props} />
     </Section.Hero>
   )
 }

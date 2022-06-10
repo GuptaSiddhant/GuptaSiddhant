@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
+import Img from "~/packages/components/Img"
 import Section from "~/packages/components/Section"
 
 import type { BaseProps } from "../types"
@@ -45,9 +46,17 @@ function TeaserGridCard({
   const { id, title, icon, cover, subtitle, description, featured } = teaser
   const showDescription = Boolean(featured && description)
   const to = linkBaseUrl ? `${linkBaseUrl}${id}` : id
+  const iconElement = icon ? (
+    <Img src={icon} alt={title} className="h-12 rounded object-contain" />
+  ) : null
 
   return (
-    <Link to={to} prefetch="intent" className={clsx("group", className)}>
+    <Link
+      to={to}
+      prefetch="intent"
+      className={clsx("group", className)}
+      aria-label={title}
+    >
       <article
         className={clsx(
           "relative",
@@ -56,15 +65,8 @@ function TeaserGridCard({
         )}
         style={{ backgroundImage: `url(${cover})` }}
       >
-        {icon ? (
-          <div className="absolute bottom-4 left-4">
-            <img
-              src={icon}
-              alt={title}
-              className="h-12 rounded object-contain"
-            />
-          </div>
-        ) : null}
+        <div className="absolute bottom-4 left-4">{iconElement}</div>
+
         <div
           className={clsx(
             "rounded-lg",
@@ -74,13 +76,7 @@ function TeaserGridCard({
             "flex flex-col items-start justify-center gap-2",
           )}
         >
-          {icon ? (
-            <img
-              src={icon}
-              alt={title}
-              className="mb-2 h-12 rounded object-contain"
-            />
-          ) : null}
+          {iconElement}
           <strong className="white text-2xl font-bold">{title}</strong>
           {subtitle ? <p className="white font-semibold">{subtitle}</p> : null}
           {showDescription ? (

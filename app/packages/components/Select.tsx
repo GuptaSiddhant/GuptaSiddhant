@@ -58,6 +58,7 @@ export default function Select({
 
       <select
         onChange={() => {}}
+        aria-label={title}
         {...props}
         id={selectId}
         ref={selectRef}

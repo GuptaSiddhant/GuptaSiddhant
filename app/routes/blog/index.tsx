@@ -27,11 +27,7 @@ export default function Blog(): JSX.Element {
 
   return (
     <>
-      <TeaserHero
-        {...filterSortFormProps}
-        filterPlaceholder="All posts"
-        teasersCount={teasers.length}
-      >
+      <TeaserHero {...filterSortFormProps} filterPlaceholder="All posts">
         <H1>Blog</H1>
         <Paragraph className="text-secondary">
           Thoughts on somethings. Sometimes everything.

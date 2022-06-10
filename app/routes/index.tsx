@@ -33,7 +33,7 @@ export default function Index() {
         linkBaseUrl={`/${projectsId}/`}
       >
         <Caption>
-          <Link to={"#" + projectsId}>Projects</Link>
+          <Link to={"#" + projectsId}>Featured Projects</Link>
         </Caption>
         <H2 className="!p-0">Stuff I've been tinkering with</H2>
         <InternalLink to={`/${projectsId}/`}>View all projects</InternalLink>

@@ -37,7 +37,7 @@ const config = {
         primary: theme("colors.gray.900"),
         secondary: theme("colors.gray.800"),
         tertiary: theme("colors.gray.700"),
-        disabled: theme("colors.gray.600"),
+        disabled: theme("colors.gray.600 / 50%"),
         inverse: theme("colors.gray.200"),
         progress: theme("colors.blue.400"),
       }),

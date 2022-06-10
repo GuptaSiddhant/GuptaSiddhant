@@ -39,8 +39,8 @@ export async function loader() {
 }
 
 export default function App() {
-  const { navigationRemoteConfig } = useLoaderData<RootLoaderData>()
-  const navigationLinks = useNavigationLinks(navigationRemoteConfig)
+  const { about, navigationRemoteConfig } = useLoaderData<RootLoaderData>()
+  const navigationLinks = useNavigationLinks(about, navigationRemoteConfig)
 
   return (
     <Document>

@@ -15,10 +15,19 @@ export default function RadioGroup({
   options,
   value,
   name,
+  className,
   ...props
 }: RadioGroupProps): JSX.Element {
   return (
-    <fieldset {...props} name={name}>
+    <fieldset
+      {...props}
+      name={name}
+      className={clsx(
+        className,
+        "rounded overflow-hidden",
+        "outline-1 outline-black focus-within:outline",
+      )}
+    >
       {options.map((props) => {
         const id = props.id || `radio-${props.name}-${props.value}`
 
@@ -49,15 +58,7 @@ function RadioButton({
   ...props
 }: InputWithLabelProps) {
   return (
-    <label
-      htmlFor={id}
-      className={clsx(
-        "first-of-type:rounded-l",
-        "last-of-type:rounded-r",
-        "overflow-hidden w-full",
-      )}
-      title={title}
-    >
+    <label htmlFor={id} className={clsx("w-full")} title={title}>
       <input
         id={id}
         type="radio"

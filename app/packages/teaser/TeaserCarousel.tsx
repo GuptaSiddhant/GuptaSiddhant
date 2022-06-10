@@ -68,7 +68,12 @@ function TeaserCarouselCard({
   small,
 }: TeaserCardProps): JSX.Element {
   return (
-    <Link to={linkBaseUrl + id} className="group" prefetch="intent">
+    <Link
+      to={linkBaseUrl + id}
+      className="group"
+      prefetch="intent"
+      aria-label={title}
+    >
       <article
         className={clsx(
           className,
