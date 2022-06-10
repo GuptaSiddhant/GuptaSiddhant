@@ -84,6 +84,15 @@ export function Caption({ className, ...props }: BaseProps): JSX.Element {
   )
 }
 
+export function SubHeading(props: HeadingProps) {
+  return (
+    <div
+      {...props}
+      className={clsx("text-2xl text-tertiary", commonHeadingClassName)}
+    />
+  )
+}
+
 export function Paragraph({
   children,
   ...props

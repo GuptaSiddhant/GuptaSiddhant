@@ -1,8 +1,8 @@
-import { type DocumentData,getFirestore } from "firebase-admin/firestore"
+import { type DocumentData, getFirestore } from "firebase-admin/firestore"
 
 import { docTransformer } from "~/packages/helpers/firestore-helpers.server"
 
-import cache, { CacheType,createCacheKey } from "./cache.server"
+import cache, { CacheType, createCacheKey } from "./cache.server"
 
 export enum FirestoreCollection {
   Projects = "projects",
@@ -26,10 +26,14 @@ export async function getFirestoreCollection<T = DocumentData>(
 export async function getFirestoreDocument<T = DocumentData>(
   collectionName: FirestoreCollection,
   docId: string,
-): Promise<T | undefined> {
-  return cache.fetch<T>(
-    createCacheKey(CacheType.FirestoreDocument, `${collectionName}/${docId}`),
+): Promise<T> {
+  const value = `${collectionName}/${docId}`
+  const doc = await cache.fetch<T>(
+    createCacheKey(CacheType.FirestoreDocument, value),
   )
+  if (!doc) throw new Error(`Document '${value}' not found`)
+
+  return doc
 }
 
 // Fetchers
@@ -38,7 +42,9 @@ export async function fetchFireStoreCollection(collectionPath: string) {
   verifyFirestoreCollection(collectionPath)
   const snapshot = await getFirestore().collection(collectionPath).get()
 
-  return Promise.all((snapshot?.docs || []).map(docTransformer))
+  return Promise.all(
+    (snapshot?.docs || []).map((doc) => docTransformer(doc, false)),
+  )
 }
 
 export async function fetchFireStoreDocument(path: string) {
@@ -49,7 +55,7 @@ export async function fetchFireStoreDocument(path: string) {
     .doc(documentPath)
     .get()
 
-  return docTransformer(doc)
+  return docTransformer(doc, true)
 }
 
 // Helpers
@@ -63,3 +69,5 @@ function verifyFirestoreCollection(collectionPath: string) {
     throw new Error(`FirestoreCollection '${collectionPath}' does not exist.`)
   }
 }
+
+export { DocumentData }

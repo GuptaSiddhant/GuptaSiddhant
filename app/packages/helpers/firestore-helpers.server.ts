@@ -18,13 +18,17 @@ export interface BaseData {
 
 export async function docTransformer<T extends DocumentData & BaseData>(
   doc?: DocumentSnapshot<T>,
+  transformContent?: boolean,
 ): Promise<T> {
   if (!doc?.exists) throw new Error(`FirestoreDocument does not exist.`)
 
   const data = doc.data()
   if (!data) throw new Error(`FirestoreDocument is empty.`)
 
-  const { icon, gallery, content } = await convertAllStorageFilesToUrls(data)
+  const { icon, gallery, content } = await convertAllStorageFilesToUrls(
+    data,
+    !!transformContent,
+  )
 
   return {
     id: doc.id,
@@ -38,12 +42,12 @@ export async function docTransformer<T extends DocumentData & BaseData>(
   }
 }
 
-async function convertAllStorageFilesToUrls(data: BaseData) {
+async function convertAllStorageFilesToUrls(
+  data: BaseData,
+  transformContent: boolean,
+) {
   const iconPromise = data.icon
     ? getFirebaseStorageFileUrl(data.icon)
-    : undefined
-  const contentPromise = data.content
-    ? convertImageLinksInText(data.content)
     : undefined
   const galleryPromise = Promise.all(
     (data?.gallery || []).map(async (i) => ({
@@ -51,6 +55,10 @@ async function convertAllStorageFilesToUrls(data: BaseData) {
       url: await getFirebaseStorageFileUrl(i.url),
     })),
   )
+  const contentPromise =
+    transformContent && data.content
+      ? convertImageLinksInText(data.content)
+      : undefined
 
   const [icon, gallery, content] = await Promise.all([
     iconPromise,

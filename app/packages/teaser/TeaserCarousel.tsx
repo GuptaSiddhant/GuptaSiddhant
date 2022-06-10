@@ -26,12 +26,12 @@ export default function TeaserCarousel({
   return (
     <Section id={id} className={className}>
       {children ? (
-        <div className={clsx("flex flex-col gap-4 w-full", proseWidth)}>
+        <header className={clsx("flex flex-col gap-4 w-full", proseWidth)}>
           {children}
-        </div>
+        </header>
       ) : null}
 
-      <div
+      <main
         className={clsx(
           "hide-scroll",
           "flex gap-4 sm:gap-10",
@@ -48,7 +48,7 @@ export default function TeaserCarousel({
             key={item.id}
           />
         ))}
-      </div>
+      </main>
     </Section>
   )
 }

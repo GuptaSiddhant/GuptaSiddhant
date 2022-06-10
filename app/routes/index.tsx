@@ -6,6 +6,7 @@ import { type HomeLoaderData } from "~/features/home"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
 import { getAboutInfo } from "~/features/home/service.server"
 import { getProjectTeaserList } from "~/features/projects/service.server"
+import { ErrorSection } from "~/packages/components/Error"
 import { InternalLink } from "~/packages/components/Link"
 import { Caption, H2 } from "~/packages/components/Text"
 import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
@@ -52,4 +53,8 @@ export default function Index() {
       </TeaserCarousel>
     </>
   )
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return <ErrorSection message={error.message} />
 }

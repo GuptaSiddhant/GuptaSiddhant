@@ -29,7 +29,7 @@ import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
 
 import CodeBlock from "./packages/components/CodeBlock"
-import Section from "./packages/components/Section"
+import { ErrorPage } from "./packages/components/Error"
 
 export async function loader() {
   const about = await getAboutInfo()
@@ -115,14 +115,9 @@ export const links: LinksFunction = () => [
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document error>
-      <Section.Error
-        logo
-        caption={error.name}
-        title="There was an error"
-        description={error.message}
-      >
+      <ErrorPage caption={error.name} message={error.message}>
         {error.stack && <CodeBlock>{error.stack}</CodeBlock>}
-      </Section.Error>
+      </ErrorPage>
     </Document>
   )
 }
@@ -148,11 +143,10 @@ export function CatchBoundary() {
 
   return (
     <Document error>
-      <Section.Error
-        logo
+      <ErrorPage
         caption={`Error ${caught.status}`}
         title={heading}
-        description={message}
+        message={message}
       />
     </Document>
   )

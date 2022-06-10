@@ -1,9 +1,12 @@
 import {
   FirestoreCollection,
   getFirestoreCollection,
+  getFirestoreDocument,
 } from "~/packages/service/firestore.server"
 import { type TeaserProps } from "~/packages/teaser"
 import { getTeasersFromCollection } from "~/packages/teaser/helpers"
+
+import { type BlogPostProps } from "."
 
 const collectionName = FirestoreCollection.Blog
 
@@ -13,4 +16,8 @@ export async function getBlogPostTeaserList(
   const collection = await getFirestoreCollection<TeaserProps>(collectionName)
 
   return getTeasersFromCollection(collection, limit)
+}
+
+export async function getBlogPostDetails(id: string): Promise<BlogPostProps> {
+  return getFirestoreDocument(collectionName, id)
 }

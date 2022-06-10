@@ -29,6 +29,8 @@ const config = {
         inverse: theme("colors.gray.800"),
         link: theme("colors.blue.400"),
         "link-hover": theme("colors.blue.300"),
+        success: theme("colors.green.400"),
+        positive: theme("colors.green.400"),
         error: theme("colors.red.400"),
         danger: theme("colors.red.300"),
       }),
@@ -81,11 +83,18 @@ const config = {
 
   plugins: [
     require("@tailwindcss/typography"),
-    plugin(({ addVariant }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant("hocus", ["&:hover", "&:focus"])
       addVariant("hocus-within", ["&:hover", "&:focus-within"])
       addVariant("group-hocus", [".group:hover &", ".group:focus &"])
       addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"])
+      addUtilities({
+        ".flex-center": {
+          display: "flex",
+          "justify-content": "center",
+          "align-items": "center",
+        },
+      })
     }),
   ],
 }

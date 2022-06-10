@@ -1,42 +1,8 @@
-export const title = "Siddhant Gupta"
-export const currentCompany = {
-  name: "Accenture Song",
-  link: undefined,
-  hiringLink: undefined,
-}
-export const npx = {
-  children: `# An interactive resume in your terminal, made with React and ink.
-$ npx guptasiddhant`,
-  copyText: "npx guptasiddhant",
-}
-
-export const socialLinks = {
-  linkedin: "https://linkedin.com/in/guptasiddhant9",
-  github: "https://github.com/guptasiddhant",
-  email: "me@guptasiddhant.com",
-  homepage: "https://guptasiddhant.com",
-}
-
 export const gallery = [
   {
     url: "/favicon/android-chrome-384x384.png",
     alt: "Siddhant Gupta's profile",
   },
-]
-
-export const heroAdjectives = [
-  "Responsibly",
-  "Beautifully",
-  "Accessibly",
-].sort()
-
-export const techStackList = [
-  "React",
-  "React Native",
-  "TypeScript",
-  "Node.js",
-  "GraphQL",
-  "Figma",
 ]
 
 export const skills: Skills = {

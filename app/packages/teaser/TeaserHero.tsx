@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import Section from "~/packages/components/Section"
+import Hero from "~/packages/components/Hero"
 
 import TeaserFilterSortForm, {
   type TeaserFilterSortFormProps,
@@ -15,10 +15,12 @@ export default function TeaserHero({
   ...props
 }: TeaserHeroProps): JSX.Element | null {
   return (
-    <Section.Hero>
-      {children ? <div className="flex flex-col gap-4">{children}</div> : null}
+    <Hero>
+      {children ? (
+        <header className="flex flex-col gap-4">{children}</header>
+      ) : null}
 
       <TeaserFilterSortForm {...props} />
-    </Section.Hero>
+    </Hero>
   )
 }

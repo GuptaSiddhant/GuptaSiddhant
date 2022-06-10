@@ -1,8 +1,8 @@
 import { useLoaderData } from "@remix-run/react"
 
 import CodeBlock from "~/packages/components/CodeBlock"
-import { ExternalLink,InternalLink } from "~/packages/components/Link"
-import Section from "~/packages/components/Section"
+import Hero from "~/packages/components/Hero"
+import { ExternalLink, InternalLink } from "~/packages/components/Link"
 import { ChangingText, H1 } from "~/packages/components/Text"
 import { formatList } from "~/packages/helpers/format"
 
@@ -14,7 +14,7 @@ export default function HomeHeroSection(): JSX.Element {
   } = useLoaderData<HomeLoaderData>()
 
   return (
-    <Section.Hero>
+    <Hero>
       <H1>
         Hi, I bring designs to life on your screen,
         <ChangingText texts={heroAdjectives} />.
@@ -33,7 +33,7 @@ export default function HomeHeroSection(): JSX.Element {
       <CodeBlock copyText={terminalResume.copyText}>
         {JSON.parse(terminalResume.code)}
       </CodeBlock>
-    </Section.Hero>
+    </Hero>
   )
 }
 

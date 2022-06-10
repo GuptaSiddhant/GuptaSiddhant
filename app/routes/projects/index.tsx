@@ -2,6 +2,7 @@ import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import { getProjectTeaserList } from "~/features/projects/service.server"
+import { ErrorSection } from "~/packages/components/Error"
 import { H1, Paragraph } from "~/packages/components/Text"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
@@ -40,6 +41,12 @@ export default function Projects(): JSX.Element {
         <TeaserGrid teasers={teasers} />
       )}
     </>
+  )
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <ErrorSection title="Could not load projects" message={error.message} />
   )
 }
 
