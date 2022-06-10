@@ -10,62 +10,45 @@ import type { About } from "."
 import type { NavigationRemoteConfig } from "./service.server"
 
 export default function useNavigationLinks(
-  about: About,
+  { link }: About,
   navigationRemoteConfig: NavigationRemoteConfig,
 ): NavigationLinkProps[] {
   const { enableAbout, enableSearch } = navigationRemoteConfig
-  const { link } = about
+  const { email, github, linkedin } = link || {}
 
-  const aboutLinks: NavigationLinkProps[] = useMemo(
-    () =>
-      enableAbout ? [{ id: "about", to: "/about", children: "About" }] : [],
-    [enableAbout],
-  )
+  return useMemo(() => {
+    const links: NavigationLinkProps[] = []
 
-  const projectLinks: NavigationLinkProps[] = useMemo(
-    () => [{ id: "projects", to: "/projects", children: "Projects" }],
-    [],
-  )
-  const blogLinks: NavigationLinkProps[] = useMemo(
-    () => [{ id: "blog", to: "/blog", children: "Blog" }],
-    [],
-  )
+    if (enableAbout)
+      links.push({ id: "about", to: "/about", children: "About" })
 
-  const searchLinks: NavigationLinkProps[] = useMemo(
-    () =>
-      enableSearch
-        ? [{ id: "Search", onClick: () => {}, children: <SearchIcon /> }]
-        : [],
-    [enableSearch],
-  )
+    links.push(
+      { id: "projects", to: "/projects", children: "Projects" },
+      { id: "blog", to: "/blog", children: "Blog" },
+    )
 
-  const socialLinks: NavigationLinkProps[] = useMemo(() => {
-    const links = []
-    if (link?.github) {
-      links.push({ id: "github", to: link.github, children: <GithubIcon /> })
-    }
-    if (link?.linkedin) {
+    // External
+
+    if (github)
+      links.push({ id: "GitHub", to: github, children: <GithubIcon /> })
+
+    if (linkedin)
       links.push({
         id: "LinkedIn",
-        to: link.linkedin,
+        to: linkedin,
         children: <LinkedinIcon />,
       })
-    }
-    if (link?.email) {
+
+    if (email)
       links.push({
         id: "Contact",
-        to: link.email,
+        to: email,
         children: <MailIcon />,
       })
-    }
-    return links
-  }, [link])
 
-  return [
-    ...aboutLinks,
-    ...projectLinks,
-    ...blogLinks,
-    ...socialLinks,
-    ...searchLinks,
-  ]
+    if (enableSearch)
+      links.push({ id: "Search", onClick: () => {}, children: <SearchIcon /> })
+
+    return links
+  }, [enableAbout, enableSearch, email, github, linkedin])
 }

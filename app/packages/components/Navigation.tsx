@@ -20,55 +20,59 @@ export default function Navigation({
 }: NavigationProps): JSX.Element | null {
   if (links.length === 0) return null
 
+  const internalLinks = links.filter(
+    (link) => link.to && !isExternalLink(link.to.toString()),
+  )
+  const externalLinks = links.filter(
+    (link) => !link.to || isExternalLink(link.to.toString()),
+  )
+
   return (
-    <nav aria-label="Main navigation">
-      <ul className="flex items-center justify-end gap-6 text-lg text-secondary">
-        {links.map((linkProps) => (
-          <li key={linkProps.id} className="select-none flex items-center">
-            {linkProps.to ? (
-              <NavigationLink {...linkProps} />
+    <nav
+      aria-label="Main navigation"
+      className="flex items-center justify-between gap-6"
+    >
+      <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
+        {internalLinks.map(({ id, to, children }) => (
+          <li key={id} className="select-none flex items-center ">
+            <NavLink
+              to={to!}
+              prefetch="intent"
+              className={({ isActive }) =>
+                isActive
+                  ? "font-bold text-primary"
+                  : "hocus:text-primary hocus:underline underline-offset-8"
+              }
+            >
+              {children}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+
+      <ul className="flex items-center justify-end gap-4 text-lg text-secondary">
+        {externalLinks.map(({ to, children, ...props }) => (
+          <li key={props.id} className="select-none flex items-center ">
+            {to ? (
+              <a
+                {...props}
+                href={to?.toString()}
+                title={props.id}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {children}
+              </a>
             ) : (
-              <button {...linkProps} title={linkProps.id} />
+              <button {...props} title={props.id}>
+                {children}
+              </button>
             )}
           </li>
         ))}
       </ul>
     </nav>
   )
-}
-
-function NavigationLink({
-  to,
-  children,
-  ...props
-}: NavigationLinkProps): JSX.Element | null {
-  if (isExternalLink(to?.toString() || "")) {
-    return (
-      <a
-        {...props}
-        href={to?.toString()}
-        title={props.id}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {children}
-      </a>
-    )
-  }
-
-  return to ? (
-    <NavLink
-      to={to}
-      prefetch="intent"
-      className={({ isActive }) =>
-        isActive
-          ? "font-bold text-primary"
-          : "hocus:text-primary hocus:underline underline-offset-8"
-      }
-    >
-      {children}
-    </NavLink>
-  ) : null
 }
 
 // export default function Navigation(): JSX.Element {
