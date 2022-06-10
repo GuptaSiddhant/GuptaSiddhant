@@ -43,8 +43,8 @@ export function PrimaryButton(props: ButtonProps): JSX.Element | null {
       {...props}
       className={clsx(
         "px-4 h-10 flex items-center disabled:cursor-not-allowed",
-        "bg-secondary disabled:bg-disabled/10 hover:bg-tertiary focus:bg-tertiary",
-        "text-secondary disabled:text-disabled/50 hover:text-tertiary focus:text-tertiary",
+        "bg-secondary disabled:bg-disabled/10 hocus:enabled:bg-tertiary ",
+        "text-secondary disabled:text-disabled/50 hocus:enabled:text-tertiary",
       )}
     />
   )
@@ -56,7 +56,7 @@ export function FAB(props: ButtonProps): JSX.Element | null {
       {...props}
       className={clsx(
         props.className,
-        "bg-default text-tertiary hover:text-secondary p-2 text-sm",
+        "bg-default text-tertiary hocus:text-secondary p-2 text-sm",
       )}
     />
   )

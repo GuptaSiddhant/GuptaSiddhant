@@ -46,8 +46,8 @@ export default function Select({
         className,
         "relative rounded px-2 min-h-input min-w-min",
         "flex gap-1 items-center text-base",
-        "bg-secondary hover:bg-tertiary focus-within:bg-tertiary",
-        "text-secondary hover:text-tertiary focus-within:text-tertiary",
+        "bg-secondary hocus-within:bg-tertiary",
+        "text-secondary hocus-within:text-tertiary",
       )}
     >
       {label ? (

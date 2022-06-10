@@ -1,48 +1,17 @@
+const plugin = require("tailwindcss/plugin")
 const colors = require("tailwindcss/colors")
 const { emerald, rose, sky } = colors
 
-/**
- * @typedef {import("@types/tailwindcss/tailwind-config").TailwindThemeColors} TailwindThemeColors
- * @typedef {import("@types/tailwindcss/tailwind-config").TailwindColorGroup} TailwindColorGroup
- * @typedef {import("@types/tailwindcss/tailwind-config").TailwindConfig} TailwindConfig
- */
-
-/** @type {TailwindThemeColors} */
-const textColor = ({ theme }) => ({
-  default: theme("colors.gray.100"),
-  primary: theme("colors.white"),
-  secondary: theme("colors.gray.200"),
-  tertiary: theme("colors.gray.300"),
-  disabled: theme("colors.gray.400"),
-  inverse: theme("colors.gray.800"),
-  link: theme("colors.blue.400"),
-  "link-hover": theme("colors.blue.300"),
-  error: theme("colors.red.400"),
-  danger: theme("colors.red.300"),
-})
-
-/** @type {TailwindThemeColors} */
-const backgroundColor = ({ theme }) => ({
-  default: theme("colors.black"),
-  primary: theme("colors.gray.900"),
-  secondary: theme("colors.gray.800"),
-  tertiary: theme("colors.gray.700"),
-  disabled: theme("colors.gray.600"),
-  inverse: theme("colors.gray.200"),
-  progress: theme("colors.blue.400"),
-})
-
-/** @type {TailwindConfig} */
+/** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: "class",
-  content: ["./app/**/*.{ts,tsx}", "./packages/**/*.{ts,tsx}"],
+  content: ["./app/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
       sans: ["Nunito", "sans-serif"],
       serif: ["monospace", "serif"],
       monospace: ["Fira Code", "Menlo", "monospace"],
     },
-
     extend: {
       colors: {
         transparent: "transparent",
@@ -51,8 +20,27 @@ const config = {
         red: rose,
         green: emerald,
       },
-      textColor,
-      backgroundColor,
+      textColor: ({ theme }) => ({
+        default: theme("colors.gray.100"),
+        primary: theme("colors.white"),
+        secondary: theme("colors.gray.200"),
+        tertiary: theme("colors.gray.300"),
+        disabled: theme("colors.gray.400"),
+        inverse: theme("colors.gray.800"),
+        link: theme("colors.blue.400"),
+        "link-hover": theme("colors.blue.300"),
+        error: theme("colors.red.400"),
+        danger: theme("colors.red.300"),
+      }),
+      backgroundColor: ({ theme }) => ({
+        default: theme("colors.black"),
+        primary: theme("colors.gray.900"),
+        secondary: theme("colors.gray.800"),
+        tertiary: theme("colors.gray.700"),
+        disabled: theme("colors.gray.600"),
+        inverse: theme("colors.gray.200"),
+        progress: theme("colors.blue.400"),
+      }),
       screens: {
         xs: "400px",
         "2xl": "1700px",
@@ -92,8 +80,13 @@ const config = {
   },
 
   plugins: [
-    // require("@tailwindcss/forms")({ strategy: "class" }),
     require("@tailwindcss/typography"),
+    plugin(({ addVariant }) => {
+      addVariant("hocus", ["&:hover", "&:focus"])
+      addVariant("hocus-within", ["&:hover", "&:focus-within"])
+      addVariant("group-hocus", [".group:hover &", ".group:focus &"])
+      addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"])
+    }),
   ],
 }
 

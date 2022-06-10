@@ -70,7 +70,7 @@ function TagButton({
       className={clsx(
         tagCommonStyle,
         "rounded px-2 py-1",
-        "bg-quaternary hover:bg-disabled active:bg-tertiary",
+        "bg-quaternary hocus:bg-disabled active:bg-tertiary",
         className,
       )}
     />
@@ -100,8 +100,8 @@ function TagCheckbox({
           tagCommonStyle,
           "rounded-sm px-2 py-1 cursor-pointer",
           "bg-secondary peer-checked:bg-quaternary",
-          "hover:bg-tertiary peer-checked:hover:bg-disabled",
-          "peer-focus:ring-4",
+          "hocus:bg-tertiary peer-checked:hocus:bg-disabled",
+          "peer-hocus:ring-4",
           "flex items-center gap-2",
           "after:content-none peer-checked:after:content-['×'] after:text-sm after:text-danger",
           "peer-disabled:text-disabled peer-disabled:cursor-not-allowed peer-disabled:bg-secondary",

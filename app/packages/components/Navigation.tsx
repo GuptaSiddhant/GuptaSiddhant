@@ -61,7 +61,9 @@ function NavigationLink({
       to={to}
       prefetch="intent"
       className={({ isActive }) =>
-        isActive ? "font-bold text-primary" : "hover:text-primary"
+        isActive
+          ? "font-bold text-primary"
+          : "hocus:text-primary hocus:underline underline-offset-8"
       }
     >
       {children}

@@ -68,10 +68,9 @@ function TeaserListCard({
         <div
           className={clsx(
             "rounded-lg",
-            "h-0 w-full p-4 pl-8 group-hover:h-full group-focus:h-full",
-            "group-hover:bg-tertiary/50 group-hover:backdrop-blur",
-            "group-focus:bg-tertiary/50 group-focus:backdrop-blur",
-            "invisible transition-all group-hover:visible group-focus:visible",
+            "h-0 w-full p-4 pl-8 group-hocus:h-full",
+            "group-hocus:bg-tertiary/50 group-hocus:backdrop-blur",
+            "invisible transition-all  group-hocus:visible",
             "flex flex-col items-start justify-center gap-2",
           )}
         >

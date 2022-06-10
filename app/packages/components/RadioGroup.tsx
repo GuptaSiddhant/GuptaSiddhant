@@ -69,9 +69,9 @@ function RadioButton({
         className={clsx(
           className,
           "px-4 py-2 min-h-input w-full",
-          "bg-secondary hover:bg-tertiary peer-focus:bg-tertiary",
+          "bg-secondary hocus:bg-tertiary peer-focus:bg-tertiary",
           "peer-checked:bg-default",
-          "text-secondary hover:text-tertiary focus:text-tertiary",
+          "text-secondary hocus:text-tertiary",
           "flex items-center justify-center",
         )}
       >

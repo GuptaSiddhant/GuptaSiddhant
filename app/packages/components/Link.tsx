@@ -1,4 +1,4 @@
-import { type LinkProps,Link } from "@remix-run/react"
+import { type LinkProps, Link } from "@remix-run/react"
 import clsx from "clsx"
 import { type ComponentPropsWithoutRef } from "react"
 
@@ -6,7 +6,7 @@ import { isExternalLink } from "~/packages/helpers"
 import ExternalLinkIcon from "~/packages/icons/ExternalLinkIcon"
 import type { BaseProps } from "~/packages/types"
 
-export { type LinkProps,Link }
+export { type LinkProps, Link }
 
 export interface ExternalLinkProps {
   href?: string
@@ -37,7 +37,7 @@ export function InternalLink({
     <Link
       {...props}
       className={clsx(
-        "text-link no-underline hover:text-link-hover hover:underline active:text-link",
+        "text-link no-underline hocus:text-link-hover hocus:underline active:text-link",
         className,
       )}
     >
@@ -61,7 +61,7 @@ export function ExternalLink({
     <a
       {...props}
       href={href}
-      className={clsx("text-link hover:underline", className)}
+      className={clsx("text-link hocus:underline", className)}
       target="_blank"
       rel="noreferrer"
       title={tooltipLabel}
