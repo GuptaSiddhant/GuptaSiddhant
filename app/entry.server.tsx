@@ -3,6 +3,9 @@ import type { EntryContext } from "@remix-run/server-runtime"
 import { cert, initializeApp } from "firebase-admin/app"
 import { renderToString } from "react-dom/server"
 
+global.__IS_SERVER__ = true
+global.__IS_DEV__ = process.env.NODE_ENV === "development"
+
 const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY || "",
 )

@@ -17,5 +17,8 @@ export async function getProjectTeaserList(limit = 10): Promise<TeaserProps[]> {
 }
 
 export async function getProjectDetails(id: string): Promise<ProjectProps> {
-  return getFirestoreDocument(collectionName, id)
+  const project = await getFirestoreDocument<ProjectProps>(collectionName, id)
+  const cover: string | undefined = project.gallery?.[0]?.url
+
+  return { ...project, cover }
 }

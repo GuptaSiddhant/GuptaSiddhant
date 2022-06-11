@@ -32,6 +32,8 @@ declare namespace NodeJS {
 declare global {
   var cache: LRUCache<string, any>
   var firebaseApp: App
+  var __IS_SERVER__: boolean
+  var __IS_DEV__: boolean
 }
 
 declare namespace Intl {

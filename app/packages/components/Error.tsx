@@ -22,14 +22,15 @@ export function ErrorSection({
   return (
     <Hero className={className}>
       <Hero.Header caption={{ label: caption, icon: "error" }} title={title} />
-      <Paragraph className="text-tertiary">{message}</Paragraph>
-      {children}
-      <button
-        className="w-max"
-        onClick={() => typeof window !== "undefined" && window.history.go(-1)}
-      >
-        {"< Go back."}
-      </button>
+      <Hero.Description description={message}>
+        {children}
+        <button
+          className="w-max"
+          onClick={() => typeof window !== "undefined" && window.history.go(-1)}
+        >
+          {"< Go back."}
+        </button>
+      </Hero.Description>
     </Hero>
   )
 }

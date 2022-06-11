@@ -66,13 +66,16 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
 
   return {
     title: name,
-    description: "Webfolio of a developer/designer.",
+    description: "Webfolio of a creator.",
     charset: "utf-8",
     viewport: "width=device-width,initial-scale=1.0,maximum-scale=1.0",
     "application-name": name,
     "apple-mobile-web-app-title": name,
     "theme-color": "#000000",
     "msapplication-TileColor": "#000000",
+    "og:locale": "en_GB",
+    "og:type": "website",
+    "og:site_name": "GS",
   }
 }
 

@@ -1,6 +1,6 @@
 import LRUCache from "lru-cache"
 
-import { _1_DAY_IN_MS_ } from "~/packages/constants"
+import { ONE_DAY_IN_MS } from "~/packages/constants"
 
 import {
   fetchFireStoreCollection,
@@ -30,7 +30,7 @@ const cache =
   (global.cache = new LRUCache<string, any>({
     max: 100,
     allowStale: true,
-    ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || _1_DAY_IN_MS_,
+    ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
     fetchMethod: (key) => {
       const [type, value] = key.split(cacheKeySeparator)
       if (!Object.values(CacheType).includes(type as CacheType)) {

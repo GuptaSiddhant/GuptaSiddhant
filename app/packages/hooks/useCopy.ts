@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
-import { __IS_SERVER__ } from "~/packages/constants"
-
-export default function useCopy(data: string, timeoutInMs = 3000) {
+export default function useCopy(data?: string, timeoutInMs = 3000) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {

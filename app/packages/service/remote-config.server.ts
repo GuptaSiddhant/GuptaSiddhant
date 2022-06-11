@@ -3,8 +3,7 @@ import {
   getRemoteConfig,
 } from "firebase-admin/remote-config"
 
-import { __IS_DEV__ } from "../constants"
-import cache, { CacheType,createCacheKey } from "./cache.server"
+import cache, { CacheType, createCacheKey } from "./cache.server"
 
 // Getters
 

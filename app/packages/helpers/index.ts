@@ -15,3 +15,7 @@ export async function downloadFileWithUrl(
 export function generateUniqueId(prefix?: string): string {
   return `${prefix || ""}${Math.random().toString(36).substr(2, 9)}`
 }
+
+export function createMetaTitle(title: string) {
+  return `${title} | GS`
+}

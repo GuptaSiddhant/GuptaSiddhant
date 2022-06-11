@@ -19,5 +19,8 @@ export async function getBlogPostTeaserList(
 }
 
 export async function getBlogPostDetails(id: string): Promise<BlogPostProps> {
-  return getFirestoreDocument(collectionName, id)
+  const post = await getFirestoreDocument<BlogPostProps>(collectionName, id)
+  const cover: string | undefined = post.gallery?.[0]?.url
+
+  return { ...post, cover }
 }

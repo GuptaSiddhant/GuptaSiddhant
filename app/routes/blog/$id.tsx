@@ -1,34 +1,40 @@
 import { useLoaderData } from "@remix-run/react"
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
-import clsx from "clsx"
+import {
+  type LoaderFunction,
+  type MetaFunction,
+  json,
+} from "@remix-run/server-runtime"
 
-import { type BlogPostProps } from "~/features/blog"
+import { type BlogPostProps, generateBlogPostMeta } from "~/features/blog"
 import { getBlogPostDetails } from "~/features/blog/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
-import { Paragraph } from "~/packages/components/Text"
 
 interface LoaderData {
   post: BlogPostProps
+  url: string
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id
   if (!id) throw new Error("Blog post id is required")
 
   try {
     const post = await getBlogPostDetails(id)
 
-    return json<LoaderData>({ post })
+    return json<LoaderData>({ post, url: request.url })
   } catch (e: any) {
-    throw new Error(`Failed to load blog post '${id}'. Reason: ${e?.message}`)
+    const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
+    throw new Error(`Failed to load blog post '${id}'. ${reason}`)
   }
 }
 
+export const meta: MetaFunction = ({ data, params }) =>
+  generateBlogPostMeta(data?.project, data?.url, params.id)
+
 export default function ProjectDetails(): JSX.Element {
   const { post } = useLoaderData<LoaderData>()
-  const { title, subtitle, description, gallery, icon } = post
-  const cover: string | undefined = gallery?.[0]?.url
+  const { title, subtitle, description, cover, icon } = post
 
   return (
     <>

@@ -1,7 +1,5 @@
 import { type DocumentData } from "firebase-admin/firestore"
 
-import { __IS_DEV__ } from "~/packages/constants"
-
 import type { TeaserProps } from "."
 
 export function getTeasersFromCollection(

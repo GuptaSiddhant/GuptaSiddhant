@@ -1,7 +1,12 @@
 import { useLoaderData } from "@remix-run/react"
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
+import {
+  type LoaderFunction,
+  type MetaFunction,
+  json,
+} from "@remix-run/server-runtime"
 
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
+import { createMetaTitle } from "~/packages/helpers"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
 } from "~/packages/teaser/filter-sort"
@@ -9,7 +14,9 @@ import TeaserGrid from "~/packages/teaser/TeaserGrid"
 import TeaserHero from "~/packages/teaser/TeaserHero"
 import TeaserList from "~/packages/teaser/TeaserList"
 
-interface LoaderData extends FilterSortTeasersReturn {}
+interface LoaderData extends FilterSortTeasersReturn {
+  title: string
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
@@ -18,18 +25,22 @@ export const loader: LoaderFunction = async ({ request }) => {
     defaultViewAs: "list",
   })
 
-  return json<LoaderData>({ ...filterSortTeasersReturn })
+  return json<LoaderData>({ ...filterSortTeasersReturn, title: "Blog" })
 }
 
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
+  title: createMetaTitle(data.title),
+})
+
 export default function Blog(): JSX.Element {
-  const { teasers, ...filterSortFormProps } = useLoaderData<LoaderData>()
+  const { title, teasers, ...filterSortFormProps } = useLoaderData<LoaderData>()
 
   return (
     <>
       <TeaserHero
         {...filterSortFormProps}
         filterPlaceholder="All posts"
-        title="Blog"
+        title={title}
         subtitle="Thoughts on somethings. Sometimes everything."
       />
 
