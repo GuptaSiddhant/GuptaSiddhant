@@ -76,6 +76,8 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
     "og:locale": "en_GB",
     "og:type": "website",
     "og:site_name": "GS",
+    "twitter:creator": "@guptasiddhant9",
+    "twitter:card": "summary",
   }
 }
 

@@ -34,5 +34,6 @@ export function generateProjectMeta(
     "og:article:section": "Project",
     "og:article:tag": tags,
     "og:article:author": "Siddhant Gupta",
+    "twitter:card": "summary_large_image",
   }
 }

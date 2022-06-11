@@ -32,5 +32,6 @@ export function generateBlogPostMeta(
     "og:article:section": "Blog",
     "og:article:tag": tags,
     "og:article:author": "Siddhant Gupta",
+    "twitter:card": "summary_large_image",
   }
 }

@@ -7,9 +7,9 @@ import {
 
 import { type ProjectProps, generateProjectMeta } from "~/features/projects"
 import { getProjectDetails } from "~/features/projects/service.server"
-import { CopyButton } from "~/packages/components/Button"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
+import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
 
 interface LoaderData {
@@ -35,7 +35,7 @@ export const meta: MetaFunction = ({ data, params }) =>
   generateProjectMeta(data?.project, data?.url, params.id)
 
 export default function ProjectDetails(): JSX.Element {
-  const { project } = useLoaderData<LoaderData>()
+  const { project, url } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = project
 
   return (
@@ -50,7 +50,7 @@ export default function ProjectDetails(): JSX.Element {
           title={title}
           subtitle={subtitle}
         >
-          <Actions />
+          <ShareTray url={url} />
         </Hero.Header>
         <Hero.Description description={description} />
         <Hero.Image src={cover} alt={title} icon={icon} />
@@ -68,15 +68,5 @@ export function ErrorBoundary({ error }: { error: Error }) {
       title="Project not found"
       message={error.message}
     />
-  )
-}
-
-function Actions(): JSX.Element | null {
-  const url = String(useLoaderData()?.url) || undefined
-
-  return (
-    <div className="flex flex-end gap-4 items-center">
-      <CopyButton>{url}</CopyButton>
-    </div>
   )
 }
