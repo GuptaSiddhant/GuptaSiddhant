@@ -66,7 +66,7 @@ export function CopyButton({
   children,
   className,
 }: {
-  children?: string
+  children: string
   className?: string
 }): JSX.Element | null {
   const [copied, copy, isAvailable] = useCopy(children)

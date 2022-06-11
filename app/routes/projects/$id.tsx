@@ -52,7 +52,11 @@ export default function ProjectDetails(): JSX.Element {
         >
           <ShareTray url={url} />
         </Hero.Header>
-        <Hero.Description description={description} />
+
+        <Hero.Description description={description}>
+          <Tags.List tags={tags.sort()} className="justify-start" />
+        </Hero.Description>
+
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 

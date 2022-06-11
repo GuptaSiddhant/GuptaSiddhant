@@ -24,10 +24,12 @@ export default function HeroHeader({
   return (
     <header className={clsx("flex flex-col gap-4 items-start", proseWidth)}>
       <HeroHeaderCaption caption={caption}>{children}</HeroHeaderCaption>
-      <H1 className="text-primary">{title}</H1>
-      {subtitle ? (
-        <SubHeading className="text-secondary">{subtitle}</SubHeading>
-      ) : null}
+      <div className="mt-4 flex flex-col gap-4">
+        <H1 className="text-primary">{title}</H1>
+        {subtitle ? (
+          <SubHeading className="text-secondary">{subtitle}</SubHeading>
+        ) : null}
+      </div>
     </header>
   )
 }

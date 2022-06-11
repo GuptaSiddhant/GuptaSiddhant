@@ -15,7 +15,7 @@ export default function HomeHeroSection(about: AboutInfo): JSX.Element {
   } = about
 
   return (
-    <Hero>
+    <Hero prose>
       <H1>
         Hi, I bring designs to life on your screen,
         <ChangingText texts={heroAdjectives} />.

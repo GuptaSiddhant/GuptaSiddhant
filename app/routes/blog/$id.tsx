@@ -10,6 +10,7 @@ import { getBlogPostDetails } from "~/features/blog/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
+import Tags from "~/packages/components/Tags"
 
 interface LoaderData {
   post: BlogPostProps
@@ -31,11 +32,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 }
 
 export const meta: MetaFunction = ({ data, params }) =>
-  generateBlogPostMeta(data?.project, data?.url, params.id)
+  generateBlogPostMeta(data?.post, data?.url, params.id)
 
 export default function ProjectDetails(): JSX.Element {
   const { post, url } = useLoaderData<LoaderData>()
-  const { title, subtitle, description, cover, icon } = post
+  const { title, subtitle, description, cover, icon, tags = [] } = post
 
   return (
     <>
@@ -52,7 +53,9 @@ export default function ProjectDetails(): JSX.Element {
           <ShareTray url={url} />
         </Hero.Header>
 
-        <Hero.Description description={description}></Hero.Description>
+        <Hero.Description description={description}>
+          <Tags.List tags={tags.sort()} className="justify-start" />
+        </Hero.Description>
 
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>

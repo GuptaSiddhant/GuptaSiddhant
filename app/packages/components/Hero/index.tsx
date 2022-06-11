@@ -2,20 +2,25 @@ import clsx from "clsx"
 
 import type { BaseProps } from "~/packages/types"
 
-import Section from "../Section"
+import Section, { proseWidth } from "../Section"
 import HeroDescription from "./HeroDescription"
 import HeroHeader from "./HeroHeader"
 import HeroImage from "./HeroImage"
 
 export default function Hero({
   className,
+  prose,
   ...props
-}: BaseProps): JSX.Element | null {
+}: BaseProps & { prose?: boolean }): JSX.Element | null {
   return (
     <Section
       id="hero"
       {...props}
-      className={clsx(className, "mt-[10vh] text-tertiary")}
+      className={clsx(
+        className,
+        "mt-[10vh] text-tertiary",
+        prose && proseWidth,
+      )}
     />
   )
 }
