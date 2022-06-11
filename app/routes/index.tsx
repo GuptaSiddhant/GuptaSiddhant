@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import { json } from "@remix-run/server-runtime"
 
 import { type AboutInfo } from "~/features/about"
@@ -7,8 +7,9 @@ import { getBlogPostTeaserList } from "~/features/blog/service.server"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
 import { getProjectTeaserList } from "~/features/projects/service.server"
 import { ErrorSection } from "~/packages/components/Error"
+import { HeroHeaderCaption } from "~/packages/components/Hero/HeroHeader"
 import { InternalLink } from "~/packages/components/Link"
-import { Caption, H2 } from "~/packages/components/Text"
+import { H2 } from "~/packages/components/Text"
 import { type TeaserProps } from "~/packages/teaser"
 import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 
@@ -43,9 +44,13 @@ export default function Index() {
         linkBaseUrl={`/${projectsId}/`}
         className="bg-gradient-to-b from-gray-900 to-gray-800"
       >
-        <Caption>
-          <Link to={"#" + projectsId}>Featured Projects</Link>
-        </Caption>
+        <HeroHeaderCaption
+          caption={{
+            label: "Featured Projects",
+            to: `#${projectsId}`,
+            icon: "hash",
+          }}
+        />
         <H2 className="!p-0">Stuff I've been tinkering with</H2>
         <InternalLink to={`/${projectsId}/`}>View all projects</InternalLink>
       </TeaserCarousel>
@@ -56,9 +61,13 @@ export default function Index() {
         linkBaseUrl={`/${blogId}/`}
         className="bg-gradient-to-t from-gray-900 to-gray-800"
       >
-        <Caption>
-          <Link to={"#" + blogId}>Recent posts</Link>
-        </Caption>
+        <HeroHeaderCaption
+          caption={{
+            label: "Recent posts",
+            to: `#${blogId}`,
+            icon: "hash",
+          }}
+        />
         <H2 className="!p-0">Recent thoughts and ideas...</H2>
         <InternalLink to={`/${blogId}/`}>View all blog posts</InternalLink>
       </TeaserCarousel>

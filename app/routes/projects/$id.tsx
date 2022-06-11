@@ -1,13 +1,12 @@
 import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
-import clsx from "clsx"
+import ShareIcon from "remixicon-react/ShareForwardLineIcon"
 
 import { type ProjectProps } from "~/features/projects"
 import { getProjectDetails } from "~/features/projects/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
-// import Section from "~/packages/components/Section"
-import { Paragraph } from "~/packages/components/Text"
+import Tags from "~/packages/components/Tags"
 
 interface LoaderData {
   project: ProjectProps
@@ -28,7 +27,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function ProjectDetails(): JSX.Element {
   const { project } = useLoaderData<LoaderData>()
-  const { title, subtitle, description, gallery } = project
+  const { title, subtitle, description, gallery, icon, tags = [] } = project
   const cover: string | undefined = gallery?.[0]?.url
 
   return (
@@ -42,27 +41,16 @@ export default function ProjectDetails(): JSX.Element {
           }}
           title={title}
           subtitle={subtitle}
-        />
-        {description ? (
-          <Paragraph className="text-tertiary">{description}</Paragraph>
-        ) : null}
+        >
+          <button>
+            <ShareIcon />
+          </button>
+        </Hero.Header>
+        <Hero.Description description={description} />
+        <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 
-      <figure
-        className={clsx(
-          "relative",
-          "-w-full-m4 mx-4 md:-w-full-m8 md:mx-8",
-          "md:aspect-video",
-        )}
-      >
-        <img
-          src={cover}
-          alt={title}
-          className="object-cover h-full w-full min-h-[50vh] rounded-md"
-          loading="eager"
-        />
-        {/* <figcaption className="text-tertiary text-sm py-2">{title}</figcaption> */}
-      </figure>
+      <Tags.List tags={tags} className="justify-start" />
     </>
   )
 }

@@ -1,46 +1,33 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
-import { type ReactElement } from "react"
+import { type ReactElement, type ReactNode } from "react"
 import BackIcon from "remixicon-react/ArrowLeftLineIcon"
 import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
 import HashIcon from "remixicon-react/HashtagIcon"
 
-import type { BaseProps } from "~/packages/types"
-
-import Section from "./Section"
-import { Caption, H1, SubHeading } from "./Text"
-
-export default function Hero({
-  className,
-  ...props
-}: BaseProps): JSX.Element | null {
-  return (
-    <Section.Prose
-      id="hero"
-      {...props}
-      className={clsx(className, "mt-[10vh]")}
-    />
-  )
-}
-
-Hero.Header = HeroHeader
+import { proseWidth } from "../Section"
+import { Caption, H1, SubHeading } from "../Text"
 
 export interface HeroHeaderProps {
   title: string
   subtitle?: string
   caption?: HeroHeaderCaptionType
+  children?: ReactNode
 }
 
-function HeroHeader({
+export default function HeroHeader({
   caption,
   title,
   subtitle,
+  children,
 }: HeroHeaderProps): JSX.Element | null {
   return (
-    <header className="flex flex-col gap-4">
-      <HeroHeaderCaption caption={caption} />
-      <H1>{title}</H1>
-      {subtitle ? <SubHeading>{subtitle}</SubHeading> : null}
+    <header className={clsx("flex flex-col gap-4 items-start", proseWidth)}>
+      <HeroHeaderCaption caption={caption}>{children}</HeroHeaderCaption>
+      <H1 className="text-primary">{title}</H1>
+      {subtitle ? (
+        <SubHeading className="text-secondary">{subtitle}</SubHeading>
+      ) : null}
     </header>
   )
 }
@@ -54,16 +41,28 @@ export type HeroHeaderCaptionType =
       icon?: HeroHeaderCaptionIconType
     }
 
-function HeroHeaderCaption({ caption }: { caption?: HeroHeaderCaptionType }) {
+export function HeroHeaderCaption({
+  caption,
+  children,
+}: {
+  caption?: HeroHeaderCaptionType
+  children?: ReactNode
+}) {
   if (!caption) return null
 
-  if (typeof caption === "string") return <Caption>{caption}</Caption>
+  if (typeof caption === "string")
+    return (
+      <Caption className="flex justify-between items-center w-full">
+        <span>{caption}</span>
+        {children}
+      </Caption>
+    )
 
   const { icon, className = caption.className } = getHeroHeaderCaptionIcon(
     caption.icon,
   )
 
-  return (
+  const captionElement = (
     <Link to={caption.to || "#"} className={clsx("relative", className)}>
       <Caption className="text-current">{caption.label}</Caption>
       {icon ? (
@@ -79,6 +78,15 @@ function HeroHeaderCaption({ caption }: { caption?: HeroHeaderCaptionType }) {
       ) : null}
     </Link>
   )
+
+  if (!children) return captionElement
+
+  return (
+    <div className="flex justify-between items-center w-full">
+      {captionElement}
+      {children}
+    </div>
+  )
 }
 
 export type HeroHeaderCaptionIconType = ReactElement | "back" | "hash" | "error"
@@ -91,7 +99,7 @@ function getHeroHeaderCaptionIcon(icon?: HeroHeaderCaptionIconType): {
     case "back":
       return { icon: <BackIcon />, className: "text-link" }
     case "hash":
-      return { icon: <HashIcon />, className: "text-link" }
+      return { icon: <HashIcon />, className: "text-tertiary" }
     case "error":
       return { icon: <ErrorIcon />, className: "text-error" }
     default:

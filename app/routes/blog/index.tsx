@@ -2,7 +2,6 @@ import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
-import { H1, Paragraph } from "~/packages/components/Text"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
 } from "~/packages/teaser/filter-sort"
@@ -27,12 +26,12 @@ export default function Blog(): JSX.Element {
 
   return (
     <>
-      <TeaserHero {...filterSortFormProps} filterPlaceholder="All posts">
-        <H1>Blog</H1>
-        <Paragraph className="text-secondary">
-          Thoughts on somethings. Sometimes everything.
-        </Paragraph>
-      </TeaserHero>
+      <TeaserHero
+        {...filterSortFormProps}
+        filterPlaceholder="All posts"
+        title="Blog"
+        subtitle="Thoughts on somethings. Sometimes everything."
+      />
 
       {filterSortFormProps.viewAs === "list" ? (
         <TeaserList teasers={teasers} />
