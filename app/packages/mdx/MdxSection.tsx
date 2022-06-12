@@ -1,26 +1,26 @@
 import clsx from "clsx"
-import { useMemo } from "react"
 
 import Section from "../components/Section"
-import { arrangeTocByLevels, type TocItem } from "./helpers"
-import MdxContent from "./MdxContent"
-import TableOfContents from "./TableOfContents"
 import FloatingTOC from "./FloatingTOC"
+import { type TocItem, arrangeTocByLevels } from "./helpers"
+import InlineTOC from "./InlineTOC"
+import MdxContent from "./MdxContent"
 
-export default function MdxSection({
-  mdx,
-  toc,
-  id = "maincontent",
-}: {
+export interface MdxSectionProps {
   id?: string
   mdx?: string
   toc?: TocItem[]
-}): JSX.Element | null {
-  const arrangedToc = useMemo(
-    () => (toc || [])?.reduce(arrangeTocByLevels, []),
-    [toc],
-  )
+}
+
+export default function MdxSection({
+  mdx,
+  toc = [],
+  id = "main-content",
+}: MdxSectionProps): JSX.Element | null {
   if (!mdx) return null
+
+  const arrangedToc = toc.reduce(arrangeTocByLevels, [])
+  const tocHighestLevel = arrangedToc[0].level || 1
 
   return (
     <Section
@@ -34,18 +34,17 @@ export default function MdxSection({
       <aside className={clsx("text-sm")}>
         {toc ? (
           <section className="sticky top-20 overflow-visible hidden lg:block">
-            <TableOfContents
-              toc={arrangedToc}
-              maxLevel={3}
-              highestLevel={toc[0].level}
+            <InlineTOC
+              toc={toc.reduce(arrangeTocByLevels, [])}
+              highestLevel={tocHighestLevel}
             />
           </section>
         ) : null}
 
         <FloatingTOC
           toc={toc}
-          maxLevel={3}
-          highestLevel={toc?.[0].level || 1}
+          highestLevel={tocHighestLevel}
+          className="lg:hidden"
         />
       </aside>
 

@@ -1,4 +1,5 @@
 import { type ReactNode } from "react"
+import { DEFAULT_TOC_MAX_LEVEL } from "../constants"
 
 import { toKebabCase } from "../helpers/format"
 
@@ -21,7 +22,10 @@ export function generateHeadingId(children: ReactNode): string {
   return toKebabCase(children?.toString() || "")
 }
 
-export function extractTocFromMdx(mdx?: string): TocItem[] {
+export function extractTocFromMdx(
+  mdx?: string,
+  maxLevel: number = DEFAULT_TOC_MAX_LEVEL,
+): TocItem[] {
   if (!mdx) return []
 
   const regex = /#+.+/g
@@ -37,6 +41,7 @@ export function extractTocFromMdx(mdx?: string): TocItem[] {
       }
     })
     .filter((h, i) => (i > 0 ? h.level > 1 : true))
+    .filter((h) => h.level <= maxLevel)
 
   return headings || []
 }

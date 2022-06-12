@@ -9,13 +9,14 @@ import { type TocItem } from "./helpers"
 export interface FloatingTOCProps {
   toc?: TocItem[]
   highestLevel: number
-  maxLevel: number
   activeId?: string
+  className?: string
 }
 
 export default function FloatingTOC({
   toc,
   highestLevel,
+  className,
 }: FloatingTOCProps): JSX.Element | null {
   const actions: MenuActionProps[] | undefined = useMemo(
     () =>
@@ -37,7 +38,8 @@ export default function FloatingTOC({
     <Menu
       actions={actions}
       className={clsx(
-        "fixed bottom-4 left-4 z-popover lg:hidden m-1 rounded-bl-xl",
+        className,
+        "fixed bottom-4 left-4 z-popover m-1 rounded rounded-bl-xl",
         fabClassName,
       )}
     >

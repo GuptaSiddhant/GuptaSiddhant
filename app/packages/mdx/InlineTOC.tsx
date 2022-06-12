@@ -6,15 +6,14 @@ import { type TocItem } from "./helpers"
 export interface TableOfContentsProps {
   toc: TocItem[]
   highestLevel: number
-  maxLevel: number
   activeId?: string
 }
 
-export default function TableOfContents({
+export default function InlineTOC({
   toc,
   ...options
 }: TableOfContentsProps): JSX.Element {
-  const { activeId, highestLevel, maxLevel } = options
+  const { activeId, highestLevel } = options
 
   return (
     <nav className={"list-none"}>
@@ -41,22 +40,20 @@ export default function TableOfContents({
               item.level > highestLevel && "ml-4",
             )}
           >
-            {item.level <= maxLevel ? (
-              item.children.length === 0 ? (
-                <span
-                  className={clsx(
-                    "before:absolute before:content-['•'] before:-indent-4 text-tertiary",
-                  )}
-                >
-                  {itemContent}
-                </span>
-              ) : (
-                <details key={item.id} open>
-                  <summary className="-indent-4">{itemContent}</summary>
-                  <TableOfContents toc={item.children} {...options} />
-                </details>
-              )
-            ) : null}
+            {item.children.length === 0 ? (
+              <span
+                className={clsx(
+                  "before:absolute before:content-['•'] before:-indent-4 text-tertiary",
+                )}
+              >
+                {itemContent}
+              </span>
+            ) : (
+              <details key={item.id} open>
+                <summary className="-indent-4">{itemContent}</summary>
+                <InlineTOC toc={item.children} {...options} />
+              </details>
+            )}
           </li>
         )
       })}
