@@ -34,7 +34,7 @@ export default function AppLayout({
         data-header
         ref={headerRef}
         className={clsx(
-          "fixed top-0 left-0 right-0 z-40 bg-default",
+          "fixed top-0 left-0 right-0 z-layout bg-default",
           "grid grid-rows-2 sm:grid-rows-none sm:grid-cols-[1fr_max-content] items-baseline",
           "py-2 px-4 sm:px-8",
         )}
@@ -62,7 +62,7 @@ export default function AppLayout({
         data-footer
         className={clsx(
           "fixed bottom-0 right-0 left-0",
-          "h-4 z-40 bg-default px-4",
+          "h-4 z-layout bg-default px-4",
         )}
       >
         {scrollButtonVisible ? (

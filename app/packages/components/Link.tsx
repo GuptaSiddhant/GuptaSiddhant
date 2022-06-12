@@ -8,6 +8,7 @@ import type { BaseProps } from "~/packages/types"
 
 export { type LinkProps, Link }
 
+export type To = LinkProps["to"]
 export interface ExternalLinkProps {
   href?: string
   tooltipLabel?: string

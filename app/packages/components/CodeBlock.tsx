@@ -87,7 +87,7 @@ function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
     <div
       className={clsx(
         className,
-        "absolute text-sm z-10 rounded-md -top-2 right-4 px-2",
+        "absolute text-sm z-[1] rounded-md -top-2 right-4 px-2",
         "flex items-center gap-2",
       )}
     >

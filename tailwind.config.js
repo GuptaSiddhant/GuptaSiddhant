@@ -12,6 +12,15 @@ const config = {
       serif: ["monospace", "serif"],
       monospace: ["Fira Code", "Menlo", "monospace"],
     },
+    zIndex: {
+      hide: -1,
+      auto: "auto",
+      0: 0,
+      layout: 20,
+      popover: 30,
+      toast: 40,
+      tooltip: 50,
+    },
     extend: {
       colors: {
         transparent: "transparent",
@@ -91,6 +100,7 @@ const config = {
       addVariant("hocus-within", ["&:hover", "&:focus-within"])
       addVariant("group-hocus", [".group:hover &", ".group:focus &"])
       addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"])
+
       addUtilities({
         ".flex-center": {
           display: "flex",

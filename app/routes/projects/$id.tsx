@@ -13,7 +13,6 @@ import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
 import {
   type TocItem,
-  arrangeTocByLevels,
   extractTocFromMdx,
   transformContentToMdx,
 } from "~/packages/mdx/helpers"
@@ -33,7 +32,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   try {
     const { content, ...project } = await getProjectDetails(id)
     const mdx = transformContentToMdx(content)
-    const toc = extractTocFromMdx(mdx).reduce(arrangeTocByLevels, [])
+    const toc = extractTocFromMdx(mdx)
 
     return json<LoaderData>({
       project,
