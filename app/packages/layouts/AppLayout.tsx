@@ -67,7 +67,7 @@ export default function AppLayout({
       >
         {scrollButtonVisible ? (
           <FAB
-            className={"absolute right-4 bottom-full m-0.5 rounded-br-xl"}
+            className={"absolute right-4 bottom-full m-1 rounded-br-xl"}
             onClick={handleScrollToTop}
             title="Scroll to top"
           >

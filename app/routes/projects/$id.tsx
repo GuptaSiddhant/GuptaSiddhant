@@ -14,7 +14,7 @@ import Tags from "~/packages/components/Tags"
 import {
   type TocItem,
   arrangeTocByLevels,
-  extractTocFromContent,
+  extractTocFromMdx,
   transformContentToMdx,
 } from "~/packages/mdx/helpers"
 import MdxSection from "~/packages/mdx/MdxSection"
@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   try {
     const { content, ...project } = await getProjectDetails(id)
     const mdx = transformContentToMdx(content)
-    const toc = extractTocFromContent(content).reduce(arrangeTocByLevels, [])
+    const toc = extractTocFromMdx(mdx).reduce(arrangeTocByLevels, [])
 
     return json<LoaderData>({
       project,

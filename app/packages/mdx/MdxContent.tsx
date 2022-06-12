@@ -4,7 +4,17 @@ import { Fragment, memo } from "react"
 import { Pre } from "../components/CodeBlock"
 import Img from "../components/Img"
 import { AnchorLink } from "../components/Link"
-import { H1, H2, H3, H4, H5, H6, Paragraph } from "../components/Text"
+import {
+  type HeadingProps,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Paragraph,
+} from "../components/Text"
+import { generateHeadingId } from "./helpers"
 
 const MdxContent = memo(function MarkdownComponent({
   mdx,
@@ -17,12 +27,12 @@ const MdxContent = memo(function MarkdownComponent({
       options={{
         wrapper: Fragment,
         overrides: {
-          h1: (props) => <H1 {...props} link />,
-          h2: (props) => <H2 {...props} link />,
-          h3: (props) => <H3 {...props} link />,
-          h4: (props) => <H4 {...props} link />,
-          h5: (props) => <H5 {...props} link />,
-          h6: (props) => <H6 {...props} link />,
+          h1: headingGenerator(H1),
+          h2: headingGenerator(H2),
+          h3: headingGenerator(H3),
+          h4: headingGenerator(H4),
+          h5: headingGenerator(H5),
+          h6: headingGenerator(H6),
           img: (props) => <Img {...props} link loading="lazy" />,
           pre: Pre,
           p: Paragraph,
@@ -34,3 +44,9 @@ const MdxContent = memo(function MarkdownComponent({
 })
 
 export default MdxContent
+
+function headingGenerator(Component: (props: HeadingProps) => JSX.Element) {
+  return function Heading(props: any) {
+    return <Component {...props} link id={generateHeadingId(props.children)} />
+  }
+}

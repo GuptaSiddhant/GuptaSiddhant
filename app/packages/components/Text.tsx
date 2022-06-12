@@ -7,13 +7,13 @@ import {
   useState,
 } from "react"
 
-import { toKebabCase } from "~/packages/helpers/format"
 import type { BaseProps } from "~/packages/types"
+
 import { generateHeadingId } from "../mdx/helpers"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 
-interface HeadingProps extends BaseProps {
+export interface HeadingProps extends BaseProps {
   link?: boolean
 }
 

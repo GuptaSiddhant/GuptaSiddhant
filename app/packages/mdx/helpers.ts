@@ -21,11 +21,11 @@ export function generateHeadingId(children: ReactNode): string {
   return toKebabCase(children?.toString() || "")
 }
 
-export function extractTocFromContent(content?: string): TocItem[] {
-  if (!content) return []
+export function extractTocFromMdx(mdx?: string): TocItem[] {
+  if (!mdx) return []
 
-  const regex = /#+[\s\w+]+/g
-  const headings = content
+  const regex = /#+.+/g
+  const headings = mdx
     .match(regex)
     ?.map((h) => {
       const text = h.split("# ")[1]
