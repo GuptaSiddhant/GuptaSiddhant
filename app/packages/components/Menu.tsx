@@ -9,6 +9,7 @@ import {
 } from "@reach/menu-button"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
+import CloseIcon from "remixicon-react/CloseCircleLineIcon"
 
 import { type To } from "./Link"
 
@@ -35,29 +36,39 @@ export default function Menu({
 
   return (
     <ReachMenu>
-      <MenuButton className={className}>{children}</MenuButton>
-      <MenuPopover
-        className={clsx(
-          "bg-tertiary rounded border border-solid border-gray-500",
-          "block outline-none shadow-xl overflow-y-auto",
-          "z-popover absolute [&[hidden]]:hidden max-h-screen-main",
-        )}
-      >
-        <MenuItems className="py-2 whitespace-nowrap ">
-          {actions.map((props) =>
-            "to" in props ? (
-              <MenuLink
-                key={props.id}
-                {...props}
-                as={Link}
-                className={actionClassName}
-              />
-            ) : (
-              <MenuItem key={props.id} {...props} className={actionClassName} />
-            ),
-          )}
-        </MenuItems>
-      </MenuPopover>
+      {({ isOpen }) => (
+        <>
+          <MenuButton className={className}>
+            {isOpen ? <CloseIcon aria-label="Close menu" /> : children}
+          </MenuButton>
+          <MenuPopover
+            className={clsx(
+              "bg-tertiary rounded border border-solid border-gray-500",
+              "block outline-none shadow-lg overflow-y-auto",
+              "z-popover absolute [&[hidden]]:hidden max-h-screen-main",
+            )}
+          >
+            <MenuItems className="py-2 whitespace-nowrap ">
+              {actions.map((props) =>
+                "to" in props ? (
+                  <MenuLink
+                    key={props.id}
+                    {...props}
+                    as={Link}
+                    className={actionClassName}
+                  />
+                ) : (
+                  <MenuItem
+                    key={props.id}
+                    {...props}
+                    className={actionClassName}
+                  />
+                ),
+              )}
+            </MenuItems>
+          </MenuPopover>
+        </>
+      )}
     </ReachMenu>
   )
 }

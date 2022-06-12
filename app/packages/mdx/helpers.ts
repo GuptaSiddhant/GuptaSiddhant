@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
-import { DEFAULT_TOC_MAX_LEVEL } from "../constants"
 
+import { DEFAULT_TOC_MAX_LEVEL } from "../constants"
 import { toKebabCase } from "../helpers/format"
 
 export interface TocItem {

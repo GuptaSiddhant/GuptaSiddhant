@@ -6,6 +6,8 @@ import { fabClassName } from "../components/Button"
 import Menu, { type MenuActionProps } from "../components/Menu"
 import { type TocItem } from "./helpers"
 
+const TOC_LEVEL_GAP = 8
+
 export interface FloatingTOCProps {
   toc?: TocItem[]
   highestLevel: number
@@ -23,7 +25,7 @@ export default function FloatingTOC({
       toc?.map(({ id, text, level }) => ({
         id,
         children: (
-          <span className={generateClassNameForTocLevel(level, highestLevel)}>
+          <span style={{ paddingLeft: (level - highestLevel) * TOC_LEVEL_GAP }}>
             {text}
           </span>
         ),
@@ -43,21 +45,7 @@ export default function FloatingTOC({
         fabClassName,
       )}
     >
-      <TocIcon aria-hidden />
-      <span className="sr-only">Table of contents</span>
+      <TocIcon aria-label="Table of contents" />
     </Menu>
   )
-}
-
-function generateClassNameForTocLevel(
-  level: number,
-  highestLevel: number,
-): string {
-  const diff = level - highestLevel
-  if (diff === 1) return "pl-2"
-  if (diff === 2) return "pl-4"
-  if (diff === 3) return "pl-6"
-  if (diff === 4) return "pl-8"
-  if (diff === 5) return "pl-10"
-  return "pl-0"
 }
