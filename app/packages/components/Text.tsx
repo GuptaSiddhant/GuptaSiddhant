@@ -9,6 +9,7 @@ import {
 
 import { toKebabCase } from "~/packages/helpers/format"
 import type { BaseProps } from "~/packages/types"
+import { generateHeadingId } from "../mdx/helpers"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 
@@ -124,7 +125,7 @@ function HeadingWrapper({
   link?: boolean
   headingClassName?: string
 }): JSX.Element | null {
-  const uid = id || toKebabCase(children?.toString() || "")
+  const uid = id || generateHeadingId(children)
 
   const element = (
     <Component

@@ -55,7 +55,7 @@ export function isLanguageSupported(language: string): boolean {
 }
 
 export function getLanguageFromClassName(className: string): Language {
-  const match = className.match(/language-(\w+)/)
+  const match = className.match(/lang-(\w+)/)
   const lang = match ? match[1] : ""
 
   return isLanguageSupported(lang) ? (lang as Language) : "bash"

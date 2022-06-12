@@ -5410,6 +5410,7 @@ __metadata:
     eslint-plugin-simple-import-sort: ^7.0.0
     firebase-admin: ^10.2.0
     lru-cache: ^7.10.1
+    markdown-to-jsx: ^7.1.7
     npm-run-all: ^4.1.5
     prism-react-renderer: ^1.3.3
     react: ^17.0.0
@@ -7014,6 +7015,15 @@ __metadata:
   version: 1.1.1
   resolution: "markdown-extensions@npm:1.1.1"
   checksum: 8a6dd128be1c524049ea6a41a9193715c2835d3d706af4b8b714ff2043a82786dbcd4a8f1fa9ddd28facbc444426c97515aef2d1f3dd11d5e2d63749ba577b1e
+  languageName: node
+  linkType: hard
+
+"markdown-to-jsx@npm:^7.1.7":
+  version: 7.1.7
+  resolution: "markdown-to-jsx@npm:7.1.7"
+  peerDependencies:
+    react: ">= 0.14.0"
+  checksum: b2c0ea7d0988fad0c709989b3b1b3a5600d1e80b60266f9618386f7afead4a6b5eba9ee1a3943df6a3dcb1599ea89e58467d1b17b6dd3af3c60984c60a85d06d
   languageName: node
   linkType: hard
 

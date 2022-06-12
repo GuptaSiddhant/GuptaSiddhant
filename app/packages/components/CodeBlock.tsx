@@ -1,8 +1,10 @@
 import clsx from "clsx"
-import Highlight, { type Language,defaultProps } from "prism-react-renderer"
+import Highlight, { type Language, defaultProps } from "prism-react-renderer"
+import { type ComponentPropsWithoutRef, Children } from "react"
 
 import {
   getLanguageBadgeProperties,
+  getLanguageFromClassName,
   isLanguageSupported,
 } from "~/packages/helpers/code-lang"
 
@@ -97,4 +99,16 @@ function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
       {label}
     </div>
   )
+}
+
+export function Pre(props: ComponentPropsWithoutRef<"pre">): JSX.Element {
+  const { className, children } = (
+    Children.toArray(props.children)[0] as {
+      props: { className: string; children: string }
+    }
+  )?.props
+
+  const lang = getLanguageFromClassName(className)
+
+  return <CodeBlock lang={lang}>{children}</CodeBlock>
 }

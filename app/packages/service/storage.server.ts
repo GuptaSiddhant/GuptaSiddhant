@@ -1,6 +1,7 @@
 import { getStorage } from "firebase-admin/storage"
 
-import cache, { CacheType,createCacheKey } from "./cache.server"
+import { ONE_DAY_IN_MS } from "../constants"
+import cache, { CacheType, createCacheKey } from "./cache.server"
 
 // Getters
 
@@ -20,7 +21,7 @@ export async function fetchFirebaseStorageFileUrl(name: string) {
       .bucket()
       .file(name)
       .getSignedUrl({
-        expires: new Date(Date.now() + 86400000),
+        expires: new Date(Date.now() + ONE_DAY_IN_MS),
         action: "read",
       })
 

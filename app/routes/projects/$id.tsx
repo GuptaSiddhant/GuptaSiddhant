@@ -11,10 +11,19 @@ import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
+import {
+  type TocItem,
+  arrangeTocByLevels,
+  extractTocFromContent,
+  transformContentToMdx,
+} from "~/packages/mdx/helpers"
+import MdxSection from "~/packages/mdx/MdxSection"
 
 interface LoaderData {
   project: ProjectProps
   url: string
+  mdx?: string
+  toc?: TocItem[]
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -22,9 +31,16 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (!id) throw new Error("Project id is required")
 
   try {
-    const project = await getProjectDetails(id)
+    const { content, ...project } = await getProjectDetails(id)
+    const mdx = transformContentToMdx(content)
+    const toc = extractTocFromContent(content).reduce(arrangeTocByLevels, [])
 
-    return json<LoaderData>({ project, url: request.url })
+    return json<LoaderData>({
+      project,
+      url: request.url,
+      mdx,
+      toc,
+    })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
     throw new Error(`Failed to load project '${id}'. ${reason}`)
@@ -35,7 +51,7 @@ export const meta: MetaFunction = ({ data, params }) =>
   generateProjectMeta(data?.project, data?.url, params.id)
 
 export default function ProjectDetails(): JSX.Element {
-  const { project, url } = useLoaderData<LoaderData>()
+  const { project, url, mdx, toc } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = project
 
   return (
@@ -60,7 +76,7 @@ export default function ProjectDetails(): JSX.Element {
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 
-      <Tags.List tags={tags} className="justify-start" />
+      <MdxSection mdx={mdx} toc={toc} />
     </>
   )
 }
