@@ -6,17 +6,17 @@ import { fabClassName } from "../components/Button"
 import Menu, { type MenuActionProps } from "../components/Menu"
 import { type TocItem } from "./helpers"
 
-export interface TableOfContentsButtonProps {
+export interface FloatingTOCProps {
   toc?: TocItem[]
   highestLevel: number
   maxLevel: number
   activeId?: string
 }
 
-export default function TableOfContentsButton({
+export default function FloatingTOC({
   toc,
   highestLevel,
-}: TableOfContentsButtonProps): JSX.Element | null {
+}: FloatingTOCProps): JSX.Element | null {
   const actions: MenuActionProps[] | undefined = useMemo(
     () =>
       toc?.map(({ id, text, level }) => ({
@@ -53,7 +53,9 @@ function generateClassNameForTocLevel(
 ): string {
   const diff = level - highestLevel
   if (diff === 1) return "pl-2"
-  if (diff === 2) return "pl-2"
-
+  if (diff === 2) return "pl-4"
+  if (diff === 3) return "pl-6"
+  if (diff === 4) return "pl-8"
+  if (diff === 5) return "pl-10"
   return "pl-0"
 }

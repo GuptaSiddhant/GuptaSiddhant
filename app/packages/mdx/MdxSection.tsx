@@ -5,7 +5,7 @@ import Section from "../components/Section"
 import { arrangeTocByLevels, type TocItem } from "./helpers"
 import MdxContent from "./MdxContent"
 import TableOfContents from "./TableOfContents"
-import TableOfContentsButton from "./TableOfContentsButton"
+import FloatingTOC from "./FloatingTOC"
 
 export default function MdxSection({
   mdx,
@@ -42,7 +42,7 @@ export default function MdxSection({
           </section>
         ) : null}
 
-        <TableOfContentsButton
+        <FloatingTOC
           toc={toc}
           maxLevel={3}
           highestLevel={toc?.[0].level || 1}

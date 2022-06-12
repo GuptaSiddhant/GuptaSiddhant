@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
-import Img from "~/packages/components/Img"
 import Section from "~/packages/components/Section"
 
 import type { BaseProps } from "../types"
@@ -47,7 +46,7 @@ function TeaserGridCard({
   const showDescription = Boolean(featured && description)
   const to = linkBaseUrl ? `${linkBaseUrl}${id}` : id
   const iconElement = icon ? (
-    <Img src={icon} alt={title} className="h-12 rounded object-contain" />
+    <img src={icon} alt={title} className="h-12 rounded object-contain" />
   ) : null
 
   return (
