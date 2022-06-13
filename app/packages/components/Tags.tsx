@@ -30,10 +30,7 @@ function TagList({
   const limit = limitBy ?? tags.length
   return (
     <fieldset
-      className={clsx(
-        "relative my-2 flex flex-wrap items-center gap-2",
-        className,
-      )}
+      className={clsx("relative flex flex-wrap items-center gap-2", className)}
     >
       {prefixElement}
       {tags.slice(0, limit).map((tag) => (

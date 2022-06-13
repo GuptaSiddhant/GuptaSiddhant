@@ -79,12 +79,13 @@ export default function ProjectDetails(): JSX.Element {
           }}
           title={title}
           subtitle={subtitle}
-        >
-          <ShareTray url={url} />
-        </Hero.Header>
+        />
 
         <Hero.Description description={description}>
-          <Tags.List tags={tags.sort()} className="justify-start" />
+          <div className="flex justify-between items-center flex-wrap gap-4">
+            <Tags.List tags={tags.sort()} className="justify-start" />
+            <ShareTray url={url} />
+          </div>
         </Hero.Description>
 
         <Hero.Image src={cover} alt={title} icon={icon} />
