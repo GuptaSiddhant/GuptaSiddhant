@@ -20,7 +20,7 @@ export default function MdxSection({
   if (!mdx) return null
 
   const arrangedToc = toc.reduce(arrangeTocByLevels, [])
-  const tocHighestLevel = arrangedToc[0].level || 1
+  const tocHighestLevel = arrangedToc[0]?.level || 1
 
   return (
     <Section
@@ -28,7 +28,6 @@ export default function MdxSection({
       className={clsx(
         "relative rounded mx-auto md:w-max",
         "md:!grid lg:grid-cols-[200px_auto] xl:grid-cols-[200px_1fr_200px]",
-        "border-b-[1px] border-gray-700",
       )}
     >
       <aside className={clsx("text-sm")}>

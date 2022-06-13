@@ -6,11 +6,16 @@ import {
 } from "@remix-run/server-runtime"
 
 import { type ProjectProps } from "~/features/projects"
-import { getProjectDetails } from "~/features/projects/service.server"
+import {
+  getProjectCrossSell,
+  getProjectDetails,
+} from "~/features/projects/service.server"
+import Divider from "~/packages/components/Divider"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
+import { H2 } from "~/packages/components/Text"
 import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
@@ -18,12 +23,15 @@ import {
   transformContentToMdx,
 } from "~/packages/mdx/helpers"
 import MdxSection from "~/packages/mdx/MdxSection"
+import { type TeaserProps } from "~/packages/teaser"
+import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 
 interface LoaderData {
   project: ProjectProps
   url: string
   mdx?: string
   toc?: TocItem[]
+  crossSell: TeaserProps[]
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -34,12 +42,14 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const { content, ...project } = await getProjectDetails(id)
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
+    const crossSell = await getProjectCrossSell(id)
 
     return json<LoaderData>({
       project,
       url: request.url,
       mdx,
       toc,
+      crossSell,
     })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
@@ -55,7 +65,7 @@ export const meta: MetaFunction = ({ data, params }) =>
   })
 
 export default function ProjectDetails(): JSX.Element {
-  const { project, url, mdx, toc } = useLoaderData<LoaderData>()
+  const { project, url, mdx, toc, crossSell } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = project
 
   return (
@@ -81,6 +91,12 @@ export default function ProjectDetails(): JSX.Element {
       </Hero>
 
       <MdxSection mdx={mdx} toc={toc} />
+
+      <Divider />
+
+      <TeaserCarousel teasers={crossSell} linkBaseUrl="/projects/">
+        <H2>More like this</H2>
+      </TeaserCarousel>
     </>
   )
 }
@@ -91,6 +107,8 @@ export function ErrorBoundary({ error }: { error: Error }) {
       caption="Error 404"
       title="Project not found"
       message={error.message}
-    />
+    >
+      {error.stack}
+    </ErrorSection>
   )
 }

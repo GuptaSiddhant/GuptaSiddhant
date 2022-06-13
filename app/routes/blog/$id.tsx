@@ -6,11 +6,16 @@ import {
 } from "@remix-run/server-runtime"
 
 import { type BlogPostProps } from "~/features/blog"
-import { getBlogPostDetails } from "~/features/blog/service.server"
+import {
+  getBlogPostCrossSell,
+  getBlogPostDetails,
+} from "~/features/blog/service.server"
+import Divider from "~/packages/components/Divider"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
+import { H2 } from "~/packages/components/Text"
 import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
@@ -18,12 +23,15 @@ import {
   transformContentToMdx,
 } from "~/packages/mdx/helpers"
 import MdxSection from "~/packages/mdx/MdxSection"
+import { type TeaserProps } from "~/packages/teaser"
+import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
 
 interface LoaderData {
   post: BlogPostProps
   url: string
   mdx?: string
   toc?: TocItem[]
+  crossSell: TeaserProps[]
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -34,8 +42,15 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const { content, ...post } = await getBlogPostDetails(id)
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
+    const crossSell = await getBlogPostCrossSell(id)
 
-    return json<LoaderData>({ post, url: request.url, mdx, toc })
+    return json<LoaderData>({
+      post,
+      url: request.url,
+      mdx,
+      toc,
+      crossSell,
+    })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
     throw new Error(`Failed to load blog post '${id}'. ${reason}`)
@@ -50,7 +65,7 @@ export const meta: MetaFunction = ({ data, params }) =>
   })
 
 export default function ProjectDetails(): JSX.Element {
-  const { post, url, mdx, toc } = useLoaderData<LoaderData>()
+  const { post, url, mdx, toc, crossSell } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = post
 
   return (
@@ -76,6 +91,12 @@ export default function ProjectDetails(): JSX.Element {
       </Hero>
 
       <MdxSection mdx={mdx} toc={toc} />
+
+      <Divider />
+
+      <TeaserCarousel teasers={crossSell} linkBaseUrl="/blog/">
+        <H2>More like this</H2>
+      </TeaserCarousel>
     </>
   )
 }

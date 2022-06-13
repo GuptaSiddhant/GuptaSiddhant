@@ -88,3 +88,25 @@ export function filterUniqueTagsByOccurrence(
 
   return sorted
 }
+
+export function getCrossSellTeasers(
+  teasers: TeaserProps[],
+  id: string,
+): TeaserProps[] {
+  if (teasers.length <= 1) return []
+
+  const currentTeaserIndex = teasers.findIndex((t) => t.id === id)
+  if (currentTeaserIndex < 0) return teasers
+
+  const nextTeaserIndex =
+    currentTeaserIndex < teasers.length - 1 ? currentTeaserIndex + 1 : 0
+  const nextTeaser = teasers[nextTeaserIndex]
+
+  const currentTeaserTags = teasers[currentTeaserIndex]?.tags || []
+  const otherTeasersWithSimilarTags = teasers.filter((teaser) => {
+    if (teaser.id === id || teaser.id === nextTeaser.id) return false
+    return teaser.tags?.some((t) => currentTeaserTags.includes(t))
+  })
+
+  return [nextTeaser, ...otherTeasersWithSimilarTags]
+}

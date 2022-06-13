@@ -13,8 +13,12 @@ export const loader: LoaderFunction = ({ request }) => {
   switch (type) {
     case "delete": {
       if (key) {
-        cache.delete(key)
-        logCache('Deleted key "' + key + '" at', new Date().toISOString())
+        ;[...cache.keys()].forEach((k) => {
+          if (k.includes(key)) {
+            cache.delete(k)
+            logCache('Deleted key "' + k + '" at', new Date().toISOString())
+          }
+        })
       }
       break
     }
