@@ -7,7 +7,7 @@ import {
 
 import { getProjectTeaserList } from "~/features/projects/service.server"
 import { ErrorSection } from "~/packages/components/Error"
-import { createMetaTitle } from "~/packages/helpers"
+import { createMetaTitle } from "~/packages/helpers/meta"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
 } from "~/packages/teaser/filter-sort"
@@ -58,7 +58,3 @@ export function ErrorBoundary({ error }: { error: Error }) {
     <ErrorSection title="Could not load projects" message={error.message} />
   )
 }
-
-// export const meta: MetaFunction = () => ({
-//   title: createMetaTitle("Projects"),
-// })

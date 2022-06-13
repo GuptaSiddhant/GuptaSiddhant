@@ -55,6 +55,7 @@ export default function Menu({
                     key={props.id}
                     {...props}
                     as={Link}
+                    replace
                     className={actionClassName}
                   />
                 ) : (

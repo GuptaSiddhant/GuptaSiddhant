@@ -5,12 +5,13 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { type ProjectProps, generateProjectMeta } from "~/features/projects"
+import { type ProjectProps } from "~/features/projects"
 import { getProjectDetails } from "~/features/projects/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
+import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
   extractTocFromMdx,
@@ -47,7 +48,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 }
 
 export const meta: MetaFunction = ({ data, params }) =>
-  generateProjectMeta(data?.project, data?.url, params.id)
+  generateArticleMeta(data?.project, {
+    url: data?.url,
+    id: params.id,
+    section: "Project",
+  })
 
 export default function ProjectDetails(): JSX.Element {
   const { project, url, mdx, toc } = useLoaderData<LoaderData>()

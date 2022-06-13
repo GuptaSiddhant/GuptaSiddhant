@@ -6,7 +6,8 @@ import {
 } from "@remix-run/server-runtime"
 
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
-import { createMetaTitle } from "~/packages/helpers"
+import { ErrorSection } from "~/packages/components/Error"
+import { createMetaTitle } from "~/packages/helpers/meta"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
 } from "~/packages/teaser/filter-sort"
@@ -53,6 +54,8 @@ export default function Blog(): JSX.Element {
   )
 }
 
-// export const meta: MetaFunction = () => ({
-//   title: createMetaTitle("Projects"),
-// })
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <ErrorSection title="Could not load projects" message={error.message} />
+  )
+}

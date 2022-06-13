@@ -3,60 +3,96 @@ import clsx from "clsx"
 
 import { type TocItem } from "./helpers"
 
-export interface TableOfContentsProps {
+export interface TableOfContentsProps extends TocListItemOptions {
   toc: TocItem[]
-  highestLevel: number
-  activeId?: string
 }
 
 export default function InlineTOC({
   toc,
   ...options
 }: TableOfContentsProps): JSX.Element {
-  const { activeId, highestLevel } = options
-
   return (
     <nav className={"list-none"}>
-      {toc.map((item) => {
-        const isActive = activeId === item.id
-        const itemContent = (
-          <Link
-            replace
-            to={"#" + item.id}
-            className={clsx(
-              isActive ? "font-bold text-primary" : "text-tertiary",
-              "hover:text-default",
-            )}
-          >
-            {item.text}
-          </Link>
-        )
-
-        return (
-          <li
-            key={item.id}
-            className={clsx(
-              "relative my-2",
-              item.level > highestLevel && "ml-4",
-            )}
-          >
-            {item.children.length === 0 ? (
-              <span
-                className={clsx(
-                  "before:absolute before:content-['•'] before:-indent-4 text-tertiary",
-                )}
-              >
-                {itemContent}
-              </span>
-            ) : (
-              <details key={item.id} open>
-                <summary className="-indent-4">{itemContent}</summary>
-                <InlineTOC toc={item.children} {...options} />
-              </details>
-            )}
-          </li>
-        )
-      })}
+      {toc.map((item) => (
+        <TocListItem key={item.id} tocItem={item} {...options} />
+      ))}
     </nav>
+  )
+}
+
+interface TocListItemOptions {
+  highestLevel: number
+  activeId?: string
+}
+
+interface TocListItemProps extends TocListItemOptions {
+  tocItem: TocItem
+}
+
+function TocListItem(props: TocListItemProps): JSX.Element | null {
+  const { id, children, level } = props.tocItem
+
+  return (
+    <li
+      key={id}
+      className={clsx("relative my-2", level > props.highestLevel && "ml-4")}
+    >
+      {children.length === 0 ? (
+        <TocListLeafItem key={id} {...props} />
+      ) : (
+        <TocListAccordion key={id} {...props} />
+      )}
+    </li>
+  )
+}
+
+function TocListAccordion({
+  tocItem: { id, children, text },
+  ...options
+}: TocListItemProps): JSX.Element | null {
+  return (
+    <details open>
+      <summary className="-indent-4">
+        <TocItemLink id={id} activeId={options.activeId} text={text} />
+      </summary>
+      <InlineTOC toc={children} {...options} />
+    </details>
+  )
+}
+
+function TocListLeafItem({ tocItem, ...options }: TocListItemProps) {
+  return (
+    <span
+      className={clsx(
+        "before:absolute before:content-['•'] before:-indent-4 text-tertiary",
+      )}
+    >
+      <TocItemLink {...tocItem} activeId={options.activeId} />
+    </span>
+  )
+}
+
+function TocItemLink({
+  id,
+  activeId,
+  text,
+}: {
+  id: string
+  activeId?: string
+  text: string
+}): JSX.Element | null {
+  const isActive = activeId === id
+
+  return (
+    <Link
+      replace
+      to={"#" + id}
+      className={clsx(
+        isActive ? "font-bold text-primary" : "text-tertiary",
+        "hover:text-default",
+      )}
+    >
+      {text}
+    </Link>
   )
 }

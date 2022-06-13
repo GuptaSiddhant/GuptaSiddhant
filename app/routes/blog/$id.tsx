@@ -5,12 +5,13 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { type BlogPostProps, generateBlogPostMeta } from "~/features/blog"
+import { type BlogPostProps } from "~/features/blog"
 import { getBlogPostDetails } from "~/features/blog/service.server"
 import { ErrorSection } from "~/packages/components/Error"
 import Hero from "~/packages/components/Hero"
 import ShareTray from "~/packages/components/ShareTray"
 import Tags from "~/packages/components/Tags"
+import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
   extractTocFromMdx,
@@ -42,7 +43,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 }
 
 export const meta: MetaFunction = ({ data, params }) =>
-  generateBlogPostMeta(data?.post, data?.url, params.id)
+  generateArticleMeta(data?.post, {
+    url: data?.url,
+    id: params.id,
+    section: "Blog",
+  })
 
 export default function ProjectDetails(): JSX.Element {
   const { post, url, mdx, toc } = useLoaderData<LoaderData>()
