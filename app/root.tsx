@@ -17,12 +17,8 @@ import {
 import clsx from "clsx"
 import { type ReactNode } from "react"
 
-import { type AboutInfo } from "~/features/about"
 import { getAboutInfo } from "~/features/about/service.server"
-import {
-  type NavigationRemoteConfig,
-  getNavigationRemoteConfig,
-} from "~/features/home/service.server"
+import { getNavigationRemoteConfig } from "~/features/home/service.server"
 import type { UseNavigationLinksProps } from "~/features/home/useNavigationLinks"
 import useNavigationLinks from "~/features/home/useNavigationLinks"
 import CodeBlock from "~/packages/components/CodeBlock"

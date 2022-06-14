@@ -15,6 +15,7 @@ export interface CodeBlockProps {
   lang?: Language
   className?: string
   copyText?: string
+  wrap?: boolean
 }
 
 export default function CodeBlock({
@@ -22,6 +23,7 @@ export default function CodeBlock({
   lang,
   className,
   copyText,
+  wrap,
 }: CodeBlockProps) {
   const language = lang && isLanguageSupported(lang) ? lang : "bash"
 
@@ -33,7 +35,7 @@ export default function CodeBlock({
         {...defaultProps}
         code={children.trim()}
         language={language}
-        children={CodePre}
+        children={(props) => <CodePre {...props} wrap={wrap} />}
       />
       <CodeBadge language={language} copyText={copyText || children.trim()} />
     </output>
@@ -49,6 +51,7 @@ interface CodePreProps {
     content: string
     empty?: boolean
   }[][]
+  wrap?: boolean
 }
 
 function CodePre({
@@ -56,13 +59,21 @@ function CodePre({
   tokens,
   getLineProps,
   getTokenProps,
+  wrap,
 }: CodePreProps): JSX.Element | null {
   return (
     <div className="rounded-md font-normal w-full border border-gray-200 dark:border-0 text-sm">
-      <pre className={`overflow-scroll ${className}`} style={{}}>
+      <pre className={clsx(className, `overflow-scroll`)}>
         <code className={clsx(className, "match-braces")} style={{}}>
           {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line, key: i })} style={{}}>
+            <div
+              key={i}
+              {...getLineProps({ line, key: i })}
+              style={{
+                whiteSpace: wrap ? "pre-wrap" : "initial",
+                wordBreak: wrap ? "break-all" : "initial",
+              }}
+            >
               {line.map((token, key) => (
                 <span key={key} {...getTokenProps({ token, key })} style={{}} />
               ))}

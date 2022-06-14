@@ -32,11 +32,10 @@ const cache =
     allowStale: true,
     ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
     fetchMethod: (key) => {
-      const [type, value] = key.split(cacheKeySeparator)
-      if (!Object.values(CacheType).includes(type as CacheType)) {
-        console.error(`CacheType '${type}' does not exist.`)
-        return undefined
-      }
+      const parsed = parseCacheKey(key)
+      if (!parsed) return
+
+      const { type, value } = parsed
 
       logCache("Fetching:", key)
       return cacheFetchMethod[type as CacheType](value)
@@ -49,6 +48,35 @@ export function createCacheKey(type: CacheType, value?: string) {
   return [type, value].filter(Boolean).join(cacheKeySeparator)
 }
 
+export function parseCacheKey(key: string) {
+  const [type, value] = key.split(cacheKeySeparator)
+  if (!Object.values(CacheType).includes(type as CacheType)) {
+    console.error(`CacheType '${type}' does not exist.`)
+    return undefined
+  }
+
+  return { type: type as CacheType, value }
+}
+
 export function logCache(...message: any[]) {
   console.log("[Cache]", ...message)
+}
+
+export async function modifyCache(type: "DELETE" | "REFRESH", key?: string) {
+  switch (type) {
+    case "DELETE": {
+      if (key) {
+        return cache.delete(key)
+      }
+      return cache.clear()
+    }
+    case "REFRESH": {
+      if (key) {
+        return cache.fetch(key)
+      }
+      const keys = [...cache.keys()]
+      const promises = keys.map((key) => cache.fetch(key))
+      return await Promise.all(promises)
+    }
+  }
 }

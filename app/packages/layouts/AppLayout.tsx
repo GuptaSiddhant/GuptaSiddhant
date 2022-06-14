@@ -3,14 +3,12 @@ import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
 import { FAB } from "~/packages/components/Button"
-import Navigation, {
-  type NavigationLinkProps,
-} from "~/packages/components/Navigation"
+import type { NavigationLinkProps } from "~/packages/components/Link"
+import Logo from "~/packages/components/Logo"
+import Navigation from "~/packages/components/Navigation"
 import useOffsetScroll from "~/packages/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/packages/hooks/useSetHeaderHeight"
 import RoundedCorner from "~/packages/icons/RoundedCorner"
-
-import Logo from "../components/Logo"
 
 export interface AppLayoutProps {
   children: ReactNode

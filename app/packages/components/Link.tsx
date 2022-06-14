@@ -1,5 +1,6 @@
 import { type LinkProps, Link } from "@remix-run/react"
 import clsx from "clsx"
+import type { ReactNode } from "react"
 import { type ComponentPropsWithoutRef } from "react"
 
 import { isExternalLink } from "~/packages/helpers"
@@ -13,6 +14,13 @@ export interface ExternalLinkProps {
   href?: string
   tooltipLabel?: string
   enableIcon?: boolean
+}
+
+export interface NavigationLinkProps {
+  id: string
+  children: ReactNode
+  to?: To
+  onClick?: () => void
 }
 
 export function AnchorLink({

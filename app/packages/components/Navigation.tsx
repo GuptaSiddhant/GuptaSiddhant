@@ -1,18 +1,10 @@
 import { NavLink } from "@remix-run/react"
-import type { ReactNode } from "react"
-import type { To } from "react-router"
 
+import type { NavigationLinkProps } from "~/packages/components/Link"
 import { isExternalLink } from "~/packages/helpers"
 
 export interface NavigationProps {
   links: Array<NavigationLinkProps>
-}
-
-export interface NavigationLinkProps {
-  id: string
-  children: ReactNode
-  to?: To
-  onClick?: () => void
 }
 
 export default function Navigation({
