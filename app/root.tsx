@@ -14,7 +14,7 @@ import {
   json,
 } from "@remix-run/server-runtime"
 import clsx from "clsx"
-import type { ReactNode } from "react"
+import { type ReactNode } from "react"
 
 import { type AboutInfo } from "~/features/about"
 import { getAboutInfo } from "~/features/about/service.server"

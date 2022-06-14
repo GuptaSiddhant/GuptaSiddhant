@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react"
+import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import { type AboutInfo } from "~/features/about"
@@ -19,7 +20,7 @@ interface LoaderData {
   blogPosts: TeaserProps[]
 }
 
-export async function loader() {
+export const loader: LoaderFunction = async () => {
   const [about, projects, blogPosts] = await Promise.all([
     getAboutInfo(),
     getProjectTeaserList(6),

@@ -5542,8 +5542,11 @@ __metadata:
     prism-react-renderer: ^1.3.3
     react: ^17.0.0
     react-dom: ^17.0.0
+    remix-auth: ^3.2.2
+    remix-auth-form: ^1.1.2
     remixicon-react: ^1.0.0
     tailwindcss: ^3.1.0
+    tiny-invariant: ^1.2.0
     typescript: ^4.7.2
   languageName: unknown
   linkType: soft
@@ -9313,6 +9316,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remix-auth-form@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "remix-auth-form@npm:1.1.2"
+  dependencies:
+    remix-auth: ^3.1.0
+  peerDependencies:
+    "@remix-run/server-runtime": ^1.0.0
+  checksum: 01a4932b4ed869f50d6ba368d92ad39d71bb8b60753de7eef2d6dcb7bad72ed9ef34cb04851a9311827789a15149a1192d6e42337683c8a7cdc1cd1de713af01
+  languageName: node
+  linkType: hard
+
+"remix-auth@npm:^3.1.0, remix-auth@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "remix-auth@npm:3.2.2"
+  dependencies:
+    uuid: ^8.3.2
+  peerDependencies:
+    "@remix-run/react": ^1.0.0
+    "@remix-run/server-runtime": ^1.0.0
+  checksum: 530257052d226a86849e8c5277ff633aa9e114d8043a6a42231582013a4d2ecfe0bbda5faecd0f2f63707878b265e291313a6796e8bd9fc26c7aec470b96eb16
+  languageName: node
+  linkType: hard
+
 "remixicon-react@npm:^1.0.0":
   version: 1.0.0
   resolution: "remixicon-react@npm:1.0.0"
@@ -10386,6 +10412,13 @@ __metadata:
   version: 2.3.8
   resolution: "through@npm:2.3.8"
   checksum: a38c3e059853c494af95d50c072b83f8b676a9ba2818dcc5b108ef252230735c54e0185437618596c790bbba8fcdaef5b290405981ffa09dce67b1f1bf190cbd
+  languageName: node
+  linkType: hard
+
+"tiny-invariant@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "tiny-invariant@npm:1.2.0"
+  checksum: e09a718a7c4a499ba592cdac61f015d87427a0867ca07f50c11fd9b623f90cdba18937b515d4a5e4f43dac92370498d7bdaee0d0e7a377a61095e02c4a92eade
   languageName: node
   linkType: hard
 

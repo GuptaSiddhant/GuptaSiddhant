@@ -11,6 +11,7 @@ export enum FirestoreCollection {
   Testimonies = "testimonies",
   Education = "education",
   Career = "career",
+  Users = "users",
 }
 
 // Getters
