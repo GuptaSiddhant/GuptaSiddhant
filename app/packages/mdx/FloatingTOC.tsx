@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { useMemo } from "react"
 import TocIcon from "remixicon-react/FileListLineIcon"
 
-import { fabClassName } from "../components/Button"
+import { fabBottomLeftClassName } from "../components/Button"
 import Menu, { type MenuActionProps } from "../components/Menu"
 import { type TocItem } from "./helpers"
 
@@ -37,14 +37,7 @@ export default function FloatingTOC({
   if (!actions) return null
 
   return (
-    <Menu
-      actions={actions}
-      className={clsx(
-        className,
-        "fixed bottom-4 left-4 z-popover m-1 rounded rounded-bl-xl",
-        fabClassName,
-      )}
-    >
+    <Menu actions={actions} className={clsx(className, fabBottomLeftClassName)}>
       <TocIcon aria-label="Table of contents" />
     </Menu>
   )

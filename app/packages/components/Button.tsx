@@ -53,6 +53,10 @@ export function PrimaryButton(props: ButtonProps): JSX.Element | null {
 export const fabClassName = clsx(
   "bg-default text-tertiary hocus:text-secondary p-2 text-sm",
 )
+export const fabBottomLeftClassName = clsx(
+  fabClassName,
+  "fixed bottom-4 left-4 z-popover m-1 rounded rounded-bl-xl",
+)
 
 export function FAB(props: ButtonProps): JSX.Element | null {
   return <Button {...props} className={clsx(props.className, fabClassName)} />

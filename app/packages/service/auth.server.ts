@@ -21,6 +21,10 @@ export async function authenticateRoute(request: Request) {
   })
 }
 
+export async function getAuthUser(request: Request) {
+  return authenticator.isAuthenticated(request)
+}
+
 authenticator.use(
   new FormStrategy(async ({ form }) => {
     const email = form.get("email")?.toString()

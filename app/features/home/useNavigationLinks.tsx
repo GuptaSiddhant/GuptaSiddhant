@@ -9,12 +9,19 @@ import type { NavigationLinkProps } from "~/packages/components/Navigation"
 
 import type { NavigationRemoteConfig } from "./service.server"
 
-export default function useNavigationLinks(
-  { link }: AboutInfo,
-  navigationRemoteConfig: NavigationRemoteConfig,
-): NavigationLinkProps[] {
+export interface UseNavigationLinksProps {
+  about: AboutInfo
+  navigationRemoteConfig: NavigationRemoteConfig
+  isAuthenticated: boolean
+}
+
+export default function useNavigationLinks({
+  about,
+  navigationRemoteConfig,
+  isAuthenticated,
+}: UseNavigationLinksProps): NavigationLinkProps[] {
   const { enableAbout, enableSearch } = navigationRemoteConfig
-  const { email, github, linkedin } = link || {}
+  const { email, github, linkedin } = about.link || {}
 
   return useMemo(() => {
     const links: NavigationLinkProps[] = []
@@ -26,6 +33,10 @@ export default function useNavigationLinks(
       { id: "projects", to: "/projects", children: "Projects" },
       { id: "blog", to: "/blog", children: "Blog" },
     )
+
+    if (isAuthenticated) {
+      links.push({ id: "admin", to: "/admin", children: "Admin" })
+    }
 
     // External
 
@@ -50,5 +61,5 @@ export default function useNavigationLinks(
       links.push({ id: "Search", onClick: () => {}, children: <SearchIcon /> })
 
     return links
-  }, [enableAbout, enableSearch, email, github, linkedin])
+  }, [enableAbout, enableSearch, email, github, linkedin, isAuthenticated])
 }

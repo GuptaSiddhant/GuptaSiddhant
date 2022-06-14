@@ -8,6 +8,7 @@ import {
   useCatch,
   useLoaderData,
 } from "@remix-run/react"
+import type { LoaderFunction } from "@remix-run/server-runtime"
 import {
   type LinksFunction,
   type MetaFunction,
@@ -22,6 +23,7 @@ import {
   type NavigationRemoteConfig,
   getNavigationRemoteConfig,
 } from "~/features/home/service.server"
+import type { UseNavigationLinksProps } from "~/features/home/useNavigationLinks"
 import useNavigationLinks from "~/features/home/useNavigationLinks"
 import CodeBlock from "~/packages/components/CodeBlock"
 import { ErrorPage } from "~/packages/components/Error"
@@ -32,23 +34,32 @@ import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 import reachMenuButtonStyles from "~/packages/styles/reach-menu-button.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
 
-interface LoaderData {
-  about: AboutInfo
-  navigationRemoteConfig: NavigationRemoteConfig
-}
+import { getAuthUser } from "./packages/service/auth.server"
 
-export async function loader() {
-  const [about, navigationRemoteConfig] = await Promise.all([
+interface LoaderData extends UseNavigationLinksProps {}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const [about, navigationRemoteConfig, authUser] = await Promise.all([
     getAboutInfo(),
     getNavigationRemoteConfig(),
+    getAuthUser(request),
   ])
 
-  return json<LoaderData>({ about, navigationRemoteConfig })
+  return json<LoaderData>({
+    about,
+    navigationRemoteConfig,
+    isAuthenticated: !!authUser,
+  })
 }
 
 export default function App() {
-  const { about, navigationRemoteConfig } = useLoaderData<LoaderData>()
-  const navigationLinks = useNavigationLinks(about, navigationRemoteConfig)
+  const { about, navigationRemoteConfig, isAuthenticated } =
+    useLoaderData<LoaderData>()
+  const navigationLinks = useNavigationLinks({
+    about,
+    navigationRemoteConfig,
+    isAuthenticated,
+  })
 
   return (
     <Document>
