@@ -10,6 +10,8 @@ import useOffsetScroll from "~/packages/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/packages/hooks/useSetHeaderHeight"
 import RoundedCorner from "~/packages/icons/RoundedCorner"
 
+import ProgressBar from "../components/ProgressBar"
+
 export interface AppLayoutProps {
   children: ReactNode
   navigationLinks?: NavigationLinkProps[]
@@ -75,6 +77,8 @@ export default function AppLayout({
         <RoundedCorner className="bottom-full left-4 -rotate-90" />
         <RoundedCorner className="bottom-full right-4 rotate-180" />
       </footer>
+
+      <ProgressBar />
     </>
   )
 }

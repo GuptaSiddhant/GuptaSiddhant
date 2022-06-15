@@ -24,13 +24,12 @@ import useNavigationLinks from "~/features/home/useNavigationLinks"
 import CodeBlock from "~/packages/components/CodeBlock"
 import { ErrorPage } from "~/packages/components/Error"
 import AppLayout from "~/packages/layouts/AppLayout"
+import { getAuthUser } from "~/packages/service/auth.server"
 import fontStyles from "~/packages/styles/font.css"
 import globalStyles from "~/packages/styles/global.css"
 import prismRhemeStyles from "~/packages/styles/prism-vscode-dark.css"
 import reachMenuButtonStyles from "~/packages/styles/reach-menu-button.css"
 import tailwindStyles from "~/packages/styles/tailwind.css"
-
-import { getAuthUser } from "./packages/service/auth.server"
 
 interface LoaderData extends UseNavigationLinksProps {}
 

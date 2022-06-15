@@ -45,6 +45,7 @@
     "react-dom": "^17.0.0",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
+    "remix-query": "^0.2.0",
     "remixicon-react": "^1.0.0",
     "tiny-invariant": "^1.2.0"
   },
