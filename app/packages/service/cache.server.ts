@@ -85,10 +85,14 @@ export async function modifyCache(
     case "PUT": {
       if (key) {
         logCache(`Re-fetched ${key} at`, new Date().toISOString())
+        cache.delete(key)
         return cache.fetch(key)
       } else {
         const keys = [...cache.keys()]
-        const promises = keys.map((key) => cache.fetch(key))
+        const promises = keys.map((key) => {
+          cache.delete(key)
+          return cache.fetch(key)
+        })
         logCache(`Re-fetched all at`, new Date().toISOString())
         return await Promise.all(promises)
       }

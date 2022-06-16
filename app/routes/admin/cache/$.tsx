@@ -9,6 +9,7 @@ import invariant from "tiny-invariant"
 import CodeBlock from "~/packages/components/CodeBlock"
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
+import { transformMsToReadableString } from "~/packages/helpers/format"
 import AdminLayout from "~/packages/layouts/AdminLayout"
 import { CacheType } from "~/packages/service/cache.server"
 import { parseCacheKey } from "~/packages/service/cache.server"
@@ -19,27 +20,28 @@ interface LoaderData {
   value?: string
   data: any
   isStorageUrl: boolean
+  ttl: number
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   const key = params["*"]
   invariant(key, "Cache key is required")
-
   const { type, value } = parseCacheKey(key) || {}
   invariant(type, "Cache type is invalid")
 
   const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
 
   const data = await cache.get(key)
-
   if (!data) return redirect("/admin/cache/")
 
-  return json<LoaderData>({ key, type, value, data, isStorageUrl })
+  const ttl = cache.getRemainingTTL(key)
+
+  return json<LoaderData>({ key, type, value, data, isStorageUrl, ttl })
 }
 
 export default function CacheDetails(): JSX.Element | null {
   const submit = useSubmit()
-  const { key, data, isStorageUrl } = useLoaderData<LoaderData>()
+  const { key, data, isStorageUrl, ttl } = useLoaderData<LoaderData>()
 
   const actions: NavigationLinkProps[] = [
     {
@@ -61,6 +63,11 @@ export default function CacheDetails(): JSX.Element | null {
         header={<strong>{key}</strong>}
         actions={actions}
         navGroups={[]}
+        footer={
+          <span className="text-sm">
+            Remaining time to expire: {transformMsToReadableString(ttl)}
+          </span>
+        }
       >
         <div className="px-8 py-4">
           <CodeBlock lang="json" wrap>

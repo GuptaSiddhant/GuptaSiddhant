@@ -33,15 +33,12 @@ export default function AdminNav({
       )}
     >
       {navCollapsed ? (
-        icon ? (
-          <header className="w-full h-12 flex-center border-b border-divider">
-            {icon}
-          </header>
-        ) : (
-          <header className="absolute top-4 -rotate-90 origin-bottom font-bold uppercase tracking-wider">
-            {name}
-          </header>
-        )
+        <header
+          className="w-full h-12 flex-center border-b border-divider"
+          title={name}
+        >
+          {icon}
+        </header>
       ) : (
         header
       )}
@@ -58,7 +55,7 @@ export default function AdminNav({
           <AdminNavGroup key={group.id} {...group} />
         ))}
       </nav>
-      <footer className="flex items-center p-2 border-t border-divider justify-end">
+      <footer className="flex items-center min-h-[2.5rem] px-2 border-t border-divider justify-end">
         <button onClick={() => setNavCollapsed((current) => !current)}>
           {navCollapsed ? <ExpandSidebarIcon /> : <CollapseSidebarIcon />}
           <span className="sr-only">

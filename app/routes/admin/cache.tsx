@@ -68,11 +68,6 @@ export default function CacheUI(): JSX.Element | null {
       children: <RefreshIcon aria-label="Refresh" />,
     },
     {
-      id: "Refetch all",
-      onClick: () => submit({}, { method: "put", replace: true }),
-      children: <RefetchIcon aria-label="Refetch" />,
-    },
-    {
       id: "Clear all",
       onClick: () => submit({}, { method: "delete", replace: true }),
       children: <ClearIcon aria-label="Clear" />,
