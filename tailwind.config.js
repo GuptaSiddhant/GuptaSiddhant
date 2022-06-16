@@ -109,6 +109,9 @@ const config = {
           "justify-content": "center",
           "align-items": "center",
         },
+        ".h-screen-webkit": {
+          height: "-webkit-fill-available",
+        },
       })
     }),
   ],

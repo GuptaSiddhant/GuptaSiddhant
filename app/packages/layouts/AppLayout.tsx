@@ -52,7 +52,7 @@ export default function AppLayout({
           "relative mx-4 rounded-xl ",
           "bg-primary text-lg",
           "flex flex-col",
-          "min-h-[100vh] py-8",
+          "min-h-screen py-8",
         )}
       >
         {children}

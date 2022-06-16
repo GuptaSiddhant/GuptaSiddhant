@@ -5,6 +5,7 @@ import { createContext, useContext, useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
+import Accordion from "~/packages/components/Accordion"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 
 const AdminNavContext = createContext<
@@ -136,16 +137,17 @@ function AdminNavGroup({
   if (children.length === 0) return null
 
   return (
-    <details open className="relative w-full">
-      <summary className="sticky top-0 py-2 px-4 mb-1 bg-default font-bold text-sm rounded select-none cursor-pointer">
-        {label.toUpperCase().replace(/-/g, " ")}
-      </summary>
+    <Accordion
+      open
+      summary={label.toUpperCase().replace(/-/g, " ")}
+      summaryClassName="sticky top-0"
+    >
       <ul className="flex flex-col gap-1 list-none px-2 ">
         {children.map((link) => (
           <AdminNavItem key={link.id} {...link} />
         ))}
       </ul>
-    </details>
+    </Accordion>
   )
 }
 

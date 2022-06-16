@@ -35,7 +35,7 @@ export default function AdminLayout({
   return (
     <section
       className={clsx(
-        "relative grid overflow-hidden  h-full",
+        "relative grid overflow-hidden h-full",
         showNav ? "grid-cols-[max-content_1fr]" : "grid-rows-[max-content_1fr]",
       )}
     >

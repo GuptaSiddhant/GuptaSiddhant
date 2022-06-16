@@ -11,7 +11,7 @@ export async function getRemoteConfigTemplate() {
   return cache.fetch<RemoteConfigTemplate>(
     createCacheKey(CacheType.RemoteConfig),
     {
-      ttl: 1000 * 60 * 1, // 1 minute
+      ttl: 1000 * 60 * 60, // 1 hour
       allowStale: false,
     },
   )

@@ -1,17 +1,19 @@
 import { useLoaderData, useSubmit } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/server-runtime"
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+import { useEffect } from "react"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
+import Accordion from "~/packages/components/Accordion"
 import CodeBlock from "~/packages/components/CodeBlock"
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 import { transformMsToReadableString } from "~/packages/helpers/format"
 import AdminLayout from "~/packages/layouts/AdminLayout"
-import { CacheType } from "~/packages/service/cache.server"
+import { CacheType, modifyCache } from "~/packages/service/cache.server"
 import { parseCacheKey } from "~/packages/service/cache.server"
 
 interface LoaderData {
@@ -21,9 +23,10 @@ interface LoaderData {
   data: any
   isStorageUrl: boolean
   ttl: number
+  pathname: string
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
   const key = params["*"]
   invariant(key, "Cache key is required")
   const { type, value } = parseCacheKey(key) || {}
@@ -35,26 +38,56 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!data) return redirect("/admin/cache/")
 
   const ttl = cache.getRemainingTTL(key)
+  const { pathname } = new URL(request.url)
 
-  return json<LoaderData>({ key, type, value, data, isStorageUrl, ttl })
+  return json<LoaderData>({
+    key,
+    type,
+    value,
+    data,
+    isStorageUrl,
+    ttl,
+    pathname,
+  })
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const { pathname } = new URL(request.url)
+  const method = request.method as "DELETE" | "POST" | "PUT"
+  const form = await request.formData()
+  const key = form.get("key")?.toString()
+  await modifyCache(method, key)
+
+  return redirect(pathname)
 }
 
 export default function CacheDetails(): JSX.Element | null {
   const submit = useSubmit()
-  const { key, data, isStorageUrl, ttl } = useLoaderData<LoaderData>()
+  const loaderData = useLoaderData<LoaderData>()
+  const { key, data, isStorageUrl, ttl, pathname } = loaderData
 
   const actions: NavigationLinkProps[] = [
     {
       id: "Refetch ",
-      onClick: () => submit({ key }, { method: "put", replace: true }),
+      onClick: () =>
+        submit({ key }, { action: pathname, method: "put", replace: true }),
       children: <RefetchIcon aria-label="Refetch" />,
     },
     {
       id: "Delete",
-      onClick: () => submit({ key }, { method: "delete", replace: true }),
+      onClick: () =>
+        submit({ key }, { action: pathname, method: "delete", replace: true }),
       children: <ClearIcon aria-label="Delete" />,
     },
   ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      submit({ key }, { method: "get", action: pathname, replace: true })
+    }, 5_000)
+
+    return () => clearInterval(interval)
+  }, [submit, key, pathname])
 
   return (
     <>
@@ -64,21 +97,22 @@ export default function CacheDetails(): JSX.Element | null {
         actions={actions}
         navGroups={[]}
         footer={
-          <span className="text-sm">
+          <span className="text-sm text-disabled">
             Remaining time to expire: {transformMsToReadableString(ttl)}
           </span>
         }
+        className="flex flex-col gap-4 p-4"
       >
-        <div className="px-8 py-4">
-          <CodeBlock lang="json" wrap>
+        <Accordion open summary="Data" className="bg-default">
+          <CodeBlock lang="json" wrap codeClassName="text-sm" className="!m-0">
             {JSON.stringify(data, null, 2)}
           </CodeBlock>
-        </div>
+        </Accordion>
 
         {isStorageUrl ? (
-          <div>
-            <img src={data} alt={key} />
-          </div>
+          <Accordion open summary={"Image preview"} className="bg-default">
+            <img src={data} alt={key} className="p-2 pt-0" />
+          </Accordion>
         ) : null}
       </AdminLayout>
     </>

@@ -16,6 +16,7 @@ export interface CodeBlockProps {
   className?: string
   copyText?: string
   wrap?: boolean
+  codeClassName?: string
 }
 
 export default function CodeBlock({
@@ -24,6 +25,7 @@ export default function CodeBlock({
   className,
   copyText,
   wrap,
+  codeClassName,
 }: CodeBlockProps) {
   const language = lang && isLanguageSupported(lang) ? lang : "bash"
 
@@ -35,7 +37,13 @@ export default function CodeBlock({
         {...defaultProps}
         code={children.trim()}
         language={language}
-        children={(props) => <CodePre {...props} wrap={wrap} />}
+        children={({ className, ...props }) => (
+          <CodePre
+            {...props}
+            wrap={wrap}
+            className={clsx(codeClassName, className)}
+          />
+        )}
       />
       <CodeBadge language={language} copyText={copyText || children.trim()} />
     </output>
@@ -74,9 +82,17 @@ function CodePre({
                 wordBreak: wrap ? "break-all" : "initial",
               }}
             >
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token, key })} style={{}} />
-              ))}
+              {line.map((token, key) => {
+                const tokenProps = getTokenProps({ token, key })
+                return (
+                  <span
+                    key={key}
+                    {...tokenProps}
+                    className={clsx(tokenProps.className)}
+                    style={{}}
+                  />
+                )
+              })}
             </div>
           ))}
         </code>

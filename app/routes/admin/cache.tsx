@@ -1,11 +1,10 @@
-import { useFetcher, useLoaderData, useSubmit } from "@remix-run/react"
+import { useLoaderData, useSubmit } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import CacheIcon from "remixicon-react/Database2FillIcon"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
-import RefreshIcon from "remixicon-react/RefreshLineIcon"
-import RefetchIcon from "remixicon-react/RestartLineIcon"
+import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
@@ -27,9 +26,10 @@ const adminApp: AdminAppProps = {
 
 interface LoaderData {
   navGroups: AdminNavGroupProps[]
+  pathname: string
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   const keys = [...cache.keys()].sort()
   const navLinks: NavigationLinkProps[] = keys.map((key) => {
     const { type, value } = parseCacheKey(key) || {}
@@ -40,41 +40,37 @@ export const loader: LoaderFunction = async () => {
     }
   })
   const navGroups = groupNavLinks(navLinks)
+  const { pathname } = new URL(request.url)
 
-  return json<LoaderData>({ navGroups })
+  return json<LoaderData>({ navGroups, pathname })
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  const { pathname } = new URL(request.url)
   const method = request.method as "DELETE" | "POST" | "PUT"
+  await modifyCache(method)
 
-  const form = await request.formData()
-  const key = form.get("key")?.toString()
-
-  await modifyCache(method, key)
-
-  return redirect("/admin/cache/" + (key && method !== "DELETE" ? key : ""))
+  return redirect(pathname)
 }
 
 export default function CacheUI(): JSX.Element | null {
-  const fetcher = useFetcher<LoaderData>()
   const submit = useSubmit()
-  const loaderData = useLoaderData<LoaderData>()
-  const fetcherData = fetcher.data
+  const { navGroups, pathname } = useLoaderData<LoaderData>()
 
   const actions: NavigationLinkProps[] = [
     {
       id: "Refresh",
-      onClick: () => submit({}, { method: "get", replace: true }),
+      onClick: () =>
+        submit({}, { action: pathname, method: "get", replace: true }),
       children: <RefreshIcon aria-label="Refresh" />,
     },
     {
       id: "Clear all",
-      onClick: () => submit({}, { method: "delete", replace: true }),
+      onClick: () =>
+        submit({}, { action: pathname, method: "delete", replace: true }),
       children: <ClearIcon aria-label="Clear" />,
     },
   ]
-
-  const { navGroups } = fetcherData || loaderData
 
   return (
     <AdminLayout
