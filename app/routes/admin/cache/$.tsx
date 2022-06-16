@@ -1,8 +1,7 @@
-import { Form, useLoaderData, useSubmit } from "@remix-run/react"
+import { useLoaderData, useSubmit } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-import clsx from "clsx"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
 import DownloadIcon from "remixicon-react/DownloadCloudLineIcon"
 import invariant from "tiny-invariant"
@@ -57,30 +56,19 @@ export default function CacheDetails(): JSX.Element | null {
 
   return (
     <>
-      <div
-        className={clsx(
-          "flex items-center px-4 py-2 gap-4 sticky top-0 z-[2] bg-primary",
-          "border-b border-gray-700",
-        )}
-      >
-        <strong className="font-bold ">{key}</strong>
-
-        {actions.map((action) => (
-          <AdminLayout.Action key={action.id} {...action} />
-        ))}
-      </div>
-
-      <div className="p-4">
-        <CodeBlock lang="json" wrap>
-          {JSON.stringify(data, null, 2)}
-        </CodeBlock>
-      </div>
-
-      {isStorageUrl ? (
-        <div>
-          <img src={data} alt={key} />
+      <AdminLayout name={key} header={<strong>{key}</strong>} actions={actions}>
+        <div className="p-4">
+          <CodeBlock lang="json" wrap>
+            {JSON.stringify(data, null, 2)}
+          </CodeBlock>
         </div>
-      ) : null}
+
+        {isStorageUrl ? (
+          <div>
+            <img src={data} alt={key} />
+          </div>
+        ) : null}
+      </AdminLayout>
     </>
   )
 }

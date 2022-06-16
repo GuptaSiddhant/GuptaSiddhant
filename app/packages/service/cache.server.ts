@@ -62,18 +62,27 @@ export function logCache(...message: any[]) {
   console.log("[Cache]", ...message)
 }
 
-export async function modifyCache(type: "DELETE" | "REFETCH", key?: string) {
-  switch (type) {
+export async function modifyCache(
+  method: "DELETE" | "PUT" | "POST",
+  key?: string,
+) {
+  switch (method) {
     case "DELETE": {
       if (key) {
-        logCache('Deleted key "' + key + '" at', new Date().toISOString())
-        return cache.delete(key)
+        const promises = [...cache.keys()]
+          .filter((k) => k.includes(key))
+          .map((k) => {
+            logCache('Deleted key "' + k + '" at', new Date().toISOString())
+            return cache.delete(k)
+          })
+
+        return Promise.all(promises)
       } else {
         logCache("Cleared at", new Date().toISOString())
         return cache.clear()
       }
     }
-    case "REFETCH": {
+    case "PUT": {
       if (key) {
         logCache(`Re-fetched ${key} at`, new Date().toISOString())
         return cache.fetch(key)

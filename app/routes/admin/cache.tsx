@@ -1,19 +1,25 @@
 import { useFetcher, useLoaderData, useSubmit } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
+import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+import CacheIcon from "remixicon-react/Database2FillIcon"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
 import DownloadIcon from "remixicon-react/DownloadCloudLineIcon"
 import RefreshIcon from "remixicon-react/RefreshLineIcon"
 
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
-import AdminLayout, { type AdminNavGroup } from "~/packages/layouts/AdminLayout"
-import cache, { parseCacheKey } from "~/packages/service/cache.server"
-
-import { action as apiAction } from "./cache/api"
+import { Caption } from "~/packages/components/Text"
+import AdminLayout, {
+  type AdminNavGroupProps,
+} from "~/packages/layouts/AdminLayout"
+import cache, {
+  modifyCache,
+  parseCacheKey,
+} from "~/packages/service/cache.server"
 
 interface LoaderData {
-  navGroups: AdminNavGroup[]
+  navGroups: AdminNavGroupProps[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -31,8 +37,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({ navGroups })
 }
 
-export const action: ActionFunction = async (props) => {
-  return apiAction(props)
+export const action: ActionFunction = async ({ request }) => {
+  const method = request.method as "DELETE" | "POST" | "PUT"
+
+  const form = await request.formData()
+  const key = form.get("key")?.toString()
+
+  await modifyCache(method, key)
+
+  return redirect("/admin/cache/" + (key && method !== "DELETE" ? key : ""))
 }
 
 export default function CacheUI(): JSX.Element | null {
@@ -61,10 +74,18 @@ export default function CacheUI(): JSX.Element | null {
 
   const { navGroups } = fetcherData || loaderData
 
-  return <AdminLayout name="Cache" actions={actions} navGroups={navGroups} />
+  return (
+    <AdminLayout
+      name="Cache"
+      icon={<CacheIcon />}
+      header={<Caption>Cache</Caption>}
+      actions={actions}
+      navGroups={navGroups}
+    />
+  )
 }
 
-function groupNavLinks(links: NavigationLinkProps[]): AdminNavGroup[] {
+function groupNavLinks(links: NavigationLinkProps[]): AdminNavGroupProps[] {
   const groupMap: Record<string, NavigationLinkProps[]> = {}
 
   links.forEach((link) => {

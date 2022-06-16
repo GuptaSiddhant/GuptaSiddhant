@@ -1,28 +1,26 @@
-import { NavLink, Outlet } from "@remix-run/react"
+import { Link, NavLink, Outlet } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import clsx from "clsx"
-import { type ReactNode } from "react"
+import { type ReactNode, useState } from "react"
 import AdminIcon from "remixicon-react/AdminFillIcon"
-import CacheIcon from "remixicon-react/Database2LineIcon"
+import CacheIcon from "remixicon-react/Database2FillIcon"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
+import SidebarFillIcon from "remixicon-react/SideBarFillIcon"
+import SidebarLineIcon from "remixicon-react/SideBarLineIcon"
 
 import { ErrorSection } from "~/packages/components/Error"
 import { CSS_VAR_HEADER_HEIGHT } from "~/packages/constants"
 import { authenticateRoute } from "~/packages/service/auth.server"
-
-interface AdminApp {
-  id: string
-  children: ReactNode
-  title: string
-}
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticateRoute(request)
 }
 
 export default function AdminIndex(): JSX.Element {
-  const adminApps: AdminApp[] = [
+  const adminApps: AdminLinkProps[] = [
     { id: "cache", children: <CacheIcon />, title: "Cache" },
+  ]
+  const adminActions: AdminLinkProps[] = [
     { id: "/logout", children: <LogoutIcon />, title: "Logout" },
   ]
 
@@ -37,26 +35,25 @@ export default function AdminIndex(): JSX.Element {
         paddingTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
       }}
     >
-      <aside className=" h-full flex flex-col gap-4 items-center border-r border-gray-700">
-        <NavLink to="." className="w-full h-14 flex-center">
+      <aside className="h-full flex flex-col gap-4 items-center border-r border-gray-700">
+        <NavLink
+          to="."
+          className="w-full h-12 flex-center border-b border-gray-700"
+        >
           <AdminIcon />
         </NavLink>
 
-        {adminApps.map(({ id, children, title }) => (
-          <NavLink
-            to={id}
-            key={id}
-            title={title}
-            className={({ isActive }) =>
-              clsx(
-                "p-2 rounded",
-                isActive ? "bg-tertiary" : "bg-secondary hover:bg-tertiary",
-              )
-            }
-          >
-            {children}
-          </NavLink>
-        ))}
+        <div className="flex-1 flex flex-col gap-4 overflow-auto">
+          {adminApps.map((props) => (
+            <AdminLink key={props.id} {...props} />
+          ))}
+        </div>
+
+        <div className="flex-1 flex flex-col gap-2 justify-end pb-2">
+          {adminActions.map((props) => (
+            <AdminLink key={props.id} {...props} isAction />
+          ))}
+        </div>
       </aside>
 
       <Outlet />
@@ -64,6 +61,54 @@ export default function AdminIndex(): JSX.Element {
   )
 }
 
+export interface AdminOutletContent {
+  navCollapsed: boolean
+}
+
 export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorSection title="Oops. Admin broke!!!" message={error.message} />
+}
+
+interface AdminLinkProps {
+  id: string
+  children: ReactNode
+  title: string
+  onClick?: () => void
+  isAction?: boolean
+}
+
+function AdminLink({
+  children,
+  id,
+  title,
+  onClick,
+  isAction,
+}: AdminLinkProps): JSX.Element | null {
+  const style = (props?: { isActive?: boolean; isAction?: boolean }) =>
+    clsx(
+      props?.isAction ? "p-1 rounded-sm" : "p-2 rounded",
+      props?.isActive ? "bg-tertiary" : "bg-secondary hover:bg-tertiary",
+    )
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className={style({ isAction })} title={title}>
+        {children}
+      </button>
+    )
+  }
+
+  if (isAction) {
+    return (
+      <Link to={id} className={style({ isAction })} title={title}>
+        {children}
+      </Link>
+    )
+  }
+
+  return (
+    <NavLink to={id} title={title} className={style}>
+      {children}
+    </NavLink>
+  )
 }
