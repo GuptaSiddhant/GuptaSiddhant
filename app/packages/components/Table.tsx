@@ -45,7 +45,7 @@ function VerticalTable<T extends object>({
   ...props
 }: TableProps<T>) {
   return (
-    <>
+    <tbody>
       {columns.map(({ header, id, cell }) => (
         <tr key={id.toString()} className={clsx(props.bodyRowClassName)}>
           <th className={clsx(props.headCellClassName)}>
@@ -58,7 +58,7 @@ function VerticalTable<T extends object>({
           ))}
         </tr>
       ))}
-    </>
+    </tbody>
   )
 }
 
