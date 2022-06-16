@@ -26,7 +26,7 @@ export default function AdminNav({
   return (
     <aside
       className={clsx(
-        "relative overflow-hidden h-full border-r border-gray-700",
+        "relative overflow-hidden h-full border-r border-divider",
         "flex flex-col justify-between",
         "transition-[width]",
         navCollapsed ? "w-10" : "w-72",
@@ -34,7 +34,7 @@ export default function AdminNav({
     >
       {navCollapsed ? (
         icon ? (
-          <header className="w-full h-12 flex-center border-b border-gray-700">
+          <header className="w-full h-12 flex-center border-b border-divider">
             {icon}
           </header>
         ) : (
@@ -58,7 +58,7 @@ export default function AdminNav({
           <AdminNavGroup key={group.id} {...group} />
         ))}
       </nav>
-      <footer className="flex items-center p-2 border-t border-gray-700 justify-end">
+      <footer className="flex items-center p-2 border-t border-divider justify-end">
         <button onClick={() => setNavCollapsed((current) => !current)}>
           {navCollapsed ? <ExpandSidebarIcon /> : <CollapseSidebarIcon />}
           <span className="sr-only">

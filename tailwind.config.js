@@ -52,6 +52,11 @@ const config = {
         inverse: theme("colors.gray.200"),
         progress: theme("colors.blue.400"),
       }),
+      borderColor: ({ theme }) => ({
+        highlight: "highlight",
+        divider: theme("colors.gray.700"),
+      }),
+
       screens: {
         xs: "400px",
         "2xl": "1700px",
@@ -78,9 +83,6 @@ const config = {
         "full-m8": "calc(100% + 4rem)",
         "-full-m8": "calc(100% - 4rem)",
       },
-      borderColor: {
-        highlight: "highlight",
-      },
       fontFamily: {
         inherit: "inherit",
       },
@@ -95,7 +97,7 @@ const config = {
 
   plugins: [
     require("@tailwindcss/typography"),
-    plugin(({ addVariant, addUtilities }) => {
+    plugin(({ addVariant, addUtilities, addBase }) => {
       addVariant("hocus", ["&:hover", "&:focus"])
       addVariant("hocus-within", ["&:hover", "&:focus-within"])
       addVariant("group-hocus", [".group:hover &", ".group:focus &"])

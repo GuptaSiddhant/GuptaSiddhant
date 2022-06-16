@@ -1,25 +1,27 @@
 import { Link, NavLink, Outlet } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import clsx from "clsx"
-import { type ReactNode, useState } from "react"
+import { type ReactNode } from "react"
 import AdminIcon from "remixicon-react/AdminFillIcon"
-import CacheIcon from "remixicon-react/Database2FillIcon"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
-import SidebarFillIcon from "remixicon-react/SideBarFillIcon"
-import SidebarLineIcon from "remixicon-react/SideBarLineIcon"
 
 import { ErrorSection } from "~/packages/components/Error"
 import { CSS_VAR_HEADER_HEIGHT } from "~/packages/constants"
 import { authenticateRoute } from "~/packages/service/auth.server"
+
+import { handle as cacheHandle } from "./admin/cache"
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticateRoute(request)
 }
 
 export default function AdminIndex(): JSX.Element {
-  const adminApps: AdminLinkProps[] = [
-    { id: "cache", children: <CacheIcon />, title: "Cache" },
-  ]
+  const adminApps: AdminLinkProps[] = [cacheHandle.adminApp].map((app) => ({
+    id: app.id,
+    children: app.icon,
+    title: app.name,
+  }))
+
   const adminActions: AdminLinkProps[] = [
     { id: "/logout", children: <LogoutIcon />, title: "Logout" },
   ]
@@ -35,10 +37,10 @@ export default function AdminIndex(): JSX.Element {
         paddingTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
       }}
     >
-      <aside className="h-full flex flex-col gap-4 items-center border-r border-gray-700">
+      <aside className="h-full flex flex-col gap-2 items-center border-r border-divider">
         <NavLink
           to="."
-          className="w-full h-12 flex-center border-b border-gray-700"
+          className="w-full h-12 flex-center border-b border-divider"
         >
           <AdminIcon />
         </NavLink>

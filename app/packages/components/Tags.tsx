@@ -50,7 +50,7 @@ function Tag({ className, ...props }: BaseProps) {
       className={clsx(
         tagCommonStyle,
         "rounded",
-        "border-2 border-gray-700 py-0 px-1",
+        "border-2 border-divider py-0 px-1",
         className,
       )}
     />

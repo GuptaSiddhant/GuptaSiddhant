@@ -20,7 +20,7 @@ export interface NavigationLinkProps {
   id: string
   children: ReactNode
   to?: To
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
+  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 export function AnchorLink({

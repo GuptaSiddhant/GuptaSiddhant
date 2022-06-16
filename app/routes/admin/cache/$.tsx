@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
-import DownloadIcon from "remixicon-react/DownloadCloudLineIcon"
+import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import CodeBlock from "~/packages/components/CodeBlock"
@@ -45,7 +45,7 @@ export default function CacheDetails(): JSX.Element | null {
     {
       id: "Refetch ",
       onClick: () => submit({ key }, { method: "put", replace: true }),
-      children: <DownloadIcon aria-label="Refetch" />,
+      children: <RefetchIcon aria-label="Refetch" />,
     },
     {
       id: "Delete",
@@ -56,8 +56,13 @@ export default function CacheDetails(): JSX.Element | null {
 
   return (
     <>
-      <AdminLayout name={key} header={<strong>{key}</strong>} actions={actions}>
-        <div className="p-4">
+      <AdminLayout
+        name={key}
+        header={<strong>{key}</strong>}
+        actions={actions}
+        navGroups={[]}
+      >
+        <div className="px-8 py-4">
           <CodeBlock lang="json" wrap>
             {JSON.stringify(data, null, 2)}
           </CodeBlock>

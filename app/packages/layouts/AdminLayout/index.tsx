@@ -55,3 +55,9 @@ export default function AdminLayout({
 }
 
 export { AdminNavGroupProps }
+
+export interface AdminAppProps {
+  id: string
+  name: string
+  icon: ReactNode
+}

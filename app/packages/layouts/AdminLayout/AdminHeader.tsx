@@ -11,7 +11,7 @@ export default function AdminHeader({
   actions?: NavigationLinkProps[]
 }): JSX.Element {
   return (
-    <header className="sticky top-0 px-4 h-12 grid items-center grid-cols-[1fr_max-content] border-b border-gray-700">
+    <header className="sticky top-0 px-4 min-h-[3rem] grid items-center grid-cols-[1fr_max-content] border-b border-divider">
       <div className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-4 items-center">
         {children}
       </div>
@@ -33,9 +33,9 @@ function AdminAction({
   if (props.onClick) {
     return (
       <button
-        {...props}
         title={id}
         className="hocus:text-primary hocus:underline underline-offset-8"
+        {...props}
       >
         {children}
       </button>

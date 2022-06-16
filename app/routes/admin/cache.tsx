@@ -4,12 +4,13 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import CacheIcon from "remixicon-react/Database2FillIcon"
 import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
-import DownloadIcon from "remixicon-react/DownloadCloudLineIcon"
 import RefreshIcon from "remixicon-react/RefreshLineIcon"
+import RefetchIcon from "remixicon-react/RestartLineIcon"
 
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 import { Caption } from "~/packages/components/Text"
+import type { AdminAppProps } from "~/packages/layouts/AdminLayout"
 import AdminLayout, {
   type AdminNavGroupProps,
 } from "~/packages/layouts/AdminLayout"
@@ -18,11 +19,17 @@ import cache, {
   parseCacheKey,
 } from "~/packages/service/cache.server"
 
+const adminApp: AdminAppProps = {
+  id: "cache",
+  name: "Cache",
+  icon: <CacheIcon />,
+}
+
 interface LoaderData {
   navGroups: AdminNavGroupProps[]
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   const keys = [...cache.keys()].sort()
   const navLinks: NavigationLinkProps[] = keys.map((key) => {
     const { type, value } = parseCacheKey(key) || {}
@@ -63,7 +70,7 @@ export default function CacheUI(): JSX.Element | null {
     {
       id: "Refetch all",
       onClick: () => submit({}, { method: "put", replace: true }),
-      children: <DownloadIcon aria-label="Refetch" />,
+      children: <RefetchIcon aria-label="Refetch" />,
     },
     {
       id: "Clear all",
@@ -76,9 +83,8 @@ export default function CacheUI(): JSX.Element | null {
 
   return (
     <AdminLayout
-      name="Cache"
-      icon={<CacheIcon />}
-      header={<Caption>Cache</Caption>}
+      {...adminApp}
+      header={<Caption>{adminApp.name}</Caption>}
       actions={actions}
       navGroups={navGroups}
     />
@@ -105,4 +111,8 @@ function groupNavLinks(links: NavigationLinkProps[]): AdminNavGroupProps[] {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorSection title="Problem with CacheUI" message={error.message} />
+}
+
+export const handle = {
+  adminApp,
 }
