@@ -1,4 +1,5 @@
 import type { AdminAppProps } from "~/packages/admin"
+import { createAdminMeta } from "~/packages/admin"
 import { H1, Paragraph } from "~/packages/components/Text"
 
 import { handle as cacheHandle } from "./cache"
@@ -16,4 +17,8 @@ export const handle: {
   apps: AdminAppProps[]
 } = {
   apps: [cacheHandle.adminApp],
+}
+
+export function meta() {
+  return createAdminMeta()
 }

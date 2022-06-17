@@ -7,6 +7,7 @@ import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
 import type { AdminAppProps } from "~/packages/admin"
+import { createAdminMeta } from "~/packages/admin"
 import AdminLayout from "~/packages/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/packages/admin/AdminNavbar"
 import { ErrorSection } from "~/packages/components/Error"
@@ -101,4 +102,8 @@ export function ErrorBoundary({ error }: { error: Error }) {
 
 export const handle = {
   adminApp,
+}
+
+export function meta() {
+  return createAdminMeta(adminApp.name)
 }
