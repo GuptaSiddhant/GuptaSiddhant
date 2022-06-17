@@ -62,10 +62,9 @@ export function logCache(...message: any[]) {
   console.log("[Cache]", ...message)
 }
 
-export async function modifyCache(
-  method: "DELETE" | "PUT" | "POST",
-  key?: string,
-) {
+export type ModifyCacheMethod = "DELETE" | "PUT" | "POST"
+
+export async function modifyCache(method: ModifyCacheMethod, key?: string) {
   switch (method) {
     case "DELETE": {
       if (key) {

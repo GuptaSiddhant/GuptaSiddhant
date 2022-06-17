@@ -1,36 +1,35 @@
 import { NavLink } from "@remix-run/react"
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
-import { createContext, useContext, useState } from "react"
+import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
 import Accordion from "~/packages/components/Accordion"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 
-const AdminNavContext = createContext<
-  | undefined
-  | {
-      navCollapsed: boolean
-      setNavCollapsed: Dispatch<SetStateAction<boolean>>
-      setFilterTerm: Dispatch<SetStateAction<string>>
-    }
->(undefined)
+import AdminHeader from "./AdminHeader"
+import useAdminContext from "./context"
 
-export interface AdminNavProps {
+export interface AdminNavbarProps {
   name?: string
   icon?: ReactNode
-  navGroups: AdminNavGroupProps[]
+  navGroups?: AdminNavbarGroupProps[]
   header?: ReactNode
+  actions?: NavigationLinkProps[]
 }
 
-export default function AdminNav({
-  navGroups,
+export default function AdminNavbar({
+  navGroups = [],
   header,
   name,
   icon,
-}: AdminNavProps): JSX.Element | null {
-  const [navCollapsed, setNavCollapsed] = useState(false)
+  actions,
+}: AdminNavbarProps): JSX.Element | null {
+  const { defaultNavbarCollapsed } = useAdminContext()
+  const [navCollapsed, setNavCollapsed] = useState(
+    Boolean(defaultNavbarCollapsed),
+  )
   const [filterTerm, setFilterTerm] = useState("")
   const filteredNavGroups = filterTerm
     ? navGroups
@@ -54,61 +53,68 @@ export default function AdminNav({
   if (navGroups.length === 0) return null
 
   return (
-    <AdminNavContext.Provider
-      value={{ navCollapsed, setNavCollapsed, setFilterTerm }}
+    <aside
+      className={clsx(
+        "relative overflow-hidden h-full border-r border-divider",
+        "flex flex-col justify-between",
+        "transition-[width]",
+        navCollapsed ? "w-12" : "w-72",
+      )}
     >
-      <aside
-        className={clsx(
-          "relative overflow-hidden h-full border-r border-divider",
-          "flex flex-col justify-between",
-          "transition-[width]",
-          navCollapsed ? "w-10" : "w-72",
-        )}
-      >
-        {navCollapsed ? (
-          <header
-            className="w-full h-12 flex-center border-b border-divider"
-            title={name}
-          >
-            {icon}
-          </header>
-        ) : (
-          header
-        )}
+      <AdminHeader actions={actions} collapsed={navCollapsed} icon={icon}>
+        {header}
+      </AdminHeader>
 
-        {filteredNavGroups.length > 0 ? (
-          <nav
-            className={clsx(
-              "flex-1 overflow-y-auto h-full",
-              "flex flex-col items-start gap-2 list-none",
-              "transition-opacity",
-              navCollapsed ? "invisible opacity-0" : "visible opacity-100",
-            )}
-          >
-            {filteredNavGroups.map((group) => (
-              <AdminNavGroup key={group.id} {...group} />
-            ))}
-          </nav>
-        ) : (
-          <div className="flex-center text-disabled text-sm">
-            No matching results found
-          </div>
-        )}
-        <AdminNavFooter />
-      </aside>
-    </AdminNavContext.Provider>
+      {filteredNavGroups.length > 0 ? (
+        <nav
+          className={clsx(
+            "flex-1 overflow-y-auto h-full",
+            "flex flex-col items-start gap-2 list-none",
+            "transition-opacity",
+            navCollapsed ? "invisible opacity-0" : "visible opacity-100",
+          )}
+        >
+          {filteredNavGroups.map((group) => (
+            <AdminNavbarGroup key={group.id} {...group} />
+          ))}
+        </nav>
+      ) : (
+        <div className="flex-center text-disabled text-sm">
+          No matching results found
+        </div>
+      )}
+      <AdminNavFooter
+        placeholder={`Filter ${name}`}
+        navCollapsed={navCollapsed}
+        setFilterTerm={setFilterTerm}
+        setNavCollapsed={setNavCollapsed}
+      />
+    </aside>
   )
 }
 
-function AdminNavFooter(): JSX.Element | null {
-  const { navCollapsed, setNavCollapsed, setFilterTerm } = useAdminNavContext()
-
+function AdminNavFooter({
+  placeholder = "Filter nav items",
+  navCollapsed,
+  setFilterTerm,
+  setNavCollapsed,
+}: {
+  placeholder?: string
+  navCollapsed: boolean
+  setNavCollapsed: Dispatch<SetStateAction<boolean>>
+  setFilterTerm: Dispatch<SetStateAction<string>>
+}): JSX.Element | null {
   return (
-    <footer className="flex items-center min-h-[2.5rem] px-2 border-t border-divider justify-between gap-2">
+    <footer
+      className={clsx(
+        "flex items-center min-h-[2.5rem] px-2 border-t border-divider gap-2",
+        navCollapsed ? "justify-center" : "justify-between",
+      )}
+    >
       {navCollapsed ? null : (
         <input
           type="search"
-          placeholder="Filter nav items"
+          placeholder={placeholder}
           onChange={(e) => setFilterTerm(e.currentTarget.value?.trim() || "")}
           className={clsx("bg-default flex-1 rounded px-2 py-1 text-base")}
         />
@@ -124,16 +130,16 @@ function AdminNavFooter(): JSX.Element | null {
   )
 }
 
-export interface AdminNavGroupProps {
+export interface AdminNavbarGroupProps {
   id: string
   label: string
   children: NavigationLinkProps[]
 }
 
-function AdminNavGroup({
+function AdminNavbarGroup({
   children,
   label,
-}: AdminNavGroupProps): JSX.Element | null {
+}: AdminNavbarGroupProps): JSX.Element | null {
   if (children.length === 0) return null
 
   return (
@@ -144,14 +150,14 @@ function AdminNavGroup({
     >
       <ul className="flex flex-col gap-1 list-none px-2 ">
         {children.map((link) => (
-          <AdminNavItem key={link.id} {...link} />
+          <AdminNavbarItem key={link.id} {...link} />
         ))}
       </ul>
     </Accordion>
   )
 }
 
-function AdminNavItem({
+function AdminNavbarItem({
   children,
   id,
   onClick,
@@ -172,14 +178,4 @@ function AdminNavItem({
       <li>{children}</li>
     </NavLink>
   )
-}
-
-//
-
-function useAdminNavContext() {
-  const context = useContext(AdminNavContext)
-  if (!context)
-    throw new Error("useAdminNavContext must be used within a AdminNavContext")
-
-  return context
 }

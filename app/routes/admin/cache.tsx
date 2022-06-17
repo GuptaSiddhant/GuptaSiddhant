@@ -3,17 +3,17 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import CacheIcon from "remixicon-react/Database2FillIcon"
-import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
+import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
+import type { AdminAppProps } from "~/packages/admin"
+import AdminLayout from "~/packages/admin/AdminLayout"
+import { type AdminNavbarGroupProps } from "~/packages/admin/AdminNavbar"
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 import { Caption } from "~/packages/components/Text"
-import type { AdminAppProps } from "~/packages/layouts/AdminLayout"
-import AdminLayout, {
-  type AdminNavGroupProps,
-} from "~/packages/layouts/AdminLayout"
 import cache, {
+  type ModifyCacheMethod,
   modifyCache,
   parseCacheKey,
 } from "~/packages/service/cache.server"
@@ -25,30 +25,21 @@ const adminApp: AdminAppProps = {
 }
 
 interface LoaderData {
-  navGroups: AdminNavGroupProps[]
+  navGroups: AdminNavbarGroupProps[]
   pathname: string
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const keys = [...cache.keys()].sort()
-  const navLinks: NavigationLinkProps[] = keys.map((key) => {
-    const { type, value } = parseCacheKey(key) || {}
-    return {
-      id: key,
-      to: key,
-      children: value || type,
-    }
-  })
-  const navGroups = groupNavLinks(navLinks)
   const { pathname } = new URL(request.url)
+  const keys = [...cache.keys()].sort()
+  const navGroups = createNavGroupsFromKeys(keys)
 
   return json<LoaderData>({ navGroups, pathname })
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
-  const method = request.method as "DELETE" | "POST" | "PUT"
-  await modifyCache(method)
+  await modifyCache(request.method as ModifyCacheMethod)
 
   return redirect(pathname)
 }
@@ -82,14 +73,18 @@ export default function CacheUI(): JSX.Element | null {
   )
 }
 
-function groupNavLinks(links: NavigationLinkProps[]): AdminNavGroupProps[] {
+function createNavGroupsFromKeys(keys: string[]): AdminNavbarGroupProps[] {
   const groupMap: Record<string, NavigationLinkProps[]> = {}
 
-  links.forEach((link) => {
-    const { type } = parseCacheKey(link.id) || {}
+  keys.forEach((key) => {
+    const { type, value } = parseCacheKey(key) || {}
     if (type) {
       groupMap[type] = groupMap[type] || []
-      groupMap[type].push(link)
+      groupMap[type].push({
+        id: key,
+        to: key,
+        children: value || type,
+      })
     }
   })
 

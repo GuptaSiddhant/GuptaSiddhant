@@ -1,4 +1,7 @@
+import type { AdminAppProps } from "~/packages/admin"
 import { H1, Paragraph } from "~/packages/components/Text"
+
+import { handle as cacheHandle } from "./cache"
 
 export default function AdminIndex(): JSX.Element | null {
   return (
@@ -7,4 +10,10 @@ export default function AdminIndex(): JSX.Element | null {
       <Paragraph>Select an app to begin</Paragraph>
     </main>
   )
+}
+
+export const handle: {
+  apps: AdminAppProps[]
+} = {
+  apps: [cacheHandle.adminApp],
 }

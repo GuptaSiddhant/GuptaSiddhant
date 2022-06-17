@@ -7,13 +7,17 @@ import ClearIcon from "remixicon-react/DeleteBin2LineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
+import AdminLayout from "~/packages/admin/AdminLayout"
 import Accordion from "~/packages/components/Accordion"
 import CodeBlock from "~/packages/components/CodeBlock"
 import { ErrorSection } from "~/packages/components/Error"
 import type { NavigationLinkProps } from "~/packages/components/Link"
 import { transformMsToReadableString } from "~/packages/helpers/format"
-import AdminLayout from "~/packages/layouts/AdminLayout"
-import { CacheType, modifyCache } from "~/packages/service/cache.server"
+import {
+  type ModifyCacheMethod,
+  CacheType,
+  modifyCache,
+} from "~/packages/service/cache.server"
 import { parseCacheKey } from "~/packages/service/cache.server"
 
 interface LoaderData {
@@ -27,18 +31,18 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
+  const { pathname } = new URL(request.url)
+
   const key = params["*"]
   invariant(key, "Cache key is required")
   const { type, value } = parseCacheKey(key) || {}
   invariant(type, "Cache type is invalid")
 
-  const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
-
   const data = await cache.get(key)
   if (!data) return redirect("/admin/cache/")
 
   const ttl = cache.getRemainingTTL(key)
-  const { pathname } = new URL(request.url)
+  const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
 
   return json<LoaderData>({
     key,
@@ -53,10 +57,9 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
-  const method = request.method as "DELETE" | "POST" | "PUT"
   const form = await request.formData()
   const key = form.get("key")?.toString()
-  await modifyCache(method, key)
+  await modifyCache(request.method as ModifyCacheMethod, key)
 
   return redirect(pathname)
 }
@@ -95,7 +98,6 @@ export default function CacheDetails(): JSX.Element | null {
         name={key}
         header={<strong>{key}</strong>}
         actions={actions}
-        navGroups={[]}
         footer={
           <span className="text-sm text-disabled">
             Remaining time to expire: {transformMsToReadableString(ttl)}

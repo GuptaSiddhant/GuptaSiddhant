@@ -54,7 +54,7 @@ const config = {
       }),
       borderColor: ({ theme }) => ({
         highlight: "highlight",
-        divider: theme("colors.gray.700"),
+        divider: theme("colors.gray.600"),
       }),
 
       screens: {
