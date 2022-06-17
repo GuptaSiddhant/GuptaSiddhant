@@ -5,9 +5,9 @@ import GridIcon from "remixicon-react/GridLineIcon"
 import ListIcon from "remixicon-react/ListUnorderedIcon"
 import SortIcon from "remixicon-react/SortDescIcon"
 
-import RadioGroup from "~/packages/components/RadioGroup"
-import Select from "~/packages/components/Select"
 import { capitalize } from "~/packages/helpers/format"
+import RadioGroup from "~/packages/ui/RadioGroup"
+import Select from "~/packages/ui/Select"
 
 import type { FilterSortTeasersReturn } from "./filter-sort"
 

@@ -5,17 +5,11 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { type BlogPostProps } from "~/features/blog"
+import { type BlogPostProps } from "~/packages/blog"
 import {
   getBlogPostCrossSell,
   getBlogPostDetails,
-} from "~/features/blog/service.server"
-import Divider from "~/packages/components/Divider"
-import { ErrorSection } from "~/packages/components/Error"
-import Hero from "~/packages/components/Hero"
-import ShareTray from "~/packages/components/ShareTray"
-import Tags from "~/packages/components/Tags"
-import { H2 } from "~/packages/components/Text"
+} from "~/packages/blog/service.server"
 import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
@@ -25,6 +19,12 @@ import {
 import MdxSection from "~/packages/mdx/MdxSection"
 import { type TeaserProps } from "~/packages/teaser"
 import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
+import Divider from "~/packages/ui/Divider"
+import { ErrorSection } from "~/packages/ui/Error"
+import Hero from "~/packages/ui/Hero"
+import ShareTray from "~/packages/ui/ShareTray"
+import Tags from "~/packages/ui/Tags"
+import { H2 } from "~/packages/ui/Text"
 
 interface LoaderData {
   post: BlogPostProps

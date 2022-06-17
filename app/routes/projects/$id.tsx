@@ -5,17 +5,6 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { type ProjectProps } from "~/features/projects"
-import {
-  getProjectCrossSell,
-  getProjectDetails,
-} from "~/features/projects/service.server"
-import Divider from "~/packages/components/Divider"
-import { ErrorSection } from "~/packages/components/Error"
-import Hero from "~/packages/components/Hero"
-import ShareTray from "~/packages/components/ShareTray"
-import Tags from "~/packages/components/Tags"
-import { H2 } from "~/packages/components/Text"
 import { generateArticleMeta } from "~/packages/helpers/meta"
 import {
   type TocItem,
@@ -23,8 +12,19 @@ import {
   transformContentToMdx,
 } from "~/packages/mdx/helpers"
 import MdxSection from "~/packages/mdx/MdxSection"
+import { type ProjectProps } from "~/packages/projects"
+import {
+  getProjectCrossSell,
+  getProjectDetails,
+} from "~/packages/projects/service.server"
 import { type TeaserProps } from "~/packages/teaser"
 import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
+import Divider from "~/packages/ui/Divider"
+import { ErrorSection } from "~/packages/ui/Error"
+import Hero from "~/packages/ui/Hero"
+import ShareTray from "~/packages/ui/ShareTray"
+import Tags from "~/packages/ui/Tags"
+import { H2 } from "~/packages/ui/Text"
 
 interface LoaderData {
   project: ProjectProps

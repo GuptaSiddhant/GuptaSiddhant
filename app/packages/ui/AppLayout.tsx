@@ -2,15 +2,15 @@ import clsx from "clsx"
 import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import { FAB } from "~/packages/components/Button"
-import type { NavigationLinkProps } from "~/packages/components/Link"
-import Logo from "~/packages/components/Logo"
-import Navigation from "~/packages/components/Navigation"
 import useOffsetScroll from "~/packages/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/packages/hooks/useSetHeaderHeight"
 import RoundedCorner from "~/packages/icons/RoundedCorner"
+import { FAB } from "~/packages/ui/Button"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
+import Logo from "~/packages/ui/Logo"
+import Navigation from "~/packages/ui/Navigation"
 
-import ProgressBar from "../components/ProgressBar"
+import ProgressBar from "./ProgressBar"
 
 export interface AppLayoutProps {
   children: ReactNode

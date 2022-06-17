@@ -1,9 +1,9 @@
-import { type AboutInfo } from "~/features/about"
-import CodeBlock from "~/packages/components/CodeBlock"
-import Hero from "~/packages/components/Hero"
-import { ExternalLink, InternalLink } from "~/packages/components/Link"
-import { ChangingText, H1 } from "~/packages/components/Text"
+import { type AboutInfo } from "~/packages/about"
 import { formatList } from "~/packages/helpers/format"
+import CodeBlock from "~/packages/ui/CodeBlock"
+import Hero from "~/packages/ui/Hero"
+import { ExternalLink, InternalLink } from "~/packages/ui/Link"
+import { ChangingText, H1 } from "~/packages/ui/Text"
 
 export default function HomeHeroSection(about: AboutInfo): JSX.Element {
   const {

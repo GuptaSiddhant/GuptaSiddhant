@@ -10,14 +10,14 @@ import type { AdminAppProps } from "~/packages/admin"
 import { createAdminMeta } from "~/packages/admin"
 import AdminLayout from "~/packages/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/packages/admin/AdminNavbar"
-import { ErrorSection } from "~/packages/components/Error"
-import type { NavigationLinkProps } from "~/packages/components/Link"
-import { Caption } from "~/packages/components/Text"
 import cache, {
   type ModifyCacheMethod,
   modifyCache,
   parseCacheKey,
 } from "~/packages/service/cache.server"
+import { ErrorSection } from "~/packages/ui/Error"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
+import { Caption } from "~/packages/ui/Text"
 
 const adminApp: AdminAppProps = {
   id: "cache",

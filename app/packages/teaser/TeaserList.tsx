@@ -1,11 +1,11 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
-import Section from "~/packages/components/Section"
+import Section from "~/packages/ui/Section"
 
-import Img from "../components/Img"
 import { formatDate } from "../helpers/format"
 import type { BaseProps } from "../types"
+import Img from "../ui/Img"
 import { type TeaserProps } from "."
 
 export interface TeaserGridProps extends BaseProps {

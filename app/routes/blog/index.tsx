@@ -5,8 +5,7 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { getBlogPostTeaserList } from "~/features/blog/service.server"
-import { ErrorSection } from "~/packages/components/Error"
+import { getBlogPostTeaserList } from "~/packages/blog/service.server"
 import { createMetaTitle } from "~/packages/helpers/meta"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
@@ -14,6 +13,7 @@ import filterSortTeasers, {
 import TeaserGrid from "~/packages/teaser/TeaserGrid"
 import TeaserHero from "~/packages/teaser/TeaserHero"
 import TeaserList from "~/packages/teaser/TeaserList"
+import { ErrorSection } from "~/packages/ui/Error"
 
 interface LoaderData extends FilterSortTeasersReturn {
   title: string

@@ -6,8 +6,8 @@ import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
-import Accordion from "~/packages/components/Accordion"
-import type { NavigationLinkProps } from "~/packages/components/Link"
+import Accordion from "~/packages/ui/Accordion"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
 
 import AdminHeader from "./AdminHeader"
 import useAdminContext from "./context"

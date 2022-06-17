@@ -2,10 +2,10 @@ import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import Table from "~/packages/components/Table"
-import { Caption } from "~/packages/components/Text"
 import { transformMsToReadableString } from "~/packages/helpers/format"
 import cache from "~/packages/service/cache.server"
+import Table from "~/packages/ui/Table"
+import { Caption } from "~/packages/ui/Text"
 
 import { handle } from "../cache"
 

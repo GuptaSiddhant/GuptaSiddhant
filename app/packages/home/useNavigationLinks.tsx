@@ -4,8 +4,8 @@ import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
 
-import { type AboutInfo } from "~/features/about"
-import type { NavigationLinkProps } from "~/packages/components/Link"
+import { type AboutInfo } from "~/packages/about"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
 
 import type { NavigationRemoteConfig } from "./service.server"
 

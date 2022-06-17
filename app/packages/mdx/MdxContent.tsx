@@ -1,9 +1,9 @@
 import MDX from "markdown-to-jsx"
 import { Fragment, memo } from "react"
 
-import { Pre } from "../components/CodeBlock"
-import Img from "../components/Img"
-import { AnchorLink } from "../components/Link"
+import { Pre } from "../ui/CodeBlock"
+import Img from "../ui/Img"
+import { AnchorLink } from "../ui/Link"
 import {
   type HeadingProps,
   H1,
@@ -13,7 +13,7 @@ import {
   H5,
   H6,
   Paragraph,
-} from "../components/Text"
+} from "../ui/Text"
 import { generateHeadingId } from "./helpers"
 
 const MdxContent = memo(function MarkdownComponent({

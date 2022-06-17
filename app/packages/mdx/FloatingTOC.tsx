@@ -2,8 +2,8 @@ import clsx from "clsx"
 import { useMemo } from "react"
 import TocIcon from "remixicon-react/FileListLineIcon"
 
-import { fabBottomLeftClassName } from "../components/Button"
-import Menu, { type MenuActionProps } from "../components/Menu"
+import { fabBottomLeftClassName } from "../ui/Button"
+import Menu, { type MenuActionProps } from "../ui/Menu"
 import { type TocItem } from "./helpers"
 
 const TOC_LEVEL_GAP = 8

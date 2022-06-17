@@ -8,10 +8,6 @@ import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import AdminLayout from "~/packages/admin/AdminLayout"
-import Accordion from "~/packages/components/Accordion"
-import CodeBlock from "~/packages/components/CodeBlock"
-import { ErrorSection } from "~/packages/components/Error"
-import type { NavigationLinkProps } from "~/packages/components/Link"
 import { transformMsToReadableString } from "~/packages/helpers/format"
 import {
   type ModifyCacheMethod,
@@ -19,6 +15,10 @@ import {
   modifyCache,
 } from "~/packages/service/cache.server"
 import { parseCacheKey } from "~/packages/service/cache.server"
+import Accordion from "~/packages/ui/Accordion"
+import CodeBlock from "~/packages/ui/CodeBlock"
+import { ErrorSection } from "~/packages/ui/Error"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
 
 interface LoaderData {
   key: string

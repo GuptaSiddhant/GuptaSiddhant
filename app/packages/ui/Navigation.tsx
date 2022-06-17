@@ -1,7 +1,7 @@
 import { NavLink } from "@remix-run/react"
 
-import type { NavigationLinkProps } from "~/packages/components/Link"
 import { isExternalLink } from "~/packages/helpers"
+import type { NavigationLinkProps } from "~/packages/ui/Link"
 
 export interface NavigationProps {
   links: Array<NavigationLinkProps>

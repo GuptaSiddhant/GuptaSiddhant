@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 
-import Hero from "~/packages/components/Hero"
+import Hero from "~/packages/ui/Hero"
 
 import TeaserFilterSortForm, {
   type TeaserFilterSortFormProps,

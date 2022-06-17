@@ -6,13 +6,13 @@ import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 
 import AdminLink, { type AdminLinkProps } from "~/packages/admin/AdminLink"
 import { AdminContext } from "~/packages/admin/context"
-import { ErrorSection } from "~/packages/components/Error"
 import { CSS_VAR_HEADER_HEIGHT } from "~/packages/constants"
 import { authenticateRoute } from "~/packages/service/auth.server"
 import {
   getIsFeatureEnabled,
   RemoteConfigKey,
 } from "~/packages/service/remote-config.server"
+import { ErrorSection } from "~/packages/ui/Error"
 
 import { handle } from "./admin/index"
 

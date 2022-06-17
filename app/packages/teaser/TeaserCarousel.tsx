@@ -1,8 +1,8 @@
 import clsx from "clsx"
 
-import { Link } from "~/packages/components/Link"
-import Section, { proseWidth } from "~/packages/components/Section"
 import type { TeaserProps } from "~/packages/teaser"
+import { Link } from "~/packages/ui/Link"
+import Section, { proseWidth } from "~/packages/ui/Section"
 
 export interface TeaserCarouselProps {
   id?: string

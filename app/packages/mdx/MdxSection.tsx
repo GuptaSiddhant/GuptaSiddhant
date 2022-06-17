@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import Section from "../components/Section"
+import Section from "../ui/Section"
 import FloatingTOC from "./FloatingTOC"
 import { type TocItem, arrangeTocByLevels } from "./helpers"
 import InlineTOC from "./InlineTOC"
