@@ -70,4 +70,5 @@ export enum RemoteConfigKey {
   About = "enableAbout",
   Search = "enableSearch",
   AdminNavCollapsed = "toggleAdminNavbarCollapsed",
+  DefaultPauseCachePolling = "defaultPauseCachePolling",
 }

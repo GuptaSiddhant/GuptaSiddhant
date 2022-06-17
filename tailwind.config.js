@@ -63,12 +63,15 @@ const config = {
         "3xl": "2200px",
       },
       animation: {
-        appear: "appear 0.2s linear",
+        "appear-btt": "appear-btt 0.2s linear",
+        "appear-rtl": "appear-rtl 0.2s ease-out",
       },
       keyframes: {
-        appear: {
-          "0%": { transform: "translateY(50%)", opacity: "0" },
-          "100%": { transform: "translateY(0)" },
+        "appear-btt": {
+          "0%": { transform: "translateY(50%)", opacity: 0.5 },
+        },
+        "appear-rtl": {
+          "0%": { transform: "translateX(10%)", opacity: 0.5 },
         },
       },
       minHeight: {

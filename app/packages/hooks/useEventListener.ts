@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 
 export interface UseEventListenerOptions {
   immediate?: boolean
+  target?: Window | Document | HTMLElement | EventTarget | MediaQueryList
 }
 
 export default function useEventListener<K extends keyof WindowEventMap>(
@@ -10,7 +11,8 @@ export default function useEventListener<K extends keyof WindowEventMap>(
   options?: UseEventListenerOptions,
 ) {
   const listenerRef = useRef(callback)
-  const { immediate = false } = options || {}
+  const { immediate = false, target = __IS_SERVER__ ? undefined : window } =
+    options || {}
 
   useEffect(() => {
     listenerRef.current = callback
@@ -19,7 +21,8 @@ export default function useEventListener<K extends keyof WindowEventMap>(
   useEffect(() => {
     if (immediate) listenerRef.current?.({} as WindowEventMap[K])
 
-    window.addEventListener(eventName, listenerRef.current)
-    return () => window.removeEventListener(eventName, listenerRef.current)
-  }, [eventName, immediate])
+    target?.addEventListener(eventName, listenerRef.current as any)
+    return () =>
+      target?.removeEventListener(eventName, listenerRef.current as any)
+  }, [eventName, immediate, target])
 }

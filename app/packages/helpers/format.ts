@@ -1,4 +1,4 @@
-import { ONE_DAY_IN_MS } from "../constants"
+import { ONE_DAY_IN_MS, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "../constants"
 
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -49,8 +49,6 @@ export function formatList(list: string[], parts?: boolean) {
 
 export function transformMsToReadableString(ms: number): string {
   const dateStr: string[] = []
-  const ONE_HOUR_IN_MS = 60 * 60 * 1000
-  const ONE_MIN_IN_MS = 60 * 1000
   let remainingTimeInMs = ms
 
   const days = Math.floor(remainingTimeInMs / ONE_DAY_IN_MS)

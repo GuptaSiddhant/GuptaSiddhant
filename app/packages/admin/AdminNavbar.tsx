@@ -1,6 +1,7 @@
 import { NavLink } from "@remix-run/react"
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
+import { useEffect } from "react"
 import { useMemo } from "react"
 import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
@@ -9,6 +10,7 @@ import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 import Accordion from "~/packages/ui/Accordion"
 import type { NavigationLinkProps } from "~/packages/ui/Link"
 
+import useMediaQuery from "../hooks/useMediaQuery"
 import AdminHeader from "./AdminHeader"
 import useAdminContext from "./context"
 
@@ -31,6 +33,7 @@ export default function AdminNavbar({
   const [navCollapsed, setNavCollapsed] = useState(
     Boolean(defaultNavbarCollapsed),
   )
+
   const [filterTerm, setFilterTerm] = useState("")
   const filteredNavGroups = useMemo(
     () =>
@@ -44,6 +47,8 @@ export default function AdminNavbar({
         : navGroups,
     [navGroups, filterTerm],
   )
+  const isMobileWidth = useMediaQuery("(max-width: 768px)")
+  useEffect(() => setNavCollapsed(isMobileWidth), [isMobileWidth])
 
   if (navGroups.length === 0) return null
 
@@ -168,6 +173,7 @@ function AdminNavbarItem({
       id={id}
       to={to!}
       onClick={onClick}
+      prefetch="render"
       className={({ isActive }) =>
         clsx(
           "text-base w=full hocus:bg-tertiary py-1 px-2 rounded-sm",

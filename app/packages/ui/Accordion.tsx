@@ -19,7 +19,11 @@ export default function Accordion({
   return (
     <details
       open={open}
-      className={clsx(className, "relative w-full rounded-md")}
+      className={clsx(
+        className,
+        "relative w-full rounded-md",
+        "transition-[height]",
+      )}
     >
       <summary
         className={clsx(

@@ -13,4 +13,5 @@ module.exports = {
   // serverBuildPath: "api/index.js",
   // publicPath: "/build/",
   serverDependenciesToBundle: [/^rehype.*/, /^remark.*/, /^unified.*/, /^@gs/],
+  // routes: (defineRoutes) => defineRoutes((route) => { route("/", "/x.tsx") }),
 }

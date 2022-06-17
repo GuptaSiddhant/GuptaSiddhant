@@ -166,7 +166,7 @@ export function ChangingText({
   }, [texts, duration])
 
   return (
-    <span className="inline-block animate-appear" key={index}>
+    <span className="inline-block animate-appear-btt" key={index}>
       {texts[index]}
     </span>
   )

@@ -27,3 +27,14 @@ export type LinkType =
   | "design"
 
 export type Gallery = Array<{ url: string; alt: string }>
+
+export type RemixSubmitFunctionTarget =
+  | HTMLFormElement
+  | HTMLButtonElement
+  | HTMLInputElement
+  | FormData
+  | URLSearchParams
+  | {
+      [name: string]: string
+    }
+  | null

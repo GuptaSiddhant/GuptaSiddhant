@@ -35,7 +35,7 @@ export default function AdminHeader({
     )
 
   return (
-    <header className="sticky top-0 px-4 min-h-[3rem] grid items-center grid-cols-[1fr_max-content] border-b border-divider bg-secondary">
+    <header className="sticky top-0 px-4 min-h-[3rem] grid items-center grid-cols-[1fr_max-content] gap-2 border-b border-divider bg-secondary">
       <div className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-4 items-center">
         {children}
       </div>
