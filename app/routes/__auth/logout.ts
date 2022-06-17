@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 
-import authenticator from "~/packages/service/auth.server"
+import authenticator from "~/features/service/auth.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   return authenticator.logout(request, { redirectTo: "/" })

@@ -8,25 +8,25 @@ import PlayIcon from "remixicon-react/PlayCircleLineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
-import AdminLayout from "~/packages/admin/AdminLayout"
-import { ONE_HOUR_IN_MS } from "~/packages/constants"
-import { transformMsToReadableString } from "~/packages/helpers/format"
-import useMediaQuery from "~/packages/hooks/useMediaQuery"
-import { useLoaderPolling } from "~/packages/hooks/usePolling"
+import AdminLayout from "~/features/admin/AdminLayout"
+import { ONE_HOUR_IN_MS } from "~/features/constants"
+import { transformMsToReadableString } from "~/features/helpers/format"
+import useMediaQuery from "~/features/hooks/useMediaQuery"
+import { useLoaderPolling } from "~/features/hooks/usePolling"
 import {
   type ModifyCacheMethod,
   CacheType,
   modifyCache,
-} from "~/packages/service/cache.server"
-import { parseCacheKey } from "~/packages/service/cache.server"
+} from "~/features/service/cache.server"
+import { parseCacheKey } from "~/features/service/cache.server"
 import {
   getIsFeatureEnabled,
   RemoteConfigKey,
-} from "~/packages/service/remote-config.server"
-import Accordion from "~/packages/ui/Accordion"
-import CodeBlock from "~/packages/ui/CodeBlock"
-import { ErrorSection } from "~/packages/ui/Error"
-import type { NavigationLinkProps } from "~/packages/ui/Link"
+} from "~/features/service/remote-config.server"
+import Accordion from "~/features/ui/Accordion"
+import CodeBlock from "~/features/ui/CodeBlock"
+import { ErrorSection } from "~/features/ui/Error"
+import type { NavigationLinkProps } from "~/features/ui/Link"
 
 interface LoaderData {
   key: string

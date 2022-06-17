@@ -5,26 +5,26 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { generateArticleMeta } from "~/packages/helpers/meta"
+import { generateArticleMeta } from "~/features/helpers/meta"
 import {
   type TocItem,
   extractTocFromMdx,
   transformContentToMdx,
-} from "~/packages/mdx/helpers"
-import MdxSection from "~/packages/mdx/MdxSection"
-import { type ProjectProps } from "~/packages/projects"
+} from "~/features/mdx/helpers"
+import MdxSection from "~/features/mdx/MdxSection"
+import { type ProjectProps } from "~/features/projects"
 import {
   getProjectCrossSell,
   getProjectDetails,
-} from "~/packages/projects/service.server"
-import { type TeaserProps } from "~/packages/teaser"
-import TeaserCarousel from "~/packages/teaser/TeaserCarousel"
-import Divider from "~/packages/ui/Divider"
-import { ErrorSection } from "~/packages/ui/Error"
-import Hero from "~/packages/ui/Hero"
-import ShareTray from "~/packages/ui/ShareTray"
-import Tags from "~/packages/ui/Tags"
-import { H2 } from "~/packages/ui/Text"
+} from "~/features/projects/service.server"
+import { type TeaserProps } from "~/features/teaser"
+import TeaserCarousel from "~/features/teaser/TeaserCarousel"
+import Divider from "~/features/ui/Divider"
+import { ErrorSection } from "~/features/ui/Error"
+import Hero from "~/features/ui/Hero"
+import ShareTray from "~/features/ui/ShareTray"
+import Tags from "~/features/ui/Tags"
+import { H2 } from "~/features/ui/Text"
 
 interface LoaderData {
   project: ProjectProps

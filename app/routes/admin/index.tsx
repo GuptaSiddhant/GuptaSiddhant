@@ -1,6 +1,6 @@
-import type { AdminAppProps } from "~/packages/admin"
-import { createAdminMeta } from "~/packages/admin"
-import { H1, Paragraph } from "~/packages/ui/Text"
+import type { AdminAppProps } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin"
+import { H1, Paragraph } from "~/features/ui/Text"
 
 import { handle as cacheHandle } from "./cache"
 

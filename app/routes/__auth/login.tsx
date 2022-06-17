@@ -3,10 +3,10 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import authenticator from "~/packages/service/auth.server"
-import cookieSession from "~/packages/service/session.server"
-import CodeBlock from "~/packages/ui/CodeBlock"
-import Section from "~/packages/ui/Section"
+import authenticator from "~/features/service/auth.server"
+import cookieSession from "~/features/service/session.server"
+import CodeBlock from "~/features/ui/CodeBlock"
+import Section from "~/features/ui/Section"
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {

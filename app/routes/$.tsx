@@ -1,4 +1,4 @@
-import { ErrorSection } from "~/packages/ui/Error"
+import { ErrorSection } from "~/features/ui/Error"
 
 export default function Error404(): JSX.Element | null {
   return (

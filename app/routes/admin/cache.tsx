@@ -6,18 +6,18 @@ import CacheIcon from "remixicon-react/Database2FillIcon"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
-import type { AdminAppProps } from "~/packages/admin"
-import { createAdminMeta } from "~/packages/admin"
-import AdminLayout from "~/packages/admin/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/packages/admin/AdminNavbar"
+import type { AdminAppProps } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin"
+import AdminLayout from "~/features/admin/AdminLayout"
+import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
 import cache, {
   type ModifyCacheMethod,
   modifyCache,
   parseCacheKey,
-} from "~/packages/service/cache.server"
-import { ErrorSection } from "~/packages/ui/Error"
-import type { NavigationLinkProps } from "~/packages/ui/Link"
-import { Caption } from "~/packages/ui/Text"
+} from "~/features/service/cache.server"
+import { ErrorSection } from "~/features/ui/Error"
+import type { NavigationLinkProps } from "~/features/ui/Link"
+import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {
   id: "cache",

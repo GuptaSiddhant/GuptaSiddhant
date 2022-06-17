@@ -5,15 +5,15 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { createMetaTitle } from "~/packages/helpers/meta"
-import { getProjectTeaserList } from "~/packages/projects/service.server"
+import { createMetaTitle } from "~/features/helpers/meta"
+import { getProjectTeaserList } from "~/features/projects/service.server"
 import filterSortTeasers, {
   type FilterSortTeasersReturn,
-} from "~/packages/teaser/filter-sort"
-import TeaserGrid from "~/packages/teaser/TeaserGrid"
-import TeaserHero from "~/packages/teaser/TeaserHero"
-import TeaserList from "~/packages/teaser/TeaserList"
-import { ErrorSection } from "~/packages/ui/Error"
+} from "~/features/teaser/filter-sort"
+import TeaserGrid from "~/features/teaser/TeaserGrid"
+import TeaserHero from "~/features/teaser/TeaserHero"
+import TeaserList from "~/features/teaser/TeaserList"
+import { ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData extends FilterSortTeasersReturn {
   title: string
