@@ -28,7 +28,7 @@ export default function Accordion({
           "font-bold text-sm select-none cursor-pointer",
         )}
       >
-        <div className="inline-block pl-1">{summary}</div>
+        <div className="inline-block pl-1 w-[calc(100%_-_1rem)]">{summary}</div>
       </summary>
       {children}
     </details>

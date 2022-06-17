@@ -90,7 +90,7 @@ function createNavGroupsFromKeys(keys: string[]): AdminNavbarGroupProps[] {
 
   return Object.keys(groupMap).map((type) => ({
     id: type,
-    label: type,
+    label: type.toUpperCase().replace(/-/g, " "),
     children: groupMap[type],
   }))
 }

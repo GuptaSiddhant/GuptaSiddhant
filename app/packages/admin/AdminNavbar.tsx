@@ -1,6 +1,7 @@
 import { NavLink } from "@remix-run/react"
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
+import { useMemo } from "react"
 import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
@@ -31,24 +32,18 @@ export default function AdminNavbar({
     Boolean(defaultNavbarCollapsed),
   )
   const [filterTerm, setFilterTerm] = useState("")
-  const filteredNavGroups = filterTerm
-    ? navGroups
-        .filter(({ label, children }) => {
-          if (label.includes(filterTerm)) return true
-          if (children && children.length > 0) {
-            return children.some((item) =>
+  const filteredNavGroups = useMemo(
+    () =>
+      filterTerm
+        ? navGroups.map((group) => ({
+            ...group,
+            children: group.children.filter((item) =>
               item.children?.toString().includes(filterTerm),
-            )
-          }
-          return false
-        })
-        .map((group) => ({
-          ...group,
-          children: group.children.filter((item) =>
-            item.children?.toString().includes(filterTerm),
-          ),
-        }))
-    : navGroups
+            ),
+          }))
+        : navGroups,
+    [navGroups, filterTerm],
+  )
 
   if (navGroups.length === 0) return null
 
@@ -145,10 +140,15 @@ function AdminNavbarGroup({
   return (
     <Accordion
       open
-      summary={label.toUpperCase().replace(/-/g, " ")}
+      summary={
+        <div className="flex justify-between items-baseline">
+          <span>{label}</span>
+          <span className="font-normal">({children.length})</span>
+        </div>
+      }
       summaryClassName="sticky top-0"
     >
-      <ul className="flex flex-col gap-1 list-none px-2 ">
+      <ul className="flex flex-col gap-1 list-none px-2">
         {children.map((link) => (
           <AdminNavbarItem key={link.id} {...link} />
         ))}
