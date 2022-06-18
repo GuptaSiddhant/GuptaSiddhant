@@ -19,6 +19,7 @@ export default function AdminLayout({
   className,
   children = <Outlet />,
   footer,
+  to,
   ...props
 }: AdminLayoutProps): JSX.Element | null {
   const isRenderNavbar = (props.navGroups?.length || 0) > 0
@@ -38,10 +39,11 @@ export default function AdminLayout({
           icon={icon}
           header={header}
           actions={actions}
+          to={to}
           {...props}
         />
       ) : (
-        <AdminHeader actions={actions} icon={icon}>
+        <AdminHeader actions={actions} icon={icon} to={to}>
           {header}
         </AdminHeader>
       )}

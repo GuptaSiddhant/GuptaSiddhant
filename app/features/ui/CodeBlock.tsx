@@ -78,7 +78,7 @@ function CodePre({
               key={i}
               {...getLineProps({ line, key: i })}
               style={{
-                whiteSpace: wrap ? "pre-wrap" : "initial",
+                whiteSpace: wrap ? "pre-wrap" : undefined,
                 wordBreak: wrap ? "break-all" : "initial",
               }}
             >

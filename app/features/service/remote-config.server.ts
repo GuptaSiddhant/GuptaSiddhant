@@ -47,15 +47,35 @@ export async function getIsFeatureEnabled(
   return true
 }
 
-export async function getAreFeaturesEnabled(
-  ...keys: RemoteConfigKey[]
-): Promise<Record<RemoteConfigKey, boolean>> {
+export type RemoteConfigBooleanMap<
+  T extends RemoteConfigKey = RemoteConfigKey,
+> = Record<T, boolean>
+
+export async function getAreFeaturesEnabled<T extends RemoteConfigKey>(
+  ...keys: T[]
+): Promise<RemoteConfigBooleanMap<T>> {
   const enabledList = await Promise.all(keys.map(getIsFeatureEnabled))
 
   return keys.reduce(
     (acc, key, index) => ({ ...acc, [key]: enabledList[index] }),
-    {} as Record<RemoteConfigKey, boolean>,
+    {} as RemoteConfigBooleanMap<T>,
   )
+}
+
+export async function getAllRemoteConfigFeatures(): Promise<RemoteConfigBooleanMap | null> {
+  const template = await getRemoteConfigTemplate()
+  if (!template) return null
+
+  return getAreFeaturesEnabled(
+    ...(Object.keys(template.parameters) as RemoteConfigKey[]),
+  )
+}
+
+export async function getAllRemoteConfigKeys(): Promise<RemoteConfigKey[]> {
+  const template = await getRemoteConfigTemplate()
+  if (!template) return []
+
+  return Object.keys(template.parameters) as RemoteConfigKey[]
 }
 
 // Fetchers
@@ -72,3 +92,7 @@ export enum RemoteConfigKey {
   AdminNavCollapsed = "toggleAdminNavbarCollapsed",
   DefaultPauseCachePolling = "defaultPauseCachePolling",
 }
+
+// Exports
+
+export { RemoteConfigTemplate }

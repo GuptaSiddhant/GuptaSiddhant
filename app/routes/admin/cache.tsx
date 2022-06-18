@@ -23,6 +23,7 @@ const adminApp: AdminAppProps = {
   id: "cache",
   name: "Cache",
   icon: <CacheIcon />,
+  to: "/admin/cache",
 }
 
 interface LoaderData {
@@ -45,7 +46,7 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(pathname)
 }
 
-export default function CacheUI(): JSX.Element | null {
+export default function CacheAdminApp(): JSX.Element | null {
   const submit = useSubmit()
   const { navGroups, pathname } = useLoaderData<LoaderData>()
 
@@ -97,12 +98,15 @@ function createNavGroupsFromKeys(keys: string[]): AdminNavbarGroupProps[] {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <ErrorSection title="Problem with CacheUI" message={error.message} />
+  return (
+    <ErrorSection
+      title={`Problem with ${adminApp.name}.`}
+      message={error.message}
+    />
+  )
 }
 
-export const handle = {
-  adminApp,
-}
+export const handle = { adminApp }
 
 export function meta() {
   return createAdminMeta(adminApp.name)

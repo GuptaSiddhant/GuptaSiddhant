@@ -2,7 +2,8 @@ import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import { H1, Paragraph } from "~/features/ui/Text"
 
-import { handle as cacheHandle } from "./cache"
+import { handle as cache } from "./cache"
+import { handle as config } from "./settings"
 
 export default function AdminIndex(): JSX.Element | null {
   return (
@@ -16,7 +17,7 @@ export default function AdminIndex(): JSX.Element | null {
 export const handle: {
   apps: AdminAppProps[]
 } = {
-  apps: [cacheHandle.adminApp],
+  apps: [cache, config].map(({ adminApp }) => adminApp),
 }
 
 export function meta() {

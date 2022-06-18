@@ -8,6 +8,7 @@ import PlayIcon from "remixicon-react/PlayCircleLineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
+import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
@@ -84,7 +85,11 @@ export default function CacheDetails(): JSX.Element | null {
       id: "Refetch",
       onClick: () =>
         submit({ key }, { action: pathname, method: "put", replace: true }),
-      children: <RefetchIcon aria-label="Refetch" />,
+      children: (
+        <AdminFormAction body={{ key }} title="Refresh">
+          <RefetchIcon aria-label="Refetch" />
+        </AdminFormAction>
+      ),
     },
     {
       id: "Delete",

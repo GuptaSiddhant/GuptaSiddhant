@@ -1,14 +1,16 @@
-import { NavLink } from "@remix-run/react"
+import { Link, NavLink } from "@remix-run/react"
 import { type ReactNode } from "react"
 
-import type { NavigationLinkProps } from "~/features/ui/Link"
+import type { NavigationLinkProps, To } from "~/features/ui/Link"
 
 export default function AdminHeader({
   children,
   actions,
   collapsed,
   icon,
+  to,
 }: {
+  to?: To
   children: ReactNode
   actions?: NavigationLinkProps[]
   collapsed?: boolean
@@ -17,12 +19,13 @@ export default function AdminHeader({
   if (collapsed)
     return (
       <header className="w-full flex flex-col gap-4">
-        <div
+        <Link
+          to={to || "."}
           title={children?.toString() || "App"}
           className="w-full h-12 flex-center border-b border-divider bg-secondary"
         >
           {icon}
-        </div>
+        </Link>
         <div
           id="admin-app-actions"
           className="flex flex-col items-center gap-4"
@@ -36,9 +39,12 @@ export default function AdminHeader({
 
   return (
     <header className="sticky top-0 px-4 min-h-[3rem] grid items-center grid-cols-[1fr_max-content] gap-2 border-b border-divider bg-secondary">
-      <div className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-4 items-center">
+      <Link
+        className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-4 items-center"
+        to={to || "."}
+      >
         {children}
-      </div>
+      </Link>
       <div className="flex items-center gap-4">
         {actions?.map((props) => (
           <AdminAction key={props.id} {...props} />

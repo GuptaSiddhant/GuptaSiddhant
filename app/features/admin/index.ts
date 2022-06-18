@@ -1,10 +1,13 @@
 import type { MetaDescriptor } from "@remix-run/server-runtime"
 import type { ReactNode } from "react"
 
+import type { To } from "../ui/Link"
+
 export interface AdminAppProps {
   id: string
   name: string
   icon: ReactNode
+  to: To
 }
 
 export function createAdminMeta(title?: string): MetaDescriptor {

@@ -2,10 +2,9 @@ import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
+import AdminDashboard from "~/features/admin/AdminDashboard"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import cache from "~/features/service/cache.server"
-import Table from "~/features/ui/Table"
-import { Caption } from "~/features/ui/Text"
 
 import { handle } from "../cache"
 
@@ -23,15 +22,10 @@ export const loader: LoaderFunction = async () => {
 
 export default function CacheIndex(): JSX.Element | null {
   const { size, max, ttl } = useLoaderData<LoaderData>()
-  const { icon, name } = handle.adminApp
 
   return (
-    <div className="flex-center h-full flex-col gap-4 p-4">
-      <div className="[&>*]:scale-[2] m-4">{icon}</div>
-      <Caption className="w-full pb-4 text-center">{name}</Caption>
-
-      <Table
-        orientation="vertical"
+    <AdminDashboard {...handle.adminApp}>
+      <AdminDashboard.Table
         data={[{ size, max, ttl }]}
         columns={[
           { id: "size", header: "Entries" },
@@ -46,10 +40,7 @@ export default function CacheIndex(): JSX.Element | null {
             cell: (value) => <span>{transformMsToReadableString(value)}</span>,
           },
         ]}
-        headCellClassName="px-4 py-2 text-secondary text-base text-left"
-        bodyCellClassName="px-4 py-2 min-w-[4rem]  text-left"
-        bodyRowClassName="border-b border-divider"
       />
-    </div>
+    </AdminDashboard>
   )
 }

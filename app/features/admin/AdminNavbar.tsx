@@ -8,7 +8,7 @@ import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
 import Accordion from "~/features/ui/Accordion"
-import type { NavigationLinkProps } from "~/features/ui/Link"
+import type { NavigationLinkProps, To } from "~/features/ui/Link"
 
 import useMediaQuery from "../hooks/useMediaQuery"
 import AdminHeader from "./AdminHeader"
@@ -20,6 +20,7 @@ export interface AdminNavbarProps {
   navGroups?: AdminNavbarGroupProps[]
   header?: ReactNode
   actions?: NavigationLinkProps[]
+  to?: To
 }
 
 export default function AdminNavbar({
@@ -28,6 +29,7 @@ export default function AdminNavbar({
   name,
   icon,
   actions,
+  to,
 }: AdminNavbarProps): JSX.Element | null {
   const { defaultNavbarCollapsed } = useAdminContext()
   const [navCollapsed, setNavCollapsed] = useState(
@@ -61,7 +63,12 @@ export default function AdminNavbar({
         navCollapsed ? "w-12" : "w-72",
       )}
     >
-      <AdminHeader actions={actions} collapsed={navCollapsed} icon={icon}>
+      <AdminHeader
+        actions={actions}
+        collapsed={navCollapsed}
+        icon={icon}
+        to={to}
+      >
         {header}
       </AdminHeader>
 
