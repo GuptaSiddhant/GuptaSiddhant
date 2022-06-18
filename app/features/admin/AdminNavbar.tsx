@@ -140,12 +140,14 @@ function AdminNavFooter({
 export interface AdminNavbarGroupProps {
   id: string
   label: string
+  showCount?: boolean
   children: NavigationLinkProps[]
 }
 
 function AdminNavbarGroup({
   children,
   label,
+  showCount = false,
 }: AdminNavbarGroupProps): JSX.Element | null {
   if (children.length === 0) return null
 
@@ -155,7 +157,9 @@ function AdminNavbarGroup({
       summary={
         <div className="flex justify-between items-baseline">
           <span>{label}</span>
-          <span className="font-normal">({children.length})</span>
+          {showCount ? (
+            <span className="font-normal">({children.length})</span>
+          ) : null}
         </div>
       }
       summaryClassName="sticky top-0"

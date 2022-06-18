@@ -37,7 +37,9 @@ export default function CacheIndex(): JSX.Element | null {
           {
             id: "ttl",
             header: "Expiry time",
-            cell: (value) => <span>{transformMsToReadableString(value)}</span>,
+            cell: (value) => (
+              <span>{transformMsToReadableString(value || 0)}</span>
+            ),
           },
         ]}
       />

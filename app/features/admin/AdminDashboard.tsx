@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import type { ReactNode } from "react"
 
 import Table, { type TableProps } from "../ui/Table"
@@ -32,7 +33,7 @@ function AdminDashboardTable<T extends object>(
     <Table
       {...props}
       orientation="vertical"
-      className="border-t border-divider"
+      className={clsx(props.className, "border-t border-divider")}
       headCellClassName="px-4 py-2 text-secondary text-base text-left"
       bodyCellClassName="px-4 py-2 min-w-[4rem]  text-left"
       bodyRowClassName="border-b border-divider"

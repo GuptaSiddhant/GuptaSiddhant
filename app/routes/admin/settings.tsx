@@ -1,13 +1,11 @@
 import { Outlet, useLoaderData } from "@remix-run/react"
-import type { ActionFunction } from "@remix-run/server-runtime"
-import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
+import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
-import { CacheType, modifyCache } from "~/features/service/cache.server"
 import { getAllRemoteConfigKeys } from "~/features/service/remote-config.server"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
@@ -29,25 +27,13 @@ export const loader: LoaderFunction = async () => {
   return json<LoaderData>({ featureConfigKeys })
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  const url = new URL(request.url)
-  const form = await request.formData()
-  const pathname = form.get("currentPathname")?.toString() || url.pathname
-
-  if (request.method === "PUT") {
-    await modifyCache(request.method, CacheType.RemoteConfig)
-  }
-
-  return redirect(pathname)
-}
-
 export default function SettingsAdminApp(): JSX.Element | null {
   const { featureConfigKeys } = useLoaderData<LoaderData>()
 
   const navGroups: AdminNavbarGroupProps[] = [
     {
-      id: "feature-flags",
-      label: "Feature flags",
+      id: "config",
+      label: "Config",
       children: [
         {
           id: "feature-flags",

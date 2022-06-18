@@ -48,7 +48,8 @@ export default function AdminIndex(): JSX.Element {
       <section
         id="admin"
         className={clsx(
-          "fixed inset-0 h-screen h-screen-webkit w-screen p-4",
+          "fixed inset-0 h-screen w-screen p-4",
+          "h-screen-webkit",
           "grid grid-cols-[3rem_1fr]",
         )}
         style={{

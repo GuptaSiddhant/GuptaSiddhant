@@ -27,16 +27,17 @@ const adminApp: AdminAppProps = {
 }
 
 interface LoaderData {
-  navGroups: AdminNavbarGroupProps[]
+  keys: string[]
   pathname: string
+  groupMap: Record<string, NavigationLinkProps[]>
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
   const keys = [...cache.keys()].sort()
-  const navGroups = createNavGroupsFromKeys(keys)
+  const groupMap = createGroupMapFromKeys(keys)
 
-  return json<LoaderData>({ navGroups, pathname })
+  return json<LoaderData>({ keys, pathname, groupMap })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -48,7 +49,16 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function CacheAdminApp(): JSX.Element | null {
   const submit = useSubmit()
-  const { navGroups, pathname } = useLoaderData<LoaderData>()
+  const { groupMap, pathname } = useLoaderData<LoaderData>()
+
+  const navGroups: AdminNavbarGroupProps[] = Object.keys(groupMap).map(
+    (type) => ({
+      id: type,
+      label: type.toUpperCase().replace(/-/g, " "),
+      showCount: true,
+      children: groupMap[type],
+    }),
+  )
 
   const actions: NavigationLinkProps[] = [
     {
@@ -75,7 +85,7 @@ export default function CacheAdminApp(): JSX.Element | null {
   )
 }
 
-function createNavGroupsFromKeys(keys: string[]): AdminNavbarGroupProps[] {
+function createGroupMapFromKeys(keys: string[]) {
   const groupMap: Record<string, NavigationLinkProps[]> = {}
 
   keys.forEach((key) => {
@@ -90,11 +100,7 @@ function createNavGroupsFromKeys(keys: string[]): AdminNavbarGroupProps[] {
     }
   })
 
-  return Object.keys(groupMap).map((type) => ({
-    id: type,
-    label: type.toUpperCase().replace(/-/g, " "),
-    children: groupMap[type],
-  }))
+  return groupMap
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
