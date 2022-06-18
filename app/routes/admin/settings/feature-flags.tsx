@@ -1,6 +1,7 @@
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction } from "@remix-run/server-runtime"
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
+import NotifIcon from "remixicon-react/NotificationLineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
@@ -15,6 +16,7 @@ import {
   getAllFeatureFlags,
   setFeatureFlag,
 } from "~/features/service/remote-config.server"
+import useToaster from "~/features/toaster"
 import { ErrorSection } from "~/features/ui/Error"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 
@@ -55,6 +57,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function CacheIndex(): JSX.Element | null {
   const { featureFlags } = useLoaderData<LoaderData>()
+  const { addToast } = useToaster()
 
   const actions: NavigationLinkProps[] = [
     {
@@ -64,6 +67,17 @@ export default function CacheIndex(): JSX.Element | null {
           <RefetchIcon />
         </AdminFormAction>
       ),
+    },
+    {
+      id: "toast",
+      onClick: () => {
+        addToast({
+          id: "toast-" + Math.random().toFixed(2),
+          title: "Toast",
+          icon: <NotifIcon />,
+        })
+      },
+      children: <NotifIcon />,
     },
   ]
 

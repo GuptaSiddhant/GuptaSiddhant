@@ -65,6 +65,7 @@ const config = {
       animation: {
         "appear-btt": "appear-btt 0.2s linear",
         "appear-rtl": "appear-rtl 0.2s ease-out",
+        "disappear-ltr": "disappear-ltr 0.2s ease-in",
       },
       keyframes: {
         "appear-btt": {
@@ -72,6 +73,9 @@ const config = {
         },
         "appear-rtl": {
           "0%": { transform: "translateX(10%)", opacity: 0.5 },
+        },
+        "disappear-ltr": {
+          "100%": { transform: "translateX(100%)", opacity: 0 },
         },
       },
       minHeight: {

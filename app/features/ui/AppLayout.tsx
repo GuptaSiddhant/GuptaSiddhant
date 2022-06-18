@@ -5,6 +5,7 @@ import UpIcon from "remixicon-react/ArrowUpLineIcon"
 import useOffsetScroll from "~/features/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/features/hooks/useSetHeaderHeight"
 import RoundedCorner from "~/features/icons/RoundedCorner"
+import { Toaster } from "~/features/toaster"
 import { FAB } from "~/features/ui/Button"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 import Logo from "~/features/ui/Logo"
@@ -29,7 +30,7 @@ export default function AppLayout({
   }, [])
 
   return (
-    <>
+    <Toaster>
       <header
         data-header
         ref={headerRef}
@@ -79,6 +80,6 @@ export default function AppLayout({
       </footer>
 
       <ProgressBar />
-    </>
+    </Toaster>
   )
 }
