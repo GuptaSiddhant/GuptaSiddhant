@@ -75,6 +75,7 @@ export default function CacheIndex(): JSX.Element | null {
           id: "toast-" + Math.random().toFixed(2),
           title: "Toast",
           icon: <NotifIcon />,
+          persistent: true,
         })
       },
       children: <NotifIcon />,

@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react"
+import { useCallback, useRef } from "react"
 
-const useSafeLayoutEffect =
-  typeof window === "undefined" ? useEffect : useLayoutEffect
+import useSafeLayoutEffect from "./useSafeLayoutEffect"
 
 export default function useStableCallback<T extends Array<unknown>, R>(
   callback: (...args: T) => R,

@@ -4,10 +4,10 @@ export default function useTimeout(
   callback: () => void,
   timeoutInMs: number,
   isPaused?: boolean,
-): number {
+) {
   const startTimeRef = useRef<number>(0)
   const remainingTimeRef = useRef<number>(timeoutInMs)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<number>()
 
   useEffect(() => {
     if (isPaused) {
@@ -15,11 +15,9 @@ export default function useTimeout(
       remainingTimeRef.current -= Date.now() - startTimeRef.current
     } else {
       startTimeRef.current = Date.now()
-      timeoutRef.current = setTimeout(callback, remainingTimeRef.current)
+      timeoutRef.current = window.setTimeout(callback, remainingTimeRef.current)
 
       return () => clearTimeout(timeoutRef.current)
     }
   }, [callback, isPaused])
-
-  return remainingTimeRef.current
 }

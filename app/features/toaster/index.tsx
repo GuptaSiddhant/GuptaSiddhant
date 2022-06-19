@@ -47,7 +47,7 @@ export function Toaster({
           <button
             onClick={dismissAllToasts}
             title="Dismiss all toasts"
-            className="absolute rounded bottom-0 -left-12 w-10 aspect-square bg-secondary hocus:bg-tertiary flex-center"
+            className="absolute rounded bottom-0 -left-12 w-10 aspect-square bg-secondary hocus:bg-tertiary flex-center animate-appear-btt"
           >
             <ClearIcon />
             <span className="sr-only">Dismiss all toasts</span>
