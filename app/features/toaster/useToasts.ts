@@ -10,6 +10,8 @@ export default function useToasts() {
 
   const addToast = useStableCallback((toast: ToastProps) => {
     setToasts((ts) => addItemToArray(ts, toast))
+
+    return toast.id
   })
 
   const removeToast = useStableCallback((toast: string | ToastProps) => {
@@ -17,7 +19,9 @@ export default function useToasts() {
     setToasts((ts) => ts.filter((t) => t.id !== id))
   })
 
-  const dismissToast = useStableCallback((toast: string | ToastProps) => {
+  const dismissToast = useStableCallback((toast?: string | ToastProps) => {
+    if (!toast) return
+
     const id = typeof toast === "string" ? toast : toast.id
     setTimeout(() => removeToast(id), 150)
     setToasts((ts) =>

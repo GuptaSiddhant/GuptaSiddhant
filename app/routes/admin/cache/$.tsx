@@ -1,4 +1,4 @@
-import { useLoaderData, useLocation, useSubmit } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
@@ -24,6 +24,7 @@ import {
   getIsFeatureEnabled,
   RemoteConfigKey,
 } from "~/features/service/remote-config.server"
+import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorSection } from "~/features/ui/Error"
@@ -45,7 +46,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { type, value } = parseCacheKey(key) || {}
   invariant(type, "Cache type is invalid")
 
-  const data = await cache.get(key)
+  const data = await cache.fetch(key)
   if (!data) return redirect("/admin/cache/")
 
   const ttl = cache.getRemainingTTL(key)
@@ -76,28 +77,31 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function CacheDetails(): JSX.Element | null {
-  const submit = useSubmit()
-  const { pathname } = useLocation()
   const { key, data, isStorageUrl } = useLoaderData<LoaderData>()
 
   const actions: NavigationLinkProps[] = [
     {
       id: "Refetch",
-      onClick: () =>
-        submit({ key }, { action: pathname, method: "put", replace: true }),
       children: (
-        <AdminFormAction body={{ key }} title="Refresh">
-          <RefetchIcon aria-label="Refetch" />
+        <AdminFormAction body={{ key }} title="Refresh" method="put">
+          <RefetchIcon />
         </AdminFormAction>
       ),
     },
     {
       id: "Delete",
-      onClick: () =>
-        submit({ key }, { action: pathname, method: "delete", replace: true }),
-      children: <ClearIcon aria-label="Delete" />,
+      children: (
+        <AdminFormAction body={{ key }} title="Delete" method="delete">
+          <ClearIcon />
+        </AdminFormAction>
+      ),
     },
   ]
+
+  useTransitionSubmissionToast({
+    DELETE: `Deleting cache key "${key}"`,
+    PUT: `Refetching cache key "${key}"`,
+  })
 
   return (
     <AdminLayout

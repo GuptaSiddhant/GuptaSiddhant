@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction } from "@remix-run/server-runtime"
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
-import NotifIcon from "remixicon-react/NotificationLineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
@@ -16,7 +15,7 @@ import {
   getAllFeatureFlags,
   setFeatureFlag,
 } from "~/features/service/remote-config.server"
-import useToaster from "~/features/toaster"
+import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 
@@ -36,9 +35,9 @@ export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(url)
   const form = await request.formData()
   const flag = form.get("flag")?.toString()
-  invariant(flag, "flag is required")
 
-  if (method === "POST") {
+  if (method === "POST" || method === "PATCH") {
+    invariant(flag, "flag is required")
     const devValue = form.get("dev")?.toString()
     const prodValue = form.get("prod")?.toString()
     const dev = devValue === "on" || devValue === "true"
@@ -48,6 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   if (method === "DELETE") {
+    invariant(flag, "flag is required")
     await deleteFeatureFlag(flag)
   }
 
@@ -57,28 +57,23 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function CacheIndex(): JSX.Element | null {
   const { featureFlags } = useLoaderData<LoaderData>()
-  const { addToast } = useToaster()
+  useTransitionSubmissionToast({
+    PUT: "Refetching feature flags",
+    POST: "Creating feature flag",
+    DELETE: "Deleting feature flag",
+    PATCH: "Updating feature flag",
+  })
 
   const actions: NavigationLinkProps[] = [
     {
       id: "Refetch",
       children: (
-        <AdminFormAction title="Refetch config">
-          <RefetchIcon />
-        </AdminFormAction>
+        <AdminFormAction
+          title="Refetch config"
+          children={<RefetchIcon />}
+          method="put"
+        />
       ),
-    },
-    {
-      id: "toast",
-      onClick: () => {
-        addToast({
-          id: "toast-" + Math.random().toFixed(2),
-          title: "Toast",
-          icon: <NotifIcon />,
-          persistent: true,
-        })
-      },
-      children: <NotifIcon />,
     },
   ]
 

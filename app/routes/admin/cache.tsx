@@ -8,6 +8,7 @@ import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
+import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
 import cache, {
@@ -15,6 +16,7 @@ import cache, {
   modifyCache,
   parseCacheKey,
 } from "~/features/service/cache.server"
+import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 import { Caption } from "~/features/ui/Text"
@@ -63,17 +65,26 @@ export default function CacheAdminApp(): JSX.Element | null {
   const actions: NavigationLinkProps[] = [
     {
       id: "Refresh",
-      onClick: () =>
-        submit({}, { action: pathname, method: "get", replace: true }),
-      children: <RefreshIcon aria-label="Refresh" />,
+      children: (
+        <AdminFormAction title="Refresh" method="get">
+          <RefreshIcon aria-label="Refresh" />
+        </AdminFormAction>
+      ),
     },
     {
-      id: "Clear all",
-      onClick: () =>
-        submit({}, { action: pathname, method: "delete", replace: true }),
-      children: <ClearIcon aria-label="Clear" />,
+      id: "Clear",
+      children: (
+        <AdminFormAction title="Clear" method="delete">
+          <ClearIcon aria-label="Clear" />
+        </AdminFormAction>
+      ),
     },
   ]
+
+  useTransitionSubmissionToast({
+    GET: `Refreshing cache`,
+    DELETE: `Clearing cache`,
+  })
 
   return (
     <AdminLayout

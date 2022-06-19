@@ -8,8 +8,8 @@ import Toast from "./Toast"
 import useToasts from "./useToasts"
 
 export interface ToasterContextValue {
-  addToast: (toast: ToastProps) => void
-  dismissToast: (toast: string | ToastProps) => void
+  addToast: (toast: ToastProps) => string
+  dismissToast: (toast?: string | ToastProps) => void
 }
 
 const ToasterContext = createContext<ToasterContextValue | undefined>(undefined)

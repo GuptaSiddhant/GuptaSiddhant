@@ -76,8 +76,8 @@ function ToggleCell({
   return (
     <div className="flex">
       <AdminFormAction
-        method="post"
-        title="Delete flag"
+        method="patch"
+        title="Toggle flag"
         body={{ ...row, [dev ? "dev" : "prod"]: !value }}
       >
         <span
@@ -102,7 +102,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
       {dev && prod ? (
         <AdminFormAction
-          method="post"
+          method="patch"
           title="Disable all"
           body={{ flag, dev: false, prod: false }}
         >
@@ -112,7 +112,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
       {!dev && !prod ? (
         <AdminFormAction
-          method="post"
+          method="patch"
           title="Enable all"
           body={{ flag, dev: true, prod: true }}
         >

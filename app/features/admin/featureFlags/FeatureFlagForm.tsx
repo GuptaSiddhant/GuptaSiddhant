@@ -4,8 +4,8 @@ import Button from "~/features/ui/Button"
 
 export default function FeatureFlagForm(): JSX.Element | null {
   return (
-    <Form method="post" className="border-r border-divider">
-      <fieldset className="flex flex-col gap-4 p-4 [&_input]:ml-2 [&_label]:px-2">
+    <Form method="post" className="border-r border-divider h-auto">
+      <fieldset className="flex flex-col gap-4 p-4 [&_input]:ml-2 [&_label]:px-2 h-auto">
         <legend className="font-bold border-b border-divider w-full py-2 text-base">
           Create new feature flag
         </legend>
