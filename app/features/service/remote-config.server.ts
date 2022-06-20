@@ -90,7 +90,14 @@ export async function getAllRemoteConfigKeys(): Promise<RemoteConfigKey[]> {
   const template = await getRemoteConfigTemplate()
   if (!template) return []
 
-  return Object.keys(template.parameters) as RemoteConfigKey[]
+  return (Object.keys(template.parameters) as RemoteConfigKey[]).filter(
+    (key) => {
+      const defaultValue = template.parameters[key].defaultValue
+      if (!defaultValue) return false
+      if (!("value" in defaultValue)) return false
+      return Boolean(defaultValue.value)
+    },
+  )
 }
 
 // Setters
@@ -121,7 +128,7 @@ export async function deleteFeatureFlag(
   const template = await fetchRemoteConfig()
   invariant(template, "Could not get the remote-config template")
 
-  template.parameters[flag] = {}
+  delete template.parameters[flag]
   return await setRemoteConfigTemplate(template)
 }
 

@@ -27,6 +27,7 @@ export default function Input({
       <input
         ref={inputRef}
         id={inputId}
+        name={name}
         {...props}
         list={datalistId}
         className={clsx(
