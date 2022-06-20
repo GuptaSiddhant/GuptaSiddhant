@@ -23,7 +23,7 @@ export interface TableColumnProps<T extends object> {
   headerClassName?: string
   cellClassName?: string
   header?: ReactNode | ((data: T[]) => ReactNode)
-  cell?: (content: T[keyof T] | undefined, row: T) => ReactNode
+  cell?: (row: T, data: T[]) => ReactNode
 }
 
 export default function Table<T extends object>(props: TableProps<T>) {
@@ -62,7 +62,7 @@ function VerticalTable<T extends object>({
               key={i}
               className={clsx(props.bodyCellClassName, column.cellClassName)}
             >
-              {getCellElement(column, row)}
+              {getCellElement(column, row, data)}
             </td>
           ))}
         </tr>
@@ -98,7 +98,7 @@ function HorizontalTable<T extends object>({
                 key={column.id.toString()}
                 className={clsx(props.bodyCellClassName, column.cellClassName)}
               >
-                {getCellElement(column, row)}
+                {getCellElement(column, row, data)}
               </td>
             ))}
           </tr>
@@ -119,7 +119,11 @@ function getHeaderElement<T extends object>(
     : header ?? capitalize(id.toString())
 }
 
-function getCellElement<T extends object>(column: TableColumnProps<T>, row: T) {
+function getCellElement<T extends object>(
+  column: TableColumnProps<T>,
+  row: T,
+  data: T[],
+) {
   const { id, cell } = column
 
   const content =
@@ -128,5 +132,5 @@ function getCellElement<T extends object>(column: TableColumnProps<T>, row: T) {
       ? undefined
       : row?.[id as keyof T] ?? undefined
 
-  return cell?.(content, row) || content
+  return cell?.(row, data) || content
 }

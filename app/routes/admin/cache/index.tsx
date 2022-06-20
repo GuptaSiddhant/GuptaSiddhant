@@ -32,14 +32,12 @@ export default function CacheIndex(): JSX.Element | null {
           {
             id: "max",
             header: "Size limit",
-            cell: (value) => `${value} entries`,
+            cell: ({ max }) => `${max} entries`,
           },
           {
             id: "ttl",
             header: "Expiry time",
-            cell: (value) => (
-              <span>{transformMsToReadableString(value || 0)}</span>
-            ),
+            cell: ({ ttl }) => <span>{transformMsToReadableString(ttl)}</span>,
           },
         ]}
       />

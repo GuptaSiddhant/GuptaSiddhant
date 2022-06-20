@@ -6,7 +6,6 @@ import invariant from "tiny-invariant"
 
 import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
-import FeatureFlagForm from "~/features/admin/featureFlags/FeatureFlagForm"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
 import { CacheType, modifyCache } from "~/features/service/cache.server"
 import {
@@ -82,9 +81,7 @@ export default function CacheIndex(): JSX.Element | null {
       name={"Feature flags"}
       header={<strong>{"Feature flags"}</strong>}
       actions={actions}
-      className="flex flex-wrap gap-4 p-4"
     >
-      <FeatureFlagForm />
       <FeatureFlagsTable featureFlags={featureFlags} />
     </AdminLayout>
   )
