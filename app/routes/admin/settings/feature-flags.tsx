@@ -4,6 +4,7 @@ import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
+import { createAdminMeta } from "~/features/admin"
 import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
@@ -88,7 +89,9 @@ export default function CacheIndex(): JSX.Element | null {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <ErrorSection title="Problem with Feature flags" message={error.message} />
-  )
+  return <ErrorSection title="Problem with Feature flags" error={error} />
+}
+
+export function meta() {
+  return createAdminMeta("Feature flags")
 }

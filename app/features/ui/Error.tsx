@@ -1,8 +1,8 @@
 import clsx from "clsx"
 
+import CodeBlock from "./CodeBlock"
 import Hero from "./Hero"
 import Logo from "./Logo"
-import { Paragraph } from "./Text"
 
 export interface ErrorSectionProps {
   message?: string
@@ -10,6 +10,7 @@ export interface ErrorSectionProps {
   children?: React.ReactNode
   caption?: string
   className?: string
+  error?: Error
 }
 
 export function ErrorSection({
@@ -18,18 +19,26 @@ export function ErrorSection({
   message,
   children,
   className,
+  error,
 }: ErrorSectionProps): JSX.Element | null {
+  const description = message || error?.message
+
   return (
     <Hero className={className}>
       <Hero.Header caption={{ label: caption, icon: "error" }} title={title} />
-      <Hero.Description description={message}>
+      <Hero.Description description={description}>
         {children}
+
         <button
           className="w-max"
           onClick={() => typeof window !== "undefined" && window.history.go(-1)}
         >
           {"< Go back."}
         </button>
+
+        {__IS_DEV__ && error?.stack ? (
+          <CodeBlock lang="bash">{error.stack}</CodeBlock>
+        ) : null}
       </Hero.Description>
     </Hero>
   )

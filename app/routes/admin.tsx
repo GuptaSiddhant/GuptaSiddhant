@@ -63,7 +63,7 @@ export default function AdminIndex(): JSX.Element {
             <AdminIcon />
           </NavLink>
 
-          <div className="flex-1 flex flex-col gap-4 overflow-auto">
+          <div className="flex-1 flex flex-col gap-2 overflow-auto">
             {adminAppLinks.map((props) => (
               <AdminLink key={props.id} {...props} />
             ))}
@@ -83,5 +83,5 @@ export default function AdminIndex(): JSX.Element {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <ErrorSection title="Oops. Admin broke!!!" message={error.message} />
+  return <ErrorSection title="Oops. Admin broke!!!" error={error} />
 }

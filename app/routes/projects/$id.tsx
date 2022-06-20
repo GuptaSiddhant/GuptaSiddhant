@@ -104,12 +104,6 @@ export default function ProjectDetails(): JSX.Element {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   return (
-    <ErrorSection
-      caption="Error 404"
-      title="Project not found"
-      message={error.message}
-    >
-      {error.stack}
-    </ErrorSection>
+    <ErrorSection caption="Error 404" title="Project not found" error={error} />
   )
 }

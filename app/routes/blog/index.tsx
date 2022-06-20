@@ -30,7 +30,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
-  title: createMetaTitle(data.title),
+  title: createMetaTitle(data?.title),
 })
 
 export default function Blog(): JSX.Element {
@@ -55,7 +55,5 @@ export default function Blog(): JSX.Element {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <ErrorSection title="Could not load projects" message={error.message} />
-  )
+  return <ErrorSection title="Could not load projects" error={error} />
 }

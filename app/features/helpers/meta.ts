@@ -2,7 +2,9 @@ import { type HtmlMetaDescriptor } from "@remix-run/server-runtime"
 
 import { type TeaserProps } from "~/features/teaser"
 
-export function createMetaTitle(title: string) {
+export function createMetaTitle(title?: string) {
+  if (!title) return "Siddhant Gupta"
+
   return `${title} | GS`
 }
 

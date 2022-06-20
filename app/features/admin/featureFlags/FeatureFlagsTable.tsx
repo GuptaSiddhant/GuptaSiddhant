@@ -167,7 +167,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
   }
 
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex gap-2">
       <AdminFormAction
         method="delete"
         title="Delete flag"

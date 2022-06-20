@@ -127,7 +127,7 @@ export default function CacheDetails(): JSX.Element | null {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <ErrorSection title="Problem with Cache key" message={error.message} />
+  return <ErrorSection title="Problem with Cache key" error={error} />
 }
 
 function Footer() {

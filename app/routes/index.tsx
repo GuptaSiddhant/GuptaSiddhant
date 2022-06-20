@@ -77,5 +77,5 @@ export default function Index() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <ErrorSection message={error.message} />
+  return <ErrorSection error={error} />
 }

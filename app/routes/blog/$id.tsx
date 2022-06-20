@@ -107,7 +107,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
     <ErrorSection
       caption="Error 404"
       title="Blog post not found"
-      message={error.message}
+      error={error}
     />
   )
 }

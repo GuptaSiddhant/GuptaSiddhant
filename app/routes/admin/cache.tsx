@@ -115,12 +115,7 @@ function createGroupMapFromKeys(keys: string[]) {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <ErrorSection
-      title={`Problem with ${adminApp.name}.`}
-      message={error.message}
-    />
-  )
+  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
 export const handle = { adminApp }

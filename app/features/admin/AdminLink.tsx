@@ -20,7 +20,9 @@ export default function AdminLink({
   const style = (props?: { isActive?: boolean; isAction?: boolean }) =>
     clsx(
       props?.isAction ? "p-1 rounded-sm" : "p-2 rounded",
-      props?.isActive ? "bg-tertiary" : "bg-secondary hover:bg-tertiary",
+      props?.isActive
+        ? "bg-tertiary border border-divider"
+        : "bg-secondary hover:bg-tertiary",
     )
 
   if (onClick) {
