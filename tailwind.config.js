@@ -1,6 +1,5 @@
 const plugin = require("tailwindcss/plugin")
 const colors = require("tailwindcss/colors")
-const { emerald, rose, sky } = colors
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -21,14 +20,21 @@ const config = {
       toast: 40,
       tooltip: 50,
     },
+    colors: {
+      black: "#000000",
+      white: "#ffffff",
+      transparent: "transparent",
+      current: "currentColor",
+      blue: colors.sky,
+      red: colors.rose,
+      green: colors.emerald,
+      gray: colors.slate,
+      purple: colors.purple,
+      neutral: colors.neutral,
+      orange: colors.amber,
+      cyan: colors.cyan,
+    },
     extend: {
-      colors: {
-        transparent: "transparent",
-        current: "currentColor",
-        blue: sky,
-        red: rose,
-        green: emerald,
-      },
       textColor: ({ theme }) => ({
         default: theme("colors.gray.100"),
         primary: theme("colors.white"),

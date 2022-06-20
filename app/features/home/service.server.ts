@@ -3,10 +3,7 @@ import {
   RemoteConfigKey,
 } from "~/features/service/remote-config.server"
 
-const navigationRemoteConfigKeys = [
-  RemoteConfigKey.About,
-  RemoteConfigKey.Search,
-] as const
+const navigationRemoteConfigKeys = [RemoteConfigKey.Search] as const
 
 // Helpers
 

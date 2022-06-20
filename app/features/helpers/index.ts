@@ -15,3 +15,16 @@ export async function downloadFileWithUrl(
 export function generateUniqueId(prefix?: string): string {
   return `${prefix || ""}${Math.random().toString(36).substr(2, 9)}`
 }
+
+export function sortByDate(
+  a?: Date | string | number,
+  b?: Date | string | number,
+  invert: boolean = false,
+) {
+  const order =
+    (b?.toString() || new Date().toISOString()) >
+    (a?.toString() || new Date().toISOString())
+
+  if (invert) return order ? -1 : 1
+  return order ? 1 : -1
+}

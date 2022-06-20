@@ -1,5 +1,5 @@
 import MDX from "markdown-to-jsx"
-import { Fragment, memo } from "react"
+import { type ElementType, Fragment, memo } from "react"
 
 import { Pre } from "../ui/CodeBlock"
 import Img from "../ui/Img"
@@ -18,14 +18,16 @@ import { generateHeadingId } from "./helpers"
 
 const MdxContent = memo(function MarkdownComponent({
   mdx,
+  wrapper = Fragment,
 }: {
   mdx: string
+  wrapper?: ElementType<any> | null
 }): JSX.Element {
   return (
     <MDX
       children={mdx}
       options={{
-        wrapper: Fragment,
+        wrapper,
         overrides: {
           h1: headingGenerator(H1),
           h2: headingGenerator(H2),

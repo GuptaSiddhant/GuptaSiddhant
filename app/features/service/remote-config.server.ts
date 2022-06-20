@@ -6,6 +6,14 @@ import invariant from "tiny-invariant"
 
 import cache, { CacheType, createCacheKey } from "./cache.server"
 
+// Keys
+
+export enum RemoteConfigKey {
+  Search = "enableSearch",
+  AdminNavCollapsed = "toggleAdminNavbarCollapsed",
+  DefaultPauseCachePolling = "defaultPauseCachePolling",
+}
+
 // Getters
 
 export async function getRemoteConfigTemplate() {
@@ -148,15 +156,6 @@ async function setRemoteConfigTemplate(
 
 export async function fetchRemoteConfig() {
   return getRemoteConfig().getTemplate()
-}
-
-// Keys
-
-export enum RemoteConfigKey {
-  About = "enableAbout",
-  Search = "enableSearch",
-  AdminNavCollapsed = "toggleAdminNavbarCollapsed",
-  DefaultPauseCachePolling = "defaultPauseCachePolling",
 }
 
 // Exports

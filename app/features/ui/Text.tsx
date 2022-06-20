@@ -98,7 +98,7 @@ export function Paragraph({
   children,
   ...props
 }: ComponentPropsWithoutRef<"p">): JSX.Element {
-  const exceptionTypeNames = ["img"]
+  const exceptionTypeNames = ["img", "pre", "figure"]
 
   if (Children.count(children) === 1) {
     const onlyChild: any = Children.toArray(children)[0]

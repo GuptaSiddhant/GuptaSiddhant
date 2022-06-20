@@ -20,23 +20,21 @@ export default function useNavigationLinks({
   navigationRemoteConfig,
   isAuthenticated,
 }: UseNavigationLinksProps): NavigationLinkProps[] {
-  const { enableAbout, enableSearch } = navigationRemoteConfig
+  const { enableSearch } = navigationRemoteConfig
   const { email, github, linkedin } = about.link || {}
 
   return useMemo(() => {
     const links: NavigationLinkProps[] = []
 
-    if (enableAbout)
-      links.push({ id: "about", to: "/about", children: "About" })
-
-    links.push(
-      { id: "projects", to: "/projects", children: "Projects" },
-      { id: "blog", to: "/blog", children: "Blog" },
-    )
-
     if (isAuthenticated) {
       links.push({ id: "admin", to: "/admin", children: "Admin" })
     }
+
+    links.push(
+      { id: "about", to: "/about", children: "About" },
+      { id: "projects", to: "/projects", children: "Projects" },
+      { id: "blog", to: "/blog", children: "Blog" },
+    )
 
     // External
 
@@ -61,5 +59,5 @@ export default function useNavigationLinks({
       links.push({ id: "Search", onClick: () => {}, children: <SearchIcon /> })
 
     return links
-  }, [enableAbout, enableSearch, email, github, linkedin, isAuthenticated])
+  }, [enableSearch, email, github, linkedin, isAuthenticated])
 }

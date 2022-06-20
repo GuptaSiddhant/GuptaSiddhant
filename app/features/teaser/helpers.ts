@@ -1,5 +1,6 @@
 import { type DocumentData } from "firebase-admin/firestore"
 
+import { sortByDate } from "../helpers"
 import type { TeaserProps } from "."
 
 export function getTeasersFromCollection(
@@ -31,17 +32,11 @@ export function transformToTeaser<T extends { [key: string]: any }>(
 }
 
 export function sortTeasersByDateLatestFirst(a: TeaserProps, b: TeaserProps) {
-  return (b.date || new Date().toISOString()) >
-    (a.date || new Date().toISOString())
-    ? 1
-    : -1
+  return sortByDate(a.date, b.date)
 }
 
 export function sortTeasersByDateOldestFirst(a: TeaserProps, b: TeaserProps) {
-  return (b.date || new Date().toISOString()) <
-    (a.date || new Date().toISOString())
-    ? 1
-    : -1
+  return sortByDate(a.date, b.date, true)
 }
 
 export function sortTeasersByFeatured(a: TeaserProps, b: TeaserProps) {
