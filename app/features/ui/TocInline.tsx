@@ -1,16 +1,16 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
-import { type TocItem } from "./helpers"
+import type { TocItem } from "~/features/helpers/table-of-contents"
 
-export interface TableOfContentsProps extends TocListItemOptions {
+export interface TocInlineProps extends TocListItemOptions {
   toc: TocItem[]
 }
 
-export default function InlineTOC({
+export default function TocInline({
   toc,
   ...options
-}: TableOfContentsProps): JSX.Element {
+}: TocInlineProps): JSX.Element {
   return (
     <nav className={"list-none"}>
       {toc.map((item) => (
@@ -55,7 +55,7 @@ function TocListAccordion({
       <summary className="-indent-4">
         <TocItemLink id={id} activeId={options.activeId} text={text} />
       </summary>
-      <InlineTOC toc={children} {...options} />
+      <TocInline toc={children} {...options} />
     </details>
   )
 }

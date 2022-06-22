@@ -10,18 +10,19 @@ import {
   getBlogPostCrossSell,
   getBlogPostDetails,
 } from "~/features/blog/service.server"
-import { generateArticleMeta } from "~/features/helpers/meta"
 import {
-  type TocItem,
   extractTocFromMdx,
   transformContentToMdx,
-} from "~/features/mdx/helpers"
-import MdxSection from "~/features/mdx/MdxSection"
+} from "~/features/helpers/mdx.server"
+import { generateArticleMeta } from "~/features/helpers/meta"
+import { type TocItem } from "~/features/helpers/table-of-contents"
 import { type TeaserProps } from "~/features/teaser"
 import TeaserCarousel from "~/features/teaser/TeaserCarousel"
 import Divider from "~/features/ui/Divider"
 import { ErrorSection } from "~/features/ui/Error"
 import Hero from "~/features/ui/Hero"
+import Mdx from "~/features/ui/Mdx"
+import Section, { proseReaderClassName } from "~/features/ui/Section"
 import ShareTray from "~/features/ui/ShareTray"
 import Tags from "~/features/ui/Tags"
 import { H2 } from "~/features/ui/Text"
@@ -91,7 +92,13 @@ export default function ProjectDetails(): JSX.Element {
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 
-      <MdxSection mdx={mdx} toc={toc} />
+      <Section.Reader
+        id="main-content"
+        toc={toc}
+        className={proseReaderClassName}
+      >
+        <Mdx mdx={mdx} />
+      </Section.Reader>
 
       <Divider />
 

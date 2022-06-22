@@ -5,13 +5,15 @@ import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import GithubFillIcon from "remixicon-react/GithubFillIcon"
 import LinkedinBoxFillIcon from "remixicon-react/LinkedinBoxFillIcon"
 
-import type { CareerProps, EducationProps } from "../about"
-import { CareerRoleType } from "../about"
-import { capitalize } from "../helpers/format"
-import type { LinkObject } from "../types"
-import { ExternalLink } from "../ui/Link"
-import { proseWidth } from "../ui/Section"
-import { Caption } from "../ui/Text"
+import type { CareerProps, EducationProps } from "~/features/about"
+import { CareerRoleType } from "~/features/about"
+import { capitalize } from "~/features/helpers/format"
+import type { TocItem } from "~/features/helpers/table-of-contents"
+import type { LinkObject } from "~/features/types"
+import { ExternalLink } from "~/features/ui/Link"
+import Section, { proseWidth } from "~/features/ui/Section"
+import { Caption } from "~/features/ui/Text"
+
 import type { LifelineDividerProps, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"
 import { createDurationString } from "./helpers"
@@ -19,28 +21,29 @@ import LifelineCard from "./LifelineCard"
 
 export interface LifelineProps {
   lifeline: LifeLineItems
+  toc?: TocItem[]
 }
 
 export default function Lifeline({
   lifeline,
+  toc,
 }: LifelineProps): JSX.Element | null {
   return (
     <LifelineContextProvider>
-      <section id="lifeline" className={clsx(proseWidth)}>
-        <div
-          className={clsx(
-            "relative border-l border-divider pl-4 py-12 flex flex-col gap-12",
-          )}
-        >
-          {lifeline.map((item) => {
-            if ("degree" in item)
-              return <EducationCard key={item.id} {...item} />
-            if ("position" in item)
-              return <CareerCard key={item.id} {...item} />
-            return <LifelineDivider key={item.id} {...item} />
-          })}
-        </div>
-      </section>
+      <Section.Reader
+        id="lifeline"
+        className={clsx(
+          proseWidth,
+          "border-l border-divider pl-4 flex flex-col gap-12 py-12",
+        )}
+        toc={toc}
+      >
+        {lifeline.map((item) => {
+          if ("degree" in item) return <EducationCard key={item.id} {...item} />
+          if ("position" in item) return <CareerCard key={item.id} {...item} />
+          return <LifelineDivider key={item.id} {...item} />
+        })}
+      </Section.Reader>
     </LifelineContextProvider>
   )
 }
@@ -54,7 +57,11 @@ function LifelineDivider({
     const linkId = id
 
     return (
-      <Link to={{ hash: linkId }} id={linkId} className="scroll-mt-20">
+      <Link
+        to={{ hash: linkId }}
+        id={linkId}
+        className="scroll-mt-20 no-underline"
+      >
         <Caption className="relative">
           {children}
           <div
@@ -89,7 +96,7 @@ function CareerCard(career: CareerProps): JSX.Element | null {
   return (
     <LifelineCard
       id={id}
-      className="group-hocus:border-purple-500 selected:border-purple-500"
+      className=" text-purple-500 group-hocus:border-purple-500 selected:border-purple-500"
     >
       <LifelineCard.Title
         icon={<CareerIcon />}
@@ -99,7 +106,7 @@ function CareerCard(career: CareerProps): JSX.Element | null {
         {position}
       </LifelineCard.Title>
 
-      <LifelineCard.Subtitle className="text-purple-500" href={homepageLink}>
+      <LifelineCard.Subtitle href={homepageLink}>
         {[company, location].join(", ")}
       </LifelineCard.Subtitle>
 
@@ -135,7 +142,7 @@ function EducationCard(education: EducationProps): JSX.Element | null {
   return (
     <LifelineCard
       id={id}
-      className="group-hocus:border-red-500 selected:border-red-500"
+      className="text-red-500 group-hocus:border-red-500 selected:border-red-500"
     >
       <LifelineCard.Title
         icon={<EducationIcon />}
@@ -145,7 +152,7 @@ function EducationCard(education: EducationProps): JSX.Element | null {
         {[degree, field].join(" - ")}
       </LifelineCard.Title>
 
-      <LifelineCard.Subtitle className="text-red-500" href={homepageLink}>
+      <LifelineCard.Subtitle href={homepageLink}>
         {[school, location].join(", ")}
       </LifelineCard.Subtitle>
 

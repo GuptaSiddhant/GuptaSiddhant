@@ -8,6 +8,6 @@ export interface LifelineDividerProps {
   children: ReactNode
 }
 
-export type LifeLineItems = Array<
-  LifelineDividerProps | EducationProps | CareerProps
->
+export type LifeLineItem = LifelineDividerProps | EducationProps | CareerProps
+
+export type LifeLineItems = Array<LifeLineItem>

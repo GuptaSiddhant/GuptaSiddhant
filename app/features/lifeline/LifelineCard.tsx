@@ -2,11 +2,11 @@ import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import MdxContent from "../mdx/MdxContent"
-import type { Gallery } from "../types"
-import Img from "../ui/Img"
-import { ExternalLink, To } from "../ui/Link"
-import { H5, H6, Paragraph } from "../ui/Text"
+import type { Gallery } from "~/features/types"
+import { ExternalLink } from "~/features/ui/Link"
+import Mdx from "~/features/ui/Mdx"
+import { H5, H6, Paragraph } from "~/features/ui/Text"
+
 import useLifelineContext from "./context"
 
 export default function LifelineCard({
@@ -54,7 +54,7 @@ function LifelineCardTitle({
   id?: string
 }) {
   return (
-    <Link to={{ hash: id }} className={clsx("group scroll-mt-28")}>
+    <Link to={{ hash: id }} className={clsx("group scroll-mt-28 no-underline")}>
       <H5 className="text-secondary group-hocus:text-primary relative">
         <div
           className={clsx(
@@ -83,8 +83,17 @@ function LifelineCardSubtitle({
   href?: string
 }) {
   return (
-    <ExternalLink href={href} tooltipLabel="Visit homepage" disableUnderline>
-      <H6 className={clsx(className, "tracking-wide transition-colors")}>
+    <ExternalLink
+      href={href}
+      tooltipLabel="Visit homepage"
+      className="!text-current no-underline hocus:underline underline-offset-4"
+    >
+      <H6
+        className={clsx(
+          className,
+          "tracking-wide transition-colors text-current leading-relaxed",
+        )}
+      >
         {children}
       </H6>
     </ExternalLink>
@@ -126,7 +135,7 @@ function LifelineCardDescription({
         "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height] duration-300",
       )}
     >
-      <MdxContent mdx={children?.toString() || ""} />
+      <Mdx mdx={children?.toString() || ""} />
     </div>
   )
 }
@@ -147,14 +156,14 @@ function LifelineCardGallery({
     <figure
       className={clsx(
         "mt-4 relative overflow-hidden",
-        "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height]",
+        "h-80 max-h-[4.5rem] group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height]",
       )}
     >
       <a href={coverUrl} target="_blank" rel="noreferrer">
         <img
           src={coverUrl}
           alt={alt}
-          className="overflow-hidden h-60 w-full object-cover object-top rounded-md"
+          className="overflow-hidden h-full w-full object-cover object-top rounded-md"
         />
       </a>
       {iconUrl ? (

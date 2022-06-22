@@ -1,30 +1,31 @@
-import MDX from "markdown-to-jsx"
+import MdxToJsx from "markdown-to-jsx"
 import { type ElementType, Fragment, memo } from "react"
 
-import { Pre } from "../ui/CodeBlock"
-import Img from "../ui/Img"
-import { AnchorLink } from "../ui/Link"
-import {
-  type HeadingProps,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  Paragraph,
-} from "../ui/Text"
-import { generateHeadingId } from "./helpers"
+import { generateHeadingId } from "~/features/helpers"
+import { type TocItem } from "~/features/helpers/table-of-contents"
 
-const MdxContent = memo(function MarkdownComponent({
+import { Pre } from "./CodeBlock"
+import Img from "./Img"
+import { AnchorLink } from "./Link"
+import { type HeadingProps, H1, H2, H3, H4, H5, H6, Paragraph } from "./Text"
+
+export interface MdxSectionProps {
+  id?: string
+  mdx?: string
+  toc?: TocItem[]
+}
+
+const Mdx = memo(function MarkdownComponent({
   mdx,
   wrapper = Fragment,
 }: {
-  mdx: string
+  mdx?: string
   wrapper?: ElementType<any> | null
-}): JSX.Element {
+}): JSX.Element | null {
+  if (!mdx) return null
+
   return (
-    <MDX
+    <MdxToJsx
       children={mdx}
       options={{
         wrapper,
@@ -45,7 +46,9 @@ const MdxContent = memo(function MarkdownComponent({
   )
 })
 
-export default MdxContent
+export default Mdx
+
+// Helpers
 
 function headingGenerator(Component: (props: HeadingProps) => JSX.Element) {
   return function Heading(props: any) {

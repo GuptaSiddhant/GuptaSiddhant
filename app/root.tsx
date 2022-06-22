@@ -186,7 +186,7 @@ function Document({
     <html
       lang="en"
       dir="ltr"
-      className="dark text-[16px] lg:text-[18px] m-0 p-0 scroll-smooth"
+      className="dark text-[16px] lg:text-[18px] m-0 p-0 motion-safe:scroll-smooth"
     >
       <head>
         {error ? null : <Meta />}

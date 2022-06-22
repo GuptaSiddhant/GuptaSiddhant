@@ -1,3 +1,7 @@
+import type { ReactNode } from "react"
+
+import { toKebabCase } from "./format"
+
 export function isExternalLink(url: string): boolean {
   return ["://", "mailto:"].some((indicator) => url.includes(indicator))
 }
@@ -27,4 +31,8 @@ export function sortByDate(
 
   if (invert) return order ? -1 : 1
   return order ? 1 : -1
+}
+
+export function generateHeadingId(children: ReactNode): string {
+  return toKebabCase(children?.toString() || "")
 }

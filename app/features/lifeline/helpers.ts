@@ -3,7 +3,8 @@ import { formatDate } from "~/features/helpers/format"
 
 import type { CareerProps, EducationProps } from "../about"
 import { type CommonCareerEducationProps } from "../about"
-import type { LifeLineItems } from "."
+import type { TocItem } from "../helpers/table-of-contents"
+import type { LifeLineItem, LifeLineItems } from "."
 
 export function createDurationString({
   startDate,
@@ -44,4 +45,24 @@ export function createLifeline(
   })
 
   return lifeline
+}
+
+export function createTocFromLifeline(lifeline: LifeLineItem[]): TocItem[] {
+  return lifeline
+    .map((item) => transformLifelineItemToTocItem(item)!)
+    .filter(Boolean)
+}
+
+function transformLifelineItemToTocItem(
+  item: LifeLineItem,
+): TocItem | undefined {
+  if ("children" in item)
+    return {
+      id: item.id,
+      level: 1,
+      text: item.children?.toString() || item.id,
+      children: [],
+    }
+
+  return undefined
 }

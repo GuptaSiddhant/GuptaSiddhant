@@ -9,13 +9,18 @@ import {
   getCareerList,
   getEducationList,
 } from "~/features/about/service.server"
+import type { TocItem } from "~/features/helpers/table-of-contents"
 import { type LifeLineItems } from "~/features/lifeline"
-import { createLifeline } from "~/features/lifeline/helpers"
+import {
+  createLifeline,
+  createTocFromLifeline,
+} from "~/features/lifeline/helpers"
 import Lifeline from "~/features/lifeline/Lifeline"
 
 interface LoaderData {
   aboutInfo: AboutInfo
   lifeline: LifeLineItems
+  lifelineToc: TocItem[]
 }
 
 export const loader: LoaderFunction = async () => {
@@ -26,18 +31,19 @@ export const loader: LoaderFunction = async () => {
   ])
 
   const lifeline = createLifeline([...careerList, ...educationList])
+  const lifelineToc = createTocFromLifeline(lifeline)
 
-  return json<LoaderData>({ aboutInfo, lifeline })
+  return json<LoaderData>({ aboutInfo, lifeline, lifelineToc })
 }
 
 export default function About(): JSX.Element {
-  const { lifeline } = useLoaderData<LoaderData>()
+  const { lifeline, lifelineToc } = useLoaderData<LoaderData>()
 
   return (
     <>
       <Outlet />
       <AboutHero />
-      <Lifeline lifeline={lifeline} />
+      <Lifeline lifeline={lifeline} toc={lifelineToc} />
     </>
   )
 }

@@ -2,24 +2,25 @@ import clsx from "clsx"
 import { useMemo } from "react"
 import TocIcon from "remixicon-react/FileListLineIcon"
 
+import { type TocItem } from "~/features/helpers/table-of-contents"
+
 import { fabBottomLeftClassName } from "../ui/Button"
 import Menu, { type MenuActionProps } from "../ui/Menu"
-import { type TocItem } from "./helpers"
 
 const TOC_LEVEL_GAP = 8
 
-export interface FloatingTOCProps {
+export interface TocFloatingProps {
   toc?: TocItem[]
   highestLevel: number
   activeId?: string
   className?: string
 }
 
-export default function FloatingTOC({
+export default function TocFloating({
   toc,
   highestLevel,
   className,
-}: FloatingTOCProps): JSX.Element | null {
+}: TocFloatingProps): JSX.Element | null {
   const actions: MenuActionProps[] | undefined = useMemo(
     () =>
       toc?.map(({ id, text, level }) => ({
@@ -34,7 +35,7 @@ export default function FloatingTOC({
     [toc, highestLevel],
   )
 
-  if (!actions) return null
+  if (!actions || actions.length === 0) return null
 
   return (
     <Menu actions={actions} className={clsx(className, fabBottomLeftClassName)}>

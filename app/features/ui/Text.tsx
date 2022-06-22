@@ -9,7 +9,7 @@ import {
 
 import type { BaseProps } from "~/features/types"
 
-import { generateHeadingId } from "../mdx/helpers"
+import { generateHeadingId } from "../helpers"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 
