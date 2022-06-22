@@ -1,4 +1,6 @@
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
+
+import useStableCallback from "./useStableCallback"
 
 export interface UseEventListenerOptions {
   immediate?: boolean
@@ -10,19 +12,16 @@ export default function useEventListener<K extends keyof WindowEventMap>(
   callback: (e: WindowEventMap[K]) => void,
   options?: UseEventListenerOptions,
 ) {
-  const listenerRef = useRef(callback)
+  const listener = useStableCallback(callback)
   const { immediate = false, target = __IS_SERVER__ ? undefined : window } =
     options || {}
 
   useEffect(() => {
-    listenerRef.current = callback
-  }, [callback])
+    if (immediate) listener?.({} as WindowEventMap[K])
+    ;(target || window)?.addEventListener(eventName, listener as any)
 
-  useEffect(() => {
-    if (immediate) listenerRef.current?.({} as WindowEventMap[K])
-
-    target?.addEventListener(eventName, listenerRef.current as any)
-    return () =>
-      target?.removeEventListener(eventName, listenerRef.current as any)
-  }, [eventName, immediate, target])
+    return () => {
+      ;(target || window)?.removeEventListener(eventName, listener as any)
+    }
+  }, [eventName, immediate, target, listener])
 }

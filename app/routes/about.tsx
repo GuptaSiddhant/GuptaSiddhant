@@ -1,8 +1,8 @@
-import { useLoaderData } from "@remix-run/react"
+import { Outlet, useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import type { AboutInfo, CareerProps, EducationProps } from "~/features/about"
+import type { AboutInfo } from "~/features/about"
 import AboutHero from "~/features/about/AboutHero"
 import {
   getAboutInfo,
@@ -35,6 +35,7 @@ export default function About(): JSX.Element {
 
   return (
     <>
+      <Outlet />
       <AboutHero />
       <Lifeline lifeline={lifeline} />
     </>

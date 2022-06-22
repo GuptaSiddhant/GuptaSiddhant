@@ -14,6 +14,7 @@ export interface ExternalLinkProps {
   href?: string
   tooltipLabel?: string
   enableIcon?: boolean
+  disableUnderline?: boolean
 }
 
 export interface NavigationLinkProps {
@@ -62,6 +63,7 @@ export function ExternalLink({
   href,
   tooltipLabel,
   enableIcon,
+  disableUnderline,
   ...props
 }: BaseProps & ExternalLinkProps): JSX.Element | null {
   if (!href) return <>{children}</>
@@ -70,7 +72,11 @@ export function ExternalLink({
     <a
       {...props}
       href={href}
-      className={clsx("text-link hocus:underline", className)}
+      className={clsx(
+        "text-link",
+        className,
+        !disableUnderline && "hocus:underline",
+      )}
       target="_blank"
       rel="noreferrer"
       title={tooltipLabel}

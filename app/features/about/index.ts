@@ -16,9 +16,18 @@ export interface AboutInfo {
 
 export type AboutLinkKey = "linkedin" | "github" | "email" | "homepage"
 
+export enum CareerRoleType {
+  FullTime = "full-time",
+  PartTime = "part-time",
+  Freelancer = "freelancer",
+  Intern = "intern",
+  Contract = "contract",
+}
+
 export interface CareerProps extends CommonCareerEducationProps {
   position: string
   company: string
+  roleType?: CareerRoleType
 }
 
 export interface EducationProps extends CommonCareerEducationProps {

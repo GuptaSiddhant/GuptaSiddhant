@@ -114,7 +114,9 @@ const config = {
       addVariant("hocus", ["&:hover", "&:focus"])
       addVariant("hocus-within", ["&:hover", "&:focus-within"])
       addVariant("group-hocus", [".group:hover &", ".group:focus &"])
+      addVariant("group-selected", [".group.selected &"])
       addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"])
+      addVariant("selected", ["&.selected"])
 
       addUtilities({
         ".flex-center": {

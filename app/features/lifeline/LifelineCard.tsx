@@ -1,53 +1,38 @@
+import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
 
 import MdxContent from "../mdx/MdxContent"
+import type { Gallery } from "../types"
+import Img from "../ui/Img"
+import { ExternalLink, To } from "../ui/Link"
 import { H5, H6, Paragraph } from "../ui/Text"
+import useLifelineContext from "./context"
 
 export default function LifelineCard({
   id,
   className,
   children,
-  coverUrl,
-  iconUrl,
 }: {
   id: string
   className?: string
   children: ReactNode
-  coverUrl?: string
-  iconUrl?: string
 }): JSX.Element | null {
+  const { selectedId, changeSelectedId } = useLifelineContext()
+
   return (
-    <Link id={id} to={"#" + id} className="group scroll-mt-16">
-      <article
-        className={clsx(
-          className,
-          "relative bg-secondary rounded-lg border-4 border-gray-700",
-          "transition-colors",
-        )}
-      >
-        <div className={clsx("flex flex-col p-8", coverUrl && "pb-4")}>
-          {children}
-        </div>
-        {coverUrl ? (
-          <figure className="p-4 w-full relative">
-            <img
-              src={coverUrl}
-              alt={id}
-              className="overflow-hidden h-60 w-full object-cover object-top rounded-md"
-            />
-            {iconUrl ? (
-              <img
-                src={iconUrl}
-                alt={id + " icon"}
-                className="h-10 aspect-square object-contain rounded absolute bottom-8 left-8"
-              />
-            ) : null}
-          </figure>
-        ) : null}
-      </article>
-    </Link>
+    <article
+      id={id}
+      className={clsx(
+        className,
+        "group relative bg-secondary rounded-lg border-4 border-gray-700",
+        "transition-colors flex flex-col p-8 scroll-m-20",
+        selectedId === id && "selected",
+      )}
+      onClick={() => changeSelectedId(id)}
+    >
+      {children}
+    </article>
   )
 }
 
@@ -55,53 +40,54 @@ LifelineCard.Title = LifelineCardTitle
 LifelineCard.Subtitle = LifelineCardSubtitle
 LifelineCard.Byline = LifelineCardByline
 LifelineCard.Description = LifelineCardDescription
+LifelineCard.Gallery = LifelineCardGallery
 
 function LifelineCardTitle({
   className,
   children,
   icon,
-  alt,
+  id,
 }: {
   className?: string
   children: ReactNode
   icon: ReactNode
-  alt?: string
+  id?: string
 }) {
   return (
-    <H5 className="text-secondary group-hocus:text-primary relative">
-      <div
-        className={clsx(
-          className,
-          "w-10 aspect-square rounded-lg absolute -left-16 -top-0 flex-center",
-          "transition-colors shadow-md",
-        )}
-        role="presentation"
-        title={alt}
-      >
-        {icon}
-      </div>
-      {children}
-    </H5>
+    <Link to={{ hash: id }} className={clsx("group scroll-mt-28")}>
+      <H5 className="text-secondary group-hocus:text-primary relative">
+        <div
+          className={clsx(
+            className,
+            "w-10 aspect-square rounded-lg absolute -left-16 -top-0 flex-center",
+            "transition-colors shadow-md",
+          )}
+          role="presentation"
+          title={id}
+        >
+          {icon}
+        </div>
+        {children}
+      </H5>
+    </Link>
   )
 }
 
 function LifelineCardSubtitle({
   children,
   className,
+  href,
 }: {
   children: ReactNode
   className?: string
+  href?: string
 }) {
   return (
-    <H6
-      className={clsx(
-        className,
-        "tracking-wide group-hocus:text-secondary",
-        "transition-colors",
-      )}
-    >
-      {children}
-    </H6>
+    <ExternalLink href={href} tooltipLabel="Visit homepage" disableUnderline>
+      <H6 className={clsx(className, "tracking-wide transition-colors")}>
+        {children}
+      </H6>
+    </ExternalLink>
   )
 }
 
@@ -113,7 +99,12 @@ function LifelineCardByline({
   className?: string
 }) {
   return (
-    <Paragraph className={clsx(className, "text-base text-tertiary")}>
+    <Paragraph
+      className={clsx(
+        className,
+        "text-base text-tertiary items-center flex gap-2",
+      )}
+    >
       {children}
     </Paragraph>
   )
@@ -130,12 +121,49 @@ function LifelineCardDescription({
     <div
       className={clsx(
         className,
-        "overflow-hidden mt-4 text-sm",
+        "overflow-auto mt-4 text-sm",
         "prose prose-invert prose-sm prose-li:marker:text-disabled",
-        "max-h-20 group-hocus:max-h-screen-main transition-[max-height]",
+        "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height] duration-300",
       )}
     >
       <MdxContent mdx={children?.toString() || ""} />
     </div>
+  )
+}
+
+function LifelineCardGallery({
+  gallery = [],
+  iconUrl,
+  alt,
+}: {
+  alt: string
+  gallery?: Gallery
+  iconUrl?: string
+}): JSX.Element | null {
+  const coverUrl = gallery?.[0]?.url
+  if (!coverUrl) return null
+
+  return (
+    <figure
+      className={clsx(
+        "mt-4 relative overflow-hidden",
+        "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height]",
+      )}
+    >
+      <a href={coverUrl} target="_blank" rel="noreferrer">
+        <img
+          src={coverUrl}
+          alt={alt}
+          className="overflow-hidden h-60 w-full object-cover object-top rounded-md"
+        />
+      </a>
+      {iconUrl ? (
+        <img
+          src={iconUrl}
+          alt={alt + " icon"}
+          className="h-10 aspect-square object-contain rounded absolute bottom-4 left-4"
+        />
+      ) : null}
+    </figure>
   )
 }
