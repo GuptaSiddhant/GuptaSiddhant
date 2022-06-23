@@ -1,6 +1,11 @@
-import { type DocumentData, getFirestore } from "firebase-admin/firestore"
+import {
+  type DocumentData,
+  type DocumentSnapshot,
+  type Timestamp,
+  getFirestore,
+} from "firebase-admin/firestore"
 
-import { docTransformer } from "~/features/helpers/firestore-helpers.server"
+import type { Gallery } from "~/features/types"
 
 import cache, { CacheType, createCacheKey } from "./cache.server"
 
@@ -43,9 +48,7 @@ export async function fetchFireStoreCollection(collectionPath: string) {
   verifyFirestoreCollection(collectionPath)
   const snapshot = await getFirestore().collection(collectionPath).get()
 
-  return Promise.all(
-    (snapshot?.docs || []).map((doc) => docTransformer(doc, false)),
-  )
+  return Promise.all((snapshot?.docs || []).map(docTransformer))
 }
 
 export async function fetchFireStoreDocument(path: string) {
@@ -56,10 +59,12 @@ export async function fetchFireStoreDocument(path: string) {
     .doc(documentPath)
     .get()
 
-  return docTransformer(doc, true)
+  return docTransformer(doc)
 }
 
 // Helpers
+
+export { DocumentData }
 
 function verifyFirestoreCollection(collectionPath: string) {
   if (
@@ -71,4 +76,28 @@ function verifyFirestoreCollection(collectionPath: string) {
   }
 }
 
-export { DocumentData }
+async function docTransformer<T extends DocumentData & BaseData>(
+  doc?: DocumentSnapshot<T>,
+): Promise<T> {
+  if (!doc?.exists) throw new Error(`FirestoreDocument does not exist.`)
+
+  const data = doc.data()
+  if (!data) throw new Error(`FirestoreDocument is empty.`)
+
+  return {
+    id: doc.id,
+    ...data,
+    date: data?.date?.toDate?.()?.toISOString(),
+    dateStart: data?.dateStart?.toDate?.()?.toISOString(),
+    dateEnd: data?.dateEnd?.toDate?.()?.toISOString(),
+  }
+}
+
+export interface BaseData {
+  date?: Timestamp
+  dateStart?: Timestamp
+  dateEnd?: Timestamp
+  icon?: string
+  gallery?: Gallery
+  content?: string
+}
