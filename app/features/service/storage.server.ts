@@ -11,6 +11,12 @@ export async function getFirebaseStorageFileUrl(path: string) {
   )
 }
 
+export async function checkFirebaseStorageFileExists(
+  path: string,
+): Promise<boolean> {
+  return (await getStorage().bucket().file(path).exists())?.[0]
+}
+
 // Fetchers
 
 export async function fetchFirebaseStorageFileUrl(name: string) {
