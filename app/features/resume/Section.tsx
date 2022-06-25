@@ -4,7 +4,7 @@ import { texts } from "./theme"
 import type { BasePdfProps } from "./types"
 
 export interface SectionProps extends BasePdfProps {
-  title: string
+  title?: string
 }
 
 export default function Section({
@@ -15,10 +15,10 @@ export default function Section({
   return (
     <View
       style={[styles.section, style]}
-      wrap={false}
+      minPresenceAhead={50}
       {...({ bookmark: title } as any)}
     >
-      <Text style={styles.titleText}>{title}</Text>
+      {title ? <Text style={styles.titleText}>{title}</Text> : null}
       {children}
     </View>
   )

@@ -28,3 +28,7 @@ export function transformAboutLinkToContactLinks(
       }
     })
 }
+
+export function createAboutLink(domain: string, id: string) {
+  return `${domain}/about/${id}`
+}

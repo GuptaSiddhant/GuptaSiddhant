@@ -34,7 +34,7 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
   return (
     <View style={styles.contactContainer}>
       {links.map(({ key, value, linkUrl }) => (
-        <Text key={key} style={styles.text}>
+        <Text key={key} style={[styles.text]}>
           <Text style={styles.textKey}>{key.padEnd(maxKeyLength)}:</Text>{" "}
           {linkUrl ? (
             <Link src={linkUrl} style={styles.text}>

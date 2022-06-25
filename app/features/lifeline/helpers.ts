@@ -6,14 +6,16 @@ import { type CommonCareerEducationProps } from "../about"
 import type { TocItem } from "../helpers/table-of-contents"
 import type { LifeLineItem, LifeLineItems } from "."
 
-export function createDurationString({
-  startDate,
-  endDate,
-}: CommonCareerEducationProps): string {
-  const start = formatDate(startDate, { day: undefined })
-  const end = endDate ? formatDate(endDate, { day: undefined }) : "Present"
+export function createDurationString(
+  { startDate, endDate }: CommonCareerEducationProps,
+  options: Intl.DateTimeFormatOptions = {},
+): string {
+  const start = formatDate(startDate, { day: undefined, ...options })
+  const end = endDate
+    ? formatDate(endDate, { day: undefined, ...options })
+    : "Present"
 
-  return `${start} - ${end}`
+  return [start, end].filter(Boolean).join(" - ")
 }
 
 export function createLifeline(
