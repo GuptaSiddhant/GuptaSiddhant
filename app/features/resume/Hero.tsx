@@ -51,7 +51,7 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bgFloat,
+    backgroundColor: colors.bgBase,
     margin: 16,
     padding: 8,
     borderTopLeftRadius: 8,

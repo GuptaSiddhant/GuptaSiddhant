@@ -14,9 +14,15 @@ import { ExternalLink } from "~/features/ui/Link"
 import Section, { proseWidth } from "~/features/ui/Section"
 import { Caption } from "~/features/ui/Text"
 
+import {
+  generateDurationString,
+  generateSubtitleFromCareerItem,
+  generateSubtitleFromEducationItem,
+  generateTitleFromCareerItem,
+  generateTitleFromEducationItem,
+} from "../about/helpers"
 import type { LifelineDividerProps, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"
-import { createDurationString } from "./helpers"
 import LifelineCard from "./LifelineCard"
 
 export interface LifelineProps {
@@ -81,9 +87,6 @@ function LifelineDivider({
 function CareerCard(career: CareerProps): JSX.Element | null {
   const {
     id,
-    position,
-    company,
-    location,
     description,
     gallery,
     icon,
@@ -103,15 +106,15 @@ function CareerCard(career: CareerProps): JSX.Element | null {
         className="bg-purple-500"
         id={id}
       >
-        {position}
+        {generateTitleFromCareerItem(career)}
       </LifelineCard.Title>
 
       <LifelineCard.Subtitle href={homepageLink}>
-        {[company, location].join(", ")}
+        {generateSubtitleFromCareerItem(career)}
       </LifelineCard.Subtitle>
 
       <LifelineCard.Byline>
-        {createDurationString(career)}
+        {generateDurationString(career)}
         <span>|</span>
         <span className="whitespace-nowrap">{capitalize(roleType)}</span>
         <Linker links={links} />
@@ -125,17 +128,7 @@ function CareerCard(career: CareerProps): JSX.Element | null {
 }
 
 function EducationCard(education: EducationProps): JSX.Element | null {
-  const {
-    id,
-    degree,
-    school,
-    field,
-    location,
-    description,
-    gallery,
-    icon,
-    links,
-  } = education
+  const { id, description, gallery, icon, links } = education
 
   const homepageLink = links.find((l) => l.type === "homepage")?.url
 
@@ -149,15 +142,15 @@ function EducationCard(education: EducationProps): JSX.Element | null {
         className="bg-red-500"
         id={id}
       >
-        {[degree, field].join(" - ")}
+        {generateTitleFromEducationItem(education)}
       </LifelineCard.Title>
 
       <LifelineCard.Subtitle href={homepageLink}>
-        {[school, location].join(", ")}
+        {generateSubtitleFromEducationItem(education)}
       </LifelineCard.Subtitle>
 
       <LifelineCard.Byline>
-        {createDurationString(education)}
+        {generateDurationString(education)}
         <Linker links={links} />
       </LifelineCard.Byline>
 

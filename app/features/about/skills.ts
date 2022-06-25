@@ -1,10 +1,11 @@
+export const languages = [
+  { name: "English", level: "Native (C2)" },
+  { name: "Hindi", level: "Native (C1)" },
+  { name: "Finnish", level: "Basic (A1)" },
+  { name: "French", level: "Basic (A1)" },
+]
+
 export const skills: Skills = {
-  languages: [
-    { name: "English", level: "Native (C2)" },
-    { name: "Hindi", level: "Native (C1)" },
-    { name: "Finnish", level: "Basic (A1)" },
-    { name: "French", level: "Basic (A1)" },
-  ],
   soft: [
     "Public speaking",
     "demonstrations",
@@ -17,9 +18,9 @@ export const skills: Skills = {
     "TypeScript",
     "JavaScript",
     "React",
-    "Redux",
-    "Next.js",
     "Remix-run",
+    "Next.js",
+    "Redux",
     "HTML",
     "CSS",
     "SASS",
@@ -53,9 +54,7 @@ export const skills: Skills = {
   ],
 }
 
-export interface Skills extends Record<SkillCategory, string[]> {
-  languages: { name: string; level: string }[]
-}
+export interface Skills extends Record<SkillCategory, string[]> {}
 
 export type SkillCategory =
   | "soft"

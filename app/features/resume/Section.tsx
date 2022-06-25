@@ -13,11 +13,7 @@ export default function Section({
   title,
 }: SectionProps): JSX.Element {
   return (
-    <View
-      style={[styles.section, style]}
-      minPresenceAhead={50}
-      {...({ bookmark: title } as any)}
-    >
+    <View style={[styles.section, style]} {...({ bookmark: title } as any)}>
       {title ? <Text style={styles.titleText}>{title}</Text> : null}
       {children}
     </View>

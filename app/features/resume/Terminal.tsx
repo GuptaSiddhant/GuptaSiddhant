@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 8,
-    backgroundColor: colors.bgInput,
+    backgroundColor: colors.bgFloat,
   },
 })

@@ -1,22 +1,8 @@
 import { sortByDate } from "~/features/helpers"
-import { formatDate } from "~/features/helpers/format"
 
 import type { CareerProps, EducationProps } from "../about"
-import { type CommonCareerEducationProps } from "../about"
 import type { TocItem } from "../helpers/table-of-contents"
 import type { LifeLineItem, LifeLineItems } from "."
-
-export function createDurationString(
-  { startDate, endDate }: CommonCareerEducationProps,
-  options: Intl.DateTimeFormatOptions = {},
-): string {
-  const start = formatDate(startDate, { day: undefined, ...options })
-  const end = endDate
-    ? formatDate(endDate, { day: undefined, ...options })
-    : "Present"
-
-  return [start, end].filter(Boolean).join(" - ")
-}
 
 export function createLifeline(
   items: (CareerProps | EducationProps)[],
