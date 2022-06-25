@@ -32,14 +32,7 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
   const maxKeyLength = Math.max(...links.map(({ key }) => key.length))
 
   return (
-    <View
-      style={{
-        justifyContent: "flex-end",
-        height: "100%",
-        paddingBottom: 0,
-        paddingRight: 8,
-      }}
-    >
+    <View style={styles.contactContainer}>
       {links.map(({ key, value, linkUrl }) => (
         <Text key={key} style={styles.text}>
           <Text style={styles.textKey}>{key.padEnd(maxKeyLength)}:</Text>{" "}
@@ -66,14 +59,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  contactContainer: {
+    justifyContent: "flex-end",
+    height: "100%",
+    paddingBottom: 0,
+    paddingRight: 8,
+  },
   titleContainer: { marginTop: 8 },
   textKey: {
     color: colors.textDisabled,
   },
   text: {
-    fontSize: 12,
-    fontFamily: "Courier",
-    lineHeight: 1.2,
     color: colors.textSecondary,
     textDecoration: "none",
   },

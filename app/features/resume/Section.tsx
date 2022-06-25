@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { colors } from "./theme"
+import { texts } from "./theme"
 import type { BasePdfProps } from "./types"
 
 export interface SectionProps extends BasePdfProps {
@@ -13,7 +13,11 @@ export default function Section({
   title,
 }: SectionProps): JSX.Element {
   return (
-    <View style={[styles.section, style]}>
+    <View
+      style={[styles.section, style]}
+      wrap={false}
+      {...({ bookmark: title } as any)}
+    >
       <Text style={styles.titleText}>{title}</Text>
       {children}
     </View>
@@ -22,10 +26,8 @@ export default function Section({
 
 const styles = StyleSheet.create({
   section: {
+    marginBottom: 32,
     marginHorizontal: 32,
   },
-  titleText: {
-    fontFamily: "Courier-Bold",
-    fontSize: 24,
-  },
+  titleText: { ...texts.h2, marginVertical: 4 },
 })

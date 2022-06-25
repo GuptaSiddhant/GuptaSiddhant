@@ -11,6 +11,6 @@ export interface ContactLinkProps {
 
 export interface BasePdfProps {
   id?: string
-  children: React.ReactNode
+  children?: React.ReactNode
   style?: Style
 }

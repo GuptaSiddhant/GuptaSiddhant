@@ -23,7 +23,5 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     backgroundColor: colors.bgInput,
-    fontSize: 12,
-    fontFamily: "Courier",
   },
 })

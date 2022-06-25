@@ -1,5 +1,8 @@
-import { Document, Page, Text, View } from "@react-pdf/renderer"
+import { Document, Page, Text } from "@react-pdf/renderer"
 
+import type { CareerProps, EducationProps } from "../about"
+import Card from "./Card"
+import Footer from "./Footer"
 import Header from "./Header"
 import Hero from "./Hero"
 import Section from "./Section"
@@ -13,14 +16,18 @@ export interface ResumeProps {
   name: string
   position: string
   contactLinks: ContactLinkProps[]
+  experiences: CareerProps[]
+  educations: EducationProps[]
 }
 
 export default function Resume({
   name,
   position,
-  subject = "Resume " + new Date().getFullYear(),
+  subject = "Resume",
   language = "en",
   contactLinks,
+  experiences,
+  educations,
 }: ResumeProps): JSX.Element {
   return (
     <Document
@@ -31,16 +38,30 @@ export default function Resume({
       keywords="resume, cv, portfolio"
       creator="guptasiddhant.com"
     >
-      <Page style={texts.mono}>
+      <Page style={{ ...texts.mono, paddingBottom: 40 }}>
         <Header title={name} subject={subject} />
         <Hero title={name} subtitle={position} contactLinks={contactLinks}>
           <Terminal style={{ marginTop: 8 }}>npx guptasiddhant</Terminal>
         </Hero>
         <Section title="Experience">
-          <Text style={{ textAlign: "justify" }} widows={8}>
-            {Array(1000).fill("adasd").join(" ")}
-          </Text>
+          {experiences.map((item) => (
+            <Card
+              key={item.id}
+              title={item.position}
+              children={item.company + ", " + item.location}
+            />
+          ))}
         </Section>
+        <Section title="Education">
+          {educations.map((item) => (
+            <Card
+              key={item.id}
+              title={item.degree + " - " + item.field}
+              children={item.school + ", " + item.location}
+            />
+          ))}
+        </Section>
+        <Footer />
       </Page>
     </Document>
   )

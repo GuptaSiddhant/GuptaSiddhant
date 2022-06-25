@@ -14,7 +14,7 @@ export interface AboutInfo {
   link?: Record<AboutLinkKey, string>
 }
 
-export type AboutLinkKey = "linkedin" | "github" | "email" | "homepage"
+export type AboutLinkKey = "linkedin" | "github" | "email" | "website"
 
 export enum CareerRoleType {
   FullTime = "full-time",

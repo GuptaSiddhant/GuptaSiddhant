@@ -12,8 +12,8 @@ export const colors = {
   textDisabled: tailwind[500],
 
   bgBase: white,
-  bgFloat: tailwind[100],
-  bgInput: tailwind[300],
+  bgFloat: tailwind[50],
+  bgInput: tailwind[200],
 
   border: tailwind[200],
 }
