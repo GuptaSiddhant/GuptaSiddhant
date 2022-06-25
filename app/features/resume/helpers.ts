@@ -1,5 +1,7 @@
 import { type AboutInfo } from "~/features/about"
 
+import { parseGetAllSearchParams } from "../helpers/request"
+import { type ResumeProps, defaultDisabledSections } from "./Resume"
 import type { ContactLinkProps } from "./types"
 
 export function transformAboutLinkToContactLinks(
@@ -31,4 +33,30 @@ export function transformAboutLinkToContactLinks(
 
 export function createAboutLink(domain: string, id: string) {
   return `${domain}/about/${id}`
+}
+
+export function getDisabledSectionsFromSearchParams(
+  searchParams: URLSearchParams,
+): ResumeProps["disabledSections"] {
+  const enabledSections = parseGetAllSearchParams(searchParams, "section")
+
+  if (enabledSections.length === 0) return undefined
+
+  return Object.keys(defaultDisabledSections).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: enabledSections.includes(key) ? false : true,
+    }),
+    {},
+  )
+}
+
+export function getFiltersFromSearchParams(searchParams: URLSearchParams) {
+  const startDateParam = searchParams.get("startDate")
+  const endDateParam = searchParams.get("endDate")
+
+  return {
+    startDate: startDateParam ? new Date(startDateParam) : undefined,
+    endDate: endDateParam ? new Date(endDateParam) : undefined,
+  }
 }

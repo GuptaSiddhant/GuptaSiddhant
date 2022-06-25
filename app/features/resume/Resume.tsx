@@ -10,27 +10,37 @@ import {
   generateTitleFromEducationItem,
 } from "~/features/about/helpers"
 import { type SkillCategory, languages, skills } from "~/features/about/skills"
+import { capitalize } from "~/features/helpers/format"
 
-import { capitalize } from "../helpers/format"
 import Card from "./Card"
 import Footer from "./Footer"
 import Header from "./Header"
 import { createAboutLink } from "./helpers"
 import Hero from "./Hero"
 import Section from "./Section"
-import Terminal from "./Terminal"
 import { texts } from "./theme"
 import type { ContactLinkProps } from "./types"
+
+export const defaultDisabledSections = {
+  about: false,
+  experience: false,
+  education: false,
+  skills: false,
+}
 
 export interface ResumeProps {
   domain: string
   language?: string
   subject?: string
+
   name: string
   position: string
   contactLinks: ContactLinkProps[]
   experiences: CareerProps[]
   educations: EducationProps[]
+  terminalResumeCode: string
+
+  disabledSections?: Partial<typeof defaultDisabledSections>
 }
 
 export default function Resume({
@@ -42,6 +52,8 @@ export default function Resume({
   experiences,
   educations,
   domain = "https://guptasiddhant.com",
+  disabledSections = {},
+  terminalResumeCode,
 }: ResumeProps): JSX.Element {
   return (
     <Document
@@ -54,17 +66,23 @@ export default function Resume({
     >
       <Page style={{ ...texts.mono, paddingBottom: 40 }}>
         <Header title={name} subject={subject} />
+
         <Hero title={name} subtitle={position} contactLinks={contactLinks}>
-          <Terminal style={{ marginTop: 8 }}>npx guptasiddhant</Terminal>
+          {terminalResumeCode}
         </Hero>
-        <Section>
+
+        <Section disable={disabledSections.about}>
           {aboutTexts.map((text, index) => (
             <Text key={index} style={{ marginBottom: 4 }}>
               {text}
             </Text>
           ))}
         </Section>
-        <Section title="Experience">
+
+        <Section
+          title="Experience"
+          disable={disabledSections.experience || experiences.length === 0}
+        >
           {experiences.map((item) => (
             <Card
               key={item.id}
@@ -77,7 +95,11 @@ export default function Resume({
             </Card>
           ))}
         </Section>
-        <Section title="Education">
+
+        <Section
+          title="Education"
+          disable={disabledSections.education || educations.length === 0}
+        >
           {educations.map((item) => (
             <Card
               key={item.id}
@@ -90,7 +112,8 @@ export default function Resume({
             </Card>
           ))}
         </Section>
-        <Section title="Skills">
+
+        <Section title="Skills" disable={disabledSections.skills}>
           {Object.keys(skills).map((category) => (
             <Card key={category} caption={capitalize(category)}>
               {skills[category as SkillCategory].join(", ")}
@@ -100,6 +123,7 @@ export default function Resume({
             {languages.map((l) => `${l.name} - ${l.level}`).join("\n")}
           </Card>
         </Section>
+
         <Footer />
       </Page>
     </Document>

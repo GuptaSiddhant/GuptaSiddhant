@@ -19,9 +19,12 @@ export default function Hero({
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={[texts.h1, { marginHorizontal: 8 }]}>{title}</Text>
-        <Text style={[texts.h5, { marginHorizontal: 8 }]}>{subtitle}</Text>
-        {children}
+        <Text style={[texts.h1]}>{title}</Text>
+        <Text style={[texts.h5]}>{subtitle}</Text>
+
+        <Text style={{ marginTop: 16 }}>
+          <Text style={{ color: colors.textDisabled }}>$</Text> {children}
+        </Text>
       </View>
       <ContactBox links={contactLinks} />
     </View>
@@ -51,19 +54,19 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bgBase,
+    backgroundColor: colors.bgFloat,
     margin: 16,
-    padding: 8,
+    padding: 16,
     borderTopLeftRadius: 8,
     borderBottomRightRadius: 8,
     flexDirection: "row",
     justifyContent: "space-between",
+    borderBottom: 1,
+    borderBottomColor: colors.border,
   },
   contactContainer: {
     justifyContent: "flex-end",
     height: "100%",
-    paddingBottom: 0,
-    paddingRight: 8,
   },
   titleContainer: { marginTop: 8 },
   textKey: {
