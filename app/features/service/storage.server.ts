@@ -1,6 +1,6 @@
 import { getStorage } from "firebase-admin/storage"
 
-import { ONE_DAY_IN_MS } from "../constants"
+import { ONE_DAY_IN_MS } from "~/features/constants"
 import cache, { CacheType, createCacheKey } from "./cache.server"
 
 // Getters

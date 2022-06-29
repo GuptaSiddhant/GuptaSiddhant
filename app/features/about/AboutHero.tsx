@@ -1,8 +1,9 @@
 import ResumeIcon from "remixicon-react/FileUserLineIcon"
 
-import Hero from "../ui/Hero"
-import { ExternalLink } from "../ui/Link"
-import { Paragraph } from "../ui/Text"
+import Hero from "~/features/hero"
+import { ExternalLink } from "~/features/ui/Link"
+import { Paragraph } from "~/features/ui/Text"
+
 import { aboutTexts } from "."
 
 export default function AboutHero(): JSX.Element | null {

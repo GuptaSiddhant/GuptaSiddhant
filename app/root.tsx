@@ -9,26 +9,24 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import { getAboutInfo } from "~/features/about/service.server"
-import { getNavigationRemoteConfig } from "~/features/home/service.server"
-import useNavigationLinks from "~/features/home/useNavigationLinks"
 import { type RootLoaderData } from "~/features/root"
+import AppLayout from "~/features/root/AppLayout"
 import { CatchBoundary, ErrorBoundary } from "~/features/root/boundaries"
 import Document from "~/features/root/Document"
 import links from "~/features/root/links"
 import meta from "~/features/root/meta"
+import { getNavigationRemoteConfig } from "~/features/root/service.server"
+import useNavigationLinks from "~/features/root/useNavigationLinks"
 import { getAuthUser } from "~/features/service/auth.server"
-import { checkIfDarkTheme } from "~/features/theme"
 import { getThemeFromRequest } from "~/features/theme/cookie.server"
-import AppLayout from "~/features/ui/AppLayout"
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const themeName = await getThemeFromRequest(request)
   const [about, navigationRemoteConfig, authUser] = await Promise.all([
     getAboutInfo(),
     getNavigationRemoteConfig(),
     getAuthUser(request),
   ])
-
-  const themeName = await getThemeFromRequest(request)
 
   return json<RootLoaderData>({
     about,
@@ -50,7 +48,7 @@ export default function App() {
   })
 
   return (
-    <Document isDarkTheme={checkIfDarkTheme(themeName)}>
+    <Document themeName={themeName}>
       <AppLayout navigationLinks={navigationLinks}>
         <Outlet />
         <ScrollRestoration />

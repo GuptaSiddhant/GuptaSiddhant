@@ -20,7 +20,7 @@ import {
   generateSubtitleFromEducationItem,
   generateTitleFromCareerItem,
   generateTitleFromEducationItem,
-} from "../about/helpers"
+} from "~/features/aboutt/helpers"
 import type { LifelineDividerProps, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"
 import LifelineCard from "./LifelineCard"

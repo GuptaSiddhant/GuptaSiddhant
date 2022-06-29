@@ -3,7 +3,7 @@ import clsx from "clsx"
 
 import Section from "~/features/ui/Section"
 
-import type { BaseProps } from "../types"
+import type { BaseProps } from "~/features/about"
 import { type TeaserProps } from "."
 
 export interface TeaserGridProps extends BaseProps {

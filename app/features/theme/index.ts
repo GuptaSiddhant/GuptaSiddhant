@@ -6,7 +6,7 @@ export type ThemeName = "dark" | "light"
 
 export const DEFAULT_THEME: ThemeName = "dark"
 
-export default function getCSSForThemeName(themeName: ThemeName) {
+export default function getCSSForThemeName(themeName?: ThemeName) {
   const theme = (() => {
     switch (themeName) {
       case "light":
@@ -20,6 +20,6 @@ export default function getCSSForThemeName(themeName: ThemeName) {
   return generateCSSValue(theme)
 }
 
-export function checkIfDarkTheme(name: ThemeName) {
+export function checkIfDarkTheme(name?: ThemeName) {
   return name !== "light"
 }

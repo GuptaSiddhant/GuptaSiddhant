@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import { capitalize } from "../helpers/format"
+import { capitalize } from "~/features/helpers/format"
 
 const preservedIds = ["actions"] as const
 

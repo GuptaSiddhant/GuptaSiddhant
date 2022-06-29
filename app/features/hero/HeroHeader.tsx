@@ -5,8 +5,8 @@ import BackIcon from "remixicon-react/ArrowLeftLineIcon"
 import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
 import HashIcon from "remixicon-react/HashtagIcon"
 
-import { proseWidth } from "../Section"
-import { Caption, H1, SubHeading } from "../Text"
+import { proseWidth } from "~/features/ui/Section"
+import { Caption, H1, SubHeading } from "~/features/ui/Text"
 
 export interface HeroHeaderProps {
   title: string

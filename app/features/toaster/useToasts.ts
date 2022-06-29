@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-import useStableCallback from "../hooks/useStableCallback"
+import useStableCallback from "~/features/hooks/useStableCallback"
+
 import type { ToastProps } from "./Toast"
 
 export default function useToasts() {

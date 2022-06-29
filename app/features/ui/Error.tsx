@@ -1,7 +1,7 @@
 import clsx from "clsx"
 
+import Hero from "~/features/hero"
 import CodeBlock from "./CodeBlock"
-import Hero from "./Hero"
 import Logo from "./Logo"
 
 export interface ErrorSectionProps {

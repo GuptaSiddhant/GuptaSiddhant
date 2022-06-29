@@ -7,10 +7,10 @@ import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
+import useMediaQuery from "~/features/hooks/useMediaQuery"
 import Accordion from "~/features/ui/Accordion"
 import type { NavigationLinkProps, To } from "~/features/ui/Link"
 
-import useMediaQuery from "../hooks/useMediaQuery"
 import AdminHeader from "./AdminHeader"
 import useAdminContext from "./context"
 

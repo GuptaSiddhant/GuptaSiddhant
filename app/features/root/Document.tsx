@@ -1,17 +1,21 @@
 import { Links, Meta } from "@remix-run/react"
 import clsx from "clsx"
 
+import { type ThemeName, checkIfDarkTheme } from "~/features/theme"
+
+const intlListFormatPolyfillScript =
+  "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"
+
 export default function Document({
   children,
   error,
-  isDarkTheme = true,
+  themeName,
 }: {
   children: React.ReactNode
   error?: boolean
-  isDarkTheme?: boolean
+  themeName?: ThemeName
 }): JSX.Element | null {
-  const intlListFormatPolyfillScript =
-    "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"
+  const isDarkTheme = checkIfDarkTheme(themeName)
 
   return (
     <html

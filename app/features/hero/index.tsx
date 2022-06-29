@@ -1,8 +1,8 @@
 import clsx from "clsx"
 
 import type { BaseProps } from "~/features/types"
+import Section, { proseWidth } from "~/features/ui/Section"
 
-import Section, { proseWidth } from "../Section"
 import HeroDescription from "./HeroDescription"
 import HeroHeader from "./HeroHeader"
 import HeroImage from "./HeroImage"

@@ -11,6 +11,7 @@ import {
 } from "~/features/helpers/mdx.server"
 import { generateArticleMeta } from "~/features/helpers/meta"
 import { type TocItem } from "~/features/helpers/table-of-contents"
+import Hero from "~/features/hero"
 import { type ProjectProps } from "~/features/projects"
 import {
   getProjectCrossSell,
@@ -20,7 +21,6 @@ import { type TeaserProps } from "~/features/teaser"
 import TeaserCarousel from "~/features/teaser/TeaserCarousel"
 import Divider from "~/features/ui/Divider"
 import { ErrorSection } from "~/features/ui/Error"
-import Hero from "~/features/ui/Hero"
 import Mdx from "~/features/ui/Mdx"
 import Section from "~/features/ui/Section"
 import ShareTray from "~/features/ui/ShareTray"

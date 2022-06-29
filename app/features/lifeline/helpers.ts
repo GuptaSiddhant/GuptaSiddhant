@@ -1,7 +1,7 @@
 import { sortByDate } from "~/features/helpers"
+import type { TocItem } from "~/features/helpers/table-of-contents"
 
-import type { CareerProps, EducationProps } from "../about"
-import type { TocItem } from "../helpers/table-of-contents"
+import type { CareerProps, EducationProps } from "~/features/aboutt"
 import type { LifeLineItem, LifeLineItems } from "."
 
 export function createLifeline(

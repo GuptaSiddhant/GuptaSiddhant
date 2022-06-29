@@ -1,18 +1,17 @@
 import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+import ProjectIcon from "remixicon-react/ArtboardFillIcon"
+import BlogIcon from "remixicon-react/QuillPenFillIcon"
 
 import { type AboutInfo } from "~/features/about"
 import { getAboutInfo } from "~/features/about/service.server"
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
 import HomeHeroSection from "~/features/home/HomeHeroSection"
+import HomeTeaserCarousel from "~/features/home/HomeTeaserCarousel"
 import { getProjectTeaserList } from "~/features/projects/service.server"
 import { type TeaserProps } from "~/features/teaser"
-import TeaserCarousel from "~/features/teaser/TeaserCarousel"
 import { ErrorSection } from "~/features/ui/Error"
-import { HeroHeaderCaption } from "~/features/ui/Hero/HeroHeader"
-import { InternalLink } from "~/features/ui/Link"
-import { H2 } from "~/features/ui/Text"
 
 interface LoaderData {
   about: AboutInfo
@@ -32,46 +31,30 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const { about, projects, blogPosts } = useLoaderData<LoaderData>()
-  const projectsId = "projects"
-  const blogId = "blog"
 
   return (
     <>
       <HomeHeroSection {...about} />
 
-      <TeaserCarousel
-        id={projectsId}
+      <HomeTeaserCarousel
+        id="projects"
+        linkText="See all projects"
+        caption="Featured Projects"
         teasers={projects}
-        linkBaseUrl={`/${projectsId}/`}
-        // className="bg-gradient-to-b from-gray-900 to-gray-800"
+        icon={<ProjectIcon />}
       >
-        <HeroHeaderCaption
-          caption={{
-            label: "Featured Projects",
-            to: `#${projectsId}`,
-            icon: "hash",
-          }}
-        />
-        <H2 className="!p-0">Stuff I've been tinkering with</H2>
-        <InternalLink to={`/${projectsId}/`}>View all projects</InternalLink>
-      </TeaserCarousel>
+        Stuff I've been tinkering with
+      </HomeTeaserCarousel>
 
-      <TeaserCarousel
-        id={blogId}
+      <HomeTeaserCarousel
+        id="blog"
+        linkText="See all blog posts"
+        caption="Recent posts"
         teasers={blogPosts}
-        linkBaseUrl={`/${blogId}/`}
-        // className="bg-gradient-to-t from-gray-900 to-gray-800"
+        icon={<BlogIcon />}
       >
-        <HeroHeaderCaption
-          caption={{
-            label: "Recent posts",
-            to: `#${blogId}`,
-            icon: "hash",
-          }}
-        />
-        <H2 className="!p-0">Recent thoughts and ideas...</H2>
-        <InternalLink to={`/${blogId}/`}>View all blog posts</InternalLink>
-      </TeaserCarousel>
+        Recent thoughts and ideas...
+      </HomeTeaserCarousel>
     </>
   )
 }

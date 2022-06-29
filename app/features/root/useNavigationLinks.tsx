@@ -5,9 +5,9 @@ import SearchIcon from "remixicon-react/Search2LineIcon"
 
 import { type AboutInfo } from "~/features/about"
 import type { ThemeName } from "~/features/theme"
+import ThemeToggleButton from "~/features/theme/ThemeToggleButton"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 
-import ThemeToggleButton from "../theme/ThemeToggleButton"
 import type { NavigationRemoteConfig } from "./service.server"
 
 export interface UseNavigationLinksProps {

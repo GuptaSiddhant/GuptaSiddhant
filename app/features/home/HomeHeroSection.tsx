@@ -1,7 +1,7 @@
 import { type AboutInfo } from "~/features/about"
 import { formatList } from "~/features/helpers/format"
+import Hero from "~/features/hero"
 import CodeBlock from "~/features/ui/CodeBlock"
-import Hero from "~/features/ui/Hero"
 import { ExternalLink, InternalLink } from "~/features/ui/Link"
 import { ChangingText, H1 } from "~/features/ui/Text"
 

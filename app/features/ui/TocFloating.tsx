@@ -4,8 +4,8 @@ import TocIcon from "remixicon-react/FileListLineIcon"
 
 import { type TocItem } from "~/features/helpers/table-of-contents"
 
-import { fabBottomLeftClassName } from "../ui/Button"
-import Menu, { type MenuActionProps } from "../ui/Menu"
+import { fabBottomLeftClassName } from "~/features/ui/Button"
+import Menu, { type MenuActionProps } from "~/features/ui/Menu"
 
 const TOC_LEVEL_GAP = 8
 

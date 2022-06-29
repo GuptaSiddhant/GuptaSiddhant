@@ -1,7 +1,7 @@
 import type { MetaDescriptor } from "@remix-run/server-runtime"
 import type { ReactNode } from "react"
 
-import type { To } from "../ui/Link"
+import type { To } from "~/features/ui/Link"
 
 export interface AdminAppProps {
   id: string

@@ -1,10 +1,10 @@
+import { sortByDate } from "~/features/helpers"
 import {
   FirestoreCollection,
   getFirestoreCollection,
   getFirestoreDocument,
 } from "~/features/service/firestore.server"
 
-import { sortByDate } from "../helpers"
 import type { AboutInfo, CareerProps, EducationProps } from "."
 
 export async function getAboutInfo() {

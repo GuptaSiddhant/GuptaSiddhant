@@ -9,8 +9,8 @@ import { Toaster } from "~/features/toaster"
 import { FAB } from "~/features/ui/Button"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 import Logo from "~/features/ui/Logo"
-import Navigation from "~/features/ui/Navigation"
 
+import Navigation from "./Navigation"
 import ProgressBar from "./ProgressBar"
 
 export interface AppLayoutProps {
