@@ -87,7 +87,7 @@ function TeaserCarouselCard({
         <div
           className={clsx(
             "absolute bottom-0 left-0 right-0",
-            "bg-gradient-to-t from-gray-900 to-transparent",
+            "bg-gradient-to-t from-gray-900 to-transparent text-white",
             "p-4 transition-[padding] duration-300 group-hocus:py-8",
           )}
         >

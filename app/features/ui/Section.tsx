@@ -43,14 +43,15 @@ function SectionProse({ className, ...props }: BaseProps): JSX.Element {
 }
 
 export const proseReaderClassName = clsx(
-  "prose prose-invert prose-blockquote:-ml-4",
+  "prose prose-blockquote:-ml-4",
+  "dark:prose-invert",
 )
 
 function SectionReader({
   children,
   toc = [],
   id,
-  className,
+  className = proseReaderClassName,
 }: {
   id?: string
   children?: ReactNode

@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from "react"
 
+export type ThemeName = "dark" | "light"
+
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {
   id?: string
   className?: string

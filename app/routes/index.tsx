@@ -43,7 +43,7 @@ export default function Index() {
         id={projectsId}
         teasers={projects}
         linkBaseUrl={`/${projectsId}/`}
-        className="bg-gradient-to-b from-gray-900 to-gray-800"
+        // className="bg-gradient-to-b from-gray-900 to-gray-800"
       >
         <HeroHeaderCaption
           caption={{
@@ -60,7 +60,7 @@ export default function Index() {
         id={blogId}
         teasers={blogPosts}
         linkBaseUrl={`/${blogId}/`}
-        className="bg-gradient-to-t from-gray-900 to-gray-800"
+        // className="bg-gradient-to-t from-gray-900 to-gray-800"
       >
         <HeroHeaderCaption
           caption={{

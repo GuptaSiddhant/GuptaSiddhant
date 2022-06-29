@@ -25,7 +25,7 @@ export default function LifelineCard({
       id={id}
       className={clsx(
         className,
-        "group relative bg-secondary rounded-lg border-4 border-gray-700",
+        "group relative bg-secondary rounded-lg border-4 border-divider",
         "transition-colors flex flex-col p-8 scroll-m-20",
         selectedId === id && "selected",
       )}
@@ -60,7 +60,7 @@ function LifelineCardTitle({
           className={clsx(
             className,
             "w-10 aspect-square rounded-lg absolute -left-16 -top-0 flex-center",
-            "transition-colors shadow-md",
+            "text-white shadow-md",
           )}
           role="presentation"
           title={id}
@@ -131,7 +131,7 @@ function LifelineCardDescription({
       className={clsx(
         className,
         "overflow-auto mt-4 text-sm",
-        "prose prose-invert prose-sm prose-li:marker:text-disabled",
+        "prose dark:prose-invert prose-sm prose-li:marker:text-disabled",
         "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height] duration-300",
       )}
     >

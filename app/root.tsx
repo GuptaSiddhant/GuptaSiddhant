@@ -31,7 +31,11 @@ import AppLayout from "~/features/ui/AppLayout"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorPage } from "~/features/ui/Error"
 
-interface LoaderData extends UseNavigationLinksProps {}
+import { getThemeFromRequest } from "./features/service/themeCookie.server"
+
+interface LoaderData extends UseNavigationLinksProps {
+  theme: string
+}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const [about, navigationRemoteConfig, authUser] = await Promise.all([
@@ -39,16 +43,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     getNavigationRemoteConfig(),
     getAuthUser(request),
   ])
+  const theme = await getThemeFromRequest(request)
 
   return json<LoaderData>({
     about,
     navigationRemoteConfig,
     isAuthenticated: !!authUser,
+    theme,
   })
 }
 
 export default function App() {
-  const { about, navigationRemoteConfig, isAuthenticated } =
+  const { about, navigationRemoteConfig, isAuthenticated, theme } =
     useLoaderData<LoaderData>()
   const navigationLinks = useNavigationLinks({
     about,
@@ -56,8 +62,10 @@ export default function App() {
     isAuthenticated,
   })
 
+  console.log(theme)
+
   return (
-    <Document>
+    <Document theme={theme}>
       <AppLayout navigationLinks={navigationLinks}>
         <Outlet />
         <ScrollRestoration />
@@ -176,9 +184,11 @@ export function CatchBoundary() {
 function Document({
   children,
   error,
+  theme,
 }: {
   children: ReactNode
   error?: boolean
+  theme?: string
 }): JSX.Element | null {
   const intlListFormatPolyfillScript =
     "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"
@@ -187,7 +197,10 @@ function Document({
     <html
       lang="en"
       dir="ltr"
-      className="dark text-[16px] lg:text-[18px] m-0 p-0 motion-safe:scroll-smooth"
+      className={clsx(
+        "text-[16px] lg:text-[18px] m-0 p-0 motion-safe:scroll-smooth",
+        theme !== "light" && "dark",
+      )}
     >
       <head>
         {error ? null : <Meta />}

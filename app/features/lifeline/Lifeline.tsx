@@ -99,7 +99,7 @@ function CareerCard(career: CareerProps): JSX.Element | null {
   return (
     <LifelineCard
       id={id}
-      className=" text-purple-500 group-hocus:border-purple-500 selected:border-purple-500"
+      className="text-purple-500 group-hocus:border-purple-500 selected:border-purple-500"
     >
       <LifelineCard.Title
         icon={<CareerIcon />}

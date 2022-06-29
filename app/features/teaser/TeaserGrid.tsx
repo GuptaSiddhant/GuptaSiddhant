@@ -68,9 +68,9 @@ function TeaserGridCard({
 
         <div
           className={clsx(
-            "rounded-lg",
+            "rounded-lg text-white",
             "h-0 w-full p-4 pl-8 group-hocus:h-full",
-            "group-hocus:bg-tertiary/50 group-hocus:backdrop-blur",
+            "group-hocus:bg-black/50 group-hocus:backdrop-blur",
             "invisible transition-all group-hocus:visible",
             "flex flex-col items-start justify-center gap-2",
           )}
