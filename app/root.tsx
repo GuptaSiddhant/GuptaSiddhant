@@ -118,6 +118,7 @@ export const links: LinksFunction = () => [
   },
   { rel: "manifest", href: "/site.webmanifest" },
   { rel: "stylesheet", href: fontStyles },
+  { rel: "stylesheet", href: "/theme.css" },
   { rel: "stylesheet", href: globalStyles },
   { rel: "stylesheet", href: tailwindStyles },
   { rel: "stylesheet", href: prismRhemeStyles },

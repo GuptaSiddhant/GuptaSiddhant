@@ -134,7 +134,7 @@ function ToggleCell({
         <span
           className={clsx(
             "font-monospace text-sm",
-            value ? "text-success" : "text-danger",
+            value ? "text-positive" : "text-negative",
           )}
         >
           {value ? "enabled" : "disabled"}
@@ -174,7 +174,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
         body={{ flag }}
         className={buttonClassName}
       >
-        <DeleteBin2FillIcon className="text-danger" />
+        <DeleteBin2FillIcon className="text-negative" />
       </AdminFormAction>
 
       {dev && prod ? (
@@ -184,7 +184,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
           body={{ flag, dev: false, prod: false }}
           className={buttonClassName}
         >
-          <ToggleOffIcon className="text-danger" />
+          <ToggleOffIcon className="text-negative" />
         </AdminFormAction>
       ) : null}
 
@@ -195,7 +195,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
           body={{ flag, dev: true, prod: true }}
           className={buttonClassName}
         >
-          <ToggleOnIcon className="text-success" />
+          <ToggleOnIcon className="text-positive" />
         </AdminFormAction>
       ) : null}
     </div>

@@ -70,8 +70,8 @@ function CodePre({
   wrap,
 }: CodePreProps): JSX.Element | null {
   return (
-    <div className="rounded-md font-normal w-full border border-gray-200 dark:border-0 text-sm">
-      <pre className={clsx(className, `overflow-scroll`)}>
+    <div className="rounded-md font-normal w-full border border-divider dark:border-0 text-sm">
+      <pre className={clsx(className, `overflow-scroll !bg-transparent`)}>
         <code className={clsx(className, "match-braces")} style={{}}>
           {tokens.map((line, i) => (
             <div

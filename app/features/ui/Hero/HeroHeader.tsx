@@ -103,7 +103,7 @@ function getHeroHeaderCaptionIcon(icon?: HeroHeaderCaptionIconType): {
     case "hash":
       return { icon: <HashIcon />, className: "text-tertiary" }
     case "error":
-      return { icon: <ErrorIcon />, className: "text-error" }
+      return { icon: <ErrorIcon />, className: "text-negative" }
     default:
       return { icon }
   }
