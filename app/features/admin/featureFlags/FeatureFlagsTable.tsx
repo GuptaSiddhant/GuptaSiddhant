@@ -5,11 +5,11 @@ import DeleteBin2FillIcon from "remixicon-react/DeleteBin2LineIcon"
 import ToggleOnIcon from "remixicon-react/ToggleFillIcon"
 import ToggleOffIcon from "remixicon-react/ToggleLineIcon"
 
-import AdminFormAction from "~/features/admin/AdminFormAction"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
 } from "~/features/service/remote-config.server"
+import FormAction from "~/features/ui/FormAction"
 import Input from "~/features/ui/Input"
 import Table, { type TableColumnProps } from "~/features/ui/Table"
 
@@ -126,7 +126,7 @@ function ToggleCell({
 
   return (
     <div className="flex">
-      <AdminFormAction
+      <FormAction
         method="patch"
         title="Toggle flag"
         body={{ ...row, [dev ? "dev" : "prod"]: !value }}
@@ -139,7 +139,7 @@ function ToggleCell({
         >
           {value ? "enabled" : "disabled"}
         </span>
-      </AdminFormAction>
+      </FormAction>
     </div>
   )
 }
@@ -152,7 +152,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
   if (!flag) {
     return (
       <div className="flex gap-4 flex-wrap">
-        <AdminFormAction
+        <FormAction
           id={FORM_ID}
           method="post"
           title="Create flag"
@@ -161,42 +161,42 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
         >
           <CreateIcon />
           <span>Add</span>
-        </AdminFormAction>
+        </FormAction>
       </div>
     )
   }
 
   return (
     <div className="flex gap-2">
-      <AdminFormAction
+      <FormAction
         method="delete"
         title="Delete flag"
         body={{ flag }}
         className={buttonClassName}
       >
         <DeleteBin2FillIcon className="text-negative" />
-      </AdminFormAction>
+      </FormAction>
 
       {dev && prod ? (
-        <AdminFormAction
+        <FormAction
           method="patch"
           title="Disable all"
           body={{ flag, dev: false, prod: false }}
           className={buttonClassName}
         >
           <ToggleOffIcon className="text-negative" />
-        </AdminFormAction>
+        </FormAction>
       ) : null}
 
       {!dev && !prod ? (
-        <AdminFormAction
+        <FormAction
           method="patch"
           title="Enable all"
           body={{ flag, dev: true, prod: true }}
           className={buttonClassName}
         >
           <ToggleOnIcon className="text-positive" />
-        </AdminFormAction>
+        </FormAction>
       ) : null}
     </div>
   )

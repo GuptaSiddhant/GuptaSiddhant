@@ -7,6 +7,9 @@ interface SupportedLanguageProperties {
   className?: string
 }
 
+const javascriptClassName = clsx("bg-yellow-400 dark:bg-yellow-700")
+const typescriptClassName = clsx("bg-blue-300 dark:bg-blue-700")
+
 const supportedLanguages: SupportedLanguageProperties[] = [
   { lang: "markup" },
   { lang: "bash" },
@@ -14,8 +17,12 @@ const supportedLanguages: SupportedLanguageProperties[] = [
   { lang: "c" },
   { lang: "cpp" },
   { lang: "css" },
-  { lang: "javascript", className: clsx("bg-yellow-700"), label: "JS" },
-  { lang: "jsx", className: clsx("bg-yellow-700") },
+  {
+    lang: "javascript",
+    className: javascriptClassName,
+    label: "JS",
+  },
+  { lang: "jsx", className: javascriptClassName },
   { lang: "coffeescript" },
   { lang: "actionscript" },
   { lang: "css-extr" },
@@ -36,8 +43,12 @@ const supportedLanguages: SupportedLanguageProperties[] = [
   { lang: "scss" },
   { lang: "sql" },
   { lang: "stylus" },
-  { lang: "tsx", className: clsx("bg-blue-700") },
-  { lang: "typescript", className: clsx("bg-blue-700"), label: "TS" },
+  { lang: "tsx", className: typescriptClassName },
+  {
+    lang: "typescript",
+    className: typescriptClassName,
+    label: "TS",
+  },
   { lang: "wasm" },
   { lang: "yaml" },
 ]

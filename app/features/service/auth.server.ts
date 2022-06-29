@@ -1,8 +1,31 @@
+import { createCookieSessionStorage, redirect } from "@remix-run/node"
 import { Authenticator } from "remix-auth"
 import { FormStrategy } from "remix-auth-form"
 import invariant from "tiny-invariant"
 
-import cookieSession from "./session.server"
+import { signInWithEmailPassword } from "./firebase-auth.server"
+
+// Auth Session
+
+const sessionSecret = process.env.SESSION_SECRET
+
+if (!sessionSecret) {
+  throw new Error("SESSION_SECRET must be set")
+}
+
+const cookieSession = createCookieSessionStorage({
+  cookie: {
+    name: "__session",
+    secure: true,
+    secrets: [sessionSecret],
+    sameSite: "lax", // to help with CSRF
+    path: "/",
+    maxAge: 60 * 60 * 24 * 5, // 5 days
+    httpOnly: true,
+  },
+})
+
+// Authenticator
 
 export interface AuthUser {
   idToken: string
@@ -15,15 +38,41 @@ const authenticator = new Authenticator<AuthUser>(cookieSession)
 
 export default authenticator
 
+export enum AuthMethod {
+  EmailPassword = "emailPassword",
+}
+
+// Auth helpers
+
+const failureRedirect = "/login"
+const successRedirect = "/admin"
+
 export async function authenticateRoute(request: Request) {
-  return authenticator.isAuthenticated(request, {
-    failureRedirect: "/login",
-  })
+  return authenticator.isAuthenticated(request, { failureRedirect })
 }
 
 export async function getAuthUser(request: Request) {
   return authenticator.isAuthenticated(request)
 }
+
+export async function loginUser(request: Request) {
+  const user = await authenticator.authenticate(
+    AuthMethod.EmailPassword,
+    request,
+    {
+      throwOnError: true,
+    },
+  )
+  const session = await cookieSession.getSession(request.headers.get("cookie"))
+  session.set(authenticator.sessionKey, user)
+  const headers = new Headers({
+    "Set-Cookie": await cookieSession.commitSession(session),
+  })
+
+  return redirect(successRedirect, { headers })
+}
+
+// Auth method: emailPassword
 
 authenticator.use(
   new FormStrategy(async ({ form }) => {
@@ -45,50 +94,5 @@ authenticator.use(
 
     return authUser
   }),
-  "emailPassword",
+  AuthMethod.EmailPassword,
 )
-
-// Firebase Auth Rest API
-
-const baseUrl = "https://identitytoolkit.googleapis.com/v1/accounts:"
-
-async function signInWithEmailPassword(email: string, password: string) {
-  const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY
-  if (!FIREBASE_API_KEY) throw new Error("FIREBASE_API_KEY must be set")
-
-  const searchParams = new URLSearchParams({ key: FIREBASE_API_KEY })
-
-  const response = await fetch(
-    `${baseUrl}signInWithPassword?${searchParams.toString()}`,
-    {
-      method: "POST",
-      body: JSON.stringify({ returnSecureToken: true, email, password }),
-    },
-  )
-
-  const data = await response.json()
-
-  if (response.status !== 200)
-    return data as SignInWithEmailPasswordErrorResponse
-
-  return data as SignInWithEmailPasswordSuccessResponse
-}
-
-export interface SignInWithEmailPasswordSuccessResponse {
-  kind: "identitytoolkit#VerifyPasswordResponse"
-  localId: string
-  email: string
-  displayName: string
-  idToken: string
-  registered: boolean
-  refreshToken: string
-  expiresIn: string
-}
-
-export interface SignInWithEmailPasswordErrorResponse {
-  error: {
-    code: number
-    message: string
-    errors: {}[]
-  }
-}

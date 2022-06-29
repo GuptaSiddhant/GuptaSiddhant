@@ -55,10 +55,12 @@ export default function Navigation({
               >
                 {children}
               </a>
-            ) : (
+            ) : props.onClick ? (
               <button {...props} title={props.id}>
                 {children}
               </button>
+            ) : (
+              children
             )}
           </li>
         ))}

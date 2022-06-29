@@ -3,34 +3,29 @@ import { type FormProps, Form } from "@remix-run/react"
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-export interface AdminFormActionProps extends FormProps {
+export interface FormActionProps extends FormProps {
   children: ReactNode
   title: string
   body?: Record<string, any>
   method: FormMethod
 }
 
-export default function AdminFormAction({
+export default function FormAction({
   children,
   title,
   body = {},
-  method,
   className,
   ...props
-}: AdminFormActionProps): JSX.Element | null {
-  const { pathname } = useLocation()
+}: FormActionProps): JSX.Element | null {
+  const { pathname, search, hash } = useLocation()
+  const origin = `${pathname}${search}${hash}`
 
   return (
-    <Form
-      {...props}
-      method={method}
-      replace
-      className="flex-center"
-      action={pathname}
-    >
+    <Form action={pathname} {...props} replace className="flex-center">
       {Object.entries(body).map(([key, value]) => (
         <input key={key} name={key} value={value} type={"hidden"} />
       ))}
+      <input type="hidden" name="origin" value={origin} />
       <button title={title} className={clsx(className, "flex-center gap-2")}>
         {children}
       </button>

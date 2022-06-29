@@ -5,7 +5,6 @@ import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import { createAdminMeta } from "~/features/admin"
-import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
 import { CacheType, modifyCache } from "~/features/service/cache.server"
@@ -17,6 +16,7 @@ import {
 } from "~/features/service/remote-config.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
+import FormAction from "~/features/ui/FormAction"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 
 interface LoaderData {
@@ -68,7 +68,7 @@ export default function CacheIndex(): JSX.Element | null {
     {
       id: "Refetch",
       children: (
-        <AdminFormAction
+        <FormAction
           title="Refetch config"
           children={<RefetchIcon />}
           method="put"

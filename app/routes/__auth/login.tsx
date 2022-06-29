@@ -1,10 +1,8 @@
 import { Form, useActionData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import authenticator from "~/features/service/auth.server"
-import cookieSession from "~/features/service/session.server"
+import authenticator, { loginUser } from "~/features/service/auth.server"
 import CodeBlock from "~/features/ui/CodeBlock"
 import Section from "~/features/ui/Section"
 
@@ -16,19 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    const user = await authenticator.authenticate("emailPassword", request, {
-      throwOnError: true,
-    })
-
-    const session = await cookieSession.getSession(
-      request.headers.get("cookie"),
-    )
-    session.set(authenticator.sessionKey, user)
-    const headers = new Headers({
-      "Set-Cookie": await cookieSession.commitSession(session),
-    })
-
-    return redirect("/admin", { headers })
+    return await loginUser(request)
   } catch (e: any) {
     return json({ error: e.message }, 400)
   }

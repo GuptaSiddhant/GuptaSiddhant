@@ -8,7 +8,6 @@ import PlayIcon from "remixicon-react/PlayCircleLineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
-import AdminFormAction from "~/features/admin/AdminFormAction"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
@@ -28,6 +27,7 @@ import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmis
 import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorSection } from "~/features/ui/Error"
+import FormAction from "~/features/ui/FormAction"
 import type { NavigationLinkProps } from "~/features/ui/Link"
 
 interface LoaderData {
@@ -83,17 +83,17 @@ export default function CacheDetails(): JSX.Element | null {
     {
       id: "Refetch",
       children: (
-        <AdminFormAction body={{ key }} title="Refresh" method="put">
+        <FormAction body={{ key }} title="Refresh" method="put">
           <RefetchIcon />
-        </AdminFormAction>
+        </FormAction>
       ),
     },
     {
       id: "Delete",
       children: (
-        <AdminFormAction body={{ key }} title="Delete" method="delete">
+        <FormAction body={{ key }} title="Delete" method="delete">
           <ClearIcon />
-        </AdminFormAction>
+        </FormAction>
       ),
     },
   ]

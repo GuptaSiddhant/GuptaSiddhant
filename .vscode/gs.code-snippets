@@ -35,5 +35,11 @@
     "prefix": [":jen"],
     "description": "Return type of JSX.Element or null",
     "body": [": JSX.Element | null"]
+  },
+  "features-path": {
+    "scope": "typescriptreact,typesript",
+    "prefix": ["feat", "fp", "~"],
+    "description": "Features path",
+    "body": ["~/features"]
   }
 }

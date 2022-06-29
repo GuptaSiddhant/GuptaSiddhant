@@ -31,7 +31,10 @@ export default function CodeBlock({
 
   return (
     <output
-      className={clsx(className, "-mx-4 bg-default rounded-lg block relative")}
+      className={clsx(
+        className,
+        "-mx-4 bg-inverse dark:bg-default rounded-lg block relative",
+      )}
     >
       <Highlight
         {...defaultProps}
@@ -107,7 +110,7 @@ interface CodeBadgeProps {
 }
 
 function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
-  const { className = clsx("bg-gray-600"), label = language } =
+  const { className = clsx("bg-disabled text-gray-200"), label = language } =
     getLanguageBadgeProperties(language) || {}
 
   return (
@@ -119,7 +122,7 @@ function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
       )}
     >
       {copyText ? (
-        <CopyButton className="text-sm font-monospace border-r-[1px] border-gray-400 pr-1">
+        <CopyButton className="text-sm font-monospace border-r-[1px] border-divider pr-1">
           {copyText}
         </CopyButton>
       ) : null}

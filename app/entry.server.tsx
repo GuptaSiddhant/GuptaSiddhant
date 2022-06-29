@@ -28,6 +28,7 @@ export default function handleRequest(
   )
 
   responseHeaders.set("Content-Type", "text/html")
+  responseHeaders.set("X-Powered-By", "Remix-Run")
 
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
