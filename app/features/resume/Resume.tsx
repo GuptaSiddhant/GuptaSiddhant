@@ -1,7 +1,6 @@
 import { Document, Page, Text } from "@react-pdf/renderer"
 
 import type { CareerProps, EducationProps } from "~/features/about"
-import { aboutTexts } from "~/features/about"
 import {
   generateDurationString,
   generateSubtitleFromCareerItem,
@@ -9,24 +8,18 @@ import {
   generateTitleFromCareerItem,
   generateTitleFromEducationItem,
 } from "~/features/about/helpers"
-import { type SkillCategory, languages, skills } from "~/features/about/skills"
+import type { SkillCategory } from "~/features/about/skills"
+import { type Skills } from "~/features/about/skills"
 import { capitalize } from "~/features/helpers/format"
 
-import Card from "./Card"
-import Footer from "./Footer"
-import Header from "./Header"
-import { createAboutLink } from "./helpers"
-import Hero from "./Hero"
-import Section from "./Section"
+import Card from "./components/Card"
+import Footer from "./components/Footer"
+import Header from "./components/Header"
+import Hero from "./components/Hero"
+import Section from "./components/Section"
+import { createAboutLink, Sections } from "./helpers"
 import { texts } from "./theme"
 import type { ContactLinkProps } from "./types"
-
-export const defaultDisabledSections = {
-  about: false,
-  experience: false,
-  education: false,
-  skills: false,
-}
 
 export interface ResumeProps {
   domain: string
@@ -35,12 +28,14 @@ export interface ResumeProps {
 
   name: string
   position: string
-  contactLinks: ContactLinkProps[]
-  experiences: CareerProps[]
-  educations: EducationProps[]
   terminalResumeCode: string
+  contactLinks: ContactLinkProps[]
 
-  disabledSections?: Partial<typeof defaultDisabledSections>
+  aboutTexts?: string[]
+  experiences?: CareerProps[]
+  educations?: EducationProps[]
+  languages?: Array<{ name: string; level: string }>
+  skills?: Skills
 }
 
 export default function Resume({
@@ -49,11 +44,13 @@ export default function Resume({
   subject = "Resume",
   language = "en",
   contactLinks,
-  experiences,
-  educations,
   domain = "https://guptasiddhant.com",
-  disabledSections = {},
   terminalResumeCode,
+  experiences = [],
+  educations = [],
+  aboutTexts = [],
+  languages = [],
+  skills,
 }: ResumeProps): JSX.Element {
   return (
     <Document
@@ -71,7 +68,7 @@ export default function Resume({
           {terminalResumeCode}
         </Hero>
 
-        <Section disable={disabledSections.about}>
+        <Section disable={aboutTexts.length === 0}>
           {aboutTexts.map((text, index) => (
             <Text key={index} style={{ marginBottom: 4 }}>
               {text}
@@ -80,8 +77,8 @@ export default function Resume({
         </Section>
 
         <Section
-          title="Experience"
-          disable={disabledSections.experience || experiences.length === 0}
+          title={capitalize(Sections.experience)}
+          disable={experiences.length === 0}
         >
           {experiences.map((item) => (
             <Card
@@ -97,8 +94,8 @@ export default function Resume({
         </Section>
 
         <Section
-          title="Education"
-          disable={disabledSections.education || educations.length === 0}
+          title={capitalize(Sections.education)}
+          disable={educations.length === 0}
         >
           {educations.map((item) => (
             <Card
@@ -113,12 +110,17 @@ export default function Resume({
           ))}
         </Section>
 
-        <Section title="Skills" disable={disabledSections.skills}>
-          {Object.keys(skills).map((category) => (
-            <Card key={category} caption={capitalize(category)}>
-              {skills[category as SkillCategory].join(", ")}
-            </Card>
-          ))}
+        <Section
+          title={capitalize(Sections.skills)}
+          disable={!skills && languages.length === 0}
+        >
+          {skills
+            ? Object.keys(skills).map((category) => (
+                <Card key={category} caption={capitalize(category)}>
+                  {skills[category as SkillCategory].join(", ")}
+                </Card>
+              ))
+            : null}
           <Card caption="Languages">
             {languages.map((l) => `${l.name} - ${l.level}`).join("\n")}
           </Card>

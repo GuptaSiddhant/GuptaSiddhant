@@ -1,7 +1,7 @@
 import { Link, StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { colors, texts } from "./theme"
-import type { BasePdfProps } from "./types"
+import { colors, texts } from "../theme"
+import type { BasePdfProps } from "../types"
 
 export interface CardProps extends BasePdfProps {
   title?: string

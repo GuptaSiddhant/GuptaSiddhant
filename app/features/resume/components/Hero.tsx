@@ -1,7 +1,7 @@
 import { Link, StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { colors, texts } from "./theme"
-import type { ContactLinkProps } from "./types"
+import { colors, texts } from "../theme"
+import type { ContactLinkProps } from "../types"
 
 export interface HeroProps {
   title: string

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { texts } from "./theme"
-import type { BasePdfProps } from "./types"
+import { texts } from "../theme"
+import type { BasePdfProps } from "../types"
 
 export interface SectionProps extends BasePdfProps {
   title?: string

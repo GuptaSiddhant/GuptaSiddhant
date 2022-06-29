@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { colors, texts } from "./theme"
+import { colors, texts } from "../theme"
 
 export interface HeaderProps {
   title: string

@@ -1,8 +1,14 @@
 import { type AboutInfo } from "~/features/about"
 
 import { parseGetAllSearchParams } from "../helpers/request"
-import { type ResumeProps, defaultDisabledSections } from "./Resume"
 import type { ContactLinkProps } from "./types"
+
+export enum Sections {
+  about = "about",
+  experience = "experience",
+  education = "education",
+  skills = "skills",
+}
 
 export function transformAboutLinkToContactLinks(
   link: AboutInfo["link"],
@@ -35,28 +41,32 @@ export function createAboutLink(domain: string, id: string) {
   return `${domain}/about/${id}`
 }
 
-export function getDisabledSectionsFromSearchParams(
-  searchParams: URLSearchParams,
-): ResumeProps["disabledSections"] {
-  const enabledSections = parseGetAllSearchParams(searchParams, "section")
-
-  if (enabledSections.length === 0) return undefined
-
-  return Object.keys(defaultDisabledSections).reduce(
-    (acc, key) => ({
-      ...acc,
-      [key]: enabledSections.includes(key) ? false : true,
-    }),
-    {},
+export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
+  from?: Date
+  till?: Date
+  disabledSections?: Record<Sections, boolean>
+} {
+  const fromParam = searchParams.get("from")
+  const toParam = searchParams.get("to")
+  const enabledSections = parseGetAllSearchParams(searchParams, "section").map(
+    (s) => s.toLowerCase(),
   )
-}
 
-export function getFiltersFromSearchParams(searchParams: URLSearchParams) {
-  const startDateParam = searchParams.get("startDate")
-  const endDateParam = searchParams.get("endDate")
+  let disabledSections: Record<Sections, boolean> | undefined = undefined
+
+  if (enabledSections.length > 0) {
+    disabledSections = Object.keys(Sections).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: enabledSections.includes(key) ? false : true,
+      }),
+      {} as Record<Sections, boolean>,
+    )
+  }
 
   return {
-    startDate: startDateParam ? new Date(startDateParam) : undefined,
-    endDate: endDateParam ? new Date(endDateParam) : undefined,
+    disabledSections,
+    from: fromParam ? new Date(fromParam) : undefined,
+    till: toParam ? new Date(toParam) : undefined,
   }
 }

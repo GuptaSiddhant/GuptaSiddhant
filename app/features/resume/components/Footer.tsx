@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer"
 
-import { formatDate } from "../helpers/format"
-import { colors, texts } from "./theme"
+import { formatDate } from "~/features/helpers/format"
+
+import { colors, texts } from "../theme"
 
 export interface FooterProps {}
 

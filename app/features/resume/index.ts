@@ -1,16 +1,17 @@
 import { renderToString } from "@react-pdf/renderer"
 import { createElement } from "react"
 
+import { type CommonCareerEducationProps, aboutTexts } from "~/features/about"
 import {
   getAboutInfo,
   getCareerList,
   getEducationList,
 } from "~/features/about/service.server"
+import { languages, skills } from "~/features/about/skills"
 
-import type { CommonCareerEducationProps } from "../about"
 import {
-  getDisabledSectionsFromSearchParams,
   getFiltersFromSearchParams,
+  Sections,
   transformAboutLinkToContactLinks,
 } from "./helpers"
 import Resume, { type ResumeProps } from "./Resume"
@@ -18,21 +19,12 @@ import Resume, { type ResumeProps } from "./Resume"
 export default async function handler(request: Request): Promise<string> {
   const { origin, searchParams } = new URL(request.url)
 
-  const disabledSections = getDisabledSectionsFromSearchParams(searchParams)
   const filters = getFiltersFromSearchParams(searchParams)
 
   const [aboutInfo, careerList, educationList] = await Promise.all([
     getAboutInfo(),
-    getCareerEducationProps(
-      getCareerList,
-      disabledSections?.experience,
-      filters,
-    ),
-    getCareerEducationProps(
-      getEducationList,
-      disabledSections?.education,
-      filters,
-    ),
+    getCareerEducationProps(getCareerList, filters, Sections.experience),
+    getCareerEducationProps(getEducationList, filters, Sections.education),
   ])
   const { link, name, title, terminalResume } = aboutInfo
 
@@ -43,8 +35,10 @@ export default async function handler(request: Request): Promise<string> {
     experiences: careerList,
     educations: educationList,
     domain: origin,
-    disabledSections,
     terminalResumeCode: terminalResume.copyText!,
+    languages: filters.disabledSections?.skills ? [] : languages,
+    skills: filters.disabledSections?.skills ? undefined : skills,
+    aboutTexts,
   }
 
   return renderToString(createElement(Resume, resumeProps))
@@ -52,21 +46,22 @@ export default async function handler(request: Request): Promise<string> {
 
 async function getCareerEducationProps<T extends CommonCareerEducationProps>(
   callback: () => Promise<T[]>,
-  disabled = false,
   filters?: ReturnType<typeof getFiltersFromSearchParams>,
+  sectionKey?: Sections,
 ) {
+  const disabled = sectionKey ? filters?.disabledSections?.[sectionKey] : false
   if (disabled) return []
-  const list = await callback()
 
+  const list = await callback()
   if (!filters) return list
+
   return list.filter((item) => {
     const startDate = new Date(item.startDate)
     const endDate = item.endDate ? new Date(item.endDate) : undefined
-    // Remove items that end before the filtered start date
-    if (filters.startDate && endDate && endDate < filters.startDate)
-      return false
-    // Remove items that starts after the filtered end date
-    if (filters.endDate && startDate > filters.endDate) return false
+    // Remove items that end before the filtered from-date
+    if (filters.from && endDate && endDate < filters.from) return false
+    // Remove items that starts after the filtered till-date
+    if (filters.till && startDate > filters.till) return false
 
     return true
   })
