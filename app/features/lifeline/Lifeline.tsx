@@ -7,6 +7,13 @@ import LinkedinBoxFillIcon from "remixicon-react/LinkedinBoxFillIcon"
 
 import type { CareerProps, EducationProps } from "~/features/about"
 import { CareerRoleType } from "~/features/about"
+import {
+  generateDurationString,
+  generateSubtitleFromCareerItem,
+  generateSubtitleFromEducationItem,
+  generateTitleFromCareerItem,
+  generateTitleFromEducationItem,
+} from "~/features/about/helpers"
 import { capitalize } from "~/features/helpers/format"
 import type { TocItem } from "~/features/helpers/table-of-contents"
 import type { LinkObject } from "~/features/types"
@@ -14,13 +21,6 @@ import { ExternalLink } from "~/features/ui/Link"
 import Section, { proseWidth } from "~/features/ui/Section"
 import { Caption } from "~/features/ui/Text"
 
-import {
-  generateDurationString,
-  generateSubtitleFromCareerItem,
-  generateSubtitleFromEducationItem,
-  generateTitleFromCareerItem,
-  generateTitleFromEducationItem,
-} from "~/features/aboutt/helpers"
 import type { LifelineDividerProps, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"
 import LifelineCard from "./LifelineCard"
@@ -40,7 +40,7 @@ export default function Lifeline({
         id="lifeline"
         className={clsx(
           proseWidth,
-          "border-l border-divider pl-4 flex flex-col gap-12 py-12",
+          "border-l border-divider pl-4 flex flex-col gap-12 py-12 w-full",
         )}
         toc={toc}
       >
@@ -73,7 +73,7 @@ function LifelineDivider({
           <div
             role="presentation"
             className={clsx(
-              "absolute -left-6 top-2 w-4 h-4 rounded-full bg-white",
+              "absolute -left-6 top-2 w-4 h-4 rounded-full bg-inverse",
             )}
           />
         </Caption>

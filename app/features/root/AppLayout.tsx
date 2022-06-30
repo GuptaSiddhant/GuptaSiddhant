@@ -53,8 +53,11 @@ export default function AppLayout({
           "relative mx-4 rounded-xl ",
           "bg-primary text-lg",
           "flex flex-col",
-          "min-h-screen py-8",
+          "py-8",
         )}
+        style={{
+          paddingLeft: `env(safe-area-inset-left)`,
+        }}
       >
         {children}
       </main>

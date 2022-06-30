@@ -26,7 +26,7 @@ export default function LifelineCard({
       className={clsx(
         className,
         "group relative bg-secondary rounded-lg border-4 border-divider",
-        "transition-colors flex flex-col p-8 scroll-m-20",
+        "transition-colors flex flex-col p-8 scroll-m-20 w-full",
         selectedId === id && "selected",
       )}
       onClick={() => changeSelectedId(id)}
