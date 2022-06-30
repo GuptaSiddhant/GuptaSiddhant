@@ -38,7 +38,7 @@
   },
   "features-path": {
     "scope": "typescriptreact,typesript",
-    "prefix": ["feat", "fp", "~"],
+    "prefix": ["feat", "fp", "~", "~/"],
     "description": "Features path",
     "body": ["~/features"]
   }

@@ -7,6 +7,7 @@ import invariant from "tiny-invariant"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
+import type { NavigationLinkProps } from "~/features/navigation/types"
 import { CacheType, modifyCache } from "~/features/service/cache.server"
 import {
   type FeatureFlagsMap,
@@ -17,7 +18,6 @@ import {
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
-import type { NavigationLinkProps } from "~/features/ui/Link"
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap

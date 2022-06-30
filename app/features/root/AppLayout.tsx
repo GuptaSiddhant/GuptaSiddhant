@@ -5,12 +5,12 @@ import UpIcon from "remixicon-react/ArrowUpLineIcon"
 import useOffsetScroll from "~/features/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/features/hooks/useSetHeaderHeight"
 import RoundedCorner from "~/features/icons/RoundedCorner"
+import Navigation from "~/features/navigation/Navigation"
+import type { NavigationLinkProps } from "~/features/navigation/types"
 import { Toaster } from "~/features/toaster"
 import { FAB } from "~/features/ui/Button"
-import type { NavigationLinkProps } from "~/features/ui/Link"
-import Logo from "~/features/ui/Logo"
 
-import Navigation from "./Navigation"
+import Logo from "./Logo"
 import ProgressBar from "./ProgressBar"
 
 export interface AppLayoutProps {

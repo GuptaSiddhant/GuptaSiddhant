@@ -1,4 +1,7 @@
+import { type LinkProps } from "@remix-run/react"
 import type { CSSProperties, ReactNode } from "react"
+
+export type To = LinkProps["to"]
 
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {
   id?: string

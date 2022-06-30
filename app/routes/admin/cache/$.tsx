@@ -13,6 +13,7 @@ import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
 import { useLoaderPolling } from "~/features/hooks/usePolling"
+import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type ModifyCacheMethod,
   CacheType,
@@ -28,7 +29,6 @@ import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
-import type { NavigationLinkProps } from "~/features/ui/Link"
 
 interface LoaderData {
   key: string

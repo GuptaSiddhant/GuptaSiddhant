@@ -1,7 +1,8 @@
 import { Link, NavLink } from "@remix-run/react"
 import { type ReactNode } from "react"
 
-import type { NavigationLinkProps, To } from "~/features/ui/Link"
+import type { NavigationLinkProps } from "~/features/navigation/types"
+import type { To } from "~/features/types"
 
 export default function AdminHeader({
   children,

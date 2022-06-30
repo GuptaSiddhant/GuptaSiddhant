@@ -8,8 +8,9 @@ import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
 import useMediaQuery from "~/features/hooks/useMediaQuery"
+import type { NavigationLinkProps } from "~/features/navigation/types"
+import type { To } from "~/features/types"
 import Accordion from "~/features/ui/Accordion"
-import type { NavigationLinkProps, To } from "~/features/ui/Link"
 
 import AdminHeader from "./AdminHeader"
 import useAdminContext from "./context"

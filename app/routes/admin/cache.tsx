@@ -10,6 +10,7 @@ import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
+import type { NavigationLinkProps } from "~/features/navigation/types"
 import cache, {
   type ModifyCacheMethod,
   modifyCache,
@@ -18,7 +19,6 @@ import cache, {
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
-import type { NavigationLinkProps } from "~/features/ui/Link"
 import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {

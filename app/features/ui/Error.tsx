@@ -1,8 +1,9 @@
 import clsx from "clsx"
 
 import Hero from "~/features/hero"
+import Logo from "~/features/root/Logo"
+
 import CodeBlock from "./CodeBlock"
-import Logo from "./Logo"
 
 export interface ErrorSectionProps {
   message?: string

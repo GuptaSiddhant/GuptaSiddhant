@@ -1,10 +1,11 @@
 import { NavLink } from "@remix-run/react"
-import { useMemo } from "react"
-import NavMenuIcon from "remixicon-react/MenuLineIcon"
+import { Fragment, useMemo } from "react"
+import NavMenuIcon from "remixicon-react/Menu3LineIcon"
 
 import { isExternalLink } from "~/features/helpers"
-import type { NavigationLinkProps } from "~/features/ui/Link"
 import Menu, { type MenuActionProps } from "~/features/ui/Menu"
+
+import type { NavigationLinkProps } from "./types"
 
 export interface NavigationProps {
   links: Array<NavigationLinkProps>
@@ -19,13 +20,14 @@ export default function Navigation({
     (link) => link.to && !isExternalLink(link.to.toString()),
   )
   const externalLinks = links.filter(
-    (link) => !link.to || isExternalLink(link.to.toString()),
+    (link) => link.to && isExternalLink(link.to.toString()),
   )
+  const buttons = links.filter((link) => !link.to)
 
   return (
     <>
-      <DesktopNavigation {...{ internalLinks, externalLinks }} />
-      <MobileNavigation {...{ internalLinks, externalLinks }} />
+      <DesktopNavigation {...{ internalLinks, externalLinks, buttons }} />
+      <MobileNavigation {...{ internalLinks, externalLinks, buttons }} />
     </>
   )
 }
@@ -33,11 +35,13 @@ export default function Navigation({
 interface NavProps {
   internalLinks: Array<NavigationLinkProps>
   externalLinks: Array<NavigationLinkProps>
+  buttons: Array<NavigationLinkProps>
 }
 
 function MobileNavigation({
   internalLinks,
   externalLinks,
+  buttons,
 }: NavProps): JSX.Element | null {
   const actions: MenuActionProps[] = useMemo(() => {
     const actionsFromInternalLinks: MenuActionProps[] = internalLinks.map(
@@ -60,15 +64,19 @@ function MobileNavigation({
   if (actions.length === 0) return null
 
   return (
-    <Menu actions={actions} className="block md:hidden">
-      <NavMenuIcon aria-label="Nav menu" />
-    </Menu>
+    <nav className="flex gap-4 md:hidden">
+      <ButtonsList buttons={buttons} />
+      <Menu actions={actions}>
+        <NavMenuIcon aria-label="Nav menu" />
+      </Menu>
+    </nav>
   )
 }
 
 function DesktopNavigation({
   internalLinks,
   externalLinks,
+  buttons,
 }: NavProps): JSX.Element | null {
   return (
     <nav
@@ -77,7 +85,28 @@ function DesktopNavigation({
     >
       <InternalLinksList links={internalLinks} />
       <ExternalLinksList links={externalLinks} />
+      <ButtonsList buttons={buttons} />
     </nav>
+  )
+}
+
+function ButtonsList({
+  buttons,
+}: {
+  buttons: NavigationLinkProps[]
+}): JSX.Element | null {
+  return (
+    <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
+      {buttons.map(({ id, onClick, children }) => {
+        if (!onClick) return <Fragment key={id}>{children}</Fragment>
+
+        return (
+          <button key={id} onClick={onClick}>
+            {children}
+          </button>
+        )
+      })}
+    </ul>
   )
 }
 

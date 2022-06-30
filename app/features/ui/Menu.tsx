@@ -11,7 +11,7 @@ import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
 
-import { type To } from "./Link"
+import type { To } from "~/features/types"
 
 export interface MenuProps {
   className?: string
