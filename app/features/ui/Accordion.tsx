@@ -28,11 +28,11 @@ export default function Accordion({
       <summary
         className={clsx(
           summaryClassName,
-          "py-2 px-4 mb-1 bg-default rounded-md",
-          "font-bold text-sm select-none cursor-pointer",
+          "mb-1 rounded-md bg-default py-2 px-4",
+          "cursor-pointer select-none text-sm font-bold",
         )}
       >
-        <div className="inline-block pl-1 w-[calc(100%_-_1rem)]">{summary}</div>
+        <div className="inline-block w-[calc(100%_-_1rem)] pl-1">{summary}</div>
       </summary>
       {children}
     </details>

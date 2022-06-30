@@ -73,7 +73,7 @@ function DesktopNavigation({
   return (
     <nav
       aria-label="Main navigation"
-      className="hidden md:flex items-center justify-between gap-6"
+      className="hidden items-center justify-between gap-6 md:flex"
     >
       <InternalLinksList links={internalLinks} />
       <ExternalLinksList links={externalLinks} />
@@ -89,14 +89,14 @@ function InternalLinksList({
   return (
     <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
       {links.map(({ id, to, children }) => (
-        <li key={id} className="select-none flex items-center ">
+        <li key={id} className="flex select-none items-center ">
           <NavLink
             to={to!}
             prefetch="intent"
             className={({ isActive }) =>
               isActive
                 ? "font-bold text-primary"
-                : "hocus:text-primary hocus:underline underline-offset-8"
+                : "underline-offset-8 hocus:text-primary hocus:underline"
             }
           >
             {children}
@@ -115,7 +115,7 @@ function ExternalLinksList({
   return (
     <ul className="flex items-center justify-end gap-4 text-lg text-secondary">
       {links.map(({ to, children, ...props }) => (
-        <li key={props.id} className="select-none flex items-center ">
+        <li key={props.id} className="flex select-none items-center ">
           {to ? (
             <a
               {...props}

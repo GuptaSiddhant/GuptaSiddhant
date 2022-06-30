@@ -152,7 +152,7 @@ function Footer() {
 
       <button
         onClick={() => setPaused((p) => !p)}
-        className="text-sm flex items-center gap-1"
+        className="flex items-center gap-1 text-sm"
       >
         {paused ? <PlayIcon /> : <PauseIcon />}
         {isMobileWidth ? "" : (paused ? "Resume" : "Pause") + " polling"}

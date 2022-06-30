@@ -22,7 +22,7 @@ export default function Document({
       lang="en"
       dir="ltr"
       className={clsx(
-        "text-[16px] lg:text-[18px] m-0 p-0",
+        "m-0 p-0 text-[16px] lg:text-[18px]",
         isDarkTheme && "dark",
       )}
     >

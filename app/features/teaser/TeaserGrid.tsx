@@ -19,7 +19,7 @@ export default function TeaserGrid({
 }: TeaserGridProps) {
   return (
     <Section {...props} className={clsx(className, "px-4 md:px-10")}>
-      <div className="grid grid-flow-row-dense auto-rows-fr grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 min-h-[400px]">
+      <div className="grid min-h-[400px] grid-flow-row-dense auto-rows-fr grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {teasers.map((teaser) => (
           <TeaserGridCard
             key={teaser.id}

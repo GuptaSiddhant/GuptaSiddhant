@@ -52,7 +52,7 @@ export function ErrorPage({
     <ErrorSection
       {...props}
       className={clsx(
-        "mx-auto rounded-xl px-16 mt-[10vh]",
+        "mx-auto mt-[10vh] rounded-xl px-16",
         "bg-primary text-lg",
       )}
     >

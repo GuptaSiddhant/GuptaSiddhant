@@ -36,7 +36,7 @@ export default function AppLayout({
         ref={headerRef}
         className={clsx(
           "fixed top-0 left-0 right-0 z-layout bg-default",
-          "flex justify-between items-center",
+          "flex items-center justify-between",
           "py-2 px-8",
         )}
       >
@@ -66,7 +66,7 @@ export default function AppLayout({
         data-footer
         className={clsx(
           "fixed bottom-0 right-0 left-0",
-          "h-4 z-layout bg-default px-4",
+          "z-layout h-4 bg-default px-4",
         )}
       >
         {scrollButtonVisible ? (

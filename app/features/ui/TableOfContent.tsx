@@ -24,7 +24,7 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
   return (
     <aside className={clsx("text-sm")}>
       {toc ? (
-        <section className="sticky top-20 overflow-visible hidden lg:block">
+        <section className="sticky top-20 hidden overflow-visible lg:block">
           <InlineTableOfContent
             toc={arrangedToc}
             highestLevel={tocHighestLevel}
@@ -146,7 +146,7 @@ function TocListLeafItem({ tocItem, ...options }: TocListItemProps) {
   return (
     <span
       className={clsx(
-        "before:absolute before:content-['•'] before:-indent-4 text-tertiary",
+        "text-tertiary before:absolute before:-indent-4 before:content-['•']",
       )}
     >
       <TocItemLink {...tocItem} activeId={options.activeId} />

@@ -18,11 +18,11 @@ export default function AdminHeader({
 }): JSX.Element {
   if (collapsed)
     return (
-      <header className="w-full flex flex-col gap-4">
+      <header className="flex w-full flex-col gap-4">
         <Link
           to={to || "."}
           title={children?.toString() || "App"}
-          className="w-full h-12 flex-center border-b border-divider bg-secondary"
+          className="h-12 w-full border-b border-divider bg-secondary flex-center"
         >
           {icon}
         </Link>
@@ -38,9 +38,9 @@ export default function AdminHeader({
     )
 
   return (
-    <header className="sticky top-0 px-4 min-h-[3rem] grid items-center grid-cols-[1fr_max-content] gap-2 border-b border-divider bg-secondary">
+    <header className="sticky top-0 grid min-h-[3rem] grid-cols-[1fr_max-content] items-center gap-2 border-b border-divider bg-secondary px-4">
       <Link
-        className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-4 items-center"
+        className="flex items-center gap-4 overflow-hidden text-ellipsis whitespace-nowrap"
         to={to || "."}
       >
         {children}
@@ -64,7 +64,7 @@ function AdminAction({
     return (
       <button
         title={id}
-        className="hocus:text-primary hocus:underline underline-offset-8"
+        className="underline-offset-8 hocus:text-primary hocus:underline"
         {...props}
       >
         {children}

@@ -48,7 +48,7 @@ export default function Toast(toast: ToastProps): JSX.Element {
         id={"toast-" + id}
         className={clsx(
           className,
-          "relative overflow-hidden bg-secondary rounded w-full shadow-xl border",
+          "relative w-full overflow-hidden rounded border bg-secondary shadow-xl",
           dismissed ? "animate-disappear-ltr" : "animate-appear-rtl",
           getClassNameForToastVariant(variant),
         )}
@@ -56,7 +56,7 @@ export default function Toast(toast: ToastProps): JSX.Element {
         onMouseLeave={() => setIsHovering(false)}
       >
         {children ?? (
-          <div className={clsx("flex gap-2 p-3 items-start")}>
+          <div className={clsx("flex items-start gap-2 p-3")}>
             {icon}
             <span className="flex-1 text-base">{title}</span>
             <DismissToastButton />

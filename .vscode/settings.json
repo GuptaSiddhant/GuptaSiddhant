@@ -15,7 +15,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": "yarn*, .eslintrc*, .git*, .yarnrc.*, tsconfig.*, jsconfig.*",
+    "package.json": "yarn*, .eslintrc*, .git*, .yarnrc.*, tsconfig.*, jsconfig.*, prettier*, .prettier*, lint-staged.*",
     "remix.config.js": "vercel.json, server.*, .babelrc*, .codecov, .cssnanorc*, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, cssnano.config.*, cypress.json, env.d.ts, htmlnanorc.*, jasmine.*, jest.config.*, karma*, lighthouserc.*, playwright.config.*, postcss.config.*, puppeteer.config.*, remix.*, svgo.config.*, tsdoc.*, unocss.config.*, vitest.config.*, webpack.config.*, windi.config.*",
     ".env": ".env.*, *.env, .envrc",
     "tailwind.config.js": "tailwind*",

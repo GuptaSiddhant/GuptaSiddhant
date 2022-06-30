@@ -55,21 +55,21 @@ export default function AdminIndex(): JSX.Element {
           paddingTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
         }}
       >
-        <aside className="h-full flex flex-col gap-2 items-center border-r border-divider">
+        <aside className="flex h-full flex-col items-center gap-2 border-r border-divider">
           <NavLink
             to="."
-            className="w-full h-12 flex-center border-b border-divider bg-secondary"
+            className="h-12 w-full border-b border-divider bg-secondary flex-center"
           >
             <AdminIcon />
           </NavLink>
 
-          <div className="flex-1 flex flex-col gap-2 overflow-auto">
+          <div className="flex flex-1 flex-col gap-2 overflow-auto">
             {adminAppLinks.map((props) => (
               <AdminLink key={props.id} {...props} />
             ))}
           </div>
 
-          <div className="flex-1 flex flex-col gap-2 justify-end pb-2">
+          <div className="flex flex-1 flex-col justify-end gap-2 pb-2">
             {adminActionLinks.map((props) => (
               <AdminLink key={props.id} {...props} isAction />
             ))}

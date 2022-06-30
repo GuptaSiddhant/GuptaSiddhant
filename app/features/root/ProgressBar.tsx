@@ -9,12 +9,12 @@ export default function ProgressBar(): JSX.Element {
   return (
     <div
       id="progress-bar"
-      className="fixed left-0 right-0 h-0.5 mx-4 flex z-[19]"
+      className="fixed left-0 right-0 z-[19] mx-4 flex h-0.5"
       style={{ top: `var(${CSS_VAR_HEADER_HEIGHT})` }}
     >
       <div
         ref={elementRef}
-        className="transition-[width] ease-out bg-progress"
+        className="bg-progress transition-[width] ease-out"
       />
     </div>
   )

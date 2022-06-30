@@ -57,7 +57,7 @@ export default function AdminNavbar({
   return (
     <aside
       className={clsx(
-        "relative overflow-hidden h-full border-r border-divider",
+        "relative h-full overflow-hidden border-r border-divider",
         "flex flex-col justify-between",
         "transition-[width]",
         navCollapsed ? "w-12" : "w-72",
@@ -75,8 +75,8 @@ export default function AdminNavbar({
       {filteredNavGroups.length > 0 ? (
         <nav
           className={clsx(
-            "flex-1 overflow-y-auto h-full",
-            "flex flex-col items-start gap-2 list-none",
+            "h-full flex-1 overflow-y-auto",
+            "flex list-none flex-col items-start gap-2",
             "transition-opacity",
             navCollapsed ? "invisible opacity-0" : "visible opacity-100",
           )}
@@ -86,7 +86,7 @@ export default function AdminNavbar({
           ))}
         </nav>
       ) : (
-        <div className="flex-center text-disabled text-sm">
+        <div className="text-sm text-disabled flex-center">
           No matching results found
         </div>
       )}
@@ -114,7 +114,7 @@ function AdminNavFooter({
   return (
     <footer
       className={clsx(
-        "flex items-center min-h-[2.5rem] px-2 border-t border-divider gap-2",
+        "flex min-h-[2.5rem] items-center gap-2 border-t border-divider px-2",
         navCollapsed ? "justify-center" : "justify-between",
       )}
     >
@@ -123,7 +123,7 @@ function AdminNavFooter({
           type="search"
           placeholder={placeholder}
           onChange={(e) => setFilterTerm(e.currentTarget.value?.trim() || "")}
-          className={clsx("bg-default flex-1 rounded px-2 py-1 text-base")}
+          className={clsx("flex-1 rounded bg-default px-2 py-1 text-base")}
         />
       )}
 
@@ -155,7 +155,7 @@ function AdminNavbarGroup({
     <Accordion
       open
       summary={
-        <div className="flex justify-between items-baseline">
+        <div className="flex items-baseline justify-between">
           <span>{label}</span>
           {showCount ? (
             <span className="font-normal">({children.length})</span>
@@ -164,7 +164,7 @@ function AdminNavbarGroup({
       }
       summaryClassName="sticky top-0"
     >
-      <ul className="flex flex-col gap-1 list-none px-2">
+      <ul className="flex list-none flex-col gap-1 px-2">
         {children.map((link) => (
           <AdminNavbarItem key={link.id} {...link} />
         ))}
@@ -187,7 +187,7 @@ function AdminNavbarItem({
       prefetch="render"
       className={({ isActive }) =>
         clsx(
-          "text-base w=full hocus:bg-tertiary py-1 px-2 rounded-sm",
+          "w=full rounded-sm py-1 px-2 text-base hocus:bg-tertiary",
           isActive && "bg-tertiary",
         )
       }

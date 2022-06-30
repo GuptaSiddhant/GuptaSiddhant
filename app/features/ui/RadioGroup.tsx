@@ -24,7 +24,7 @@ export default function RadioGroup({
       name={name}
       className={clsx(
         className,
-        "rounded overflow-hidden",
+        "overflow-hidden rounded",
         "outline-1 outline-black focus-within:outline",
       )}
     >
@@ -69,8 +69,8 @@ function RadioButton({
       <div
         className={clsx(
           className,
-          "px-4 py-2 min-h-input w-full",
-          "bg-secondary hocus:bg-tertiary peer-focus:bg-tertiary",
+          "min-h-input w-full px-4 py-2",
+          "bg-secondary peer-focus:bg-tertiary hocus:bg-tertiary",
           "peer-checked:bg-default",
           "text-secondary hocus:text-tertiary",
           "flex items-center justify-center",

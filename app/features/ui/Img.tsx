@@ -29,7 +29,7 @@ export default function Img({
   )
 
   return (
-    <figure className="-mx-4 overflow-clip rounded relative">
+    <figure className="relative -mx-4 overflow-clip rounded">
       {link ? (
         <a href={props.src} target="_blank" rel="noreferrer">
           {imageElement}

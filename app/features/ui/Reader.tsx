@@ -25,7 +25,7 @@ export default function Reader({
     <Section
       id={id}
       className={clsx(
-        "relative rounded mx-auto md:w-max",
+        "relative mx-auto rounded md:w-max",
         "md:!grid lg:grid-cols-[200px_auto] xl:grid-cols-[200px_1fr_200px]",
       )}
     >

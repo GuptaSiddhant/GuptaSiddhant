@@ -31,7 +31,7 @@ export default function TeaserFilterSortForm({
       onChange={(e) => submit(e.currentTarget)}
       id={formId}
       className={clsx(
-        "grid grid-flow-row-dense gap-4 items-center",
+        "grid grid-flow-row-dense items-center gap-4",
         "sm:grid-cols-2 md:grid-cols-[1fr_2fr_1fr]",
       )}
     >

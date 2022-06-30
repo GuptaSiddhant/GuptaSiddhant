@@ -25,8 +25,8 @@ export default function LifelineCard({
       id={id}
       className={clsx(
         className,
-        "group relative bg-secondary rounded-lg border-4 border-divider",
-        "transition-colors flex flex-col p-8 scroll-m-20 w-full",
+        "group relative rounded-lg border-4 border-divider bg-secondary",
+        "flex w-full scroll-m-20 flex-col p-8 transition-colors",
         selectedId === id && "selected",
       )}
       onClick={() => changeSelectedId(id)}
@@ -55,11 +55,11 @@ function LifelineCardTitle({
 }) {
   return (
     <Link to={{ hash: id }} className={clsx("group scroll-mt-28 no-underline")}>
-      <H5 className="text-secondary group-hocus:text-primary relative">
+      <H5 className="relative text-secondary group-hocus:text-primary">
         <div
           className={clsx(
             className,
-            "w-10 aspect-square rounded-lg absolute -left-16 -top-0 flex-center",
+            "absolute -left-16 -top-0 aspect-square w-10 rounded-lg flex-center",
             "text-white shadow-md",
           )}
           role="presentation"
@@ -86,12 +86,12 @@ function LifelineCardSubtitle({
     <ExternalLink
       href={href}
       tooltipLabel="Visit homepage"
-      className="!text-current no-underline hocus:underline underline-offset-4"
+      className="!text-current no-underline underline-offset-4 hocus:underline"
     >
       <H6
         className={clsx(
           className,
-          "tracking-wide transition-colors text-current leading-relaxed",
+          "leading-relaxed tracking-wide text-current transition-colors",
         )}
       >
         {children}
@@ -111,7 +111,7 @@ function LifelineCardByline({
     <Paragraph
       className={clsx(
         className,
-        "text-base text-tertiary items-center flex gap-2",
+        "flex items-center gap-2 text-base text-tertiary",
       )}
     >
       {children}
@@ -130,9 +130,9 @@ function LifelineCardDescription({
     <div
       className={clsx(
         className,
-        "overflow-auto mt-4 text-sm",
-        "prose dark:prose-invert prose-sm prose-li:marker:text-disabled",
-        "max-h-0 group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height] duration-300",
+        "mt-4 overflow-auto text-sm",
+        "prose prose-sm prose-li:marker:text-disabled dark:prose-invert",
+        "max-h-0 transition-[max-height] duration-300 group-hocus:max-h-screen group-selected:max-h-screen",
       )}
     >
       <Mdx mdx={children?.toString() || ""} />
@@ -155,22 +155,22 @@ function LifelineCardGallery({
   return (
     <figure
       className={clsx(
-        "mt-4 relative overflow-hidden",
-        "h-80 max-h-[4.5rem] group-hocus:max-h-screen group-selected:max-h-screen transition-[max-height]",
+        "relative mt-4 overflow-hidden",
+        "h-80 max-h-[4.5rem] transition-[max-height] group-hocus:max-h-screen group-selected:max-h-screen",
       )}
     >
       <a href={coverUrl} target="_blank" rel="noreferrer">
         <img
           src={coverUrl}
           alt={alt}
-          className="overflow-hidden h-full w-full object-cover object-top rounded-md"
+          className="h-full w-full overflow-hidden rounded-md object-cover object-top"
         />
       </a>
       {iconUrl ? (
         <img
           src={iconUrl}
           alt={alt + " icon"}
-          className="h-10 aspect-square object-contain rounded absolute bottom-4 left-4"
+          className="absolute bottom-4 left-4 aspect-square h-10 rounded object-contain"
         />
       ) : null}
     </figure>

@@ -27,7 +27,7 @@ export default function AdminLayout({
   return (
     <section
       className={clsx(
-        "relative grid overflow-hidden h-full animate-appear-rtl",
+        "relative grid h-full animate-appear-rtl overflow-hidden",
         isRenderNavbar
           ? "grid-cols-[max-content_1fr]"
           : "grid-rows-[max-content_1fr]",
@@ -47,13 +47,13 @@ export default function AdminLayout({
           {header}
         </AdminHeader>
       )}
-      <main className={clsx(className, "relative overflow-y-auto h-full")}>
+      <main className={clsx(className, "relative h-full overflow-y-auto")}>
         {children}
       </main>
       {footer && (
         <footer
           className={clsx(
-            "flex items-center min-h-[2.5rem] px-4 border-t border-divider justify-between",
+            "flex min-h-[2.5rem] items-center justify-between border-t border-divider px-4",
             isRenderNavbar && "col-span-2",
           )}
         >

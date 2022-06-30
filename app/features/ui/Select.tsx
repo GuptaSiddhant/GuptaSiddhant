@@ -44,8 +44,8 @@ export default function Select({
       title={title}
       className={clsx(
         className,
-        "relative rounded px-2 min-h-input min-w-min",
-        "flex gap-1 items-center text-base",
+        "relative min-h-input min-w-min rounded px-2",
+        "flex items-center gap-1 text-base",
         "bg-secondary hocus-within:bg-tertiary",
         "text-secondary hocus-within:text-tertiary",
       )}
@@ -63,8 +63,8 @@ export default function Select({
         id={selectId}
         ref={selectRef}
         className={clsx(
-          "appearance-none bg-transparent rounded-none",
-          "pl-2 py-2 w-full",
+          "appearance-none rounded-none bg-transparent",
+          "w-full py-2 pl-2",
           onClear ? "pr-10" : "pr-6",
         )}
       >
@@ -73,7 +73,7 @@ export default function Select({
 
       {onClear && props.value ? (
         <ClearIcon
-          className="absolute right-8 fill-red-400 cursor-pointer"
+          className="absolute right-8 cursor-pointer fill-red-400"
           onClick={() => onClear(selectRef)}
           aria-label="Clear filter"
         />

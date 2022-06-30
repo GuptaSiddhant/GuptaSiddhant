@@ -4,7 +4,7 @@ export default function Logo(): JSX.Element | null {
   return (
     <Link
       to="/"
-      className={"select-none text-ellipsis overflow-hidden whitespace-nowrap"}
+      className={"select-none overflow-hidden text-ellipsis whitespace-nowrap"}
     >
       <span
         role="presentation"

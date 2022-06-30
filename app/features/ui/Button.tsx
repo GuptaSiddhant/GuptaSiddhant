@@ -42,9 +42,9 @@ export function PrimaryButton(props: ButtonProps): JSX.Element | null {
     <Button
       {...props}
       className={clsx(
-        "px-4 h-10 flex items-center disabled:cursor-not-allowed",
-        "bg-secondary disabled:bg-disabled/10 hocus:enabled:bg-tertiary ",
-        "text-secondary disabled:text-disabled/50 hocus:enabled:text-tertiary",
+        "flex h-10 items-center px-4 disabled:cursor-not-allowed",
+        "disabled:bg-disabled/10 bg-secondary hocus:enabled:bg-tertiary ",
+        "disabled:text-disabled/50 text-secondary hocus:enabled:text-tertiary",
       )}
     />
   )

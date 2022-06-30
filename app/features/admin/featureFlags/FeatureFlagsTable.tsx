@@ -72,7 +72,7 @@ export default function FeatureFlagsTable({
 
   return (
     <Table
-      className="flex-1 w-full h-max"
+      className="h-max w-full flex-1"
       data={tableData}
       columns={tableColumns}
       bodyRowClassName={clsx("border-b border-divider/50")}
@@ -115,9 +115,9 @@ function ToggleCell({
 }) {
   if (!row.flag) {
     return (
-      <label className="flex gap-1 items-center">
+      <label className="flex items-center gap-1">
         <input type="checkbox" name={dev ? "dev" : "prod"} form={FORM_ID} />
-        <span className="text-tertiary text-base">Enable?</span>
+        <span className="text-base text-tertiary">Enable?</span>
       </label>
     )
   }
@@ -151,7 +151,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
   if (!flag) {
     return (
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex flex-wrap gap-4">
         <FormAction
           id={FORM_ID}
           method="post"

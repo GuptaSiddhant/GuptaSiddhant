@@ -35,7 +35,7 @@ export function Toaster({
       <div
         id="toaster"
         className={clsx(
-          "flex flex-col fixed bottom-2 right-2 w-max z-toast gap-2",
+          "fixed bottom-2 right-2 z-toast flex w-max flex-col gap-2",
           "w-[calc(100vw_-_4rem)] xs:w-80",
         )}
       >
@@ -47,7 +47,7 @@ export function Toaster({
           <button
             onClick={dismissAllToasts}
             title="Dismiss all toasts"
-            className="absolute rounded bottom-0 -left-12 w-10 aspect-square bg-secondary hocus:bg-tertiary flex-center animate-appear-btt"
+            className="absolute bottom-0 -left-12 aspect-square w-10 animate-appear-btt rounded bg-secondary flex-center hocus:bg-tertiary"
           >
             <ClearIcon />
             <span className="sr-only">Dismiss all toasts</span>

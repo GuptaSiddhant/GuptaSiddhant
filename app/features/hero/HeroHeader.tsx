@@ -22,7 +22,7 @@ export default function HeroHeader({
   children,
 }: HeroHeaderProps): JSX.Element | null {
   return (
-    <header className={clsx("flex flex-col gap-4 items-start", proseWidth)}>
+    <header className={clsx("flex flex-col items-start gap-4", proseWidth)}>
       <HeroHeaderCaption caption={caption}>{children}</HeroHeaderCaption>
       <div className="mt-4 flex flex-col gap-4">
         <H1 className="text-primary">{title}</H1>
@@ -54,7 +54,7 @@ export function HeroHeaderCaption({
 
   if (typeof caption === "string")
     return (
-      <Caption className="flex justify-between items-center w-full">
+      <Caption className="flex w-full items-center justify-between">
         <span>{caption}</span>
         {children}
       </Caption>
@@ -84,7 +84,7 @@ export function HeroHeaderCaption({
   if (!children) return captionElement
 
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="flex w-full items-center justify-between">
       {captionElement}
       {children}
     </div>

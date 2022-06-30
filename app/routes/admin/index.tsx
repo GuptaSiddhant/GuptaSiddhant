@@ -7,7 +7,7 @@ import { handle as config } from "./settings"
 
 export default function AdminIndex(): JSX.Element | null {
   return (
-    <main className="flex-center flex-col text-disabled">
+    <main className="flex-col text-disabled flex-center">
       <H1>GS Admin</H1>
       <Paragraph>Select an app to begin</Paragraph>
     </main>

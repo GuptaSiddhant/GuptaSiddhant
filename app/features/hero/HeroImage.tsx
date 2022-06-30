@@ -19,18 +19,18 @@ export default function HeroImage({
     <figure
       className={clsx(
         "relative",
-        "-w-full-m4 mx-4 md:-w-full-m8 md:mx-8",
+        "mx-4 -w-full-m4 md:mx-8 md:-w-full-m8",
         "md:aspect-video",
       )}
     >
       <img
         src={src}
         alt={alt}
-        className="object-cover h-full w-full min-h-[50vh] rounded-md"
+        className="h-full min-h-[50vh] w-full rounded-md object-cover"
         loading="eager"
       />
       {caption ? (
-        <figcaption className="text-tertiary text-sm py-2">
+        <figcaption className="py-2 text-sm text-tertiary">
           {caption}
         </figcaption>
       ) : null}
@@ -38,7 +38,7 @@ export default function HeroImage({
         <img
           src={icon}
           alt={alt ? `${alt} icon` : undefined}
-          className="mb-2 h-12 rounded-sm object-contain absolute top-4 left-4"
+          className="absolute top-4 left-4 mb-2 h-12 rounded-sm object-contain"
           loading="eager"
         />
       ) : null}

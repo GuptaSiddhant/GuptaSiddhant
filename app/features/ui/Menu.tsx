@@ -48,14 +48,14 @@ export default function Menu({
           </MenuButton>
           <MenuPopover
             className={clsx(
-              "bg-primary dark:bg-tertiary rounded border border-solid border-gray-500",
-              "block outline-none shadow-lg overflow-y-auto",
-              "z-popover absolute [&[hidden]]:hidden max-h-screen-main",
+              "rounded border border-solid border-gray-500 bg-primary dark:bg-tertiary",
+              "block overflow-y-auto shadow-lg outline-none",
+              "absolute z-popover max-h-screen-main [&[hidden]]:hidden",
             )}
           >
             {header}
 
-            <MenuItems className="py-2 whitespace-nowrap">
+            <MenuItems className="whitespace-nowrap py-2">
               {actions.map((props) =>
                 "to" in props ? (
                   <MenuLink

@@ -16,8 +16,8 @@ export default function AdminDashboard({
   children,
 }: AdminDashboardProps): JSX.Element | null {
   return (
-    <div className="flex-center w-full h-full flex-col gap-4 p-4">
-      <div className="[&>*]:scale-[2] m-4">{icon}</div>
+    <div className="h-full w-full flex-col gap-4 p-4 flex-center">
+      <div className="m-4 [&>*]:scale-[2]">{icon}</div>
       <Caption className="w-full pb-4 text-center">{name}</Caption>
       {children}
     </div>

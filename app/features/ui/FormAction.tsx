@@ -26,7 +26,7 @@ export default function FormAction({
         <input key={key} name={key} value={value} type={"hidden"} />
       ))}
       <input type="hidden" name="origin" value={origin} />
-      <button title={title} className={clsx(className, "flex-center gap-2")}>
+      <button title={title} className={clsx(className, "gap-2 flex-center")}>
         {children}
       </button>
     </Form>

@@ -41,7 +41,7 @@ export default function Lifeline({
         id="lifeline"
         className={clsx(
           proseWidth,
-          "border-l border-divider pl-4 flex flex-col gap-12 py-12 w-full",
+          "flex w-full flex-col gap-12 border-l border-divider py-12 pl-4",
         )}
         toc={toc}
       >
@@ -74,7 +74,7 @@ function LifelineDivider({
           <div
             role="presentation"
             className={clsx(
-              "absolute -left-6 top-2 w-4 h-4 rounded-full bg-inverse",
+              "absolute -left-6 top-2 h-4 w-4 rounded-full bg-inverse",
             )}
           />
         </Caption>

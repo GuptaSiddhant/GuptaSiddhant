@@ -13,7 +13,7 @@ export default function Section({
       {...props}
       className={clsx(
         "relative",
-        "w-full py-[10vh] scroll-mt-header-height",
+        "w-full scroll-mt-header-height py-[5vh] md:py-[10vh]",
         "flex flex-col gap-12",
         className,
       )}

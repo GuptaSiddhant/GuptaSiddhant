@@ -7,9 +7,8 @@ import {
   useState,
 } from "react"
 
-import type { BaseProps } from "~/features/types"
-
 import { generateHeadingId } from "~/features/helpers"
+import type { BaseProps } from "~/features/types"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 

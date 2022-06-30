@@ -32,7 +32,7 @@ export default function Input({
         list={datalistId}
         className={clsx(
           className,
-          "bg-default flex-1 rounded px-2 py-1 text-base",
+          "flex-1 rounded bg-default px-2 py-1 text-base",
         )}
       />
       {datalist && datalist.length > 0 ? (

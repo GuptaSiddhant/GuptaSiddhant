@@ -56,18 +56,18 @@ function TeaserListCard({
       <article
         className={clsx(
           className,
-          "relative md:-mx-4 rounded-lg h-full",
+          "relative h-full rounded-lg md:-mx-4",
           "bg-default group-hover:bg-secondary group-focus:bg-secondary",
-          "grid overflow-clip grid-cols-1 grid-rows-[150px_auto] md:grid-cols-[250px_1fr] md:grid-rows-none",
+          "grid grid-cols-1 grid-rows-[150px_auto] overflow-clip md:grid-cols-[250px_1fr] md:grid-rows-none",
         )}
       >
-        <aside className={clsx("w-full h-full self-stretch overflow-hidden")}>
+        <aside className={clsx("h-full w-full self-stretch overflow-hidden")}>
           {cover ? (
             <Img
               src={cover}
               alt={title}
               className={clsx(
-                "object-cover w-full h-full",
+                "h-full w-full object-cover",
                 "transition-transform duration-300",
                 "group-hover:scale-105 group-focus:scale-105",
               )}
@@ -75,10 +75,10 @@ function TeaserListCard({
           ) : null}
         </aside>
 
-        <main className="p-4 flex-1 self-center">
-          <div className="font-bold text-xl my-2">{title}</div>
+        <main className="flex-1 self-center p-4">
+          <div className="my-2 text-xl font-bold">{title}</div>
           {subtitle ? (
-            <div className="italic text-base text-secondary">{subtitle}</div>
+            <div className="text-base italic text-secondary">{subtitle}</div>
           ) : null}
           {date ? (
             <time dateTime={date} className="text-sm text-tertiary">
@@ -91,7 +91,7 @@ function TeaserListCard({
               {description ? (
                 <span className="text-tertiary">{description} </span>
               ) : null}
-              <span className="text-link whitespace-nowrap">
+              <span className="whitespace-nowrap text-link">
                 {"Read post >"}
               </span>
             </div>

@@ -33,7 +33,7 @@ export default function CodeBlock({
     <output
       className={clsx(
         className,
-        "-mx-4 bg-inverse dark:bg-default rounded-lg block relative",
+        "relative -mx-4 block rounded-lg bg-inverse dark:bg-default",
       )}
     >
       <Highlight
@@ -73,7 +73,7 @@ function CodePre({
   wrap,
 }: CodePreProps): JSX.Element | null {
   return (
-    <div className="rounded-md font-normal w-full border border-divider dark:border-0 text-sm">
+    <div className="w-full rounded-md border border-divider text-sm font-normal dark:border-0">
       <pre className={clsx(className, `overflow-scroll !bg-transparent`)}>
         <code className={clsx(className, "match-braces")} style={{}}>
           {tokens.map((line, i) => (
@@ -117,12 +117,12 @@ function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
     <div
       className={clsx(
         className,
-        "absolute text-sm z-[1] rounded-md -top-2 right-4 px-2",
+        "absolute -top-2 right-4 z-[1] rounded-md px-2 text-sm",
         "flex items-center gap-2",
       )}
     >
       {copyText ? (
-        <CopyButton className="text-sm font-monospace border-r-[1px] border-divider pr-1">
+        <CopyButton className="border-r-[1px] border-divider pr-1 font-monospace text-sm">
           {copyText}
         </CopyButton>
       ) : null}

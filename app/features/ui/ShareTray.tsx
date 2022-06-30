@@ -14,7 +14,7 @@ export default function ShareTray(props: ShareTrayProps): JSX.Element | null {
   if (!props.url) return null
 
   return (
-    <div className="flex flex-end gap-4 items-center">
+    <div className="flex-end flex items-center gap-4">
       <FacebookShareButton {...props} />
       <LinkedInShareButton {...props} />
       <TweetButton {...props} />
