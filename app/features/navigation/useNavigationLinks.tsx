@@ -56,8 +56,9 @@ export default function useNavigationLinks({
       children: <MailIcon />,
     })
 
-  if (enableSearch)
-    links.push({ id: "Search", onClick: () => {}, children: <SearchIcon /> })
+  // Buttons
+
+  if (enableSearch) links.push({ id: "Search", children: <SearchIcon /> })
 
   links.push({
     id: "theme",

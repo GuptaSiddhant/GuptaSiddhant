@@ -7,3 +7,5 @@ export const loader: LoaderFunction = ({ params }) => {
 
   return redirect(`/about/#${splat}`, 301)
 }
+
+export function CatchBoundary() {}

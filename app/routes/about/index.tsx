@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
@@ -41,8 +41,6 @@ export default function About(): JSX.Element {
 
   return (
     <>
-      <Outlet />
-
       <AboutHero />
 
       <Lifeline lifeline={lifeline} toc={lifelineToc} />

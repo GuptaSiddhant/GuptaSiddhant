@@ -1,23 +1,23 @@
 import clsx from "clsx"
-import type { ReactNode } from "react"
-
-import { type TocItem } from "~/features/helpers/table-of-contents"
 
 import Section, { proseReaderClassName } from "./Section"
-import TableOfContent from "./TableOfContent"
 
 export interface ReaderProps {
   id?: string
-  children?: ReactNode
+  children?: React.ReactNode
   className?: string
-  toc?: TocItem[]
+
+  leftColumn?: React.ReactNode
+  rightColumn?: React.ReactNode
 }
 
 export default function Reader({
   children,
-  toc = [],
+
   id,
   className = proseReaderClassName,
+  leftColumn,
+  rightColumn,
 }: ReaderProps): JSX.Element | null {
   if (!children) return null
 
@@ -26,12 +26,28 @@ export default function Reader({
       id={id}
       className={clsx(
         "relative mx-auto rounded md:w-max",
-        "md:!grid lg:grid-cols-[200px_auto] xl:grid-cols-[200px_1fr_200px]",
+        "md:!grid md:grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr]",
       )}
+      style={{ gridTemplateAreas: '"left main right"' }}
     >
-      <TableOfContent toc={toc} />
+      {leftColumn ? (
+        <aside className={clsx("text-sm")} style={{ gridArea: "left" }}>
+          <div className="sticky top-20 overflow-visible">{leftColumn}</div>
+        </aside>
+      ) : null}
 
-      <main className={clsx(className, "px-4 sm:mx-auto")}>{children}</main>
+      <main
+        className={clsx(className, "px-4 sm:mx-auto")}
+        style={{ gridArea: "main" }}
+      >
+        {children}
+      </main>
+
+      {rightColumn ? (
+        <aside className={clsx("text-sm")} style={{ gridArea: "right" }}>
+          <div className="sticky top-20 overflow-visible">{rightColumn}</div>
+        </aside>
+      ) : null}
     </Section>
   )
 }

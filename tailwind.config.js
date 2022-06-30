@@ -111,7 +111,7 @@ const config = {
 
   plugins: [
     require("@tailwindcss/typography"),
-    plugin(({ addVariant, addUtilities, addBase }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant("hocus", ["&:hover", "&:focus"])
       addVariant("hocus-within", ["&:hover", "&:focus-within"])
       addVariant("group-hocus", [".group:hover &", ".group:focus &"])

@@ -24,6 +24,7 @@ import { ErrorSection } from "~/features/ui/Error"
 import Mdx from "~/features/ui/Mdx"
 import Reader from "~/features/ui/Reader"
 import ShareTray from "~/features/ui/ShareTray"
+import TableOfContent from "~/features/ui/TableOfContent"
 import Tags from "~/features/ui/Tags"
 import { H2 } from "~/features/ui/Text"
 
@@ -66,7 +67,7 @@ export const meta: MetaFunction = ({ data, params }) =>
   })
 
 export default function ProjectDetails(): JSX.Element {
-  const { post, url, mdx, toc, crossSell } = useLoaderData<LoaderData>()
+  const { post, url, mdx, toc = [], crossSell } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = post
 
   return (
@@ -92,7 +93,7 @@ export default function ProjectDetails(): JSX.Element {
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 
-      <Reader id="main-content" toc={toc}>
+      <Reader id="main-content" leftColumn={<TableOfContent toc={toc} />}>
         <Mdx mdx={mdx} />
       </Reader>
 

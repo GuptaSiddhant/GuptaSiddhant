@@ -1,12 +1,6 @@
-import type { ReactNode } from "react"
+import type { CareerProps, EducationProps } from "~/features/about"
 
-import type { CareerProps, EducationProps } from "~/features/aboutt"
-
-export interface LifelineDividerProps {
-  id: string
-  type: "year"
-  children: ReactNode
-}
+import { type LifelineDividerProps } from "./LifelineDivider"
 
 export type LifeLineItem = LifelineDividerProps | EducationProps | CareerProps
 

@@ -22,8 +22,8 @@ export default function TeaserHero({
     <Hero>
       <Hero.Header title={title} subtitle={subtitle} />
       <Hero.Description>
-        <TeaserFilterSortForm {...props} />
         {children}
+        <TeaserFilterSortForm {...props} />
       </Hero.Description>
     </Hero>
   )

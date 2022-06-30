@@ -22,16 +22,13 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
   const tocHighestLevel = arrangedToc[0]?.level || 1
 
   return (
-    <aside className={clsx("text-sm")}>
-      {toc ? (
-        <section className="sticky top-20 hidden overflow-visible lg:block">
-          <InlineTableOfContent
-            toc={arrangedToc}
-            highestLevel={tocHighestLevel}
-            activeId={activeId}
-          />
-        </section>
-      ) : null}
+    <>
+      <InlineTableOfContent
+        toc={arrangedToc}
+        highestLevel={tocHighestLevel}
+        activeId={activeId}
+        className="hidden lg:block"
+      />
 
       <FloatingTableOfContent
         toc={toc}
@@ -39,7 +36,7 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
         className="lg:hidden"
         activeId={activeId}
       />
-    </aside>
+    </>
   )
 }
 
@@ -94,10 +91,11 @@ export function FloatingTableOfContent({
 
 export function InlineTableOfContent({
   toc,
+  className,
   ...options
 }: TableOfContentProps): JSX.Element {
   return (
-    <nav className={"list-none"}>
+    <nav className={clsx(className, "list-none")}>
       {toc.map((item) => (
         <TocListItem key={item.id} tocItem={item} {...options} />
       ))}
