@@ -17,6 +17,8 @@ export interface MenuProps {
   className?: string
   children?: React.ReactNode
   actions: MenuActionProps[]
+  header?: React.ReactNode
+  footer?: React.ReactNode
 }
 
 export type MenuActionProps = {
@@ -28,10 +30,13 @@ export default function Menu({
   className,
   children,
   actions,
+  header,
+  footer,
 }: MenuProps): JSX.Element | null {
   const actionClassName = clsx(
     "px-4 py-2 text-secondary",
-    "[&[data-selected]]:bg-blue-800 [&[data-selected]]:text-primary",
+    "[&[data-selected]]:bg-blue-200 dark:[&[data-selected]]:bg-blue-800",
+    "[&[data-selected]]:text-primary",
   )
 
   return (
@@ -48,7 +53,9 @@ export default function Menu({
               "z-popover absolute [&[hidden]]:hidden max-h-screen-main",
             )}
           >
-            <MenuItems className="py-2 whitespace-nowrap ">
+            {header}
+
+            <MenuItems className="py-2 whitespace-nowrap">
               {actions.map((props) =>
                 "to" in props ? (
                   <MenuLink
@@ -67,6 +74,8 @@ export default function Menu({
                 ),
               )}
             </MenuItems>
+
+            {footer}
           </MenuPopover>
         </>
       )}

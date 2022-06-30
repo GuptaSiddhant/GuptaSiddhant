@@ -25,7 +25,7 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
     <aside className={clsx("text-sm")}>
       {toc ? (
         <section className="sticky top-20 overflow-visible hidden lg:block">
-          <TableOfContentInline
+          <InlineTableOfContent
             toc={arrangedToc}
             highestLevel={tocHighestLevel}
             activeId={activeId}
@@ -33,7 +33,7 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
         </section>
       ) : null}
 
-      <TableOfContentFloating
+      <FloatingTableOfContent
         toc={toc}
         highestLevel={tocHighestLevel}
         className="lg:hidden"
@@ -52,7 +52,7 @@ export interface TableOfContentProps {
 
 // Floating
 
-export function TableOfContentFloating({
+export function FloatingTableOfContent({
   toc,
   highestLevel,
   className,
@@ -92,7 +92,7 @@ export function TableOfContentFloating({
 
 // Inline
 
-export function TableOfContentInline({
+export function InlineTableOfContent({
   toc,
   ...options
 }: TableOfContentProps): JSX.Element {
@@ -137,7 +137,7 @@ function TocListAccordion({
       <summary className="-indent-4">
         <TocItemLink id={id} activeId={options.activeId} text={text} />
       </summary>
-      <TableOfContentInline toc={children} {...options} />
+      <InlineTableOfContent toc={children} {...options} />
     </details>
   )
 }

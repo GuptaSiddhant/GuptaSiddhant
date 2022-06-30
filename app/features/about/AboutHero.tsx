@@ -21,7 +21,7 @@ export default function AboutHero(): JSX.Element | null {
         ))}
         <ExternalLink href="/resume.pdf" className="flex-center gap-2 w-max">
           <ResumeIcon />
-          Resume
+          Download Resume
         </ExternalLink>
       </Hero.Description>
     </Hero>

@@ -42,7 +42,9 @@ export default function About(): JSX.Element {
   return (
     <>
       <Outlet />
+
       <AboutHero />
+
       <Lifeline lifeline={lifeline} toc={lifelineToc} />
     </>
   )

@@ -36,8 +36,8 @@ export default function AppLayout({
         ref={headerRef}
         className={clsx(
           "fixed top-0 left-0 right-0 z-layout bg-default",
-          "grid grid-rows-2 sm:grid-rows-none sm:grid-cols-[1fr_max-content] items-baseline",
-          "py-2 px-4 sm:px-8",
+          "flex justify-between items-center",
+          "py-2 px-8",
         )}
       >
         <Logo />
