@@ -18,7 +18,8 @@ import { capitalize } from "~/features/helpers/format"
 import type { TocItem } from "~/features/helpers/table-of-contents"
 import type { LinkObject } from "~/features/types"
 import { ExternalLink } from "~/features/ui/Link"
-import Section, { proseWidth } from "~/features/ui/Section"
+import Reader from "~/features/ui/Reader"
+import { proseWidth } from "~/features/ui/Section"
 import { Caption } from "~/features/ui/Text"
 
 import type { LifelineDividerProps, LifeLineItems } from "."
@@ -36,7 +37,7 @@ export default function Lifeline({
 }: LifelineProps): JSX.Element | null {
   return (
     <LifelineContextProvider>
-      <Section.Reader
+      <Reader
         id="lifeline"
         className={clsx(
           proseWidth,
@@ -49,7 +50,7 @@ export default function Lifeline({
           if ("position" in item) return <CareerCard key={item.id} {...item} />
           return <LifelineDivider key={item.id} {...item} />
         })}
-      </Section.Reader>
+      </Reader>
     </LifelineContextProvider>
   )
 }

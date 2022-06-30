@@ -1,11 +1,9 @@
-// import { __IS_SERVER__ } from "~/helpers"
-// import { DEFAULT_SCROLL_OFFSET } from "~/helpers/constants"
-import { useEffect, useReducer, useRef } from "react"
+import { useReducer, useRef } from "react"
 
+import { __IS_SERVER_WIN__, DEFAULT_SCROLL_OFFSET } from "~/features/constants"
+
+import useEventListener from "./useEventListener"
 import useThrottle from "./useThrottle"
-
-const __IS_SERVER__ = typeof document === "undefined"
-const DEFAULT_SCROLL_OFFSET = 500
 
 interface OffsetScrollState {
   scrollTop: number
@@ -22,7 +20,7 @@ const initialState: OffsetScrollState = {
 export default function useOffsetScroll(
   offsetY: number = DEFAULT_SCROLL_OFFSET,
 ): OffsetScrollState {
-  const lastScrollTopRef = useRef(__IS_SERVER__ ? 0 : window.pageYOffset)
+  const lastScrollTopRef = useRef(__IS_SERVER_WIN__ ? 0 : window.pageYOffset)
   const [state, dispatch] = useReducer(
     (state: OffsetScrollState, payload: Partial<OffsetScrollState>) => ({
       ...state,
@@ -41,10 +39,7 @@ export default function useOffsetScroll(
     dispatch({ scrollTop, isOffsetScrolled, scrollDirection })
   }, 500)
 
-  useEffect(() => {
-    window.addEventListener("scroll", throttledHandler)
-    return () => window.removeEventListener("scroll", throttledHandler)
-  }, [throttledHandler])
+  useEventListener("scroll", throttledHandler, { immediate: true })
 
   return state
 }

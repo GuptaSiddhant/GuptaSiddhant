@@ -1,3 +1,11 @@
+import { useLocation } from "@remix-run/react"
+import { useEffect, useMemo, useState } from "react"
+
+import useEventListener from "~/features/hooks/useEventListener"
+
+import { __IS_SERVER_WIN__ } from "../constants"
+import useThrottle from "../hooks/useThrottle"
+
 export interface TocItem {
   level: number
   id: string
@@ -25,4 +33,44 @@ export function arrangeTocByLevels(
   currentItem.children = [...subArray.reduce(arrangeTocByLevels, [])]
 
   return [...toc, currentItem]
+}
+
+export function useCurrentActiveId(toc: TocItem[]): string {
+  const [activeId, setActiveId] = useState<string>("appendix")
+
+  const { hash } = useLocation()
+  useEffect(() => {
+    const id = hash.replace("#", "")
+    if (toc.find((item) => item.id === id)) {
+      setActiveId(id)
+    }
+  }, [toc, hash])
+
+  const elements = useMemo(
+    () =>
+      toc.map(({ id }) =>
+        __IS_SERVER_WIN__ ? null : document.getElementById(id),
+      ),
+    [toc],
+  )
+
+  const [throttledHandler] = useThrottle(() => {
+    const elementsAfterScroll = elements.filter((element) => {
+      if (!element) return false
+
+      const elementTop = element.getBoundingClientRect().top
+      const elementPositionTop = elementTop
+
+      return elementPositionTop <= 100
+    })
+
+    const lastElementAfterScroll =
+      elementsAfterScroll[elementsAfterScroll.length - 1]
+
+    if (lastElementAfterScroll) setActiveId(lastElementAfterScroll.id)
+  }, 500)
+
+  useEventListener("scroll", throttledHandler, { immediate: true })
+
+  return activeId
 }

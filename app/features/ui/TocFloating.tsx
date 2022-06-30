@@ -3,7 +3,6 @@ import { useMemo } from "react"
 import TocIcon from "remixicon-react/FileListLineIcon"
 
 import { type TocItem } from "~/features/helpers/table-of-contents"
-
 import { fabBottomLeftClassName } from "~/features/ui/Button"
 import Menu, { type MenuActionProps } from "~/features/ui/Menu"
 

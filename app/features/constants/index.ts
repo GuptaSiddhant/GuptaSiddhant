@@ -9,3 +9,5 @@ export const CSS_VAR_HEADER_HEIGHT = "--header-height"
 
 // Defaults
 export const DEFAULT_TOC_MAX_LEVEL = 4
+export const DEFAULT_SCROLL_OFFSET = 500
+export const __IS_SERVER_WIN__ = typeof window === "undefined"

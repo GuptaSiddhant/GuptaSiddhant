@@ -3,58 +3,82 @@ import clsx from "clsx"
 import { useMemo } from "react"
 import TocIcon from "remixicon-react/FileListLineIcon"
 
-import type { TocItem } from "~/features/helpers/table-of-contents"
+import {
+  type TocItem,
+  arrangeTocByLevels,
+  useCurrentActiveId,
+} from "~/features/helpers/table-of-contents"
 import { fabBottomLeftClassName } from "~/features/ui/Button"
 import Menu, { type MenuActionProps } from "~/features/ui/Menu"
 
 const TOC_LEVEL_GAP = 8
 
-export interface TocInlineProps extends TocListItemOptions {
-  toc: TocItem[]
-}
+export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
+  const activeId = useCurrentActiveId(toc)
 
-function TableOfContents({
-  toc = [],
-  floating,
-  ...props
-}: {
-  toc?: TocItem[]
-  highestLevel: number
-  activeId?: string
-  className?: string
-  floating?: boolean
-}) {
   if (toc.length === 0) return null
 
-  if (floating) return <TocFloating toc={toc} {...props} />
+  const arrangedToc = toc.reduce(arrangeTocByLevels, [])
+  const tocHighestLevel = arrangedToc[0]?.level || 1
 
-  return <TocInline toc={toc} {...props} />
+  return (
+    <aside className={clsx("text-sm")}>
+      {toc ? (
+        <section className="sticky top-20 overflow-visible hidden lg:block">
+          <TableOfContentInline
+            toc={arrangedToc}
+            highestLevel={tocHighestLevel}
+            activeId={activeId}
+          />
+        </section>
+      ) : null}
+
+      <TableOfContentFloating
+        toc={toc}
+        highestLevel={tocHighestLevel}
+        className="lg:hidden"
+        activeId={activeId}
+      />
+    </aside>
+  )
 }
 
-interface TocFloatingProps {
+export interface TableOfContentProps {
   toc: TocItem[]
   highestLevel: number
   activeId?: string
   className?: string
 }
 
-function TocFloating({
+// Floating
+
+export function TableOfContentFloating({
   toc,
   highestLevel,
   className,
-}: TocFloatingProps): JSX.Element | null {
+  activeId,
+}: TableOfContentProps): JSX.Element | null {
   const actions: MenuActionProps[] | undefined = useMemo(
     () =>
-      toc?.map(({ id, text, level }) => ({
-        id,
-        children: (
-          <span style={{ paddingLeft: (level - highestLevel) * TOC_LEVEL_GAP }}>
-            {text}
-          </span>
-        ),
-        to: `#${id}`,
-      })),
-    [toc, highestLevel],
+      toc?.map(({ id, text, level }) => {
+        const isActive = activeId?.toLowerCase() === id.toLowerCase()
+
+        return {
+          id,
+          children: (
+            <span
+              style={{
+                paddingLeft: (level - highestLevel) * TOC_LEVEL_GAP,
+                fontWeight: isActive ? "bold" : "normal",
+              }}
+            >
+              {text}
+            </span>
+          ),
+          to: `#${id}`,
+        }
+      }),
+    [toc, highestLevel, activeId],
   )
 
   if (!actions || actions.length === 0) return null
@@ -66,10 +90,12 @@ function TocFloating({
   )
 }
 
-export default function TocInline({
+// Inline
+
+export function TableOfContentInline({
   toc,
   ...options
-}: TocInlineProps): JSX.Element {
+}: TableOfContentProps): JSX.Element {
   return (
     <nav className={"list-none"}>
       {toc.map((item) => (
@@ -79,10 +105,7 @@ export default function TocInline({
   )
 }
 
-interface TocListItemOptions {
-  highestLevel: number
-  activeId?: string
-}
+type TocListItemOptions = Pick<TableOfContentProps, "highestLevel" | "activeId">
 
 interface TocListItemProps extends TocListItemOptions {
   tocItem: TocItem
@@ -114,7 +137,7 @@ function TocListAccordion({
       <summary className="-indent-4">
         <TocItemLink id={id} activeId={options.activeId} text={text} />
       </summary>
-      <TocInline toc={children} {...options} />
+      <TableOfContentInline toc={children} {...options} />
     </details>
   )
 }
@@ -140,7 +163,7 @@ function TocItemLink({
   activeId?: string
   text: string
 }): JSX.Element | null {
-  const isActive = activeId === id
+  const isActive = activeId?.toLowerCase() === id.toLowerCase()
 
   return (
     <Link

@@ -22,7 +22,7 @@ import TeaserCarousel from "~/features/teaser/TeaserCarousel"
 import Divider from "~/features/ui/Divider"
 import { ErrorSection } from "~/features/ui/Error"
 import Mdx from "~/features/ui/Mdx"
-import Section from "~/features/ui/Section"
+import Reader from "~/features/ui/Reader"
 import ShareTray from "~/features/ui/ShareTray"
 import Tags from "~/features/ui/Tags"
 import { H2 } from "~/features/ui/Text"
@@ -92,9 +92,9 @@ export default function ProjectDetails(): JSX.Element {
         <Hero.Image src={cover} alt={title} icon={icon} />
       </Hero>
 
-      <Section.Reader id="main-content" toc={toc}>
+      <Reader id="main-content" toc={toc}>
         <Mdx mdx={mdx} />
-      </Section.Reader>
+      </Reader>
 
       <Divider />
 
