@@ -1,5 +1,6 @@
 import type { MetaDescriptor } from "@remix-run/server-runtime"
 import type { ReactNode } from "react"
+import AdminIcon from "remixicon-react/AdminFillIcon"
 
 import type { To } from "~/features/types"
 
@@ -17,3 +18,5 @@ export function createAdminMeta(title?: string): MetaDescriptor {
 
   return { title: `${title} | ${adminTitle}` }
 }
+
+export { AdminIcon }

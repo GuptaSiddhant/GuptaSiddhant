@@ -26,7 +26,7 @@ export default function Reader({
       id={id}
       className={clsx(
         "relative mx-auto w-full max-w-full md:max-w-[1500px]",
-        "sm:grid-col-1 grid gap-0 xl:grid-cols-[15rem_1fr_15rem]",
+        "grid grid-cols-1 gap-0 xl:grid-cols-[15rem_1fr_15rem]",
         (leftColumn || rightColumn) && "md:grid-cols-[max-content_1fr]",
       )}
     >
@@ -34,7 +34,9 @@ export default function Reader({
         <div className="top-20 overflow-visible md:sticky">{leftColumn}</div>
       </aside>
 
-      <main className={clsx(className, "px-4 sm:mx-auto")}>{children}</main>
+      <main className={clsx(className, "w-full px-4 sm:mx-auto")}>
+        {children}
+      </main>
 
       <aside className={clsx("z-[10] text-sm md:col-span-2 xl:col-span-1")}>
         <div className="top-20 overflow-visible md:sticky">{rightColumn}</div>

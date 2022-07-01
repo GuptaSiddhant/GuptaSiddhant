@@ -1,9 +1,11 @@
+import { useNavigate } from "@remix-run/react"
 import GithubIcon from "remixicon-react/GithubFillIcon"
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
 
 import { type AboutInfo } from "~/features/about"
+import { AdminIcon } from "~/features/admin"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import type { ThemeName } from "~/features/theme"
 import ThemeToggleButton from "~/features/theme/ThemeToggleButton"
@@ -20,17 +22,13 @@ export interface UseNavigationLinksProps {
 export default function useNavigationLinks({
   about,
   navigationRemoteConfig,
-  isAuthenticated,
   themeName,
 }: UseNavigationLinksProps): NavigationLinkProps[] {
+  const navigate = useNavigate()
   const { enableSearch } = navigationRemoteConfig
   const { email, github, linkedin } = about.link || {}
 
   const links: NavigationLinkProps[] = []
-
-  if (isAuthenticated) {
-    links.push({ id: "admin", to: "/admin", children: "Admin" })
-  }
 
   links.push(
     { id: "about", to: "/about", children: "About" },
@@ -61,7 +59,13 @@ export default function useNavigationLinks({
   if (enableSearch) links.push({ id: "Search", children: <SearchIcon /> })
 
   links.push({
-    id: "theme",
+    id: "Admin",
+    onClick: () => navigate("/admin"),
+    children: <AdminIcon />,
+  })
+
+  links.push({
+    id: "Theme",
     children: <ThemeToggleButton themeName={themeName} />,
   })
 

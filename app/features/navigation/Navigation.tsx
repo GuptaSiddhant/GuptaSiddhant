@@ -96,7 +96,7 @@ function ButtonsList({
   buttons: NavigationLinkProps[]
 }): JSX.Element | null {
   return (
-    <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
+    <ul className="flex items-center justify-start gap-4 text-lg text-secondary">
       {buttons.map(({ id, onClick, children }) => {
         if (!onClick) return <Fragment key={id}>{children}</Fragment>
 

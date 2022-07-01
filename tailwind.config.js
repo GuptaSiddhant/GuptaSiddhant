@@ -65,6 +65,7 @@ const config = {
       }),
 
       screens: {
+        "small-only": { max: "640px" },
         xs: "400px",
         "2xl": "1700px",
         "3xl": "2200px",
@@ -99,6 +100,10 @@ const config = {
         "-full-m4": "calc(100% - 2rem)",
         "full-m8": "calc(100% + 4rem)",
         "-full-m8": "calc(100% - 4rem)",
+        "screen-m4": "calc(100vw + 2rem)",
+        "-screen-m4": "calc(100vw - 2rem)",
+        "screen-m8": "calc(100vw + 4rem)",
+        "-screen-m8": "calc(100vw - 4rem)",
       },
       fontFamily: {
         inherit: "inherit",

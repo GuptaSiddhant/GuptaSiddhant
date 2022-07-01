@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import clsx from "clsx"
-import AdminIcon from "remixicon-react/AdminFillIcon"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 
+import { AdminIcon } from "~/features/admin"
 import AdminLink, { type AdminLinkProps } from "~/features/admin/AdminLink"
 import { AdminContext } from "~/features/admin/context"
 import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
+import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "~/features/service/auth.server"
 import {
   getIsFeatureEnabled,
@@ -31,6 +32,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function AdminIndex(): JSX.Element {
+  useBlockNativeScroll()
   const { defaultNavbarCollapsed } = useLoaderData<LoaderData>()
 
   const adminAppLinks: AdminLinkProps[] = handle.apps.map((app) => ({
@@ -48,8 +50,8 @@ export default function AdminIndex(): JSX.Element {
       <section
         id="admin"
         className={clsx(
-          "fixed inset-0 h-screen w-screen p-4",
-          "grid grid-cols-[3rem_1fr]",
+          "fixed inset-0 h-screen -w-screen-m4 py-4",
+          "mx-4 grid grid-cols-[3rem_1fr] bg-primary",
         )}
         style={{
           paddingTop: `var(${CSS_VAR_HEADER_HEIGHT})`,

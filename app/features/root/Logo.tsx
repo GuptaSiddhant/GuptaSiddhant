@@ -16,7 +16,7 @@ export default function Logo(): JSX.Element | null {
       </span>
       <span
         className={
-          "text-xl font-black uppercase leading-normal tracking-widest text-primary sm:hidden"
+          "text-3xl font-black uppercase leading-none tracking-widest text-primary sm:hidden"
         }
       >
         GS

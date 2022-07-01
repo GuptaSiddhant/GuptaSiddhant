@@ -27,7 +27,7 @@ export default function Section({
 Section.Prose = SectionProse
 
 export const proseWidth = clsx(
-  "min-w-full md:min-w-[64ch] max-w-[64ch] mx-auto px-4",
+  "min-w-full md:min-w-[65ch] max-w-[65ch] mx-auto px-4",
 )
 
 function SectionProse({ className, ...props }: BaseProps): JSX.Element {
@@ -35,5 +35,5 @@ function SectionProse({ className, ...props }: BaseProps): JSX.Element {
 }
 
 export const proseReaderClassName = clsx(
-  "prose prose-blockquote:-ml-4 dark:prose-invert",
+  "prose prose-blockquote:-ml-4 dark:prose-invert small-only:!max-w-full",
 )
