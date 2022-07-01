@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import Section, { proseReaderClassName } from "./Section"
+import { proseReaderClassName } from "./Section"
 
 export interface ReaderProps {
   id?: string
@@ -22,32 +22,23 @@ export default function Reader({
   if (!children) return null
 
   return (
-    <Section
+    <section
       id={id}
       className={clsx(
-        "relative mx-auto rounded md:w-max",
-        "md:!grid md:grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr]",
+        "relative mx-auto w-full max-w-full md:max-w-[1500px]",
+        "sm:grid-col-1 grid gap-0 xl:grid-cols-[15rem_1fr_15rem]",
+        (leftColumn || rightColumn) && "md:grid-cols-[max-content_1fr]",
       )}
-      style={{ gridTemplateAreas: '"left main right"' }}
     >
-      {leftColumn ? (
-        <aside className={clsx("text-sm")} style={{ gridArea: "left" }}>
-          <div className="sticky top-20 overflow-visible">{leftColumn}</div>
-        </aside>
-      ) : null}
+      <aside className={clsx("z-[10] text-sm")}>
+        <div className="top-20 overflow-visible md:sticky">{leftColumn}</div>
+      </aside>
 
-      <main
-        className={clsx(className, "px-4 sm:mx-auto")}
-        style={{ gridArea: "main" }}
-      >
-        {children}
-      </main>
+      <main className={clsx(className, "px-4 sm:mx-auto")}>{children}</main>
 
-      {rightColumn ? (
-        <aside className={clsx("text-sm")} style={{ gridArea: "right" }}>
-          <div className="sticky top-20 overflow-visible">{rightColumn}</div>
-        </aside>
-      ) : null}
-    </Section>
+      <aside className={clsx("z-[10] text-sm md:col-span-2 xl:col-span-1")}>
+        <div className="top-20 overflow-visible md:sticky">{rightColumn}</div>
+      </aside>
+    </section>
   )
 }

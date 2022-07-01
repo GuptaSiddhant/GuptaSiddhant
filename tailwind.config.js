@@ -91,6 +91,9 @@ const config = {
       maxHeight: {
         "screen-main": "calc(100vh - 100px)",
       },
+      maxWidth: {
+        xxs: "15rem",
+      },
       width: {
         "full-m4": "calc(100% + 2rem)",
         "-full-m4": "calc(100% - 2rem)",

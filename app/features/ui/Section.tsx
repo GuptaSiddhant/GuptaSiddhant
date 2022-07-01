@@ -35,6 +35,5 @@ function SectionProse({ className, ...props }: BaseProps): JSX.Element {
 }
 
 export const proseReaderClassName = clsx(
-  "prose prose-blockquote:-ml-4",
-  "dark:prose-invert",
+  "prose prose-blockquote:-ml-4 dark:prose-invert",
 )

@@ -1,4 +1,4 @@
-import { useNavigate } from "@remix-run/react"
+import { useLocation, useNavigate } from "@remix-run/react"
 import {
   type ReactNode,
   createContext,
@@ -23,13 +23,14 @@ export function LifelineContextProvider({
 }: {
   children: ReactNode
 }): JSX.Element | null {
+  const { search } = useLocation()
   const navigate = useNavigate()
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined)
   const changeSelectedId = useCallback((id?: string) => setSelectedId(id), [])
 
   useEffect(() => {
-    if (selectedId) navigate({ hash: selectedId })
-  }, [navigate, selectedId])
+    if (selectedId) navigate({ hash: selectedId, search })
+  }, [navigate, selectedId, search])
 
   useEffect(() => {
     const hash = window.location.hash.split("#")[1]

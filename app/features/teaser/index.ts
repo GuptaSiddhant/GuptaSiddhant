@@ -10,3 +10,14 @@ export interface TeaserProps {
   date?: string
   tags?: string[]
 }
+
+export enum SortByOption {
+  Latest = "latest",
+  Oldest = "oldest",
+  Featured = "featured",
+}
+
+export enum ViewAsOption {
+  Grid = "grid",
+  List = "list",
+}

@@ -20,7 +20,7 @@ export default function HeroImage({
       className={clsx(
         "relative",
         "mx-4 -w-full-m4 md:mx-8 md:-w-full-m8",
-        "md:aspect-video",
+        "md:aspect-video md:max-h-screen",
       )}
     >
       <img

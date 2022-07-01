@@ -27,7 +27,7 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
         toc={arrangedToc}
         highestLevel={tocHighestLevel}
         activeId={activeId}
-        className="hidden lg:block"
+        className="hidden px-8 lg:block"
       />
 
       <FloatingTableOfContent

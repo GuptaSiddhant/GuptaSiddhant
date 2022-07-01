@@ -6,15 +6,29 @@ import type { LifeLineItem, LifeLineItems } from "."
 
 export function createLifeline(
   items: (CareerProps | EducationProps)[],
+  selectedTags: string[] = [],
 ): LifeLineItems {
+  const filteredItems =
+    selectedTags.length > 0
+      ? items.filter((item) =>
+          item.tags
+            ? item.tags.some((tag) => selectedTags.includes(tag.toLowerCase()))
+            : true,
+        )
+      : items
+
   const sortBy: "startDate" | "endDate" = "endDate"
-  const sortedItems = items.sort((a, b) => sortByDate(a[sortBy], b[sortBy]))
+  const sortedItems = filteredItems.sort((a, b) =>
+    sortByDate(a[sortBy], b[sortBy]),
+  )
 
-  const lifeline: LifeLineItems = [
-    { id: "now", children: "Present", type: "year" },
-  ]
+  const lifeline: LifeLineItems = []
 
-  let currentYear: number = new Date().getFullYear()
+  // Start with an year in the future
+  let currentYear: number = new Date().setFullYear(
+    new Date().getFullYear() + 10,
+  )
+
   sortedItems.forEach((item) => {
     const sortByDateString = item[sortBy]
     const itemYear = (

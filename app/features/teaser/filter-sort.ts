@@ -1,33 +1,33 @@
-import { type TeaserProps } from "."
+import { type TeaserProps, SortByOption, ViewAsOption } from "."
 import {
   getUniqueTagsFromTeaserProps,
   sortTeasersByDateOldestFirst,
   sortTeasersByFeatured,
 } from "./helpers"
 
-type ViewAsType = "grid" | "list"
-type SortByType = "latest" | "oldest" | "featured"
-
 export default function filterSortTeasers(
   teasers: TeaserProps[],
   searchParams?: URLSearchParams,
   options?: {
-    defaultViewAs?: ViewAsType
-    defaultSortBy?: SortByType
+    defaultViewAs?: ViewAsOption
+    defaultSortBy?: SortByOption
   },
 ) {
-  const { defaultViewAs = "grid", defaultSortBy = "latest" } = options || {}
+  const {
+    defaultViewAs = ViewAsOption.Grid,
+    defaultSortBy = SortByOption.Latest,
+  } = options || {}
 
   const tags = getUniqueTagsFromTeaserProps(teasers)
 
   const selectedTag = searchParams?.get("tag") ?? undefined
-  const viewAs = (searchParams?.get("view") ?? defaultViewAs) as ViewAsType
-  const sortBy = (searchParams?.get("sort") ?? defaultSortBy) as SortByType
+  const viewAs = (searchParams?.get("view") ?? defaultViewAs) as ViewAsOption
+  const sortBy = (searchParams?.get("sort") ?? defaultSortBy) as SortByOption
 
   const sortPredicate =
-    sortBy === "oldest"
+    sortBy === SortByOption.Oldest
       ? sortTeasersByDateOldestFirst
-      : sortBy === "featured"
+      : sortBy === SortByOption.Featured
       ? sortTeasersByFeatured
       : undefined
 

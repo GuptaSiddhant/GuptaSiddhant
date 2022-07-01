@@ -9,6 +9,7 @@ import { capitalize } from "~/features/helpers/format"
 import RadioGroup from "~/features/ui/RadioGroup"
 import Select from "~/features/ui/Select"
 
+import { SortByOption, ViewAsOption } from "."
 import type { FilterSortTeasersReturn } from "./filter-sort"
 
 export interface TeaserFilterSortFormProps
@@ -41,9 +42,11 @@ export default function TeaserFilterSortForm({
         title="Sort by"
         label={<SortIcon className="scale-90" />}
       >
-        <Select.Option value="latest">Latest first</Select.Option>
-        <Select.Option value="oldest">Oldest first</Select.Option>
-        <Select.Option value="featured">Featured</Select.Option>
+        <Select.Option value={SortByOption.Latest}>Latest first</Select.Option>
+        <Select.Option value={SortByOption.Oldest}>Oldest first</Select.Option>
+        <Select.Option value={SortByOption.Featured}>
+          Featured first
+        </Select.Option>
       </Select>
 
       <Select
@@ -72,8 +75,16 @@ export default function TeaserFilterSortForm({
         name="view"
         value={viewAs}
         options={[
-          { value: "grid", label: <GridIcon />, title: "View as grid" },
-          { value: "list", label: <ListIcon />, title: "View as list" },
+          {
+            value: ViewAsOption.Grid,
+            label: <GridIcon />,
+            title: "View as grid",
+          },
+          {
+            value: ViewAsOption.List,
+            label: <ListIcon />,
+            title: "View as list",
+          },
         ]}
       />
     </Form>

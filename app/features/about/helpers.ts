@@ -36,3 +36,11 @@ export function generateDurationString(
 
   return [start, end].filter(Boolean).join(" - ")
 }
+
+export function generateTagListFromCareerEducationItems<
+  T extends CommonCareerEducationProps,
+>(items: T[]): string[] {
+  const tags = items.map((item) => item.tags || []).flat()
+
+  return Array.from(new Set(tags))
+}

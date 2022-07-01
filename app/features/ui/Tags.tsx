@@ -83,7 +83,7 @@ function TagCheckbox({
 }: ComponentPropsWithoutRef<"input"> & { label?: string }) {
   const htmlId = id || `tag-${value}`
   return (
-    <>
+    <span>
       <input
         id={htmlId}
         {...props}
@@ -107,6 +107,6 @@ function TagCheckbox({
       >
         {label || value}
       </label>
-    </>
+    </span>
   )
 }
