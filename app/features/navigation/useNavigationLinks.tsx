@@ -19,6 +19,12 @@ export interface UseNavigationLinksProps {
   themeName: ThemeName
 }
 
+export const internalNavigationLinks: NavigationLinkProps[] = [
+  { id: "about", to: "/about", children: "About" },
+  { id: "projects", to: "/projects", children: "Projects" },
+  { id: "blog", to: "/blog", children: "Blog" },
+]
+
 export default function useNavigationLinks({
   about,
   navigationRemoteConfig,
@@ -30,11 +36,7 @@ export default function useNavigationLinks({
 
   const links: NavigationLinkProps[] = []
 
-  links.push(
-    { id: "about", to: "/about", children: "About" },
-    { id: "projects", to: "/projects", children: "Projects" },
-    { id: "blog", to: "/blog", children: "Blog" },
-  )
+  links.push(...internalNavigationLinks)
 
   // External
 

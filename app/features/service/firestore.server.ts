@@ -21,18 +21,20 @@ export enum FirestoreCollection {
 
 // Getters
 
-export async function getFirestoreCollection(
+export async function getFirestoreCollection<T extends TransformedDocumentData>(
   collectionName: FirestoreCollection,
-): Promise<DocumentData[]> {
+): Promise<T[]> {
   const key = createCacheKey(CacheType.FirestoreCollection, collectionName)
 
-  return fetchCachedKey(key, () => fetchFireStoreCollection(collectionName))
+  return (await fetchCachedKey(key, () =>
+    fetchFireStoreCollection(collectionName),
+  )) as T[]
 }
 
-export async function getFirestoreDocument(
+export async function getFirestoreDocument<T extends TransformedDocumentData>(
   collectionName: FirestoreCollection,
   docId: string,
-): Promise<TransformedDocumentData> {
+): Promise<T> {
   const value = `${collectionName}/${docId}`
   const key = createCacheKey(CacheType.FirestoreDocument, value)
 
@@ -41,7 +43,7 @@ export async function getFirestoreDocument(
   )
   if (!doc) throw new Error(`Document '${value}' not found`)
 
-  return doc
+  return doc as T
 }
 
 // Fetchers
