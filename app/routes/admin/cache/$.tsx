@@ -3,7 +3,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
-import RefetchIcon from "remixicon-react/RestartLineIcon"
+// import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import AdminLayout from "~/features/admin/AdminLayout"
@@ -14,9 +14,11 @@ import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type ModifyCacheMethod,
   CacheType,
+  getCache,
+  getCachedKey,
   modifyCache,
+  parseCacheKey,
 } from "~/features/service/cache.server"
-import { parseCacheKey } from "~/features/service/cache.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
@@ -38,10 +40,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { type, value } = parseCacheKey(key) || {}
   invariant(type, "Cache type is invalid")
 
-  const data = await cache.fetch(key)
+  const data = await getCachedKey(key)
   if (!data) return redirect("/admin/cache/")
 
-  const ttl = cache.getRemainingTTL(key)
+  const ttl = getCache().getRemainingTTL(key)
   const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
 
   return json<LoaderData>({
@@ -55,27 +57,27 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const { pathname } = new URL(request.url)
   const form = await request.formData()
   const key = form.get("key")?.toString()
-  console.log("[key]", key)
+  const origin = form.get("origin")?.toString()
+
   await modifyCache(request.method as ModifyCacheMethod, key)
 
-  return redirect(pathname)
+  return redirect(origin || "/admin/cache/")
 }
 
 export default function CacheDetails(): JSX.Element | null {
   const { key, data, isStorageUrl } = useLoaderData<LoaderData>()
 
   const actions: NavigationLinkProps[] = [
-    {
-      id: "Refetch",
-      children: (
-        <FormAction body={{ key }} title="Refresh" method="put">
-          <RefetchIcon />
-        </FormAction>
-      ),
-    },
+    // {
+    //   id: "Refetch",
+    //   children: (
+    //     <FormAction body={{ key }} title="Refresh" method="put">
+    //       <RefetchIcon />
+    //     </FormAction>
+    //   ),
+    // },
     {
       id: "Delete",
       children: (
@@ -88,7 +90,7 @@ export default function CacheDetails(): JSX.Element | null {
 
   useTransitionSubmissionToast({
     DELETE: `Deleting cache key "${key}"`,
-    PUT: `Refetching cache key "${key}"`,
+    // PUT: `Refetching cache key "${key}"`,
   })
 
   return (

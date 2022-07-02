@@ -11,8 +11,9 @@ import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
 import type { NavigationLinkProps } from "~/features/navigation/types"
-import cache, {
+import {
   type ModifyCacheMethod,
+  getCache,
   modifyCache,
   parseCacheKey,
 } from "~/features/service/cache.server"
@@ -36,7 +37,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
-  const keys = [...cache.keys()].sort()
+  const keys = [...getCache().keys()].sort()
   const groupMap = createGroupMapFromKeys(keys)
 
   return json<LoaderData>({ keys, pathname, groupMap })

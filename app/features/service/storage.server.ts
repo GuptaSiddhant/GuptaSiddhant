@@ -1,14 +1,15 @@
 import { getStorage } from "firebase-admin/storage"
 
 import { ONE_DAY_IN_MS } from "~/features/constants"
-import cache, { CacheType, createCacheKey } from "./cache.server"
+
+import { CacheType, createCacheKey, fetchCachedKey } from "./cache.server"
 
 // Getters
 
-export async function getFirebaseStorageFileUrl(path: string) {
-  return cache.fetch<string>(
-    createCacheKey(CacheType.FirebaseStorageFileUrl, path),
-  )
+export async function getFirebaseStorageFileUrl(path: string): Promise<string> {
+  const key = createCacheKey(CacheType.FirebaseStorageFileUrl, path)
+
+  return fetchCachedKey(key, () => fetchFirebaseStorageFileUrl(path))
 }
 
 export async function checkFirebaseStorageFileExists(
@@ -19,7 +20,7 @@ export async function checkFirebaseStorageFileExists(
 
 // Fetchers
 
-export async function fetchFirebaseStorageFileUrl(name: string) {
+async function fetchFirebaseStorageFileUrl(name: string) {
   if (name.startsWith("/") || name.startsWith("http")) return name
 
   try {

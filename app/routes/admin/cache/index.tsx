@@ -4,7 +4,7 @@ import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/AdminDashboard"
 import { transformMsToReadableString } from "~/features/helpers/format"
-import cache from "~/features/service/cache.server"
+import { getCache } from "~/features/service/cache.server"
 
 import { handle } from "../cache"
 
@@ -15,7 +15,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async () => {
-  const { size, max, ttl } = cache
+  const { size, max, ttl } = getCache()
 
   return json<LoaderData>({ size, max, ttl })
 }

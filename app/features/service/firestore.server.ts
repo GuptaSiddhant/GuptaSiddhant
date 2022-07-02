@@ -7,7 +7,7 @@ import {
 
 import type { Gallery } from "~/features/types"
 
-import cache, { CacheType, createCacheKey } from "./cache.server"
+import { CacheType, createCacheKey, fetchCachedKey } from "./cache.server"
 
 export enum FirestoreCollection {
   Projects = "projects",
@@ -21,21 +21,23 @@ export enum FirestoreCollection {
 
 // Getters
 
-export async function getFirestoreCollection<T = DocumentData>(
+export async function getFirestoreCollection(
   collectionName: FirestoreCollection,
-): Promise<T[] | undefined> {
-  return cache.fetch<T[]>(
-    createCacheKey(CacheType.FirestoreCollection, collectionName),
-  )
+): Promise<DocumentData[]> {
+  const key = createCacheKey(CacheType.FirestoreCollection, collectionName)
+
+  return fetchCachedKey(key, () => fetchFireStoreCollection(collectionName))
 }
 
-export async function getFirestoreDocument<T = DocumentData>(
+export async function getFirestoreDocument(
   collectionName: FirestoreCollection,
   docId: string,
-): Promise<T> {
+): Promise<TransformedDocumentData> {
   const value = `${collectionName}/${docId}`
-  const doc = await cache.fetch<T>(
-    createCacheKey(CacheType.FirestoreDocument, value),
+  const key = createCacheKey(CacheType.FirestoreDocument, value)
+
+  const doc = await fetchCachedKey(key, () =>
+    fetchFireStoreDocument(collectionName, docId),
   )
   if (!doc) throw new Error(`Document '${value}' not found`)
 
@@ -44,16 +46,19 @@ export async function getFirestoreDocument<T = DocumentData>(
 
 // Fetchers
 
-export async function fetchFireStoreCollection(collectionPath: string) {
+async function fetchFireStoreCollection(collectionPath: string) {
   verifyFirestoreCollection(collectionPath)
   const snapshot = await getFirestore().collection(collectionPath).get()
 
   return Promise.all((snapshot?.docs || []).map(docTransformer))
 }
 
-export async function fetchFireStoreDocument(path: string) {
-  const [collectionPath, documentPath] = path.split("/")
+async function fetchFireStoreDocument(
+  collectionPath: string,
+  documentPath: string,
+) {
   verifyFirestoreCollection(collectionPath)
+
   const doc = await getFirestore()
     .collection(collectionPath)
     .doc(documentPath)
@@ -76,9 +81,9 @@ function verifyFirestoreCollection(collectionPath: string) {
   }
 }
 
-async function docTransformer<T extends DocumentData & BaseData>(
+async function docTransformer<T extends TransformedDocumentData>(
   doc?: DocumentSnapshot<T>,
-): Promise<T> {
+): Promise<TransformedDocumentData> {
   if (!doc?.exists) throw new Error(`FirestoreDocument does not exist.`)
 
   const data = doc.data()
@@ -101,3 +106,5 @@ export interface BaseData {
   gallery?: Gallery
   content?: string
 }
+
+export type TransformedDocumentData = BaseData & DocumentData
