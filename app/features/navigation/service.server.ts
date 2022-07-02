@@ -3,7 +3,7 @@ import {
   RemoteConfigKey,
 } from "~/features/service/feature-flag.server"
 
-const navigationRemoteConfigKeys = [RemoteConfigKey.Search] as const
+const navigationRemoteConfigKeys = [RemoteConfigKey.EnableSearch] as const
 
 // Helpers
 

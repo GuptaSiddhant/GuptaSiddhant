@@ -9,31 +9,21 @@ import { AdminContext } from "~/features/admin/context"
 import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
 import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "~/features/service/auth.server"
-import {
-  getIsFeatureEnabled,
-  RemoteConfigKey,
-} from "~/features/service/feature-flag.server"
 import { ErrorSection } from "~/features/ui/Error"
 
 import { handle } from "./admin/index"
 
-interface LoaderData {
-  defaultNavbarCollapsed: boolean
-}
+interface LoaderData {}
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
 
-  const defaultNavbarCollapsed = await getIsFeatureEnabled(
-    RemoteConfigKey.AdminNavCollapsed,
-  )
-
-  return json<LoaderData>({ defaultNavbarCollapsed })
+  return json<LoaderData>({})
 }
 
 export default function AdminIndex(): JSX.Element {
   useBlockNativeScroll()
-  const { defaultNavbarCollapsed } = useLoaderData<LoaderData>()
+  const {} = useLoaderData<LoaderData>()
 
   const adminAppLinks: AdminLinkProps[] = handle.apps.map((app) => ({
     id: app.id,
@@ -46,7 +36,7 @@ export default function AdminIndex(): JSX.Element {
   ]
 
   return (
-    <AdminContext.Provider value={{ defaultNavbarCollapsed }}>
+    <AdminContext.Provider value={{}}>
       <section
         id="admin"
         className={clsx(

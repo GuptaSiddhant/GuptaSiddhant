@@ -13,7 +13,6 @@ import type { To } from "~/features/types"
 import Accordion from "~/features/ui/Accordion"
 
 import AdminHeader from "./AdminHeader"
-import useAdminContext from "./context"
 
 export interface AdminNavbarProps {
   name?: string
@@ -32,10 +31,10 @@ export default function AdminNavbar({
   actions,
   to,
 }: AdminNavbarProps): JSX.Element | null {
-  const { defaultNavbarCollapsed } = useAdminContext()
-  const [navCollapsed, setNavCollapsed] = useState(
-    Boolean(defaultNavbarCollapsed),
-  )
+  const [navCollapsed, setNavCollapsed] = useState(false)
+
+  const isMobileWidth = useMediaQuery("(max-width: 768px)")
+  useEffect(() => setNavCollapsed(isMobileWidth), [isMobileWidth])
 
   const [filterTerm, setFilterTerm] = useState("")
   const filteredNavGroups = useMemo(
@@ -50,8 +49,6 @@ export default function AdminNavbar({
         : navGroups,
     [navGroups, filterTerm],
   )
-  const isMobileWidth = useMediaQuery("(max-width: 768px)")
-  useEffect(() => setNavCollapsed(isMobileWidth), [isMobileWidth])
 
   if (navGroups.length === 0) return null
 
@@ -163,7 +160,7 @@ function AdminNavbarGroup({
           ) : null}
         </div>
       }
-      summaryClassName="sticky top-0"
+      summaryClassName={clsx("sticky top-0 sm:rounded-none")}
     >
       <ul className="flex list-none flex-col gap-1 px-2">
         {children.map((link) => (

@@ -6,8 +6,7 @@ import {
 // Keys
 
 export enum RemoteConfigKey {
-  Search = "enableSearch",
-  AdminNavCollapsed = "toggleAdminNavbarCollapsed",
+  EnableSearch = "enableSearch",
 }
 
 export async function getRemoteConfigTemplate(): Promise<RemoteConfigTemplate> {

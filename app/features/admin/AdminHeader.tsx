@@ -19,7 +19,7 @@ export default function AdminHeader({
 }): JSX.Element {
   if (collapsed)
     return (
-      <header className="flex w-full flex-col gap-4">
+      <header className="flex h-full w-full flex-col gap-4">
         <Link
           to={to || "."}
           title={children?.toString() || "App"}
@@ -29,12 +29,19 @@ export default function AdminHeader({
         </Link>
         <div
           id="admin-app-actions"
-          className="flex flex-col items-center gap-4"
+          className="flex flex-1 flex-col items-center gap-4 overflow-auto"
         >
           {actions?.map((props) => (
             <AdminAction key={props.id} {...props} />
           ))}
         </div>
+        <Link
+          to={to || "."}
+          className="w-full rotate-180 border-b border-divider py-4 flex-center"
+          style={{ writingMode: "vertical-lr" }}
+        >
+          {children}
+        </Link>
       </header>
     )
 

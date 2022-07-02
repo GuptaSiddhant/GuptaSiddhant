@@ -1,8 +1,6 @@
 import { createContext, useContext } from "react"
 
-export interface AdminContextValue {
-  defaultNavbarCollapsed: boolean
-}
+export interface AdminContextValue {}
 
 export const AdminContext = createContext<undefined | AdminContextValue>(
   undefined,
