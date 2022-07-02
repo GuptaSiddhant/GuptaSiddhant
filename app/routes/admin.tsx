@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useLoaderData } from "@remix-run/react"
+import { NavLink, Outlet } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import clsx from "clsx"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
@@ -23,7 +23,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function AdminIndex(): JSX.Element {
   useBlockNativeScroll()
-  const {} = useLoaderData<LoaderData>()
 
   const adminAppLinks: AdminLinkProps[] = handle.apps.map((app) => ({
     id: app.id,

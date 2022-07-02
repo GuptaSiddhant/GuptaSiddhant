@@ -1,32 +1,20 @@
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
-import invariant from "tiny-invariant"
 
-import {
-  checkFirebaseStorageFileExists,
-  getFirebaseStorageFileUrl,
-} from "~/features/service/storage.server"
+import { appLogger } from "~/features/service/logger.server"
+import { resolveFirebaseStorageAssetUrl } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
+  const path = params["*"]
 
   try {
-    const path = params["*"]
-    invariant(path, "asset path is required")
+    const assetUrl = await resolveFirebaseStorageAssetUrl(path)
 
-    if (
-      assetExts.some((ext) => path.endsWith(ext)) &&
-      (await checkFirebaseStorageFileExists(path))
-    ) {
-      const url = await getFirebaseStorageFileUrl(path)
-      invariant(url, "could not get url")
+    return redirect(assetUrl)
+  } catch (e: any) {
+    appLogger.error(e.message)
 
-      return redirect(url)
-    }
-
-    throw new Error("Not an asset")
-  } catch {
     return json(null)
   }
 }

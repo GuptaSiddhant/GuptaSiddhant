@@ -1,4 +1,5 @@
 import { getStorage } from "firebase-admin/storage"
+import invariant from "tiny-invariant"
 
 import { ONE_DAY_IN_MS } from "~/features/constants"
 
@@ -16,6 +17,23 @@ export async function checkFirebaseStorageFileExists(
   path: string,
 ): Promise<boolean> {
   return (await getStorage().bucket().file(path).exists())?.[0]
+}
+
+export async function resolveFirebaseStorageAssetUrl(path?: string) {
+  invariant(path, "asset path is required")
+  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
+
+  if (
+    assetExts.some((ext) => path.endsWith(ext)) &&
+    (await checkFirebaseStorageFileExists(path))
+  ) {
+    const url = await getFirebaseStorageFileUrl(path)
+    invariant(url, "could not get url for asset: '" + path + "'")
+
+    return url
+  }
+
+  throw new Error("Not an asset: '" + path + "'")
 }
 
 // Fetchers
