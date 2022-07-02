@@ -40,7 +40,8 @@
     "remix-auth-form": "^1.1.2",
     "remix-query": "^0.2.0",
     "remixicon-react": "^1.0.0",
-    "tiny-invariant": "^1.2.0"
+    "tiny-invariant": "^1.2.0",
+    "tslog": "^3.3.3"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.6.3",

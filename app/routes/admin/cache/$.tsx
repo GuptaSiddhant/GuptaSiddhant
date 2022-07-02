@@ -2,9 +2,7 @@ import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-import ClearIcon from "remixicon-react/DeleteBin7LineIcon"
-import PauseIcon from "remixicon-react/PauseCircleLineIcon"
-import PlayIcon from "remixicon-react/PlayCircleLineIcon"
+import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
@@ -12,7 +10,6 @@ import AdminLayout from "~/features/admin/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
-import { useLoaderPolling } from "~/features/hooks/usePolling"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type ModifyCacheMethod,
@@ -20,10 +17,6 @@ import {
   modifyCache,
 } from "~/features/service/cache.server"
 import { parseCacheKey } from "~/features/service/cache.server"
-import {
-  getIsFeatureEnabled,
-  RemoteConfigKey,
-} from "~/features/service/feature-flag.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
@@ -37,7 +30,6 @@ interface LoaderData {
   data: any
   isStorageUrl: boolean
   ttl: number
-  defaultPauseCachePolling: boolean
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -52,10 +44,6 @@ export const loader: LoaderFunction = async ({ params }) => {
   const ttl = cache.getRemainingTTL(key)
   const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
 
-  const defaultPauseCachePolling = await getIsFeatureEnabled(
-    RemoteConfigKey.DefaultPauseCachePolling,
-  )
-
   return json<LoaderData>({
     key,
     type,
@@ -63,7 +51,6 @@ export const loader: LoaderFunction = async ({ params }) => {
     data,
     isStorageUrl,
     ttl,
-    defaultPauseCachePolling,
   })
 }
 
@@ -71,6 +58,7 @@ export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
   const form = await request.formData()
   const key = form.get("key")?.toString()
+  console.log("[key]", key)
   await modifyCache(request.method as ModifyCacheMethod, key)
 
   return redirect(pathname)
@@ -92,7 +80,7 @@ export default function CacheDetails(): JSX.Element | null {
       id: "Delete",
       children: (
         <FormAction body={{ key }} title="Delete" method="delete">
-          <ClearIcon />
+          <DeleteIcon />
         </FormAction>
       ),
     },
@@ -131,32 +119,18 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 function Footer() {
-  const { key, ttl, defaultPauseCachePolling } = useLoaderData<LoaderData>()
-  const { paused, setPaused } = useLoaderPolling(
-    { key },
-    { defaultPause: defaultPauseCachePolling },
-  )
+  const { ttl } = useLoaderData<LoaderData>()
   const isMobileWidth = useMediaQuery("(max-width: 768px)")
 
   return (
-    <>
-      <div className="text-sm text-disabled">
-        {isMobileWidth ? "TTL: " : "Remaining time: "}
-        {isMobileWidth
-          ? new Intl.NumberFormat(undefined, {
-              style: "unit",
-              unit: "hour",
-            }).format(ttl / ONE_HOUR_IN_MS)
-          : transformMsToReadableString(ttl)}
-      </div>
-
-      <button
-        onClick={() => setPaused((p) => !p)}
-        className="flex items-center gap-1 text-sm"
-      >
-        {paused ? <PlayIcon /> : <PauseIcon />}
-        {isMobileWidth ? "" : (paused ? "Resume" : "Pause") + " polling"}
-      </button>
-    </>
+    <div className="text-sm text-disabled">
+      {isMobileWidth ? "TTL: " : "Remaining time: "}
+      {isMobileWidth
+        ? new Intl.NumberFormat(undefined, {
+            style: "unit",
+            unit: "hour",
+          }).format(ttl / ONE_HOUR_IN_MS)
+        : transformMsToReadableString(ttl)}
+    </div>
   )
 }

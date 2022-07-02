@@ -8,7 +8,6 @@ import {
 export enum RemoteConfigKey {
   Search = "enableSearch",
   AdminNavCollapsed = "toggleAdminNavbarCollapsed",
-  DefaultPauseCachePolling = "defaultPauseCachePolling",
 }
 
 export async function getRemoteConfigTemplate(): Promise<RemoteConfigTemplate> {

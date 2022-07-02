@@ -6,9 +6,11 @@ import {
   fetchFireStoreCollection,
   fetchFireStoreDocument,
 } from "./firestore.server"
+import { createLogger } from "./logger.server"
 import { fetchFirebaseStorageFileUrl } from "./storage.server"
 
 const cacheKeySeparator = "---"
+const logger = createLogger("Cache")
 
 export enum CacheType {
   FirestoreCollection = "collection",
@@ -34,7 +36,7 @@ const cache =
 
       const { type, value } = parsed
 
-      logCache("Fetching:", key)
+      logger.info("Fetching:", key)
       return cacheFetchMethod[type as CacheType](value)
     },
   }))
@@ -55,10 +57,6 @@ export function parseCacheKey(key: string) {
   return { type: type as CacheType, value }
 }
 
-export function logCache(...message: any[]) {
-  console.log("[Cache]", ...message)
-}
-
 export type ModifyCacheMethod = "DELETE" | "PUT" | "POST"
 
 export async function modifyCache(method: ModifyCacheMethod, key?: string) {
@@ -68,19 +66,19 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
         const promises = [...cache.keys()]
           .filter((k) => k.includes(key))
           .map((k) => {
-            logCache('Deleted key "' + k + '" at', new Date().toISOString())
+            logger.debug('Deleted key "' + k + '" at', new Date().toISOString())
             return cache.delete(k)
           })
 
         return Promise.all(promises)
       } else {
-        logCache("Cleared at", new Date().toISOString())
+        logger.debug("Cleared at", new Date().toISOString())
         return cache.clear()
       }
     }
     case "PUT": {
       if (key) {
-        logCache(`Re-fetched ${key} at`, new Date().toISOString())
+        logger.debug(`Re-fetched ${key} at`, new Date().toISOString())
         cache.delete(key)
         return cache.fetch(key)
       } else {
@@ -89,7 +87,7 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
           cache.delete(key)
           return cache.fetch(key)
         })
-        logCache(`Re-fetched all at`, new Date().toISOString())
+        logger.debug(`Re-fetched all at`, new Date().toISOString())
         return await Promise.all(promises)
       }
     }

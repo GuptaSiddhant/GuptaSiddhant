@@ -7254,6 +7254,7 @@ __metadata:
     remixicon-react: ^1.0.0
     tailwindcss: ^3.1.4
     tiny-invariant: ^1.2.0
+    tslog: ^3.3.3
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
@@ -12545,6 +12546,15 @@ __metadata:
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
+  languageName: node
+  linkType: hard
+
+"tslog@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "tslog@npm:3.3.3"
+  dependencies:
+    source-map-support: ^0.5.21
+  checksum: ae84f4056865ad2d5a1f33d491387e4fd6c24642a08ccc29b8fcebce20784e94ef8b5863df5a5f85ec881125abc2b6b8b3aa022d2401a3716643332158346720
   languageName: node
   linkType: hard
 
