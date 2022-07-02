@@ -8,13 +8,12 @@ import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
 import type { NavigationLinkProps } from "~/features/navigation/types"
-import { CacheType, modifyCache } from "~/features/service/cache.server"
 import {
   type FeatureFlagsMap,
   deleteFeatureFlag,
   getAllFeatureFlags,
   setFeatureFlag,
-} from "~/features/service/remote-config.server"
+} from "~/features/service/feature-flag.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
@@ -23,7 +22,7 @@ interface LoaderData {
   featureFlags: FeatureFlagsMap
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async () => {
   const featureFlags = await getAllFeatureFlags()
   invariant(featureFlags, "featureFlags could not be loaded")
 
@@ -51,7 +50,6 @@ export const action: ActionFunction = async ({ request }) => {
     await deleteFeatureFlag(flag)
   }
 
-  await modifyCache("PUT", CacheType.RemoteConfig)
   return redirect(pathname)
 }
 
@@ -71,7 +69,7 @@ export default function CacheIndex(): JSX.Element | null {
         <FormAction
           title="Refetch config"
           children={<RefetchIcon />}
-          method="put"
+          method="get"
         />
       ),
     },

@@ -1,7 +1,7 @@
 import {
   getAreFeaturesEnabled,
   RemoteConfigKey,
-} from "~/features/service/remote-config.server"
+} from "~/features/service/feature-flag.server"
 
 const navigationRemoteConfigKeys = [RemoteConfigKey.Search] as const
 

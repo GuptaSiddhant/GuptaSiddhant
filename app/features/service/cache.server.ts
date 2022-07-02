@@ -6,7 +6,6 @@ import {
   fetchFireStoreCollection,
   fetchFireStoreDocument,
 } from "./firestore.server"
-import { fetchRemoteConfig } from "./remote-config.server"
 import { fetchFirebaseStorageFileUrl } from "./storage.server"
 
 const cacheKeySeparator = "---"
@@ -15,14 +14,12 @@ export enum CacheType {
   FirestoreCollection = "collection",
   FirestoreDocument = "document",
   FirebaseStorageFileUrl = "storage-file-url",
-  RemoteConfig = "remote-config",
 }
 
 const cacheFetchMethod: Record<CacheType, (value: string) => Promise<any>> = {
   [CacheType.FirestoreCollection]: fetchFireStoreCollection,
   [CacheType.FirestoreDocument]: fetchFireStoreDocument,
   [CacheType.FirebaseStorageFileUrl]: fetchFirebaseStorageFileUrl,
-  [CacheType.RemoteConfig]: fetchRemoteConfig,
 }
 
 const cache =

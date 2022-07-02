@@ -8,7 +8,7 @@ import ToggleOffIcon from "remixicon-react/ToggleLineIcon"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
-} from "~/features/service/remote-config.server"
+} from "~/features/service/feature-flag.server"
 import FormAction from "~/features/ui/FormAction"
 import Input from "~/features/ui/Input"
 import Table, { type TableColumnProps } from "~/features/ui/Table"
@@ -75,7 +75,7 @@ export default function FeatureFlagsTable({
       className="h-max w-full flex-1"
       data={tableData}
       columns={tableColumns}
-      bodyRowClassName={clsx("border-b border-divider/50")}
+      bodyRowClassName={clsx("border-b border-divider")}
       bodyCellClassName="px-4 py-2 min-w-[4rem]  text-left"
       headRowClassName="border-b border-divider bg-default"
       headCellClassName="px-4 py-2 text-secondary text-sm text-left border-r border-divider"

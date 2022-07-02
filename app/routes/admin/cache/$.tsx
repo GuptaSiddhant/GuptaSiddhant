@@ -23,7 +23,7 @@ import { parseCacheKey } from "~/features/service/cache.server"
 import {
   getIsFeatureEnabled,
   RemoteConfigKey,
-} from "~/features/service/remote-config.server"
+} from "~/features/service/feature-flag.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"

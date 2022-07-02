@@ -12,7 +12,7 @@ import { authenticateRoute } from "~/features/service/auth.server"
 import {
   getIsFeatureEnabled,
   RemoteConfigKey,
-} from "~/features/service/remote-config.server"
+} from "~/features/service/feature-flag.server"
 import { ErrorSection } from "~/features/ui/Error"
 
 import { handle } from "./admin/index"
