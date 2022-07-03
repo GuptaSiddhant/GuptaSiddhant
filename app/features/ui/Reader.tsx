@@ -11,6 +11,8 @@ export interface ReaderProps {
   rightColumn?: React.ReactNode
 }
 
+const asideClassName = clsx("top-20 max-h-screen-main overflow-auto md:sticky")
+
 export default function Reader({
   children,
 
@@ -31,7 +33,7 @@ export default function Reader({
       )}
     >
       <aside className={clsx("z-[10] text-sm")}>
-        <div className="top-20 overflow-visible md:sticky">{leftColumn}</div>
+        <div className={asideClassName}>{leftColumn}</div>
       </aside>
 
       <main className={clsx(className, "w-full px-4 sm:mx-auto")}>
@@ -39,7 +41,7 @@ export default function Reader({
       </main>
 
       <aside className={clsx("z-[10] text-sm md:col-span-2 xl:col-span-1")}>
-        <div className="top-20 overflow-visible md:sticky">{rightColumn}</div>
+        <div className={asideClassName}>{rightColumn}</div>
       </aside>
     </section>
   )
