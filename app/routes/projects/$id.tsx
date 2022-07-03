@@ -5,8 +5,8 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import type { CommonCareerEducationProps } from "~/features/about"
-import { getEducationOrCareerEntry } from "~/features/about/service.server"
+import { getExperienceItem } from "~/features/experiences/service.server"
+import type { ExperienceProps } from "~/features/experiences/types"
 import {
   extractTocFromMdx,
   transformContentToMdx,
@@ -36,7 +36,7 @@ interface LoaderData {
   mdx?: string
   toc?: TocItem[]
   crossSell: TeaserProps[]
-  assoc?: CommonCareerEducationProps
+  assoc?: ExperienceProps
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -48,7 +48,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
     const crossSell = await getProjectCrossSell(id)
-    const assoc = await getEducationOrCareerEntry(association)
+
+    const assoc = association
+      ? await getExperienceItem(association).catch(() => undefined)
+      : undefined
 
     return json<LoaderData>({
       project,
@@ -99,9 +102,9 @@ export default function ProjectDetails(): JSX.Element {
             <Link to={"/about/" + assoc.id}>
               <img
                 src={assoc.icon}
-                title={"company" in assoc ? assoc.company : assoc.school}
-                alt={"company" in assoc ? assoc.company : assoc.school}
-                className="mb-2 h-12 rounded-md object-contain"
+                title={assoc.subtitle}
+                alt={assoc.subtitle}
+                className="h-8 w-8 rounded-sm object-contain"
                 loading="eager"
               />
             </Link>

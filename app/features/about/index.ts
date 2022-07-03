@@ -1,5 +1,3 @@
-import type { Gallery, LinkObject } from "~/features/types"
-
 export interface AboutInfo {
   name: string
   shortName: string
@@ -15,40 +13,6 @@ export interface AboutInfo {
 }
 
 export type AboutLinkKey = "linkedin" | "github" | "email" | "website"
-
-export enum CareerRoleType {
-  FullTime = "full-time",
-  PartTime = "part-time",
-  Freelancer = "freelancer",
-  Intern = "intern",
-  Contract = "contract",
-}
-
-export interface CareerProps extends CommonCareerEducationProps {
-  position: string
-  company: string
-  roleType?: CareerRoleType
-}
-
-export interface EducationProps extends CommonCareerEducationProps {
-  degree: string
-  field: string
-  school: string
-}
-
-export interface CommonCareerEducationProps {
-  id: string
-  description?: string
-  startDate: string
-  endDate?: string
-  icon?: string
-  links: LinkObject[]
-  gallery: Gallery
-  location?: string
-  tags?: string[]
-  featured?: boolean
-  draft?: boolean
-}
 
 export const gallery = [
   {

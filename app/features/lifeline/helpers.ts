@@ -1,11 +1,11 @@
-import type { CareerProps, EducationProps } from "~/features/about"
+import type { ExperienceProps } from "~/features/experiences/types"
 import { sortByDate } from "~/features/helpers"
 import type { TocItem } from "~/features/helpers/table-of-contents"
 
 import type { LifeLineItem, LifeLineItems } from "."
 
 export function createLifeline(
-  items: (CareerProps | EducationProps)[],
+  items: ExperienceProps[],
   selectedTags: string[] = [],
 ): LifeLineItems {
   const filteredItems =

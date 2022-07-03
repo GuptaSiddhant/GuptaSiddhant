@@ -1,17 +1,13 @@
 import { renderToString } from "@react-pdf/renderer"
 import { createElement } from "react"
 
+import { aboutTexts } from "~/features/about"
+import { getAboutInfo, getSkills } from "~/features/about/service.server"
 import {
-  type CommonCareerEducationProps,
-  type Skills,
-  aboutTexts,
-} from "~/features/about"
-import {
-  getAboutInfo,
   getCareerList,
   getEducationList,
-  getSkills,
-} from "~/features/about/service.server"
+} from "~/features/experiences/service.server"
+import type { ExperienceProps } from "~/features/experiences/types"
 
 import {
   getFiltersFromSearchParams,
@@ -28,8 +24,8 @@ export default async function handler(request: Request): Promise<string> {
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
     getSkills(),
-    getCareerEducationProps(getCareerList, filters, Sections.experience),
-    getCareerEducationProps(getEducationList, filters, Sections.education),
+    getExperienceProps(getCareerList, filters, Sections.experience),
+    getExperienceProps(getEducationList, filters, Sections.education),
   ])
   const { link, name, title, terminalResume } = aboutInfo
 
@@ -48,8 +44,8 @@ export default async function handler(request: Request): Promise<string> {
   return renderToString(createElement(Resume, resumeProps))
 }
 
-async function getCareerEducationProps<T extends CommonCareerEducationProps>(
-  callback: () => Promise<T[]>,
+async function getExperienceProps(
+  callback: () => Promise<ExperienceProps[]>,
   filters?: ReturnType<typeof getFiltersFromSearchParams>,
   sectionKey?: Sections,
 ) {

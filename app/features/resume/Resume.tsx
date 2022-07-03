@@ -1,20 +1,11 @@
 import { Document, Page, Text } from "@react-pdf/renderer"
 
-import type {
-  CareerProps,
-  EducationProps,
-  SkillCategory,
-  Skills,
-} from "~/features/about"
-import {
-  generateDurationString,
-  generateSubtitleFromCareerItem,
-  generateSubtitleFromEducationItem,
-  generateTitleFromCareerItem,
-  generateTitleFromEducationItem,
-} from "~/features/about/helpers"
+import type { SkillCategory, Skills } from "~/features/about"
+import { generateDurationString } from "~/features/experiences/helpers"
+import type { ExperienceProps } from "~/features/experiences/types"
 import { capitalize } from "~/features/helpers/format"
 
+import type { CardProps } from "./components/Card"
 import Card from "./components/Card"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
@@ -35,8 +26,8 @@ export interface ResumeProps {
   contactLinks: ContactLinkProps[]
 
   aboutTexts?: string[]
-  experiences?: CareerProps[]
-  educations?: EducationProps[]
+  experiences?: ExperienceProps[]
+  educations?: ExperienceProps[]
   skills?: Skills
 }
 
@@ -82,15 +73,7 @@ export default function Resume({
           disable={experiences.length === 0}
         >
           {experiences.map((item) => (
-            <Card
-              key={item.id}
-              title={generateTitleFromCareerItem(item)}
-              subtitle={generateSubtitleFromCareerItem(item)}
-              caption={generateDurationString(item, { month: "2-digit" })}
-              link={createAboutLink(domain, item.id)}
-            >
-              {item.description}
-            </Card>
+            <Card key={item.id} {...genCardProps(item, domain)} />
           ))}
         </Section>
 
@@ -99,15 +82,7 @@ export default function Resume({
           disable={educations.length === 0}
         >
           {educations.map((item) => (
-            <Card
-              key={item.id}
-              title={generateTitleFromEducationItem(item)}
-              subtitle={generateSubtitleFromEducationItem(item)}
-              caption={generateDurationString(item, { month: "2-digit" })}
-              link={createAboutLink(domain, item.id)}
-            >
-              {item.description}
-            </Card>
+            <Card key={item.id} {...genCardProps(item, domain)} />
           ))}
         </Section>
 
@@ -135,4 +110,15 @@ export default function Resume({
       </Page>
     </Document>
   )
+}
+
+function genCardProps(item: ExperienceProps, domain: string): CardProps {
+  const { id, title, subtitle, description } = item
+  return {
+    link: createAboutLink(domain, id),
+    title,
+    subtitle,
+    caption: generateDurationString(item, { month: "2-digit" }),
+    children: description,
+  }
 }
