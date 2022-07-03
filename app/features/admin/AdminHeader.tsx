@@ -37,7 +37,7 @@ export default function AdminHeader({
         </div>
         <Link
           to={to || "."}
-          className="w-full rotate-180 border-b border-divider py-4 flex-center"
+          className="w-full rotate-180  py-4 flex-center"
           style={{ writingMode: "vertical-lr" }}
         >
           {children}

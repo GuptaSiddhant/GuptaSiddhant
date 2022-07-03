@@ -29,7 +29,7 @@ export default function AdminLayout({
       className={clsx(
         "relative grid h-full animate-appear-rtl overflow-hidden",
         isRenderNavbar
-          ? "grid-cols-[max-content_1fr]"
+          ? "grid-cols-[max-content_1fr] grid-rows-[1fr_max-content]"
           : "grid-rows-[max-content_1fr]",
       )}
     >

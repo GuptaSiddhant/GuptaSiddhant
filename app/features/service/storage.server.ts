@@ -55,3 +55,60 @@ async function fetchFirebaseStorageFileUrl(name: string) {
     return name
   }
 }
+
+export async function getBucket() {
+  return getStorage().bucket()
+}
+
+export type FirebaseStorageMetaData = Awaited<
+  ReturnType<typeof getFirebaseStorageMetaData>
+>
+export async function getFirebaseStorageMetaData() {
+  const data = (await getStorage().bucket().getMetadata())?.[0]
+
+  return {
+    id: String(data.id),
+    link: String(data.selfLink),
+    name: String(data.name),
+    location: String(data.location),
+    updateTimestamp: String(data.updated),
+  }
+}
+
+export async function getFirebaseStorageFiles(path?: string): Promise<{
+  files: FirebaseStorageFile[]
+  dirs: string[]
+}> {
+  const [_files, , apiResponse] = await getStorage()
+    .bucket()
+    .getFiles({ delimiter: "/", autoPaginate: false, prefix: path })
+
+  const dirs = apiResponse.prefixes || []
+
+  const files: FirebaseStorageFile[] =
+    _files
+      .map((file) => ({
+        id: file.id || file.metadata.id,
+        name: file.metadata.name,
+        selfLink: file.metadata.selfLink,
+        mediaLink: file.metadata.mediaLink,
+        contentType: file.metadata.contentType,
+        size: Number.parseInt(file.metadata.size, 10),
+        createTimestamp: file.metadata.timeCreated,
+        updateTimestamp: file.metadata.updated,
+      }))
+      .filter((file) => !file.name.endsWith("/")) || []
+
+  return { dirs, files }
+}
+
+export type FirebaseStorageFile = {
+  id: string
+  name: string
+  selfLink: string
+  mediaLink: string
+  contentType: string
+  size: number
+  createTimestamp: string
+  updateTimestamp: string
+}

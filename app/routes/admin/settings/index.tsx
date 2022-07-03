@@ -4,7 +4,7 @@ import AdminDashboard from "~/features/admin/AdminDashboard"
 
 import { type AdminSettingsOutletContext, handle } from "../settings"
 
-export default function CacheIndex(): JSX.Element | null {
+export default function SettingsIndex(): JSX.Element | null {
   const { featureConfigKeys } = useOutletContext<AdminSettingsOutletContext>()
 
   return (
