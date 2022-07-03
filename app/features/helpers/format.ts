@@ -34,6 +34,42 @@ export function formatDate(
   })
 }
 
+export function formatTime(
+  date: Date | string,
+  options: Intl.DateTimeFormatOptions = {},
+): string {
+  return new Date(date).toLocaleDateString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    ...options,
+  })
+}
+
+export function formatDateTime(
+  date: Date | string,
+  options: Intl.DateTimeFormatOptions = {},
+): string {
+  return new Date(date).toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    ...options,
+  })
+}
+
+export function formatUnit(value: number, unit: string = "byte"): string {
+  return new Intl.NumberFormat(undefined, {
+    style: "unit",
+    unit,
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(value)
+}
+
 export function formatList(list: string[], parts?: false): string
 export function formatList(
   list: string[],

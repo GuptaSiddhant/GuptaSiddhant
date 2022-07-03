@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/AdminDashboard"
-import { formatDate } from "~/features/helpers/format"
+import { formatDate, formatDateTime } from "~/features/helpers/format"
 import {
   type FirebaseStorageMetaData,
   getFirebaseStorageMetaData,
@@ -41,13 +41,7 @@ export default function StorageIndex(): JSX.Element | null {
           {
             id: "updateTimestamp",
             header: "Last Updated",
-            cell: (row) =>
-              formatDate(metadata.updateTimestamp, {
-                month: "2-digit",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              }),
+            cell: (row) => formatDateTime(row.updateTimestamp),
           },
         ]}
       />

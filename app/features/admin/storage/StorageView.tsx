@@ -1,22 +1,11 @@
 import AdminLayout from "~/features/admin/AdminLayout"
-import { type FirebaseStorageFile } from "~/features/service/storage.server"
 
 import {
   extractLastPartOfFilePath,
   generateNavbarGroupsFromFirebaseStorageDirsFiles,
 } from "./helpers"
-
-export enum StoragePathType {
-  Dir = "dir",
-  File = "file",
-}
-
-export interface StoragePathProps {
-  path: string
-  type: StoragePathType
-  dirs: string[]
-  files: FirebaseStorageFile[]
-}
+import StorageFileView from "./StorageFileView"
+import { type StoragePathProps, StoragePathType } from "./types"
 
 export default function StorageView({
   storagePaths = [],
@@ -28,9 +17,8 @@ export default function StorageView({
   const [currentPath, ...subPaths] = storagePaths
   const name = extractLastPartOfFilePath(currentPath.path)
 
-  if (currentPath.type === "file") {
-    return <FileView {...currentPath} />
-  }
+  if (currentPath.type === StoragePathType.File)
+    return <StorageFileView key={currentPath.path} {...currentPath} />
 
   return (
     <AdminLayout
@@ -42,20 +30,6 @@ export default function StorageView({
       )}
     >
       <StorageView storagePaths={subPaths} />
-    </AdminLayout>
-  )
-}
-
-function FileView({ path }: StoragePathProps): JSX.Element | null {
-  const name = extractLastPartOfFilePath(path)
-
-  return (
-    <AdminLayout
-      name={name}
-      header={<span className="font-bold">{name}</span>}
-      className="p-4"
-    >
-      <img src={"/" + path} alt={name} />
     </AdminLayout>
   )
 }

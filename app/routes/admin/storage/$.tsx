@@ -3,11 +3,19 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import StorageView, {
+import StorageView from "~/features/admin/storage/StorageView"
+import {
+  type StorageDirProps,
+  type StorageFileProps,
   type StoragePathProps,
   StoragePathType,
-} from "~/features/admin/storage/StorageView"
-import { getFirebaseStorageFiles } from "~/features/service/storage.server"
+} from "~/features/admin/storage/types"
+import {
+  getFirebaseStorageFile,
+  getFirebaseStorageFiles,
+} from "~/features/service/storage.server"
+
+import { handle } from "../storage"
 
 interface LoaderData {
   storagePaths: StoragePathProps[]
@@ -15,7 +23,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const path = params["*"]
-  if (!path) return redirect("..")
+  if (!path) return redirect(handle.adminApp.to.toString())
 
   const paths = path
     .split("/")
@@ -25,21 +33,26 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       path.match(/.*\.(\w*)$/) || path.endsWith("/") ? path : `${path}/`,
     )
 
-  const storagePaths = await Promise.all(
-    paths.map(async (path) =>
-      path.endsWith("/")
-        ? {
-            type: StoragePathType.Dir,
-            path,
-            ...(await getFirebaseStorageFiles(path)),
-          }
-        : {
-            type: StoragePathType.File,
-            path,
-            files: [],
-            dirs: [],
-          },
-    ),
+  const storagePaths: StoragePathProps[] = await Promise.all(
+    paths.map(async (path) => {
+      if (path.endsWith("/")) {
+        const dirProps: StorageDirProps = {
+          type: StoragePathType.Dir,
+          ...(await getFirebaseStorageFiles(path)),
+          path,
+        }
+
+        return dirProps
+      }
+
+      const fileProps: StorageFileProps = {
+        type: StoragePathType.File,
+        path,
+        data: await getFirebaseStorageFile(path),
+      }
+
+      return fileProps
+    }),
   )
 
   return json<LoaderData>({ storagePaths })

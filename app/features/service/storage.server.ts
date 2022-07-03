@@ -87,28 +87,44 @@ export async function getFirebaseStorageFiles(path?: string): Promise<{
 
   const files: FirebaseStorageFile[] =
     _files
-      .map((file) => ({
-        id: file.id || file.metadata.id,
-        name: file.metadata.name,
-        selfLink: file.metadata.selfLink,
-        mediaLink: file.metadata.mediaLink,
-        contentType: file.metadata.contentType,
-        size: Number.parseInt(file.metadata.size, 10),
-        createTimestamp: file.metadata.timeCreated,
-        updateTimestamp: file.metadata.updated,
-      }))
+      .map(transformGoogleFileToFirebaseStorageFile)
       .filter((file) => !file.name.endsWith("/")) || []
 
   return { dirs, files }
 }
 
+export async function getFirebaseStorageFile(
+  path: string,
+): Promise<FirebaseStorageFile> {
+  const [file] = await getStorage().bucket().file(path).get()
+
+  return transformGoogleFileToFirebaseStorageFile(file)
+}
+
 export type FirebaseStorageFile = {
   id: string
   name: string
-  selfLink: string
-  mediaLink: string
+  // selfLink: string
+  // mediaLink: string
   contentType: string
   size: number
   createTimestamp: string
   updateTimestamp: string
+  linkUrl: string
+}
+
+function transformGoogleFileToFirebaseStorageFile(
+  file: any,
+): FirebaseStorageFile {
+  return {
+    id: file.id || file.metadata.id,
+    name: file.metadata.name,
+    // selfLink: file.metadata.selfLink,
+    // mediaLink: file.metadata.mediaLink,
+    contentType: file.metadata.contentType,
+    size: Number.parseInt(file.metadata.size, 10),
+    createTimestamp: file.metadata.timeCreated,
+    updateTimestamp: file.metadata.updated,
+    linkUrl: `/${file.metadata.name}`,
+  }
 }
