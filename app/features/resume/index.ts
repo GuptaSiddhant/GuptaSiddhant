@@ -1,13 +1,17 @@
 import { renderToString } from "@react-pdf/renderer"
 import { createElement } from "react"
 
-import { type CommonCareerEducationProps, aboutTexts } from "~/features/about"
+import {
+  type CommonCareerEducationProps,
+  type Skills,
+  aboutTexts,
+} from "~/features/about"
 import {
   getAboutInfo,
   getCareerList,
   getEducationList,
+  getSkills,
 } from "~/features/about/service.server"
-import { languages, skills } from "~/features/about/skills"
 
 import {
   getFiltersFromSearchParams,
@@ -21,8 +25,9 @@ export default async function handler(request: Request): Promise<string> {
 
   const filters = getFiltersFromSearchParams(searchParams)
 
-  const [aboutInfo, careerList, educationList] = await Promise.all([
+  const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
+    getSkills(),
     getCareerEducationProps(getCareerList, filters, Sections.experience),
     getCareerEducationProps(getEducationList, filters, Sections.education),
   ])
@@ -36,7 +41,6 @@ export default async function handler(request: Request): Promise<string> {
     educations: educationList,
     domain: origin,
     terminalResumeCode: terminalResume.copyText!,
-    languages: filters.disabledSections?.skills ? [] : languages,
     skills: filters.disabledSections?.skills ? undefined : skills,
     aboutTexts,
   }

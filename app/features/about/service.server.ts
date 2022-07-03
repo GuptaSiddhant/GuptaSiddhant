@@ -5,17 +5,22 @@ import {
   getFirestoreDocument,
 } from "~/features/service/firestore.server"
 
-import type { AboutInfo, CareerProps, EducationProps } from "."
+import type { AboutInfo, CareerProps, EducationProps, Skills } from "."
 
 export async function getAboutInfo() {
-  const about = await getFirestoreDocument<AboutInfo>(
-    FirestoreCollection.Info,
-    "about",
-  )
+  return getFirestoreDocument<AboutInfo>(FirestoreCollection.Info, "about")
+}
 
-  if (!about) throw new Error("No about info found")
-
-  return about
+export async function getSkills() {
+  const { backend, design, frontend, language, soft } =
+    await getFirestoreDocument<Skills>(FirestoreCollection.Info, "skills")
+  return {
+    backend,
+    design,
+    frontend,
+    language,
+    soft,
+  }
 }
 
 export async function getEducationList(): Promise<EducationProps[]> {

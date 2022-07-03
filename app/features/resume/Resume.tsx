@@ -1,6 +1,11 @@
 import { Document, Page, Text } from "@react-pdf/renderer"
 
-import type { CareerProps, EducationProps } from "~/features/about"
+import type {
+  CareerProps,
+  EducationProps,
+  SkillCategory,
+  Skills,
+} from "~/features/about"
 import {
   generateDurationString,
   generateSubtitleFromCareerItem,
@@ -8,8 +13,6 @@ import {
   generateTitleFromCareerItem,
   generateTitleFromEducationItem,
 } from "~/features/about/helpers"
-import type { SkillCategory } from "~/features/about/skills"
-import { type Skills } from "~/features/about/skills"
 import { capitalize } from "~/features/helpers/format"
 
 import Card from "./components/Card"
@@ -34,7 +37,6 @@ export interface ResumeProps {
   aboutTexts?: string[]
   experiences?: CareerProps[]
   educations?: EducationProps[]
-  languages?: Array<{ name: string; level: string }>
   skills?: Skills
 }
 
@@ -49,7 +51,6 @@ export default function Resume({
   experiences = [],
   educations = [],
   aboutTexts = [],
-  languages = [],
   skills,
 }: ResumeProps): JSX.Element {
   return (
@@ -110,20 +111,24 @@ export default function Resume({
           ))}
         </Section>
 
-        <Section
-          title={capitalize(Sections.skills)}
-          disable={!skills && languages.length === 0}
-        >
+        <Section title={capitalize(Sections.skills)} disable={!skills}>
           {skills
-            ? Object.keys(skills).map((category) => (
-                <Card key={category} caption={capitalize(category)}>
-                  {skills[category as SkillCategory].join(", ")}
-                </Card>
-              ))
+            ? Object.keys(skills).map((category) =>
+                category === "language" ? (
+                  <Card key="language" caption="Languages">
+                    {skills["language"]
+                      .map((l) => `${l.title} - ${l.level}`)
+                      .join("\n")}
+                  </Card>
+                ) : (
+                  <Card key={category} caption={capitalize(category)}>
+                    {skills[category as SkillCategory]
+                      ?.map((skill) => skill.title)
+                      .join(", ")}
+                  </Card>
+                ),
+              )
             : null}
-          <Card caption="Languages">
-            {languages.map((l) => `${l.name} - ${l.level}`).join("\n")}
-          </Card>
         </Section>
 
         <Footer />
