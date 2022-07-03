@@ -31,7 +31,7 @@ export async function getFirestoreCollection<T extends TransformedDocumentData>(
   )) as T[]
 }
 
-export async function getFirestoreDocument<T extends TransformedDocumentData>(
+export async function getFirestoreDocument<T>(
   collectionName: FirestoreCollection,
   docId: string,
 ): Promise<T> {

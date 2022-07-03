@@ -1,10 +1,12 @@
-import { useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import {
   type LoaderFunction,
   type MetaFunction,
   json,
 } from "@remix-run/server-runtime"
 
+import type { CommonCareerEducationProps } from "~/features/about"
+import { getEducationOrCareerEntry } from "~/features/about/service.server"
 import {
   extractTocFromMdx,
   transformContentToMdx,
@@ -34,6 +36,7 @@ interface LoaderData {
   mdx?: string
   toc?: TocItem[]
   crossSell: TeaserProps[]
+  assoc?: CommonCareerEducationProps
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -41,10 +44,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (!id) throw new Error("Project id is required")
 
   try {
-    const { content, ...project } = await getProjectDetails(id)
+    const { content, association, ...project } = await getProjectDetails(id)
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
     const crossSell = await getProjectCrossSell(id)
+    const assoc = await getEducationOrCareerEntry(association)
 
     return json<LoaderData>({
       project,
@@ -52,6 +56,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       mdx,
       toc,
       crossSell,
+      assoc,
     })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
@@ -67,8 +72,16 @@ export const meta: MetaFunction = ({ data, params }) =>
   })
 
 export default function ProjectDetails(): JSX.Element {
-  const { project, url, mdx, toc = [], crossSell } = useLoaderData<LoaderData>()
+  const {
+    project,
+    url,
+    mdx,
+    toc = [],
+    crossSell,
+    assoc,
+  } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = project
+  console.log({ icon: assoc?.icon })
 
   return (
     <>
@@ -81,7 +94,19 @@ export default function ProjectDetails(): JSX.Element {
           }}
           title={title}
           subtitle={subtitle}
-        />
+        >
+          {assoc?.icon ? (
+            <Link to={"/about/" + assoc.id}>
+              <img
+                src={assoc.icon}
+                title={"company" in assoc ? assoc.company : assoc.school}
+                alt={"company" in assoc ? assoc.company : assoc.school}
+                className="mb-2 h-12 rounded-md object-contain"
+                loading="eager"
+              />
+            </Link>
+          ) : null}
+        </Hero.Header>
 
         <Hero.Description description={description}>
           <div className="flex flex-wrap items-center justify-between gap-4">

@@ -38,7 +38,7 @@ export default function HeroImage({
         <img
           src={icon}
           alt={alt ? `${alt} icon` : undefined}
-          className="absolute top-4 left-4 mb-2 h-12 rounded-sm object-contain"
+          className="absolute top-4 left-4 mb-2 h-12 rounded-md object-contain"
           loading="eager"
         />
       ) : null}
