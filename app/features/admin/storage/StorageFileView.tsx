@@ -20,6 +20,7 @@ export default function StorageFileView({
   return (
     <AdminLayout
       name={name}
+      to={path}
       header={<span className="font-bold">{name}</span>}
       className="flex flex-col gap-4"
       actions={[

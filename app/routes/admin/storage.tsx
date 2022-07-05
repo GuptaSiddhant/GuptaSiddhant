@@ -1,4 +1,4 @@
-import { Form, useLoaderData, useSubmit } from "@remix-run/react"
+import { Form, useLoaderData } from "@remix-run/react"
 import {
   type ActionFunction,
   type LoaderFunction,
@@ -20,6 +20,7 @@ import {
 } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
+import Popover, { usePopoverContext } from "~/features/ui/Popover"
 import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {
@@ -55,7 +56,11 @@ export default function StorageAdminApp(): JSX.Element | null {
   const actions: NavigationLinkProps[] = [
     {
       id: "upload",
-      children: <Uploader />,
+      children: (
+        <Popover title="Upload" content={<Popover.Upload />}>
+          <UploadIcon />
+        </Popover>
+      ),
     },
     {
       id: "refresh",
@@ -89,29 +94,4 @@ export function meta() {
 
 export interface AdminSettingsOutletContext {
   featureConfigKeys: string[]
-}
-
-function Uploader() {
-  const submit = useSubmit()
-
-  return (
-    <Form
-      method="post"
-      title="Upload"
-      encType="multipart/form-data"
-      onChange={(e) => submit(e.currentTarget)}
-    >
-      <label htmlFor="file_upload" className="flex-center">
-        <UploadIcon />
-      </label>
-      <input
-        id="file_upload"
-        type="file"
-        name="filePath"
-        multiple={false}
-        className="hidden"
-      />
-      <input type="hidden" name="destination" value="xxx" />
-    </Form>
-  )
 }

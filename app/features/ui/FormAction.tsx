@@ -3,7 +3,10 @@ import { type FormProps, Form } from "@remix-run/react"
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import Popover, { type PopoverConfirmProps } from "./Popover"
+import Popover from "./Popover"
+import PopoverConfirmContent, {
+  type PopoverConfirmProps,
+} from "./Popover/confirm"
 
 export interface FormActionProps extends FormProps {
   children: ReactNode
@@ -28,8 +31,9 @@ export default function FormAction({
   if (confirm) {
     return (
       <Popover
+        title={title}
         content={
-          <Popover.Confirm
+          <PopoverConfirmContent
             {...(typeof confirm === "string" ? { children: confirm } : confirm)}
             onConfirm={() => {
               submit(

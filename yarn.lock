@@ -2488,7 +2488,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reach/popover@npm:0.17.0":
+"@reach/popover@npm:0.17.0, @reach/popover@npm:^0.17.0":
   version: 0.17.0
   resolution: "@reach/popover@npm:0.17.0"
   dependencies:
@@ -7300,6 +7300,7 @@ __metadata:
   dependencies:
     "@babel/preset-react": ^7.18.6
     "@reach/menu-button": ^0.17.0
+    "@reach/popover": ^0.17.0
     "@react-pdf/renderer": ^2.2.0
     "@remix-run/dev": ^1.6.3
     "@remix-run/eslint-config": ^1.6.3

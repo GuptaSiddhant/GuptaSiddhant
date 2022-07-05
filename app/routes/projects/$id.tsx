@@ -84,7 +84,6 @@ export default function ProjectDetails(): JSX.Element {
     assoc,
   } = useLoaderData<LoaderData>()
   const { title, subtitle, description, cover, icon, tags = [] } = project
-  console.log({ icon: assoc?.icon })
 
   return (
     <>

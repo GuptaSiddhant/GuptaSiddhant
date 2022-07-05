@@ -19,7 +19,6 @@ export function getStoragePaths(paths: string[]): Promise<StoragePathProps[]> {
   return Promise.all(
     paths.map(async (path) => {
       const data = await getFirebaseStorageFile(path)
-      console.log(path, data)
 
       if (path.endsWith("/")) {
         const dirProps: StorageDirProps = {
@@ -55,10 +54,8 @@ export async function modifyStorage(method: string, form: FormData) {
   if (method === "POST") {
     const file = form.get("filePath") as File
     invariant(file, "File path is required.")
-    console.log(file)
 
-    const destination = form.get("destination")?.toString()
-    invariant(destination, "Asset destination is required")
+    const destination = form.get("destination")?.toString() || ""
 
     createAdminLogger("Storage").info(`Creating asset ${destination}`)
 

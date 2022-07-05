@@ -24,6 +24,7 @@
   "packageManager": "yarn@3.2.1",
   "dependencies": {
     "@reach/menu-button": "^0.17.0",
+    "@reach/popover": "^0.17.0",
     "@react-pdf/renderer": "^2.2.0",
     "@remix-run/node": "^1.6.3",
     "@remix-run/react": "^1.6.3",
