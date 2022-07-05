@@ -145,11 +145,12 @@ export async function uploadFirebaseStorageFile(path: string, file: File) {
 
   const response = await getStorage().bucket().upload(tempFilePath, {
     destination: path,
+    resumable: true,
   })
 
   await fs.unlink(tempFilePath)
 
-  return response
+  return response[0]
 }
 
 export async function downloadFirebaseStorageFile(path: string) {

@@ -67,7 +67,7 @@ function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
         className="w-full"
         data={[file]}
         columns={[
-          { id: "contentType" },
+          { id: "contentType", header: "Type" },
           {
             id: "size",
             cell: (row) => formatUnit(row.size / 1000, "kilobyte"),
@@ -90,9 +90,12 @@ function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
 
 function StorageFilePreview(file: FirebaseStorageFile): JSX.Element | null {
   const { linkUrl, contentType, name } = file
-  const isImage = Boolean(contentType?.startsWith("image"))
 
-  if (isImage) return <StorageFileImageView src={linkUrl} alt={name} />
+  if (contentType?.includes("image"))
+    return <StorageFileImageView src={linkUrl} alt={name} />
+
+  if (contentType?.includes("video"))
+    return <StorageFileVideoView src={linkUrl} />
 
   return null
 }
@@ -114,6 +117,20 @@ function StorageFileImageView({
         <Link to={src}>
           <img src={src} alt={alt} />
         </Link>
+      </div>
+    </Accordion>
+  )
+}
+
+function StorageFileVideoView({ src }: { src: string }): JSX.Element | null {
+  return (
+    <Accordion
+      open
+      summary="Preview"
+      summaryClassName="rounded-none sticky top-0"
+    >
+      <div className="flex justify-center">
+        <video src={src} controls autoPlay={false}></video>
       </div>
     </Accordion>
   )

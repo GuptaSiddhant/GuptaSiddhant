@@ -1,7 +1,11 @@
+import CodeIcon from "remixicon-react/FileCodeLineIcon"
 import FileIcon from "remixicon-react/FileLineIcon"
 import PdfIcon from "remixicon-react/FilePdfLineIcon"
+import TextFileIcon from "remixicon-react/FileTextLineIcon"
+import ZipIcon from "remixicon-react/FileZipLineIcon"
 import FontIcon from "remixicon-react/FontSizeIcon"
 import ImageIcon from "remixicon-react/ImageLineIcon"
+import VideoIcon from "remixicon-react/VideoLineIcon"
 
 import { type FirebaseStorageFile } from "~/features/service/storage.server"
 
@@ -15,6 +19,7 @@ export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
     {
       id: "directories",
       label: "Directories",
+      showCount: true,
       children: dirs.map((dir) => ({
         id: dir,
         children: extractLastPartOfFilePath(dir),
@@ -24,6 +29,7 @@ export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
     {
       id: "files",
       label: "Files",
+      showCount: true,
       children: files
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((file) => ({
@@ -64,6 +70,10 @@ export function getIconForFile(file: FirebaseStorageFile): JSX.Element | null {
   if (file.contentType.includes("image")) return <ImageIcon />
   if (file.contentType.includes("pdf")) return <PdfIcon />
   if (file.contentType.includes("font")) return <FontIcon />
+  if (file.contentType.includes("zip")) return <ZipIcon />
+  if (file.contentType.includes("video")) return <VideoIcon />
+  if (file.contentType.includes("text/plain")) return <TextFileIcon />
+  if (file.contentType.includes("application")) return <CodeIcon />
 
   return <FileIcon />
 }
