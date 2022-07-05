@@ -22,7 +22,7 @@ export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
       children: files.map((file) => ({
         id: file.id,
         children: extractLastPartOfFilePath(file.name),
-        to: file.id,
+        to: file.name,
       })),
     },
   ]
@@ -30,4 +30,20 @@ export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
 
 export function extractLastPartOfFilePath(path: string) {
   return path.split("/").filter(Boolean).slice(-1).join("/")
+}
+
+export function generatePathsFromPath(path: string, delimiter = "/"): string[] {
+  const paths: string[] = []
+  const isAllDirectories = path.endsWith(delimiter)
+  const pathParts = path.split(delimiter).filter(Boolean)
+
+  pathParts.forEach((_, index, parts) => {
+    const newOath = parts.slice(0, index + 1).join(delimiter)
+    if (index < parts.length - 1 || isAllDirectories) {
+      return paths.push(newOath + delimiter)
+    }
+    return paths.push(path)
+  })
+
+  return paths
 }

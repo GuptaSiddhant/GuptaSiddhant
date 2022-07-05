@@ -1,0 +1,68 @@
+import invariant from "tiny-invariant"
+
+import {
+  deleteFirebaseStorageFile,
+  getFirebaseStorageFile,
+  getFirebaseStorageFiles,
+  uploadFirebaseStorageFile2,
+} from "~/features/service/storage.server"
+
+import { createAdminLogger } from "../service.server"
+import {
+  type StorageDirProps,
+  type StorageFileProps,
+  type StoragePathProps,
+  StoragePathType,
+} from "./types"
+
+export function getStoragePaths(paths: string[]): Promise<StoragePathProps[]> {
+  return Promise.all(
+    paths.map(async (path) => {
+      const data = await getFirebaseStorageFile(path)
+      console.log(path, data)
+
+      if (path.endsWith("/")) {
+        const dirProps: StorageDirProps = {
+          type: StoragePathType.Dir,
+          ...(await getFirebaseStorageFiles(path)),
+          path,
+          data,
+        }
+
+        return dirProps
+      }
+
+      const fileProps: StorageFileProps = {
+        type: StoragePathType.File,
+        path,
+        data,
+      }
+
+      return fileProps
+    }),
+  )
+}
+
+export async function modifyStorage(method: string, form: FormData) {
+  if (method === "DELETE") {
+    const path = form.get("path")?.toString()
+    invariant(path, "Asset path is required.")
+
+    createAdminLogger("Storage").info(`Deleting asset ${path}`)
+    return await deleteFirebaseStorageFile(path)
+  }
+
+  if (method === "POST") {
+    const file = form.get("filePath") as File
+    invariant(file, "File path is required.")
+    console.log(file)
+
+    const destination = form.get("destination")?.toString()
+    invariant(destination, "Asset destination is required")
+
+    createAdminLogger("Storage").info(`Creating asset ${destination}`)
+
+    // return await uploadFirebaseStorageFile(filePath, { destination })
+    return await uploadFirebaseStorageFile2(file.name, file)
+  }
+}

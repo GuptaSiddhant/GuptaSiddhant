@@ -182,7 +182,7 @@ function AdminNavbarItem({
       id={id}
       to={to!}
       onClick={onClick}
-      prefetch="render"
+      prefetch="intent"
       className={({ isActive }) =>
         clsx(
           "w=full rounded-sm py-1 px-2 text-base hocus:bg-tertiary",

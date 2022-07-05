@@ -1,10 +1,12 @@
 import clsx from "clsx"
 import { useMemo } from "react"
-import CreateIcon from "remixicon-react/AddLineIcon"
-import DeleteBin2FillIcon from "remixicon-react/DeleteBin2LineIcon"
-import ToggleOnIcon from "remixicon-react/ToggleFillIcon"
-import ToggleOffIcon from "remixicon-react/ToggleLineIcon"
 
+import {
+  CreateIcon,
+  DeleteIcon,
+  ToggleOffIcon,
+  ToggleOnIcon,
+} from "~/features/icons"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
@@ -173,8 +175,12 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
         title="Delete flag"
         body={{ flag }}
         className={buttonClassName}
+        confirm={{
+          children: "Are you sure you want to delete the flag?",
+          confirmElement: <span className="text-negative">Delete</span>,
+        }}
       >
-        <DeleteBin2FillIcon className="text-negative" />
+        <DeleteIcon className="text-negative" />
       </FormAction>
 
       {dev && prod ? (

@@ -7,7 +7,7 @@ import {
 import StorageFileView from "./StorageFileView"
 import { type StoragePathProps, StoragePathType } from "./types"
 
-export default function StorageView({
+export default function StorageDirView({
   storagePaths = [],
 }: {
   storagePaths: StoragePathProps[]
@@ -23,13 +23,14 @@ export default function StorageView({
   return (
     <AdminLayout
       name={name}
+      to={currentPath.path}
       header={<span className="font-bold">{name}</span>}
       navGroups={generateNavbarGroupsFromFirebaseStorageDirsFiles(
         currentPath.dirs,
         currentPath.files,
       )}
     >
-      <StorageView storagePaths={subPaths} />
+      <StorageDirView storagePaths={subPaths} />
     </AdminLayout>
   )
 }

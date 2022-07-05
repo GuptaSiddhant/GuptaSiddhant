@@ -2,7 +2,10 @@ import { Link } from "@remix-run/react"
 
 import AdminLayout from "~/features/admin/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
+import { DeleteIcon, DownloadIcon } from "~/features/icons"
+import { type FirebaseStorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
+import FormAction from "~/features/ui/FormAction"
 
 import AdminDashboard from "../AdminDashboard"
 import { extractLastPartOfFilePath } from "./helpers"
@@ -13,47 +16,82 @@ export default function StorageFileView({
   data,
 }: StorageFileProps): JSX.Element | null {
   const name = extractLastPartOfFilePath(path)
-  const { linkUrl, contentType } = data
-
-  const isImage = contentType.startsWith("image/")
 
   return (
     <AdminLayout
       name={name}
       header={<span className="font-bold">{name}</span>}
       className="flex flex-col gap-4"
+      actions={[
+        {
+          id: "Download",
+          children: <DownloadIcon />,
+          to: `/` + path,
+          download: name,
+        },
+        {
+          id: "Delete",
+          children: (
+            <FormAction
+              method="delete"
+              body={{ path }}
+              title="Delete file"
+              confirm={{
+                children: "Are you sure you want to delete the file",
+                confirmElement: <span className="text-negative">Delete</span>,
+              }}
+            >
+              <DeleteIcon />
+            </FormAction>
+          ),
+        },
+      ]}
     >
-      <Accordion
-        open
-        summary="File data"
-        summaryClassName="rounded-none sticky top-0"
-      >
-        <AdminDashboard.Table
-          className="w-full"
-          data={[data]}
-          columns={[
-            { id: "contentType" },
-            {
-              id: "size",
-              cell: (row) => formatUnit(row.size / 1000, "kilobyte"),
-            },
-            {
-              id: "createTimestamp",
-              header: "Created at",
-              cell: (row) => formatDateTime(row.createTimestamp),
-            },
-            {
-              id: "updateTimestamp",
-              header: "Updated at",
-              cell: (row) => formatDateTime(row.updateTimestamp),
-            },
-          ]}
-        />
-      </Accordion>
-
-      {isImage ? <StorageFileImageView src={linkUrl} alt={name} /> : null}
+      <StorageFileDataView {...data} />
+      <StorageFilePreview {...data} />
     </AdminLayout>
   )
+}
+
+function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
+  return (
+    <Accordion
+      open
+      summary="File data"
+      summaryClassName="rounded-none sticky top-0"
+    >
+      <AdminDashboard.Table
+        className="w-full"
+        data={[file]}
+        columns={[
+          { id: "contentType" },
+          {
+            id: "size",
+            cell: (row) => formatUnit(row.size / 1000, "kilobyte"),
+          },
+          {
+            id: "createTimestamp",
+            header: "Created at",
+            cell: (row) => formatDateTime(row.createTimestamp),
+          },
+          {
+            id: "updateTimestamp",
+            header: "Updated at",
+            cell: (row) => formatDateTime(row.updateTimestamp),
+          },
+        ]}
+      />
+    </Accordion>
+  )
+}
+
+function StorageFilePreview(file: FirebaseStorageFile): JSX.Element | null {
+  const { linkUrl, contentType, name } = file
+  const isImage = Boolean(contentType?.startsWith("image"))
+
+  if (isImage) return <StorageFileImageView src={linkUrl} alt={name} />
+
+  return null
 }
 
 function StorageFileImageView({
@@ -69,9 +107,11 @@ function StorageFileImageView({
       summary="Preview"
       summaryClassName="rounded-none sticky top-0"
     >
-      <Link to={src}>
-        <img src={src} alt={alt} className="m-4" />
-      </Link>
+      <div className="flex justify-center">
+        <Link to={src}>
+          <img src={src} alt={alt} />
+        </Link>
+      </div>
     </Accordion>
   )
 }

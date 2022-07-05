@@ -3,7 +3,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/AdminDashboard"
-import { formatDate, formatDateTime } from "~/features/helpers/format"
+import { formatDateTime } from "~/features/helpers/format"
 import {
   type FirebaseStorageMetaData,
   getFirebaseStorageMetaData,

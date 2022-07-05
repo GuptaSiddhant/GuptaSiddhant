@@ -1,4 +1,6 @@
+import type { UploadOptions } from "@google-cloud/storage"
 import { getStorage } from "firebase-admin/storage"
+import fs from "fs/promises"
 import invariant from "tiny-invariant"
 
 import { ONE_DAY_IN_MS } from "~/features/constants"
@@ -119,12 +121,40 @@ function transformGoogleFileToFirebaseStorageFile(
   return {
     id: file.id || file.metadata.id,
     name: file.metadata.name,
-    // selfLink: file.metadata.selfLink,
-    // mediaLink: file.metadata.mediaLink,
     contentType: file.metadata.contentType,
     size: Number.parseInt(file.metadata.size, 10),
     createTimestamp: file.metadata.timeCreated,
     updateTimestamp: file.metadata.updated,
     linkUrl: `/${file.metadata.name}`,
   }
+}
+
+// Setters
+
+export async function deleteFirebaseStorageFile(path: string) {
+  return getStorage().bucket().file(path).delete()
+}
+
+export async function uploadFirebaseStorageFile(
+  path: string,
+  options: UploadOptions = {},
+) {
+  return getStorage().bucket().upload(path, options)
+}
+
+export async function uploadFirebaseStorageFile2(filePath: string, blob: File) {
+  const tempDir = "temp"
+  const tempFilePath = `${tempDir}/${Math.random()}-${blob.name}`
+
+  const data = new Uint8Array(await blob.arrayBuffer())
+  await fs.mkdir(tempDir, { recursive: true })
+  await fs.writeFile(tempFilePath, data)
+
+  const up = await uploadFirebaseStorageFile(tempFilePath, {
+    destination: filePath,
+  })
+
+  await fs.unlink(tempFilePath)
+
+  return up
 }

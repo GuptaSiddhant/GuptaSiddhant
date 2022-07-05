@@ -1,17 +1,16 @@
 import {
   type MenuItemProps,
-  Menu as ReachMenu,
-  MenuButton,
   MenuItem,
   MenuItems,
   MenuLink,
-  MenuPopover,
 } from "@reach/menu-button"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
 
 import type { To } from "~/features/types"
+
+import Popover from "./Popover"
 
 export interface MenuProps {
   className?: string
@@ -26,6 +25,12 @@ export type MenuActionProps = {
   children: React.ReactNode
 } & ({ to: To } | { onSelect: MenuItemProps["onSelect"] })
 
+const actionClassName = clsx(
+  "px-4 py-2 text-secondary",
+  "[&[data-selected]]:bg-blue-200 dark:[&[data-selected]]:bg-blue-800",
+  "[&[data-selected]]:text-primary",
+)
+
 export default function Menu({
   className,
   children,
@@ -33,54 +38,40 @@ export default function Menu({
   header,
   footer,
 }: MenuProps): JSX.Element | null {
-  const actionClassName = clsx(
-    "px-4 py-2 text-secondary",
-    "[&[data-selected]]:bg-blue-200 dark:[&[data-selected]]:bg-blue-800",
-    "[&[data-selected]]:text-primary",
-  )
-
   return (
-    <ReachMenu>
-      {({ isOpen }) => (
+    <Popover
+      className={className}
+      content={
         <>
-          <MenuButton className={className}>
-            {isOpen ? <CloseIcon aria-label="Close menu" /> : children}
-          </MenuButton>
-          <MenuPopover
-            className={clsx(
-              "rounded border border-solid border-gray-500 bg-primary dark:bg-tertiary",
-              "block overflow-y-auto shadow-lg outline-none",
-              "absolute z-popover max-h-screen-main [&[hidden]]:hidden",
+          {header}
+
+          <MenuItems className="whitespace-nowrap py-2">
+            {actions.map((props) =>
+              "to" in props ? (
+                <MenuLink
+                  key={props.id}
+                  {...props}
+                  as={Link}
+                  replace
+                  className={actionClassName}
+                />
+              ) : (
+                <MenuItem
+                  key={props.id}
+                  {...props}
+                  className={actionClassName}
+                />
+              ),
             )}
-          >
-            {header}
+          </MenuItems>
 
-            <MenuItems className="whitespace-nowrap py-2">
-              {actions.map((props) =>
-                "to" in props ? (
-                  <MenuLink
-                    key={props.id}
-                    {...props}
-                    as={Link}
-                    replace
-                    className={actionClassName}
-                  />
-                ) : (
-                  <MenuItem
-                    key={props.id}
-                    {...props}
-                    className={actionClassName}
-                  />
-                ),
-              )}
-            </MenuItems>
-
-            {footer}
-          </MenuPopover>
+          {footer}
         </>
-      )}
-    </ReachMenu>
+      }
+    >
+      {({ isOpen }) =>
+        isOpen ? <CloseIcon aria-label="Close menu" /> : children
+      }
+    </Popover>
   )
 }
-
-Menu.Button = MenuButton

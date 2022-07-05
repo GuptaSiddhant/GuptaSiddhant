@@ -12,6 +12,7 @@ export interface StorageDirProps {
   type: StoragePathType.Dir
   dirs: string[]
   files: FirebaseStorageFile[]
+  data: FirebaseStorageFile
 }
 export interface StorageFileProps {
   path: string

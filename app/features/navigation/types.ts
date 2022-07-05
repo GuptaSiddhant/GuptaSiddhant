@@ -5,4 +5,5 @@ export interface NavigationLinkProps {
   children: React.ReactNode
   to?: To
   onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  download?: string
 }

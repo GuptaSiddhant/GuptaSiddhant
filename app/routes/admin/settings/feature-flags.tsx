@@ -30,10 +30,11 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const { url, method } = request
-  const { pathname } = new URL(url)
+  const { method } = request
+
   const form = await request.formData()
   const flag = form.get("flag")?.toString()
+  const origin = form.get("origin")?.toString() || "/"
 
   if (method === "POST" || method === "PATCH") {
     invariant(flag, "flag is required")
@@ -50,7 +51,7 @@ export const action: ActionFunction = async ({ request }) => {
     await deleteFeatureFlag(flag)
   }
 
-  return redirect(pathname)
+  return redirect(origin)
 }
 
 export default function CacheIndex(): JSX.Element | null {
