@@ -2,9 +2,10 @@ import invariant from "tiny-invariant"
 
 import {
   deleteFirebaseStorageFile,
+  downloadFirebaseStorageFile,
   getFirebaseStorageFile,
   getFirebaseStorageFiles,
-  uploadFirebaseStorageFile2,
+  uploadFirebaseStorageFile,
 } from "~/features/service/storage.server"
 
 import { createAdminLogger } from "../service.server"
@@ -35,6 +36,7 @@ export function getStoragePaths(paths: string[]): Promise<StoragePathProps[]> {
         type: StoragePathType.File,
         path,
         data,
+        blob: await downloadFirebaseStorageFile(path),
       }
 
       return fileProps
@@ -60,6 +62,6 @@ export async function modifyStorage(method: string, form: FormData) {
     createAdminLogger("Storage").info(`Creating asset ${destination}`)
 
     // return await uploadFirebaseStorageFile(filePath, { destination })
-    return await uploadFirebaseStorageFile2(file.name, file)
+    return await uploadFirebaseStorageFile(file.name, file)
   }
 }

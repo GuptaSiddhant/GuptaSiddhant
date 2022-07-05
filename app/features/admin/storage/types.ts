@@ -18,4 +18,5 @@ export interface StorageFileProps {
   path: string
   type: StoragePathType.File
   data: FirebaseStorageFile
+  blob?: Blob
 }

@@ -1,4 +1,3 @@
-import type { UploadOptions } from "@google-cloud/storage"
 import { getStorage } from "firebase-admin/storage"
 import fs from "fs/promises"
 import invariant from "tiny-invariant"
@@ -89,7 +88,7 @@ export async function getFirebaseStorageFiles(path?: string): Promise<{
 
   const files: FirebaseStorageFile[] =
     _files
-      .map(transformGoogleFileToFirebaseStorageFile)
+      .map((file) => transformGoogleFileToFirebaseStorageFile(file))
       .filter((file) => !file.name.endsWith("/")) || []
 
   return { dirs, files }
@@ -99,8 +98,8 @@ export async function getFirebaseStorageFile(
   path: string,
 ): Promise<FirebaseStorageFile> {
   const [file] = await getStorage().bucket().file(path).get()
-
-  return transformGoogleFileToFirebaseStorageFile(file)
+  const url = await fetchFirebaseStorageFileUrl(path)
+  return transformGoogleFileToFirebaseStorageFile(file, url)
 }
 
 export type FirebaseStorageFile = {
@@ -113,10 +112,12 @@ export type FirebaseStorageFile = {
   createTimestamp: string
   updateTimestamp: string
   linkUrl: string
+  blob: Blob
 }
 
 function transformGoogleFileToFirebaseStorageFile(
   file: any,
+  url?: string,
 ): FirebaseStorageFile {
   return {
     id: file.id || file.metadata.id,
@@ -125,7 +126,8 @@ function transformGoogleFileToFirebaseStorageFile(
     size: Number.parseInt(file.metadata.size, 10),
     createTimestamp: file.metadata.timeCreated,
     updateTimestamp: file.metadata.updated,
-    linkUrl: `/${file.metadata.name}`,
+    linkUrl: url || `/${file.metadata.name}`,
+    blob: file,
   }
 }
 
@@ -135,26 +137,25 @@ export async function deleteFirebaseStorageFile(path: string) {
   return getStorage().bucket().file(path).delete()
 }
 
-export async function uploadFirebaseStorageFile(
-  path: string,
-  options: UploadOptions = {},
-) {
-  return getStorage().bucket().upload(path, options)
-}
-
-export async function uploadFirebaseStorageFile2(filePath: string, blob: File) {
+export async function uploadFirebaseStorageFile(path: string, file: File) {
   const tempDir = "temp"
-  const tempFilePath = `${tempDir}/${Math.random()}-${blob.name}`
+  const tempFilePath = `${tempDir}/${Math.random()}-${file.name}`
 
-  const data = new Uint8Array(await blob.arrayBuffer())
+  const data = new Uint8Array(await file.arrayBuffer())
   await fs.mkdir(tempDir, { recursive: true })
   await fs.writeFile(tempFilePath, data)
 
-  const up = await uploadFirebaseStorageFile(tempFilePath, {
-    destination: filePath,
+  const response = await getStorage().bucket().upload(tempFilePath, {
+    destination: path,
   })
 
   await fs.unlink(tempFilePath)
 
-  return up
+  return response
+}
+
+export async function downloadFirebaseStorageFile(path: string) {
+  const response = await getStorage().bucket().file(path).download()
+
+  return new File(response, path)
 }

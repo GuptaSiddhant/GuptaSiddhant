@@ -28,7 +28,7 @@ export default function StorageFileView({
         {
           id: "Download",
           children: <DownloadIcon />,
-          to: `/` + path,
+          to: data.linkUrl,
           download: name,
         },
         {

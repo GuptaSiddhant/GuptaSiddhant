@@ -1,8 +1,10 @@
-import { Link, NavLink } from "@remix-run/react"
+import { Link } from "@remix-run/react"
 import { type ReactNode } from "react"
 
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import type { To } from "~/features/types"
+
+import { AnchorLink } from "../ui/Link"
 
 export default function AdminHeader({
   children,
@@ -82,9 +84,9 @@ function AdminAction({
 
   if (to) {
     return (
-      <NavLink to={to} title={id} {...props}>
+      <AnchorLink {...props} href={to.toString()} title={id}>
         {children}
-      </NavLink>
+      </AnchorLink>
     )
   }
 
