@@ -2,7 +2,6 @@ import invariant from "tiny-invariant"
 
 import {
   deleteFirebaseStorageFile,
-  downloadFirebaseStorageFile,
   getFirebaseStorageFile,
   getFirebaseStorageFiles,
   uploadFirebaseStorageFile,
@@ -16,17 +15,16 @@ import {
   StoragePathType,
 } from "./types"
 
-export function getStoragePaths(paths: string[]): Promise<StoragePathProps[]> {
-  return Promise.all(
+export async function getStoragePaths(
+  paths: string[],
+): Promise<StoragePathProps[]> {
+  const res = await Promise.allSettled(
     paths.map(async (path) => {
-      const data = await getFirebaseStorageFile(path)
-
       if (path.endsWith("/")) {
         const dirProps: StorageDirProps = {
           type: StoragePathType.Dir,
           ...(await getFirebaseStorageFiles(path)),
           path,
-          data,
         }
 
         return dirProps
@@ -35,13 +33,14 @@ export function getStoragePaths(paths: string[]): Promise<StoragePathProps[]> {
       const fileProps: StorageFileProps = {
         type: StoragePathType.File,
         path,
-        data,
-        blob: await downloadFirebaseStorageFile(path),
+        data: await getFirebaseStorageFile(path),
       }
 
       return fileProps
     }),
   )
+
+  return res.filter((res) => res.status === "fulfilled").map((res) => res.value)
 }
 
 export async function modifyStorage(method: string, form: FormData) {
@@ -54,14 +53,18 @@ export async function modifyStorage(method: string, form: FormData) {
   }
 
   if (method === "POST") {
-    const file = form.get("filePath") as File
-    invariant(file, "File path is required.")
+    const files = form.getAll("files") as File[]
+    invariant(files, "File path is required.")
 
-    const destination = form.get("destination")?.toString() || ""
+    const destination = form.get("destination")?.toString()
 
     createAdminLogger("Storage").info(`Creating asset ${destination}`)
 
-    // return await uploadFirebaseStorageFile(filePath, { destination })
-    return await uploadFirebaseStorageFile(file.name, file)
+    return Promise.all(
+      files.map((file) => {
+        const path = destination ? `${destination}/${file.name}` : file.name
+        return uploadFirebaseStorageFile(path, file)
+      }),
+    )
   }
 }

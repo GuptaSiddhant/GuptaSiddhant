@@ -9,6 +9,7 @@ export type InputProps = ComponentPropsWithoutRef<"input"> & {
   inputRef?: ForwardedRef<HTMLInputElement> | null
   datalist?: string[]
   name: string
+  label?: React.ReactNode
 }
 
 export default function Input({
@@ -17,6 +18,7 @@ export default function Input({
   inputRef,
   className,
   datalist,
+  label,
   ...props
 }: InputProps) {
   const inputId = id || name
@@ -24,6 +26,7 @@ export default function Input({
 
   return (
     <label htmlFor={inputId}>
+      {label}
       <input
         ref={inputRef}
         id={inputId}

@@ -1,5 +1,8 @@
+import FolderIcon from "remixicon-react/Folder3FillIcon"
+
 import AdminLayout from "~/features/admin/AdminLayout"
 
+import AdminDashboard from "../AdminDashboard"
 import {
   extractLastPartOfFilePath,
   generateNavbarGroupsFromFirebaseStorageDirsFiles,
@@ -9,10 +12,13 @@ import { type StoragePathProps, StoragePathType } from "./types"
 
 export default function StorageDirView({
   storagePaths = [],
+  prevStoragePath,
 }: {
   storagePaths: StoragePathProps[]
+  prevStoragePath?: StoragePathProps
 }): JSX.Element | null {
-  if (storagePaths.length === 0) return null
+  if (storagePaths.length === 0)
+    return <FolderInfo storagePath={prevStoragePath} />
 
   const [currentPath, ...subPaths] = storagePaths
   const name = extractLastPartOfFilePath(currentPath.path)
@@ -30,7 +36,35 @@ export default function StorageDirView({
         currentPath.files,
       )}
     >
-      <StorageDirView storagePaths={subPaths} />
+      <StorageDirView storagePaths={subPaths} prevStoragePath={currentPath} />
     </AdminLayout>
+  )
+}
+
+function FolderInfo({
+  storagePath,
+}: {
+  storagePath?: StoragePathProps
+}): JSX.Element | null {
+  if (!storagePath || storagePath.type === StoragePathType.File) return null
+  const name = extractLastPartOfFilePath(storagePath.path)
+
+  return (
+    <AdminDashboard icon={<FolderIcon />} name={name}>
+      <AdminDashboard.Table
+        data={[{ ...storagePath }]}
+        columns={[
+          {
+            id: "dirs",
+            header: "Directories",
+            cell: (row) => row.dirs.length.toString(),
+          },
+          {
+            id: "files",
+            cell: (row) => row.files.length.toString(),
+          },
+        ]}
+      />
+    </AdminDashboard>
   )
 }

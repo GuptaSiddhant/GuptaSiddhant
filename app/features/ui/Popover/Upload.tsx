@@ -1,11 +1,16 @@
 import { Form } from "@remix-run/react"
 
 import Button from "../Button"
+import Input from "../Input"
 import { usePopoverContext } from "."
 
-export interface PopoverUploadContentProps {}
+export interface PopoverUploadContentProps {
+  multiple?: boolean
+}
 
-export default function PopoverUploadContent({}: PopoverUploadContentProps): JSX.Element | null {
+export default function PopoverUploadContent({
+  multiple = true,
+}: PopoverUploadContentProps): JSX.Element | null {
   const { closePopover, initialFocusRef } =
     usePopoverContext<HTMLInputElement>()
 
@@ -13,19 +18,26 @@ export default function PopoverUploadContent({}: PopoverUploadContentProps): JSX
     <Form
       method="post"
       encType="multipart/form-data"
-      className="flex flex-col gap-2 p-2"
+      className="flex flex-col gap-4 p-4"
     >
       <input
         id="file_upload"
         type="file"
         name="files"
-        multiple
+        multiple={multiple}
         required
         ref={initialFocusRef}
+        className="w-full"
       />
-      <input type="text" name="destination" placeholder="Destination..." />
 
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-end justify-end gap-2">
+        <Input
+          type={"text"}
+          name={"destination"}
+          placeholder={"Destination dir..."}
+          label={<span className="text-sm">Path</span>}
+          className="w-full"
+        />
         <Button.Secondary type="button" onClick={closePopover}>
           Cancel
         </Button.Secondary>

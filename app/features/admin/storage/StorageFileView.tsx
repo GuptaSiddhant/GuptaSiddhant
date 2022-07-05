@@ -9,7 +9,7 @@ import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../AdminDashboard"
-import { extractLastPartOfFilePath } from "./helpers"
+import { extractLastPartOfFilePath, getIconForFile } from "./helpers"
 import { type StorageFileProps } from "./types"
 
 export default function StorageFileView({
@@ -22,7 +22,11 @@ export default function StorageFileView({
     <AdminLayout
       name={name}
       to={path}
-      header={<span className="font-bold">{name}</span>}
+      header={
+        <span className="flex items-center gap-2 font-bold">
+          {getIconForFile(data)} {name}
+        </span>
+      }
       className="flex flex-col gap-4"
       actions={[
         {

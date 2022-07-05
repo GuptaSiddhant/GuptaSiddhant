@@ -27,10 +27,10 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     return json<LoaderData>({ storagePaths })
   } catch {
+    const redirectRootPath = handle.adminApp.to.toString()
     const redirectPath =
       paths.length >= 2 ? "/" + paths[paths.length - 2] : undefined
 
-    const redirectRootPath = handle.adminApp.to.toString()
     return redirect(redirectRootPath + (redirectPath || ""))
   }
 }

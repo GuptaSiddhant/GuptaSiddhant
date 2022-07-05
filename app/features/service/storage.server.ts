@@ -112,7 +112,6 @@ export type FirebaseStorageFile = {
   createTimestamp: string
   updateTimestamp: string
   linkUrl: string
-  blob: Blob
 }
 
 function transformGoogleFileToFirebaseStorageFile(
@@ -127,7 +126,6 @@ function transformGoogleFileToFirebaseStorageFile(
     createTimestamp: file.metadata.timeCreated,
     updateTimestamp: file.metadata.updated,
     linkUrl: url || `/${file.metadata.name}`,
-    blob: file,
   }
 }
 
