@@ -7,9 +7,6 @@ import useEventListener from "~/features/hooks/useEventListener"
 import useFocusTrap from "~/features/hooks/useFocusTrap"
 import useStableCallback from "~/features/hooks/useStableCallback"
 
-import PopoverConfirmContent from "./confirm"
-import PopoverUploadContent from "./Upload"
-
 interface PopoverContextValue<T extends HTMLElement> {
   isOpen: boolean
   closePopover: () => void
@@ -82,9 +79,6 @@ export default function Popover({
   )
 }
 
-Popover.Confirm = PopoverConfirmContent
-Popover.Upload = PopoverUploadContent
-
 function usePopover() {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -116,6 +110,18 @@ function usePopover() {
     "keydown",
     (e) => e.key === "Escape" && isOpen && closePopover(),
     { target: popoverRef.current! },
+  )
+
+  useEventListener(
+    "click",
+    (e) => {
+      if (!isOpen) return
+      if (popoverRef.current?.contains(e.target as Node)) return
+      if (targetButtonRef.current?.contains(e.target as Node)) return
+
+      closePopover()
+    },
+    {},
   )
 
   return {

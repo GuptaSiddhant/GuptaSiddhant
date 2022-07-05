@@ -1,11 +1,12 @@
-import clsx from "clsx"
-
+import Button from "../Button"
 import { usePopoverContext } from "."
 
 export interface PopoverConfirmProps {
   children?: React.ReactNode
   cancelElement?: React.ReactNode
+  cancelClassName?: string
   confirmElement?: React.ReactNode
+  confirmClassName?: string
   onCancel?: () => void
   onConfirm: () => void
 }
@@ -16,14 +17,10 @@ export default function PopoverConfirmContent({
   confirmElement = "Yes",
   onCancel = () => {},
   onConfirm,
+  cancelClassName,
+  confirmClassName,
 }: PopoverConfirmProps): JSX.Element | null {
   const { closePopover, initialFocusRef } = usePopoverContext()
-
-  const actionClassName = clsx(
-    "px-4 py-1 text-secondary",
-    "hover:bg-blue-200 dark:hover:bg-blue-800",
-    "[&[data-selected]]:text-primary",
-  )
 
   const handleCancel = () => {
     onCancel?.()
@@ -38,18 +35,32 @@ export default function PopoverConfirmContent({
     <div className="flex flex-col gap-2 p-4">
       <p>{children || "Are you sure?"}</p>
       <ul className="flex w-full flex-row justify-end gap-2">
-        <button
-          ref={initialFocusRef}
+        <Button.Secondary
+          buttonRef={initialFocusRef}
           key="cancel"
-          className={actionClassName}
           onClick={handleCancel}
+          className={cancelClassName}
         >
           {cancelElement}
-        </button>
-        <button key="ok" className={actionClassName} onClick={handleConfirm}>
+        </Button.Secondary>
+        <Button.Primary
+          key="ok"
+          onClick={handleConfirm}
+          className={confirmClassName}
+        >
           {confirmElement}
-        </button>
+        </Button.Primary>
       </ul>
     </div>
   )
+}
+
+export function getDeleteConfirmProps(
+  name: string = "item",
+): Partial<PopoverConfirmProps> {
+  return {
+    children: `Are you sure you want to delete the ${name}?`,
+    confirmElement: "Delete",
+    confirmClassName: "!bg-negative !text-white",
+  }
 }

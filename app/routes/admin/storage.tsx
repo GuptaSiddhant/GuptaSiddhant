@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import {
   type ActionFunction,
   type LoaderFunction,
@@ -20,7 +20,8 @@ import {
 } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
-import Popover, { usePopoverContext } from "~/features/ui/Popover"
+import Popover from "~/features/ui/Popover"
+import PopoverUpload from "~/features/ui/Popover/Upload"
 import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {
@@ -57,7 +58,7 @@ export default function StorageAdminApp(): JSX.Element | null {
     {
       id: "upload",
       children: (
-        <Popover title="Upload" content={<Popover.Upload />}>
+        <Popover title="Upload" content={<PopoverUpload />}>
           <UploadIcon />
         </Popover>
       ),

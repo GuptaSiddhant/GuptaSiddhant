@@ -13,6 +13,7 @@ import {
 } from "~/features/service/feature-flag.server"
 import FormAction from "~/features/ui/FormAction"
 import Input from "~/features/ui/Input"
+import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 import Table, { type TableColumnProps } from "~/features/ui/Table"
 
 const FORM_ID = "new-flag"
@@ -175,10 +176,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
         title="Delete flag"
         body={{ flag }}
         className={buttonClassName}
-        confirm={{
-          children: "Are you sure you want to delete the flag?",
-          confirmElement: <span className="text-negative">Delete</span>,
-        }}
+        confirm={getDeleteConfirmProps("flag")}
       >
         <DeleteIcon className="text-negative" />
       </FormAction>

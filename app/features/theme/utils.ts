@@ -52,7 +52,9 @@ type BgColors = Record<
   | "tertiary"
   | "disabled"
   | "inverse"
-  | "progress",
+  | "progress"
+  | "negative"
+  | "positive",
   string
 >
 

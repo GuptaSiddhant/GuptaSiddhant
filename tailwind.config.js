@@ -54,6 +54,8 @@ const config = {
         disabled: `var(--color-bg-disabled)`,
         inverse: `var(--color-bg-inverse)`,
         progress: `var(--color-bg-progress)`,
+        positive: `var(--color-bg-positive)`,
+        negative: `var(--color-bg-negative)`,
       },
       borderColor: {
         highlight: "highlight",

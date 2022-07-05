@@ -21,6 +21,8 @@ const darkThemeColors: ThemeColors = {
     disabled: gray[600],
     inverse: gray[200],
     progress: blue[400],
+    negative: red[600],
+    positive: green[600],
   },
   border: {
     divider: gray[600],

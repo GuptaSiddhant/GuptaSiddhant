@@ -6,6 +6,7 @@ import { DeleteIcon, DownloadIcon } from "~/features/icons"
 import { type FirebaseStorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
 import FormAction from "~/features/ui/FormAction"
+import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../AdminDashboard"
 import { extractLastPartOfFilePath } from "./helpers"
@@ -37,10 +38,7 @@ export default function StorageFileView({
               method="delete"
               body={{ path }}
               title="Delete file"
-              confirm={{
-                children: "Are you sure you want to delete the file",
-                confirmElement: <span className="text-negative">Delete</span>,
-              }}
+              confirm={getDeleteConfirmProps("file")}
             >
               <DeleteIcon />
             </FormAction>

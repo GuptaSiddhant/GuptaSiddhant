@@ -6,7 +6,7 @@ import type { ReactNode } from "react"
 import Popover from "./Popover"
 import PopoverConfirmContent, {
   type PopoverConfirmProps,
-} from "./Popover/confirm"
+} from "./Popover/Confirm"
 
 export interface FormActionProps extends FormProps {
   children: ReactNode

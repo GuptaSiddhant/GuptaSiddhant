@@ -30,6 +30,9 @@ export default function Button({
   )
 }
 
+Button.Primary = PrimaryButton
+Button.Secondary = SecondaryButton
+
 export const ButtonWithRef = forwardRef<
   HTMLButtonElement,
   ComponentPropsWithoutRef<"button">
@@ -42,7 +45,21 @@ export function PrimaryButton(props: ButtonProps): JSX.Element | null {
     <Button
       {...props}
       className={clsx(
-        "flex h-10 items-center px-4 disabled:cursor-not-allowed",
+        props.className,
+        "flex h-10 items-center px-4 disabled:cursor-not-allowed disabled:opacity-50 ",
+        "bg-link text-inverse hocus:enabled:opacity-90",
+      )}
+    />
+  )
+}
+
+export function SecondaryButton(props: ButtonProps): JSX.Element | null {
+  return (
+    <Button
+      {...props}
+      className={clsx(
+        props.className,
+        "flex h-10 items-center px-4 disabled:cursor-not-allowed disabled:opacity-50 ",
         "disabled:bg-disabled/10 bg-secondary hocus:enabled:bg-tertiary ",
         "disabled:text-disabled/50 text-secondary hocus:enabled:text-tertiary",
       )}

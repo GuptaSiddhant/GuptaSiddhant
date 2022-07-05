@@ -1,4 +1,4 @@
-import { type ThemeColors, black, blue, gray, green, red, white } from "./utils"
+import { type ThemeColors, black, blue, gray, green, red } from "./utils"
 
 const lightThemeColors: ThemeColors = {
   text: {
@@ -21,6 +21,8 @@ const lightThemeColors: ThemeColors = {
     disabled: gray[400],
     inverse: gray[800],
     progress: blue[600],
+    negative: red[500],
+    positive: green[500],
   },
   border: {
     divider: gray[200],
