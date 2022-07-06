@@ -76,6 +76,7 @@ export default function StorageAdminApp(): JSX.Element | null {
   return (
     <AdminLayout
       {...adminApp}
+      className="!overflow-y-hidden overflow-x-scroll"
       actions={actions}
       navGroups={generateNavbarGroupsFromFirebaseStorageDirsFiles(dirs, files)}
       header={<Caption>{adminApp.name}</Caption>}

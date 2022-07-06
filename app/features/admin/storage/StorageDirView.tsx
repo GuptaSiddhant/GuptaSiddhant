@@ -31,6 +31,7 @@ export default function StorageDirView({
       name={name}
       to={currentPath.path}
       header={<span className="font-bold">{name}</span>}
+      sectionClassName="w-max min-w-full"
       navGroups={generateNavbarGroupsFromFirebaseStorageDirsFiles(
         currentPath.dirs,
         currentPath.files,

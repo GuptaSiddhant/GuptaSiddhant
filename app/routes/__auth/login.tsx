@@ -32,6 +32,7 @@ export default function Login(): JSX.Element {
           className="bg-default"
           required
           placeholder="Email"
+          autoComplete="email"
         />
         <input
           type="password"
@@ -39,6 +40,7 @@ export default function Login(): JSX.Element {
           className="bg-default"
           required
           placeholder="Password"
+          autoComplete="current-password"
         />
         <button>Login</button>
       </Form>

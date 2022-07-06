@@ -1,6 +1,6 @@
 import { Outlet } from "@remix-run/react"
 import clsx from "clsx"
-import { type ReactNode } from "react"
+import { type ReactNode, useEffect, useRef } from "react"
 
 import AdminHeader from "./AdminHeader"
 import AdminNavbar, { type AdminNavbarProps } from "./AdminNavbar"
@@ -9,6 +9,7 @@ export interface AdminLayoutProps extends AdminNavbarProps {
   children?: ReactNode
   className?: string
   footer?: ReactNode
+  sectionClassName?: string
 }
 
 export default function AdminLayout({
@@ -20,13 +21,19 @@ export default function AdminLayout({
   children = <Outlet />,
   footer,
   to,
+  sectionClassName,
   ...props
 }: AdminLayoutProps): JSX.Element | null {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const isRenderNavbar = (props.navGroups?.length || 0) > 0
+
+  useEffect(() => sectionRef.current?.scrollIntoView(), [])
 
   return (
     <section
+      ref={sectionRef}
       className={clsx(
+        sectionClassName,
         "relative grid h-full animate-appear-rtl overflow-hidden",
         isRenderNavbar
           ? "grid-cols-[max-content_1fr] grid-rows-[1fr_max-content]"

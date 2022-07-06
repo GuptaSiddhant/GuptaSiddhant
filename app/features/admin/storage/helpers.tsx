@@ -36,7 +36,11 @@ export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
           id: file.id,
           children: (
             <div className="flex gap-2">
-              <span className="text-disabled">{getIconForFile(file)}</span>
+              <span className="text-disabled">
+                {getIconFromFileType(
+                  getFileTypeFromFileContentType(file.contentType),
+                )}
+              </span>
               {extractLastPartOfFilePath(file.name)}
             </div>
           ),
@@ -66,14 +70,50 @@ export function generatePathsFromPath(path: string, delimiter = "/"): string[] {
   return paths
 }
 
-export function getIconForFile(file: FirebaseStorageFile): JSX.Element | null {
-  if (file.contentType.includes("image")) return <ImageIcon />
-  if (file.contentType.includes("pdf")) return <PdfIcon />
-  if (file.contentType.includes("font")) return <FontIcon />
-  if (file.contentType.includes("zip")) return <ZipIcon />
-  if (file.contentType.includes("video")) return <VideoIcon />
-  if (file.contentType.includes("text/plain")) return <TextFileIcon />
-  if (file.contentType.includes("application")) return <CodeIcon />
+export enum FileType {
+  Image = "image",
+  Pdf = "pdf",
+  Font = "font",
+  Zip = "zip",
+  Video = "video",
+  Text = "text",
+  Code = "code",
+  Other = "other",
+}
 
-  return <FileIcon />
+export function getFileTypeFromFileContentType(
+  contentType: string,
+): FileType | undefined {
+  if (!contentType) return undefined
+
+  if (contentType.includes("image")) return FileType.Image
+  if (contentType.includes("pdf")) return FileType.Pdf
+  if (contentType.includes("font")) return FileType.Font
+  if (contentType.includes("zip")) return FileType.Zip
+  if (contentType.includes("video")) return FileType.Video
+  if (contentType.includes("text/plain")) return FileType.Text
+  if (contentType.includes("application")) return FileType.Code
+
+  return FileType.Other
+}
+
+export function getIconFromFileType(type?: FileType): JSX.Element | null {
+  switch (type) {
+    case FileType.Image:
+      return <ImageIcon />
+    case FileType.Pdf:
+      return <PdfIcon />
+    case FileType.Font:
+      return <FontIcon />
+    case FileType.Zip:
+      return <ZipIcon />
+    case FileType.Video:
+      return <VideoIcon />
+    case FileType.Text:
+      return <TextFileIcon />
+    case FileType.Code:
+      return <CodeIcon />
+    default:
+      return <FileIcon />
+  }
 }

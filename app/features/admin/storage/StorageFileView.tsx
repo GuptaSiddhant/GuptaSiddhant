@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react"
+import clsx from "clsx"
 
 import AdminLayout from "~/features/admin/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
@@ -9,7 +9,12 @@ import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../AdminDashboard"
-import { extractLastPartOfFilePath, getIconForFile } from "./helpers"
+import {
+  extractLastPartOfFilePath,
+  FileType,
+  getFileTypeFromFileContentType,
+  getIconFromFileType,
+} from "./helpers"
 import { type StorageFileProps } from "./types"
 
 export default function StorageFileView({
@@ -17,6 +22,8 @@ export default function StorageFileView({
   data,
 }: StorageFileProps): JSX.Element | null {
   const name = extractLastPartOfFilePath(path)
+  const type = getFileTypeFromFileContentType(data.contentType)
+  const icon = getIconFromFileType(type)
 
   return (
     <AdminLayout
@@ -24,7 +31,7 @@ export default function StorageFileView({
       to={path}
       header={
         <span className="flex items-center gap-2 font-bold">
-          {getIconForFile(data)} {name}
+          {icon} {name}
         </span>
       }
       className="flex flex-col gap-4"
@@ -67,7 +74,11 @@ function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
         className="w-full"
         data={[file]}
         columns={[
-          { id: "contentType", header: "Type" },
+          {
+            id: "contentType",
+            header: "Type",
+            cell: (row) => row.contentType || "Unknown",
+          },
           {
             id: "size",
             cell: (row) => formatUnit(row.size / 1000, "kilobyte"),
@@ -90,48 +101,27 @@ function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
 
 function StorageFilePreview(file: FirebaseStorageFile): JSX.Element | null {
   const { linkUrl, contentType, name } = file
+  const type = getFileTypeFromFileContentType(contentType)
 
-  if (contentType?.includes("image"))
-    return <StorageFileImageView src={linkUrl} alt={name} />
+  if (!type) return null
 
-  if (contentType?.includes("video"))
-    return <StorageFileVideoView src={linkUrl} />
-
-  return null
-}
-
-function StorageFileImageView({
-  src,
-  alt,
-}: {
-  src: string
-  alt: string
-}): JSX.Element | null {
   return (
     <Accordion
       open
       summary="Preview"
       summaryClassName="rounded-none sticky top-0"
     >
-      <div className="flex justify-center">
-        <Link to={src}>
-          <img src={src} alt={alt} />
-        </Link>
-      </div>
-    </Accordion>
-  )
-}
-
-function StorageFileVideoView({ src }: { src: string }): JSX.Element | null {
-  return (
-    <Accordion
-      open
-      summary="Preview"
-      summaryClassName="rounded-none sticky top-0"
-    >
-      <div className="flex justify-center">
-        <video src={src} controls autoPlay={false}></video>
-      </div>
+      <embed
+        src={linkUrl}
+        type={contentType}
+        title={name}
+        className={clsx(
+          "max-w-lg object-contain",
+          type === FileType.Video && "aspect-video w-full",
+          [FileType.Pdf, FileType.Text, FileType.Code].includes(type) &&
+            "aspect-[2/3] w-full",
+        )}
+      />
     </Accordion>
   )
 }

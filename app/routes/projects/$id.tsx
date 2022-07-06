@@ -103,7 +103,7 @@ export default function ProjectDetails(): JSX.Element {
                 src={assoc.icon}
                 title={assoc.subtitle}
                 alt={assoc.subtitle}
-                className="h-8 w-8 rounded-sm object-contain"
+                className="h-8 w-8 rounded-sm bg-inverse object-contain"
                 loading="eager"
               />
             </Link>
