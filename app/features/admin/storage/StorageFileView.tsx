@@ -2,11 +2,13 @@ import clsx from "clsx"
 
 import AdminLayout from "~/features/admin/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
-import { DeleteIcon, DownloadIcon } from "~/features/icons"
+import { DeleteIcon, DownloadIcon, RenameIcon } from "~/features/icons"
 import { type FirebaseStorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
 import FormAction from "~/features/ui/FormAction"
+import Popover from "~/features/ui/Popover"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
+import PopoverRenameContent from "~/features/ui/Popover/Rename"
 
 import AdminDashboard from "../AdminDashboard"
 import {
@@ -41,6 +43,17 @@ export default function StorageFileView({
           children: <DownloadIcon />,
           to: data.linkUrl,
           download: name,
+        },
+        {
+          id: "Rename",
+          children: (
+            <Popover
+              title="Rename"
+              content={<PopoverRenameContent previousName={path} />}
+            >
+              <RenameIcon />
+            </Popover>
+          ),
         },
         {
           id: "Delete",

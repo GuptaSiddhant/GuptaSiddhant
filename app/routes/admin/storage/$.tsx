@@ -40,9 +40,9 @@ export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
   const origin = form.get("origin")?.toString() || "/"
 
-  await modifyStorage(method, form)
+  const redirectTo = await modifyStorage(method, form)
 
-  return redirect(origin)
+  return redirect(redirectTo || origin)
 }
 
 export default function StoragePath(): JSX.Element | null {

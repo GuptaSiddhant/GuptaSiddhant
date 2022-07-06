@@ -1,6 +1,9 @@
 import FolderIcon from "remixicon-react/Folder3FillIcon"
 
 import AdminLayout from "~/features/admin/AdminLayout"
+import { DeleteIcon } from "~/features/icons"
+import FormAction from "~/features/ui/FormAction"
+import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../AdminDashboard"
 import {
@@ -36,6 +39,21 @@ export default function StorageDirView({
         currentPath.dirs,
         currentPath.files,
       )}
+      actions={[
+        {
+          id: "Delete",
+          children: (
+            <FormAction
+              method="delete"
+              body={{ prefix: currentPath.path, type: "dir" }}
+              title="Delete file"
+              confirm={getDeleteConfirmProps("folder")}
+            >
+              <DeleteIcon />
+            </FormAction>
+          ),
+        },
+      ]}
     >
       <StorageDirView storagePaths={subPaths} prevStoragePath={currentPath} />
     </AdminLayout>

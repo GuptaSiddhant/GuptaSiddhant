@@ -45,11 +45,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   const { method } = request
   const form = await request.formData()
-  // const origin = form.get("origin")?.toString() || "/"
 
-  await modifyStorage(method, form)
+  const redirectTo = await modifyStorage(method, form)
 
-  return redirect(new URL(request.url).pathname)
+  return redirect(redirectTo || new URL(request.url).pathname)
 }
 
 export default function StorageAdminApp(): JSX.Element | null {

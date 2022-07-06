@@ -136,6 +136,10 @@ export async function deleteFirebaseStorageFile(path: string) {
   return getStorage().bucket().file(path).delete()
 }
 
+export async function deleteFirebaseStorageDir(prefix: string) {
+  return getStorage().bucket().deleteFiles({ prefix })
+}
+
 export async function uploadFirebaseStorageFile(path: string, file: File) {
   const tempDir = os.tmpdir()
   const tempFilePath = `${tempDir}/${Math.random()}-${file.name}`
@@ -150,11 +154,20 @@ export async function uploadFirebaseStorageFile(path: string, file: File) {
 
   await fs.unlink(tempFilePath)
 
-  return response[0]
+  return transformGoogleFileToFirebaseStorageFile(response[0])
 }
 
 export async function downloadFirebaseStorageFile(path: string) {
   const response = await getStorage().bucket().file(path).download()
 
-  return new File(response, path)
+  return transformGoogleFileToFirebaseStorageFile(response[0])
+}
+
+export async function renameFirebaseStorageFile(
+  previousName: string,
+  name: string,
+) {
+  const response = await getStorage().bucket().file(previousName).rename(name)
+
+  return transformGoogleFileToFirebaseStorageFile(response[0])
 }

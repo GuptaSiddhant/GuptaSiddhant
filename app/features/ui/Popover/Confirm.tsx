@@ -1,7 +1,9 @@
 import Button from "../Button"
+import { H6 } from "../Text"
 import { usePopoverContext } from "."
 
 export interface PopoverConfirmProps {
+  title?: React.ReactNode
   children?: React.ReactNode
   cancelElement?: React.ReactNode
   cancelClassName?: string
@@ -12,6 +14,7 @@ export interface PopoverConfirmProps {
 }
 
 export default function PopoverConfirmContent({
+  title = "Confirm action",
   children,
   cancelElement = "No",
   confirmElement = "Yes",
@@ -33,6 +36,7 @@ export default function PopoverConfirmContent({
 
   return (
     <div className="flex flex-col gap-2 p-4">
+      <H6>{title}</H6>
       <p>{children || "Are you sure?"}</p>
       <ul className="flex w-full flex-row justify-end gap-2">
         <Button.Secondary
