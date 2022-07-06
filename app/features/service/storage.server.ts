@@ -1,5 +1,6 @@
 import { getStorage } from "firebase-admin/storage"
 import fs from "fs/promises"
+import os from "os"
 import invariant from "tiny-invariant"
 
 import { ONE_DAY_IN_MS } from "~/features/constants"
@@ -136,11 +137,10 @@ export async function deleteFirebaseStorageFile(path: string) {
 }
 
 export async function uploadFirebaseStorageFile(path: string, file: File) {
-  const tempDir = "temp"
+  const tempDir = os.tmpdir()
   const tempFilePath = `${tempDir}/${Math.random()}-${file.name}`
 
   const data = new Uint8Array(await file.arrayBuffer())
-  await fs.mkdir(tempDir, { recursive: true })
   await fs.writeFile(tempFilePath, data)
 
   const response = await getStorage().bucket().upload(tempFilePath, {
