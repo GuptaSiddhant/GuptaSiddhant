@@ -7,7 +7,7 @@ import FontIcon from "remixicon-react/FontSizeIcon"
 import ImageIcon from "remixicon-react/ImageLineIcon"
 import VideoIcon from "remixicon-react/VideoLineIcon"
 
-import { type FirebaseStorageFile } from "~/features/service/storage.server"
+import { type FirebaseStorageFile } from "~/features/service/firebase-storage.server"
 
 import { type AdminNavbarGroupProps } from "../AdminNavbar"
 

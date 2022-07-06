@@ -7,7 +7,7 @@ import {
   getFirebaseStorageFiles,
   renameFirebaseStorageFile,
   uploadFirebaseStorageFile,
-} from "~/features/service/storage.server"
+} from "~/features/service/firebase-storage.server"
 
 import { createAdminLogger } from "../service.server"
 import { generatePathsFromPath } from "./helpers"

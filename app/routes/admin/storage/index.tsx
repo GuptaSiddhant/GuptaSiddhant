@@ -7,7 +7,7 @@ import { formatDateTime } from "~/features/helpers/format"
 import {
   type FirebaseStorageMetaData,
   getFirebaseStorageMetaData,
-} from "~/features/service/storage.server"
+} from "~/features/service/firebase-storage.server"
 import { ExternalLink } from "~/features/ui/Link"
 
 import { handle } from "../storage"

@@ -17,7 +17,7 @@ import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type FirebaseStorageFile,
   getFirebaseStorageFiles,
-} from "~/features/service/storage.server"
+} from "~/features/service/firebase-storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
 import Popover from "~/features/ui/Popover"

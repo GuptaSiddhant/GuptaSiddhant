@@ -1,4 +1,4 @@
-import type { FirebaseStorageFile } from "~/features/service/storage.server"
+import type { FirebaseStorageFile } from "~/features/service/firebase-storage.server"
 
 export enum StoragePathType {
   Dir = "dir",
