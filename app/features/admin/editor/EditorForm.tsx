@@ -15,21 +15,25 @@ import Input from "~/features/ui/Input"
 import Select from "~/features/ui/Select"
 
 export interface EditorFormProps<T extends Record<string, any>> {
-  method?: FormMethod
-  id: string
-  item: T
+  method: FormMethod
+  formId: string
+  item?: T
   model: Model
 }
 
 export default function EditorForm<T extends { id: string }>({
-  method = "put",
+  method,
   item,
   model,
-  id,
+  formId,
 }: EditorFormProps<T>): JSX.Element | null {
   return (
-    <Form id={id} method={method} replace className="flex flex-col gap-4">
-      <input name="id" value={item.id} type="hidden" />
+    <Form id={formId} method={method} replace className="flex flex-col gap-4">
+      {item?.id ? (
+        <input type="hidden" name="id" value={item.id} />
+      ) : (
+        <EditorFormTextInput name="id" defaultValue={""} required />
+      )}
       <EditorFormObjectInput item={item} properties={model.properties} />
     </Form>
   )
@@ -42,16 +46,16 @@ function EditorFormArrayInput({
 }: {
   name: string
   list?: ModelArrayType<any>
-  item: any
+  item?: any
   required?: boolean
 }): JSX.Element | null {
-  if (!list || !item) return null
+  if (!list) return null
 
   if (list.type === "object") {
     return (
       <EditorFormObjectList
         name={name}
-        items={item[name]}
+        items={item?.[name]}
         properties={list.properties}
       />
     )
@@ -79,7 +83,7 @@ function EditorFormObjectList({
   const [count, setCount] = useState(items.length)
 
   return (
-    <fieldset className="flex flex-col gap-2 rounded border p-2">
+    <fieldset className="flex flex-col gap-2 rounded border border-divider p-2">
       <legend className="text-base">{capitalize(name)}</legend>
 
       {Array(count)
@@ -127,7 +131,7 @@ function EditorFormObjectInput<T extends Record<string, any>>({
   className,
 }: {
   properties: ModelProperties<any>
-  item: T
+  item?: T
   namePrefix?: string
   className?: string
 }) {
@@ -168,7 +172,7 @@ function EditorFormObjectInput<T extends Record<string, any>>({
             <EditorFormTextInput
               key={key}
               name={namePrefix + key}
-              defaultValue={item[key as keyof T] as any}
+              defaultValue={item?.[key as keyof T] as any}
               required={modelProp.optional === false}
               options={"enum" in modelProp ? modelProp.enum : []}
             />
@@ -179,14 +183,14 @@ function EditorFormObjectInput<T extends Record<string, any>>({
         <fieldset
           className={clsx(
             className,
-            "grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3",
+            "grid flex-1 grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6",
           )}
         >
           {formBooleanEntries.map(([key, modelProp]) => (
             <EditorFormBooleanInput
               key={key}
               name={namePrefix + key}
-              defaultValue={item[key as keyof T] as any}
+              defaultValue={item?.[key as keyof T] as any}
               required={modelProp.optional === false}
             />
           ))}

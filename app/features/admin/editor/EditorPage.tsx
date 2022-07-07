@@ -1,26 +1,32 @@
 import SaveButton from "remixicon-react/Save2FillIcon"
 
+import { DeleteIcon } from "~/features/icons"
 import { type Model } from "~/features/models"
 import Button from "~/features/ui/Button"
+import FormAction from "~/features/ui/FormAction"
+import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminLayout from "../AdminLayout"
 import EditorForm from "./EditorForm"
 
 interface EditorPageProps<T> {
-  item: T
+  headerPrefix: string
+  item?: T
   model: Model
 }
 
 export default function EditorPage<T extends EditorHeaderProps>({
   item,
   model,
+  headerPrefix = "New",
 }: EditorPageProps<T>): JSX.Element | null {
-  const formId = `editor-${item.id}`
+  const formId = item ? `editor-${item.id}` : "editor-new"
+  const name = headerPrefix + ": " + (item?.id || "new")
 
   return (
     <AdminLayout
-      name={item.id}
-      header={<EditorHeader {...item} />}
+      name={name}
+      header={<EditorHeader id={name} icon={item?.icon} />}
       className="p-4"
       key={formId}
       actions={[
@@ -32,9 +38,31 @@ export default function EditorPage<T extends EditorHeaderProps>({
             </Button>
           ),
         },
+        ...(item
+          ? [
+              {
+                id: "Delete",
+                children: (
+                  <FormAction
+                    method="delete"
+                    body={{ id: item.id }}
+                    title="Delete entry"
+                    confirm={getDeleteConfirmProps("entry")}
+                  >
+                    <DeleteIcon />
+                  </FormAction>
+                ),
+              },
+            ]
+          : []),
       ]}
     >
-      <EditorForm id={formId} item={item} model={model} method="put" />
+      <EditorForm
+        formId={formId}
+        item={item}
+        model={model}
+        method={item ? "put" : "post"}
+      />
     </AdminLayout>
   )
 }
@@ -44,7 +72,10 @@ interface EditorHeaderProps {
   icon?: string
 }
 
-function EditorHeader({ icon, id }: EditorHeaderProps): JSX.Element | null {
+function EditorHeader({
+  icon,
+  id = "New",
+}: EditorHeaderProps): JSX.Element | null {
   if (!icon) return <strong>{id}</strong>
 
   return (

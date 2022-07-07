@@ -1,5 +1,6 @@
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
+import NewIcon from "remixicon-react/AddBoxFillIcon"
 import EditorIcon from "remixicon-react/EditBoxFillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
@@ -11,8 +12,10 @@ import {
   getEducationList,
 } from "~/features/experiences/service.server"
 import type { ExperienceProps } from "~/features/experiences/types"
+import type { NavigationLinkProps } from "~/features/navigation/types"
 import { FirestoreCollection } from "~/features/service/firestore.server"
 import { ErrorSection } from "~/features/ui/Error"
+import Menu from "~/features/ui/Menu"
 import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {
@@ -73,11 +76,29 @@ export default function EditorAdminApp(): JSX.Element | null {
     }),
   )
 
+  const actions: NavigationLinkProps[] = [
+    {
+      id: "new",
+      children: (
+        <Menu
+          actions={entries.map((e) => ({
+            id: e.id,
+            children: "New " + e.label,
+            to: `${e.id}/new`,
+          }))}
+        >
+          <NewIcon />
+        </Menu>
+      ),
+    },
+  ]
+
   return (
     <AdminLayout
       {...adminApp}
       header={<Caption>{adminApp.name}</Caption>}
       navGroups={navGroups}
+      actions={actions}
     >
       <Outlet context={loaderData} />
     </AdminLayout>

@@ -11,8 +11,17 @@ import { ExternalLink } from "~/features/ui/Link"
 import LifelineCard from "./LifelineCard"
 
 export default function ExperienceCard(item: ExperienceProps): JSX.Element {
-  const { id, title, subtitle, duration, links, description, gallery, icon } =
-    item
+  const {
+    id,
+    title,
+    subtitle,
+    duration,
+    links = [],
+    description,
+    gallery,
+    icon,
+  } = item
+
   const homepageLink = links.find((l) => l.type === "homepage")?.url
   const isCareerItem = item.category === "career"
 

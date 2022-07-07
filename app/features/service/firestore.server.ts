@@ -42,13 +42,12 @@ export async function getFirestoreDocument<T>(
   collectionName: FirestoreCollection,
   docId: string,
 ): Promise<T> {
-  const value = `${collectionName}/${docId}`
-  const key = createCacheKey(CacheType.FirestoreDocument, value)
+  const key = createFirestoreDocCacheKey(collectionName, docId)
 
   const doc = await fetchCachedKey(key, () =>
     fetchFireStoreDocument(collectionName, docId),
   )
-  if (!doc) throw new Error(`Document '${value}' not found`)
+  if (!doc) throw new Error(`'${key}' not found`)
 
   return doc as T
 }
@@ -79,24 +78,59 @@ export async function setFirestoreDocument<T extends BaseLocalData>(
   collectionPath: FirestoreCollection,
   docId: string,
   data: T,
+  invalidateAll?: boolean,
 ) {
   return firestore
     .collection(collectionPath)
     .doc(docId)
     .set(transformLocalDataToFirestoreDoc(data), { merge: true })
     .then(() => {
-      deleteCachedKey(
-        createCacheKey(
-          CacheType.FirestoreDocument,
-          `${collectionPath}/${docId}`,
-        ),
-      )
+      invalidateFirestoreDocCache(collectionPath, docId)
+      invalidateAll && invalidateFirestoreCollectionCache(collectionPath)
+    })
+}
+
+export async function deleteFirestoreDocument(
+  collectionPath: FirestoreCollection,
+  docId: string,
+) {
+  return firestore
+    .collection(collectionPath)
+    .doc(docId)
+    .delete()
+    .then(() => {
+      invalidateFirestoreDocCache(collectionPath, docId)
+      invalidateFirestoreCollectionCache(collectionPath)
     })
 }
 
 // Helpers
 
 export { DocumentData }
+
+function createFirestoreDocCacheKey(
+  collectionPath: FirestoreCollection,
+  docId: string,
+) {
+  return createCacheKey(
+    CacheType.FirestoreDocument,
+    `${collectionPath}/${docId}`,
+  )
+}
+
+function invalidateFirestoreDocCache(
+  collectionPath: FirestoreCollection,
+  docId: string,
+) {
+  return deleteCachedKey(createFirestoreDocCacheKey(collectionPath, docId))
+}
+function invalidateFirestoreCollectionCache(
+  collectionPath: FirestoreCollection,
+) {
+  return deleteCachedKey(
+    createCacheKey(CacheType.FirestoreCollection, collectionPath),
+  )
+}
 
 function verifyFirestoreCollection(collectionPath: string) {
   if (

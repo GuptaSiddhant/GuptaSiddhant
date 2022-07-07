@@ -5,57 +5,56 @@ import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
 import EditorPage from "~/features/admin/editor/EditorPage"
-import { getEducationModel } from "~/features/experiences/helpers"
+import { modifyFirestoreDocumentWithEditorForm } from "~/features/admin/editor/service.server"
+import { adminLogger } from "~/features/admin/service.server"
+import { getModelByFirestoreCollection } from "~/features/experiences/helpers"
 import type { EducationProps } from "~/features/experiences/types"
 import type { Model } from "~/features/models"
-import { getDataFromModelObject } from "~/features/models/helpers"
 import {
   FirestoreCollection,
   getFirestoreDocument,
-  setFirestoreDocument,
 } from "~/features/service/firestore.server"
 
+import { handle } from "../editor"
+
 interface LoaderData {
-  item: EducationProps
-  model: Model<keyof EducationProps>
+  item?: EducationProps
+  model: Model
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
+  const collectionName = FirestoreCollection.Education
+  const model = getModelByFirestoreCollection(collectionName)
+
   const id = params.id
-  invariant(id, "Education id is required")
+  invariant(id, collectionName + " id is required.")
 
-  const item = await getFirestoreDocument<EducationProps>(
-    FirestoreCollection.Education,
-    id,
-  )
+  if (id === "new") return json<LoaderData>({ model })
 
-  const educationModel = getEducationModel()
-
-  return json<LoaderData>({ item, model: educationModel })
+  try {
+    const item = await getFirestoreDocument<EducationProps>(collectionName, id)
+    return json<LoaderData>({ item, model })
+  } catch (e: any) {
+    adminLogger.error(e.message)
+    return redirect(handle.adminApp.to + "/" + FirestoreCollection.Education)
+  }
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
 
-  const id = formData.get("id")?.toString()
-  invariant(id, "Education id is required")
-
-  const educationModel = getEducationModel()
-
-  const data = getDataFromModelObject(
-    Object.keys(educationModel.properties),
+  const redirectTo = await modifyFirestoreDocumentWithEditorForm(
+    FirestoreCollection.Education,
     formData,
-    educationModel.properties,
+    request.method,
   )
 
-  await setFirestoreDocument(FirestoreCollection.Education, id, data)
-
-  return redirect(pathname)
+  return redirect(redirectTo || pathname)
 }
 
 export default function EducationEditor(): JSX.Element | null {
   const { item, model } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={item} model={model} />
+  return <EditorPage item={item} model={model} headerPrefix="Education" />
 }

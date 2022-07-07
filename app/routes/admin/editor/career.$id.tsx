@@ -5,57 +5,56 @@ import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
 import EditorPage from "~/features/admin/editor/EditorPage"
-import { getCareerModel } from "~/features/experiences/helpers"
+import { modifyFirestoreDocumentWithEditorForm } from "~/features/admin/editor/service.server"
+import { adminLogger } from "~/features/admin/service.server"
+import { getModelByFirestoreCollection } from "~/features/experiences/helpers"
 import type { CareerProps } from "~/features/experiences/types"
 import type { Model } from "~/features/models"
-import { getDataFromModelObject } from "~/features/models/helpers"
 import {
   FirestoreCollection,
   getFirestoreDocument,
-  setFirestoreDocument,
 } from "~/features/service/firestore.server"
 
+import { handle } from "../editor"
+
 interface LoaderData {
-  item: CareerProps
-  model: Model<keyof CareerProps>
+  item?: CareerProps
+  model: Model
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
+  const collectionName = FirestoreCollection.Career
+  const model = getModelByFirestoreCollection(collectionName)
+
   const id = params.id
-  invariant(id, "Career id is required")
+  invariant(id, collectionName + " id is required.")
 
-  const item = await getFirestoreDocument<CareerProps>(
-    FirestoreCollection.Career,
-    id,
-  )
+  if (id === "new") return json<LoaderData>({ model })
 
-  const educationModel = getCareerModel()
-
-  return json<LoaderData>({ item, model: educationModel })
+  try {
+    const item = await getFirestoreDocument<CareerProps>(collectionName, id)
+    return json<LoaderData>({ item, model })
+  } catch (e: any) {
+    adminLogger.error(e.message)
+    return redirect(handle.adminApp.to + "/" + FirestoreCollection.Career)
+  }
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
 
-  const id = formData.get("id")?.toString()
-  invariant(id, "Career id is required")
-
-  const educationModel = getCareerModel()
-
-  const data = getDataFromModelObject(
-    Object.keys(educationModel.properties),
+  const redirectTo = await modifyFirestoreDocumentWithEditorForm(
+    FirestoreCollection.Career,
     formData,
-    educationModel.properties,
+    request.method,
   )
 
-  await setFirestoreDocument(FirestoreCollection.Career, id, data)
-
-  return redirect(pathname)
+  return redirect(redirectTo || pathname)
 }
 
 export default function CareerEditor(): JSX.Element | null {
   const { item, model } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={item} model={model} />
+  return <EditorPage item={item} model={model} headerPrefix={"Career"} />
 }
