@@ -139,6 +139,7 @@ export interface AdminNavbarGroupProps {
   id: string
   label: string
   showCount?: boolean
+  openByDefault?: boolean
   children: NavigationLinkProps[]
 }
 
@@ -146,12 +147,13 @@ function AdminNavbarGroup({
   children,
   label,
   showCount = false,
+  openByDefault = true,
 }: AdminNavbarGroupProps): JSX.Element | null {
   if (children.length === 0) return null
 
   return (
     <Accordion
-      open
+      open={openByDefault}
       summary={
         <div className="flex items-baseline justify-between">
           <span>{label}</span>

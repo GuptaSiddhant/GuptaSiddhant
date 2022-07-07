@@ -15,7 +15,7 @@ export interface AdminLayoutProps extends AdminNavbarProps {
 export default function AdminLayout({
   name,
   icon,
-  header = name,
+  header = <strong>{name}</strong>,
   actions = [],
   className,
   children = <Outlet />,

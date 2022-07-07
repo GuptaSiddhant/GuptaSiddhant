@@ -1,6 +1,7 @@
 import { RemixServer } from "@remix-run/react"
 import type { EntryContext } from "@remix-run/server-runtime"
-import { cert, initializeApp } from "firebase-admin/app"
+import { type App, cert, initializeApp } from "firebase-admin/app"
+import { type Firestore, getFirestore } from "firebase-admin/firestore"
 import { renderToString } from "react-dom/server"
 
 global.__IS_SERVER__ = typeof window === "undefined"
@@ -16,6 +17,9 @@ global.firebaseApp ||
     databaseURL: "https://guptasiddhant-com.firebaseio.com",
     storageBucket: "guptasiddhant-com.appspot.com",
   }))
+
+global.firestore || (global.firestore = getFirestore(global.firebaseApp))
+global.firestore || firestore.settings({ ignoreUndefinedProperties: true })
 
 export default function handleRequest(
   request: Request,
@@ -34,4 +38,11 @@ export default function handleRequest(
     status: responseStatusCode,
     headers: responseHeaders,
   })
+}
+
+declare global {
+  var firebaseApp: App
+  var firestore: Firestore
+  var __IS_SERVER__: boolean
+  var __IS_DEV__: boolean
 }

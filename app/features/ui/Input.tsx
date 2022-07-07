@@ -10,6 +10,7 @@ export type InputProps = ComponentPropsWithoutRef<"input"> & {
   datalist?: string[]
   name: string
   label?: React.ReactNode
+  labelClassName?: string
 }
 
 export default function Input({
@@ -19,13 +20,14 @@ export default function Input({
   className,
   datalist,
   label,
+  labelClassName,
   ...props
 }: InputProps) {
   const inputId = id || name
   const datalistId = `${inputId}-datalist`
 
   return (
-    <label htmlFor={inputId}>
+    <label htmlFor={inputId} className={labelClassName}>
       {label}
       <input
         ref={inputRef}
@@ -35,7 +37,8 @@ export default function Input({
         list={datalistId}
         className={clsx(
           className,
-          "flex-1 rounded bg-default px-2 py-1 text-base",
+          "peer flex-1 rounded bg-default px-2 py-1 text-base",
+          "read-only:text-disabled disabled:text-disabled",
         )}
       />
       {datalist && datalist.length > 0 ? (

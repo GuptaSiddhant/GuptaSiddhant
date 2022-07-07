@@ -9,6 +9,8 @@ import {
 import ArrowDownIcon from "remixicon-react/ArrowDownSFillIcon"
 import ClearIcon from "remixicon-react/CloseCircleLineIcon"
 
+import FormLabel from "./FormLabel"
+
 export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   selectRef?: ForwardedRef<HTMLSelectElement> | null
   label?: ReactNode
@@ -40,22 +42,13 @@ export default function Select({
   }
 
   return (
-    <fieldset
+    <FormLabel
       title={title}
-      className={clsx(
-        className,
-        "relative min-h-input min-w-min rounded px-2",
-        "flex items-center gap-1 text-base",
-        "bg-secondary hocus-within:bg-tertiary",
-        "text-secondary hocus-within:text-tertiary",
-      )}
+      className={className}
+      htmlFor={selectId}
+      label={label}
+      onClick={clickSelect}
     >
-      {label ? (
-        <label htmlFor={selectId} onClick={clickSelect}>
-          {label}
-        </label>
-      ) : null}
-
       <select
         onChange={() => {}}
         aria-label={title}
@@ -63,7 +56,7 @@ export default function Select({
         id={selectId}
         ref={selectRef}
         className={clsx(
-          "appearance-none rounded-none bg-transparent",
+          "peer appearance-none rounded-none bg-transparent",
           "w-full py-2 pl-2",
           onClear ? "pr-10" : "pr-6",
         )}
@@ -84,7 +77,7 @@ export default function Select({
         className="absolute right-2"
         onClick={clickSelect}
       />
-    </fieldset>
+    </FormLabel>
   )
 }
 

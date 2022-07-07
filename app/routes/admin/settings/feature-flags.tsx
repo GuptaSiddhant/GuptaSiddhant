@@ -77,11 +77,7 @@ export default function CacheIndex(): JSX.Element | null {
   ]
 
   return (
-    <AdminLayout
-      name={"Feature flags"}
-      header={<strong>{"Feature flags"}</strong>}
-      actions={actions}
-    >
+    <AdminLayout name={"Feature flags"} actions={actions}>
       <FeatureFlagsTable featureFlags={featureFlags} />
     </AdminLayout>
   )

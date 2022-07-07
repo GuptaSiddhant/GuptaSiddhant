@@ -1,6 +1,12 @@
 import { formatDate } from "~/features/helpers/format"
 
-import type { CommonExperienceProps, ExperienceProps } from "./types"
+import generateModelFromSchema from "../models"
+import type {
+  CareerProps,
+  CommonExperienceProps,
+  EducationProps,
+  ExperienceProps,
+} from "./types"
 
 export function generateTagListFromExperienceProps(
   items: ExperienceProps[],
@@ -20,4 +26,12 @@ export function generateDurationString(
     : "Present"
 
   return [start, end].filter(Boolean).join(" - ")
+}
+
+export function getEducationModel() {
+  return generateModelFromSchema<keyof EducationProps>("EducationProps")
+}
+
+export function getCareerModel() {
+  return generateModelFromSchema<keyof CareerProps>("CareerProps")
 }

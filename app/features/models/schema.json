@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/EducationProps",
+  "definitions": {
+    "CareerProps": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LinkObject"
+          }
+        },
+        "gallery": {
+          "$ref": "#/definitions/Gallery"
+        },
+        "location": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "position": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/CareerRoleType"
+        }
+      },
+      "required": [
+        "company",
+        "gallery",
+        "id",
+        "links",
+        "position",
+        "startDate"
+      ],
+      "additionalProperties": false
+    },
+    "EducationProps": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LinkObject"
+          }
+        },
+        "gallery": {
+          "$ref": "#/definitions/Gallery"
+        },
+        "location": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "degree": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "school": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "degree",
+        "field",
+        "gallery",
+        "id",
+        "links",
+        "school",
+        "startDate"
+      ],
+      "additionalProperties": false
+    },
+    "LinkObject": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/LinkType"
+        }
+      },
+      "required": ["url"],
+      "additionalProperties": false
+    },
+    "LinkType": {
+      "type": "string",
+      "enum": [
+        "homepage",
+        "other",
+        "github",
+        "linkedin",
+        "twitter",
+        "demo",
+        "blog",
+        "npm",
+        "prototype",
+        "design"
+      ]
+    },
+    "Gallery": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "alt": {
+            "type": "string"
+          }
+        },
+        "required": ["url", "alt"],
+        "additionalProperties": false
+      }
+    },
+    "CareerRoleType": {
+      "type": "string",
+      "enum": ["full-time", "part-time", "freelancer", "intern", "contract"]
+    }
+  }
+}

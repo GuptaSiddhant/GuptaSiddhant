@@ -29,12 +29,6 @@ declare namespace NodeJS {
   }
 }
 
-declare global {
-  var firebaseApp: App
-  var __IS_SERVER__: boolean
-  var __IS_DEV__: boolean
-}
-
 declare namespace Intl {
   class ListFormat {
     constructor(locales?: string | string[], options?: Intl.ListFormatOptions)

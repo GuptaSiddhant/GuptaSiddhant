@@ -1,13 +1,18 @@
 import {
   type DocumentData,
   type DocumentSnapshot,
-  type Timestamp,
-  getFirestore,
+  Timestamp,
 } from "firebase-admin/firestore"
 
 import type { Gallery } from "~/features/types"
 
-import { CacheType, createCacheKey, fetchCachedKey } from "./cache.server"
+import { formatYYYYMMDD } from "../helpers/format"
+import {
+  CacheType,
+  createCacheKey,
+  deleteCachedKey,
+  fetchCachedKey,
+} from "./cache.server"
 
 export enum FirestoreCollection {
   Projects = "projects",
@@ -19,9 +24,11 @@ export enum FirestoreCollection {
   Users = "users",
 }
 
+const firestore = global.firestore
+
 // Getters
 
-export async function getFirestoreCollection<T extends TransformedDocumentData>(
+export async function getFirestoreCollection<T extends FirestoreDocumentData>(
   collectionName: FirestoreCollection,
 ): Promise<T[]> {
   const key = createCacheKey(CacheType.FirestoreCollection, collectionName)
@@ -48,11 +55,11 @@ export async function getFirestoreDocument<T>(
 
 // Fetchers
 
-async function fetchFireStoreCollection(collectionPath: string) {
+async function fetchFireStoreCollection(collectionPath: FirestoreCollection) {
   verifyFirestoreCollection(collectionPath)
-  const snapshot = await getFirestore().collection(collectionPath).get()
+  const snapshot = await firestore.collection(collectionPath).get()
 
-  return Promise.all((snapshot?.docs || []).map(docTransformer))
+  return (snapshot?.docs || []).map(transformFirestoreDocToLocalData)
 }
 
 async function fetchFireStoreDocument(
@@ -61,12 +68,30 @@ async function fetchFireStoreDocument(
 ) {
   verifyFirestoreCollection(collectionPath)
 
-  const doc = await getFirestore()
-    .collection(collectionPath)
-    .doc(documentPath)
-    .get()
+  const doc = await firestore.collection(collectionPath).doc(documentPath).get()
 
-  return docTransformer(doc)
+  return transformFirestoreDocToLocalData(doc)
+}
+
+// Setters
+
+export async function setFirestoreDocument<T extends BaseLocalData>(
+  collectionPath: FirestoreCollection,
+  docId: string,
+  data: T,
+) {
+  return firestore
+    .collection(collectionPath)
+    .doc(docId)
+    .set(transformLocalDataToFirestoreDoc(data), { merge: true })
+    .then(() => {
+      deleteCachedKey(
+        createCacheKey(
+          CacheType.FirestoreDocument,
+          `${collectionPath}/${docId}`,
+        ),
+      )
+    })
 }
 
 // Helpers
@@ -83,9 +108,9 @@ function verifyFirestoreCollection(collectionPath: string) {
   }
 }
 
-async function docTransformer<T extends TransformedDocumentData>(
+function transformFirestoreDocToLocalData<T extends FirestoreDocumentData>(
   doc?: DocumentSnapshot<T>,
-): Promise<TransformedDocumentData> {
+): FirestoreDocumentData {
   if (!doc?.exists) throw new Error(`FirestoreDocument does not exist.`)
 
   const data = doc.data()
@@ -94,19 +119,78 @@ async function docTransformer<T extends TransformedDocumentData>(
   return {
     id: doc.id,
     ...data,
-    date: data?.date?.toDate?.()?.toISOString(),
-    dateStart: data?.dateStart?.toDate?.()?.toISOString(),
-    dateEnd: data?.dateEnd?.toDate?.()?.toISOString(),
+    date: formatYYYYMMDD(
+      transformFirestoreTimestampToFormattedDate(data?.date),
+    ),
+    dateStart: formatYYYYMMDD(
+      transformFirestoreTimestampToFormattedDate(data?.dateStart),
+    ),
+    dateEnd: formatYYYYMMDD(
+      transformFirestoreTimestampToFormattedDate(data?.dateEnd),
+    ),
+    startDate: formatYYYYMMDD(
+      transformFirestoreTimestampToFormattedDate(data?.startDate),
+    ),
+    endDate: formatYYYYMMDD(
+      transformFirestoreTimestampToFormattedDate(data?.endDate),
+    ),
   }
 }
 
-export interface BaseData {
+function transformFirestoreTimestampToFormattedDate(
+  date: Timestamp | string | undefined,
+): Date | undefined {
+  if (!date) return undefined
+  if (typeof date === "string") return new Date(date)
+  return date.toDate()
+}
+
+function transformLocalDataToFirestoreDoc<T extends BaseLocalData>(
+  data: T,
+): FirestoreDocumentData {
+  const date = data?.date ? Timestamp.fromDate(new Date(data.date)) : undefined
+  const dateStart = data?.dateStart
+    ? Timestamp.fromDate(new Date(data.dateStart))
+    : undefined
+  const dateEnd = data?.dateEnd
+    ? Timestamp.fromDate(new Date(data.dateEnd))
+    : undefined
+  const startDate = data?.startDate
+    ? Timestamp.fromDate(new Date(data.startDate))
+    : undefined
+  const endDate = data?.endDate
+    ? Timestamp.fromDate(new Date(data.endDate))
+    : undefined
+
+  return {
+    ...data,
+    date,
+    dateStart,
+    dateEnd,
+    startDate,
+    endDate,
+  }
+}
+
+export interface BaseFirestoreData {
   date?: Timestamp
   dateStart?: Timestamp
   dateEnd?: Timestamp
+  startDate?: Timestamp
+  endDate?: Timestamp
+  icon?: string
+  gallery?: Gallery
+  content?: string
+}
+export interface BaseLocalData {
+  date?: string
+  dateStart?: string
+  dateEnd?: string
+  startDate?: string
+  endDate?: string
   icon?: string
   gallery?: Gallery
   content?: string
 }
 
-export type TransformedDocumentData = BaseData & DocumentData
+export type FirestoreDocumentData = BaseFirestoreData & DocumentData
