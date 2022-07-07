@@ -118,13 +118,14 @@ function createFirestoreDocCacheKey(
   )
 }
 
-function invalidateFirestoreDocCache(
+export function invalidateFirestoreDocCache(
   collectionPath: FirestoreCollection,
   docId: string,
 ) {
   return deleteCachedKey(createFirestoreDocCacheKey(collectionPath, docId))
 }
-function invalidateFirestoreCollectionCache(
+
+export function invalidateFirestoreCollectionCache(
   collectionPath: FirestoreCollection,
 ) {
   return deleteCachedKey(

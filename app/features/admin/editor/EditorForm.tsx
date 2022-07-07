@@ -233,6 +233,7 @@ function EditorFormTextInput(
         name={name}
         disabled={readOnly}
         defaultValue={defaultValue}
+        vertical
       >
         {options.map((option) => (
           <Select.Option key={option} value={option}>

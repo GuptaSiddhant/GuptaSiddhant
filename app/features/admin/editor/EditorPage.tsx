@@ -1,6 +1,6 @@
 import SaveButton from "remixicon-react/Save2FillIcon"
 
-import { DeleteIcon } from "~/features/icons"
+import { DeleteIcon, RefreshIcon } from "~/features/icons"
 import { type Model } from "~/features/models"
 import Button from "~/features/ui/Button"
 import FormAction from "~/features/ui/FormAction"
@@ -40,6 +40,18 @@ export default function EditorPage<T extends EditorHeaderProps>({
         },
         ...(item
           ? [
+              {
+                id: "Refresh",
+                children: (
+                  <FormAction
+                    method="patch"
+                    body={{ id: item.id }}
+                    title="Refresh entry"
+                  >
+                    <RefreshIcon />
+                  </FormAction>
+                ),
+              },
               {
                 id: "Delete",
                 children: (

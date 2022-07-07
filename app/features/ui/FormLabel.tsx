@@ -7,6 +7,7 @@ export interface FormLabelProps {
   children: React.ReactNode
   htmlFor: string
   onClick?: React.MouseEventHandler<HTMLLabelElement>
+  vertical?: boolean
 }
 
 export default function FormLabel({
@@ -16,29 +17,49 @@ export default function FormLabel({
   children,
   htmlFor,
   onClick,
+  vertical,
 }: FormLabelProps): JSX.Element | null {
+  const styleClassName = clsx(
+    "bg-secondary hocus-within:bg-tertiary",
+    "text-secondary hocus-within:text-tertiary",
+  )
+
   return (
     <fieldset
       title={title}
       className={clsx(
         className,
-        "relative min-h-input min-w-min rounded px-2",
-        "flex items-center gap-1 text-base",
-        "bg-secondary hocus-within:bg-tertiary",
-        "text-secondary hocus-within:text-tertiary",
+        "relative flex min-w-min",
+        vertical
+          ? "flex-col"
+          : [
+              "min-h-input flex-row items-center gap-1 rounded px-2 text-base",
+              styleClassName,
+            ],
       )}
     >
       {label ? (
         <label
           htmlFor={htmlFor}
           onClick={onClick}
-          className="peer-required:after:text-negative peer-required:after:content-['*']"
+          className="leading-none peer-required:after:text-negative peer-required:after:content-['*']"
         >
           {label}
         </label>
       ) : null}
 
-      {children}
+      {vertical ? (
+        <div
+          className={clsx(
+            styleClassName,
+            "flex h-full min-h-input items-center gap-1 rounded text-base",
+          )}
+        >
+          {children}
+        </div>
+      ) : (
+        children
+      )}
     </fieldset>
   )
 }

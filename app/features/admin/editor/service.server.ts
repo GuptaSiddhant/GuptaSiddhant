@@ -6,6 +6,7 @@ import {
   type FirestoreCollection,
   deleteFirestoreDocument,
   getFirestoreDocument,
+  invalidateFirestoreDocCache,
   setFirestoreDocument,
 } from "~/features/service/firestore.server"
 
@@ -40,6 +41,10 @@ export async function modifyFirestoreDocumentWithEditorForm(
   if (method === "DELETE") {
     await deleteFirestoreDocument(collectionName, docId)
     return generateRedirectUrl(collectionName)
+  }
+
+  if (method === "PATCH") {
+    invalidateFirestoreDocCache(collectionName, docId)
   }
 
   return
