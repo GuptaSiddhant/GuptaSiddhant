@@ -1,3 +1,4 @@
+import { FirebaseRemoteConfig } from "@gs/firebase/remote-config"
 import { Outlet, useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
@@ -6,7 +7,6 @@ import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
-import { getAllRemoteConfigKeys } from "~/features/service/remote-config.server"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
 
@@ -22,7 +22,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async () => {
-  const featureConfigKeys = await getAllRemoteConfigKeys()
+  const featureConfigKeys = await FirebaseRemoteConfig.queryKeys()
 
   return json<LoaderData>({ featureConfigKeys })
 }
