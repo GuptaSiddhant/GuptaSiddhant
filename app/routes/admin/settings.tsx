@@ -1,4 +1,4 @@
-import { FirebaseRemoteConfig } from "@gs/firebase/remote-config"
+import { queryFirebaseRemoteConfigKeys } from "@gs/firebase/remote-config"
 import { Outlet, useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
@@ -22,7 +22,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async () => {
-  const featureConfigKeys = await FirebaseRemoteConfig.queryKeys()
+  const featureConfigKeys = await queryFirebaseRemoteConfigKeys()
 
   return json<LoaderData>({ featureConfigKeys })
 }

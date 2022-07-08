@@ -25,7 +25,7 @@ export enum DatabaseModel {
 export type DatabaseDocument = TransformedDocument
 export type DatabaseType<T extends DatabaseDocument> = Database<T>
 
-const databaseCacheKey = "database"
+const cacheKey = "database"
 
 export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   #model: string
@@ -39,7 +39,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   }
 
   #createCacheKey = (id?: string) =>
-    [databaseCacheKey, this.#model, id].filter(Boolean).join("/")
+    [cacheKey, this.#model, id].filter(Boolean).join("/")
 
   invalidateCacheById = (id: string) =>
     deleteCachedKey(this.#createCacheKey(id))
@@ -84,7 +84,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   }
 
   static clearCache(model?: string) {
-    if (!model) return deleteCachedKeysWith(databaseCacheKey)
+    if (!model) return deleteCachedKeysWith(cacheKey)
     return new Database(validateDatabaseModel(model)).invalidateCacheAll()
   }
 }

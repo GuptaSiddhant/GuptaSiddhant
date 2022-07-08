@@ -4,20 +4,19 @@ import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/AdminDashboard"
 import { formatDateTime } from "~/features/helpers/format"
-import {
-  type FirebaseStorageMetaData,
-  getFirebaseStorageMetaData,
-} from "~/features/service/firebase-storage.server"
+import storage, {
+  type StorageMetadata,
+} from "~/features/service/storage.server"
 import { ExternalLink } from "~/features/ui/Link"
 
 import { handle } from "../storage"
 
 interface LoaderData {
-  metadata: FirebaseStorageMetaData
+  metadata: StorageMetadata
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-  const metadata = await getFirebaseStorageMetaData()
+  const metadata = await storage.queryMetadata()
 
   return json<LoaderData>({ metadata })
 }

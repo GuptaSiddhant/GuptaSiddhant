@@ -7,13 +7,13 @@ import FontIcon from "remixicon-react/FontSizeIcon"
 import ImageIcon from "remixicon-react/ImageLineIcon"
 import VideoIcon from "remixicon-react/VideoLineIcon"
 
-import { type FirebaseStorageFile } from "~/features/service/firebase-storage.server"
+import { type StorageFile } from "~/features/service/storage.server"
 
 import { type AdminNavbarGroupProps } from "../AdminNavbar"
 
-export function generateNavbarGroupsFromFirebaseStorageDirsFiles(
+export function generateNavbarGroupsFromStorageDirContents(
   dirs: string[],
-  files: FirebaseStorageFile[],
+  files: StorageFile[],
 ): AdminNavbarGroupProps[] {
   return [
     {

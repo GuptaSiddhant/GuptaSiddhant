@@ -1,3 +1,4 @@
+import { RefreshIcon, UploadIcon } from "@gs/icons"
 import { useLoaderData } from "@remix-run/react"
 import {
   type ActionFunction,
@@ -10,14 +11,10 @@ import StorageIcon from "remixicon-react/HardDrive2FillIcon"
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
-import { generateNavbarGroupsFromFirebaseStorageDirsFiles } from "~/features/admin/storage/helpers"
+import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
-import { RefreshIcon, UploadIcon } from "@gs/icons"
 import type { NavigationLinkProps } from "~/features/navigation/types"
-import {
-  type FirebaseStorageFile,
-  getFirebaseStorageFiles,
-} from "~/features/service/firebase-storage.server"
+import storage, { type StorageFile } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
 import Popover from "~/features/ui/Popover"
@@ -33,11 +30,11 @@ const adminApp: AdminAppProps = {
 
 interface LoaderData {
   dirs: string[]
-  files: FirebaseStorageFile[]
+  files: StorageFile[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { dirs, files } = await getFirebaseStorageFiles()
+  const { dirs, files } = await storage.queryDir()
 
   return json<LoaderData>({ dirs, files })
 }
@@ -77,7 +74,7 @@ export default function StorageAdminApp(): JSX.Element | null {
       {...adminApp}
       className="!overflow-y-hidden overflow-x-scroll"
       actions={actions}
-      navGroups={generateNavbarGroupsFromFirebaseStorageDirsFiles(dirs, files)}
+      navGroups={generateNavbarGroupsFromStorageDirContents(dirs, files)}
       header={<Caption>{adminApp.name}</Caption>}
     />
   )

@@ -1,14 +1,14 @@
+import { DeleteIcon } from "@gs/icons"
 import FolderIcon from "remixicon-react/Folder3FillIcon"
 
 import AdminLayout from "~/features/admin/AdminLayout"
-import { DeleteIcon } from "@gs/icons"
 import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../AdminDashboard"
 import {
   extractLastPartOfFilePath,
-  generateNavbarGroupsFromFirebaseStorageDirsFiles,
+  generateNavbarGroupsFromStorageDirContents,
 } from "./helpers"
 import StorageFileView from "./StorageFileView"
 import { type StoragePathProps, StoragePathType } from "./types"
@@ -35,7 +35,7 @@ export default function StorageDirView({
       to={currentPath.path}
       header={<span className="font-bold">{name}</span>}
       sectionClassName="w-max min-w-full"
-      navGroups={generateNavbarGroupsFromFirebaseStorageDirsFiles(
+      navGroups={generateNavbarGroupsFromStorageDirContents(
         currentPath.dirs,
         currentPath.files,
       )}

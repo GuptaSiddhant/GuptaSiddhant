@@ -1,13 +1,6 @@
 import invariant from "tiny-invariant"
 
-import {
-  deleteFirebaseStorageDir,
-  deleteFirebaseStorageFile,
-  getFirebaseStorageFile,
-  getFirebaseStorageFiles,
-  renameFirebaseStorageFile,
-  uploadFirebaseStorageFile,
-} from "~/features/service/firebase-storage.server"
+import storage from "~/features/service/storage.server"
 
 import { createAdminLogger } from "../service.server"
 import { generatePathsFromPath } from "./helpers"
@@ -28,7 +21,7 @@ export async function getStoragePaths(
       if (path.endsWith("/")) {
         const dirProps: StorageDirProps = {
           type: StoragePathType.Dir,
-          ...(await getFirebaseStorageFiles(path)),
+          ...(await storage.queryDir(path)),
           path,
         }
 
@@ -38,7 +31,7 @@ export async function getStoragePaths(
       const fileProps: StorageFileProps = {
         type: StoragePathType.File,
         path,
-        data: await getFirebaseStorageFile(path),
+        data: await storage.queryAsset(path),
       }
 
       return fileProps
@@ -62,7 +55,7 @@ export async function modifyStorage(
       invariant(prefix, "Dir prefix is required.")
 
       storageLogger.info(`Deleting dir "${prefix}".`)
-      await deleteFirebaseStorageDir(prefix)
+      await storage.mutateDir(prefix)
 
       return generateRedirectUrl(generatePathsFromPath(prefix).at(-2))
     }
@@ -71,7 +64,7 @@ export async function modifyStorage(
     invariant(path, "Asset path is required.")
 
     storageLogger.info(`Deleting asset "${path}".`)
-    await deleteFirebaseStorageFile(path)
+    await storage.mutateAsset(path)
 
     return generateRedirectUrl(generatePathsFromPath(path).at(-2))
   }
@@ -82,17 +75,15 @@ export async function modifyStorage(
 
     const destination = form.get("destination")?.toString()
 
-    storageLogger.info(`Creating asset "${destination}".`)
-    const uploadedFiles = await Promise.all(
-      files.map((file) => {
-        const path = destination ? `${destination}/${file.name}` : file.name
-        return uploadFirebaseStorageFile(path, file)
-      }),
-    )
+    storageLogger.info(`Creating asset(s) "${destination}".`)
+    const [firstUploadedFile] = await storage.mutateDir(destination, files)
 
-    return uploadedFiles.length > 0
-      ? generateRedirectUrl(uploadedFiles[0].linkUrl)
-      : undefined
+    const uploadedFileLink =
+      typeof firstUploadedFile === "boolean"
+        ? undefined
+        : firstUploadedFile?.linkUrl
+
+    return uploadedFileLink ? generateRedirectUrl(uploadedFileLink) : undefined
   }
 
   if (method === "PATCH") {
@@ -102,7 +93,7 @@ export async function modifyStorage(
     invariant(name, "Asset new name is required.")
 
     storageLogger.info(`Renaming asset "${previousName}" to "${name}".`)
-    await renameFirebaseStorageFile(previousName, name)
+    await storage.mutateAsset(previousName, name)
 
     return generateRedirectUrl(name)
   }

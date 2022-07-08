@@ -1,9 +1,9 @@
+import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import clsx from "clsx"
 
 import AdminLayout from "~/features/admin/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
-import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
-import { type FirebaseStorageFile } from "~/features/service/firebase-storage.server"
+import { type StorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
 import FormAction from "~/features/ui/FormAction"
 import Popover from "~/features/ui/Popover"
@@ -76,7 +76,7 @@ export default function StorageFileView({
   )
 }
 
-function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
+function StorageFileDataView(file: StorageFile): JSX.Element {
   return (
     <Accordion
       open
@@ -112,7 +112,7 @@ function StorageFileDataView(file: FirebaseStorageFile): JSX.Element {
   )
 }
 
-function StorageFilePreview(file: FirebaseStorageFile): JSX.Element | null {
+function StorageFilePreview(file: StorageFile): JSX.Element | null {
   const { linkUrl, contentType, name } = file
   const type = getFileTypeFromFileContentType(contentType)
 

@@ -1,15 +1,15 @@
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
 
-import { resolveFirebaseStorageAssetUrl } from "~/features/service/firebase-storage.server"
 import { appLogger } from "~/features/service/logger.server"
+import { resolveStorageAssetUrl } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const path = params["*"]
 
   try {
-    const assetUrl = await resolveFirebaseStorageAssetUrl(path)
+    const assetUrl = await resolveStorageAssetUrl(path)
 
     return redirect(assetUrl)
   } catch (e: any) {

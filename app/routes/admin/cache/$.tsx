@@ -11,9 +11,9 @@ import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import type { CacheType } from "~/features/service/cache.server"
 import {
   type ModifyCacheMethod,
-  CacheType,
   getCache,
   getCachedKey,
   modifyCache,
@@ -30,7 +30,6 @@ interface LoaderData {
   type: CacheType
   value?: string
   data: any
-  isStorageUrl: boolean
   ttl: number
 }
 
@@ -44,14 +43,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!data) return redirect("/admin/cache/")
 
   const ttl = getCache().getRemainingTTL(key)
-  const isStorageUrl = type === CacheType.FirebaseStorageFileUrl
 
   return json<LoaderData>({
     key,
     type,
     value,
     data,
-    isStorageUrl,
     ttl,
   })
 }
@@ -67,17 +64,9 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function CacheDetails(): JSX.Element | null {
-  const { key, data, isStorageUrl } = useLoaderData<LoaderData>()
+  const { key, data } = useLoaderData<LoaderData>()
 
   const actions: NavigationLinkProps[] = [
-    // {
-    //   id: "Refetch",
-    //   children: (
-    //     <FormAction body={{ key }} title="Refresh" method="put">
-    //       <RefetchIcon />
-    //     </FormAction>
-    //   ),
-    // },
     {
       id: "Delete",
       children: (
@@ -90,7 +79,6 @@ export default function CacheDetails(): JSX.Element | null {
 
   useTransitionSubmissionToast({
     DELETE: `Deleting cache key "${key}"`,
-    // PUT: `Refetching cache key "${key}"`,
   })
 
   return (
@@ -100,17 +88,9 @@ export default function CacheDetails(): JSX.Element | null {
       footer={<Footer />}
       className="flex flex-col gap-4 p-4"
     >
-      <Accordion open summary="Cached data" className="bg-default">
-        <CodeBlock lang="json" wrap codeClassName="text-sm" className="!m-0">
-          {JSON.stringify(data, null, 2)}
-        </CodeBlock>
-      </Accordion>
-
-      {isStorageUrl ? (
-        <Accordion open summary={"Image preview"} className="bg-default">
-          <img src={data} alt={key} className="p-2 pt-0" />
-        </Accordion>
-      ) : null}
+      <CodeBlock lang="json" wrap codeClassName="text-sm" className="!m-0">
+        {JSON.stringify(data, null, 2)}
+      </CodeBlock>
     </AdminLayout>
   )
 }

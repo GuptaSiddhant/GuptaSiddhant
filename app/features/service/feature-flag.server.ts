@@ -1,5 +1,8 @@
-import FirebaseRemoteConfig, {
+import {
   type FirebaseRemoteConfigTemplate,
+  mutateFirebaseRemoteConfigMap,
+  queryFirebaseRemoteConfigKeys,
+  queryFirebaseRemoteConfigValueAndTypeByKey,
 } from "@gs/firebase/remote-config"
 
 export enum FeatureFlagKey {
@@ -19,9 +22,9 @@ export type FeatureFlagsMap<T extends FeatureFlagKey = FeatureFlagKey> = Record<
 >
 
 export async function getAllFeatureFlags(): Promise<FeatureFlagsMap | null> {
-  const keys = await FirebaseRemoteConfig.queryKeys()
+  const keys = await queryFirebaseRemoteConfigKeys()
   const keysTypeValueList = await Promise.all(
-    keys.map(FirebaseRemoteConfig.queryValueAndTypeByKey),
+    keys.map(queryFirebaseRemoteConfigValueAndTypeByKey),
   )
 
   return keysTypeValueList.reduce((acc, item) => {
@@ -77,11 +80,11 @@ export async function setFeatureFlag(
   flag: string,
   value: boolean | FeatureFlagJson,
 ) {
-  return await FirebaseRemoteConfig.mutateMap({ [flag]: value })
+  return await mutateFirebaseRemoteConfigMap({ [flag]: value })
 }
 
 export async function deleteFeatureFlag(
   flag: string,
 ): Promise<FirebaseRemoteConfigTemplate> {
-  return await FirebaseRemoteConfig.mutateMap({ [flag]: undefined })
+  return await mutateFirebaseRemoteConfigMap({ [flag]: undefined })
 }

@@ -1,4 +1,4 @@
-import type { FirebaseStorageFile } from "~/features/service/firebase-storage.server"
+import type { StorageFile } from "~/features/service/storage.server"
 
 export enum StoragePathType {
   Dir = "dir",
@@ -11,10 +11,10 @@ export interface StorageDirProps {
   path: string
   type: StoragePathType.Dir
   dirs: string[]
-  files: FirebaseStorageFile[]
+  files: StorageFile[]
 }
 export interface StorageFileProps {
   path: string
   type: StoragePathType.File
-  data: FirebaseStorageFile
+  data: StorageFile
 }
