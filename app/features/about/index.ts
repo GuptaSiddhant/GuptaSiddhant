@@ -1,4 +1,5 @@
 export interface AboutInfo {
+  id: string
   name: string
   shortName: string
   title: string
@@ -27,7 +28,9 @@ export const aboutTexts = [
   "If I had to describe myself in one word, that'd be STALWART",
 ]
 
-export interface Skills extends Record<SkillCategory, SkillObject[]> {}
+export interface Skills extends Record<SkillCategory, SkillObject[]> {
+  id: string
+}
 
 export type SkillCategory =
   | "soft"

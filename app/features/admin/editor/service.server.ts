@@ -1,77 +1,53 @@
 import invariant from "tiny-invariant"
 
-import { getModelByFirestoreCollection } from "~/features/experiences/helpers"
+import { getModelByDatabaseModel } from "~/features/experiences/helpers"
 import { getDataFromModelObject } from "~/features/models/helpers"
 import {
-  type FirestoreCollection,
-  deleteFirestoreDocument,
-  getFirestoreDocument,
-  invalidateFirestoreDocCache,
-  setFirestoreDocument,
-} from "~/features/service/firestore.server"
+  type DatabaseDocument,
+  type DatabaseModel,
+  type DatabaseType,
+} from "~/features/service/database.server"
 
-export async function getItemAndModelForFirebaseCollection<T>(
-  collectionName: FirestoreCollection,
-  id: string,
-) {
-  const item = await getFirestoreDocument<T>(collectionName, id)
-  const model = getModelByFirestoreCollection(collectionName)
-
-  return { item, model }
-}
-
-export async function modifyFirestoreDocumentWithEditorForm(
-  collectionName: FirestoreCollection,
+export async function modifyDatabaseDocumentWithEditorForm<
+  T extends DatabaseDocument,
+>(
+  database: DatabaseType<T>,
   formData: FormData,
   method: string,
 ): Promise<string | undefined> {
-  const docId = formData.get("id")?.toString()
-  invariant(docId, collectionName + " id is required.")
-
-  if (method === "POST" || method === "PUT") {
-    await setFirestoreDocumentWithEditorForm(
-      collectionName,
-      docId,
-      formData,
-      method,
-    )
-    return generateRedirectUrl(`${collectionName}/${docId}`)
-  }
+  const id = formData.get("id")?.toString()
+  invariant(id, database.model + " id is required.")
 
   if (method === "DELETE") {
-    await deleteFirestoreDocument(collectionName, docId)
-    return generateRedirectUrl(collectionName)
+    const deleted = await database.mutateById(id)
+
+    if (deleted) return generateRedirectUrl(database.model)
+    return generateRedirectUrl(database.model, id)
   }
 
-  if (method === "PATCH") {
-    invalidateFirestoreDocCache(collectionName, docId)
-  }
-
-  return
-}
-
-export async function setFirestoreDocumentWithEditorForm(
-  collectionName: FirestoreCollection,
-  docId: string,
-  formData: FormData,
-  method: string,
-) {
-  const model = getModelByFirestoreCollection(collectionName)
-
+  const model = getModelByDatabaseModel(database.model as DatabaseModel)
   const data = getDataFromModelObject(
     Object.keys(model.properties),
     formData,
     model.properties,
-  )
+  ) as T
 
-  return setFirestoreDocument(collectionName, docId, data, method === "POST")
+  switch (method) {
+    case "PATCH": {
+      database.invalidateCacheById(id)
+    }
+
+    case "POST":
+    case "PUT": {
+      database.mutateById(id, data)
+    }
+  }
+
+  return generateRedirectUrl(database.model, id)
 }
 
 // Helper
 
-function generateRedirectUrl(path?: string) {
-  const basePath = "/admin/editor"
-  if (!path) return `${basePath}/`
-  if (path.startsWith("/")) return `${basePath}${path}`
-  return `${basePath}/${path}`
+function generateRedirectUrl(...paths: string[]) {
+  return ["/admin/editor", ...paths].join("/")
 }

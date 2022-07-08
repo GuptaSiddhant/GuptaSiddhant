@@ -1,8 +1,4 @@
-import {
-  FirestoreCollection,
-  getFirestoreCollection,
-  getFirestoreDocument,
-} from "~/features/service/firestore.server"
+import Database, { DatabaseModel } from "~/features/service/database.server"
 import { type TeaserProps } from "~/features/teaser"
 import {
   getCrossSellTeasers,
@@ -11,16 +7,18 @@ import {
 
 import { type ProjectProps } from "."
 
-const collectionName = FirestoreCollection.Projects
+export const databaseProjects = new Database<ProjectProps>(
+  DatabaseModel.Projects,
+)
 
 export async function getProjectTeaserList(limit = 10): Promise<TeaserProps[]> {
-  const collection = await getFirestoreCollection(collectionName)
+  const list = await databaseProjects.queryAll()
 
-  return getTeasersFromCollection(collection, limit)
+  return getTeasersFromCollection(list, limit)
 }
 
 export async function getProjectDetails(id: string): Promise<ProjectProps> {
-  const project = await getFirestoreDocument<ProjectProps>(collectionName, id)
+  const project = await databaseProjects.queryById(id)
   const cover: string | undefined = project.gallery?.[0]?.url
 
   return { ...project, cover }

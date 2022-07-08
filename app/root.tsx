@@ -20,8 +20,6 @@ import meta from "~/features/root/meta"
 import { getAuthUser } from "~/features/service/auth.server"
 import { getThemeFromRequest } from "~/features/theme/cookie.server"
 
-import { hello } from "./features/search"
-
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)
   const [about, navigationRemoteConfig, authUser] = await Promise.all([
@@ -29,8 +27,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     getNavigationRemoteConfig(),
     getAuthUser(request),
   ])
-
-  console.log({ out: hello() })
 
   return json<RootLoaderData>({
     about,

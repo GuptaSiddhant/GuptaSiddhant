@@ -1,17 +1,16 @@
-import {
-  FirestoreCollection,
-  getFirestoreDocument,
-} from "~/features/service/firestore.server"
+import Database, { DatabaseModel } from "~/features/service/database.server"
 
 import type { AboutInfo, Skills } from "."
 
+const databaseInfo = new Database(DatabaseModel.Info)
+
 export async function getAboutInfo() {
-  return getFirestoreDocument<AboutInfo>(FirestoreCollection.Info, "about")
+  return databaseInfo.queryById<AboutInfo>("about")
 }
 
 export async function getSkills() {
   const { backend, design, frontend, language, soft } =
-    await getFirestoreDocument<Skills>(FirestoreCollection.Info, "skills")
+    await databaseInfo.queryById<Skills>("skills")
   return {
     backend,
     design,

@@ -13,7 +13,7 @@ import {
 } from "~/features/experiences/service.server"
 import type { ExperienceProps } from "~/features/experiences/types"
 import type { NavigationLinkProps } from "~/features/navigation/types"
-import { FirestoreCollection } from "~/features/service/firestore.server"
+import { DatabaseModel } from "~/features/service/database.server"
 import { ErrorSection } from "~/features/ui/Error"
 import Menu from "~/features/ui/Menu"
 import { Caption } from "~/features/ui/Text"
@@ -27,7 +27,7 @@ const adminApp: AdminAppProps = {
 
 export interface EditorLoaderData {
   entries: {
-    id: FirestoreCollection
+    id: DatabaseModel
     label: string
     list: ExperienceProps[]
   }[]
@@ -41,12 +41,12 @@ export const loader: LoaderFunction = async () => {
 
   const allEditableEntries: EditorLoaderData["entries"] = [
     {
-      id: FirestoreCollection.Career,
+      id: DatabaseModel.Career,
       label: "Career",
       list: careerList,
     },
     {
-      id: FirestoreCollection.Education,
+      id: DatabaseModel.Education,
       label: "Education",
       list: educationList,
     },

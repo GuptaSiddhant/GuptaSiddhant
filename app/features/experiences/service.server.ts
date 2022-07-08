@@ -1,15 +1,16 @@
 import { sortByDate } from "~/features/helpers"
+import Database, { DatabaseModel } from "~/features/service/database.server"
 
-import {
-  FirestoreCollection,
-  getFirestoreCollection,
-  getFirestoreDocument,
-} from "../service/firestore.server"
 import {
   transformCareerToExperience,
   transformEducationToExperience,
 } from "./transformers"
 import type { CareerProps, EducationProps, ExperienceProps } from "./types"
+
+export const databaseCareer = new Database<CareerProps>(DatabaseModel.Career)
+export const databaseEducation = new Database<EducationProps>(
+  DatabaseModel.Education,
+)
 
 export async function getExperienceList(): Promise<ExperienceProps[]> {
   const [education, career] = await Promise.all([
@@ -33,10 +34,7 @@ export async function getExperienceItem(id: string): Promise<ExperienceProps> {
 }
 
 export async function getEducationList(): Promise<ExperienceProps[]> {
-  const list =
-    (await getFirestoreCollection<EducationProps>(
-      FirestoreCollection.Education,
-    )) || []
+  const list = await databaseEducation.queryAll()
 
   return list
     .map(transformEducationToExperience)
@@ -44,18 +42,13 @@ export async function getEducationList(): Promise<ExperienceProps[]> {
 }
 
 export async function getEducationItem(id: string): Promise<ExperienceProps> {
-  const item = await getFirestoreDocument<EducationProps>(
-    FirestoreCollection.Education,
-    id,
-  )
+  const item = await databaseEducation.queryById(id)
 
   return transformEducationToExperience(item)
 }
 
 export async function getCareerList(): Promise<ExperienceProps[]> {
-  const list =
-    (await getFirestoreCollection<CareerProps>(FirestoreCollection.Career)) ||
-    []
+  const list = await databaseCareer.queryAll()
 
   return list
     .map(transformCareerToExperience)
@@ -63,10 +56,7 @@ export async function getCareerList(): Promise<ExperienceProps[]> {
 }
 
 export async function getCareerItem(id: string): Promise<ExperienceProps> {
-  const item = await getFirestoreDocument<CareerProps>(
-    FirestoreCollection.Career,
-    id,
-  )
+  const item = await databaseCareer.queryById(id)
 
   return transformCareerToExperience(item)
 }

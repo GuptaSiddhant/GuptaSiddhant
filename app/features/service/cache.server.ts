@@ -19,7 +19,7 @@ const appCache =
   }))
 
 export enum CacheType {
-  FirestoreCollection = "firestore-collection",
+  DatabaseModel = "firestore-collection",
   FirestoreDocument = "firestore-document",
   FirebaseStorageFileUrl = "firebase-storage-file-url",
 }
@@ -61,14 +61,18 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
   switch (method) {
     case "DELETE": {
       if (key) {
-        return getCachedKeys()
-          .filter((k) => k.includes(key))
-          .forEach(deleteCachedKey)
+        return deleteCachedKeysWith(key)
       } else {
         return clearCache()
       }
     }
   }
+}
+
+export function deleteCachedKeysWith(key: string) {
+  return getCachedKeys()
+    .filter((k) => k.includes(key))
+    .forEach(deleteCachedKey)
 }
 
 export function deleteCachedKey(key: string) {
@@ -85,12 +89,19 @@ export function createCacheKey(type: string, value: string) {
   return [type, value].filter(Boolean).join("::")
 }
 
-export function parseCacheKey(key: string) {
-  const [type, value] = key.split("::")
-  if (!Object.values(CacheType).includes(type as CacheType)) {
-    console.error(`CacheType '${type}' does not exist.`)
-    return undefined
+export function parseCacheKey(
+  key: string,
+): { type: CacheType; value: string } | undefined {
+  if (key.includes("::")) {
+    const [type, value] = key.split("::")
+    if (!Object.values(CacheType).includes(type as CacheType)) {
+      console.error(`CacheType '${type}' does not exist.`)
+      return undefined
+    }
+
+    return { type: type as CacheType, value }
   }
 
-  return { type: type as CacheType, value }
+  const [type, ...value] = key.split("/")
+  return { type: type as CacheType, value: value.join("/") }
 }

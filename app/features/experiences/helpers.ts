@@ -1,7 +1,7 @@
 import { formatDate } from "~/features/helpers/format"
+import { DatabaseModel } from "~/features/service/database.server"
 
 import generateModelFromSchema from "../models"
-import { FirestoreCollection } from "../service/firestore.server"
 import type {
   CareerProps,
   CommonExperienceProps,
@@ -37,13 +37,11 @@ export function getCareerModel() {
   return generateModelFromSchema<keyof CareerProps>("CareerProps")
 }
 
-export function getModelByFirestoreCollection(
-  collectionName: FirestoreCollection,
-) {
+export function getModelByDatabaseModel(collectionName: DatabaseModel) {
   switch (collectionName) {
-    case FirestoreCollection.Career:
+    case DatabaseModel.Career:
       return getCareerModel()
-    case FirestoreCollection.Education:
+    case DatabaseModel.Education:
       return getEducationModel()
     default:
       throw new Error(`Unknown collection name: ${collectionName}`)

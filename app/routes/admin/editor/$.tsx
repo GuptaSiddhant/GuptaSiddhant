@@ -4,10 +4,7 @@ import { json } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
-import {
-  FirestoreCollection,
-  invalidateFirestoreCollectionCache,
-} from "~/features/service/firestore.server"
+import Database, { DatabaseModel } from "~/features/service/database.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
 import { Caption, Paragraph } from "~/features/ui/Text"
@@ -29,11 +26,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     return json<LoaderData>({ error: true })
   }
 
-  if (
-    !Object.values(FirestoreCollection).includes(
-      collection as FirestoreCollection,
-    )
-  ) {
+  if (!Object.values(DatabaseModel).includes(collection as DatabaseModel)) {
     return redirect(handle.adminApp.to)
   } else return json<LoaderData>({ error: false, collection })
 }
@@ -45,7 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (request.method === "PATCH") {
     invariant(collection, "collection is required")
-    invalidateFirestoreCollectionCache(collection as FirestoreCollection)
+    Database.clearCache(collection)
   }
 
   return redirect(pathname)

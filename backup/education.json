@@ -1,0 +1,104 @@
+[
+  {
+    "id": "aalto-ms-idbm",
+    "degree": "Master of Science",
+    "field": "International Design Business Management",
+    "school": "Aalto University",
+    "location": "Helsinki, Finland",
+    "startDate": "2021-09-06",
+    "icon": "./aalto-icon.png",
+    "tags": ["code", "design", "management"],
+    "links": [
+      {
+        "type": "homepage",
+        "url": "https://www.idbm.aalto.fi"
+      }
+    ]
+  },
+  {
+    "id": "aalto-ms-hcid",
+    "degree": "Master of Science",
+    "field": "Human Computer Interaction and Design",
+    "school": "Aalto University",
+    "location": "Helsinki, Finland",
+    "startDate": "2017-08-28",
+    "endDate": "2019-05-30",
+    "icon": "./aalto-icon.png",
+    "description": "Dual degree program as a part of EIT Digital Master School.",
+    "tags": ["code", "design", "entrepreneur"],
+    "links": [
+      {
+        "type": "homepage",
+        "url": "https://www.aalto.fi/en/department-of-computer-science/human-computer-interaction-and-design"
+      },
+      {
+        "type": "other",
+        "title": "Master's thesis",
+        "url": "https://aaltodoc.aalto.fi/handle/123456789/39028"
+      }
+    ]
+  },
+  {
+    "id": "kth-ms-hcid",
+    "degree": "Master of Science",
+    "field": "Human Computer Interaction and Design",
+    "school": "KTH Royal Institute of Technology",
+    "location": "Stockholm, Sweden",
+    "startDate": "2017-08-28",
+    "endDate": "2019-06-14",
+    "icon": "./kth-icon.png",
+    "description": "Dual degree program as a part of EIT Digital Master School.",
+    "tags": ["code", "design", "entrepreneur"],
+    "links": [
+      {
+        "type": "homepage",
+        "url": "https://www.kth.se/social/group/hcid-eit-ict-innovat/"
+      },
+      {
+        "type": "other",
+        "title": "Master's thesis",
+        "url": "https://aaltodoc.aalto.fi/handle/123456789/39028"
+      }
+    ]
+  },
+  {
+    "id": "bits-be-mech",
+    "degree": "Bachelors of Engineering (Honours)",
+    "field": "Mechanical",
+    "school": "Birla Institute of Technology and Science Pilani",
+    "location": "Rajasthan, India",
+    "startDate": "2012-09-02",
+    "endDate": "2016-06-01",
+    "icon": "./bits-icon.png",
+    "description": "**Activities**\n- CIIED: Founding President & Student member of Centre for Innovation, Incubation & Entrepreneurship.\n- Wolf of WallStreet: Founded and organised Inter-university Stock-exchange competition event.\n- HULT Prize: Organised coveted HULT Prize event.\n- Conducted TEDx event and multiple talk-workshops.\n- Member, actor and writer in university drama club.\n- Professional Assistant to the Dean of Student Welfare Division.\n\n**Courses**: Object Oriented Analysis & Design (C++), Machine Design & Drawing (CATIA), Computer Aided Design (AutoCAD)",
+    "tags": ["engineering"],
+    "links": [
+      {
+        "type": "homepage",
+        "url": "https://www.bits-pilani.ac.in/behons"
+      }
+    ],
+    "gallery": [
+      { "url": "./bits-degree-certificate.jpg", "alt": "Degree certificate" }
+    ]
+  },
+  {
+    "id": "high-school",
+    "degree": "High School",
+    "field": "Computer Science",
+    "school": "K. R. Mangalam World School, Vikaspuri",
+    "location": "Delhi, India",
+
+    "startDate": "2010-04-01",
+    "endDate": "2012-04-30",
+    "icon": "./krm-icon.jpg",
+    "description": "- House captain\n- Organised first inter-school competitions called Confluence.\n- Member of school's web-design and debate team.",
+    "tags": ["code"],
+    "links": [
+      {
+        "type": "homepage",
+        "url": "https://krmangalam.com/vikaspuri/"
+      }
+    ]
+  }
+]

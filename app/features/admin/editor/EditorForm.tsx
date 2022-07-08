@@ -2,7 +2,7 @@ import { type FormMethod, Form } from "@remix-run/react"
 import clsx from "clsx"
 import { useState } from "react"
 
-import { capitalize } from "~/features/helpers/format"
+import { capitalize, formatYYYYMMDD } from "~/features/helpers/format"
 import type {
   ModelArrayType,
   ModelProperties,
@@ -245,10 +245,27 @@ function EditorFormTextInput(
   }
 
   const isDate = name.toLowerCase().includes("date")
+
+  if (isDate) {
+    return (
+      <Input
+        label={labelElement}
+        labelClassName={clsx("flex flex-col")}
+        type="date"
+        pattern="^\\d{4}-\\d{2}-\\d{2}$"
+        placeholder="YYYY-MM-DD"
+        name={name}
+        defaultValue={
+          defaultValue ? formatYYYYMMDD(new Date(defaultValue)) : undefined
+        }
+      />
+    )
+  }
+
   const isUrl = name.toLowerCase().includes("url")
+  const isEmail = name.toLowerCase().includes("email")
   const placeholderText =
-    placeholder || (isDate ? "YYYY-MM-DD" : isUrl ? "https://" : "")
-  const pattern = isDate ? "^\\d{4}-\\d{2}-\\d{2}$" : undefined
+    placeholder || (isUrl ? "https://" : isEmail ? "abc@xyx" : "")
 
   return (
     <Input
@@ -260,8 +277,7 @@ function EditorFormTextInput(
       readOnly={readOnly}
       required={required}
       placeholder={placeholderText}
-      pattern={pattern}
-      type={isDate ? "date" : isUrl ? "url" : "text"}
+      type={isUrl ? "url" : isEmail ? "email" : "text"}
     />
   )
 }

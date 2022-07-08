@@ -1,0 +1,149 @@
+[
+  {
+    "id": "accenture",
+    "position": "Frontend Developer Associate Manager",
+    "type": "full-time",
+    "company": "Accenture Nordics",
+    "location": "Helsinki, Finland",
+    "startDate": "2021-09-01",
+    "icon": "./accenture-icon.png",
+    "description": "Developing the UI and logic for different projects.",
+    "featured": true,
+    "tags": ["design", "code"],
+    "links": [
+      { "type": "homepage", "url": "https://accenture.com" },
+      {
+        "type": "linkedin",
+        "url": "https://www.linkedin.com/company/accenture-nordics"
+      },
+      { "type": "github", "url": "https://github.com/DPC-Nordics/" },
+      {
+        "type": "other",
+        "title": "We are hiring!",
+        "url": "https://www.accenture.com/fi-en/careers/jobdetails?id=R00008034_en&title=Senior+React+Developer"
+      }
+    ]
+  },
+  {
+    "id": "luxus-worldwide",
+    "position": "Senior Developer",
+    "type": "full-time",
+    "company": "Luxus Worldwide",
+    "location": "Helsinki, Finland",
+    "startDate": "2021-01-04",
+    "endDate": "2021-08-27",
+    "icon": "./luxus-worldwide-icon.png",
+    "description": "Developed the UI and logic for Nokia Phone web-store.",
+    "tags": ["design", "code", "web"],
+    "links": [
+      { "type": "homepage", "url": "https://luxusworldwide.com" },
+      { "type": "linkedin", "url": "https://www.linkedin.com/company/luxus/" }
+    ]
+  },
+  {
+    "id": "fa-solutions",
+    "position": "UI and Frontend Developer",
+    "type": "full-time",
+    "company": "FA Solutions",
+    "location": "Helsinki, Finland",
+    "startDate": "2019-01-07",
+    "endDate": "2020-12-31",
+    "icon": "./fa-solutions-icon.png",
+    "description": "- Developed ReactJS applications.\n- Founded and developed framework to build ReactJS applications.\n- Conducted training session for front-end development.\n- Maintained documentation with examples for all components, utilities, templates and scripts.",
+    "tags": ["design", "code", "web"],
+    "links": [
+      { "type": "homepage", "url": "https://fasolutions.com" },
+      {
+        "type": "linkedin",
+        "url": "https://www.linkedin.com/company/fasolutions/"
+      }
+    ]
+  },
+  {
+    "id": "kalpik-studio",
+    "position": "Designer & Developer",
+    "type": "self-employed",
+    "company": "KALPIK Studio",
+    "location": "Helsinki, Finland",
+    "startDate": "2018-09-01",
+    "icon": "./kalpik-studio-icon.png",
+    "description": "- Design UI frameworks, concepts and prototypes\n- Develop the UI for web and mobile.\n- Manage branding of the product.\n- Conduct training and support after handover.",
+    "tags": ["design", "code", "entrepreneur"],
+    "links": [
+      { "type": "homepage", "url": "https://kalpik.studio" },
+      {
+        "type": "linkedin",
+        "url": "https://www.linkedin.com/company/13347657/"
+      }
+    ]
+  },
+  {
+    "id": "quickbytz",
+    "position": "Co-Founder & Product Manager",
+    "type": "self-employed",
+    "company": "QuickBytz (QB Middle East)",
+    "location": "Dubai, U.A.E.",
+    "startDate": "2016-08-16",
+    "endDate": "2017-08-15",
+    "icon": "./quickbytz-icon.png",
+    "description": "Co-founded a startup in food-tech industry. Conducted research and designed UI of pan-device solution for managing orders, customers and billing.",
+    "tags": [
+      "design",
+      "web",
+      "startup",
+      "entrepreneur",
+      "mobile",
+      "management"
+    ],
+    "links": [
+      {
+        "type": "linkedin",
+        "url": "https://www.linkedin.com/company/13258226/"
+      }
+    ]
+  },
+  {
+    "id": "sprint-me",
+    "position": "Design Executive",
+    "type": "full-time",
+    "company": "BITS Pilani",
+    "location": "Dubai, U.A.E.",
+    "startDate": "2016-02-01",
+    "endDate": "2017-04-30",
+    "icon": "./sprint-me-icon.png",
+    "description": "- Designed mobile and web UI for more than 10 projects.\n- Conducted workshops and usability testing with clients.\n- Created development specification and interacted with developers for smooth handover.\n- Graphic Design (marketing materials)",
+    "tags": ["design", "web"],
+    "links": [{ "type": "homepage", "url": "https://sprintonweb.com" }]
+  },
+  {
+    "id": "bits-dubai",
+    "position": "Graphics Designer",
+    "type": "part-time",
+    "company": "BITS Pilani",
+    "location": "Dubai, U.A.E.",
+    "startDate": "2014-09-01",
+    "endDate": "2015-12-31",
+    "icon": "./bits-dubai-icon.png",
+    "description": "Graphic Designer & Professional Assistant to Dean, Student Welfare Division.\n- Designed banners, advertisements, posters and other materials for Admissions Department.\n- Provide support on key projects, reports, and record-keeping, helping to ensure the professionalism and integrity of the Institution.\n- Provide general office assistance to the Dean, including appointment and conference scheduling, expense reporting and reconciliation. Maintain and utilize confidential digital and hard copy filing system and records to assure availability and effective authorized access to information.",
+    "tags": ["design", "admissions", "marketing"],
+    "links": [{ "type": "homepage", "url": "https://dubai.bits-pilani.ac.in" }]
+  },
+  {
+    "id": "zikr-studio",
+    "position": "Design Intern",
+    "type": "internship",
+    "company": "ZIKR Studio",
+    "location": "Delhi, India",
+    "startDate": "2015-07-01",
+    "endDate": "2015-08-30",
+    "icon": "./zikr-studio-icon.jpg",
+    "description": "Catered to all design needs of Zikr Studio. From designing website pages, logos, App UI/UX and more.",
+    "tags": ["design", "web", "mobile"],
+    "links": [
+      {
+        "type": "linkedin",
+        "url": "https://www.linkedin.com/company/zikr-studio/"
+      }
+    ]
+  }
+]
