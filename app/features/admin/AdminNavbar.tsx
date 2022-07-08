@@ -42,9 +42,11 @@ export default function AdminNavbar({
       filterTerm
         ? navGroups.map((group) => ({
             ...group,
-            children: group.children.filter((item) =>
-              item.children?.toString().includes(filterTerm),
-            ),
+            children: group.children.filter(({ id, children }) => {
+              if (typeof children === "string")
+                return children.toLowerCase().includes(filterTerm)
+              return id.toLowerCase().includes(filterTerm)
+            }),
           }))
         : navGroups,
     [navGroups, filterTerm],
