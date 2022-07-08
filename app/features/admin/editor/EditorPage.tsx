@@ -1,6 +1,6 @@
 import SaveButton from "remixicon-react/Save2FillIcon"
 
-import { DeleteIcon, RefreshIcon } from "~/features/icons"
+import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import { type Model } from "~/features/models"
 import Button from "~/features/ui/Button"
 import FormAction from "~/features/ui/FormAction"

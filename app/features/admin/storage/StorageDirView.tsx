@@ -1,7 +1,7 @@
 import FolderIcon from "remixicon-react/Folder3FillIcon"
 
 import AdminLayout from "~/features/admin/AdminLayout"
-import { DeleteIcon } from "~/features/icons"
+import { DeleteIcon } from "@gs/icons"
 import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 

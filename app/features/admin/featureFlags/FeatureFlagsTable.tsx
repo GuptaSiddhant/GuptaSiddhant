@@ -1,12 +1,7 @@
 import clsx from "clsx"
 import { useMemo } from "react"
 
-import {
-  CreateIcon,
-  DeleteIcon,
-  ToggleOffIcon,
-  ToggleOnIcon,
-} from "~/features/icons"
+import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,

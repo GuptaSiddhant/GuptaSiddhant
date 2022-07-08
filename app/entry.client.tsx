@@ -11,3 +11,8 @@ hydrateRoot(
     <RemixBrowser />
   </StrictMode>,
 )
+
+declare global {
+  var __IS_SERVER__: boolean
+  var __IS_DEV__: boolean
+}

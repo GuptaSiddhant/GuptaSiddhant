@@ -2,7 +2,7 @@ import clsx from "clsx"
 
 import AdminLayout from "~/features/admin/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
-import { DeleteIcon, DownloadIcon, RenameIcon } from "~/features/icons"
+import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import { type FirebaseStorageFile } from "~/features/service/firebase-storage.server"
 import Accordion from "~/features/ui/Accordion"
 import FormAction from "~/features/ui/FormAction"

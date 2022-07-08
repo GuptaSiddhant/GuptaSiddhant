@@ -1,10 +1,10 @@
+import { RoundedCorner } from "@gs/icons"
 import clsx from "clsx"
 import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
 import useOffsetScroll from "~/features/hooks/useOffsetScroll"
 import useSetHeaderHeight from "~/features/hooks/useSetHeaderHeight"
-import RoundedCorner from "~/features/icons/RoundedCorner"
 import Navigation from "~/features/navigation/Navigation"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { Toaster } from "~/features/toaster"

@@ -12,7 +12,7 @@ import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/AdminLayout"
 import { generateNavbarGroupsFromFirebaseStorageDirsFiles } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
-import { RefreshIcon, UploadIcon } from "~/features/icons"
+import { RefreshIcon, UploadIcon } from "@gs/icons"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type FirebaseStorageFile,
