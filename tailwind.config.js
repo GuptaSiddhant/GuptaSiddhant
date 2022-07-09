@@ -4,7 +4,7 @@ const colors = require("tailwindcss/colors")
 /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: "class",
-  content: ["./app/**/*.{ts,tsx}"],
+  content: ["./apps/remix/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
       sans: ["Nunito", "sans-serif"],

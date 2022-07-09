@@ -13,7 +13,7 @@ import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { ErrorSection } from "~/features/ui/Error"
 
-import { handle } from "./admin/index"
+import { handle as adminHandle } from "./admin/index"
 
 interface LoaderData {}
 
@@ -26,7 +26,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function AdminIndex(): JSX.Element {
   useBlockNativeScroll()
 
-  const adminAppLinks: AdminLinkProps[] = handle.apps.map((app) => ({
+  const adminAppLinks: AdminLinkProps[] = adminHandle.apps.map((app) => ({
     id: app.id,
     children: app.icon,
     title: app.name,

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://guptasiddhant.com/sitemap.xml
