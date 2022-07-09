@@ -18,7 +18,7 @@ export async function getExperienceList(): Promise<ExperienceProps[]> {
     getCareerList(),
   ])
 
-  return [...education, ...career]
+  return [...education, ...career].filter((item) => __IS_DEV__ || !item.draft)
 }
 
 export async function getExperienceItem(id: string): Promise<ExperienceProps> {

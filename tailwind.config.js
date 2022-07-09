@@ -4,7 +4,7 @@ const colors = require("tailwindcss/colors")
 /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: "class",
-  content: ["./apps/remix/**/*.{ts,tsx}"],
+  content: ["./apps/remix/**/*.{ts,tsx}", "./packages/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
       sans: ["Nunito", "sans-serif"],
@@ -90,6 +90,7 @@ const config = {
       },
       minHeight: {
         input: "2.5rem",
+        "screen-main": "calc(100vh - 10em)",
       },
       maxHeight: {
         "screen-main": "calc(100vh - 100px)",

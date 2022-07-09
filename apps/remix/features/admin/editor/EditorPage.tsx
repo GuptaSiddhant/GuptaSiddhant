@@ -27,8 +27,8 @@ export default function EditorPage<T extends EditorHeaderProps>({
     <AdminLayout
       name={name}
       header={<EditorHeader id={name} icon={item?.icon} />}
-      className="p-4"
       key={formId}
+      className="p-4"
       actions={[
         {
           id: "save",

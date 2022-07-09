@@ -9,7 +9,8 @@
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "contentMediaType": "markdown"
         },
         "startDate": {
           "type": "string"
@@ -71,7 +72,8 @@
           "type": "string"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "contentMediaType": "markdown"
         },
         "startDate": {
           "type": "string"

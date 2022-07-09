@@ -60,6 +60,7 @@ export type ModelScalerType =
       type: "string"
       optional?: boolean
       enum?: string[]
+      contentMediaType?: "markdown"
     }
 
 export type ModelArrayType<T extends string> =

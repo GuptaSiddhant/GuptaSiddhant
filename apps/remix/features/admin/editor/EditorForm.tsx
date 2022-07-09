@@ -9,6 +9,7 @@ import type {
   ModelProperty,
 } from "~/features/models"
 import { type Model } from "~/features/models"
+import Accordion from "~/features/ui/Accordion"
 import Button from "~/features/ui/Button"
 import FormLabel from "~/features/ui/FormLabel"
 import Input from "~/features/ui/Input"
@@ -147,7 +148,16 @@ function EditorFormObjectInput<T extends Record<string, any>>({
   const formTextEntries = formEntries
     .filter(
       ([_, modelProp]) =>
-        modelProp.type === "string" || modelProp.type === "number",
+        (modelProp.type === "string" && !modelProp.contentMediaType) ||
+        modelProp.type === "number",
+    )
+    .sort(sortRequired)
+
+  const formMarkdownEntries = formEntries
+    .filter(
+      ([_, modelProp]) =>
+        modelProp.type === "string" &&
+        modelProp.contentMediaType === "markdown",
     )
     .sort(sortRequired)
 
@@ -206,7 +216,35 @@ function EditorFormObjectInput<T extends Record<string, any>>({
           list={modelProp.type === "array" ? modelProp.items : undefined}
         />
       ))}
+
+      {formMarkdownEntries.map(([key, modelProp]) => (
+        <EditorFormMarkdownInput
+          key={key}
+          name={namePrefix + key}
+          defaultValue={item?.[key as keyof T] as any}
+          required={modelProp.optional === false}
+        />
+      ))}
     </>
+  )
+}
+
+function EditorFormMarkdownInput({
+  name,
+  defaultValue,
+  required,
+}: EditorFormInputProps<string>) {
+  return (
+    <Accordion summary={name} open summaryClassName="!m-0">
+      <div className="p-0">
+        <textarea
+          name={name}
+          defaultValue={defaultValue}
+          required={required}
+          className="min-h-[50vh] w-full rounded bg-default p-2 text-base"
+        />
+      </div>
+    </Accordion>
   )
 }
 
