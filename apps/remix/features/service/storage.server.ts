@@ -54,23 +54,20 @@ export class Storage {
       queryFirebaseStorageFileSignedUrl(path),
     )
 
-  queryAsset = async (path: string): Promise<StorageFile> =>
-    fetchCachedKey(this.#createCacheKey(path), async () => {
-      const file = await queryFirebaseStorageFile(path)
-      const publicUrl = await this.queryAssetPublicUrl(path)
+  queryAsset = async (path: string): Promise<StorageFile> => {
+    const file = await queryFirebaseStorageFile(path)
+    const publicUrl = await this.queryAssetPublicUrl(path)
 
-      return transformFromFirebaseStorageFile(file, publicUrl)
-    })
+    return transformFromFirebaseStorageFile(file, publicUrl)
+  }
 
   queryDir = async (path?: string): Promise<StorageDir> =>
-    fetchCachedKey(this.#createCacheKey(path || "$root"), () =>
-      queryFirebaseStorageDirContents(path).then((contents) => ({
-        ...contents,
-        files: contents.files.map((file) =>
-          transformFromFirebaseStorageFile(file, path),
-        ),
-      })),
-    )
+    queryFirebaseStorageDirContents(path).then((contents) => ({
+      ...contents,
+      files: contents.files.map((file) =>
+        transformFromFirebaseStorageFile(file, path),
+      ),
+    }))
 
   // Mutations
 

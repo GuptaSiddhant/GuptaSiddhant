@@ -1,6 +1,6 @@
 // @ts-check
 
-const { setFirestoreDocument } = require("./firestore")
+const { setFirestoreDocument } = require("./firebase")
 
 /** @typedef {{title: string, linkUrl?: string, iconUrl?: string, level?: 'advanced' | 'intermediate' | 'basic'}} Skill */
 

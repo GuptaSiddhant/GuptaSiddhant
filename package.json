@@ -14,8 +14,9 @@
     "web:dev:css": "tailwindcss -w -o ./apps/remix/features/styles/tailwind.generated.css",
     "web:dev:remix": "remix dev",
     "clear": "yarn workspaces foreach -pi run clear",
-    "preclear": "rm -rf api .cache build public/build",
-    "fix": "eslint --fix --ext tsx,ts ./app"
+    "preclear": "rm -rf api public/build",
+    "fix": "eslint --fix --ext tsx,ts ./app",
+    "db:backup": "node ./scripts/db-backup.js"
   },
   "sideEffects": false,
   "engines": {
