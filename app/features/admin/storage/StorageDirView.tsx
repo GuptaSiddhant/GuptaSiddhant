@@ -1,11 +1,11 @@
 import { DeleteIcon } from "@gs/icons"
 import FolderIcon from "remixicon-react/Folder3FillIcon"
 
-import AdminLayout from "~/features/admin/AdminLayout"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
 import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
-import AdminDashboard from "../AdminDashboard"
+import AdminDashboard from "../components/AdminDashboard"
 import {
   extractLastPartOfFilePath,
   generateNavbarGroupsFromStorageDirContents,

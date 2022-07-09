@@ -1,7 +1,7 @@
 import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import clsx from "clsx"
 
-import AdminLayout from "~/features/admin/AdminLayout"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { formatDateTime, formatUnit } from "~/features/helpers/format"
 import { type StorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
@@ -10,7 +10,7 @@ import Popover from "~/features/ui/Popover"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 import PopoverRenameContent from "~/features/ui/Popover/Rename"
 
-import AdminDashboard from "../AdminDashboard"
+import AdminDashboard from "../components/AdminDashboard"
 import {
   extractLastPartOfFilePath,
   FileType,

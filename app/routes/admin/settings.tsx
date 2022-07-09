@@ -5,8 +5,8 @@ import SettingsIcon from "remixicon-react/Settings3FillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
-import AdminLayout from "~/features/admin/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
+import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
 

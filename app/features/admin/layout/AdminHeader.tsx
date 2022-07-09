@@ -3,8 +3,7 @@ import { type ReactNode } from "react"
 
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import type { To } from "~/features/types"
-
-import { AnchorLink } from "../ui/Link"
+import { AnchorLink } from "~/features/ui/Link"
 
 export default function AdminHeader({
   children,

@@ -8,8 +8,8 @@ import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
-import AdminLayout from "~/features/admin/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/features/admin/AdminNavbar"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
+import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type ModifyCacheMethod,

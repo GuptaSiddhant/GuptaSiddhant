@@ -4,7 +4,9 @@ import clsx from "clsx"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 
 import { AdminIcon } from "~/features/admin"
-import AdminLink, { type AdminLinkProps } from "~/features/admin/AdminLink"
+import AdminLink, {
+  type AdminLinkProps,
+} from "~/features/admin/components/AdminLink"
 import { AdminContext } from "~/features/admin/context"
 import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
 import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"

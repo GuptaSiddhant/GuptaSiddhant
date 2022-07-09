@@ -10,7 +10,7 @@ import StorageIcon from "remixicon-react/HardDrive2FillIcon"
 
 import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
-import AdminLayout from "~/features/admin/AdminLayout"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
 import type { NavigationLinkProps } from "~/features/navigation/types"

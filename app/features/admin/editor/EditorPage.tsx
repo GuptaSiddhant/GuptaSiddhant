@@ -1,12 +1,12 @@
+import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import SaveButton from "remixicon-react/Save2FillIcon"
 
-import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import { type Model } from "~/features/models"
 import Button from "~/features/ui/Button"
 import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
-import AdminLayout from "../AdminLayout"
+import AdminLayout from "../layout/AdminLayout"
 import EditorForm from "./EditorForm"
 
 interface EditorPageProps<T> {

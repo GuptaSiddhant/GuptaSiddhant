@@ -1,6 +1,6 @@
 import { useOutletContext } from "@remix-run/react"
 
-import AdminDashboard from "~/features/admin/AdminDashboard"
+import AdminDashboard from "~/features/admin/components/AdminDashboard"
 import Table from "~/features/ui/Table"
 
 import { type EditorLoaderData, handle } from "../editor"

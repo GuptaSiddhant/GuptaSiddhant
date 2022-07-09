@@ -2,7 +2,7 @@ import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import AdminDashboard from "~/features/admin/AdminDashboard"
+import AdminDashboard from "~/features/admin/components/AdminDashboard"
 import { formatDateTime } from "~/features/helpers/format"
 import storage, {
   type StorageMetadata,

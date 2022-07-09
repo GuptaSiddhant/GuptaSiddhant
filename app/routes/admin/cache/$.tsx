@@ -6,7 +6,7 @@ import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 // import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
-import AdminLayout from "~/features/admin/AdminLayout"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
