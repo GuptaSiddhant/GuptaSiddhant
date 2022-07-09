@@ -14,7 +14,7 @@ import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
 import type { NavigationLinkProps } from "~/features/navigation/types"
-import storage, { type StorageFile } from "~/features/service/storage.server"
+import storage, { type StorageDir } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
 import Popover from "~/features/ui/Popover"
@@ -28,12 +28,9 @@ const adminApp: AdminAppProps = {
   to: "/admin/storage",
 }
 
-interface LoaderData {
-  dirs: string[]
-  files: StorageFile[]
-}
+interface LoaderData extends StorageDir {}
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   const { dirs, files } = await storage.queryDir()
 
   return json<LoaderData>({ dirs, files })

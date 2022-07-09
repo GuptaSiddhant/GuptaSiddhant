@@ -1,5 +1,6 @@
 import {
   type FirebaseStorageFile,
+  downloadFileFromFirebaseStorage,
   mutateFirebaseStorageDir,
   mutateFirebaseStorageFile,
   queryFirebaseStorageDirContents,
@@ -61,6 +62,9 @@ export class Storage {
     return transformFromFirebaseStorageFile(file, publicUrl)
   }
 
+  downloadAsset = (path: string): Promise<File> =>
+    downloadFileFromFirebaseStorage(path)
+
   queryDir = async (path?: string): Promise<StorageDir> =>
     queryFirebaseStorageDirContents(path).then((contents) => ({
       ...contents,
@@ -68,7 +72,6 @@ export class Storage {
         transformFromFirebaseStorageFile(file, path),
       ),
     }))
-
   // Mutations
 
   mutateAsset = async (filePath: string, file?: string | File) =>

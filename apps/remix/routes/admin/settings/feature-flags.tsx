@@ -5,8 +5,8 @@ import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import { createAdminMeta } from "~/features/admin"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
+import AdminLayout from "~/features/admin/layout/AdminLayout"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import {
   type FeatureFlagsMap,

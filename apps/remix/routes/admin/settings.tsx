@@ -32,13 +32,18 @@ export default function SettingsAdminApp(): JSX.Element | null {
 
   const navGroups: AdminNavbarGroupProps[] = [
     {
-      id: "config",
-      label: "Config",
+      id: "settings",
+      label: "Settings",
       children: [
         {
           id: "feature-flags",
           to: "feature-flags",
           children: "Feature flags",
+        },
+        {
+          id: "backups",
+          to: "backups",
+          children: "Backups",
         },
       ],
     },

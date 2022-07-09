@@ -9,7 +9,7 @@ import VideoIcon from "remixicon-react/VideoLineIcon"
 
 import { type StorageFile } from "~/features/service/storage.server"
 
-import { type AdminNavbarGroupProps } from "../AdminNavbar"
+import { type AdminNavbarGroupProps } from "../layout/AdminNavbar"
 
 export function generateNavbarGroupsFromStorageDirContents(
   dirs: string[],

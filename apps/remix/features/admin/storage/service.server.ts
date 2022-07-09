@@ -46,6 +46,7 @@ export async function getStoragePaths(
 export async function modifyStorage(
   method: string,
   form: FormData,
+  basePath = "/admin/storage",
 ): Promise<string | undefined> {
   if (method === "DELETE") {
     const type = form.get("type")?.toString()
@@ -57,7 +58,7 @@ export async function modifyStorage(
       storageLogger.info(`Deleting dir "${prefix}".`)
       await storage.mutateDir(prefix)
 
-      return generateRedirectUrl(generatePathsFromPath(prefix).at(-2))
+      return generateRedirectUrl(basePath, generatePathsFromPath(prefix).at(-2))
     }
 
     const path = form.get("path")?.toString()
@@ -66,7 +67,7 @@ export async function modifyStorage(
     storageLogger.info(`Deleting asset "${path}".`)
     await storage.mutateAsset(path)
 
-    return generateRedirectUrl(generatePathsFromPath(path).at(-2))
+    return generateRedirectUrl(basePath, generatePathsFromPath(path).at(-2))
   }
 
   if (method === "POST") {
@@ -83,7 +84,9 @@ export async function modifyStorage(
         ? undefined
         : firstUploadedFile?.linkUrl
 
-    return uploadedFileLink ? generateRedirectUrl(uploadedFileLink) : undefined
+    return uploadedFileLink
+      ? generateRedirectUrl(basePath, uploadedFileLink)
+      : undefined
   }
 
   if (method === "PATCH") {
@@ -95,14 +98,13 @@ export async function modifyStorage(
     storageLogger.info(`Renaming asset "${previousName}" to "${name}".`)
     await storage.mutateAsset(previousName, name)
 
-    return generateRedirectUrl(name)
+    return generateRedirectUrl(basePath, name)
   }
 
   return
 }
 
-function generateRedirectUrl(path?: string) {
-  const basePath = "/admin/storage"
+function generateRedirectUrl(basePath: string, path?: string) {
   if (!path) return `${basePath}/`
   if (path.startsWith("/")) return `${basePath}${path}`
   return `${basePath}/${path}`

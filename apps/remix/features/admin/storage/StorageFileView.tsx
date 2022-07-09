@@ -19,10 +19,12 @@ import {
 } from "./helpers"
 import { type StorageFileProps } from "./types"
 
+export interface StorageFileViewProps extends StorageFileProps {}
+
 export default function StorageFileView({
   path,
   data,
-}: StorageFileProps): JSX.Element | null {
+}: StorageFileViewProps): JSX.Element | null {
   const name = extractLastPartOfFilePath(path)
   const type = getFileTypeFromFileContentType(data.contentType)
   const icon = getIconFromFileType(type)

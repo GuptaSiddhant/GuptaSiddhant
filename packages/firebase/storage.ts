@@ -118,9 +118,8 @@ function getFirebaseStorageFileRef(name: string, options?: FileOptions) {
   return getFirebaseStorageBucket().file(name, options)
 }
 
-async function uploadFileInFirebaseStorage(path: string, file: File) {
-  const tempDir = os.tmpdir()
-  const tempFilePath = join(tempDir, `${Math.random()}-${file.name}`)
+export async function uploadFileInFirebaseStorage(path: string, file: File) {
+  const tempFilePath = join(os.tmpdir(), `${Math.random()}-${file.name}`)
 
   const data = new Uint8Array(await file.arrayBuffer())
   await fs.writeFile(tempFilePath, data)
@@ -133,4 +132,11 @@ async function uploadFileInFirebaseStorage(path: string, file: File) {
   await fs.unlink(tempFilePath)
 
   return response[0]
+}
+
+export async function downloadFileFromFirebaseStorage(
+  name: string,
+): Promise<File> {
+  const res = await getFirebaseStorageFileRef(name).download()
+  return new File(res, name)
 }
