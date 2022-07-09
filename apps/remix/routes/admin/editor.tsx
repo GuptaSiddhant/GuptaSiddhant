@@ -13,6 +13,7 @@ import {
 } from "~/features/experiences/service.server"
 import type { ExperienceProps } from "~/features/experiences/types"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 import { DatabaseModel } from "~/features/service/database.server"
 import { ErrorSection } from "~/features/ui/Error"
 import Menu from "~/features/ui/Menu"
@@ -33,7 +34,8 @@ export interface EditorLoaderData {
   }[]
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const [careerList, educationList] = await Promise.all([
     getCareerList(),
     getEducationList(),

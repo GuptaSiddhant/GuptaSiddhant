@@ -4,6 +4,7 @@ import { json } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
+import { authenticateRoute } from "~/features/service/auth.server"
 import Database, { DatabaseModel } from "~/features/service/database.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
@@ -16,7 +17,8 @@ interface LoaderData {
   collection?: string
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  await authenticateRoute(request)
   const path = params["*"]
   if (!path) return redirect(handle.adminApp.to)
 
@@ -32,6 +34,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
   const collection = formData.get("collection")?.toString()

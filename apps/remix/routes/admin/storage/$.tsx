@@ -10,6 +10,7 @@ import {
 } from "~/features/admin/storage/service.server"
 import StorageDirView from "~/features/admin/storage/StorageDirView"
 import { type StoragePathProps } from "~/features/admin/storage/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 
 import { handle } from "../storage"
 
@@ -17,7 +18,8 @@ interface LoaderData {
   storagePaths: StoragePathProps[]
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  await authenticateRoute(request)
   const path = params["*"]
   if (!path) return redirect(handle.adminApp.to.toString())
 
@@ -36,6 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { method } = request
   const form = await request.formData()
   const origin = form.get("origin")?.toString() || "/"

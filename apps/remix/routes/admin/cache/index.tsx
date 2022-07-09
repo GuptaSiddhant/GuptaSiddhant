@@ -4,6 +4,7 @@ import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
 import { transformMsToReadableString } from "~/features/helpers/format"
+import { authenticateRoute } from "~/features/service/auth.server"
 import { getCache } from "~/features/service/cache.server"
 
 import { handle } from "../cache"
@@ -14,7 +15,8 @@ interface LoaderData {
   ttl: number
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { size, max, ttl } = getCache()
 
   return json<LoaderData>({ size, max, ttl })

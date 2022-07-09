@@ -8,6 +8,7 @@ import invariant from "tiny-invariant"
 import { generateBackupPathFromBackupName } from "~/features/admin/backup/service.server"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { formatDateTime } from "~/features/helpers/format"
+import { authenticateRoute } from "~/features/service/auth.server"
 import type { StorageFile } from "~/features/service/storage.server"
 import storage from "~/features/service/storage.server"
 import CodeBlock from "~/features/ui/CodeBlock"
@@ -21,7 +22,8 @@ interface LoaderData {
   data: string
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  await authenticateRoute(request)
   const name = params["name"]
   invariant(name, "Filename is required")
 
@@ -39,11 +41,12 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const { method } = request
+  await authenticateRoute(request)
+
   const form = await request.formData()
   const origin = form.get("origin")?.toString() || "/"
 
-  if (method === "DELETE") {
+  if (request.method === "DELETE") {
     const path = form.get("path")?.toString()
     invariant(path, "Asset path is required.")
     await storage.mutateAsset(path)

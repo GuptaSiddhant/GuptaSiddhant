@@ -11,6 +11,7 @@ import { getModelByDatabaseModel } from "~/features/experiences/helpers"
 import { databaseCareer } from "~/features/experiences/service.server"
 import type { CareerProps } from "~/features/experiences/types"
 import type { Model } from "~/features/models"
+import { authenticateRoute } from "~/features/service/auth.server"
 import { DatabaseModel } from "~/features/service/database.server"
 
 import { handle } from "../editor"
@@ -20,7 +21,8 @@ interface LoaderData {
   model: Model
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  await authenticateRoute(request)
   const collectionName = DatabaseModel.Career
   const model = getModelByDatabaseModel(collectionName)
 
@@ -39,6 +41,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
 

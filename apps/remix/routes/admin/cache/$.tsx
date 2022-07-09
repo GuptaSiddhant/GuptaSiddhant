@@ -3,7 +3,6 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
-// import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
 import AdminLayout from "~/features/admin/layout/AdminLayout"
@@ -11,6 +10,7 @@ import { ONE_HOUR_IN_MS } from "~/features/constants"
 import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 import type { CacheType } from "~/features/service/cache.server"
 import {
   type ModifyCacheMethod,
@@ -20,7 +20,6 @@ import {
   parseCacheKey,
 } from "~/features/service/cache.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
-import Accordion from "~/features/ui/Accordion"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
@@ -33,7 +32,8 @@ interface LoaderData {
   ttl: number
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  await authenticateRoute(request)
   const key = params["*"]
   invariant(key, "Cache key is required")
   const { type, value } = parseCacheKey(key) || {}
@@ -54,6 +54,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const form = await request.formData()
   const key = form.get("key")?.toString()
   const origin = form.get("origin")?.toString()

@@ -4,6 +4,7 @@ import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
 import { formatDateTime } from "~/features/helpers/format"
+import { authenticateRoute } from "~/features/service/auth.server"
 import storage, {
   type StorageMetadata,
 } from "~/features/service/storage.server"
@@ -15,7 +16,8 @@ interface LoaderData {
   metadata: StorageMetadata
 }
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const metadata = await storage.queryMetadata()
 
   return json<LoaderData>({ metadata })

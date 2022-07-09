@@ -12,6 +12,7 @@ import {
   generateBackupNameFromBackupPath,
 } from "~/features/admin/backup/service.server"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
+import { authenticateRoute } from "~/features/service/auth.server"
 import storage, { type StorageFile } from "~/features/service/storage.server"
 import FormAction from "~/features/ui/FormAction"
 
@@ -22,7 +23,8 @@ interface LoaderData {
 
 const pathname = "/admin/settings/backups/"
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { files } = await storage.queryDir("backup/")
   const list = files.map((file) => generateBackupNameFromBackupPath(file.name))
 
@@ -30,6 +32,7 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   if (request.method === "POST") {
     const filePath = await backupDatabase()
     return redirect(`${pathname}${filePath}`)

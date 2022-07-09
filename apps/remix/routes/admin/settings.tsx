@@ -7,6 +7,7 @@ import type { AdminAppProps } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
+import { authenticateRoute } from "~/features/service/auth.server"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
 
@@ -21,7 +22,8 @@ interface LoaderData {
   featureConfigKeys: string[]
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const featureConfigKeys = await queryFirebaseRemoteConfigKeys()
 
   return json<LoaderData>({ featureConfigKeys })

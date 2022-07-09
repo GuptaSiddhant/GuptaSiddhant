@@ -14,6 +14,7 @@ import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 import storage, { type StorageDir } from "~/features/service/storage.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
@@ -30,13 +31,15 @@ const adminApp: AdminAppProps = {
 
 interface LoaderData extends StorageDir {}
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { dirs, files } = await storage.queryDir()
 
   return json<LoaderData>({ dirs, files })
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { method } = request
   const form = await request.formData()
 

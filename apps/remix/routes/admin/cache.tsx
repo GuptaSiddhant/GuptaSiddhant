@@ -11,6 +11,7 @@ import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 import {
   type ModifyCacheMethod,
   getCache,
@@ -36,6 +37,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { pathname } = new URL(request.url)
   const keys = [...getCache().keys()].sort()
   const groupMap = createGroupMapFromKeys(keys)
@@ -44,6 +46,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { pathname } = new URL(request.url)
   await modifyCache(request.method as ModifyCacheMethod)
 

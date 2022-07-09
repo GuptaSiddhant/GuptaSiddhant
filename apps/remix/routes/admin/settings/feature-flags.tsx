@@ -8,6 +8,7 @@ import { createAdminMeta } from "~/features/admin"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import { authenticateRoute } from "~/features/service/auth.server"
 import {
   type FeatureFlagsMap,
   deleteFeatureFlag,
@@ -22,7 +23,8 @@ interface LoaderData {
   featureFlags: FeatureFlagsMap
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const featureFlags = await getAllFeatureFlags()
   invariant(featureFlags, "featureFlags could not be loaded")
 
@@ -30,6 +32,7 @@ export const loader: LoaderFunction = async () => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
   const { method } = request
 
   const form = await request.formData()
