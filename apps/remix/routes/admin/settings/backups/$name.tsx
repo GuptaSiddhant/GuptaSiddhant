@@ -42,6 +42,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
+  console.log({ action: request.url, name: "name", method: request.method })
 
   const form = await request.formData()
   const origin = form.get("origin")?.toString() || "/"

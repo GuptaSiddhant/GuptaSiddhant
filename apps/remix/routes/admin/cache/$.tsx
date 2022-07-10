@@ -1,11 +1,12 @@
 import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
+import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import invariant from "tiny-invariant"
 
+import { createAdminMeta } from "~/features/admin"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
@@ -13,16 +14,13 @@ import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"
 import type { CacheType } from "~/features/service/cache.server"
 import {
-  type ModifyCacheMethod,
   getCache,
   getCachedKey,
-  modifyCache,
   parseCacheKey,
 } from "~/features/service/cache.server"
-import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
+import Action from "~/features/ui/Action"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorSection } from "~/features/ui/Error"
-import FormAction from "~/features/ui/FormAction"
 
 interface LoaderData {
   key: string
@@ -53,17 +51,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   })
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
-  const form = await request.formData()
-  const key = form.get("key")?.toString()
-  const origin = form.get("origin")?.toString()
-
-  await modifyCache(request.method as ModifyCacheMethod, key)
-
-  return redirect(origin || "/admin/cache/")
-}
-
 export default function CacheDetails(): JSX.Element | null {
   const { key, data } = useLoaderData<LoaderData>()
 
@@ -71,16 +58,19 @@ export default function CacheDetails(): JSX.Element | null {
     {
       id: "Delete",
       children: (
-        <FormAction body={{ key }} title="Delete" method="delete">
+        <Action
+          body={{ key }}
+          title="Delete cache item"
+          method="delete"
+          toast={{
+            title: "Deleting cache item",
+          }}
+        >
           <DeleteIcon />
-        </FormAction>
+        </Action>
       ),
     },
   ]
-
-  useTransitionSubmissionToast({
-    DELETE: `Deleting cache key "${key}"`,
-  })
 
   return (
     <AdminLayout
@@ -115,4 +105,8 @@ function Footer() {
         : transformMsToReadableString(ttl)}
     </div>
   )
+}
+
+export const meta: MetaFunction = ({ data }) => {
+  return createAdminMeta(data?.key)
 }

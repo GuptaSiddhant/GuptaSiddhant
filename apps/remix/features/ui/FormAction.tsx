@@ -1,7 +1,12 @@
-import { type FormMethod, useLocation, useSubmit } from "@remix-run/react"
+import {
+  type FetcherWithComponents,
+  type FormMethod,
+  useLocation,
+  useSubmit,
+} from "@remix-run/react"
 import { type FormProps, Form } from "@remix-run/react"
 import clsx from "clsx"
-import type { ReactNode } from "react"
+import { useRef } from "react"
 
 import Popover from "./Popover"
 import PopoverConfirmContent, {
@@ -9,63 +14,94 @@ import PopoverConfirmContent, {
 } from "./Popover/Confirm"
 
 export interface FormActionProps extends FormProps {
-  children: ReactNode
+  children: React.ReactNode
   title: string
   body?: Record<string, any>
-  method: FormMethod
+  method?: FormMethod
   confirm?: Partial<PopoverConfirmProps> | string
+  fetcher?: FetcherWithComponents<any>
 }
 
-export default function FormAction({
-  children,
-  title,
-  body = {},
-  className,
-  confirm,
-  ...props
-}: FormActionProps): JSX.Element | null {
-  const submit = useSubmit()
-  const { pathname, search, hash } = useLocation()
-  const origin = `${pathname}${search}${hash}`
+export default function FormAction(props: FormActionProps): JSX.Element | null {
+  if (props.confirm) {
+    return <ActionWithConfirm {...props} />
+  }
 
-  if (confirm) {
-    return (
+  return <Action {...props} />
+}
+
+function ActionWithConfirm({
+  confirm = "Are yous sure?",
+  title,
+  children,
+  className,
+  body = {},
+  ...props
+}: FormActionProps) {
+  const submit = useSubmit()
+  const formRef = useRef<HTMLFormElement>(null)
+  const origin = useOrigin()
+
+  return (
+    <>
       <Popover
         title={title}
         content={
           <PopoverConfirmContent
             {...(typeof confirm === "string" ? { children: confirm } : confirm)}
             onConfirm={() => {
-              submit(
-                { ...body, origin },
-                {
-                  action: pathname,
-                  encType: "application/x-www-form-urlencoded",
-                  ...props,
-                  replace: true,
-                },
-              )
+              console.log(formRef.current)
+              submit(formRef.current)
             }}
           />
         }
-        className={clsx("form-action", className)}
       >
         <div title={title} className={clsx(className, "gap-2 flex-center")}>
           {children}
         </div>
       </Popover>
-    )
-  }
+      <Form hidden {...props} replace ref={formRef}>
+        {Object.entries({ ...body, origin }).map(([key, value]) => (
+          <input key={key} name={key} value={value} type={"hidden"} />
+        ))}
+      </Form>
+    </>
+  )
+}
+
+function Action({
+  children,
+  body = {},
+  title,
+  className,
+  formRef,
+  hidden = false,
+  method = "post",
+  ...props
+}: FormActionProps & { formRef?: React.Ref<HTMLFormElement> }) {
+  const origin = useOrigin()
 
   return (
-    <Form action={pathname} {...props} replace className="flex-center">
-      {Object.entries(body).map(([key, value]) => (
+    <Form
+      {...props}
+      replace
+      className={clsx("flex-center")}
+      ref={formRef}
+      hidden={hidden}
+      method={method}
+    >
+      {Object.entries({ ...body, origin }).map(([key, value]) => (
         <input key={key} name={key} value={value} type={"hidden"} />
       ))}
-      <input type="hidden" name="origin" value={origin} />
       <button title={title} className={clsx(className, "gap-2 flex-center")}>
         {children}
       </button>
     </Form>
   )
+}
+
+function useOrigin() {
+  const { pathname, search, hash } = useLocation()
+
+  return `${pathname}${search}${hash}`
 }

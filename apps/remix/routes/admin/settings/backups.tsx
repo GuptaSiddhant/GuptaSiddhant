@@ -33,6 +33,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
+  console.log({ action: request.url, name: "parent", method: request.method })
+
   if (request.method === "POST") {
     const filePath = await backupDatabase()
     return redirect(`${pathname}${filePath}`)

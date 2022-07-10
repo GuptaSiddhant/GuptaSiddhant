@@ -19,8 +19,8 @@ import {
   parseCacheKey,
 } from "~/features/service/cache.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
+import Action from "~/features/ui/Action"
 import { ErrorSection } from "~/features/ui/Error"
-import FormAction from "~/features/ui/FormAction"
 import { Caption } from "~/features/ui/Text"
 
 const adminApp: AdminAppProps = {
@@ -38,6 +38,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
+
   const { pathname } = new URL(request.url)
   const keys = [...getCache().keys()].sort()
   const groupMap = createGroupMapFromKeys(keys)
@@ -47,10 +48,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const { pathname } = new URL(request.url)
-  await modifyCache(request.method as ModifyCacheMethod)
 
-  return redirect(pathname)
+  const { pathname } = new URL(request.url)
+  const form = await request.formData()
+  const key = form.get("key")?.toString()
+  const origin = form.get("origin")?.toString()
+
+  await modifyCache(request.method as ModifyCacheMethod, key)
+
+  return redirect(origin || pathname)
 }
 
 export default function CacheAdminApp(): JSX.Element | null {
@@ -69,17 +75,22 @@ export default function CacheAdminApp(): JSX.Element | null {
     {
       id: "Refresh",
       children: (
-        <FormAction title="Refresh" method="get">
-          <RefreshIcon aria-label="Refresh" />
-        </FormAction>
+        <Action title="Refresh cache" method="get" toast="Refreshing cache...">
+          <RefreshIcon />
+        </Action>
       ),
     },
     {
       id: "Clear",
       children: (
-        <FormAction title="Clear" method="delete">
-          <ClearIcon aria-label="Clear" />
-        </FormAction>
+        <Action
+          title="Clear cache"
+          method="delete"
+          confirm="Are you sure about clearing cache?"
+          toast="Clearing cache..."
+        >
+          <ClearIcon />
+        </Action>
       ),
     },
   ]

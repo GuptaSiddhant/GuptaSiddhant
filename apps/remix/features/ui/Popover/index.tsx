@@ -54,6 +54,7 @@ export default function Popover({
     <>
       <button
         ref={targetButtonRef}
+        type="button"
         className={clsx("gap-2 flex-center", className)}
         title={title}
         onClick={toggleIsPopoverOpen}

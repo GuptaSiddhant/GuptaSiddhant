@@ -44,6 +44,7 @@ export default function PopoverConfirmContent({
           key="cancel"
           onClick={handleCancel}
           className={cancelClassName}
+          type="button"
         >
           {cancelElement}
         </Button.Secondary>
@@ -51,6 +52,7 @@ export default function PopoverConfirmContent({
           key="ok"
           onClick={handleConfirm}
           className={confirmClassName}
+          type="submit"
         >
           {confirmElement}
         </Button.Primary>
