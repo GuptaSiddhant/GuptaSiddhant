@@ -1,7 +1,6 @@
+import { capitalize } from "@gs/utils/format"
 import clsx from "clsx"
 import type { ReactNode } from "react"
-
-import { capitalize } from "~/features/helpers/format"
 
 const preservedIds = ["actions"] as const
 
@@ -111,7 +110,7 @@ function HorizontalTable<T extends object>({
 function getHeaderElement<T extends object>(
   column: TableColumnProps<T>,
   data: T[],
-) {
+): React.ReactNode {
   const { id, header } = column
 
   return typeof header === "function"
@@ -123,14 +122,14 @@ function getCellElement<T extends object>(
   column: TableColumnProps<T>,
   row: T,
   data: T[],
-) {
+): React.ReactNode {
   const { id, cell } = column
 
-  const content =
+  const content: any =
     typeof id === "string" &&
     preservedIds.includes(id as typeof preservedIds[number])
-      ? undefined
-      : row?.[id as keyof T] ?? undefined
+      ? null
+      : row?.[id as keyof T] ?? null
 
-  return cell?.(row, data) || content
+  return cell?.(row, data) ?? content
 }

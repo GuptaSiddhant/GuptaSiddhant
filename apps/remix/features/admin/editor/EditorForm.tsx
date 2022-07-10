@@ -1,8 +1,8 @@
+import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
 import { type FormMethod, Form } from "@remix-run/react"
 import clsx from "clsx"
 import { useState } from "react"
 
-import { capitalize, formatYYYYMMDD } from "~/features/helpers/format"
 import type {
   ModelArrayType,
   ModelProperties,

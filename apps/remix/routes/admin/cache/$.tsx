@@ -1,3 +1,4 @@
+import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
@@ -7,7 +8,6 @@ import invariant from "tiny-invariant"
 
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
-import { transformMsToReadableString } from "~/features/helpers/format"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"

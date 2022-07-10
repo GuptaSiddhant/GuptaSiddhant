@@ -1,5 +1,6 @@
+import { formatList } from "@gs/utils/format"
+
 import { type AboutInfo } from "~/features/about"
-import { formatList } from "~/features/helpers/format"
 import Hero from "~/features/hero"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ExternalLink, InternalLink } from "~/features/ui/Link"

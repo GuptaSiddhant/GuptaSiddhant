@@ -1,8 +1,8 @@
+import { capitalize } from "@gs/utils/format"
 import { Form, useSubmit } from "@remix-run/react"
 import clsx from "clsx"
 import FilterIcon from "remixicon-react/Filter3LineIcon"
 
-import { capitalize } from "~/features/helpers/format"
 import Button from "~/features/ui/Button"
 import Select from "~/features/ui/Select"
 import Tags from "~/features/ui/Tags"

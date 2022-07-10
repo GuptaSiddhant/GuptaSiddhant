@@ -1,8 +1,8 @@
+import { capitalize } from "@gs/utils/format"
 import clsx from "clsx"
 import { type ComponentPropsWithoutRef } from "react"
 
 import { type BaseProps } from "~/features//types"
-import { capitalize } from "~/features/helpers/format"
 
 export default {
   List: TagList,

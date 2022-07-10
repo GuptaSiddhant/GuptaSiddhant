@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import { toKebabCase } from "./format"
+import { toKebabCase } from "../../../../packages/utils/format"
 
 export function isExternalLink(url: string): boolean {
   return ["://", "mailto:"].some((indicator) => url.includes(indicator))

@@ -1,9 +1,9 @@
+import { formatDateTime } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import { formatDateTime } from "~/features/helpers/format"
 import { authenticateRoute } from "~/features/service/auth.server"
 import storage, {
   type StorageMetadata,

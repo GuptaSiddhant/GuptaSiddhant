@@ -1,4 +1,5 @@
-import { formatDate } from "~/features/helpers/format"
+import { formatDate } from "@gs/utils/format"
+
 import { DatabaseModel } from "~/features/service/database.server"
 
 import generateModelFromSchema from "../models"
