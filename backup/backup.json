@@ -1,0 +1,1385 @@
+{
+  "projects": [
+    {
+      "id": "arcadia",
+      "tags": [
+        "javascript",
+        "python",
+        "django",
+        "code",
+        "rest-api",
+        "design",
+        "branding",
+        "sketch"
+      ],
+      "dateEnd": "2019-02-28T00:00:00.000Z",
+      "links": [
+        {
+          "url": "https://arcadiagames.herokuapp.com/",
+          "type": "homepage"
+        },
+        {
+          "url": "https://github.com/GuptaSiddhant/arcadia",
+          "type": "github"
+        }
+      ],
+      "description": "Arcadia is an online game store for JavaScript games. Developed as a project for the Web Software Development course CS-C3170 2018-2019 at Aalto University, Finland.",
+      "content": "\"## header\\n\\nempty\\n\"",
+      "dateStart": "2019-01-01T00:00:00.000Z",
+      "draft": false,
+      "icon": "/arcadia/arcadia-icon.png",
+      "association": "aalto-ms-hcid",
+      "gallery": [
+        {
+          "url": "/arcadia/arcadia-cover.jpg",
+          "alt": "Arcadia store"
+        }
+      ],
+      "featured": false,
+      "title": "Arcadia",
+      "subtitle": "Web Game Store"
+    },
+    {
+      "id": "avta",
+      "draft": false,
+      "icon": "/avta/avta-icon.png",
+      "featured": false,
+      "tags": [
+        "entrepreneurship",
+        "branding",
+        "prototype",
+        "sketch",
+        "research"
+      ],
+      "dateStart": "2018-02-01T00:00:00.000Z",
+      "title": "avta",
+      "description": "Avta is a tool which assists people suffering from 'panic attacks' by decreasing the discomfort. \\nIt allows user to know their body with real-time body scans.",
+      "association": "kth-ms-hcid",
+      "gallery": [
+        {
+          "url": "/avta/avta-cover.png",
+          "alt": "Avta app"
+        }
+      ],
+      "subtitle": "Reconnect with your body",
+      "content": "\"\"",
+      "dateEnd": "2018-05-24T00:00:00.000Z"
+    },
+    {
+      "id": "business-espoo",
+      "association": "kalpik-studio",
+      "gallery": [
+        {
+          "alt": "Business Espoo - Visual Guidelines Booklet",
+          "url": "/business-espoo/business-espoo-booklet.jpg"
+        }
+      ],
+      "tags": ["design", "branding", "sketch"],
+      "dateStart": "2018-12-01T00:00:00.000Z",
+      "icon": "/business-espoo/business-espoo-icon.png",
+      "description": "Visual identity and style guidelines for Business Espoo.",
+      "dateEnd": "2019-04-20T00:00:00.000Z",
+      "draft": false,
+      "featured": false,
+      "title": "Business Espoo",
+      "content": "\"\"",
+      "links": [
+        {
+          "type": "hompage",
+          "url": "http://businessespoo.fi/en-US"
+        }
+      ]
+    },
+    {
+      "id": "delta",
+      "links": [
+        {
+          "type": "blog",
+          "url": "https://bhutani.design/project/delta"
+        }
+      ],
+      "tags": [
+        "entrepreneurship",
+        "branding",
+        "prototype",
+        "sketch",
+        "research"
+      ],
+      "featured": false,
+      "gallery": [
+        {
+          "alt": "DELTA app cover",
+          "url": "/delta/delta-cover.jpg"
+        }
+      ],
+      "dateStart": "2018-02-01T00:00:00.000Z",
+      "subtitle": "Help.Share.Earn.",
+      "draft": false,
+      "content": "\"\"",
+      "description": "A mobile based platform where residents can engage with their community and can either benefit from it or help the other residents in their day-to-day work like renting them seldom used commodities, help them move, provide professional help with software help etc. The users can subscribe to the categories they can provide help and feedback for the same will be provided.",
+      "association": "kth-ms-hcid",
+      "icon": "/delta/delta-icon.png",
+      "title": "DELTA",
+      "dateEnd": "2018-04-30T00:00:00.000Z"
+    },
+    {
+      "id": "fa-harmony",
+      "icon": "/fa-harmony/fa-harmony-icon.png",
+      "association": "fa-solutions",
+      "tags": ["react", "typescript", "design", "code", "branding", "sketch"],
+      "draft": false,
+      "title": "FA Harmony",
+      "dateEnd": "2020-12-30T00:00:00.000Z",
+      "dateStart": "2019-09-01T00:00:00.000Z",
+      "gallery": [
+        {
+          "alt": "FA Harmony cover",
+          "url": "/fa-harmony/fa-harmony-cover.jpg"
+        }
+      ],
+      "subtitle": "Application framework",
+      "description": "React meta-framework for building enteprise applications for FA Solutions.",
+      "featured": true,
+      "content": "\"\"",
+      "links": [
+        {
+          "url": "https://harmony.fasolutions.com",
+          "type": "hompage"
+        }
+      ]
+    },
+    {
+      "id": "klarna",
+      "draft": true,
+      "links": [
+        {
+          "url": "http://klarna.com/",
+          "type": "homepage"
+        }
+      ],
+      "content": "\"# H1\\n\\n## H2\\n\\n### H3\\n\\n### H3-2\\n\\n## H2-2\\n\\n# H1-2\\n\\n## H2-3\"",
+      "dateStart": "2021-10-01T00:00:00.000Z",
+      "gallery": [
+        {
+          "url": "/klarna/klarna-hero.jpg",
+          "alt": "Screenshot of Nokia Phones PDP",
+          "credit": "Klarna.com"
+        }
+      ],
+      "subtitle": "Perceived performance",
+      "dateEnd": null,
+      "title": "Klarna App",
+      "association": "accenture",
+      "featured": true,
+      "icon": "/klarna/klarna-icon.png",
+      "description": "Improving perceived performance of Klarna's Android app.",
+      "tags": [
+        "react",
+        "typescript",
+        "code",
+        "accessibility",
+        "react-native",
+        "performance"
+      ]
+    },
+    {
+      "id": "likeadish",
+      "content": "\"![Like A Dish Mobile app](likeadish/lad-mobile.jpg)\"",
+      "association": "sprint-me",
+      "subtitle": "Restaurant and Dish finder",
+      "dateEnd": "2017-03-30T00:00:00.000Z",
+      "description": "To find the best restaurant offers in dubai.",
+      "featured": false,
+      "gallery": [
+        {
+          "url": "/likeadish/lad-outlet.jpg",
+          "alt": "Like A Dish Outlet webapp"
+        }
+      ],
+      "links": [
+        {
+          "url": "http://m.likeadish.com/",
+          "type": "hompage"
+        }
+      ],
+      "icon": "/likeadish/lad-icon.png",
+      "draft": false,
+      "tags": ["design", "branding", "sketch", "prototype"],
+      "title": "Like A Dish",
+      "dateStart": "2016-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "nokia-phones",
+      "subtitle": "Nokia/HMD Webstore",
+      "dateEnd": "2021-08-27T00:00:00.000Z",
+      "association": "luxus-worldwide",
+      "draft": false,
+      "gallery": [
+        {
+          "url": "/nokia-phones/nokia-phones-icon-pdp.png",
+          "alt": "Screenshot of Nokia Phones PDP"
+        }
+      ],
+      "description": "Developemnt of e-commerce store for Nokia/HMD Phones.",
+      "icon": "/nokia-phones/nokia-phones-icon.jpg",
+      "featured": false,
+      "dateStart": "2021-01-04T00:00:00.000Z",
+      "title": "Nokia Phones",
+      "links": [
+        {
+          "url": "http://nokia.com/phones/",
+          "type": "homepage"
+        }
+      ],
+      "content": "\"\"",
+      "tags": ["code", "react", "typescript"]
+    },
+    {
+      "id": "pocket-inc",
+      "draft": false,
+      "subtitle": "Company in your Pocket, legally.",
+      "icon": "/pocket-inc/pocket-inc-icon.png",
+      "featured": false,
+      "content": "\"\"",
+      "tags": ["design", "branding", "prototype", "sketch"],
+      "links": [
+        {
+          "url": "https://www.pocketinc.fi/",
+          "type": "homepage"
+        },
+        {
+          "type": "prototype",
+          "url": "https://marvelapp.com/prototype/792g58d/screen/49676165?"
+        }
+      ],
+      "gallery": [
+        {
+          "url": "/pocket-inc/pocket-inc-cover.jpg",
+          "alt": "Procket Inc. app"
+        }
+      ],
+      "description": "With PocketInc service you can create, sign, archive, browse and register minutes of all mandatory corporate resolutions made by shareholders and board of directors.",
+      "dateStart": "2018-09-10T00:00:00.000Z",
+      "title": "Pocket Inc.",
+      "dateEnd": "2018-10-30T00:00:00.000Z",
+      "association": "kalpik-studio"
+    },
+    {
+      "id": "quickbytz",
+      "content": "\"\\n![Screenshots showing QB app](/quickbytz/qb-ss-1.png)\\n![Screenshots showing QB app](/quickbytz/qb-ss-2.png)\\n![Screenshots showing QB app](/quickbytz/qb-ss-3.png)\\n\"",
+      "draft": false,
+      "gallery": [
+        {
+          "url": "/quickbytz/quickbytz-cover.png",
+          "alt": "QuickBytz cover"
+        }
+      ],
+      "icon": "/quickbytz/quickbytz-icon.png",
+      "association": "quickbytz",
+      "tags": ["entrepreneurship", "design", "branding", "prototype", "sketch"],
+      "subtitle": "Fast food faster.",
+      "title": "QuickBytz App",
+      "dateStart": "2016-01-01T00:00:00.000Z",
+      "links": [
+        {
+          "url": "/projects/quickbytz/qb-demo.mp4",
+          "type": "prototype"
+        }
+      ],
+      "featured": false,
+      "description": "QuickBytz gives customer the power to the pre-order food from the vendor in a foodcourt without waiting in long queues. Hence, FAST FOOD FASTER.",
+      "dateEnd": "2017-08-15T00:00:00.000Z"
+    },
+    {
+      "id": "react-table-ui",
+      "dateEnd": "2021-06-08T00:00:00.000Z",
+      "description": "Out-of-the-box React component build around headless React-Table library.",
+      "subtitle": "Table component for React.",
+      "tags": ["react", "typescript", "design", "code", "figma"],
+      "association": "kalpik-studio",
+      "gallery": [
+        {
+          "alt": "React Table UI cover",
+          "url": "/react-table-ui/react-table-ui-cover.png"
+        }
+      ],
+      "content": "\"\\nI have extensively used React-Table at work and was amazed by the sheer amount of options provided by the library to build a functional table/grid in React applications. With an introduction of Hooks in React, the library moved to a headless approach where the logic was provided via hooks and plugins, allowing consumers/users could build their UI around it.\\n\\nThe headless approach with plugins is great for experienced developers and companies with ample resources to figure out what they need and how everything fits into the puzzle. This approach gets problematic for novice users or developers with limited resources. The learning curve could be high as integrating all plugins and features in an accessible and usable interface is a big challenge. Furthermore, it does not help that the library does not provide type-declarations and community-driven types need careful composition.\\n\\nSo, I took it as a challenge to make a helper library for those developers who want to utilise the power of React-Table without putting in the work needed to get the first functional render.\\n\\n> The project is dedicated to the amazing work done at [React-Table](http://react-table.tanstack.com/) by [Tanner Linsley](https://twitter.com/tannerlinsley) as it would not have been possible without his great library. I have personally used the library and wanted to contribute back to it somehow.\\n\\n## Overview\\n\\n![Table overview](/react-table-ui/react-table-ui-overview.jpg \\\"Default setup of React-Table-UI with server-fetched data.\\\")\\n\\nReact-Table-UI is a library that provides a pre-developed UI integrated with (almost) all the plugins provided by React-Table and adopts some sensible defaults for most use-cases. The React component is\\n\\n- **Feature-packed**: The table natively supports features which can be disabled if needed â€” sorting, column-filtering, global-search, sub-rows, sub-components, table & row actions, sticky headers and columns, pagination (client-side & server-side), multi-row select, column-resize, etc.\\n- **Customisable** â€” Style, theme, actions, enabling/disabling features, locale & translations, custom components and behaviours are customisable.\\n- **Sensible defaults** â€” It is good to have customisations, though it is great to have useful and sensible defaults. The library works out-of-the-box with just a dataset by leveraging the default settings.\\n- **Extensible** â€” The UI should support all plugins and extensions supported by the parent library. (WIP)\\n- **Type-safe** â€” The library is built with TypeScript and provides a nice and safe developer experience with in-line documentation for all options. The API documentation is also available online for an overview.\\n- **Accessible** â€” The table component rendered tries to follow accessibility guidelines for the web and provide an option for keyboard navigation (WIP).\\n- **Responsive** â€” The component resizes and rearranges itself when used on mobile or desktop.\\n- **Beautiful** â€” Beauty is subjective, but I hope the base table provided is soothing to the eyes and usable without any customisations. Nevertheless, the style is completely customisable.\\n  Custom components can be provided to override default components like InputField, Button, Checkbox and more. (WIP)\\n- **Localised** â€” Numbers and dates can be localised by just providing the locale option, though browser locale acts as the default. The default text (English) is easily translatable to your choosing by providing translated values for specific word keys.\\n- **Transparent** â€” The library makes it easier to access the inner-workings and state changes with simple callbacks or refs, so everything is transparent and can be connected to outside triggers and actions.\\n\\nMany things are still _work-in-progress_. More and more developers can join and improve the developer experience.\\n\\n## Get started\\n\\nThe package size for production usage (with styles and without types) is ~36 KB (unzipped). The ~200 KB size of the complete package contains helpful TypeScript typings that makes using React-Table-UI bliss.\\n\\n### Install package\\n\\nFirst, the package/library must be installed locally as a dependency. It will install a copy of `react-table`, `@types/react-table`, and `react-table-sticky` as dependencies. It requires `react@16.8 || react@17` or above for Hooks support.\\n\\n```bash\\n# NPM\\nnpm install react-table-ui\\n# Yarn\\nyarn add react-table-ui\\n```\\n\\nOptional packages like `@reach/menu-button` can be installed to use dropdown menus for actions if you don't have your implementation.\\n\\n### Setup types\\n\\nThis step is for TypeScript users only. Since React-Table depends on community-driven types, it is imperative to configure and compose types correctly for the features used in the table. React-Table-UI provides a precomposed type-declaration that can be duplicated to your source (`src`) directory.\\n\\nIf the installation goes well, there must be a `react-table-config.d.ts` file in your source (src) directory, but if it isn't, do one of the following to get it:\\n\\n- [**Preferred**] Copy the file from your project's node*modules (*/projects/react-table-ui/node*modules/react-table-ui/dist/react-table-config.d.ts*) to your source folder.\\n- [Fallback] Get the file from GitHub. It may not match the exact version of the library that you are using. So you may have to look to the correct version git-tag before copying the file.\\n\\nThe whole appeal of React-Table-UI is enriched with its TypeScript core. So all tutorials and examples will use TypeScript, but converting them to JavaScript shouldn't be too much trouble.\\n\\n### Import the package\\n\\nThe package exports a single component as `default`. You can import it as `ReactTableUI`, `Table`, or any name that suits you.\\n\\n```tsx\\nimport ReactTableUI from \\\"react-table-ui\\\"\\nimport type { DataType, TableInstance, ... } from 'react-table-ui';\\n```\\n\\nAll other exports of the package are TypeScript types which will be useful in various scenarios. Import them separately as per requirement.\\n\\nA list of exported types is available on [API documentation](https://react-table-ui.js.org/).\\n\\n### DataType setup\\n\\nSince we are dealing with TypeScript and types, it is necessary to know the interface of data that will be processed and displayed. The library provides a base type called `DataType` for extending.\\n\\nFor example: Creating a table of users will require a dataset of users, where each user (or row) is represented by User type/interface.\\n\\n```tsx\\nimport type { DataType } from \\\"react-table-ui\\\"\\n\\ninterface User extends DataType {\\n  name: string\\n  age: number\\n}\\n```\\n\\nThe newly created `User` type interface must be used whenever the component expects a type parameter. It allows the library to provide better tooling and error handling when composing actions and behaviours.\\n\\n### Procuring dataset\\n\\nA dataset is the only required piece of information for React-Table-UI to work. Depending on the use case, the dataset could be static or dynamic. 99% of the time, it will be dynamic data fetched from an API or read from a file/database.\\n\\n- Example for static data (it can be defined in global or local scope)\\n\\n  ```tsx\\n  const data: User[] = [\\n    { name: \\\"Abc Xyx\\\", age: 20 },\\n    { name: \\\"Def Uvw\\\", age: 25 },\\n    { name: \\\"Ghi Rst\\\", age: 23 },\\n    { name: \\\"Jklm Nopq\\\", age: 30 },\\n  ]\\n  ```\\n\\n- Example for dynamic data (needs to be in local scope as it needs to be memo-ised by React). The data is fetched by using hooks provided from `react-query`, `apollo-react`, or other libraries. It still might need manipulation to fit the defined type interface. Furthermore, the dynamic data can be server-side paginated (later).\\n\\n  ```tsx\\n  import useFetchData from '...'\\n\\n  export default function App (): JSX.Element {\\n    ...\\n    const data: User[] = useFetchData<User>()\\n    ...\\n  }\\n  ```\\n\\n### Compose a Basic/Static example\\n\\nTo begin with, compose a basic table with minimum input and customisations. The component will create column headers from data keys.\\n\\n```tsx\\nimport { useMemo } from \\\"react\\\"\\nimport { render } from \\\"react-dom\\\"\\nimport ReactTableUI, { type DataType } from \\\"react-table-ui\\\"\\n\\ninterface User extends DataType {\\n  name: string\\n  age: number\\n}\\n\\nfunction App(): JSX.Element {\\n  const data: User[] = useMemo(\\n    () => [\\n      { name: \\\"Abc Xyx\\\", age: 20 },\\n      { name: \\\"Def Uvw\\\", age: 25 },\\n      { name: \\\"Ghi Rst\\\", age: 23 },\\n      { name: \\\"Jklm Nopq\\\", age: 30 },\\n    ],\\n    [],\\n  )\\n\\n  return <ReactTableUI data={data} title=\\\"Users\\\" />\\n}\\n\\nrender(<App />, document.body)\\n```\\n\\n---\\n\\n## Examples\\n\\n- Server pagination â€” [codesandbox.io](https://codesandbox.io/s/react-table-ui-basic-8ukxd)\\n- More coming soon.\\n\\n---\\n\\n> React Table UI is a library under development. Kindly use the library and test it.\\n> Raise some issues, recommend some ideas and contribute if possible.\\n> Looking forward to your input.\\n\"",
+      "title": "React Table UI",
+      "dateStart": "2021-04-01T00:00:00.000Z",
+      "draft": false,
+      "featured": true,
+      "icon": null,
+      "links": [
+        {
+          "url": "https://react-table-ui.js.org/",
+          "type": "homepage"
+        },
+        {
+          "url": "https://github.com/GuptaSiddhant/react-table-ui/",
+          "type": "github"
+        },
+        {
+          "url": "https://www.npmjs.com/package/react-table-ui",
+          "type": "npm"
+        }
+      ]
+    },
+    {
+      "id": "salesdesk",
+      "subtitle": null,
+      "tags": ["design", "branding", "sketch", "prototype"],
+      "content": "\"\"",
+      "title": "SalesDesk CRM",
+      "icon": null,
+      "description": "Sales Desk gives you access to data generated by your team as they work. By creating and filling out sales reports, you can identify each sales rep’s strengths and weaknesses and also stay on top of everything that goes on in their sales cycle.",
+      "gallery": [
+        {
+          "url": "/salesdesk/salesdesk-cover.jpg",
+          "alt": "SalesDesk CRM responsive app"
+        }
+      ],
+      "links": [
+        {
+          "type": "homepage",
+          "url": "https://www.salesdesk.ae/crm/"
+        },
+        {
+          "type": "prototype",
+          "url": "https://invis.io/6QA683WW7"
+        }
+      ],
+      "dateEnd": "2017-03-22T00:00:00.000Z",
+      "dateStart": "2016-04-01T00:00:00.000Z",
+      "featured": false,
+      "association": "sprint-me",
+      "draft": false
+    },
+    {
+      "id": "sustainovaction",
+      "dateStart": "2018-01-15T00:00:00.000Z",
+      "gallery": [
+        {
+          "alt": "SustaiNovAction app cover",
+          "url": "/sustainovaction/sustainovaction-cover.jpg"
+        }
+      ],
+      "links": [
+        {
+          "type": "prototype",
+          "url": "https://projects.invisionapp.com/share/PHGE9ANR7MQ#/screens"
+        }
+      ],
+      "featured": false,
+      "dateEnd": "2018-02-15T00:00:00.000Z",
+      "description": "A mobile app that allows user to track their challenges to improve environment and reduce their carbon-footprint. The UI prototype was presented in a United Nations (UN) event.",
+      "association": "kalpik-studio",
+      "title": "SustaiNovAction Platform",
+      "subtitle": null,
+      "tags": ["prototype", "sketch"],
+      "draft": false,
+      "content": "\"\"",
+      "icon": null
+    },
+    {
+      "id": "sybury-os",
+      "dateEnd": "2012-02-28T00:00:00.000Z",
+      "links": [
+        {
+          "url": "https://github.com/GuptaSiddhant/SyburyOS",
+          "type": "github"
+        },
+        {
+          "title": "Download executable",
+          "url": "https://drive.google.com/file/d/1Df4FAB9BXO1-gBa59fQvnb5pkJXwz8lM/view"
+        }
+      ],
+      "content": "\"\"",
+      "icon": null,
+      "subtitle": "GUI for DOS",
+      "title": "SuburyOS",
+      "draft": false,
+      "gallery": [
+        {
+          "url": "/sybury-os/sybury-os-cover.png",
+          "alt": "SuburyOS running on DOS"
+        }
+      ],
+      "featured": false,
+      "association": "krm",
+      "description": "DOS-based Operating System UI bundled with a desktop, text-editor, game and voting software.",
+      "tags": ["code", "C++"],
+      "dateStart": "2012-01-01T00:00:00.000Z"
+    }
+  ],
+  "blog": [
+    {
+      "id": "passport-concept",
+      "draft": false,
+      "subtitle": "The elegant All-In-One Identity solution for every Citizen.",
+      "association": null,
+      "tags": ["design", "concept"],
+      "date": "2017-05-18T00:00:00.000Z",
+      "featured": true,
+      "content": "\"\\nHave you ever considered the Passport booklet to be big, thick and fairly futile. I question if it is the smartest way to make the most important and accepted identification document on the planet.\\n\\n> Originally posted on [THE STARTUP - MEDIUM](https://medium.com/swlh/the-passport-concept-b95c1d24e02e)\\n\\n## Catching up with the world\\n\\nCountries across the globe have implemented and have been successfully using National ID numbers/cards for decades now. USA, UAE, South Korea, Countries of EU, UK and many more have some version of National ID number in place to link all local activities to. India has entered the race with Aadhaar but there is a lot catching up to do. Currently Aadhaar only serves as a ID number but there is minimum linking to other government services.\\n\\nWith e-passport, there can be change in airport immigration. With Non-biometric passport, an individual is required to get an immigration stamp from authority to successfully travel between countries.\\nUsing a Biometric or E-Passport, an individual can quickly pass through an E-Gate or Smart Gate at Immigration without any human interference. These kind of immigration is successfully offered by many cities in Europe and other parts of the world.\\nThis kind of immigration solves quite a problems. It avoids long queueing or need of multiple immigration officers. The process is simple and doesn't end with passport pages full of ugly stamps.\\n\\n**BUT** the addition of biometric chip still not make much difference to the User Experience when it comes to whole size and usability of Passport Booklet.\\n\\n## The solution - Passport Card\\n\\nAn International ID Document which contains all information and benefits of a traditional Passport Booklet and National ID, but is compact and fits in your pocket like any other bank card or driving license.\\n\\n![Passport concept for France, Korea and UAE.](/passport-concept/passport-concept-france-korea-uae.png \\\"Passport concept for France, Korea and UAE.\\\")\\n\\nI tried to design the very passport, after wondering just too much. What if, our Passport was a card and not a booklet, which would sit easily inside our wallet and we are not worried if the pages will eventually run out. If you are worried about Visa and immigration stamping, just read along. While designing, I researched many passports, the requirements, the guidelines, the design and the technology. Mostly impressed with what I witnessed, I went on creating designs which could serve as base model to all countries.\\n\\n**Passport Card** contains all vital information spread across front and back side in multiple languages (if required).\\n\\n- **Front Side**: Passport Number, Nation's Emblem, Country Code, Document Type, National ID number (SSN), Full Name, Date of Birth, Sex, Nationality, Place of Birth, Color Photo and Digital Signature.\\n  - More Date can be added as per country's requirement; for e.g. France requires individual's height and color of eyes to be on passport.\\n- **Back Side**: Permanent Address, Issuing Authority, Date of Issuing, Date of Expiry, Document Number, Place of Issuing; EMV Chip, Flag of Nation, Contactless Payment Symbol and Machine Readable Zone (MRZ).\\n- **Both sides**: Name of Country, biometric logo, Nation's Emblem (watermark with voluntary Design) and Document Name (like Ã¢â‚¬Å“PassportÃ¢â‚¬Â or Ã¢â‚¬Å“Diplomatic PassportÃ¢â‚¬Â or Ã¢â‚¬Å“Laissez-PasserÃ¢â‚¬Â, etc.)\\n- **Inside**: RFID/Biometric Chip containing required info, color photo and set of finger prints.\\n\\n### Benefits of Passport Card\\n\\nLet's discuss the benefits of a Passport Card one-by-one.\\n\\n#### Wallet Size\\n\\nA size that fits in Wallet. According to International Standards ([ISO_IEC_7810](https://en.wikipedia.org/wiki/ISO/IEC_7810)), Passport Booklet size is 125.00x88.00 mm (ID-3) in size, where as a normal debit/credit/identity card is 85.60x53.98 mm (ID-1) in size.\\nThat's even less than half the size of the booklet.\\n\\nImagine, a passport in the same size of a credit card that easily slides in and out of your wallet.\\n\\n![Passport in wallet](/passport-concept/passport-concept-wallet.jpg \\\"Passport in wallet\\\")\\n\\n#### Technology\\n\\n- **EMV Chip**: EMV cards are smart cards that store their data on integrated circuits. This integration can be useful to replace banks cards. This also allows special card readers to read card biometric and other data (normally used by government or govt.-affiliated companies). [Read More](https://en.wikipedia.org/wiki/EMV)\\n- **Contactless Smart Card**: To store Biometrics. Also can be used for contactless payments or terminal tagging (like keyless entry in office buildings or metro-rail stations). [Read More](https://en.wikipedia.org/wiki/Contactless_smart_card)\\n- **Machine Readable Zone (MRZ)**: The area covering bottom one-third of card's back. This zone contains text formatted in certain way that a machine/scanner can read the most important data quickly. Normally, Passport booklets have 2 rows of data but on Cards, the data is divided in 3 rows. [Read More](https://en.wikipedia.org/wiki/Machine-readable_passport)\\n  _This technology is relative for now but will soon be completely replaced by the others mentioned here. Then maybe, the passport card can be redesigned better with more space._\\n- **Online Visa & Immigration**: This is a no-brainer.\\n  We carry big booklets for passport so that it can be stamped on. There are 2 kinds of stamp - Visa & Immigration.\\n  Immigration: As I have covered before with Smart Gates, Immigration stamps are not a necessary any more. USA doesn't even stamp passport on exit.\\n  VISA: We as a community do not require a paper sticker on passport to remind us of valid visas. I agree they might look appealing as a collection but they do not serve any function which cannot be served by an E-Visa.\\n  Many countries with higher passport rank enjoy Visa-free travel across other countries and for them passport booklet is no better that an ID card.\\n\\n#### Web Portal & Mobile App\\n\\nEvery Passport / I-ID holder will be able to use the Web Portal or a Mobile App to track all their activities. The web Portal or app will allow User to:\\n\\n- View Passport Details and apply for renewal and updating.\\n- Visa Details: Valid and other Visas from different Authorities.\\n- Immigration Details: All In-Out details from each visit.\\n- Linked Documents: Local ID, Driving license, bank cards and more which also can be managed from here from multiple Issuing Authorities/Countries.\\n\\n![Passport Web Portal](/passport-concept/passport-concept-portal.png \\\"Passport Web Portal\\\")\\n\\n## Conclusion\\n\\n- A single smart card to replace all cards (bank, license, registrations, national ID, Voter ID, etc.)and passport booklet (Using in-built technology like EMV Chip, RFID Biometrics Chip & MRZ).\\n- Compact in Size - fits in wallet.\\n- Works with Smart Gates for immigration, removing the need for VISA and immigration stamps.\\n- All information including details, visa and immigration can be well managed by a web portal and mobile app.\\n\\n![Passport concept for India](/passport-concept/passport-concept-india.jpg \\\"Passport concept for India\\\")\\n\\n## Appendix\\n\\nI am no fool to believe that it is easy to implement this. No single country alone can even think about doing something like this. Since, international documents like passport are designed to meet a set of guidelines made by international organizations, something similar must happen to make this a reality.\\n\\nIf we are talking about it, let me put one more thing in perspective: the concept of **International Residency**.\\n\\n_International Resident means, a person while being citizen of one particular country, be allowed free movement across the globe without rights (like voting) in a foreign country.\\nInternational Citizen means, a person should not be a citizen one country but of the world and should be allowed free movement and complete rights everywhere._\\n\\nIn my current concept, every person born in to this world will be given a card by their country which would contain a National ID Number and a Passport Number. Here, the National ID can be used for all national (internal) purposes; and Passport Number will be used all international (external) purposes (like travelling or purchasing in foreign country).\\n**This in not an example of International Residency**.\\n\\nTrue International Residency will be created only when there is only one Identification number for both internal and external purposes. Abolishing internal national ID number is favor of unique passport number for every human in this world. That shouldn't be very difficult as a string of 7 alpha-numeric characters can give more than 78 billion+ unique IDs (A-Z, 0-9). Not to mention 8 characters = 2.8 trillion+ IDs; 9 characters = 101 trillion+ IDs; and so on.\\n\\nThis will allow a single database maintained and shared by all countries. No matter where you are or where you go, you are a Resident not a Tourist. Your medical records, driving status, credit report, bank details and identity moves with you. You are not required to register again with any country or get a new ID certification.\\nCountries can tag their additional data onto the common passport database like labor/employment status, etc.\\n\\n> In theory, this would also abolish the concept of dual citizenship, but if this is still required for some reason, just carry two cards.\\n\\nSo, what do you think about it?\\n\"",
+      "gallery": [
+        {
+          "url": "/passport-concept/passport-concept-cover.jpg",
+          "alt": "Passport Concept cover"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://medium.com/@thepassportapp/the-passport-concept-a-new-all-in-one-identity-solution-for-every-citizen-b9c8f9f8f9e0",
+          "type": "blog"
+        }
+      ],
+      "description": "One Card Replacement for Passport Booklet, National ID, Driver's License, Voter ID card, Government National ID, Car Registrations, Bank Card and every other Personal ID.",
+      "title": "The Passport - Concept"
+    }
+  ],
+  "info": [
+    {
+      "id": "about",
+      "techStack": [
+        "React",
+        "React Native",
+        "TypeScript",
+        "Node.JS",
+        "GraphQL",
+        "Figma"
+      ],
+      "link": {
+        "website": "https://guptasiddhant.com",
+        "email": "mailto:me@guptasiddhant.com",
+        "github": "https://github.com/guptasiddhant",
+        "linkedin": "https://linkedin.com/in/guptasiddhant9"
+      },
+      "name": "Siddhant Gupta",
+      "currentCompany": {
+        "link": "https://www.accenture.com/fi-en",
+        "hiringLink": "https://www.accenture.com/fi-en/careers/jobdetails?id=R00008034_en&title=Senior+React+Developer",
+        "name": "Accenture Song - Finland"
+      },
+      "heroAdjectives": ["Responsibly", "Beautifully", "Accessibly"],
+      "title": "Senior Full-stack Developer",
+      "shortName": "GS",
+      "terminalResume": {
+        "code": "\"# An interactive resume in your terminal, made with React and ink. \\n$ npx guptasiddhant\"",
+        "copyText": "npx guptasiddhant"
+      }
+    },
+    {
+      "id": "blog",
+      "passport-concept": {
+        "subtitle": "The elegant All-In-One Identity solution for every Citizen.",
+        "draft": false,
+        "title": "The Passport - Concept",
+        "association": "",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/passport-concept%2Fpassport-concept-cover.jpg?alt=media&token=5c102ebb-f98c-47d1-a4e4-d1956bec31a8",
+        "tags": ["design", "concept"],
+        "description": "One Card Replacement for Passport Booklet, National ID, Driver's License, Voter ID card, Government National ID, Car Registrations, Bank Card and every other Personal ID.",
+        "date": {
+          "_seconds": 1495065600,
+          "_nanoseconds": 0
+        },
+        "featured": true,
+        "id": "passport-concept"
+      }
+    },
+    {
+      "id": "projects",
+      "klarna": {
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/klarna%2Fklarna-icon.png?alt=media&token=04ac5f78-1dba-40b3-a8bb-4da226692642",
+        "title": "Klarna App",
+        "id": "klarna",
+        "tags": [
+          "react",
+          "typescript",
+          "code",
+          "accessibility",
+          "react-native",
+          "performance"
+        ],
+        "draft": true,
+        "description": "Improving perceived performance of Klarna's Android app.",
+        "dateStart": {
+          "_seconds": 1633046400,
+          "_nanoseconds": 0
+        },
+        "date": {
+          "_seconds": 1633046400,
+          "_nanoseconds": 0
+        },
+        "featured": true,
+        "subtitle": "Perceived performance",
+        "dateEnd": "",
+        "association": "accenture",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/klarna%2Fklarna-hero.jpg?alt=media&token=b47aef69-215c-4985-9140-1d38caac1c14"
+      },
+      "likeadish": {
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/likeadish%2Flad-icon.png?alt=media&token=eb543512-7dba-4de1-8743-bd22a9ae6ca1",
+        "subtitle": "Restaurant and Dish finder",
+        "association": "sprint-middle-east",
+        "dateStart": {
+          "_seconds": 1472688000,
+          "_nanoseconds": 0
+        },
+        "id": "likeadish",
+        "tags": ["design", "branding", "sketch", "prototype"],
+        "dateEnd": {
+          "_seconds": 1490832000,
+          "_nanoseconds": 0
+        },
+        "title": "Like A Dish",
+        "date": {
+          "_seconds": 1472688000,
+          "_nanoseconds": 0
+        },
+        "featured": false,
+        "description": "To find the best restaurant offers in dubai.",
+        "draft": false,
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/likeadish%2Flad-outlet.jpg?alt=media&token=624aaf67-ab54-4ed9-bf2b-f100db191c7f"
+      },
+      "business-espoo": {
+        "id": "business-espoo",
+        "dateEnd": {
+          "_seconds": 1555718400,
+          "_nanoseconds": 0
+        },
+        "dateStart": {
+          "_seconds": 1543622400,
+          "_nanoseconds": 0
+        },
+        "subtitle": "",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/business-espoo%2Fbusiness-espoo-booklet.jpg?alt=media&token=91addc8b-539d-4fc4-8595-848bf52ecc43",
+        "association": "kalpik-studio",
+        "description": "Visual identity and style guidelines for Business Espoo.",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/business-espoo%2Fbusiness-espoo-icon.png?alt=media&token=5c3cc79c-e1d0-4e20-bd55-6a8a6be962d5",
+        "title": "Business Espoo",
+        "draft": false,
+        "featured": false,
+        "date": {
+          "_seconds": 1543622400,
+          "_nanoseconds": 0
+        },
+        "tags": ["design", "branding", "sketch"]
+      },
+      "arcadia": {
+        "association": "aalto-hcid",
+        "id": "arcadia",
+        "draft": false,
+        "date": {
+          "_seconds": 1546300800,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/arcadia%2Farcadia-cover.jpg?alt=media&token=a1e12adf-65d3-49aa-a13f-a9e0b7d4b4ce",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/arcadia%2Farcadia-icon.png?alt=media&token=de8a8dd7-2e12-4522-aced-8ff2a6a96d99",
+        "description": "Arcadia is an online game store for JavaScript games. Developed as a project for the Web Software Development course CS-C3170 2018-2019 at Aalto University, Finland.",
+        "dateStart": {
+          "_seconds": 1546300800,
+          "_nanoseconds": 0
+        },
+        "featured": false,
+        "tags": [
+          "javascript",
+          "python",
+          "django",
+          "code",
+          "rest-api",
+          "design",
+          "branding",
+          "sketch"
+        ],
+        "title": "Arcadia",
+        "dateEnd": {
+          "_seconds": 1551312000,
+          "_nanoseconds": 0
+        },
+        "subtitle": "Web Game Store"
+      },
+      "delta": {
+        "dateEnd": {
+          "_seconds": 1525046400,
+          "_nanoseconds": 0
+        },
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/delta%2Fdelta-icon.png?alt=media&token=39508675-76eb-49d8-a699-f089de29db6d",
+        "tags": [
+          "entrepreneurship",
+          "branding",
+          "prototype",
+          "sketch",
+          "research"
+        ],
+        "featured": false,
+        "date": {
+          "_seconds": 1517443200,
+          "_nanoseconds": 0
+        },
+        "description": "A mobile based platform where residents can engage with their community and can either benefit from it or help the other residents in their day-to-day work like renting them seldom used commodities, help them move, provide professional help with software help etc. The users can subscribe to the categories they can provide help and feedback for the same will be provided.",
+        "title": "DELTA",
+        "subtitle": "Help.Share.Earn.",
+        "draft": false,
+        "dateStart": {
+          "_seconds": 1517443200,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/delta%2Fdelta-cover.jpg?alt=media&token=f24f11fa-4404-4292-a927-db314438582c",
+        "id": "delta",
+        "association": "kth"
+      },
+      "sybury-os": {
+        "description": "DOS-based Operating System UI bundled with a desktop, text-editor, game and voting software.",
+        "dateStart": {
+          "_seconds": 1325376000,
+          "_nanoseconds": 0
+        },
+        "date": {
+          "_seconds": 1325376000,
+          "_nanoseconds": 0
+        },
+        "dateEnd": {
+          "_seconds": 1330387200,
+          "_nanoseconds": 0
+        },
+        "featured": false,
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/sybury-os%2Fsybury-os-cover.png?alt=media&token=942cc4c8-9c41-46d0-9ff8-0ec6f57ca0cc",
+        "subtitle": "GUI for DOS",
+        "title": "SuburyOS",
+        "draft": false,
+        "id": "sybury-os",
+        "tags": ["code", "C++"],
+        "icon": "",
+        "association": "krm"
+      },
+      "quickbytz": {
+        "description": "QuickBytz gives customer the power to the pre-order food from the vendor in a foodcourt without waiting in long queues. Hence, FAST FOOD FASTER.",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/quickbytz%2Fquickbytz-icon.png?alt=media&token=d50cd21f-d404-46ed-8c69-6d6f6c70bd9e",
+        "dateStart": {
+          "_seconds": 1451606400,
+          "_nanoseconds": 0
+        },
+        "title": "QuickBytz App",
+        "tags": [
+          "entrepreneurship",
+          "design",
+          "branding",
+          "prototype",
+          "sketch"
+        ],
+        "dateEnd": {
+          "_seconds": 1502755200,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/quickbytz%2Fquickbytz-cover.png?alt=media&token=49caaa1e-d55a-4b50-a64d-6fbc36a50f89",
+        "association": "quickbytz",
+        "subtitle": "Fast food faster.",
+        "date": {
+          "_seconds": 1451606400,
+          "_nanoseconds": 0
+        },
+        "draft": false,
+        "featured": false,
+        "id": "quickbytz"
+      },
+      "pocket-inc": {
+        "title": "Pocket Inc.",
+        "id": "pocket-inc",
+        "date": {
+          "_seconds": 1536537600,
+          "_nanoseconds": 0
+        },
+        "description": "With PocketInc service you can create, sign, archive, browse and register minutes of all mandatory corporate resolutions made by shareholders and board of directors.",
+        "association": "kalpik-studio",
+        "dateStart": {
+          "_seconds": 1536537600,
+          "_nanoseconds": 0
+        },
+        "dateEnd": {
+          "_seconds": 1540857600,
+          "_nanoseconds": 0
+        },
+        "tags": ["design", "branding", "prototype", "sketch"],
+        "draft": false,
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/pocket-inc%2Fpocket-inc-cover.jpg?alt=media&token=d528ea3c-c9e3-4620-beff-821605f0c31f",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/pocket-inc%2Fpocket-inc-icon.png?alt=media&token=48cea98e-c638-4200-a1f1-0ebd464a4118",
+        "subtitle": "Company in your Pocket, legally.",
+        "featured": false
+      },
+      "nokia-phones": {
+        "description": "Developemnt of e-commerce store for Nokia/HMD Phones.",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/nokia-phones%2Fnokia-phones-icon.jpg?alt=media&token=65e782d3-fd92-4306-8bee-8a4c4acb72af",
+        "dateEnd": {
+          "_seconds": 1630022400,
+          "_nanoseconds": 0
+        },
+        "draft": false,
+        "association": "luxus-worldwide",
+        "dateStart": {
+          "_seconds": 1609718400,
+          "_nanoseconds": 0
+        },
+        "title": "Nokia Phones",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/nokia-phones%2Fnokia-phones-icon-pdp.png?alt=media&token=fbf19155-4a36-4adc-b6c2-64ed325960cf",
+        "tags": ["code", "react", "typescript"],
+        "subtitle": "Nokia/HMD Webstore",
+        "featured": false,
+        "date": {
+          "_seconds": 1609718400,
+          "_nanoseconds": 0
+        },
+        "id": "nokia-phones"
+      },
+      "fa-harmony": {
+        "featured": true,
+        "date": {
+          "_seconds": 1567296000,
+          "_nanoseconds": 0
+        },
+        "tags": ["react", "typescript", "design", "code", "branding", "sketch"],
+        "association": "fa-solutions",
+        "title": "FA Harmony",
+        "description": "React meta-framework for building enteprise applications for FA Solutions.",
+        "subtitle": "Application framework",
+        "id": "fa-harmony",
+        "dateEnd": {
+          "_seconds": 1609286400,
+          "_nanoseconds": 0
+        },
+        "dateStart": {
+          "_seconds": 1567296000,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/fa-harmony%2Ffa-harmony-cover.jpg?alt=media&token=0bdb549e-5bff-4fde-b410-890c3358a0d3",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/fa-harmony%2Ffa-harmony-icon.png?alt=media&token=8d00467c-7aaf-449a-a3dc-cfe935c89ca1",
+        "draft": false
+      },
+      "passport-concept": {
+        "title": "The Passport - Concept",
+        "dateStart": {
+          "_seconds": 1488326400,
+          "_nanoseconds": 0
+        },
+        "icon": "",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/passport-concept%2Fpassport-concept-cover.jpg?alt=media&token=5c102ebb-f98c-47d1-a4e4-d1956bec31a8",
+        "id": "passport-concept",
+        "draft": true,
+        "dateEnd": {
+          "_seconds": 1495065600,
+          "_nanoseconds": 0
+        },
+        "description": "One Card Replacement for Passport Booklet, National ID, Driver's License, Voter ID card, Government National ID, Car Registrations, Bank Card and every other Personal ID.",
+        "association": "",
+        "featured": true,
+        "tags": ["design", "concept"],
+        "date": {
+          "_seconds": 1488326400,
+          "_nanoseconds": 0
+        },
+        "subtitle": "The elegant All-In-One Identity solution for every Citizen."
+      },
+      "sustainovaction": {
+        "icon": "",
+        "draft": false,
+        "title": "SustaiNovAction Platform",
+        "date": {
+          "_seconds": 1515974400,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/sustainovaction%2Fsustainovaction-cover.jpg?alt=media&token=d6325cba-149d-4014-978a-ea4a3e3df984",
+        "id": "sustainovaction",
+        "dateStart": {
+          "_seconds": 1515974400,
+          "_nanoseconds": 0
+        },
+        "dateEnd": {
+          "_seconds": 1518652800,
+          "_nanoseconds": 0
+        },
+        "subtitle": "",
+        "description": "A mobile app that allows user to track their challenges to improve environment and reduce their carbon-footprint. The UI prototype was presented in a United Nations (UN) event.",
+        "featured": false,
+        "tags": ["prototype", "sketch"],
+        "association": "kalpik-studio"
+      },
+      "salesdesk": {
+        "description": "Sales Desk gives you access to data generated by your team as they work. By creating and filling out sales reports, you can identify each sales rep’s strengths and weaknesses and also stay on top of everything that goes on in their sales cycle.",
+        "icon": "",
+        "title": "SalesDesk CRM",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/salesdesk%2Fsalesdesk-cover.jpg?alt=media&token=334202a8-7c97-4ff2-927f-b9c9fd7bee4a",
+        "id": "salesdesk",
+        "tags": ["design", "branding", "sketch", "prototype"],
+        "subtitle": "",
+        "dateStart": {
+          "_seconds": 1459468800,
+          "_nanoseconds": 0
+        },
+        "date": {
+          "_seconds": 1459468800,
+          "_nanoseconds": 0
+        },
+        "association": "sprint-middle-east",
+        "draft": false,
+        "dateEnd": {
+          "_seconds": 1490140800,
+          "_nanoseconds": 0
+        },
+        "featured": false
+      },
+      "avta": {
+        "dateStart": {
+          "_seconds": 1517443200,
+          "_nanoseconds": 0
+        },
+        "subtitle": "Reconnect with your body",
+        "draft": false,
+        "association": "kth",
+        "title": "avta",
+        "tags": [
+          "entrepreneurship",
+          "branding",
+          "prototype",
+          "sketch",
+          "research"
+        ],
+        "featured": false,
+        "dateEnd": {
+          "_seconds": 1527120000,
+          "_nanoseconds": 0
+        },
+        "id": "avta",
+        "description": "Avta is a tool which assists people suffering from 'panic attacks' by decreasing the discomfort. \\nIt allows user to know their body with real-time body scans.",
+        "date": {
+          "_seconds": 1517443200,
+          "_nanoseconds": 0
+        },
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/avta%2Favta-cover.png?alt=media&token=4ed83e8f-c368-4ae6-8f01-c350728f4fbb",
+        "icon": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/avta%2Favta-icon.png?alt=media&token=d9469ffc-a71b-44b8-ab27-3becd1457c8f"
+      },
+      "react-table-ui": {
+        "icon": "",
+        "cover": "https://firebasestorage.googleapis.com/v0/b/guptasiddhant-com.appspot.com/o/react-table-ui%2Freact-table-ui-cover.png?alt=media&token=42e88310-e96a-406e-987e-cde2f6cad8b4",
+        "association": "kalpik-studio",
+        "id": "react-table-ui",
+        "draft": false,
+        "dateEnd": {
+          "_seconds": 1623110400,
+          "_nanoseconds": 0
+        },
+        "subtitle": "Table component for React.",
+        "date": {
+          "_seconds": 1617235200,
+          "_nanoseconds": 0
+        },
+        "featured": true,
+        "description": "Out-of-the-box React component build around headless React-Table library.",
+        "tags": ["react", "typescript", "design", "code", "figma"],
+        "title": "React Table UI",
+        "dateStart": {
+          "_seconds": 1617235200,
+          "_nanoseconds": 0
+        }
+      }
+    },
+    {
+      "id": "skills",
+      "language": [
+        {
+          "title": "English",
+          "level": "advanced"
+        },
+        {
+          "title": "Hindi",
+          "level": "advanced"
+        },
+        {
+          "title": "Finnish",
+          "level": "basic"
+        },
+        {
+          "title": "French",
+          "level": "basic"
+        }
+      ],
+      "design": [
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+          "title": "Figma",
+          "linkUrl": "https://figma.com",
+          "level": "advanced"
+        },
+        {
+          "title": "Sketch",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
+          "linkUrl": "https://sketch.com",
+          "level": "advanced"
+        },
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+          "linkUrl": "https://www.adobe.com/products/photoshop.html",
+          "title": "Photoshob",
+          "level": "advanced"
+        }
+      ],
+      "frontend": [
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+          "title": "TypeScript",
+          "linkUrl": "https://www.typescriptlang.org/",
+          "level": "advanced"
+        },
+        {
+          "level": "advanced",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+          "linkUrl": "https://developer.mozilla.org/en/JavaScript",
+          "title": "JavaScript"
+        },
+        {
+          "linkUrl": "https://reactjs.org",
+          "level": "advanced",
+          "title": "ReactJS",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+        },
+        {
+          "title": "Remix-run",
+          "level": "advanced",
+          "iconUrl": "https://pbs.twimg.com/profile_images/1425897037602586625/ID6pueIo_400x400.png",
+          "linkUrl": "https://remix.run"
+        },
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+          "linkUrl": "https://redux.js.org",
+          "level": "advanced",
+          "title": "Redux"
+        },
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+          "level": "advanced",
+          "title": "NextJS",
+          "linkUrl": "https://nextjs.org"
+        },
+        {
+          "level": "advanced",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/storybook/storybook-original.svg",
+          "linkUrl": "https://storybook.js.org",
+          "title": "StorybookJS"
+        },
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+          "title": "HTML",
+          "linkUrl": "https://html.spec.whatwg.org",
+          "level": "advanced"
+        },
+        {
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+          "level": "advanced",
+          "linkUrl": "https://www.w3.org/Style/CSS/Overview.en.html",
+          "title": "CSS"
+        },
+        {
+          "linkUrl": "https://sass-lang.com",
+          "level": "advanced",
+          "title": "SASS",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"
+        }
+      ],
+      "soft": [
+        {
+          "title": "Public speaking"
+        },
+        {
+          "title": "demonstrations"
+        },
+        {
+          "title": "problem solving"
+        },
+        {
+          "title": "teamwork"
+        },
+        {
+          "title": "entrepreneurship"
+        },
+        {
+          "title": "leadership"
+        }
+      ],
+      "backend": [
+        {
+          "linkUrl": "https://nodejs.org/",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+          "title": "NodeJS",
+          "level": "advanced"
+        },
+        {
+          "title": "Deno",
+          "linkUrl": "https://deno.land/",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg",
+          "level": "basic"
+        },
+        {
+          "title": "GraphQL",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
+          "linkUrl": "https://graphql.org",
+          "level": "advanced"
+        },
+        {
+          "title": "Firebase",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+          "level": "advanced",
+          "linkUrl": "https://firebase.google.com"
+        },
+        {
+          "linkUrl": "https://wordpress.org",
+          "title": "Wordpress",
+          "level": "intermediate",
+          "iconUrl": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg"
+        }
+      ]
+    }
+  ],
+  "testimonies": [
+    {
+      "id": "fa-solutions-juha-lehtonen",
+      "subtitle": "Managing Director, FA Solutions",
+      "association": "fa-solutions",
+      "content": "Siddhant is a very competent, fast-learning and versatile developer and a designer. His capabilities to learn and apply new technologies impresses me a lot. Only sky is a limit for him.",
+      "date": "2021-01-22T00:00:00.000Z",
+      "link": "https://linkedin.com/in/guptasiddhant9/details/recommendations",
+      "title": "Juha Lehtonen"
+    },
+    {
+      "id": "kalpik-studio-sari-makisalo",
+      "date": "2019-09-01T00:00:00.000Z",
+      "link": "https://linkedin.com/in/guptasiddhant9/details/recommendations",
+      "subtitle": "Marketing Manager, Business Espoo",
+      "title": "Sari Mäkisalo",
+      "content": "I had the pleasure to work with Siddhant last spring when he designed the symbol and visual guidelines for the Business Espoo network. Siddhant did excellent work and cooperation with him was easy and flexible. He is creative and innovative with many good ideas. He also respect customer very well by listening customer needs, values and terms. He did for us also some extras and inspired our whole team which shows that he really concentrated to the project with good attitude and heart.\nI would definitely recommend him for different kind of design work.",
+      "association": "kalpik-studio"
+    },
+    {
+      "id": "kth-ms-hcid-daniel-schlaug",
+      "association": "kth-ms-hcid",
+      "date": "2019-08-19T00:00:00.000Z",
+      "link": "https://linkedin.com/in/guptasiddhant9/details/recommendations",
+      "title": "Daniel Schlaug",
+      "subtitle": "Software Engineer",
+      "content": "I Had the pleasure of working together with Sid on a couple of projects for a web design course.\nThough at the time Sid's main expertise was with graphic design he had no problem stepping out of his comfort zone and taking on advanced programming tasks. His undertakings radiates ambition and if he's not already up to the task he'll make it so he is by asking questions and tirelessly trying stuff out in his spare time.\nSid goes to the bottom with things, tries to find the best way to carry out tasks while not getting stuck on details and he works with both graphics and programming in an organized way that's a pleasure for a computer scientist to watch.\nIt's been a real pleasure and I'm sure he'll bring great value wherever he goes."
+    },
+    {
+      "id": "luxus-worldwide-jarkko-syrjala",
+      "association": "luxus-worldwide",
+      "link": "https://linkedin.com/in/guptasiddhant9/details/recommendations",
+      "title": "Jarkko Syrjälä",
+      "date": "2021-12-21T00:00:00.000Z",
+      "content": "Siddhant is able to accurately estimate his work and can always be trusted to deliver excellent quality. Siddhant is up to date with the latest frameworks and libraries in the JavaScript space, and his React expertise is top notch. His verbal and written communication skills are excellent. In a nutshell, Siddhant is super professional and pleasure to work with.",
+      "draft": false,
+      "subtitle": "Senior Developer, Luxus Worldwide"
+    },
+    {
+      "id": "manish-k",
+      "link": "https://linkedin.com/in/guptasiddhant9/details/recommendations",
+      "date": "2015-08-15T00:00:00.000Z",
+      "title": "Manish K",
+      "draft": false,
+      "content": "I have worked with Siddhant and he is a great person. He has a great passion for Design and I personally liked his work. He is very dedicated and hard working."
+    }
+  ],
+  "education": [
+    {
+      "id": "aalto-ms-hcid",
+      "links": [
+        {
+          "url": "https://www.aalto.fi/en/department-of-computer-science/human-computer-interaction-and-design",
+          "type": "homepage"
+        },
+        {
+          "type": "other",
+          "title": "Master's thesis",
+          "url": "https://aaltodoc.aalto.fi/handle/123456789/39028"
+        }
+      ],
+      "degree": "Master of Science",
+      "icon": "/aalto/aalto-icon.png",
+      "field": "Human Computer Interaction and Design",
+      "location": "Helsinki, Finland",
+      "description": "Dual degree program as a part of EIT Digital Master School.",
+      "tags": ["code", "design", "entrepreneur"],
+      "school": "Aalto University",
+      "startDate": "2017-08-28T00:00:00.000Z",
+      "endDate": "2019-05-30T00:00:00.000Z"
+    },
+    {
+      "id": "aalto-ms-idbm",
+      "icon": "/aalto/aalto-icon.png",
+      "tags": ["code", "design", "management"],
+      "degree": "Master of Science",
+      "school": "Aalto University",
+      "location": "Helsinki, Finland",
+      "links": [],
+      "gallery": [],
+      "field": "International Design Business Management",
+      "startDate": "2021-09-06T00:00:00.000Z"
+    },
+    {
+      "id": "bits-be-mech",
+      "field": "Mechanical",
+      "location": "Rajasthan, India",
+      "tags": ["engineering"],
+      "gallery": [
+        {
+          "alt": "Degree certificate",
+          "url": "/bits/bits-degree-certificate.jpg"
+        }
+      ],
+      "endDate": "2016-06-01T00:00:00.000Z",
+      "description": "**Activities**\n- CIIED: Founding President & Student member of Centre for Innovation, Incubation & Entrepreneurship.\n- Wolf of WallStreet: Founded and organised Inter-university Stock-exchange competition event.\n- HULT Prize: Organised coveted HULT Prize event.\n- Conducted TEDx event and multiple talk-workshops.\n- Member, actor and writer in university drama club.\n- Professional Assistant to the Dean of Student Welfare Division.\n\n**Courses**: Object Oriented Analysis & Design (C++), Machine Design & Drawing (CATIA), Computer Aided Design (AutoCAD)",
+      "links": [
+        {
+          "url": "https://www.bits-pilani.ac.in/behons",
+          "type": "homepage"
+        }
+      ],
+      "icon": "/bits/bits-icon.png",
+      "startDate": "2012-09-02T00:00:00.000Z",
+      "degree": "Bachelors of Engineering (Honours)",
+      "school": "Birla Institute of Technology and Science Pilani"
+    },
+    {
+      "id": "high-school",
+      "location": "Delhi, India",
+      "startDate": "2010-04-01T00:00:00.000Z",
+      "degree": "High School",
+      "tags": ["code"],
+      "field": "Computer Science",
+      "description": "- House captain\n- Organised first inter-school competitions called Confluence.\n- Member of school's web-design and debate team.",
+      "endDate": "2012-04-30T00:00:00.000Z",
+      "icon": "/krm/krm-icon.jpg",
+      "links": [
+        {
+          "url": "https://krmangalam.com/vikaspuri/",
+          "type": "homepage"
+        }
+      ],
+      "school": "K. R. Mangalam World School, Vikaspuri"
+    },
+    {
+      "id": "kth-ms-hcid",
+      "location": "Stockholm, Sweden",
+      "field": "Human Computer Interaction and Design",
+      "endDate": "2019-06-14T00:00:00.000Z",
+      "tags": ["code", "design", "entrepreneur"],
+      "startDate": "2017-08-28T00:00:00.000Z",
+      "degree": "Master of Science",
+      "icon": "/kth/kth-icon.png",
+      "links": [
+        {
+          "type": "homepage",
+          "url": "https://www.kth.se/social/group/hcid-eit-ict-innovat/"
+        },
+        {
+          "url": "https://aaltodoc.aalto.fi/handle/123456789/39028",
+          "type": "other",
+          "title": "Master's thesis"
+        }
+      ],
+      "description": "Dual degree program as a part of EIT Digital Master School.",
+      "school": "KTH Royal Institute of Technology"
+    }
+  ],
+  "career": [
+    {
+      "id": "accenture",
+      "links": [
+        {
+          "url": "https://accenture.com",
+          "type": "homepage"
+        },
+        {
+          "url": "https://www.linkedin.com/company/accenture-nordics",
+          "type": "linkedin"
+        },
+        {
+          "url": "https://github.com/DPC-Nordics/",
+          "type": "github"
+        },
+        {
+          "url": "https://www.accenture.com/fi-en/careers/jobdetails?id=R00008034_en&title=Senior+React+Developer",
+          "title": "We are hiring!",
+          "type": "other"
+        }
+      ],
+      "position": "Frontend Developer Associate Manager",
+      "startDate": "2021-09-01T00:00:00.000Z",
+      "icon": "/accenture/accenture-icon.png",
+      "featured": true,
+      "company": "Accenture Nordics",
+      "type": "full-time",
+      "gallery": [],
+      "location": "Helsinki, Finland",
+      "description": "Developing the UI and logic for different projects.",
+      "tags": ["design", "code"]
+    },
+    {
+      "id": "bits-dubai",
+      "roleType": "part-time",
+      "links": [
+        {
+          "url": "https://dubai.bits-pilani.ac.in",
+          "type": "homepage"
+        }
+      ],
+      "icon": "/bits/bits-icon.png",
+      "startDate": "2014-09-01T00:00:00.000Z",
+      "description": "Graphic Designer & Professional Assistant to Dean, Student Welfare Division.- Designed banners, advertisements, posters and other materials for Admissions Department.- Provide support on key projects, reports, and record-keeping, helping to ensure the professionalism and integrity of the Institution.- Provide general office assistance to the Dean, including appointment and conference scheduling, expense reporting and reconciliation. Maintain and utilize confidential digital and hard copy filing system and records to assure availability and effective authorized access to information.",
+      "location": "Dubai, U.A.E.",
+      "company": "BITS Pilani",
+      "gallery": [],
+      "type": "part-time",
+      "tags": ["design", "admissions", "marketing"],
+      "position": "Graphics Designer",
+      "endDate": "2015-12-31T00:00:00.000Z"
+    },
+    {
+      "id": "fa-solutions",
+      "icon": "/fa-solutions/fa-solutions-icon.png",
+      "location": "Helsinki, Finland",
+      "startDate": "2019-01-07T00:00:00.000Z",
+      "gallery": [],
+      "links": [
+        {
+          "url": "https://fasolutions.com",
+          "type": "homepage"
+        },
+        {
+          "type": "linkedin",
+          "url": "https://www.linkedin.com/company/fasolutions/"
+        }
+      ],
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "position": "UI and Frontend Developer",
+      "type": "full-time",
+      "company": "FA Solutions",
+      "description": "- Developed ReactJS applications.- Founded and developed framework to build ReactJS applications.- Conducted training session for front-end development.- Maintained documentation with examples for all components, utilities, templates and scripts.",
+      "tags": ["design", "code", "web"]
+    },
+    {
+      "id": "kalpik-studio",
+      "icon": "/kalpik/kalpik-studio-icon.png",
+      "tags": ["design", "code", "entrepreneur"],
+      "links": [
+        {
+          "url": "https://kalpik.studio",
+          "type": "homepage"
+        },
+        {
+          "url": "https://www.linkedin.com/company/13347657/",
+          "type": "linkedin"
+        }
+      ],
+      "startDate": "2018-09-01T00:00:00.000Z",
+      "description": "- Design UI frameworks, concepts and prototypes\n- Develop the UI for web and mobile.\n- Manage branding of the product.\n- Conduct training and support after handover.",
+      "roleType": "freelancer",
+      "company": "KALPIK Studio",
+      "type": "self-employed",
+      "position": "Designer & Developer",
+      "location": "Helsinki, Finland"
+    },
+    {
+      "id": "luxus-worldwide",
+      "position": "Senior Developer",
+      "gallery": [],
+      "description": "Developed the UI and logic for Nokia Phone web-store.",
+      "icon": "/luxus/luxus-worldwide-icon.png",
+      "type": "full-time",
+      "startDate": "2021-01-04T00:00:00.000Z",
+      "endDate": "2021-08-27T00:00:00.000Z",
+      "tags": ["design", "code", "web"],
+      "location": "Helsinki, Finland",
+      "company": "Luxus Worldwide",
+      "links": [
+        {
+          "url": "https://luxusworldwide.com",
+          "type": "homepage"
+        },
+        {
+          "type": "linkedin",
+          "url": "https://www.linkedin.com/company/luxus/"
+        }
+      ]
+    },
+    {
+      "id": "quickbytz",
+      "startDate": "2016-08-16T00:00:00.000Z",
+      "description": "Co-founded a startup in food-tech industry. Conducted research and designed UI of pan-device solution for managing orders, customers and billing.",
+      "type": "self-employed",
+      "location": "Dubai, U.A.E.",
+      "tags": [
+        "design",
+        "web",
+        "startup",
+        "entrepreneur",
+        "mobile",
+        "management"
+      ],
+      "position": "Co-Founder & Product Manager",
+      "roleType": "part-time",
+      "company": "QuickBytz (QB Middle East)",
+      "links": [
+        {
+          "type": "linkedin",
+          "url": "https://www.linkedin.com/company/13258226/"
+        }
+      ],
+      "endDate": "2017-08-15T00:00:00.000Z",
+      "icon": "/quickbytz/quickbytz-icon.png"
+    },
+    {
+      "id": "sprint-me",
+      "icon": "/sprint-me/sprint-me-icon.png",
+      "tags": ["design", "web"],
+      "position": "Design Executive",
+      "startDate": "2016-02-01T00:00:00.000Z",
+      "links": [
+        {
+          "url": "https://sprintonweb.com",
+          "type": "homepage"
+        }
+      ],
+      "type": "full-time",
+      "endDate": "2017-04-30T00:00:00.000Z",
+      "company": "Sprint Middle East",
+      "description": "- Designed mobile and web UI for more than 10 projects.\n- Conducted workshops and usability testing with clients.\n- Created development specification and interacted with developers for smooth handover.\n- Graphic Design (marketing materials)",
+      "location": "Dubai, U.A.E."
+    },
+    {
+      "id": "test",
+      "gallery": [],
+      "description": "# Hello world",
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "draft": true,
+      "company": "asf",
+      "position": "asd",
+      "type": "full-time",
+      "links": []
+    },
+    {
+      "id": "zikr-studio",
+      "tags": ["design", "web", "mobile"],
+      "endDate": "2015-08-30T00:00:00.000Z",
+      "startDate": "2015-07-01T00:00:00.000Z",
+      "description": "Catered to all design needs of Zikr Studio. From designing website pages, logos, App UI/UX and more.",
+      "icon": "/zikr/zikr-studio-icon.jpg",
+      "roleType": "intern",
+      "links": [
+        {
+          "type": "linkedin",
+          "url": "https://www.linkedin.com/company/zikr-studio/"
+        }
+      ],
+      "position": "Design Intern",
+      "type": "internship",
+      "location": "Delhi, India",
+      "company": "ZIKR Studio"
+    }
+  ],
+  "users": []
+}

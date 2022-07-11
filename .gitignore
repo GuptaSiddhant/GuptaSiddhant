@@ -43,3 +43,5 @@ build
 .env
 
 temp
+
+.firebase-*

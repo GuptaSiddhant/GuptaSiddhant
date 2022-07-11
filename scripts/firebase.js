@@ -21,12 +21,13 @@ const { getStorage } = require("firebase-admin/storage")
 // Firestore
 
 const { getFirestore, Timestamp } = require("firebase-admin/firestore")
+const firestore = getFirestore()
 
 /**
  * @param {string} collectionPath
  */
 const getFirestoreCollection = async (collectionPath) => {
-  return await getFirestore()
+  return await firestore
     .collection(collectionPath)
     .withConverter({ toFirestore, fromFirestore })
     .get()
@@ -48,6 +49,7 @@ const setFirestoreDocument = async (collectionPath, documentPath, data) => {
 
 module.exports = {
   firebase,
+  firestore,
   setFirestoreDocument,
   getFirestoreCollection,
   getStorage,
