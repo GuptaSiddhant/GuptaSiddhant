@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-import { StrictMode } from "react";
-import { render } from "ink";
+import { render } from "ink"
+import { StrictMode } from "react"
 
-import App from "./App";
-import { type RoutePath } from "./routes";
+import App from "./App"
+import { type RoutePath } from "./routes"
 
-const path = process.argv[2] as RoutePath | undefined;
+const path = process.argv[2] as RoutePath | undefined
 
-console.clear();
+console.clear()
 
 render(
   <StrictMode>
     <App path={path} />
-  </StrictMode>
-);
+  </StrictMode>,
+)

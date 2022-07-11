@@ -1,32 +1,30 @@
-import { blogQuery } from "../helpers/queries";
-import Page from "../components/Page";
+import { Text } from "ink"
+
 import {
   ItemBox,
-  ItemTitle,
-  ItemSubTitle,
   ItemDescription,
-} from "../components/Item";
-import type { PageItemProps, PartialPageProps, BlogType } from "../types";
+  ItemSubTitle,
+  ItemTitle,
+} from "../components/Item"
+import Page from "../components/Page"
+import { useBlogQuery } from "../helpers/queries"
+import type { PageItemProps, PartialPageProps, TeaserProps } from "../types"
 
-export default function Blog(props: PartialPageProps<BlogType>): JSX.Element {
-  return <Page limit={props.limit} query={blogQuery} Item={BlogItem} />;
+export default function Blog(
+  props: PartialPageProps<TeaserProps>,
+): JSX.Element {
+  return <Page limit={props.limit} queryFn={useBlogQuery} Item={BlogItem} />
 }
 
-function BlogItem({
-  item: project,
-  selected,
-}: PageItemProps<BlogType>): JSX.Element {
-  const { slug, title, content, date, tags = [] } = project;
+function BlogItem({ item, selected }: PageItemProps<TeaserProps>): JSX.Element {
+  const { id, title, subtitle, date, tags = [] } = item
 
   return (
-    <ItemBox key={slug.current}>
+    <ItemBox key={id}>
       <ItemTitle selected={selected}>{title}</ItemTitle>
-      <ItemSubTitle selected={selected}>{date}</ItemSubTitle>
-      {/* <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription> */}
-      <ItemDescription selected={selected}>
-        {/* {JSON.stringify(content, null, 2)} */}
-        {(content as any)?.[0]?.children?.[0]?.text || ""}
-      </ItemDescription>
+      <ItemSubTitle selected={selected}>{subtitle}</ItemSubTitle>
+      <Text dimColor>{date?.slice(0, 7)}</Text>
+      <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription>
     </ItemBox>
-  );
+  )
 }

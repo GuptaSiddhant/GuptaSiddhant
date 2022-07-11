@@ -1,35 +1,35 @@
-import { projectsQuery } from "../helpers/queries";
-import DateLine from "../components/DateLine";
-import Page from "../components/Page";
+import { Text } from "ink"
+
 import {
   ItemBox,
-  ItemTitle,
-  ItemSubTitle,
   ItemDescription,
-} from "../components/Item";
-import type { PageItemProps, PartialPageProps, ProjectType } from "../types";
+  ItemSubTitle,
+  ItemTitle,
+} from "../components/Item"
+import Page from "../components/Page"
+import { useProjectsQuery } from "../helpers/queries"
+import type { PageItemProps, PartialPageProps, TeaserProps } from "../types"
 
 export default function Projects(
-  props: PartialPageProps<ProjectType>
+  props: PartialPageProps<TeaserProps>,
 ): JSX.Element {
-  return <Page limit={props.limit} query={projectsQuery} Item={ProjectItem} />;
+  return (
+    <Page limit={props.limit} queryFn={useProjectsQuery} Item={ProjectItem} />
+  )
 }
 
 function ProjectItem({
-  item: project,
+  item,
   selected,
-}: PageItemProps<ProjectType>): JSX.Element {
-  const { slug, title, association, tags = [] } = project;
-  const { isCurrent, startDate, endDate } = project;
+}: PageItemProps<TeaserProps>): JSX.Element {
+  const { id, title, subtitle, date, tags = [] } = item
+
   return (
-    <ItemBox key={slug.current}>
+    <ItemBox key={id}>
       <ItemTitle selected={selected}>{title}</ItemTitle>
-      <ItemSubTitle selected={selected}>{association}</ItemSubTitle>
-      <DateLine
-        {...{ startDate, endDate, isCurrent }}
-        // additionalText={tags.join(", ")}
-      />
+      <ItemSubTitle selected={selected}>{subtitle}</ItemSubTitle>
+      <Text dimColor>{date?.slice(0, 7)}</Text>
       <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription>
     </ItemBox>
-  );
+  )
 }

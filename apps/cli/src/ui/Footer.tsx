@@ -1,8 +1,8 @@
-import { Box, Text } from "ink";
+import { Box, Text } from "ink"
 
-import { shortcuts } from "../helpers/shortcuts";
-import { PADDING_X } from "../helpers/constants";
-import HelpBox from "../components/HelpBox";
+import HelpBox from "../components/HelpBox"
+import { PADDING_X } from "../helpers/constants"
+import { shortcuts } from "../helpers/shortcuts"
 
 export default function Footer(): JSX.Element {
   return (
@@ -19,5 +19,5 @@ export default function Footer(): JSX.Element {
         ))}
       </Box>
     </Box>
-  );
+  )
 }

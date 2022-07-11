@@ -1,9 +1,9 @@
-import { Box, Text, Newline } from "ink";
-import { useCurrentRoute } from "../routes";
-import { PADDING_X } from "../helpers/constants";
+import { Box, Text, Newline } from "ink"
+import { useCurrentRoute } from "../routes"
+import { PADDING_X } from "../helpers/constants"
 
 export default function Title() {
-  const { title } = useCurrentRoute();
+  const { title } = useCurrentRoute()
 
   return (
     <Box paddingX={PADDING_X}>
@@ -12,5 +12,5 @@ export default function Title() {
         <Newline />
       </Text>
     </Box>
-  );
+  )
 }

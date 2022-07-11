@@ -1,12 +1,12 @@
-import { Box, Text, Newline } from "ink";
+import { Box, Newline, Text } from "ink"
 
-import { PADDING_X } from "../helpers/constants";
-
-const name = "Siddhant Gupta";
-const title = "Frontend and UI Developer";
+import { PADDING_X } from "../helpers/constants"
+import { useAboutQuery } from "../helpers/queries"
 
 export default function Header() {
-  const formattedName = name.split("").join(" ").toUpperCase();
+  const { data } = useAboutQuery()
+  const { title, name } = data || {}
+  const formattedName = name?.split("").join(" ").toUpperCase()
 
   return (
     <Box marginBottom={1} justifyContent="space-between" paddingX={PADDING_X}>
@@ -24,5 +24,5 @@ export default function Header() {
         <Text dimColor>|</Text> https://guptasiddhant.com
       </Text>
     </Box>
-  );
+  )
 }

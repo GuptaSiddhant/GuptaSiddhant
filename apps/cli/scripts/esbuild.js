@@ -10,7 +10,7 @@ const buildOptions = {
   outfile: "./bin/index.js",
   bundle: true,
   platform: "node",
-  target: ["node12"],
+  target: ["node14"],
   external: ["react", "ink", "axios", "open"],
   inject: ["./scripts/react_shim.js"],
   minify: !watch,

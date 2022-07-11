@@ -1,19 +1,33 @@
-import { Newline, Text } from "ink";
+import { Newline, Text } from "ink"
 
-import { contacts, about, skills } from "../helpers/about";
-import TextTable from "../components/TextTable";
+import TextTable from "../components/TextTable"
+import { about, contacts } from "../helpers/about"
+import { useAboutQuery } from "../helpers/queries"
 
 export default function About(): JSX.Element {
+  const { data: aboutInfo } = useAboutQuery()
+  const { techStack, currentCompany } = aboutInfo || {}
+
   return (
     <>
       <Text>
         {about}
-        <Newline />
-        <Text bold>SKILLS</Text>
-        <TextTable
-          vertical
-          items={skills.map(({ type, value }) => ({ key: type, value }))}
-        />
+        {currentCompany ? (
+          <>
+            <Newline />
+            <Text>Currently applying my skills at {currentCompany.name}.</Text>
+            <Newline />
+          </>
+        ) : null}
+        {techStack ? (
+          <>
+            <Newline />
+            <Text bold>My Stack</Text>
+            <Newline />
+            <Text>{techStack?.join(", ")}</Text>
+            <Newline />
+          </>
+        ) : null}
       </Text>
       <TextTable
         items={contacts.map(({ label, value, url }) => ({
@@ -22,5 +36,5 @@ export default function About(): JSX.Element {
         }))}
       />
     </>
-  );
+  )
 }

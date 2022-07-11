@@ -1,10 +1,10 @@
-import { Box, Text, type TextProps } from "ink";
+import { Box, Text, type TextProps } from "ink"
 
-import useWindowSize from "../helpers/useWindowSize";
+import useWindowSize from "../helpers/useWindowSize"
 
 export default function Divider(props: TextProps): JSX.Element | null {
-  const { width } = useWindowSize();
-  const divider = "─";
+  const { width } = useWindowSize()
+  const divider = "─"
 
   return (
     <Box>
@@ -16,5 +16,5 @@ export default function Divider(props: TextProps): JSX.Element | null {
           : ""}
       </Text>
     </Box>
-  );
+  )
 }

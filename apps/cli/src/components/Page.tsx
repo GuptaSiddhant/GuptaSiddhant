@@ -1,31 +1,30 @@
-import open from "open";
+import open from "open"
 
-import { useCurrentRoute } from "../routes";
-import useQuery from "../helpers/useQuery";
-import useWindowSize from "../helpers/useWindowSize";
-import ErrorText from "./Error";
-import Loading from "./Loading";
-import HelpBox from "./HelpBox";
-import Select, { Item } from "./Select";
-import type { Common, PageProps } from "../types";
+import useWindowSize from "../helpers/useWindowSize"
+import type { PageProps } from "../types"
+import ErrorText from "./Error"
+import HelpBox from "./HelpBox"
+import Loading from "./Loading"
+import type { Item } from "./Select"
+import Select from "./Select"
 
-export default function Page<T extends Common>({
-  query,
+export default function Page<T extends { id: string; linkUrl?: string }>({
+  queryFn,
   Item,
-}: PageProps<T>): JSX.Element {
-  const { data = [], loading, error } = useQuery<T[]>(query);
-  const { height = 16 } = useWindowSize();
-  const { title } = useCurrentRoute();
+}: PageProps<T>): JSX.Element | null {
+  const { data, loading, error } = queryFn()
+  const { height = 16 } = useWindowSize()
 
-  if (loading) return <Loading />;
-  if (error) return <ErrorText error={error} />;
+  if (loading) return <Loading />
+  if (error) return <ErrorText error={error} />
+  if (!data || !Array.isArray(data) || data.length === 0) return null
 
-  const items = data.map((item, i) => ({ item, key: i.toString() }));
-  const limit = Math.floor((height - 16) / 4);
+  const items = data.map((item, i) => ({ item, key: i.toString() }))
+  const limit = Math.floor((height - 16) / 4)
 
   const handleSelect = ({ item }: Item<T>) => {
-    if (item.link) open(item.link);
-  };
+    if (item.linkUrl) open(item.linkUrl)
+  }
 
   return (
     <>
@@ -45,5 +44,5 @@ export default function Page<T extends Common>({
         }}
       />
     </>
-  );
+  )
 }

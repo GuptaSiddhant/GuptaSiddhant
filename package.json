@@ -5,8 +5,9 @@
     "apps/*"
   ],
   "scripts": {
-    "cli:dev": "yarn workspaces guptasiddhant dev",
     "cli:build": "yarn workspace guptasiddhant build",
+    "cli:dev": "yarn workspace guptasiddhant dev",
+    "cli:start": "yarn workspace guptasiddhant start",
     "functions:dev": "yarn workspace functions serve",
     "functions:deploy": "yarn workspace functions deploy",
     "build": "run-s -l web:build:css web:build:remix",

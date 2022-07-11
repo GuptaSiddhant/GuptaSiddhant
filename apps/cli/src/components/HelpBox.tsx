@@ -1,4 +1,4 @@
-import { Box, Text } from "ink";
+import { Box, Text } from "ink"
 
 export default function HelpBox(props: Record<string, string>): JSX.Element {
   return (
@@ -10,5 +10,5 @@ export default function HelpBox(props: Record<string, string>): JSX.Element {
         </Box>
       ))}
     </Box>
-  );
+  )
 }

@@ -1,34 +1,32 @@
-import { careerQuery } from "../helpers/queries";
-import DateLine from "../components/DateLine";
-import Page from "../components/Page";
+import DateLine from "../components/DateLine"
 import {
   ItemBox,
-  ItemTitle,
-  ItemSubTitle,
   ItemDescription,
-} from "../components/Item";
-import type { PartialPageProps, CareerType, PageItemProps } from "../types";
+  ItemSubTitle,
+  ItemTitle,
+} from "../components/Item"
+import Page from "../components/Page"
+import { useCareerQuery } from "../helpers/queries"
+import type { ExperienceProps, PageItemProps, PartialPageProps } from "../types"
 
 export default function Career(
-  props: PartialPageProps<CareerType>
+  props: PartialPageProps<ExperienceProps>,
 ): JSX.Element {
-  return <Page {...props} query={careerQuery} Item={CareerItem} />;
+  return <Page {...props} queryFn={useCareerQuery} Item={CareerItem} />
 }
 
 function CareerItem({
-  item: career,
+  item,
   selected,
-}: PageItemProps<CareerType>): JSX.Element {
-  const { slug, isCurrent, position, company, city } = career;
-  const { country, type, startDate, endDate, tags } = career;
+}: PageItemProps<ExperienceProps>): JSX.Element {
+  const { id, title, subtitle, tags = [], startDate, endDate } = item
+
   return (
-    <ItemBox key={slug.current}>
-      <ItemTitle selected={selected}>{position}</ItemTitle>
-      <ItemSubTitle selected={selected}>
-        {company}, {city}, {country}
-      </ItemSubTitle>
-      <DateLine {...{ startDate, endDate, isCurrent }} additionalText={type} />
+    <ItemBox key={id}>
+      <ItemTitle selected={selected}>{title}</ItemTitle>
+      <ItemSubTitle selected={selected}>{subtitle}</ItemSubTitle>
+      <DateLine {...{ startDate, endDate }} />
       <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription>
     </ItemBox>
-  );
+  )
 }

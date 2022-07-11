@@ -1,37 +1,32 @@
-import { educationQuery } from "../helpers/queries";
-import DateLine from "../components/DateLine";
-import Page from "../components/Page";
+import DateLine from "../components/DateLine"
 import {
   ItemBox,
-  ItemTitle,
-  ItemSubTitle,
   ItemDescription,
-} from "../components/Item";
-import type { PartialPageProps, EducationType, PageItemProps } from "../types";
+  ItemSubTitle,
+  ItemTitle,
+} from "../components/Item"
+import Page from "../components/Page"
+import { useEducationQuery } from "../helpers/queries"
+import type { ExperienceProps, PageItemProps, PartialPageProps } from "../types"
 
 export default function Education(
-  props: PartialPageProps<EducationType>
+  props: PartialPageProps<ExperienceProps>,
 ): JSX.Element {
-  return <Page {...props} query={educationQuery} Item={EducationItem} />;
+  return <Page {...props} queryFn={useEducationQuery} Item={EducationItem} />
 }
 
 function EducationItem({
-  item: eduction,
+  item,
   selected,
-}: PageItemProps<EducationType>): JSX.Element {
-  const { slug, isCurrent, degree, school, field } = eduction;
-  const { city, country, startDate, endDate, tags = [] } = eduction;
+}: PageItemProps<ExperienceProps>): JSX.Element {
+  const { id, title, subtitle, tags = [], startDate, endDate } = item
+
   return (
-    <ItemBox key={slug.current}>
-      <ItemTitle selected={selected}>
-        {degree} - {field}
-      </ItemTitle>
-      <ItemSubTitle selected={selected}>{school}</ItemSubTitle>
-      <DateLine
-        {...{ startDate, endDate, isCurrent }}
-        additionalText={`${city}, ${country}`}
-      />
+    <ItemBox key={id}>
+      <ItemTitle selected={selected}>{title}</ItemTitle>
+      <ItemSubTitle selected={selected}>{subtitle}</ItemSubTitle>
+      <DateLine {...{ startDate, endDate }} />
       <ItemDescription selected={selected}>{tags.join(", ")}</ItemDescription>
     </ItemBox>
-  );
+  )
 }

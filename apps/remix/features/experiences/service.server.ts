@@ -37,6 +37,7 @@ export async function getEducationList(): Promise<ExperienceProps[]> {
   const list = await databaseEducation.queryAll()
 
   return list
+    .filter((item) => __IS_DEV__ || !item.draft)
     .map(transformEducationToExperience)
     .sort((a, b) => sortByDate(a.startDate, b.startDate))
 }
@@ -51,6 +52,7 @@ export async function getCareerList(): Promise<ExperienceProps[]> {
   const list = await databaseCareer.queryAll()
 
   return list
+    .filter((item) => __IS_DEV__ || !item.draft)
     .map(transformCareerToExperience)
     .sort((a, b) => sortByDate(a.startDate, b.startDate))
 }

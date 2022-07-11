@@ -1,29 +1,29 @@
 // https://github.com/jdeniau/ink-tab
-import readline from "readline";
-import { Box, Text, useStdin, type BoxProps, type TextProps } from "ink";
+import readline from "readline"
+import { Box, Text, useStdin, type BoxProps, type TextProps } from "ink"
 import {
   useCallback,
   useEffect,
   useRef,
   useState,
   type ReactElement,
-} from "react";
+} from "react"
 
 /**
  * Represent props of a <Tab>
  */
 export interface TabProps {
-  name: string;
+  name: string
 }
 
 /**
  * Declare how does the keyboard interacts with ink-tab here
  */
 interface KeyMapProps {
-  useNumbers?: boolean;
-  useTab?: boolean;
-  previous?: string[];
-  next?: string[];
+  useNumbers?: boolean
+  useTab?: boolean
+  previous?: string[]
+  next?: string[]
 }
 
 /**
@@ -35,13 +35,13 @@ export interface TabsProps {
    * @param {string} name the name of the tab passed in the `name` prop
    * @param {<TabProps>} activeTab the current active tab component
    */
-  onChange(name: string, activeTab: ReactElement<typeof Tab>): void;
-  children: ReactElement<typeof Tab>[];
-  flexDirection?: BoxProps["flexDirection"];
-  width?: BoxProps["width"];
-  keyMap?: KeyMapProps;
-  isFocused?: boolean;
-  tabIndex?: number;
+  onChange(name: string, activeTab: ReactElement<typeof Tab>): void
+  children: ReactElement<typeof Tab>[]
+  flexDirection?: BoxProps["flexDirection"]
+  width?: BoxProps["width"]
+  keyMap?: KeyMapProps
+  isFocused?: boolean
+  tabIndex?: number
 }
 
 function useTabs(props: TabsProps) {
@@ -52,101 +52,101 @@ function useTabs(props: TabsProps) {
     onChange,
     tabIndex = 0,
     ...rest
-  } = props;
+  } = props
 
   const defaultKeyMap = {
     useNumbers: true,
     useTab: true,
     previous: ["left"],
     next: ["right"],
-  };
+  }
 
-  const previousTabIndex = useRef(tabIndex);
-  const { isRawModeSupported, stdin, setRawMode } = useStdin();
-  const [activeTab, setActiveTab] = useState(tabIndex);
+  const previousTabIndex = useRef(tabIndex)
+  const { isRawModeSupported, stdin, setRawMode } = useStdin()
+  const [activeTab, setActiveTab] = useState(tabIndex)
 
   useEffect(() => {
     if (previousTabIndex.current !== tabIndex) {
-      setActiveTab(tabIndex);
+      setActiveTab(tabIndex)
     }
-    previousTabIndex.current = tabIndex;
-  }, [tabIndex]);
+    previousTabIndex.current = tabIndex
+  }, [tabIndex])
 
   const handleTabChange = useCallback(
     (tabId: number) => {
-      const tab = children[tabId];
-      if (!tab) return;
-      setActiveTab(tabId);
-      onChange(tab.props.name, tab);
+      const tab = children[tabId]
+      if (!tab) return
+      setActiveTab(tabId)
+      onChange(tab.props.name, tab)
     },
-    [onChange, children]
-  );
+    [onChange, children],
+  )
 
   const moveToPreviousTab = useCallback(() => {
-    let nextTabId = activeTab - 1;
+    let nextTabId = activeTab - 1
     if (nextTabId < 0) {
-      nextTabId = children.length - 1;
+      nextTabId = children.length - 1
     }
-    handleTabChange(nextTabId);
-  }, [activeTab, children, handleTabChange]);
+    handleTabChange(nextTabId)
+  }, [activeTab, children, handleTabChange])
 
   const moveToNextTab = useCallback(() => {
-    let nextTabId = activeTab + 1;
+    let nextTabId = activeTab + 1
     if (nextTabId >= children.length) {
-      nextTabId = 0;
+      nextTabId = 0
     }
-    handleTabChange(nextTabId);
-  }, [activeTab, children, handleTabChange]);
+    handleTabChange(nextTabId)
+  }, [activeTab, children, handleTabChange])
 
   const handleKeyPress = useCallback(
     (
       ch: string,
-      key: null | { name: string; shift: boolean; meta: boolean }
+      key: null | { name: string; shift: boolean; meta: boolean },
     ) => {
-      if (!key || isFocused === false) return;
+      if (!key || isFocused === false) return
 
-      const currentKeyMap = { ...defaultKeyMap };
-      const { useTab, previous, next } = currentKeyMap;
+      const currentKeyMap = { ...defaultKeyMap }
+      const { useTab, previous, next } = currentKeyMap
 
-      if (previous.some((keyName) => keyName === key.name)) moveToPreviousTab();
-      if (next.some((keyName) => keyName === key.name)) moveToNextTab();
+      if (previous.some((keyName) => keyName === key.name)) moveToPreviousTab()
+      if (next.some((keyName) => keyName === key.name)) moveToNextTab()
 
       switch (key.name) {
         case "tab": {
-          if (!useTab || isFocused !== null) return;
+          if (!useTab || isFocused !== null) return
 
-          if (key.shift === true) return moveToPreviousTab();
+          if (key.shift === true) return moveToPreviousTab()
 
-          return moveToNextTab();
+          return moveToNextTab()
         }
 
         default:
-          break;
+          break
       }
     },
-    [isFocused, moveToPreviousTab, moveToNextTab]
-  );
+    [isFocused, moveToPreviousTab, moveToNextTab],
+  )
 
   useEffect(() => {
     if (isRawModeSupported && stdin) {
-      setRawMode(true);
+      setRawMode(true)
 
-      readline.emitKeypressEvents(stdin);
-      stdin.addListener("keypress", handleKeyPress);
+      readline.emitKeypressEvents(stdin)
+      stdin.addListener("keypress", handleKeyPress)
 
       return () => {
-        setRawMode(false);
-        stdin.removeListener("keypress", handleKeyPress);
-      };
+        setRawMode(false)
+        stdin.removeListener("keypress", handleKeyPress)
+      }
     }
-  }, [isRawModeSupported, stdin, setRawMode, handleKeyPress]);
+  }, [isRawModeSupported, stdin, setRawMode, handleKeyPress])
 
-  return activeTab;
+  return activeTab
 }
 
 function Tabs(props: TabsProps) {
-  const { width, children, isFocused, ...rest } = props;
-  const activeTab = useTabs(props);
+  const { width, children, isFocused, ...rest } = props
+  const activeTab = useTabs(props)
 
   return (
     <Box
@@ -156,25 +156,25 @@ function Tabs(props: TabsProps) {
       justifyContent="space-between"
     >
       {children.map((child, key) => {
-        const { name } = child.props;
-        const isActive = activeTab === key;
+        const { name } = child.props
+        const isActive = activeTab === key
 
         const textProps: TextProps = {
           backgroundColor: isActive ? "cyanBright" : undefined,
           color: isActive ? "black" : undefined,
-        };
+        }
 
-        return <Text {...textProps} key={name}>{` ${name} `}</Text>;
+        return <Text {...textProps} key={name}>{` ${name} `}</Text>
       })}
     </Box>
-  );
+  )
 }
 
 /**
  * A <Tab> component
  */
 function Tab({ name }: TabProps) {
-  return <>{name}</>;
+  return <>{name}</>
 }
 
-export { Tab, Tabs };
+export { Tab, Tabs }
