@@ -3,7 +3,7 @@ import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import clsx from "clsx"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 
-import { AdminIcon } from "~/features/admin"
+import AdminAppRegistry, { AdminIcon } from "~/features/admin"
 import AdminLink, {
   type AdminLinkProps,
 } from "~/features/admin/components/AdminLink"
@@ -12,8 +12,6 @@ import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
 import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { ErrorSection } from "~/features/ui/Error"
-
-import { handle as adminHandle } from "./admin/index"
 
 interface LoaderData {}
 
@@ -26,11 +24,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function AdminIndex(): JSX.Element {
   useBlockNativeScroll()
 
-  const adminAppLinks: AdminLinkProps[] = adminHandle.apps.map((app) => ({
-    id: app.id,
-    children: app.icon,
-    title: app.name,
-  }))
+  const adminAppLinks: AdminLinkProps[] = AdminAppRegistry.registry.map(
+    (app) => ({
+      id: app.id,
+      children: app.icon,
+      title: app.name,
+    }),
+  )
 
   const adminActionLinks: AdminLinkProps[] = [
     { id: "/logout", children: <LogoutIcon />, title: "Logout" },

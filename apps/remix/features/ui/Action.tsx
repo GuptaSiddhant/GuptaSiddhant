@@ -1,9 +1,4 @@
-import {
-  type FormProps,
-  useFetcher,
-  useLocation,
-  useNavigate,
-} from "@remix-run/react"
+import { type FormProps, useFetcher, useLocation } from "@remix-run/react"
 import clsx from "clsx"
 
 import useStableCallback from "~/features/hooks/useStableCallback"
@@ -34,13 +29,9 @@ export default function Action({
   toast,
   action,
   encType,
-  reloadDocument = true,
   replace = true,
 }: ActionProps): JSX.Element | null {
-  const { submit, isSubmitting, origin } = useActionFetcher(
-    toast,
-    reloadDocument,
-  )
+  const { submit, isSubmitting, origin } = useActionFetcher(toast)
 
   const handleSubmit = useStableCallback(() =>
     submit({ ...body, origin }, { replace, method, action, encType }),
@@ -75,21 +66,13 @@ export default function Action({
   )
 }
 
-function useActionFetcher(
-  toastProps?: string | Omit<ToastProps, "id">,
-  reloadDocument?: boolean,
-) {
-  const navigate = useNavigate()
+function useActionFetcher(toastProps?: string | Omit<ToastProps, "id">) {
   const { pathname, search, hash } = useLocation()
   const origin = `${pathname}${search}${hash}`
 
   const { submit, submission, state } = useFetcher()
   const id = submission?.key
   const isSubmitting = state === "submitting"
-
-  const handleDone = useStableCallback(() => {
-    reloadDocument && navigate(origin)
-  })
 
   useToastWithMinDuration(
     {
@@ -101,7 +84,6 @@ function useActionFetcher(
         : toastProps!),
     },
     Boolean(isSubmitting && toastProps),
-    { onHide: handleDone },
   )
 
   return { submit, isSubmitting, origin }

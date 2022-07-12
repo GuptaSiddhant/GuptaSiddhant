@@ -1,16 +1,30 @@
-import { useOutletContext } from "@remix-run/react"
+import { queryFirebaseRemoteConfigKeys } from "@gs/firebase/remote-config"
+import { useLoaderData } from "@remix-run/react"
+import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
+import { useAdminApp } from "~/features/admin/helpers"
+import { authenticateRoute } from "~/features/service/auth.server"
 
-import { type AdminSettingsOutletContext, handle } from "../settings"
+interface LoaderData {
+  featureConfigKeys: string[]
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticateRoute(request)
+  const featureConfigKeys = await queryFirebaseRemoteConfigKeys()
+
+  return json<LoaderData>({ featureConfigKeys })
+}
 
 export default function SettingsIndex(): JSX.Element | null {
-  const { featureConfigKeys } = useOutletContext<AdminSettingsOutletContext>()
+  const { featureConfigKeys } = useLoaderData<LoaderData>()
+  const adminApp = useAdminApp()
 
   return (
-    <AdminDashboard {...handle.adminApp}>
+    <AdminDashboard {...adminApp}>
       <AdminDashboard.Table
-        data={[{ count: featureConfigKeys.length }]}
+        data={[{ count: featureConfigKeys.length || 0 }]}
         columns={[{ id: "count", header: "Feature flags" }]}
       />
     </AdminDashboard>

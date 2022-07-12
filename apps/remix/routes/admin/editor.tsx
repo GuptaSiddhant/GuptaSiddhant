@@ -1,12 +1,12 @@
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
-import EditorIcon from "remixicon-react/EditBoxFillIcon"
 
-import type { AdminAppProps } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin"
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
+import type { AdminAppHandle } from "~/features/admin/types"
 import {
   getCareerList,
   getEducationList,
@@ -19,14 +19,9 @@ import { ErrorSection } from "~/features/ui/Error"
 import Menu from "~/features/ui/Menu"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp: AdminAppProps = {
-  id: "editor",
-  name: "Editor",
-  icon: <EditorIcon />,
-  to: "/admin/editor",
-}
+const adminApp = AdminAppRegistry.get(AdminAppId.Editor)
 
-export interface EditorLoaderData {
+export interface LoaderData {
   entries: {
     id: DatabaseModel
     label: string
@@ -41,7 +36,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     getEducationList(),
   ])
 
-  const allEditableEntries: EditorLoaderData["entries"] = [
+  const allEditableEntries: LoaderData["entries"] = [
     {
       id: DatabaseModel.Career,
       label: "Career",
@@ -54,13 +49,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
   ]
 
-  return json<EditorLoaderData>({
+  return json<LoaderData>({
     entries: allEditableEntries,
   })
 }
 
 export default function EditorAdminApp(): JSX.Element | null {
-  const loaderData = useLoaderData<EditorLoaderData>()
+  const loaderData = useLoaderData<LoaderData>()
   const { entries } = loaderData
   const { pathname } = useLocation()
 
@@ -111,7 +106,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
-export const handle = { adminApp }
+export const handle: AdminAppHandle = { adminApp }
 
 export function meta() {
   return createAdminMeta(adminApp.name)

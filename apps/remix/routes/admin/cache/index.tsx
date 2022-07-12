@@ -4,10 +4,9 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
+import { useAdminApp } from "~/features/admin/helpers"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { getCache } from "~/features/service/cache.server"
-
-import { handle } from "../cache"
 
 interface LoaderData {
   max: number
@@ -24,9 +23,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function CacheIndex(): JSX.Element | null {
   const { size, max, ttl } = useLoaderData<LoaderData>()
+  const adminApp = useAdminApp()
 
   return (
-    <AdminDashboard {...handle.adminApp}>
+    <AdminDashboard {...adminApp}>
       <AdminDashboard.Table
         data={[{ size, max, ttl }]}
         columns={[

@@ -6,13 +6,13 @@ import {
   json,
   redirect,
 } from "@remix-run/server-runtime"
-import StorageIcon from "remixicon-react/HardDrive2FillIcon"
 
-import type { AdminAppProps } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin"
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
 import { modifyStorage } from "~/features/admin/storage/service.server"
+import type { AdminAppHandle } from "~/features/admin/types"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"
 import storage, { type StorageDir } from "~/features/service/storage.server"
@@ -22,12 +22,7 @@ import Popover from "~/features/ui/Popover"
 import PopoverUpload from "~/features/ui/Popover/Upload"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp: AdminAppProps = {
-  id: "storage",
-  name: "Storage",
-  icon: <StorageIcon />,
-  to: "/admin/storage",
-}
+const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
 
 interface LoaderData extends StorageDir {}
 
@@ -84,7 +79,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
-export const handle = { adminApp }
+export const handle: AdminAppHandle = { adminApp }
 
 export function meta() {
   return createAdminMeta(adminApp.name)

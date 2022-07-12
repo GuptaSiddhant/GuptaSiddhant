@@ -1,15 +1,17 @@
 import { useOutletContext } from "@remix-run/react"
 
 import AdminDashboard from "~/features/admin/components/AdminDashboard"
+import { useAdminApp } from "~/features/admin/helpers"
 import Table from "~/features/ui/Table"
 
-import { type EditorLoaderData, handle } from "../editor"
+import { type LoaderData } from "../editor"
 
-export default function SettingsIndex(): JSX.Element | null {
-  const { entries } = useOutletContext<EditorLoaderData>()
+export default function EditorIndex(): JSX.Element | null {
+  const { entries } = useOutletContext<LoaderData>()
+  const adminApp = useAdminApp()
 
   return (
-    <AdminDashboard {...handle.adminApp}>
+    <AdminDashboard {...adminApp}>
       <Table
         data={entries}
         columns={[

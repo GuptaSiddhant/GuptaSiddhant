@@ -4,13 +4,12 @@ import { json } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { authenticateRoute } from "~/features/service/auth.server"
 import Database, { DatabaseModel } from "~/features/service/database.server"
 import { ErrorSection } from "~/features/ui/Error"
 import FormAction from "~/features/ui/FormAction"
 import { Caption, Paragraph } from "~/features/ui/Text"
-
-import { handle } from "../editor"
 
 interface LoaderData {
   error: boolean
@@ -19,8 +18,10 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
+  const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
+
   const path = params["*"]
-  if (!path) return redirect(handle.adminApp.to)
+  if (!path) return redirect(adminApp.to)
 
   const [collection, id] = path.split("/")
 
@@ -29,7 +30,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
 
   if (!Object.values(DatabaseModel).includes(collection as DatabaseModel)) {
-    return redirect(handle.adminApp.to)
+    return redirect(adminApp.to)
   } else return json<LoaderData>({ error: false, collection })
 }
 

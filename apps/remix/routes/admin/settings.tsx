@@ -1,37 +1,23 @@
-import { queryFirebaseRemoteConfigKeys } from "@gs/firebase/remote-config"
-import { Outlet, useLoaderData } from "@remix-run/react"
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
-import SettingsIcon from "remixicon-react/Settings3FillIcon"
+import { type LoaderFunction } from "@remix-run/server-runtime"
 
-import type { AdminAppProps } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin"
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
+import type { AdminAppHandle } from "~/features/admin/types"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp: AdminAppProps = {
-  id: "settings",
-  name: "Settings",
-  icon: <SettingsIcon />,
-  to: "/admin/settings",
-}
-
-interface LoaderData {
-  featureConfigKeys: string[]
-}
+const adminApp = AdminAppRegistry.get(AdminAppId.Settings)
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const featureConfigKeys = await queryFirebaseRemoteConfigKeys()
 
-  return json<LoaderData>({ featureConfigKeys })
+  return null
 }
 
 export default function SettingsAdminApp(): JSX.Element | null {
-  const { featureConfigKeys } = useLoaderData<LoaderData>()
-
   const navGroups: AdminNavbarGroupProps[] = [
     {
       id: "settings",
@@ -56,9 +42,7 @@ export default function SettingsAdminApp(): JSX.Element | null {
       {...adminApp}
       header={<Caption>{adminApp.name}</Caption>}
       navGroups={navGroups}
-    >
-      <Outlet context={{ featureConfigKeys }} />
-    </AdminLayout>
+    />
   )
 }
 
@@ -66,12 +50,8 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
-export const handle = { adminApp }
+export const handle: AdminAppHandle = { adminApp }
 
 export function meta() {
   return createAdminMeta(adminApp.name)
-}
-
-export interface AdminSettingsOutletContext {
-  featureConfigKeys: string[]
 }

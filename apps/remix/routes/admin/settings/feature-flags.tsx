@@ -4,7 +4,7 @@ import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
-import { createAdminMeta } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin/helpers"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import type { NavigationLinkProps } from "~/features/navigation/types"

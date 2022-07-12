@@ -1,18 +1,26 @@
 import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
+import type {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import invariant from "tiny-invariant"
 
-import { createAdminMeta } from "~/features/admin"
+import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"
-import type { CacheType } from "~/features/service/cache.server"
+import type {
+  CacheType,
+  ModifyCacheMethod,
+} from "~/features/service/cache.server"
+import { modifyCache } from "~/features/service/cache.server"
 import {
   getCache,
   getCachedKey,
@@ -51,8 +59,25 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   })
 }
 
+export const action: ActionFunction = async ({ request }) => {
+  await authenticateRoute(request)
+
+  const { pathname } = new URL(request.url)
+  const form = await request.formData()
+  const key = form.get("key")?.toString()
+
+  invariant(key, "Cache key is required")
+  await modifyCache(request.method as ModifyCacheMethod, key)
+
+  if (request.method === "DELETE") {
+    return redirect("/admin/cache/")
+  }
+  return redirect(pathname)
+}
+
 export default function CacheDetails(): JSX.Element | null {
   const { key, data } = useLoaderData<LoaderData>()
+  const adminApp = useAdminApp()
 
   const actions: NavigationLinkProps[] = [
     {
@@ -62,9 +87,8 @@ export default function CacheDetails(): JSX.Element | null {
           body={{ key }}
           title="Delete cache item"
           method="delete"
-          toast={{
-            title: "Deleting cache item",
-          }}
+          action={`${adminApp.to}/${key}`}
+          toast={"Deleting cache item"}
         >
           <DeleteIcon />
         </Action>

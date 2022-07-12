@@ -4,6 +4,7 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import EditorPage from "~/features/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "~/features/admin/editor/service.server"
 import { adminLogger } from "~/features/admin/service.server"
@@ -14,8 +15,6 @@ import type { Model } from "~/features/models"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { DatabaseModel } from "~/features/service/database.server"
 
-import { handle } from "../editor"
-
 interface LoaderData {
   item?: CareerProps
   model: Model
@@ -23,6 +22,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
+  const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
   const collectionName = DatabaseModel.Career
   const model = getModelByDatabaseModel(collectionName)
 
@@ -36,7 +36,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     return json<LoaderData>({ item, model })
   } catch (e: any) {
     adminLogger.error(e.message)
-    return redirect(handle.adminApp.to + "/" + DatabaseModel.Career)
+    return redirect(adminApp.to + "/" + DatabaseModel.Career)
   }
 }
 

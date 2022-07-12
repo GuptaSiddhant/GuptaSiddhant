@@ -3,6 +3,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { generatePathsFromPath } from "~/features/admin/storage/helpers"
 import {
   getStoragePaths,
@@ -12,8 +13,6 @@ import StorageDirView from "~/features/admin/storage/StorageDirView"
 import { type StoragePathProps } from "~/features/admin/storage/types"
 import { authenticateRoute } from "~/features/service/auth.server"
 
-import { handle } from "../storage"
-
 interface LoaderData {
   storagePaths: StoragePathProps[]
 }
@@ -21,7 +20,9 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
   const path = params["*"]
-  if (!path) return redirect(handle.adminApp.to.toString())
+  const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
+
+  if (!path) return redirect(adminApp.to)
 
   const paths = generatePathsFromPath(path)
   try {
@@ -29,7 +30,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return json<LoaderData>({ storagePaths })
   } catch {
-    const redirectRootPath = handle.adminApp.to.toString()
+    const redirectRootPath = adminApp.to
     const redirectPath =
       paths.length >= 2 ? "/" + paths[paths.length - 2] : undefined
 
