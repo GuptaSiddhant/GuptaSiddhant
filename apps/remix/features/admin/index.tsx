@@ -2,12 +2,14 @@ import AdminIcon from "remixicon-react/AdminFillIcon"
 import CacheIcon from "remixicon-react/Database2FillIcon"
 import EditorIcon from "remixicon-react/EditBoxFillIcon"
 import StorageIcon from "remixicon-react/HardDrive2FillIcon"
+import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
 import invariant from "tiny-invariant"
 
+import type { AdminLinkProps } from "./components/AdminSidebar"
 import type { AdminAppProps } from "./types"
 
-export { AdminIcon }
+export { AdminAppProps, AdminIcon }
 
 export enum AdminAppId {
   Editor = "editor",
@@ -16,7 +18,7 @@ export enum AdminAppId {
   Storage = "storage",
 }
 
-export default class AdminAppRegistry {
+export class AdminAppRegistry {
   static #registry: Record<
     AdminAppId,
     {
@@ -57,5 +59,15 @@ export default class AdminAppRegistry {
     }
 
     return apps.sort((a, b) => a.name.localeCompare(b.name))
+  }
+}
+
+export class AdminActionRegistry {
+  static #registry: Array<AdminLinkProps> = [
+    { id: "/logout", children: <LogoutIcon />, title: "Logout" },
+  ]
+
+  static get registry() {
+    return this.#registry
   }
 }

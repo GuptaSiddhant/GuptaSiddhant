@@ -8,7 +8,7 @@ import type {
 } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"

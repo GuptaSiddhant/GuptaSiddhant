@@ -12,6 +12,7 @@ import type { NavigationLinkProps } from "~/features/navigation/types"
 import type { To } from "~/features/types"
 import Accordion from "~/features/ui/Accordion"
 
+import { useAdminApp } from "../helpers"
 import AdminHeader from "./AdminHeader"
 
 export interface AdminNavbarProps {
@@ -114,7 +115,7 @@ function AdminNavFooter({
   return (
     <footer
       className={clsx(
-        "flex min-h-[2.5rem] items-center gap-2 border-t border-divider px-2",
+        "flex min-h-[3rem] items-center gap-2 border-t border-divider px-2",
         navCollapsed ? "justify-center" : "justify-between",
       )}
     >

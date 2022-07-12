@@ -3,12 +3,14 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { generatePathsFromPath } from "~/features/admin/storage/helpers"
 import { getStoragePaths } from "~/features/admin/storage/service.server"
 import StorageDirView from "~/features/admin/storage/StorageDirView"
 import { type StoragePathProps } from "~/features/admin/storage/types"
 import { authenticateRoute } from "~/features/service/auth.server"
+
+const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
 
 interface LoaderData {
   storagePaths: StoragePathProps[]
@@ -17,7 +19,6 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
   const path = params["*"]
-  const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
 
   if (!path) return redirect(adminApp.to)
 

@@ -66,7 +66,8 @@ export async function queryFirebaseStorageDirContents(
   })
 
   const dirs = apiResponse.prefixes || []
-  const files = _files.filter((file) => !file.metadata.name.endsWith(delimiter))
+  const files = _files.filter((file) => !file.name.endsWith(delimiter))
+  // console.log({ _files, dirs })
 
   return { dirs, files }
 }

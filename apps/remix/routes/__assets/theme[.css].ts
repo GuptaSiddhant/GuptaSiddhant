@@ -31,7 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
   const parsedCookie = await parseCookie(request, themeCookie)
   const formData = await request.formData()
 
-  const redirectTo = formData.get("origin")?.toString() || "/"
+  const redirectTo = formData.get("originPath")?.toString() || "/"
   const newThemeName = formData.get("theme")?.toString()
   const prevThemeName: ThemeName = parsedCookie.theme || DEFAULT_THEME
 

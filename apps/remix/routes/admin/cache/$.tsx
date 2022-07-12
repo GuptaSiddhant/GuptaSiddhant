@@ -11,7 +11,7 @@ import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import invariant from "tiny-invariant"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"

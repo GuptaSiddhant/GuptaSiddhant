@@ -4,7 +4,7 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import EditorPage from "~/features/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "~/features/admin/editor/service.server"
 import { adminLogger } from "~/features/admin/service.server"

@@ -4,7 +4,7 @@ import type {
   MetaFunction,
 } from "@remix-run/server-runtime"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"

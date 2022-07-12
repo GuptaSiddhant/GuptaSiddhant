@@ -4,7 +4,7 @@ import { json } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { authenticateRoute } from "~/features/service/auth.server"
 import Database, { DatabaseModel } from "~/features/service/database.server"
 import Action from "~/features/ui/Action"

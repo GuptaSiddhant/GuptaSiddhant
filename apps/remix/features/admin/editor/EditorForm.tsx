@@ -331,7 +331,7 @@ function EditorFormBooleanInput(
     <FormLabel
       htmlFor={id}
       label={capitalize(name)}
-      className="!h-full sm:gap-2"
+      className="justify-between py-3  sm:gap-4"
     >
       <input
         id={id}

@@ -7,7 +7,7 @@ import type {
 import { json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppId, AdminAppRegistry } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"

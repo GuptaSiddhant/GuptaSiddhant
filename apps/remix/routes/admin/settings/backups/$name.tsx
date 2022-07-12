@@ -6,7 +6,7 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppRegistry, AdminAppId } from "~/features/admin"
 import { generateBackupPathFromBackupName } from "~/features/admin/backup/service.server"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { authenticateRoute } from "~/features/service/auth.server"

@@ -9,7 +9,7 @@ import { json, redirect } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
-import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { AdminAppId, AdminAppRegistry } from "~/features/admin"
 import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
