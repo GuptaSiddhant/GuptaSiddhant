@@ -1,3 +1,4 @@
+import { useCatch } from "@remix-run/react"
 import clsx from "clsx"
 
 import Hero from "~/features/hero"
@@ -64,4 +65,45 @@ export function ErrorPage({
       {children}
     </ErrorSection>
   )
+}
+
+// CatchBoundarySection
+
+export function CatchBoundarySection({
+  messages,
+}: {
+  messages?: Partial<Record<401 | 404, string>>
+}): JSX.Element | null {
+  const caught = useCatch()
+  const message = useCatchBoundaryMessage(messages)
+
+  const title = `${caught.status}: ${caught.statusText}`
+
+  return (
+    <ErrorSection
+      title={title}
+      message={message}
+      caption={caught.status.toString()}
+    />
+  )
+}
+
+export function useCatchBoundaryMessage(
+  messages?: Partial<Record<401 | 404, string>>,
+) {
+  const { data, status, statusText } = useCatch()
+
+  const defaultMessages: Record<401 | 404, string> = {
+    401: "Oops! Looks like you tried to visit a page that you do not have access to.",
+    404: "Oops! Looks like you tried to visit a page that does not exist.",
+  }
+
+  switch (status) {
+    case 401:
+    case 404:
+      return messages?.[status] || defaultMessages[status]
+
+    default:
+      throw new Error(data || statusText)
+  }
 }

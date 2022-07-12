@@ -1,11 +1,12 @@
 import { useCatch } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 
 import CodeBlock from "~/features/ui/CodeBlock"
 import { ErrorPage } from "~/features/ui/Error"
 
 import Document from "./Document"
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <Document error>
       <ErrorPage caption={error.name} message={error.message}>

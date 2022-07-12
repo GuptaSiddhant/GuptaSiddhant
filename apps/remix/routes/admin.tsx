@@ -1,4 +1,6 @@
+import type { ShouldReloadFunction } from "@remix-run/react"
 import { NavLink, Outlet } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import clsx from "clsx"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
@@ -11,7 +13,7 @@ import { AdminContext } from "~/features/admin/context"
 import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
 import useBlockNativeScroll from "~/features/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "~/features/service/auth.server"
-import { ErrorSection } from "~/features/ui/Error"
+import { CatchBoundarySection, ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData {}
 
@@ -75,6 +77,12 @@ export default function AdminIndex(): JSX.Element {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const CatchBoundary = () => {
+  return <CatchBoundarySection />
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Oops. Admin broke!!!" error={error} />
 }
+
+export const unstable_shouldReload: ShouldReloadFunction = () => false

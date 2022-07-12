@@ -1,4 +1,5 @@
 import { Outlet } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 
 import { ErrorSection } from "~/features/ui/Error"
 
@@ -6,6 +7,6 @@ export default function Blog(): JSX.Element {
   return <Outlet />
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Problem with blog" error={error} />
 }

@@ -1,11 +1,12 @@
 import { RefreshIcon, UploadIcon } from "@gs/icons"
 import { useLoaderData } from "@remix-run/react"
-import {
-  type ActionFunction,
-  type LoaderFunction,
-  json,
-  redirect,
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
 } from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
 
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
@@ -75,16 +76,10 @@ export default function StorageAdminApp(): JSX.Element | null {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
 export const handle: AdminAppHandle = { adminApp }
-
-export function meta() {
-  return createAdminMeta(adminApp.name)
-}
-
-export interface AdminSettingsOutletContext {
-  featureConfigKeys: string[]
-}

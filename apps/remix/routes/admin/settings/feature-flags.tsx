@@ -1,11 +1,14 @@
 import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction } from "@remix-run/server-runtime"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+} from "@remix-run/server-runtime"
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
 
-import { createAdminMeta } from "~/features/admin/helpers"
 import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
+import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"
@@ -86,7 +89,7 @@ export default function CacheIndex(): JSX.Element | null {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Problem with Feature flags" error={error} />
 }
 

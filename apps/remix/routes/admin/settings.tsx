@@ -1,4 +1,8 @@
-import { type LoaderFunction } from "@remix-run/server-runtime"
+import type {
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
 
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
@@ -46,12 +50,10 @@ export default function SettingsAdminApp(): JSX.Element | null {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
 export const handle: AdminAppHandle = { adminApp }
-
-export function meta() {
-  return createAdminMeta(adminApp.name)
-}

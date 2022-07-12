@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import {
   type LoaderFunction,
   type MetaFunction,
@@ -106,7 +107,7 @@ export default function ProjectDetails(): JSX.Element {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <ErrorSection
       caption="Error 404"

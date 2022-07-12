@@ -1,12 +1,16 @@
 import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { redirect } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin/helpers"
+import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "~/features/admin/types"
@@ -25,19 +29,16 @@ import { Caption } from "~/features/ui/Text"
 const adminApp = AdminAppRegistry.get(AdminAppId.Cache)
 
 interface LoaderData {
-  keys: string[]
-  pathname: string
   groupMap: Record<string, NavigationLinkProps[]>
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
 
-  const { pathname } = new URL(request.url)
   const keys = [...getCache().keys()].sort()
   const groupMap = createGroupMapFromKeys(keys)
 
-  return json<LoaderData>({ keys, pathname, groupMap })
+  return json<LoaderData>({ groupMap })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -53,6 +54,7 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function CacheAdminApp(): JSX.Element | null {
+  const adminApp = useAdminApp()
   const { groupMap } = useLoaderData<LoaderData>()
 
   const navGroups: AdminNavbarGroupProps[] = Object.keys(groupMap).map(
@@ -68,7 +70,12 @@ export default function CacheAdminApp(): JSX.Element | null {
     {
       id: "Refresh",
       children: (
-        <Action title="Refresh cache" method="get" toast="Refreshing cache...">
+        <Action
+          title="Refresh cache"
+          method="patch"
+          toast="Refreshing cache..."
+          action={adminApp.to}
+        >
           <RefreshIcon />
         </Action>
       ),
@@ -81,6 +88,7 @@ export default function CacheAdminApp(): JSX.Element | null {
           method="delete"
           confirm="Are you sure about clearing cache?"
           toast="Clearing cache..."
+          action={adminApp.to}
         >
           <ClearIcon />
         </Action>
@@ -116,12 +124,10 @@ function createGroupMapFromKeys(keys: string[]) {
   return groupMap
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
-}
+export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
 
-export function meta() {
-  return createAdminMeta(adminApp.name)
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
 export const handle: AdminAppHandle = { adminApp }

@@ -1,5 +1,8 @@
 import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/server-runtime"
+import type {
+  ErrorBoundaryComponent,
+  LoaderFunction,
+} from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import ProjectIcon from "remixicon-react/ArtboardFillIcon"
 import BlogIcon from "remixicon-react/QuillPenFillIcon"
@@ -59,6 +62,6 @@ export default function Index() {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection error={error} />
 }

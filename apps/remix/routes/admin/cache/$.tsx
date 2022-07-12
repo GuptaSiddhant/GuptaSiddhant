@@ -2,6 +2,7 @@ import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type {
   ActionFunction,
+  ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/server-runtime"
@@ -110,7 +111,7 @@ export default function CacheDetails(): JSX.Element | null {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Problem with Cache key" error={error} />
 }
 

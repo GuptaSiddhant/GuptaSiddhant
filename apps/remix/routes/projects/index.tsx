@@ -1,4 +1,5 @@
 import { useLoaderData } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import {
   type LoaderFunction,
   type MetaFunction,
@@ -53,6 +54,6 @@ export default function Projects(): JSX.Element {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Could not load projects" error={error} />
 }

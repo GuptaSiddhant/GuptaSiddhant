@@ -1,3 +1,4 @@
+import type { ShouldReloadFunction } from "@remix-run/react"
 import {
   LiveReload,
   Outlet,
@@ -68,3 +69,5 @@ export { CatchBoundary, ErrorBoundary, links, meta }
 //     </Crumb>
 //   ),
 // }
+
+export const unstable_shouldReload: ShouldReloadFunction = () => false

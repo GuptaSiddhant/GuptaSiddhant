@@ -1,5 +1,10 @@
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react"
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
+import type {
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
+import { json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
 
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
@@ -102,12 +107,10 @@ export default function EditorAdminApp(): JSX.Element | null {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
 }
 
 export const handle: AdminAppHandle = { adminApp }
-
-export function meta() {
-  return createAdminMeta(adminApp.name)
-}
