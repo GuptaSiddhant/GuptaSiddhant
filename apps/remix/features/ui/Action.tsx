@@ -1,4 +1,10 @@
-import { type FormProps, useFetcher, useLocation } from "@remix-run/react"
+import {
+  type FormProps,
+  Form,
+  useFetcher,
+  useLocation,
+  useSubmit,
+} from "@remix-run/react"
 import clsx from "clsx"
 
 import useStableCallback from "~/features/hooks/useStableCallback"
@@ -26,15 +32,32 @@ export default function Action({
   title,
   className,
   method = "post",
-  toast,
+  toast: toastProps,
   action,
   encType,
   replace = true,
+  id,
 }: ActionProps): JSX.Element | null {
-  const { submit, isSubmitting, origin } = useActionFetcher(toast)
+  const originPath = useOriginPath()
+
+  const { submit, submission, state } = useFetcher()
+  const key = submission?.key
+  const isSubmitting = state === "submitting"
+
+  useToastWithMinDuration(
+    {
+      id: key!,
+      persistent: true,
+      variant: "info",
+      ...(typeof toastProps === "string"
+        ? { title: toastProps! }
+        : toastProps!),
+    },
+    Boolean(isSubmitting && toastProps),
+  )
 
   const handleSubmit = useStableCallback(() =>
-    submit({ ...body, origin }, { replace, method, action, encType }),
+    submit({ ...body, originPath }, { replace, method, action, encType }),
   )
 
   if (confirm) {
@@ -55,6 +78,7 @@ export default function Action({
 
   return (
     <Button
+      id={id}
       title={title}
       type="button"
       className={clsx(className, "gap-2 flex-center")}
@@ -66,25 +90,61 @@ export default function Action({
   )
 }
 
-function useActionFetcher(toastProps?: string | Omit<ToastProps, "id">) {
-  const { pathname, search, hash } = useLocation()
-  const origin = `${pathname}${search}${hash}`
+Action.Form = FormAction
 
-  const { submit, submission, state } = useFetcher()
-  const id = submission?.key
-  const isSubmitting = state === "submitting"
+function FormAction({
+  body = {},
+  title,
+  className,
+  children,
+  confirm,
+  method = "get",
+  ...props
+}: Omit<ActionProps, "toast">): JSX.Element | null {
+  const originPath = useOriginPath()
+  const submit = useSubmit()
 
-  useToastWithMinDuration(
-    {
-      id: id!,
-      persistent: true,
-      variant: "info",
-      ...(typeof toastProps === "string"
-        ? { title: toastProps! }
-        : toastProps!),
-    },
-    Boolean(isSubmitting && toastProps),
+  if (!confirm) {
+    return (
+      <Form {...props} method={method} replace className={clsx("flex-center")}>
+        {Object.entries({ ...body, originPath }).map(([key, value]) => (
+          <input key={key} name={key} value={value} type={"hidden"} />
+        ))}
+        <button title={title} className={clsx(className, "gap-2 flex-center")}>
+          {children}
+        </button>
+      </Form>
+    )
+  }
+
+  return (
+    <Popover
+      title={title}
+      content={
+        <PopoverConfirmContent
+          {...(typeof confirm === "string" ? { children: confirm } : confirm)}
+          onConfirm={() => {
+            submit(
+              { ...body, originPath },
+              {
+                method,
+                replace: true,
+                ...props,
+              },
+            )
+          }}
+        />
+      }
+    >
+      <div title={title} className={clsx(className, "gap-2 flex-center")}>
+        {children}
+      </div>
+    </Popover>
   )
+}
 
-  return { submit, isSubmitting, origin }
+function useOriginPath() {
+  const { pathname, search, hash } = useLocation()
+
+  return `${pathname}${search}${hash}`
 }

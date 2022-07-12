@@ -1,14 +1,11 @@
 import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
+import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { generatePathsFromPath } from "~/features/admin/storage/helpers"
-import {
-  getStoragePaths,
-  modifyStorage,
-} from "~/features/admin/storage/service.server"
+import { getStoragePaths } from "~/features/admin/storage/service.server"
 import StorageDirView from "~/features/admin/storage/StorageDirView"
 import { type StoragePathProps } from "~/features/admin/storage/types"
 import { authenticateRoute } from "~/features/service/auth.server"
@@ -36,17 +33,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return redirect(redirectRootPath + (redirectPath || ""))
   }
-}
-
-export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
-  const { method } = request
-  const form = await request.formData()
-  const origin = form.get("origin")?.toString() || "/"
-
-  const redirectTo = await modifyStorage(method, form)
-
-  return redirect(redirectTo || origin)
 }
 
 export default function StoragePath(): JSX.Element | null {

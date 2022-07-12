@@ -1,12 +1,12 @@
+import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons"
 import clsx from "clsx"
 import { useMemo } from "react"
 
-import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
 } from "~/features/service/feature-flag.server"
-import FormAction from "~/features/ui/FormAction"
+import Action from "~/features/ui/Action"
 import Input from "~/features/ui/Input"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 import Table, { type TableColumnProps } from "~/features/ui/Table"
@@ -124,7 +124,7 @@ function ToggleCell({
 
   return (
     <div className="flex">
-      <FormAction
+      <Action.Form
         method="patch"
         title="Toggle flag"
         body={{ ...row, [dev ? "dev" : "prod"]: !value }}
@@ -137,7 +137,7 @@ function ToggleCell({
         >
           {value ? "enabled" : "disabled"}
         </span>
-      </FormAction>
+      </Action.Form>
     </div>
   )
 }
@@ -150,52 +150,51 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
   if (!flag) {
     return (
       <div className="flex flex-wrap gap-4">
-        <FormAction
+        <Action.Form
           id={FORM_ID}
           method="post"
           title="Create flag"
-          body={{ flag, dev, prod }}
           className={clsx(buttonClassName, "pr-2 text-base")}
         >
           <CreateIcon />
           <span>Add</span>
-        </FormAction>
+        </Action.Form>
       </div>
     )
   }
 
   return (
     <div className="flex gap-2">
-      <FormAction
+      <Action.Form
         method="delete"
         title="Delete flag"
         body={{ flag }}
         className={buttonClassName}
-        confirm={getDeleteConfirmProps("flag")}
+        confirm={getDeleteConfirmProps(`'${flag}' flag`)}
       >
         <DeleteIcon className="text-negative" />
-      </FormAction>
+      </Action.Form>
 
       {dev && prod ? (
-        <FormAction
+        <Action.Form
           method="patch"
           title="Disable all"
           body={{ flag, dev: false, prod: false }}
           className={buttonClassName}
         >
           <ToggleOffIcon className="text-negative" />
-        </FormAction>
+        </Action.Form>
       ) : null}
 
       {!dev && !prod ? (
-        <FormAction
+        <Action.Form
           method="patch"
           title="Enable all"
           body={{ flag, dev: true, prod: true }}
           className={buttonClassName}
         >
           <ToggleOnIcon className="text-positive" />
-        </FormAction>
+        </Action.Form>
       ) : null}
     </div>
   )

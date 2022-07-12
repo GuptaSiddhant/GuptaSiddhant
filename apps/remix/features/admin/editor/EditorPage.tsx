@@ -2,8 +2,8 @@ import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import SaveButton from "remixicon-react/Save2FillIcon"
 
 import { type Model } from "~/features/models"
+import Action from "~/features/ui/Action"
 import Button from "~/features/ui/Button"
-import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminLayout from "../layout/AdminLayout"
@@ -43,26 +43,26 @@ export default function EditorPage<T extends EditorHeaderProps>({
               {
                 id: "Refresh",
                 children: (
-                  <FormAction
+                  <Action
                     method="patch"
                     body={{ id: item.id }}
                     title="Refresh entry"
                   >
                     <RefreshIcon />
-                  </FormAction>
+                  </Action>
                 ),
               },
               {
                 id: "Delete",
                 children: (
-                  <FormAction
+                  <Action
                     method="delete"
                     body={{ id: item.id }}
                     title="Delete entry"
                     confirm={getDeleteConfirmProps("entry")}
                   >
                     <DeleteIcon />
-                  </FormAction>
+                  </Action>
                 ),
               },
             ]

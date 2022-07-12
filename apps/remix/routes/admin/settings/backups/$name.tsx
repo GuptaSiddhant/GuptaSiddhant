@@ -6,14 +6,17 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { generateBackupPathFromBackupName } from "~/features/admin/backup/service.server"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { authenticateRoute } from "~/features/service/auth.server"
 import type { StorageFile } from "~/features/service/storage.server"
 import storage from "~/features/service/storage.server"
+import Action from "~/features/ui/Action"
 import CodeBlock from "~/features/ui/CodeBlock"
-import FormAction from "~/features/ui/FormAction"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
+
+const adminApp = AdminAppRegistry.get(AdminAppId.Settings)
 
 interface LoaderData {
   name: string
@@ -36,23 +39,25 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return json<LoaderData>({ asset, name, path, data })
   } catch {
-    return redirect("/admin/settings/backups")
+    return redirect(adminApp.to + "backups")
   }
 }
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
-  console.log({ action: request.url, name: "name", method: request.method })
 
   const form = await request.formData()
-  const origin = form.get("origin")?.toString() || "/"
+  const originPath = form.get("originPath")?.toString() || "/"
 
   if (request.method === "DELETE") {
     const path = form.get("path")?.toString()
     invariant(path, "Asset path is required.")
     await storage.mutateAsset(path)
+
+    return redirect(adminApp.to + "backups")
   }
-  return redirect(origin)
+
+  return redirect(originPath)
 }
 
 export default function StoragePath(): JSX.Element | null {
@@ -71,14 +76,15 @@ export default function StoragePath(): JSX.Element | null {
         {
           id: "Delete",
           children: (
-            <FormAction
+            <Action
               method="delete"
               body={{ path }}
               title="Delete backup"
               confirm={getDeleteConfirmProps("backup")}
+              toast="Deleting backup..."
             >
               <DeleteIcon />
-            </FormAction>
+            </Action>
           ),
         },
       ]}

@@ -19,8 +19,8 @@ import {
   setFeatureFlag,
 } from "~/features/service/feature-flag.server"
 import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
+import Action from "~/features/ui/Action"
 import { ErrorSection } from "~/features/ui/Error"
-import FormAction from "~/features/ui/FormAction"
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap
@@ -36,11 +36,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
+  const { pathname } = new URL(request.url)
   const { method } = request
 
   const form = await request.formData()
   const flag = form.get("flag")?.toString()
-  const origin = form.get("origin")?.toString() || "/"
 
   if (method === "POST" || method === "PATCH") {
     invariant(flag, "flag is required")
@@ -57,30 +57,27 @@ export const action: ActionFunction = async ({ request }) => {
     await deleteFeatureFlag(flag)
   }
 
-  return redirect(origin)
+  return redirect(pathname)
 }
 
 export default function CacheIndex(): JSX.Element | null {
   const { featureFlags } = useLoaderData<LoaderData>()
+
+  const actions: NavigationLinkProps[] = [
+    {
+      id: "Refetch",
+      children: (
+        <Action.Form title="Refetch config" children={<RefetchIcon />} />
+      ),
+    },
+  ]
+
   useTransitionSubmissionToast({
     PUT: "Refetching feature flags",
     POST: "Creating feature flag",
     DELETE: "Deleting feature flag",
     PATCH: "Updating feature flag",
   })
-
-  const actions: NavigationLinkProps[] = [
-    {
-      id: "Refetch",
-      children: (
-        <FormAction
-          title="Refetch config"
-          children={<RefetchIcon />}
-          method="get"
-        />
-      ),
-    },
-  ]
 
   return (
     <AdminLayout name={"Feature flags"} actions={actions}>

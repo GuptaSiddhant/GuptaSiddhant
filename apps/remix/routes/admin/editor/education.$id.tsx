@@ -15,6 +15,8 @@ import type { Model } from "~/features/models"
 import { authenticateRoute } from "~/features/service/auth.server"
 import { DatabaseModel } from "~/features/service/database.server"
 
+const adminApp = AdminAppRegistry.get(AdminAppId.Editor)
+
 interface LoaderData {
   item?: EducationProps
   model: Model
@@ -22,7 +24,6 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
   const collectionName = DatabaseModel.Education
   const model = getModelByDatabaseModel(collectionName)
 
@@ -33,9 +34,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   try {
     const item = await databaseEducation.queryById(id, true)
+
     return json<LoaderData>({ item, model })
   } catch (e: any) {
     adminLogger.error(e.message)
+
     return redirect(adminApp.to + "/" + DatabaseModel.Education)
   }
 }

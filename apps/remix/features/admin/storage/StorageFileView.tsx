@@ -5,7 +5,7 @@ import clsx from "clsx"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type StorageFile } from "~/features/service/storage.server"
 import Accordion from "~/features/ui/Accordion"
-import FormAction from "~/features/ui/FormAction"
+import Action from "~/features/ui/Action"
 import Popover from "~/features/ui/Popover"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 import PopoverRenameContent from "~/features/ui/Popover/Rename"
@@ -60,14 +60,14 @@ export default function StorageFileView({
         {
           id: "Delete",
           children: (
-            <FormAction
+            <Action
               method="delete"
               body={{ path }}
               title="Delete file"
               confirm={getDeleteConfirmProps("file")}
             >
               <DeleteIcon />
-            </FormAction>
+            </Action>
           ),
         },
       ]}

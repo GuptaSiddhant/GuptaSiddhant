@@ -7,8 +7,8 @@ import invariant from "tiny-invariant"
 import AdminAppRegistry, { AdminAppId } from "~/features/admin"
 import { authenticateRoute } from "~/features/service/auth.server"
 import Database, { DatabaseModel } from "~/features/service/database.server"
+import Action from "~/features/ui/Action"
 import { ErrorSection } from "~/features/ui/Error"
-import FormAction from "~/features/ui/FormAction"
 import { Caption, Paragraph } from "~/features/ui/Text"
 
 interface LoaderData {
@@ -66,9 +66,14 @@ export default function Error404(): JSX.Element | null {
       <Paragraph className="text-disabled">
         Pick an entry from the sidebar.
       </Paragraph>
-      <FormAction method="patch" body={{ collection }} title="Clear cache">
+      <Action
+        method="patch"
+        body={{ collection }}
+        title="Clear cache"
+        toast={`Clearing ${collection} cache...`}
+      >
         Clear cache
-      </FormAction>
+      </Action>
     </div>
   )
 }

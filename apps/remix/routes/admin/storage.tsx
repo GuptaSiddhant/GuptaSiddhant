@@ -17,8 +17,8 @@ import type { AdminAppHandle } from "~/features/admin/types"
 import type { NavigationLinkProps } from "~/features/navigation/types"
 import { authenticateRoute } from "~/features/service/auth.server"
 import storage, { type StorageDir } from "~/features/service/storage.server"
+import Action from "~/features/ui/Action"
 import { ErrorSection } from "~/features/ui/Error"
-import FormAction from "~/features/ui/FormAction"
 import Popover from "~/features/ui/Popover"
 import PopoverUpload from "~/features/ui/Popover/Upload"
 import { Caption } from "~/features/ui/Text"
@@ -58,9 +58,9 @@ export default function StorageAdminApp(): JSX.Element | null {
     {
       id: "refresh",
       children: (
-        <FormAction method="get" title="Refresh">
+        <Action.Form title="Refresh">
           <RefreshIcon />
-        </FormAction>
+        </Action.Form>
       ),
     },
   ]

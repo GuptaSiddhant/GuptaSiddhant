@@ -2,7 +2,7 @@ import { DeleteIcon } from "@gs/icons"
 import FolderIcon from "remixicon-react/Folder3FillIcon"
 
 import AdminLayout from "~/features/admin/layout/AdminLayout"
-import FormAction from "~/features/ui/FormAction"
+import Action from "~/features/ui/Action"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
 import AdminDashboard from "../components/AdminDashboard"
@@ -43,14 +43,14 @@ export default function StorageDirView({
         {
           id: "Delete",
           children: (
-            <FormAction
+            <Action
               method="delete"
               body={{ prefix: currentPath.path, type: "dir" }}
-              title="Delete file"
+              title="Delete folder"
               confirm={getDeleteConfirmProps("folder")}
             >
               <DeleteIcon />
-            </FormAction>
+            </Action>
           ),
         },
       ]}

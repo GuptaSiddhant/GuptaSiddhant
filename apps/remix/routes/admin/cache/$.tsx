@@ -11,7 +11,8 @@ import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import invariant from "tiny-invariant"
 
-import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
+import AdminAppRegistry, { AdminAppId } from "~/features/admin"
+import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "~/features/constants"
 import useMediaQuery from "~/features/hooks/useMediaQuery"
@@ -39,6 +40,8 @@ interface LoaderData {
   ttl: number
 }
 
+const adminApp = AdminAppRegistry.get(AdminAppId.Cache)
+
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
   const key = params["*"]
@@ -47,7 +50,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(type, "Cache type is invalid")
 
   const data = await getCachedKey(key)
-  if (!data) return redirect("/admin/cache/")
+  if (!data) return redirect(adminApp.to)
 
   const ttl = getCache().getRemainingTTL(key)
 
@@ -71,14 +74,13 @@ export const action: ActionFunction = async ({ request }) => {
   await modifyCache(request.method as ModifyCacheMethod, key)
 
   if (request.method === "DELETE") {
-    return redirect("/admin/cache/")
+    return redirect(adminApp.to)
   }
   return redirect(pathname)
 }
 
 export default function CacheDetails(): JSX.Element | null {
   const { key, data } = useLoaderData<LoaderData>()
-  const adminApp = useAdminApp()
 
   const actions: NavigationLinkProps[] = [
     {
@@ -115,6 +117,12 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Problem with Cache key" error={error} />
 }
 
+export const meta: MetaFunction = ({ data }) => {
+  return createAdminMeta(data?.key)
+}
+
+//
+
 function Footer() {
   const { ttl } = useLoaderData<LoaderData>()
   const isMobileWidth = useMediaQuery("(max-width: 768px)")
@@ -130,8 +138,4 @@ function Footer() {
         : transformMsToReadableString(ttl)}
     </div>
   )
-}
-
-export const meta: MetaFunction = ({ data }) => {
-  return createAdminMeta(data?.key)
 }

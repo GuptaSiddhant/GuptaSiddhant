@@ -14,7 +14,7 @@ import {
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { authenticateRoute } from "~/features/service/auth.server"
 import storage, { type StorageFile } from "~/features/service/storage.server"
-import FormAction from "~/features/ui/FormAction"
+import Action from "~/features/ui/Action"
 
 interface LoaderData {
   list: string[]
@@ -65,9 +65,9 @@ export default function Backups(): JSX.Element | null {
         {
           id: "backup",
           children: (
-            <FormAction action={pathname} method="post" title="Backup database">
+            <Action action={pathname} method="post" title="Backup database">
               <BackupIcon />
-            </FormAction>
+            </Action>
           ),
         },
       ]}

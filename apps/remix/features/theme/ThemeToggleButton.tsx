@@ -1,7 +1,7 @@
 import DarkModeIcon from "remixicon-react/MoonFillIcon"
 import LightModeIcon from "remixicon-react/MoonLineIcon"
 
-import FormAction from "~/features/ui/FormAction"
+import Action from "~/features/ui/Action"
 
 import { type ThemeName } from "."
 
@@ -11,14 +11,14 @@ export default function ThemeToggleButton({
   themeName: ThemeName
 }) {
   return (
-    <FormAction
+    <Action.Form
       action="/theme.css"
       method="post"
-      reloadDocument
       title="Toggle dark mode"
       body={{ theme: themeName === "light" ? "dark" : "light" }}
+      reloadDocument
     >
       {themeName === "light" ? <LightModeIcon /> : <DarkModeIcon />}
-    </FormAction>
+    </Action.Form>
   )
 }

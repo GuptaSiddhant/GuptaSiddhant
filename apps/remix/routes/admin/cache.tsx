@@ -43,14 +43,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
-
   const { pathname } = new URL(request.url)
-  const form = await request.formData()
-  const origin = form.get("origin")?.toString()
 
   await modifyCache(request.method as ModifyCacheMethod)
 
-  return redirect(origin || pathname)
+  return redirect(pathname)
 }
 
 export default function CacheAdminApp(): JSX.Element | null {
