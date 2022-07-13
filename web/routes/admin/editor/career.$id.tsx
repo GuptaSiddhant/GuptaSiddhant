@@ -23,22 +23,23 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const collectionName = DatabaseModel.Career
-  const model = getModelByDatabaseModel(collectionName)
+  const modelName = DatabaseModel.Career
+  const model = getModelByDatabaseModel(modelName)
 
   const id = params.id
-  invariant(id, collectionName + " id is required.")
+  invariant(id, modelName + " id is required.")
 
   if (id === "new") return json<LoaderData>({ model })
 
   try {
     const item = await databaseCareer.queryById(id)
+    invariant(item, "Career item not found.")
 
     return json<LoaderData>({ item, model })
   } catch (e: any) {
     adminLogger.error(e.message)
 
-    return redirect(adminApp.linkPath + "/" + DatabaseModel.Career)
+    return redirect(adminApp.linkPath + modelName)
   }
 }
 

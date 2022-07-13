@@ -37,13 +37,19 @@ export function getCareerModel() {
   return generateModelFromSchema<keyof CareerProps>("CareerProps")
 }
 
-export function getModelByDatabaseModel(collectionName: DatabaseModel) {
-  switch (collectionName) {
+export function getBlogModel() {
+  return generateModelFromSchema<keyof CareerProps>("BlogPostProps")
+}
+
+export function getModelByDatabaseModel(modelName: DatabaseModel) {
+  switch (modelName) {
     case DatabaseModel.Career:
       return getCareerModel()
     case DatabaseModel.Education:
       return getEducationModel()
+    case DatabaseModel.Blog:
+      return getBlogModel()
     default:
-      throw new Error(`Unknown collection name: ${collectionName}`)
+      throw new Error(`Unknown model name: ${modelName}`)
   }
 }

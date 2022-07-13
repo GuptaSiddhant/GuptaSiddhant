@@ -7,6 +7,8 @@ export interface AccordionProps {
   children: ReactNode
   className?: string
   summaryClassName?: string
+  summaryLeadingElement?: ReactNode
+  accordionRef?: React.Ref<HTMLDetailsElement>
 }
 
 export default function Accordion({
@@ -15,6 +17,8 @@ export default function Accordion({
   open,
   className,
   summaryClassName,
+  summaryLeadingElement,
+  accordionRef,
 }: AccordionProps): JSX.Element | null {
   return (
     <details
@@ -24,6 +28,7 @@ export default function Accordion({
         "relative w-full rounded-md",
         "transition-[height]",
       )}
+      ref={accordionRef}
     >
       <summary
         className={clsx(
@@ -32,7 +37,20 @@ export default function Accordion({
           "cursor-pointer select-none text-sm font-bold",
         )}
       >
-        <div className="inline-block w-[calc(100%_-_1rem)] pl-1">{summary}</div>
+        <div
+          className={clsx(
+            "inline-block w-[calc(100%_-_1rem)] pl-1",
+            "inline-flex items-center",
+            summaryLeadingElement ? "justify-between" : "justify-start",
+          )}
+        >
+          <div className="flex-1">{summary}</div>
+          {summaryLeadingElement ? (
+            <div className="flex items-center justify-end">
+              {summaryLeadingElement}
+            </div>
+          ) : null}
+        </div>
       </summary>
       {children}
     </details>

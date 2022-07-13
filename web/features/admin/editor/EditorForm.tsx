@@ -8,7 +8,11 @@ import Select from "@gs/ui/Select"
 import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
 import { type FormMethod, Form } from "@remix-run/react"
 import clsx from "clsx"
-import { useState } from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
+import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon"
+import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon"
+
+const EditorFormContext = createContext<{ id?: string }>({})
 
 export interface EditorFormProps<T extends Record<string, any>> {
   method: FormMethod
@@ -24,14 +28,16 @@ export default function EditorForm<T extends { id: string }>({
   formId,
 }: EditorFormProps<T>): JSX.Element | null {
   return (
-    <Form id={formId} method={method} replace className="flex flex-col gap-4">
-      {item?.id ? (
-        <input type="hidden" name="id" value={item.id} />
-      ) : (
-        <EditorFormTextInput name="id" defaultValue={""} required />
-      )}
-      <EditorFormObjectInput item={item} properties={model.properties} />
-    </Form>
+    <EditorFormContext.Provider value={{ id: item?.id }}>
+      <Form id={formId} method={method} replace className="flex flex-col gap-4">
+        {item?.id ? (
+          <input type="hidden" name="id" value={item.id} />
+        ) : (
+          <EditorFormTextInput name="id" defaultValue={""} required />
+        )}
+        <EditorFormObjectInput item={item} properties={model.properties} />
+      </Form>
+    </EditorFormContext.Provider>
   )
 }
 
@@ -229,14 +235,53 @@ function EditorFormMarkdownInput({
   defaultValue,
   required,
 }: EditorFormInputProps<string>) {
+  const ref = useRef<HTMLDetailsElement>(null)
+  const [isFullscreen, setIsFullscreen] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    if (window.document.fullscreenEnabled) {
+      setIsFullscreen((enabled) => enabled === true)
+    }
+  }, [])
+
+  const handleClick = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    } else {
+      ref.current?.requestFullscreen()
+      setIsFullscreen(true)
+    }
+  }
+
+  const itemId = useContext(EditorFormContext).id || "New item"
+
   return (
-    <Accordion summary={name} open summaryClassName="!m-0">
+    <Accordion
+      summary={isFullscreen ? `${itemId}'s ${name}` : name}
+      open
+      summaryClassName="!m-0"
+      summaryLeadingElement={
+        isFullscreen !== null ? (
+          <button
+            onClick={handleClick}
+            title={isFullscreen ? "Exit fullscreen" : "Go fullscreen"}
+          >
+            {isFullscreen ? <FullscreenExitIcon /> : <FullscreenEnterIcon />}
+          </button>
+        ) : null
+      }
+      accordionRef={ref}
+    >
       <div className="p-0">
         <textarea
           name={name}
           defaultValue={defaultValue}
           required={required}
-          className="min-h-[50vh] w-full rounded bg-default p-2 text-base"
+          className={clsx(
+            "w-full rounded bg-secondary p-2 text-base",
+            isFullscreen ? "h-[calc(100vh_-_2.5rem)]" : "min-h-[50vh]",
+          )}
         />
       </div>
     </Accordion>
@@ -310,7 +355,7 @@ function EditorFormTextInput(
       readOnly={readOnly}
       required={required}
       placeholder={placeholderText}
-      type={isUrl ? "url" : isEmail ? "email" : "text"}
+      type={isEmail ? "email" : "text"}
     />
   )
 }

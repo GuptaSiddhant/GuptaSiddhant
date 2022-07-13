@@ -155,15 +155,13 @@ function AdminNavbarGroup({
   return (
     <Accordion
       open={openByDefault}
-      summary={
-        <div className="flex items-baseline justify-between">
-          <span>{label}</span>
-          {showCount ? (
-            <span className="font-normal">({children.length})</span>
-          ) : null}
-        </div>
-      }
+      summary={label}
       summaryClassName={clsx("sticky top-0 sm:rounded-none")}
+      summaryLeadingElement={
+        showCount ? (
+          <span className="font-normal">({children.length})</span>
+        ) : null
+      }
     >
       <ul className="flex list-none flex-col gap-1 px-2">
         {children.map((link) => (

@@ -129,6 +129,71 @@
       ],
       "additionalProperties": false
     },
+    "ProjectProps": {
+      "type": "object",
+      "allOf": [{ "$ref": "#/definitions/BlogPostProps" }],
+      "properties": {
+        "dateStart": {
+          "type": "string"
+        },
+        "dateEnd": {
+          "type": "string"
+        },
+        "association": {
+          "type": "string"
+        }
+      },
+      "required": ["dateStart"]
+    },
+    "BlogPostProps": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string",
+          "contentMediaType": "markdown"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "draft": {
+          "type": "boolean"
+        },
+        "date": {
+          "type": "string"
+        },
+        "gallery": {
+          "$ref": "#/definitions/Gallery"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LinkObject"
+          }
+        }
+      },
+      "required": ["id", "title"]
+    },
     "LinkObject": {
       "type": "object",
       "properties": {

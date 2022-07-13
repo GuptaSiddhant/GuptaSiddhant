@@ -3,8 +3,7 @@ import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
 import { getModelByDatabaseModel } from "@gs/experiences/helpers"
-import { databaseEducation } from "@gs/experiences/service.server"
-import type { EducationProps } from "@gs/experiences/types"
+import { databaseCareer } from "@gs/experiences/service.server"
 import type { Model } from "@gs/models"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { DatabaseModel } from "@gs/service/database.server"
@@ -14,16 +13,19 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
+import type { BlogPostProps } from "~/features/blog"
+import { databaseBlog } from "~/features/blog/service.server"
+
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
 interface LoaderData {
-  item?: EducationProps
+  item?: BlogPostProps
   model: Model
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const modelName = DatabaseModel.Education
+  const modelName = DatabaseModel.Blog
   const model = getModelByDatabaseModel(modelName)
 
   const id = params.id
@@ -32,8 +34,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (id === "new") return json<LoaderData>({ model })
 
   try {
-    const item = await databaseEducation.queryById(id, true)
-    invariant(item, "Education item not found.")
+    const item = await databaseBlog.queryById(id)
+    invariant(item, "Blog item not found.")
 
     return json<LoaderData>({ item, model })
   } catch (e: any) {
@@ -49,7 +51,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
 
   const redirectTo = await modifyDatabaseDocumentWithEditorForm(
-    databaseEducation,
+    databaseBlog,
     formData,
     request.method,
   )
@@ -57,8 +59,8 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(redirectTo || pathname)
 }
 
-export default function EducationEditor(): JSX.Element | null {
+export default function BlogEditor(): JSX.Element | null {
   const { item, model } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={item} model={model} headerPrefix="Education" />
+  return <EditorPage item={item} model={model} headerPrefix={"Blog"} />
 }
