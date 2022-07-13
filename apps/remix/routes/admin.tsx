@@ -6,7 +6,7 @@ import {
 } from "@remix-run/server-runtime"
 import clsx from "clsx"
 
-import { AdminActionRegistry, AdminAppRegistry } from "~/features/admin"
+import { adminRegistry } from "~/features/admin"
 import AdminSidebar from "~/features/admin/components/AdminSidebar"
 import { AdminContext } from "~/features/admin/context"
 import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
@@ -38,11 +38,13 @@ export default function Admin(): JSX.Element {
         }}
       >
         <AdminSidebar
-          actions={AdminActionRegistry.registry}
-          apps={AdminAppRegistry.registry.map((app) => ({
-            id: app.id,
+          actions={adminRegistry.actions.map((action) => ({
+            ...action,
+            children: action.icon,
+          }))}
+          apps={adminRegistry.apps.map((app) => ({
+            ...app,
             children: app.icon,
-            title: app.name,
           }))}
         />
 

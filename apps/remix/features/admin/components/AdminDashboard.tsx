@@ -7,18 +7,18 @@ import { Caption } from "~/features/ui/Text"
 export interface AdminDashboardProps {
   children: ReactNode
   icon: ReactNode
-  name: string
+  title: string
 }
 
 export default function AdminDashboard({
   icon,
-  name,
+  title,
   children,
 }: AdminDashboardProps): JSX.Element | null {
   return (
     <div className="h-full w-full flex-col gap-4 p-4 flex-center">
       <div className="m-4 [&>*]:scale-[2]">{icon}</div>
-      <Caption className="w-full pb-4 text-center">{name}</Caption>
+      <Caption className="w-full pb-4 text-center">{title}</Caption>
       {children}
     </div>
   )

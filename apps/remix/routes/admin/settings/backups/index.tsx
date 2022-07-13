@@ -14,7 +14,7 @@ export default function BackupsIndex(): JSX.Element | null {
   }, 0)
 
   return (
-    <AdminDashboard name="Backups" icon={<BackupIcon />}>
+    <AdminDashboard title="Backups" icon={<BackupIcon />}>
       <AdminDashboard.Table
         data={[
           { count: files.length, latest: formatDateTime(new Date(latest)) },

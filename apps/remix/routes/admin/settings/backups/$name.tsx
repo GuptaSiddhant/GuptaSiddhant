@@ -6,7 +6,7 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
 
-import { AdminAppRegistry, AdminAppId } from "~/features/admin"
+import { AdminAppId, adminRegistry } from "~/features/admin"
 import { generateBackupPathFromBackupName } from "~/features/admin/backup/service.server"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { authenticateRoute } from "~/features/service/auth.server"
@@ -16,7 +16,7 @@ import Action from "~/features/ui/Action"
 import CodeBlock from "~/features/ui/CodeBlock"
 import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
 
-const adminApp = AdminAppRegistry.get(AdminAppId.Settings)
+const adminApp = adminRegistry.getApp(AdminAppId.Settings)
 
 interface LoaderData {
   name: string
@@ -39,7 +39,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return json<LoaderData>({ asset, name, path, data })
   } catch {
-    return redirect(adminApp.to + "backups")
+    return redirect(adminApp.linkPath + "backups")
   }
 }
 
@@ -54,7 +54,7 @@ export const action: ActionFunction = async ({ request }) => {
     invariant(path, "Asset path is required.")
     await storage.mutateAsset(path)
 
-    return redirect(adminApp.to + "backups")
+    return redirect(adminApp.linkPath + "backups")
   }
 
   return redirect(originPath)

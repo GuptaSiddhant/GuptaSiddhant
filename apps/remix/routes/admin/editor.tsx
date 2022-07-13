@@ -7,7 +7,7 @@ import type {
 import { json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
 
-import { AdminAppId, AdminAppRegistry } from "~/features/admin"
+import { AdminAppId, adminRegistry } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
@@ -24,7 +24,7 @@ import { ErrorSection } from "~/features/ui/Error"
 import Menu from "~/features/ui/Menu"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp = AdminAppRegistry.get(AdminAppId.Editor)
+const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
 export interface LoaderData {
   entries: {
@@ -98,7 +98,7 @@ export default function EditorAdminApp(): JSX.Element | null {
   return (
     <AdminLayout
       {...adminApp}
-      header={<Caption>{adminApp.name}</Caption>}
+      header={<Caption>{adminApp.title}</Caption>}
       navGroups={navGroups}
       actions={actions}
     >
@@ -107,10 +107,12 @@ export default function EditorAdminApp(): JSX.Element | null {
   )
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+export const meta: MetaFunction = () => createAdminMeta(adminApp.title)
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
+  return (
+    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+  )
 }
 
 export const handle: AdminAppHandle = { adminApp }

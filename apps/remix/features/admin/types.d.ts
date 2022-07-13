@@ -1,10 +1,5 @@
-export interface AdminAppProps {
-  id: string
-  name: string
-  icon: JSX.Element | null
-  to: string
-}
+import type { AdminApp } from "@gs/admin/registry"
 
 export interface AdminAppHandle {
-  adminApp: AdminAppProps
+  adminApp: AdminApp
 }

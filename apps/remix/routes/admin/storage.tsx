@@ -8,7 +8,7 @@ import type {
 } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
 
-import { AdminAppRegistry, AdminAppId } from "~/features/admin"
+import { AdminAppId, adminRegistry } from "~/features/admin"
 import { createAdminMeta } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
@@ -23,7 +23,7 @@ import Popover from "~/features/ui/Popover"
 import PopoverUpload from "~/features/ui/Popover/Upload"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp = AdminAppRegistry.get(AdminAppId.Storage)
+const adminApp = adminRegistry.getApp(AdminAppId.Storage)
 
 interface LoaderData extends StorageDir {}
 
@@ -71,15 +71,17 @@ export default function StorageAdminApp(): JSX.Element | null {
       className="!overflow-y-hidden overflow-x-scroll"
       actions={actions}
       navGroups={generateNavbarGroupsFromStorageDirContents(dirs, files)}
-      header={<Caption>{adminApp.name}</Caption>}
+      header={<Caption>{adminApp.title}</Caption>}
     />
   )
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+export const meta: MetaFunction = () => createAdminMeta(adminApp.title)
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
+  return (
+    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+  )
 }
 
 export const handle: AdminAppHandle = { adminApp }

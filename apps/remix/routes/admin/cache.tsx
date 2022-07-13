@@ -9,7 +9,7 @@ import { json, redirect } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
-import { AdminAppId, AdminAppRegistry } from "~/features/admin"
+import { AdminAppId, adminRegistry } from "~/features/admin"
 import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
 import AdminLayout from "~/features/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
@@ -26,7 +26,7 @@ import Action from "~/features/ui/Action"
 import { ErrorSection } from "~/features/ui/Error"
 import { Caption } from "~/features/ui/Text"
 
-const adminApp = AdminAppRegistry.get(AdminAppId.Cache)
+const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 
 interface LoaderData {
   groupMap: Record<string, NavigationLinkProps[]>
@@ -71,7 +71,7 @@ export default function CacheAdminApp(): JSX.Element | null {
           title="Refresh cache"
           method="patch"
           toast="Refreshing cache..."
-          action={adminApp.to}
+          action={adminApp.linkPath}
         >
           <RefreshIcon />
         </Action>
@@ -85,7 +85,7 @@ export default function CacheAdminApp(): JSX.Element | null {
           method="delete"
           confirm="Are you sure about clearing cache?"
           toast="Clearing cache..."
-          action={adminApp.to}
+          action={adminApp.linkPath}
         >
           <ClearIcon />
         </Action>
@@ -96,7 +96,7 @@ export default function CacheAdminApp(): JSX.Element | null {
   return (
     <AdminLayout
       {...adminApp}
-      header={<Caption>{adminApp.name}</Caption>}
+      header={<Caption>{adminApp.title}</Caption>}
       actions={actions}
       navGroups={navGroups}
     />
@@ -121,10 +121,12 @@ function createGroupMapFromKeys(keys: string[]) {
   return groupMap
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.name)
+export const meta: MetaFunction = () => createAdminMeta(adminApp.title)
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title={`Problem with ${adminApp.name}.`} error={error} />
+  return (
+    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+  )
 }
 
 export const handle: AdminAppHandle = { adminApp }

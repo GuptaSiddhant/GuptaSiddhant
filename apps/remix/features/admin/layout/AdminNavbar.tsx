@@ -12,7 +12,6 @@ import type { NavigationLinkProps } from "~/features/navigation/types"
 import type { To } from "~/features/types"
 import Accordion from "~/features/ui/Accordion"
 
-import { useAdminApp } from "../helpers"
 import AdminHeader from "./AdminHeader"
 
 export interface AdminNavbarProps {
