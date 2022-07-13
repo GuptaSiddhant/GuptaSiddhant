@@ -1,13 +1,12 @@
 import RadioGroup from "@gs/ui/RadioGroup"
 import Select from "@gs/ui/Select"
+import { capitalize } from "@gs/utils/format"
 import { Form, useSubmit } from "@remix-run/react"
 import clsx from "clsx"
 import FilterIcon from "remixicon-react/Filter3LineIcon"
 import GridIcon from "remixicon-react/GridLineIcon"
 import ListIcon from "remixicon-react/ListUnorderedIcon"
 import SortIcon from "remixicon-react/SortDescIcon"
-
-import { capitalize } from "@gs/utils/format"
 
 import { SortByOption, ViewAsOption } from "."
 import type { FilterSortTeasersReturn } from "./filter-sort"

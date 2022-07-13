@@ -1,10 +1,9 @@
 import type { BaseProps } from "@gs/types"
 import Img from "@gs/ui/Img"
 import Section from "@gs/ui/Section"
+import { formatDate } from "@gs/utils/format"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
-
-import { formatDate } from "@gs/utils/format"
 
 import { type TeaserProps } from "."
 

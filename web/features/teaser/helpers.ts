@@ -1,6 +1,5 @@
-import { type DocumentData } from "firebase-admin/firestore"
-
 import { sortByDate } from "@gs/helpers"
+import { type DocumentData } from "firebase-admin/firestore"
 
 import type { TeaserProps } from "."
 

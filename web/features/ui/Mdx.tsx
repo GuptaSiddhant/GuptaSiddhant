@@ -1,8 +1,7 @@
-import MdxToJsx from "markdown-to-jsx"
-import { type ElementType, Fragment, memo } from "react"
-
 import { generateHeadingId } from "@gs/helpers"
 import { type TocItem } from "@gs/helpers/table-of-contents"
+import MdxToJsx from "markdown-to-jsx"
+import { type ElementType, Fragment, memo } from "react"
 
 import { Pre } from "./CodeBlock"
 import Img from "./Img"

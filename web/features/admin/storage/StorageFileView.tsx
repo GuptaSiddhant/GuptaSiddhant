@@ -1,14 +1,13 @@
 import AdminLayout from "@gs/admin/layout/AdminLayout"
+import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import { type StorageFile } from "@gs/service/storage.server"
 import Accordion from "@gs/ui/Accordion"
 import Action from "@gs/ui/Action"
 import Popover from "@gs/ui/Popover"
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
 import PopoverRenameContent from "@gs/ui/Popover/Rename"
-import clsx from "clsx"
-
-import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import { formatDateTime, formatUnit } from "@gs/utils/format"
+import clsx from "clsx"
 
 import AdminDashboard from "../components/AdminDashboard"
 import {

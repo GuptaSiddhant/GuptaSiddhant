@@ -1,6 +1,5 @@
-import { type ReactNode } from "react"
-
 import Hero from "@gs/hero"
+import { type ReactNode } from "react"
 
 import TeaserFilterSortForm, {
   type TeaserFilterSortFormProps,

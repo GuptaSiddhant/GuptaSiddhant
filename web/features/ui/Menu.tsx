@@ -1,3 +1,4 @@
+import type { To } from "@gs/types"
 import {
   type MenuItemProps,
   Menu as ReachMenu,
@@ -10,8 +11,6 @@ import {
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
-
-import type { To } from "@gs/types"
 
 export interface MenuProps {
   className?: string

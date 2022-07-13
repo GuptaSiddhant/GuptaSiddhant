@@ -1,8 +1,3 @@
-import { Link } from "@remix-run/react"
-import clsx from "clsx"
-import { useMemo } from "react"
-import TocIcon from "remixicon-react/FileListLineIcon"
-
 import {
   type TocItem,
   arrangeTocByLevels,
@@ -10,6 +5,10 @@ import {
 } from "@gs/helpers/table-of-contents"
 import { fabBottomLeftClassName } from "@gs/ui/Button"
 import Menu, { type MenuActionProps } from "@gs/ui/Menu"
+import { Link } from "@remix-run/react"
+import clsx from "clsx"
+import { useMemo } from "react"
+import TocIcon from "remixicon-react/FileListLineIcon"
 
 const TOC_LEVEL_GAP = 8
 

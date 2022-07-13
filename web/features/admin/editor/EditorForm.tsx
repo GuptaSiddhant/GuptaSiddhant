@@ -5,11 +5,10 @@ import Button from "@gs/ui/Button"
 import FormLabel from "@gs/ui/FormLabel"
 import Input from "@gs/ui/Input"
 import Select from "@gs/ui/Select"
+import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
 import { type FormMethod, Form } from "@remix-run/react"
 import clsx from "clsx"
 import { useState } from "react"
-
-import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
 
 export interface EditorFormProps<T extends Record<string, any>> {
   method: FormMethod

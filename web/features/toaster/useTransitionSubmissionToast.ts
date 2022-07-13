@@ -1,7 +1,6 @@
+import useToaster from "@gs/toaster"
 import { useTransition } from "@remix-run/react"
 import { useEffect, useMemo } from "react"
-
-import useToaster from "@gs/toaster"
 
 import { type ToastProps } from "./Toast"
 

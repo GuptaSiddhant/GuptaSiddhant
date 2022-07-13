@@ -1,3 +1,5 @@
+import { generateHeadingId } from "@gs/helpers"
+import type { BaseProps } from "@gs/types"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import {
@@ -6,9 +8,6 @@ import {
   useEffect,
   useState,
 } from "react"
-
-import { generateHeadingId } from "@gs/helpers"
-import type { BaseProps } from "@gs/types"
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 

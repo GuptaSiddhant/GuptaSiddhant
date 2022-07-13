@@ -1,3 +1,4 @@
+import useCopy from "@gs/hooks/useCopy"
 import clsx from "clsx"
 import {
   type ComponentPropsWithoutRef,
@@ -5,8 +6,6 @@ import {
   forwardRef,
 } from "react"
 import CopyIcon from "remixicon-react/FileCopyLineIcon"
-
-import useCopy from "@gs/hooks/useCopy"
 
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   buttonRef?: ForwardedRef<HTMLButtonElement> | null

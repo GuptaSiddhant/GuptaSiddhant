@@ -1,5 +1,6 @@
 import useOffsetScroll from "@gs/hooks/useOffsetScroll"
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight"
+import { RoundedCorner } from "@gs/icons"
 import Navigation from "@gs/navigation/Navigation"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { Toaster } from "@gs/toaster"
@@ -7,8 +8,6 @@ import { FAB } from "@gs/ui/Button"
 import clsx from "clsx"
 import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
-
-import { RoundedCorner } from "@gs/icons"
 
 import Logo from "./Logo"
 import ProgressBar from "./ProgressBar"

@@ -1,11 +1,10 @@
 import Button from "@gs/ui/Button"
 import Select from "@gs/ui/Select"
 import Tags from "@gs/ui/Tags"
+import { capitalize } from "@gs/utils/format"
 import { Form, useSubmit } from "@remix-run/react"
 import clsx from "clsx"
 import FilterIcon from "remixicon-react/Filter3LineIcon"
-
-import { capitalize } from "@gs/utils/format"
 
 import type { LifeLineCategory } from "."
 

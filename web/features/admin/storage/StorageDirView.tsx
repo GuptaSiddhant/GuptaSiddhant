@@ -1,9 +1,8 @@
 import AdminLayout from "@gs/admin/layout/AdminLayout"
+import { DeleteIcon } from "@gs/icons"
 import Action from "@gs/ui/Action"
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
 import FolderIcon from "remixicon-react/Folder3FillIcon"
-
-import { DeleteIcon } from "@gs/icons"
 
 import AdminDashboard from "../components/AdminDashboard"
 import {

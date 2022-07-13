@@ -1,3 +1,7 @@
+import useMediaQuery from "@gs/hooks/useMediaQuery"
+import type { NavigationLinkProps } from "@gs/navigation/types"
+import type { To } from "@gs/types"
+import Accordion from "@gs/ui/Accordion"
 import { NavLink } from "@remix-run/react"
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
@@ -6,11 +10,6 @@ import { useMemo } from "react"
 import { useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
-
-import useMediaQuery from "@gs/hooks/useMediaQuery"
-import type { NavigationLinkProps } from "@gs/navigation/types"
-import type { To } from "@gs/types"
-import Accordion from "@gs/ui/Accordion"
 
 import AdminHeader from "./AdminHeader"
 

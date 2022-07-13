@@ -1,5 +1,3 @@
-import invariant from "tiny-invariant"
-
 import { getModelByDatabaseModel } from "@gs/experiences/helpers"
 import { getDataFromModelObject } from "@gs/models/helpers"
 import {
@@ -7,6 +5,7 @@ import {
   type DatabaseModel,
   type DatabaseType,
 } from "@gs/service/database.server"
+import invariant from "tiny-invariant"
 
 export async function modifyDatabaseDocumentWithEditorForm<
   T extends DatabaseDocument,

@@ -1,7 +1,6 @@
+import { Caption } from "@gs/ui/Text"
 import { Link, NavLink, useLocation } from "@remix-run/react"
 import clsx from "clsx"
-
-import { Caption } from "@gs/ui/Text"
 
 import { AdminIcon } from "../index"
 

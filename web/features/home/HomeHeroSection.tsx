@@ -3,7 +3,6 @@ import Hero from "@gs/hero"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { ExternalLink, InternalLink } from "@gs/ui/Link"
 import { ChangingText, H1 } from "@gs/ui/Text"
-
 import { formatList } from "@gs/utils/format"
 
 export default function HomeHeroSection(about: AboutInfo): JSX.Element {

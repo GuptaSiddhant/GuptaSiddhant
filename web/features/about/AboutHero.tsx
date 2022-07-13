@@ -1,8 +1,7 @@
-import ResumeIcon from "remixicon-react/FileUserLineIcon"
-
 import Hero from "@gs/hero"
 import { ExternalLink } from "@gs/ui/Link"
 import { Paragraph } from "@gs/ui/Text"
+import ResumeIcon from "remixicon-react/FileUserLineIcon"
 
 import { aboutTexts } from "."
 

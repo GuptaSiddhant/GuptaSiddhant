@@ -19,7 +19,7 @@
     "web:dev:remix:emulator": "FIRESTORE_EMULATOR_HOST=\"localhost:8080\" FIREBASE_STORAGE_EMULATOR_HOST=\"localhost:9199\" remix dev",
     "clear": "yarn workspaces foreach -pi run clear",
     "preclear": "rm -rf api public/build",
-    "fix": "eslint --fix --ext tsx,ts ./app",
+    "fix": "eslint --fix --ext tsx,ts ./web",
     "db:backup": "node ./scripts/db-backup.js",
     "db:restore": "FIRESTORE_EMULATOR_HOST=\"localhost:8080\" FIREBASE_STORAGE_EMULATOR_HOST=\"localhost:9199\" node ./scripts/db-restore.js",
     "emulator": "firebase emulators:start --import=./.firebase-emulator --export-on-exit"
