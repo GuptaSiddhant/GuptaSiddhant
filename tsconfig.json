@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "~/*": ["./apps/remix/*"],
-      "@gs/*": ["./packages/*"]
+      "@features/*": ["./apps/remix/features/*"],
+      "@gs/*": ["./apps/remix/packages/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

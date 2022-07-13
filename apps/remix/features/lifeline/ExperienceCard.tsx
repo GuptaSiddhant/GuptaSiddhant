@@ -1,12 +1,11 @@
+import type { ExperienceProps } from "@features/experiences/types"
+import type { LinkObject } from "@features/types"
+import { ExternalLink } from "@features/ui/Link"
 import clsx from "clsx"
 import EducationIcon from "remixicon-react/BookFillIcon"
 import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import GithubFillIcon from "remixicon-react/GithubFillIcon"
 import LinkedinBoxFillIcon from "remixicon-react/LinkedinBoxFillIcon"
-
-import type { ExperienceProps } from "~/features/experiences/types"
-import type { LinkObject } from "~/features/types"
-import { ExternalLink } from "~/features/ui/Link"
 
 import LifelineCard from "./LifelineCard"
 

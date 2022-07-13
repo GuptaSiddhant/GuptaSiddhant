@@ -2,7 +2,7 @@ import {
   ONE_DAY_IN_MS,
   ONE_HOUR_IN_MS,
   ONE_MIN_IN_MS,
-} from "~/features/constants"
+} from "@features/constants"
 
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)

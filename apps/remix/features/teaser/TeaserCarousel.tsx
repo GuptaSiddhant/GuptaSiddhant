@@ -1,8 +1,7 @@
+import type { TeaserProps } from "@features/teaser"
+import { Link } from "@features/ui/Link"
+import Section, { proseWidth } from "@features/ui/Section"
 import clsx from "clsx"
-
-import type { TeaserProps } from "~/features/teaser"
-import { Link } from "~/features/ui/Link"
-import Section, { proseWidth } from "~/features/ui/Section"
 
 export interface TeaserCarouselProps {
   id?: string

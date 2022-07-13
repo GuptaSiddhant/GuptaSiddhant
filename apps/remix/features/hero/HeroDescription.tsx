@@ -1,8 +1,7 @@
+import { proseWidth } from "@features/ui/Section"
+import { Paragraph } from "@features/ui/Text"
 import clsx from "clsx"
 import { type ReactNode } from "react"
-
-import { proseWidth } from "~/features/ui/Section"
-import { Paragraph } from "~/features/ui/Text"
 
 export interface HeroDescriptionProps {
   description?: string

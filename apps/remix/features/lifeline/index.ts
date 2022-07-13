@@ -1,4 +1,4 @@
-import type { ExperienceProps } from "~/features/experiences/types"
+import type { ExperienceProps } from "@features/experiences/types"
 
 import { type LifelineDividerProps } from "./LifelineDivider"
 

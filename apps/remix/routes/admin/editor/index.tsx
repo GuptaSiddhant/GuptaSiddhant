@@ -1,8 +1,7 @@
+import AdminDashboard from "@features/admin/components/AdminDashboard"
+import { useAdminApp } from "@features/admin/helpers"
+import Table from "@features/ui/Table"
 import { useOutletContext } from "@remix-run/react"
-
-import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import { useAdminApp } from "~/features/admin/helpers"
-import Table from "~/features/ui/Table"
 
 import { type LoaderData } from "../editor"
 

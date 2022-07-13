@@ -1,11 +1,11 @@
 import {
   type HeroHeaderCaptionIconType,
   HeroHeaderCaption,
-} from "~/features/hero/HeroHeader"
-import { type TeaserProps } from "~/features/teaser"
-import TeaserCarousel from "~/features/teaser/TeaserCarousel"
-import { InternalLink } from "~/features/ui/Link"
-import { H2 } from "~/features/ui/Text"
+} from "@features/hero/HeroHeader"
+import { type TeaserProps } from "@features/teaser"
+import TeaserCarousel from "@features/teaser/TeaserCarousel"
+import { InternalLink } from "@features/ui/Link"
+import { H2 } from "@features/ui/Text"
 
 export interface HomeTeaserCarouselProps {
   caption: string

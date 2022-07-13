@@ -1,11 +1,10 @@
+import type { Gallery } from "@features/types"
+import { ExternalLink } from "@features/ui/Link"
+import Mdx from "@features/ui/Mdx"
+import { H5, H6, Paragraph } from "@features/ui/Text"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import type { ReactNode } from "react"
-
-import type { Gallery } from "~/features/types"
-import { ExternalLink } from "~/features/ui/Link"
-import Mdx from "~/features/ui/Mdx"
-import { H5, H6, Paragraph } from "~/features/ui/Text"
 
 import useLifelineContext from "./context"
 

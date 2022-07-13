@@ -1,18 +1,17 @@
+import getCSSForThemeName, {
+  type ThemeName,
+  DEFAULT_THEME,
+} from "@features/theme"
+import {
+  getThemeFromRequest,
+  parseCookie,
+  themeCookie,
+} from "@features/theme/cookie.server"
 import {
   type ActionFunction,
   type LoaderFunction,
   redirect,
 } from "@remix-run/server-runtime"
-
-import getCSSForThemeName, {
-  type ThemeName,
-  DEFAULT_THEME,
-} from "~/features/theme"
-import {
-  getThemeFromRequest,
-  parseCookie,
-  themeCookie,
-} from "~/features/theme/cookie.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)

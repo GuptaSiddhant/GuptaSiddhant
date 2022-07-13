@@ -6,7 +6,7 @@ import {
   getLanguageBadgeProperties,
   getLanguageFromClassName,
   isLanguageSupported,
-} from "~/features/helpers/code-lang"
+} from "@features/helpers/code-lang"
 
 import { CopyButton } from "./Button"
 

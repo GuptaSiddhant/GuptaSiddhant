@@ -1,5 +1,5 @@
-import { type TeaserProps } from "~/features/teaser"
-import { type Gallery, type LinkObject } from "~/features/types"
+import { type TeaserProps } from "@features/teaser"
+import { type Gallery, type LinkObject } from "@features/types"
 
 export interface ProjectProps extends TeaserProps {
   association?: string

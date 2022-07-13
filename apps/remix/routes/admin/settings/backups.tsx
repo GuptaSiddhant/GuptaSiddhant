@@ -1,3 +1,11 @@
+import {
+  backupDatabase,
+  generateBackupNameFromBackupPath,
+} from "@features/admin/backup/service.server"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { authenticateRoute } from "@features/service/auth.server"
+import storage, { type StorageFile } from "@features/service/storage.server"
+import Action from "@features/ui/Action"
 import { Outlet, useLoaderData } from "@remix-run/react"
 import {
   type ActionFunction,
@@ -6,15 +14,6 @@ import {
   redirect,
 } from "@remix-run/server-runtime"
 import BackupIcon from "remixicon-react/UploadCloud2FillIcon"
-
-import {
-  backupDatabase,
-  generateBackupNameFromBackupPath,
-} from "~/features/admin/backup/service.server"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { authenticateRoute } from "~/features/service/auth.server"
-import storage, { type StorageFile } from "~/features/service/storage.server"
-import Action from "~/features/ui/Action"
 
 interface LoaderData {
   list: string[]

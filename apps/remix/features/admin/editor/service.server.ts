@@ -1,12 +1,12 @@
 import invariant from "tiny-invariant"
 
-import { getModelByDatabaseModel } from "~/features/experiences/helpers"
-import { getDataFromModelObject } from "~/features/models/helpers"
+import { getModelByDatabaseModel } from "@features/experiences/helpers"
+import { getDataFromModelObject } from "@features/models/helpers"
 import {
   type DatabaseDocument,
   type DatabaseModel,
   type DatabaseType,
-} from "~/features/service/database.server"
+} from "@features/service/database.server"
 
 export async function modifyDatabaseDocumentWithEditorForm<
   T extends DatabaseDocument,

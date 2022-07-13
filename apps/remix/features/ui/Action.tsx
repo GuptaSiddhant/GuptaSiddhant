@@ -7,8 +7,8 @@ import {
 } from "@remix-run/react"
 import clsx from "clsx"
 
-import useStableCallback from "~/features/hooks/useStableCallback"
-import { type ToastProps } from "~/features/toaster/Toast"
+import useStableCallback from "@features/hooks/useStableCallback"
+import { type ToastProps } from "@features/toaster/Toast"
 
 import useToastWithMinDuration from "../toaster/useToastWithMinDuration"
 import Button from "./Button"

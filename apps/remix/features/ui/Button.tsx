@@ -6,7 +6,7 @@ import {
 } from "react"
 import CopyIcon from "remixicon-react/FileCopyLineIcon"
 
-import useCopy from "~/features/hooks/useCopy"
+import useCopy from "@features/hooks/useCopy"
 
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   buttonRef?: ForwardedRef<HTMLButtonElement> | null

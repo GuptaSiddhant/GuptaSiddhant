@@ -1,7 +1,6 @@
+import { CSS_VAR_HEADER_HEIGHT } from "@features/constants"
+import useEventListener from "@features/hooks/useEventListener"
 import { useRef } from "react"
-
-import { CSS_VAR_HEADER_HEIGHT } from "~/features/constants"
-import useEventListener from "~/features/hooks/useEventListener"
 
 export default function useSetHeaderHeight() {
   const ref = useRef<HTMLElement>(null)

@@ -1,20 +1,19 @@
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
-
-import { getAboutInfo, getSkills } from "~/features/about/service.server"
+import { getAboutInfo, getSkills } from "@features/about/service.server"
 import {
   getBlogPostDetails,
   getBlogPostTeaserList,
-} from "~/features/blog/service.server"
+} from "@features/blog/service.server"
 import {
   getCareerItem,
   getCareerList,
   getEducationItem,
   getEducationList,
-} from "~/features/experiences/service.server"
+} from "@features/experiences/service.server"
 import {
   getProjectDetails,
   getProjectTeaserList,
-} from "~/features/projects/service.server"
+} from "@features/projects/service.server"
+import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 const apiTypes: Record<
   string,

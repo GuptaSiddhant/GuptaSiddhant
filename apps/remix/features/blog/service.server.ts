@@ -1,9 +1,9 @@
-import Database, { DatabaseModel } from "~/features/service/database.server"
-import { type TeaserProps } from "~/features/teaser"
+import Database, { DatabaseModel } from "@features/service/database.server"
+import { type TeaserProps } from "@features/teaser"
 import {
   getCrossSellTeasers,
   getTeasersFromCollection,
-} from "~/features/teaser/helpers"
+} from "@features/teaser/helpers"
 
 import { type BlogPostProps } from "."
 

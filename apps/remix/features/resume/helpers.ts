@@ -1,5 +1,5 @@
-import { type AboutInfo } from "~/features/about"
-import { parseGetAllSearchParams } from "~/features/helpers/request"
+import { type AboutInfo } from "@features/about"
+import { parseGetAllSearchParams } from "@features/helpers/request"
 
 import type { ContactLinkProps } from "./types"
 

@@ -1,15 +1,14 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { authenticateRoute } from "@features/service/auth.server"
+import Database, { DatabaseModel } from "@features/service/database.server"
+import Action from "@features/ui/Action"
+import { ErrorSection } from "@features/ui/Error"
+import { Caption, Paragraph } from "@features/ui/Text"
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import invariant from "tiny-invariant"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { authenticateRoute } from "~/features/service/auth.server"
-import Database, { DatabaseModel } from "~/features/service/database.server"
-import Action from "~/features/ui/Action"
-import { ErrorSection } from "~/features/ui/Error"
-import { Caption, Paragraph } from "~/features/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage)
 

@@ -1,3 +1,25 @@
+import { type BlogPostProps } from "@features/blog"
+import {
+  getBlogPostCrossSell,
+  getBlogPostDetails,
+} from "@features/blog/service.server"
+import {
+  extractTocFromMdx,
+  transformContentToMdx,
+} from "@features/helpers/mdx.server"
+import { generateArticleMeta } from "@features/helpers/meta"
+import { type TocItem } from "@features/helpers/table-of-contents"
+import Hero from "@features/hero"
+import { type TeaserProps } from "@features/teaser"
+import TeaserCarousel from "@features/teaser/TeaserCarousel"
+import Divider from "@features/ui/Divider"
+import { ErrorSection } from "@features/ui/Error"
+import Mdx from "@features/ui/Mdx"
+import Reader from "@features/ui/Reader"
+import ShareTray from "@features/ui/ShareTray"
+import TableOfContent from "@features/ui/TableOfContent"
+import Tags from "@features/ui/Tags"
+import { H2 } from "@features/ui/Text"
 import { useLoaderData } from "@remix-run/react"
 import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import {
@@ -5,29 +27,6 @@ import {
   type MetaFunction,
   json,
 } from "@remix-run/server-runtime"
-
-import { type BlogPostProps } from "~/features/blog"
-import {
-  getBlogPostCrossSell,
-  getBlogPostDetails,
-} from "~/features/blog/service.server"
-import {
-  extractTocFromMdx,
-  transformContentToMdx,
-} from "~/features/helpers/mdx.server"
-import { generateArticleMeta } from "~/features/helpers/meta"
-import { type TocItem } from "~/features/helpers/table-of-contents"
-import Hero from "~/features/hero"
-import { type TeaserProps } from "~/features/teaser"
-import TeaserCarousel from "~/features/teaser/TeaserCarousel"
-import Divider from "~/features/ui/Divider"
-import { ErrorSection } from "~/features/ui/Error"
-import Mdx from "~/features/ui/Mdx"
-import Reader from "~/features/ui/Reader"
-import ShareTray from "~/features/ui/ShareTray"
-import TableOfContent from "~/features/ui/TableOfContent"
-import Tags from "~/features/ui/Tags"
-import { H2 } from "~/features/ui/Text"
 
 interface LoaderData {
   post: BlogPostProps

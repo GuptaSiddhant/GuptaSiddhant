@@ -1,8 +1,8 @@
 import clsx from "clsx"
 import type { ReactNode } from "react"
 
-import Table, { type TableProps } from "~/features/ui/Table"
-import { Caption } from "~/features/ui/Text"
+import Table, { type TableProps } from "@features/ui/Table"
+import { Caption } from "@features/ui/Text"
 
 export interface AdminDashboardProps {
   children: ReactNode

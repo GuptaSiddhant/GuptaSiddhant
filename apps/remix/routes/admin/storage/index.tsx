@@ -1,15 +1,12 @@
+import AdminDashboard from "@features/admin/components/AdminDashboard"
+import { useAdminApp } from "@features/admin/helpers"
+import { authenticateRoute } from "@features/service/auth.server"
+import storage, { type StorageMetadata } from "@features/service/storage.server"
+import { ExternalLink } from "@features/ui/Link"
 import { formatDateTime } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-
-import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import { useAdminApp } from "~/features/admin/helpers"
-import { authenticateRoute } from "~/features/service/auth.server"
-import storage, {
-  type StorageMetadata,
-} from "~/features/service/storage.server"
-import { ExternalLink } from "~/features/ui/Link"
 
 interface LoaderData {
   metadata: StorageMetadata

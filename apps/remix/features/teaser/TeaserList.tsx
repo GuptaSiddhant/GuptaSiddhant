@@ -1,10 +1,9 @@
+import type { BaseProps } from "@features/types"
+import Img from "@features/ui/Img"
+import Section from "@features/ui/Section"
 import { formatDate } from "@gs/utils/format"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
-
-import type { BaseProps } from "~/features/types"
-import Img from "~/features/ui/Img"
-import Section from "~/features/ui/Section"
 
 import { type TeaserProps } from "."
 

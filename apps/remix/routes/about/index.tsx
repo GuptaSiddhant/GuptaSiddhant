@@ -1,20 +1,19 @@
-import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
-
-import type { AboutInfo } from "~/features/about"
-import AboutHero from "~/features/about/AboutHero"
-import { getAboutInfo } from "~/features/about/service.server"
-import { generateTagListFromExperienceProps } from "~/features/experiences/helpers"
-import { getExperienceList } from "~/features/experiences/service.server"
-import { parseGetAllSearchParams } from "~/features/helpers/request"
-import type { TocItem } from "~/features/helpers/table-of-contents"
-import { type LifeLineItems, LifeLineCategory } from "~/features/lifeline"
+import type { AboutInfo } from "@features/about"
+import AboutHero from "@features/about/AboutHero"
+import { getAboutInfo } from "@features/about/service.server"
+import { generateTagListFromExperienceProps } from "@features/experiences/helpers"
+import { getExperienceList } from "@features/experiences/service.server"
+import { parseGetAllSearchParams } from "@features/helpers/request"
+import type { TocItem } from "@features/helpers/table-of-contents"
+import { type LifeLineItems, LifeLineCategory } from "@features/lifeline"
 import {
   createLifeline,
   createTocFromLifeline,
-} from "~/features/lifeline/helpers"
-import Lifeline from "~/features/lifeline/Lifeline"
+} from "@features/lifeline/helpers"
+import Lifeline from "@features/lifeline/Lifeline"
+import { useLoaderData } from "@remix-run/react"
+import type { LoaderFunction } from "@remix-run/server-runtime"
+import { json } from "@remix-run/server-runtime"
 
 interface LoaderData {
   aboutInfo: AboutInfo

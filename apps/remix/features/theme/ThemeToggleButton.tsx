@@ -1,7 +1,7 @@
 import DarkModeIcon from "remixicon-react/MoonFillIcon"
 import LightModeIcon from "remixicon-react/MoonLineIcon"
 
-import Action from "~/features/ui/Action"
+import Action from "@features/ui/Action"
 
 import { type ThemeName } from "."
 

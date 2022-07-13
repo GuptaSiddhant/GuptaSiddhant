@@ -1,9 +1,8 @@
+import { getAboutInfo } from "@features/about/service.server"
+import { internalNavigationLinks } from "@features/navigation/useNavigationLinks"
+import { DEFAULT_THEME, getThemeFromThemeName } from "@features/theme"
+import type { WebApplicationManifest } from "@features/types/webmanifest"
 import type { LoaderFunction } from "@remix-run/server-runtime"
-
-import { getAboutInfo } from "~/features/about/service.server"
-import { internalNavigationLinks } from "~/features/navigation/useNavigationLinks"
-import { DEFAULT_THEME, getThemeFromThemeName } from "~/features/theme"
-import type { WebApplicationManifest } from "~/features/types/webmanifest"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const [about] = await Promise.all([getAboutInfo()])

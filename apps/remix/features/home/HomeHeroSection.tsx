@@ -1,10 +1,10 @@
 import { formatList } from "@gs/utils/format"
 
-import { type AboutInfo } from "~/features/about"
-import Hero from "~/features/hero"
-import CodeBlock from "~/features/ui/CodeBlock"
-import { ExternalLink, InternalLink } from "~/features/ui/Link"
-import { ChangingText, H1 } from "~/features/ui/Text"
+import { type AboutInfo } from "@features/about"
+import Hero from "@features/hero"
+import CodeBlock from "@features/ui/CodeBlock"
+import { ExternalLink, InternalLink } from "@features/ui/Link"
+import { ChangingText, H1 } from "@features/ui/Text"
 
 export default function HomeHeroSection(about: AboutInfo): JSX.Element {
   const {

@@ -1,3 +1,14 @@
+import { getAboutInfo } from "@features/about/service.server"
+import { getNavigationRemoteConfig } from "@features/navigation/service.server"
+import useNavigationLinks from "@features/navigation/useNavigationLinks"
+import { type RootLoaderData } from "@features/root"
+import AppLayout from "@features/root/AppLayout"
+import { CatchBoundary, ErrorBoundary } from "@features/root/boundaries"
+import Document from "@features/root/Document"
+import links from "@features/root/links"
+import meta from "@features/root/meta"
+import { getAuthUser } from "@features/service/auth.server"
+import { getThemeFromRequest } from "@features/theme/cookie.server"
 import type { ShouldReloadFunction } from "@remix-run/react"
 import {
   LiveReload,
@@ -8,18 +19,6 @@ import {
 } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-
-import { getAboutInfo } from "~/features/about/service.server"
-import { getNavigationRemoteConfig } from "~/features/navigation/service.server"
-import useNavigationLinks from "~/features/navigation/useNavigationLinks"
-import { type RootLoaderData } from "~/features/root"
-import AppLayout from "~/features/root/AppLayout"
-import { CatchBoundary, ErrorBoundary } from "~/features/root/boundaries"
-import Document from "~/features/root/Document"
-import links from "~/features/root/links"
-import meta from "~/features/root/meta"
-import { getAuthUser } from "~/features/service/auth.server"
-import { getThemeFromRequest } from "~/features/theme/cookie.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)

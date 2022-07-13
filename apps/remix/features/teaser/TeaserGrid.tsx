@@ -1,9 +1,9 @@
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 
-import Section from "~/features/ui/Section"
+import Section from "@features/ui/Section"
 
-import type { BaseProps } from "~/features/about"
+import type { BaseProps } from "@features/about"
 import { type TeaserProps } from "."
 
 export interface TeaserGridProps extends BaseProps {

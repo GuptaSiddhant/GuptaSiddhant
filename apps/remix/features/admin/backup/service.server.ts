@@ -1,5 +1,5 @@
-import Database, { DatabaseModel } from "~/features/service/database.server"
-import storage from "~/features/service/storage.server"
+import Database, { DatabaseModel } from "@features/service/database.server"
+import storage from "@features/service/storage.server"
 
 export async function backupDatabase() {
   const backupData: Record<string, any> = {}

@@ -2,8 +2,8 @@ import { NavLink } from "@remix-run/react"
 import { Fragment, useMemo } from "react"
 import NavMenuIcon from "remixicon-react/Menu3LineIcon"
 
-import { isExternalLink } from "~/features/helpers"
-import Menu, { type MenuActionProps } from "~/features/ui/Menu"
+import { isExternalLink } from "@features/helpers"
+import Menu, { type MenuActionProps } from "@features/ui/Menu"
 
 import type { NavigationLinkProps } from "./types"
 

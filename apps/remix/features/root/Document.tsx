@@ -1,7 +1,6 @@
+import { type ThemeName, checkIfDarkTheme } from "@features/theme"
 import { Links, Meta } from "@remix-run/react"
 import clsx from "clsx"
-
-import { type ThemeName, checkIfDarkTheme } from "~/features/theme"
 
 const intlListFormatPolyfillScript =
   "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en"

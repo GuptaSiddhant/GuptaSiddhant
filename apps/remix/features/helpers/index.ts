@@ -1,6 +1,5 @@
+import { toKebabCase } from "@gs/utils/format"
 import type { ReactNode } from "react"
-
-import { toKebabCase } from "../../../../packages/utils/format"
 
 export function isExternalLink(url: string): boolean {
   return ["://", "mailto:"].some((indicator) => url.includes(indicator))

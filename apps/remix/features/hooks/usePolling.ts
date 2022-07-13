@@ -1,9 +1,8 @@
+import type { RemixSubmitFunctionTarget } from "@features/types"
 import { type SubmitOptions, useLocation, useSubmit } from "@remix-run/react"
 import type { SetStateAction } from "react"
 import { useRef } from "react"
 import { useEffect, useState } from "react"
-
-import type { RemixSubmitFunctionTarget } from "~/features/types"
 
 import useEventListener from "./useEventListener"
 import useStableCallback from "./useStableCallback"

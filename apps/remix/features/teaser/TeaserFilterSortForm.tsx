@@ -6,8 +6,8 @@ import GridIcon from "remixicon-react/GridLineIcon"
 import ListIcon from "remixicon-react/ListUnorderedIcon"
 import SortIcon from "remixicon-react/SortDescIcon"
 
-import RadioGroup from "~/features/ui/RadioGroup"
-import Select from "~/features/ui/Select"
+import RadioGroup from "@features/ui/RadioGroup"
+import Select from "@features/ui/Select"
 
 import { SortByOption, ViewAsOption } from "."
 import type { FilterSortTeasersReturn } from "./filter-sort"

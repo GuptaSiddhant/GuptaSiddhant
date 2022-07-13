@@ -1,6 +1,5 @@
+import generateResumePdfString from "@features/resume"
 import type { LoaderFunction } from "@remix-run/server-runtime"
-
-import generateResumePdfString from "~/features/resume"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const pdfString = await generateResumePdfString(request)

@@ -9,7 +9,7 @@ import {
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
 import invariant from "tiny-invariant"
 
-import useAnimationFrame from "~/features/hooks/useAnimationFrame"
+import useAnimationFrame from "@features/hooks/useAnimationFrame"
 
 import useToaster from "."
 

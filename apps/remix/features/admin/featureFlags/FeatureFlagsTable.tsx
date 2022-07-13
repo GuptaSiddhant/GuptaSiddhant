@@ -5,11 +5,11 @@ import { useMemo } from "react"
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
-} from "~/features/service/feature-flag.server"
-import Action from "~/features/ui/Action"
-import Input from "~/features/ui/Input"
-import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
-import Table, { type TableColumnProps } from "~/features/ui/Table"
+} from "@features/service/feature-flag.server"
+import Action from "@features/ui/Action"
+import Input from "@features/ui/Input"
+import { getDeleteConfirmProps } from "@features/ui/Popover/Confirm"
+import Table, { type TableColumnProps } from "@features/ui/Table"
 
 const FORM_ID = "new-flag"
 

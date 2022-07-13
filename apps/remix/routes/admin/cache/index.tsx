@@ -1,12 +1,11 @@
+import AdminDashboard from "@features/admin/components/AdminDashboard"
+import { useAdminApp } from "@features/admin/helpers"
+import { authenticateRoute } from "@features/service/auth.server"
+import { getCache } from "@features/service/cache.server"
 import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-
-import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import { useAdminApp } from "~/features/admin/helpers"
-import { authenticateRoute } from "~/features/service/auth.server"
-import { getCache } from "~/features/service/cache.server"
 
 interface LoaderData {
   max: number

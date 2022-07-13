@@ -1,6 +1,5 @@
+import { __IS_SERVER_WIN__, DEFAULT_SCROLL_OFFSET } from "@features/constants"
 import { useReducer, useRef } from "react"
-
-import { __IS_SERVER_WIN__, DEFAULT_SCROLL_OFFSET } from "~/features/constants"
 
 import useEventListener from "./useEventListener"
 import useThrottle from "./useThrottle"

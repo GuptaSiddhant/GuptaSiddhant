@@ -1,3 +1,23 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { createAdminMeta } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { ONE_HOUR_IN_MS } from "@features/constants"
+import useMediaQuery from "@features/hooks/useMediaQuery"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import type {
+  CacheType,
+  ModifyCacheMethod,
+} from "@features/service/cache.server"
+import { modifyCache } from "@features/service/cache.server"
+import {
+  getCache,
+  getCachedKey,
+  parseCacheKey,
+} from "@features/service/cache.server"
+import Action from "@features/ui/Action"
+import CodeBlock from "@features/ui/CodeBlock"
+import { ErrorSection } from "@features/ui/Error"
 import { transformMsToReadableString } from "@gs/utils/format"
 import { useLoaderData } from "@remix-run/react"
 import type {
@@ -10,27 +30,6 @@ import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
 import invariant from "tiny-invariant"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { ONE_HOUR_IN_MS } from "~/features/constants"
-import useMediaQuery from "~/features/hooks/useMediaQuery"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import type {
-  CacheType,
-  ModifyCacheMethod,
-} from "~/features/service/cache.server"
-import { modifyCache } from "~/features/service/cache.server"
-import {
-  getCache,
-  getCachedKey,
-  parseCacheKey,
-} from "~/features/service/cache.server"
-import Action from "~/features/ui/Action"
-import CodeBlock from "~/features/ui/CodeBlock"
-import { ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData {
   key: string

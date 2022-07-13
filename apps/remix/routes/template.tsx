@@ -1,3 +1,4 @@
+import { CatchBoundarySection, ErrorSection } from "@features/ui/Error"
 import {
   type ShouldReloadFunction,
   Outlet,
@@ -13,8 +14,6 @@ import {
   json,
   redirect,
 } from "@remix-run/server-runtime"
-
-import { CatchBoundarySection, ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData {}
 

@@ -1,5 +1,5 @@
-import { sortByDate } from "~/features/helpers"
-import Database, { DatabaseModel } from "~/features/service/database.server"
+import { sortByDate } from "@features/helpers"
+import Database, { DatabaseModel } from "@features/service/database.server"
 
 import {
   transformCareerToExperience,

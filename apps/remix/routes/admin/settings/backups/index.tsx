@@ -1,9 +1,8 @@
+import AdminDashboard from "@features/admin/components/AdminDashboard"
+import type { StorageFile } from "@features/service/storage.server"
 import { formatDateTime } from "@gs/utils/format"
 import { useOutletContext } from "@remix-run/react"
 import BackupIcon from "remixicon-react/UploadCloud2FillIcon"
-
-import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import type { StorageFile } from "~/features/service/storage.server"
 
 export default function BackupsIndex(): JSX.Element | null {
   const { files } = useOutletContext<{ files: StorageFile[] }>()

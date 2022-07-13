@@ -1,13 +1,12 @@
-import AdminRegistry, {
-  type AdminAction,
-  type AdminApp,
-} from "@gs/admin/registry"
 import AdminIcon from "remixicon-react/AdminFillIcon"
 import CacheIcon from "remixicon-react/Database2FillIcon"
 import EditorIcon from "remixicon-react/EditBoxFillIcon"
 import StorageIcon from "remixicon-react/HardDrive2FillIcon"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
+
+import AdminRegistry from "./registry"
+import type { AdminAction, AdminApp } from "./types"
 
 export { AdminAction, AdminApp as AdminAppProps, AdminIcon }
 

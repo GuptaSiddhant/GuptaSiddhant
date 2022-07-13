@@ -1,9 +1,8 @@
+import type { TocItem } from "@features/helpers/table-of-contents"
+import Reader from "@features/ui/Reader"
+import { proseWidth } from "@features/ui/Section"
+import TableOfContent from "@features/ui/TableOfContent"
 import clsx from "clsx"
-
-import type { TocItem } from "~/features/helpers/table-of-contents"
-import Reader from "~/features/ui/Reader"
-import { proseWidth } from "~/features/ui/Section"
-import TableOfContent from "~/features/ui/TableOfContent"
 
 import type { LifeLineCategory, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"

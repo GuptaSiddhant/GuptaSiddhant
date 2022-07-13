@@ -1,4 +1,4 @@
-import type { StorageFile } from "~/features/service/storage.server"
+import type { StorageFile } from "@features/service/storage.server"
 
 export enum StoragePathType {
   Dir = "dir",

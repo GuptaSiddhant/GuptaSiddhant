@@ -1,7 +1,7 @@
 import { Link, NavLink, useLocation } from "@remix-run/react"
 import clsx from "clsx"
 
-import { Caption } from "~/features/ui/Text"
+import { Caption } from "@features/ui/Text"
 
 import { AdminIcon } from "../index"
 

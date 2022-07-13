@@ -1,9 +1,9 @@
 import { capitalize } from "@gs/utils/format"
 import { Document, Page, Text } from "@react-pdf/renderer"
 
-import type { SkillCategory, Skills } from "~/features/about"
-import { generateDurationString } from "~/features/experiences/helpers"
-import type { ExperienceProps } from "~/features/experiences/types"
+import type { SkillCategory, Skills } from "@features/about"
+import { generateDurationString } from "@features/experiences/helpers"
+import type { ExperienceProps } from "@features/experiences/types"
 
 import type { CardProps } from "./components/Card"
 import Card from "./components/Card"

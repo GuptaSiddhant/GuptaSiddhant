@@ -1,3 +1,19 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { createAdminMeta } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { type AdminNavbarGroupProps } from "@features/admin/layout/AdminNavbar"
+import type { AdminAppHandle } from "@features/admin/types"
+import {
+  getCareerList,
+  getEducationList,
+} from "@features/experiences/service.server"
+import type { ExperienceProps } from "@features/experiences/types"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import { DatabaseModel } from "@features/service/database.server"
+import { ErrorSection } from "@features/ui/Error"
+import Menu from "@features/ui/Menu"
+import { Caption } from "@features/ui/Text"
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react"
 import type {
   ErrorBoundaryComponent,
@@ -6,23 +22,6 @@ import type {
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
-import type { AdminAppHandle } from "~/features/admin/types"
-import {
-  getCareerList,
-  getEducationList,
-} from "~/features/experiences/service.server"
-import type { ExperienceProps } from "~/features/experiences/types"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import { DatabaseModel } from "~/features/service/database.server"
-import { ErrorSection } from "~/features/ui/Error"
-import Menu from "~/features/ui/Menu"
-import { Caption } from "~/features/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 

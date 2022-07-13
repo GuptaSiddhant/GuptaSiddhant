@@ -1,8 +1,7 @@
+import CodeBlock from "@features/ui/CodeBlock"
+import { ErrorPage } from "@features/ui/Error"
 import { useCatch } from "@remix-run/react"
 import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
-
-import CodeBlock from "~/features/ui/CodeBlock"
-import { ErrorPage } from "~/features/ui/Error"
 
 import Document from "./Document"
 

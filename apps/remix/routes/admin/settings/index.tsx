@@ -1,10 +1,9 @@
+import AdminDashboard from "@features/admin/components/AdminDashboard"
+import { useAdminApp } from "@features/admin/helpers"
+import { authenticateRoute } from "@features/service/auth.server"
 import { queryFirebaseRemoteConfigKeys } from "@gs/firebase/remote-config"
 import { useLoaderData } from "@remix-run/react"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
-
-import AdminDashboard from "~/features/admin/components/AdminDashboard"
-import { useAdminApp } from "~/features/admin/helpers"
-import { authenticateRoute } from "~/features/service/auth.server"
 
 interface LoaderData {
   featureConfigKeys: string[]

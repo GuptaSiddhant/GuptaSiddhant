@@ -1,13 +1,13 @@
 import { renderToString } from "@react-pdf/renderer"
 import { createElement } from "react"
 
-import { aboutTexts } from "~/features/about"
-import { getAboutInfo, getSkills } from "~/features/about/service.server"
+import { aboutTexts } from "@features/about"
+import { getAboutInfo, getSkills } from "@features/about/service.server"
 import {
   getCareerList,
   getEducationList,
-} from "~/features/experiences/service.server"
-import type { ExperienceProps } from "~/features/experiences/types"
+} from "@features/experiences/service.server"
+import type { ExperienceProps } from "@features/experiences/types"
 
 import {
   getFiltersFromSearchParams,

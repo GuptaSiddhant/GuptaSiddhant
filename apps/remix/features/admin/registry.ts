@@ -1,27 +1,11 @@
 import invariant from "tiny-invariant"
 
-interface AdminAppBaseProps {
-  title: string
-  icon: JSX.Element | null
-  linkPath?: string
-}
-
-export interface AdminApp extends AdminAppBaseProps {
-  id: string
-  linkPath: string
-}
-
-export interface AdminAction {
-  id: string
-  title: string
-  icon: JSX.Element | null
-  linkPath?: string
-  onClick?: () => void
-}
-
-export interface AdminRegistryOptions {
-  adminBasePath?: string
-}
+import type {
+  AdminAction,
+  AdminApp,
+  AdminAppBaseProps,
+  AdminRegistryOptions,
+} from "./types"
 
 export default class AdminRegistry<T extends string> {
   #apps: Map<T, AdminAppBaseProps>

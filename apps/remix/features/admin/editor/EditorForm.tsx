@@ -7,13 +7,13 @@ import type {
   ModelArrayType,
   ModelProperties,
   ModelProperty,
-} from "~/features/models"
-import { type Model } from "~/features/models"
-import Accordion from "~/features/ui/Accordion"
-import Button from "~/features/ui/Button"
-import FormLabel from "~/features/ui/FormLabel"
-import Input from "~/features/ui/Input"
-import Select from "~/features/ui/Select"
+} from "@features/models"
+import { type Model } from "@features/models"
+import Accordion from "@features/ui/Accordion"
+import Button from "@features/ui/Button"
+import FormLabel from "@features/ui/FormLabel"
+import Input from "@features/ui/Input"
+import Select from "@features/ui/Select"
 
 export interface EditorFormProps<T extends Record<string, any>> {
   method: FormMethod

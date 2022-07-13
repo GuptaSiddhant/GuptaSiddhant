@@ -1,10 +1,9 @@
+import fontStyles from "@features/styles/font.css"
+import globalStyles from "@features/styles/global.css"
+import prismRhemeStyles from "@features/styles/prism-vscode-dark.css"
+import reachMenuButtonStyles from "@features/styles/reach-menu-button.css"
+import tailwindStyles from "@features/styles/tailwind.generated.css"
 import { type LinksFunction } from "@remix-run/server-runtime"
-
-import fontStyles from "~/features/styles/font.css"
-import globalStyles from "~/features/styles/global.css"
-import prismRhemeStyles from "~/features/styles/prism-vscode-dark.css"
-import reachMenuButtonStyles from "~/features/styles/reach-menu-button.css"
-import tailwindStyles from "~/features/styles/tailwind.generated.css"
 
 const links: LinksFunction = () => [
   {

@@ -3,8 +3,8 @@ import { type LinkProps, Link } from "@remix-run/react"
 import clsx from "clsx"
 import { type ComponentPropsWithoutRef } from "react"
 
-import { isExternalLink } from "~/features/helpers"
-import type { BaseProps } from "~/features/types"
+import { isExternalLink } from "@features/helpers"
+import type { BaseProps } from "@features/types"
 
 export { type LinkProps, Link }
 

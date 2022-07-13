@@ -1,5 +1,5 @@
-import { createAdminMeta } from "~/features/admin/helpers"
-import { H1, Paragraph } from "~/features/ui/Text"
+import { createAdminMeta } from "@features/admin/helpers"
+import { H1, Paragraph } from "@features/ui/Text"
 
 export default function AdminIndex(): JSX.Element | null {
   return (

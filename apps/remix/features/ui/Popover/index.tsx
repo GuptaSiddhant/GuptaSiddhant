@@ -3,9 +3,9 @@ import clsx from "clsx"
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 import invariant from "tiny-invariant"
 
-import useEventListener from "~/features/hooks/useEventListener"
-import useFocusTrap from "~/features/hooks/useFocusTrap"
-import useStableCallback from "~/features/hooks/useStableCallback"
+import useEventListener from "@features/hooks/useEventListener"
+import useFocusTrap from "@features/hooks/useFocusTrap"
+import useStableCallback from "@features/hooks/useStableCallback"
 
 interface PopoverContextValue<T extends HTMLElement> {
   isOpen: boolean

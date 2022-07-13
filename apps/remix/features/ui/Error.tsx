@@ -1,8 +1,8 @@
 import { useCatch } from "@remix-run/react"
 import clsx from "clsx"
 
-import Hero from "~/features/hero"
-import Logo from "~/features/root/Logo"
+import Hero from "@features/hero"
+import Logo from "@features/root/Logo"
 
 import CodeBlock from "./CodeBlock"
 

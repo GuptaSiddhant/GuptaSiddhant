@@ -1,7 +1,6 @@
+import { Caption } from "@features/ui/Text"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
-
-import { Caption } from "~/features/ui/Text"
 
 export interface LifelineDividerProps {
   id: string

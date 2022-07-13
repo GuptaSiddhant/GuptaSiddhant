@@ -1,9 +1,8 @@
+import { appLogger } from "@features/service/logger.server"
+import { resolveStorageAssetUrl } from "@features/service/storage.server"
+import { ErrorSection } from "@features/ui/Error"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
-
-import { appLogger } from "~/features/service/logger.server"
-import { resolveStorageAssetUrl } from "~/features/service/storage.server"
-import { ErrorSection } from "~/features/ui/Error"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const path = params["*"]

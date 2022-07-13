@@ -1,10 +1,10 @@
 import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import SaveButton from "remixicon-react/Save2FillIcon"
 
-import { type Model } from "~/features/models"
-import Action from "~/features/ui/Action"
-import Button from "~/features/ui/Button"
-import { getDeleteConfirmProps } from "~/features/ui/Popover/Confirm"
+import { type Model } from "@features/models"
+import Action from "@features/ui/Action"
+import Button from "@features/ui/Button"
+import { getDeleteConfirmProps } from "@features/ui/Popover/Confirm"
 
 import AdminLayout from "../layout/AdminLayout"
 import EditorForm from "./EditorForm"

@@ -1,3 +1,19 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { createAdminMeta, useAdminApp } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { type AdminNavbarGroupProps } from "@features/admin/layout/AdminNavbar"
+import type { AdminAppHandle } from "@features/admin/types"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import {
+  type ModifyCacheMethod,
+  getCache,
+  modifyCache,
+  parseCacheKey,
+} from "@features/service/cache.server"
+import Action from "@features/ui/Action"
+import { ErrorSection } from "@features/ui/Error"
+import { Caption } from "@features/ui/Text"
 import { useLoaderData } from "@remix-run/react"
 import type {
   ActionFunction,
@@ -8,23 +24,6 @@ import type {
 import { json, redirect } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { createAdminMeta, useAdminApp } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
-import type { AdminAppHandle } from "~/features/admin/types"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import {
-  type ModifyCacheMethod,
-  getCache,
-  modifyCache,
-  parseCacheKey,
-} from "~/features/service/cache.server"
-import Action from "~/features/ui/Action"
-import { ErrorSection } from "~/features/ui/Error"
-import { Caption } from "~/features/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 

@@ -1,3 +1,11 @@
+import { type AboutInfo } from "@features/about"
+import { getAboutInfo } from "@features/about/service.server"
+import { getBlogPostTeaserList } from "@features/blog/service.server"
+import HomeHeroSection from "@features/home/HomeHeroSection"
+import HomeTeaserCarousel from "@features/home/HomeTeaserCarousel"
+import { getProjectTeaserList } from "@features/projects/service.server"
+import { type TeaserProps } from "@features/teaser"
+import { ErrorSection } from "@features/ui/Error"
 import { useLoaderData } from "@remix-run/react"
 import type {
   ErrorBoundaryComponent,
@@ -6,15 +14,6 @@ import type {
 import { json } from "@remix-run/server-runtime"
 import ProjectIcon from "remixicon-react/ArtboardFillIcon"
 import BlogIcon from "remixicon-react/QuillPenFillIcon"
-
-import { type AboutInfo } from "~/features/about"
-import { getAboutInfo } from "~/features/about/service.server"
-import { getBlogPostTeaserList } from "~/features/blog/service.server"
-import HomeHeroSection from "~/features/home/HomeHeroSection"
-import HomeTeaserCarousel from "~/features/home/HomeTeaserCarousel"
-import { getProjectTeaserList } from "~/features/projects/service.server"
-import { type TeaserProps } from "~/features/teaser"
-import { ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData {
   about: AboutInfo

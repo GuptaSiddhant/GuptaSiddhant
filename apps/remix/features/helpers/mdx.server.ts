@@ -1,5 +1,5 @@
-import { DEFAULT_TOC_MAX_LEVEL } from "~/features/constants"
-import { type TocItem } from "~/features/helpers/table-of-contents"
+import { DEFAULT_TOC_MAX_LEVEL } from "@features/constants"
+import { type TocItem } from "@features/helpers/table-of-contents"
 
 import { generateHeadingId } from "."
 

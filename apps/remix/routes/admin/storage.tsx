@@ -1,3 +1,17 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { createAdminMeta } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { generateNavbarGroupsFromStorageDirContents } from "@features/admin/storage/helpers"
+import { modifyStorage } from "@features/admin/storage/service.server"
+import type { AdminAppHandle } from "@features/admin/types"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import storage, { type StorageDir } from "@features/service/storage.server"
+import Action from "@features/ui/Action"
+import { ErrorSection } from "@features/ui/Error"
+import Popover from "@features/ui/Popover"
+import PopoverUpload from "@features/ui/Popover/Upload"
+import { Caption } from "@features/ui/Text"
 import { RefreshIcon, UploadIcon } from "@gs/icons"
 import { useLoaderData } from "@remix-run/react"
 import type {
@@ -7,21 +21,6 @@ import type {
   MetaFunction,
 } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { generateNavbarGroupsFromStorageDirContents } from "~/features/admin/storage/helpers"
-import { modifyStorage } from "~/features/admin/storage/service.server"
-import type { AdminAppHandle } from "~/features/admin/types"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import storage, { type StorageDir } from "~/features/service/storage.server"
-import Action from "~/features/ui/Action"
-import { ErrorSection } from "~/features/ui/Error"
-import Popover from "~/features/ui/Popover"
-import PopoverUpload from "~/features/ui/Popover/Upload"
-import { Caption } from "~/features/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage)
 

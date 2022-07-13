@@ -4,11 +4,11 @@ import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 import SearchIcon from "remixicon-react/Search2LineIcon"
 
-import { type AboutInfo } from "~/features/about"
-import { AdminIcon } from "~/features/admin"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import type { ThemeName } from "~/features/theme"
-import ThemeToggleButton from "~/features/theme/ThemeToggleButton"
+import { type AboutInfo } from "@features/about"
+import { AdminIcon } from "@features/admin"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import type { ThemeName } from "@features/theme"
+import ThemeToggleButton from "@features/theme/ThemeToggleButton"
 
 import type { NavigationRemoteConfig } from "./service.server"
 

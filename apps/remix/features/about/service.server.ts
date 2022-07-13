@@ -1,4 +1,4 @@
-import Database, { DatabaseModel } from "~/features/service/database.server"
+import Database, { DatabaseModel } from "@features/service/database.server"
 
 import type { AboutInfo, Skills } from "."
 

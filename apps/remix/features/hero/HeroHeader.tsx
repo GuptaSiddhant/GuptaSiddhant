@@ -1,12 +1,11 @@
+import { proseWidth } from "@features/ui/Section"
+import { Caption, H1, SubHeading } from "@features/ui/Text"
 import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import { type ReactElement, type ReactNode } from "react"
 import BackIcon from "remixicon-react/ArrowLeftLineIcon"
 import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
 import HashIcon from "remixicon-react/HashtagIcon"
-
-import { proseWidth } from "~/features/ui/Section"
-import { Caption, H1, SubHeading } from "~/features/ui/Text"
 
 export interface HeroHeaderProps {
   title: string

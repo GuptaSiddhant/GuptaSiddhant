@@ -1,4 +1,4 @@
-import type { To } from "~/features/types"
+import type { To } from "@features/types"
 
 export interface NavigationLinkProps {
   id: string

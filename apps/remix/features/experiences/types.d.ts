@@ -1,4 +1,4 @@
-import type { Gallery, LinkObject } from "~/features/types"
+import type { Gallery, LinkObject } from "@features/types"
 
 export interface ExperienceProps extends CommonExperienceProps {
   title: string

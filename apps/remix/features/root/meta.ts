@@ -1,6 +1,5 @@
+import { getThemeFromThemeName } from "@features/theme"
 import { type MetaFunction } from "@remix-run/server-runtime"
-
-import { getThemeFromThemeName } from "~/features/theme"
 
 import type { RootLoaderData } from "."
 

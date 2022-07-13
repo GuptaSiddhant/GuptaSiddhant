@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import type { BaseProps } from "~/features/types"
+import type { BaseProps } from "@features/types"
 
 export default function Section({
   children,

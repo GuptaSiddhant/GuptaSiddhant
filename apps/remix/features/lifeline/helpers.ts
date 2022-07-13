@@ -1,6 +1,6 @@
-import type { ExperienceProps } from "~/features/experiences/types"
-import { sortByDate } from "~/features/helpers"
-import type { TocItem } from "~/features/helpers/table-of-contents"
+import type { ExperienceProps } from "@features/experiences/types"
+import { sortByDate } from "@features/helpers"
+import type { TocItem } from "@features/helpers/table-of-contents"
 
 import type { LifeLineItem, LifeLineItems } from "."
 

@@ -1,7 +1,6 @@
+import type { BaseProps } from "@features/types"
+import Section, { proseWidth } from "@features/ui/Section"
 import clsx from "clsx"
-
-import type { BaseProps } from "~/features/types"
-import Section, { proseWidth } from "~/features/ui/Section"
 
 import HeroDescription from "./HeroDescription"
 import HeroHeader from "./HeroHeader"

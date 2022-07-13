@@ -1,10 +1,9 @@
+import authenticator, { loginUser } from "@features/service/auth.server"
+import CodeBlock from "@features/ui/CodeBlock"
+import Section from "@features/ui/Section"
 import { Form, useActionData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-
-import authenticator, { loginUser } from "~/features/service/auth.server"
-import CodeBlock from "~/features/ui/CodeBlock"
-import Section from "~/features/ui/Section"
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {

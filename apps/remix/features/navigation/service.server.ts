@@ -1,7 +1,7 @@
 import {
-  getAreFeaturesEnabled,
   FeatureFlagKey,
-} from "~/features/service/feature-flag.server"
+  getAreFeaturesEnabled,
+} from "@features/service/feature-flag.server"
 
 const navigationRemoteConfigKeys = [FeatureFlagKey.EnableSearch] as const
 

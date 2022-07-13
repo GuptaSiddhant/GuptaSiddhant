@@ -1,17 +1,16 @@
+import { AdminAppId, adminRegistry } from "@features/admin"
+import { createAdminMeta } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import { type AdminNavbarGroupProps } from "@features/admin/layout/AdminNavbar"
+import type { AdminAppHandle } from "@features/admin/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import { ErrorSection } from "@features/ui/Error"
+import { Caption } from "@features/ui/Text"
 import type {
   ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/server-runtime"
-
-import { AdminAppId, adminRegistry } from "~/features/admin"
-import { createAdminMeta } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import { type AdminNavbarGroupProps } from "~/features/admin/layout/AdminNavbar"
-import type { AdminAppHandle } from "~/features/admin/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import { ErrorSection } from "~/features/ui/Error"
-import { Caption } from "~/features/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings)
 

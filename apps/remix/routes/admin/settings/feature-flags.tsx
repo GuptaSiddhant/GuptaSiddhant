@@ -1,3 +1,17 @@
+import FeatureFlagsTable from "@features/admin/featureFlags/FeatureFlagsTable"
+import { createAdminMeta } from "@features/admin/helpers"
+import AdminLayout from "@features/admin/layout/AdminLayout"
+import type { NavigationLinkProps } from "@features/navigation/types"
+import { authenticateRoute } from "@features/service/auth.server"
+import {
+  type FeatureFlagsMap,
+  deleteFeatureFlag,
+  getAllFeatureFlags,
+  setFeatureFlag,
+} from "@features/service/feature-flag.server"
+import useTransitionSubmissionToast from "@features/toaster/useTransitionSubmissionToast"
+import Action from "@features/ui/Action"
+import { ErrorSection } from "@features/ui/Error"
 import { useLoaderData } from "@remix-run/react"
 import type {
   ActionFunction,
@@ -6,21 +20,6 @@ import type {
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
 import RefetchIcon from "remixicon-react/RestartLineIcon"
 import invariant from "tiny-invariant"
-
-import FeatureFlagsTable from "~/features/admin/featureFlags/FeatureFlagsTable"
-import { createAdminMeta } from "~/features/admin/helpers"
-import AdminLayout from "~/features/admin/layout/AdminLayout"
-import type { NavigationLinkProps } from "~/features/navigation/types"
-import { authenticateRoute } from "~/features/service/auth.server"
-import {
-  type FeatureFlagsMap,
-  deleteFeatureFlag,
-  getAllFeatureFlags,
-  setFeatureFlag,
-} from "~/features/service/feature-flag.server"
-import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
-import Action from "~/features/ui/Action"
-import { ErrorSection } from "~/features/ui/Error"
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap

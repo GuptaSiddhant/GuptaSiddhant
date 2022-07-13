@@ -1,7 +1,6 @@
+import useEventListener from "@features/hooks/useEventListener"
 import { useLocation } from "@remix-run/react"
 import { useEffect, useMemo, useState } from "react"
-
-import useEventListener from "~/features/hooks/useEventListener"
 
 import { __IS_SERVER_WIN__ } from "../constants"
 import useThrottle from "../hooks/useThrottle"

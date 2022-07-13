@@ -1,6 +1,5 @@
+import { type ThemeName, DEFAULT_THEME } from "@features/theme"
 import { type Cookie, createCookie } from "@remix-run/node"
-
-import { type ThemeName, DEFAULT_THEME } from "~/features/theme"
 
 export const themeCookie = createCookie("theme")
 
