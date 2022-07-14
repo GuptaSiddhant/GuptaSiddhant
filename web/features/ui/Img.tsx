@@ -24,7 +24,6 @@ export default function Img({
       alt=""
       {...props}
       className={clsx(props.className, "!m-0 rounded", "min-h-[200px]")}
-      loading="lazy"
     />
   )
 

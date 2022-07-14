@@ -37,7 +37,7 @@ export default function Input({
         list={datalistId}
         className={clsx(
           className,
-          "peer flex-1 rounded bg-default px-2 py-1 text-base",
+          "peer flex-1 rounded bg-secondary px-2 py-1 text-base",
           "read-only:text-disabled disabled:text-disabled",
         )}
       />
