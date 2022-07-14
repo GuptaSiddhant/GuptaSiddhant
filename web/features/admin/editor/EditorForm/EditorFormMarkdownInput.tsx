@@ -19,7 +19,10 @@ export default function EditorFormMarkdownInput({
   const [value, setValue] = useState<string>(defaultValue)
 
   useEffect(() => {
-    if (window.document.fullscreenEnabled) {
+    if (
+      window.document.fullscreenEnabled ||
+      (window.document as any).webkitFullscreenEnabled
+    ) {
       setIsFullscreen((enabled) => enabled === true)
     }
   }, [])
