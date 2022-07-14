@@ -124,7 +124,7 @@ function ToggleCell({
   return (
     <div className="flex">
       <Action.Form
-        method="patch"
+        method="put"
         title="Toggle flag"
         body={{ ...row, [dev ? "dev" : "prod"]: !value }}
       >

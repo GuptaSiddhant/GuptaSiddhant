@@ -7,6 +7,7 @@ import {
   type FeatureFlagsMap,
   deleteFeatureFlag,
   getAllFeatureFlags,
+  invalidateFeatureFlagsCache,
   setFeatureFlag,
 } from "@gs/service/feature-flag.server"
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast"
@@ -41,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
   const form = await request.formData()
   const flag = form.get("flag")?.toString()
 
-  if (method === "POST" || method === "PATCH") {
+  if (method === "POST" || method === "PUT") {
     invariant(flag, "flag is required")
     const devValue = form.get("dev")?.toString()
     const prodValue = form.get("prod")?.toString()
@@ -49,6 +50,10 @@ export const action: ActionFunction = async ({ request }) => {
     const prod = prodValue === "on" || prodValue === "true"
 
     await setFeatureFlag(flag, { dev, prod })
+  }
+
+  if (method === "PATCH") {
+    invalidateFeatureFlagsCache()
   }
 
   if (method === "DELETE") {
@@ -64,9 +69,13 @@ export default function CacheIndex(): JSX.Element | null {
 
   const actions: NavigationLinkProps[] = [
     {
-      id: "Refetch",
+      id: "invalidate-cache",
       children: (
-        <Action.Form title="Refetch config" children={<RefetchIcon />} />
+        <Action
+          title="Invalidate cache"
+          children={<RefetchIcon />}
+          method="patch"
+        />
       ),
     },
   ]

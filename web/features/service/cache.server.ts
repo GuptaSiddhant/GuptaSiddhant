@@ -17,12 +17,6 @@ const appCache =
     ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
   }))
 
-export enum CacheType {
-  DatabaseModel = "firestore-collection",
-  FirestoreDocument = "firestore-document",
-  FirebaseStorageFileUrl = "firebase-storage-file-url",
-}
-
 // Utils
 
 export function getCache() {
@@ -90,17 +84,7 @@ export function createCacheKey(type: string, value: string) {
 
 export function parseCacheKey(
   key: string,
-): { type: CacheType; value: string } | undefined {
-  if (key.includes("::")) {
-    const [type, value] = key.split("::")
-    if (!Object.values(CacheType).includes(type as CacheType)) {
-      console.error(`CacheType '${type}' does not exist.`)
-      return undefined
-    }
-
-    return { type: type as CacheType, value }
-  }
-
+): { type: string; value: string } | undefined {
   const [type, ...value] = key.split("/")
-  return { type: type as CacheType, value: value.join("/") }
+  return { type, value: value.join("/") }
 }

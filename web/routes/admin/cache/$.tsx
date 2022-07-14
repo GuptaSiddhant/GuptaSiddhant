@@ -5,7 +5,7 @@ import { ONE_HOUR_IN_MS } from "@gs/constants"
 import useMediaQuery from "@gs/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
-import type { CacheType, ModifyCacheMethod } from "@gs/service/cache.server"
+import type { ModifyCacheMethod } from "@gs/service/cache.server"
 import { modifyCache } from "@gs/service/cache.server"
 import { getCache, getCachedKey, parseCacheKey } from "@gs/service/cache.server"
 import Action from "@gs/ui/Action"
@@ -26,7 +26,7 @@ import invariant from "tiny-invariant"
 
 interface LoaderData {
   key: string
-  type: CacheType
+  type: string
   value?: string
   data: any
   ttl: number

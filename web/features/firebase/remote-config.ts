@@ -25,8 +25,9 @@ export async function mutateFirebaseRemoteConfigTemplate(
 }
 
 /** Query all the keys currently available in the Firebase remote-config. */
-export async function queryFirebaseRemoteConfigKeys(): Promise<string[]> {
-  const template = await queryFirebaseRemoteConfigTemplate()
+export async function queryFirebaseRemoteConfigKeys(
+  template: FirebaseRemoteConfigTemplate,
+): Promise<string[]> {
   if (!template) return []
 
   return Object.keys(template.parameters).filter((key) => {
@@ -40,9 +41,9 @@ export async function queryFirebaseRemoteConfigKeys(): Promise<string[]> {
 
 /** Query the value (and it's type) of a Firebase remote-config key. */
 export async function queryFirebaseRemoteConfigValueAndTypeByKey(
+  template: FirebaseRemoteConfigTemplate,
   key: string,
 ): Promise<FirebaseRemoteConfigKeyTypeValue | undefined> {
-  const template = await queryFirebaseRemoteConfigTemplate()
   if (!template) return undefined
 
   const parameter = template.parameters[key]
@@ -56,10 +57,14 @@ export async function queryFirebaseRemoteConfigValueAndTypeByKey(
 }
 
 /** Query Firebase remote-config as an object */
-export async function queryFirebaseRemoteConfigMap() {
-  const keys = await queryFirebaseRemoteConfigKeys()
+export async function queryFirebaseRemoteConfigMap(
+  template: FirebaseRemoteConfigTemplate,
+) {
+  const keys = await queryFirebaseRemoteConfigKeys(template)
   const keysTypeValueList = await Promise.all(
-    keys.map(queryFirebaseRemoteConfigValueAndTypeByKey),
+    keys.map((key) =>
+      queryFirebaseRemoteConfigValueAndTypeByKey(template, key),
+    ),
   )
 
   return keysTypeValueList.reduce(

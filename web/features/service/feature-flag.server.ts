@@ -2,12 +2,21 @@ import {
   type FirebaseRemoteConfigTemplate,
   mutateFirebaseRemoteConfigMap,
   queryFirebaseRemoteConfigKeys,
+  queryFirebaseRemoteConfigTemplate,
   queryFirebaseRemoteConfigValueAndTypeByKey,
 } from "@gs/firebase/remote-config"
+
+import {
+  deleteCachedKey,
+  deleteCachedKeysWith,
+  fetchCachedKey,
+} from "./cache.server"
 
 export enum FeatureFlagKey {
   EnableSearch = "enableSearch",
 }
+
+const cacheKey = "feature-flags"
 
 // Getters
 
@@ -22,29 +31,34 @@ export type FeatureFlagsMap<T extends FeatureFlagKey = FeatureFlagKey> = Record<
 >
 
 export async function getAllFeatureFlags(): Promise<FeatureFlagsMap | null> {
-  const keys = await queryFirebaseRemoteConfigKeys()
-  const keysTypeValueList = await Promise.all(
-    keys.map(queryFirebaseRemoteConfigValueAndTypeByKey),
-  )
+  return fetchCachedKey(cacheKey, async () => {
+    const template = await queryFirebaseRemoteConfigTemplate()
+    const keys = await queryFirebaseRemoteConfigKeys(template)
+    const keysTypeValueList = await Promise.all(
+      keys.map((key) =>
+        queryFirebaseRemoteConfigValueAndTypeByKey(template, key),
+      ),
+    )
 
-  return keysTypeValueList.reduce((acc, item) => {
-    if (!item) return acc
-    const { key, type, value } = item
-    switch (type) {
-      case "BOOLEAN": {
-        const boolValue = value === "true"
-        return { ...acc, [key]: { dev: boolValue, prod: boolValue } }
-      }
-      case "JSON": {
-        const jsonValue = JSON.parse(value)
-        if ("dev" in jsonValue && "prod" in jsonValue) {
-          return { ...acc, [key]: jsonValue }
+    return keysTypeValueList.reduce((acc, item) => {
+      if (!item) return acc
+      const { key, type, value } = item
+      switch (type) {
+        case "BOOLEAN": {
+          const boolValue = value === "true"
+          return { ...acc, [key]: { dev: boolValue, prod: boolValue } }
         }
+        case "JSON": {
+          const jsonValue = JSON.parse(value)
+          if ("dev" in jsonValue && "prod" in jsonValue) {
+            return { ...acc, [key]: jsonValue }
+          }
+        }
+        default:
+          return acc
       }
-      default:
-        return acc
-    }
-  }, {} as FeatureFlagsMap)
+    }, {} as FeatureFlagsMap)
+  })
 }
 
 // Returns true unless explicitly disabled
@@ -85,11 +99,17 @@ export async function setFeatureFlag(
   flag: string,
   value: boolean | FeatureFlagJson,
 ) {
-  return await mutateFirebaseRemoteConfigMap({ [flag]: value })
+  await mutateFirebaseRemoteConfigMap({ [flag]: value })
+  invalidateFeatureFlagsCache()
 }
 
-export async function deleteFeatureFlag(
-  flag: string,
-): Promise<FirebaseRemoteConfigTemplate> {
-  return await mutateFirebaseRemoteConfigMap({ [flag]: undefined })
+export async function deleteFeatureFlag(flag: string) {
+  await mutateFirebaseRemoteConfigMap({ [flag]: undefined })
+  invalidateFeatureFlagsCache()
+}
+
+// misc
+
+export function invalidateFeatureFlagsCache() {
+  deleteCachedKey(cacheKey)
 }
