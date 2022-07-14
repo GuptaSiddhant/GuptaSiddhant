@@ -30,9 +30,11 @@ export default function EditorFormMarkdownInput({
   const handleClick = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen()
+      ;(document as any).webkitExitFullscreen()
       setIsFullscreen(false)
     } else {
       ref.current?.requestFullscreen()
+      ;(ref.current as any)?.webkitRequestFullScreen()
       setIsFullscreen(true)
     }
   }
