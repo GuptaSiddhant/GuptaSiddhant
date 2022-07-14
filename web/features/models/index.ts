@@ -1,40 +1,46 @@
-import schemaFile from "./schema.json"
+import { DatabaseModel } from "../service/database.server"
+import type { Schema } from "./schema-type"
+import {
+  blogSchema,
+  careerSchema,
+  educationSchema,
+  projectSchema,
+} from "./schemas"
 
-const schema = JSON.parse(JSON.stringify(schemaFile))
+export function getModelByDatabaseModel(modelName: DatabaseModel) {
+  switch (modelName) {
+    case DatabaseModel.Career:
+      return transformSchemaInModel(careerSchema)
+    case DatabaseModel.Education:
+      return transformSchemaInModel(educationSchema)
+    case DatabaseModel.Blog:
+      return transformSchemaInModel(blogSchema)
+    case DatabaseModel.Projects:
+      return transformSchemaInModel(projectSchema)
+    default:
+      throw new Error(`Unknown model name: ${modelName}`)
+  }
+}
 
-export default function generateModelFromSchema<T extends string>(
-  definition: string,
-): Model<T> {
-  const parsed = schema.definitions[definition]
+function transformSchemaInModel(schema: Schema): Model {
+  const model = {
+    type: "object",
+    properties: schema.properties || {},
+  }
 
-  if (!parsed) throw new Error("Could not find definition: " + definition)
-  if (!parsed.properties) return parsed
-
-  Object.keys(parsed.properties).forEach((key) => {
-    const property = parsed.properties[key]
-
-    if (property.type === "array" && "$ref" in property.items) {
-      const ref = property.items.$ref.replace(/^#\/definitions\//, "")
-      const refParsed = generateModelFromSchema(ref)
-      parsed.properties[key].items = refParsed
-    }
-
-    if ("$ref" in property) {
-      const ref = property.$ref.replace(/^#\/definitions\//, "")
-      const refParsed = generateModelFromSchema(ref)
-      parsed.properties[key] = refParsed
-    }
-
-    const optional = !(parsed.required && parsed.required.includes(key))
-    parsed.properties[key].optional = optional
+  const required = schema.required || []
+  Object.keys(model.properties).forEach((key) => {
+    const optional = required.indexOf(key) === -1
+    ;(model.properties[key] as any).optional = optional
+    ;(model.properties[key] as any).required = !optional
   })
 
-  return parsed
+  return model as Model
 }
 
 export type Model<T extends string = string> = ModelObjectType<T>
 
-export type ModelProperty<T extends string> =
+export type ModelProperty<T extends any> =
   | ModelScalerType
   | {
       type: "array"
@@ -42,18 +48,23 @@ export type ModelProperty<T extends string> =
       optional?: boolean
     }
 
-export type ModelObjectType<T extends string> = {
+export type ModelObjectType<T extends any> = {
   type: "object"
   properties: ModelProperties<T>
   required?: T[]
   optional?: boolean
 }
 
-export type ModelProperties<T extends string> = Record<T, ModelProperty<T>>
+export type ModelProperties<T extends any> = Record<string, ModelProperty<T>>
 
 export type ModelScalerType =
   | {
-      type: "boolean" | "number"
+      type: "boolean"
+      optional?: boolean
+      default?: boolean
+    }
+  | {
+      type: "number"
       optional?: boolean
     }
   | {
@@ -63,6 +74,4 @@ export type ModelScalerType =
       contentMediaType?: "markdown"
     }
 
-export type ModelArrayType<T extends string> =
-  | ModelScalerType
-  | ModelObjectType<T>
+export type ModelArrayType<T extends any> = ModelScalerType | ModelObjectType<T>

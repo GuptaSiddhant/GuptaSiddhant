@@ -66,6 +66,7 @@ function AdminAction({
   id,
   to,
   children,
+  external,
   ...props
 }: NavigationLinkProps): JSX.Element | null {
   if (props.onClick) {
@@ -82,7 +83,12 @@ function AdminAction({
 
   if (to) {
     return (
-      <AnchorLink {...props} href={to.toString()} title={id}>
+      <AnchorLink
+        {...props}
+        href={to.toString()}
+        title={id}
+        target={external ? "_blank" : "_self"}
+      >
         {children}
       </AnchorLink>
     )

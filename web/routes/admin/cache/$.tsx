@@ -93,7 +93,7 @@ export default function CacheDetails(): JSX.Element | null {
 
   return (
     <AdminLayout
-      name={key}
+      title={key}
       actions={actions}
       footer={<Footer />}
       className="flex flex-col gap-4 p-4"

@@ -51,13 +51,7 @@ export async function getAllFeatureFlags(): Promise<FeatureFlagsMap | null> {
 export async function getIsFeatureEnabled(
   key: FeatureFlagKey,
 ): Promise<boolean> {
-  const featureFlagsMap = await getAllFeatureFlags()
-  if (!featureFlagsMap) return true
-
-  const featureFlag = featureFlagsMap[key]
-  if (!featureFlag) return true
-
-  return __IS_DEV__ ? featureFlag.dev : featureFlag.prod
+  return getAreFeaturesEnabled(key).then((map) => map[key])
 }
 
 export type RemoteConfigBooleanMap<T extends FeatureFlagKey = FeatureFlagKey> =
@@ -66,12 +60,23 @@ export type RemoteConfigBooleanMap<T extends FeatureFlagKey = FeatureFlagKey> =
 export async function getAreFeaturesEnabled<T extends FeatureFlagKey>(
   ...keys: T[]
 ): Promise<RemoteConfigBooleanMap<T>> {
-  const enabledList = await Promise.all(keys.map(getIsFeatureEnabled))
+  const featureFlagsMap = await getAllFeatureFlags()
+  if (!featureFlagsMap)
+    return keys.reduce(
+      (acc, key) => ({ ...acc, [key]: true }),
+      {} as RemoteConfigBooleanMap<T>,
+    )
 
-  return keys.reduce(
-    (acc, key, index) => ({ ...acc, [key]: enabledList[index] }),
-    {} as RemoteConfigBooleanMap<T>,
-  )
+  return keys.reduce((acc, key) => {
+    const featureFlag = featureFlagsMap[key]
+    const value = featureFlag
+      ? __IS_DEV__
+        ? featureFlag.dev
+        : featureFlag.prod
+      : true
+
+    return { ...acc, [key]: value }
+  }, {} as RemoteConfigBooleanMap<T>)
 }
 
 // Setters

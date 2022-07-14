@@ -1,6 +1,6 @@
 import type { ModelProperties, ModelProperty } from "@gs/models"
-import clsx from "clsx"
 
+import { useEditorFormContext } from "."
 import EditorFormArrayInput from "./EditorFormArrayInput"
 import EditorFormBooleanInput from "./EditorFormBooleanInput"
 import EditorFormMarkdownInput from "./EditorFormMarkdownInput"
@@ -10,13 +10,14 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
   properties,
   item,
   namePrefix = "",
-  className,
 }: {
   properties: ModelProperties<any>
   item?: T
   namePrefix?: string
   className?: string
 }) {
+  const { newItem } = useEditorFormContext()
+
   const formEntries = Object.entries(properties)
     .filter(([prop]) => prop !== "id")
     .sort(([a], [b]) => b.localeCompare(a))
@@ -64,14 +65,18 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
           />
         ))}
       {formBooleanEntries.length > 0 &&
-        formBooleanEntries.map(([key, modelProp]) => (
-          <EditorFormBooleanInput
-            key={key}
-            name={namePrefix + key}
-            defaultValue={item?.[key as keyof T] as any}
-            required={modelProp.optional === false}
-          />
-        ))}
+        formBooleanEntries.map(([key, modelProp]) =>
+          modelProp.type === "boolean" ? (
+            <EditorFormBooleanInput
+              key={key}
+              name={namePrefix + key}
+              defaultValue={
+                newItem ? modelProp.default : (item?.[key as keyof T] as any)
+              }
+              required={modelProp.optional === false}
+            />
+          ) : null,
+        )}
 
       {formArrayEntries.map(([key, modelProp]) => (
         <EditorFormArrayInput

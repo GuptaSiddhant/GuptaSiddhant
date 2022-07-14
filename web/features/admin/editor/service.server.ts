@@ -1,4 +1,4 @@
-import { getModelByDatabaseModel } from "@gs/experiences/helpers"
+import { getModelByDatabaseModel } from "@gs/models"
 import { getDataFromModelObject } from "@gs/models/helpers"
 import {
   type DatabaseDocument,

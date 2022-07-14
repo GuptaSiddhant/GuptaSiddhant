@@ -6,4 +6,5 @@ export interface NavigationLinkProps {
   to?: To
   onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   download?: string
+  external?: boolean
 }

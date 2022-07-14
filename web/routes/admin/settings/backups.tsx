@@ -47,7 +47,7 @@ export default function Backups(): JSX.Element | null {
 
   return (
     <AdminLayout
-      name={"Backups"}
+      title={"Backups"}
       navGroups={[
         {
           id: "backups",

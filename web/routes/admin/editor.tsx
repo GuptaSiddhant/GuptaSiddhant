@@ -20,6 +20,7 @@ import { json } from "@remix-run/server-runtime"
 import NewIcon from "remixicon-react/AddBoxFillIcon"
 
 import { getBlogPostTeaserList } from "~/features/blog/service.server"
+import { getProjectTeaserList } from "~/features/projects/service.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -33,11 +34,14 @@ export interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const [careerList, educationList, blogList] = await Promise.all([
-    getCareerList(),
-    getEducationList(),
-    getBlogPostTeaserList(),
-  ])
+  const [careerList, educationList, blogList, projectsList] = await Promise.all(
+    [
+      getCareerList(),
+      getEducationList(),
+      getBlogPostTeaserList(),
+      getProjectTeaserList(),
+    ],
+  )
 
   const allEditableEntries: LoaderData["entries"] = [
     {
@@ -54,6 +58,11 @@ export const loader: LoaderFunction = async ({ request }) => {
       id: DatabaseModel.Blog,
       label: "Blog",
       list: blogList.map((item) => item.id),
+    },
+    {
+      id: DatabaseModel.Projects,
+      label: "Project",
+      list: projectsList.map((item) => item.id),
     },
   ].sort((a, b) => a.label.localeCompare(b.label))
 

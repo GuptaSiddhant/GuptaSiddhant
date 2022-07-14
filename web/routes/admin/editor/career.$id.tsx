@@ -2,10 +2,9 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { getModelByDatabaseModel } from "@gs/experiences/helpers"
 import { databaseCareer } from "@gs/experiences/service.server"
 import type { CareerProps } from "@gs/experiences/types"
-import type { Model } from "@gs/models"
+import { type Model, getModelByDatabaseModel } from "@gs/models"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { DatabaseModel } from "@gs/service/database.server"
 import { useLoaderData } from "@remix-run/react"
@@ -60,5 +59,12 @@ export const action: ActionFunction = async ({ request }) => {
 export default function CareerEditor(): JSX.Element | null {
   const { item, model } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={item} model={model} headerPrefix={"Career"} />
+  return (
+    <EditorPage
+      item={item}
+      model={model}
+      headerPrefix={"Career"}
+      basePreviewPath="about"
+    />
+  )
 }

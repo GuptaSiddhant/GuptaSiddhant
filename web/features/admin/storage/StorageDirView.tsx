@@ -30,7 +30,7 @@ export default function StorageDirView({
 
   return (
     <AdminLayout
-      name={name}
+      title={name}
       to={currentPath.path}
       header={<span className="font-bold">{name}</span>}
       sectionClassName="w-max min-w-full"
@@ -68,7 +68,7 @@ function FolderInfo({
   const name = extractLastPartOfFilePath(storagePath.path)
 
   return (
-    <AdminDashboard icon={<FolderIcon />} name={name}>
+    <AdminDashboard icon={<FolderIcon />} title={name}>
       <AdminDashboard.Table
         data={[{ ...storagePath }]}
         columns={[

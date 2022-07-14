@@ -30,7 +30,7 @@ export default function StorageFileView({
 
   return (
     <AdminLayout
-      name={name}
+      title={name}
       to={path}
       header={
         <span className="flex items-center gap-2 font-bold">

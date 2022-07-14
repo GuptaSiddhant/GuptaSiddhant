@@ -6,7 +6,9 @@ import { createContext, useContext } from "react"
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"
 
-const EditorFormContext = createContext<{ itemId: string }>({ itemId: "new" })
+const EditorFormContext = createContext<{ itemId: string; newItem?: boolean }>({
+  itemId: "new",
+})
 
 export interface EditorFormProps<T extends Record<string, any>> {
   method: FormMethod
@@ -22,7 +24,9 @@ export default function EditorForm<T extends { id: string }>({
   formId,
 }: EditorFormProps<T>): JSX.Element | null {
   return (
-    <EditorFormContext.Provider value={{ itemId: item?.id || "new" }}>
+    <EditorFormContext.Provider
+      value={{ itemId: item?.id || "new", newItem: !item?.id }}
+    >
       <Form
         id={formId}
         method={method}

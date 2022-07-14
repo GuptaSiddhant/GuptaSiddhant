@@ -64,7 +64,7 @@ export default function StoragePath(): JSX.Element | null {
 
   return (
     <AdminLayout
-      name={name}
+      title={name}
       className="p-4"
       footer={
         <div className="flex justify-between text-base text-disabled">
