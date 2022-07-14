@@ -106,7 +106,7 @@ function DismissToastButton({
   const { id } = useToast()
 
   return (
-    <button onClick={() => dismissToast(id)}>
+    <button type="button" onClick={() => dismissToast(id)}>
       {children || <CloseIcon className="fill-red-300" />}
       <span className="sr-only">Dismiss toast</span>
     </button>

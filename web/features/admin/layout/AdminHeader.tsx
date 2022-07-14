@@ -72,6 +72,7 @@ function AdminAction({
   if (props.onClick) {
     return (
       <button
+        type="button"
         title={id}
         className="underline-offset-8 hocus:text-primary hocus:underline"
         {...props}

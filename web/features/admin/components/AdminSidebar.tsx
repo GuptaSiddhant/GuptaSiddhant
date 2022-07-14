@@ -124,7 +124,12 @@ function AdminAction({
 
   if (onClick) {
     return (
-      <button onClick={onClick} className={styleClassName} title={title}>
+      <button
+        onClick={onClick}
+        className={styleClassName}
+        title={title}
+        type="button"
+      >
         {children} {nameElement}
       </button>
     )

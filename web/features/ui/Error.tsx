@@ -31,6 +31,7 @@ export function ErrorSection({
         {children}
 
         <button
+          type="button"
           className="w-max"
           onClick={() => typeof window !== "undefined" && window.history.go(-1)}
         >

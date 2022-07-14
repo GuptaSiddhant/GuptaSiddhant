@@ -100,7 +100,7 @@ function ButtonsList({
         if (!onClick) return <Fragment key={id}>{children}</Fragment>
 
         return (
-          <button key={id} onClick={onClick}>
+          <button key={id} onClick={onClick} type="button">
             {children}
           </button>
         )
@@ -155,7 +155,7 @@ function ExternalLinksList({
               {children}
             </a>
           ) : props.onClick ? (
-            <button {...props} title={props.id}>
+            <button type="button" {...props} title={props.id}>
               {children}
             </button>
           ) : (

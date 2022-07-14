@@ -18,6 +18,7 @@ export default function Button({
 }: ButtonProps): JSX.Element {
   return (
     <button
+      type="button"
       {...props}
       ref={buttonRef}
       className={clsx(
@@ -91,6 +92,7 @@ export function CopyButton({
 
   return isAvailable ? (
     <button
+      type="button"
       title={copied ? "Copied to clipboard" : "Click to copy"}
       onClick={copy}
       className={clsx(className, "select-none")}

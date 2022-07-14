@@ -45,6 +45,7 @@ export function Toaster({
 
         {toasts.length > 1 ? (
           <button
+            type="button"
             onClick={dismissAllToasts}
             title="Dismiss all toasts"
             className="absolute bottom-0 -left-12 aspect-square w-10 animate-appear-btt rounded bg-secondary flex-center hocus:bg-tertiary"

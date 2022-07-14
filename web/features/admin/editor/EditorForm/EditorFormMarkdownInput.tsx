@@ -47,6 +47,7 @@ export default function EditorFormMarkdownInput({
       summaryLeadingElement={
         isFullscreen !== null ? (
           <button
+            type="button"
             onClick={handleClick}
             title={isFullscreen ? "Exit fullscreen" : "Go fullscreen"}
           >

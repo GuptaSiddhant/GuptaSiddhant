@@ -126,7 +126,10 @@ function AdminNavFooter({
         />
       )}
 
-      <button onClick={() => setNavCollapsed((current) => !current)}>
+      <button
+        onClick={() => setNavCollapsed((current) => !current)}
+        type="button"
+      >
         {navCollapsed ? <ExpandSidebarIcon /> : <CollapseSidebarIcon />}
         <span className="sr-only">
           {navCollapsed ? "Expand navbar" : "Collapse navbar"}
