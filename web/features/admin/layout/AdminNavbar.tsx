@@ -14,7 +14,7 @@ import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 import AdminHeader from "./AdminHeader"
 
 export interface AdminNavbarProps {
-  name?: string
+  title?: string
   icon?: ReactNode
   navGroups?: AdminNavbarGroupProps[]
   header?: ReactNode
@@ -25,7 +25,7 @@ export interface AdminNavbarProps {
 export default function AdminNavbar({
   navGroups = [],
   header,
-  name,
+  title,
   icon,
   actions,
   to,
@@ -90,7 +90,7 @@ export default function AdminNavbar({
         </div>
       )}
       <AdminNavFooter
-        placeholder={`Filter ${name}`}
+        placeholder={`Filter ${title}`}
         navCollapsed={navCollapsed}
         setFilterTerm={setFilterTerm}
         setNavCollapsed={setNavCollapsed}

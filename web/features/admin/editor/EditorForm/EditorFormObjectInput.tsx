@@ -52,41 +52,26 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
 
   return (
     <>
-      {formTextEntries.length > 0 && (
-        <fieldset
-          className={clsx(
-            className,
-            "grid flex-1 gap-4 md:grid-cols-2 xl:grid-cols-3",
-          )}
-        >
-          {formTextEntries.map(([key, modelProp]) => (
-            <EditorFormTextInput
-              key={key}
-              name={namePrefix + key}
-              defaultValue={item?.[key as keyof T] as any}
-              required={modelProp.optional === false}
-              options={"enum" in modelProp ? modelProp.enum : []}
-            />
-          ))}
-        </fieldset>
-      )}
-      {formBooleanEntries.length > 0 && (
-        <fieldset
-          className={clsx(
-            className,
-            "grid flex-1 grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6",
-          )}
-        >
-          {formBooleanEntries.map(([key, modelProp]) => (
-            <EditorFormBooleanInput
-              key={key}
-              name={namePrefix + key}
-              defaultValue={item?.[key as keyof T] as any}
-              required={modelProp.optional === false}
-            />
-          ))}
-        </fieldset>
-      )}
+      {formTextEntries.length > 0 &&
+        formTextEntries.map(([key, modelProp]) => (
+          <EditorFormTextInput
+            key={key}
+            name={namePrefix + key}
+            defaultValue={item?.[key as keyof T] as any}
+            required={modelProp.optional === false}
+            options={"enum" in modelProp ? modelProp.enum : []}
+            className="col-span-2"
+          />
+        ))}
+      {formBooleanEntries.length > 0 &&
+        formBooleanEntries.map(([key, modelProp]) => (
+          <EditorFormBooleanInput
+            key={key}
+            name={namePrefix + key}
+            defaultValue={item?.[key as keyof T] as any}
+            required={modelProp.optional === false}
+          />
+        ))}
 
       {formArrayEntries.map(([key, modelProp]) => (
         <EditorFormArrayInput

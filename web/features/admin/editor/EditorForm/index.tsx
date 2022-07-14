@@ -1,5 +1,6 @@
 import { type Model } from "@gs/models"
 import { type FormMethod, Form } from "@remix-run/react"
+import clsx from "clsx"
 import { createContext, useContext } from "react"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
@@ -22,7 +23,15 @@ export default function EditorForm<T extends { id: string }>({
 }: EditorFormProps<T>): JSX.Element | null {
   return (
     <EditorFormContext.Provider value={{ itemId: item?.id || "new" }}>
-      <Form id={formId} method={method} replace className="flex flex-col gap-4">
+      <Form
+        id={formId}
+        method={method}
+        replace
+        className={clsx(
+          "grid grid-flow-row-dense gap-4",
+          "grid-cols-2 md:grid-cols-4 xl:grid-cols-6",
+        )}
+      >
         {item?.id ? (
           <input type="hidden" name="id" value={item.id} />
         ) : (

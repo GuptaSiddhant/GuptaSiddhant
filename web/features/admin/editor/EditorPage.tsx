@@ -42,13 +42,14 @@ export default function EditorPage<T extends EditorHeaderProps>({
               {
                 id: "Refresh",
                 children: (
-                  <Action
+                  <Action.Form
                     method="patch"
                     body={{ id: item.id }}
                     title="Refresh entry"
+                    reloadDocument
                   >
                     <RefreshIcon />
-                  </Action>
+                  </Action.Form>
                 ),
               },
               {

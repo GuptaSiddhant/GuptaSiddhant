@@ -5,4 +5,5 @@ export interface EditorFormInputProps<T = any> {
   required?: boolean
   placeholder?: string
   options?: T[]
+  className?: string
 }

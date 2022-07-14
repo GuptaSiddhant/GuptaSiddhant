@@ -13,9 +13,9 @@ export interface AdminLayoutProps extends AdminNavbarProps {
 }
 
 export default function AdminLayout({
-  name,
+  title,
   icon,
-  header = <strong>{name}</strong>,
+  header = <strong>{title}</strong>,
   actions = [],
   className,
   children = <Outlet />,
@@ -42,7 +42,7 @@ export default function AdminLayout({
     >
       {isRenderNavbar ? (
         <AdminNavbar
-          name={name}
+          title={title}
           icon={icon}
           header={header}
           actions={actions}

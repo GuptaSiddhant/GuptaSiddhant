@@ -34,11 +34,13 @@ export async function modifyDatabaseDocumentWithEditorForm<
   switch (method) {
     case "PATCH": {
       database.invalidateCacheById(id)
+      break
     }
 
     case "POST":
     case "PUT": {
       database.mutateById(id, data)
+      break
     }
   }
 

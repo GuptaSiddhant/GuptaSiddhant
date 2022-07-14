@@ -8,7 +8,15 @@ import type { EditorFormInputProps } from "./types"
 export default function EditorFormTextInput(
   props: EditorFormInputProps<string>,
 ): JSX.Element | null {
-  const { name, defaultValue, readOnly, required, placeholder, options } = props
+  const {
+    name,
+    defaultValue,
+    readOnly,
+    required,
+    placeholder,
+    options,
+    className,
+  } = props
   const labelText = capitalize(name.split(".").at(-1) || name)
   const labelElement = (
     <span
@@ -65,7 +73,7 @@ export default function EditorFormTextInput(
   return (
     <Input
       label={labelElement}
-      labelClassName={clsx("flex flex-col")}
+      labelClassName={clsx(className, "flex flex-col")}
       className="w-full"
       name={name}
       defaultValue={defaultValue}
