@@ -56,7 +56,7 @@ export default function EditorFormMarkdownInput({
     >
       <div
         className={clsx(
-          "grid grid-cols-2 gap-2 rounded-sm border border-divider bg-default p-0",
+          "grid gap-2 rounded-sm border border-divider bg-default p-0 md:grid-cols-2",
           isFullscreen ? "h-[calc(100vh_-_2.5rem)]" : "h-[50vh]",
         )}
       >
@@ -70,7 +70,7 @@ export default function EditorFormMarkdownInput({
             "h-full w-full resize-none overflow-auto rounded bg-secondary p-2 font-monospace text-sm",
           )}
         />
-        <div className="prose prose-sm mx-auto h-full w-full overflow-y-auto overflow-x-hidden rounded-sm bg-primary p-2 dark:prose-invert">
+        <div className="prose prose-sm mx-auto hidden h-full w-full overflow-y-auto overflow-x-hidden rounded-sm bg-primary p-2 dark:prose-invert md:block">
           <Mdx mdx={value} lazyLoadImages={false} />
         </div>
       </div>
