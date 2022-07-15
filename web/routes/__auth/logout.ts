@@ -8,3 +8,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   return authenticator.logout(request, { redirectTo: "/login" })
 }
+
+export function CatchBoundary() {}

@@ -29,11 +29,11 @@ export default function Admin(): JSX.Element {
       <section
         id="admin"
         className={clsx(
-          "fixed inset-0 h-screen -w-screen-m4 py-4",
-          "mx-4 grid grid-cols-[max-content_1fr] bg-primary",
+          "fixed inset-0 m-4 bg-primary",
+          "grid grid-cols-[max-content_1fr]",
         )}
         style={{
-          paddingTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
+          marginTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
         }}
       >
         <AdminSidebar

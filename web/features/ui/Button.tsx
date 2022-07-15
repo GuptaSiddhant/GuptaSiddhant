@@ -6,6 +6,10 @@ import {
   forwardRef,
 } from "react"
 import CopyIcon from "remixicon-react/FileCopyLineIcon"
+import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon"
+import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon"
+
+import type useFullscreen from "../hooks/useFullscreen"
 
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
   buttonRef?: ForwardedRef<HTMLButtonElement> | null
@@ -91,13 +95,32 @@ export function CopyButton({
   if (!children) return null
 
   return isAvailable ? (
-    <button
-      type="button"
+    <Button
       title={copied ? "Copied to clipboard" : "Click to copy"}
       onClick={copy}
       className={clsx(className, "select-none")}
     >
       {copied ? "✅" : <CopyIcon size={"1em"} />}
-    </button>
+    </Button>
   ) : null
+}
+
+export function FullscreenButton({
+  isFullscreen,
+  isFullscreenEnabled,
+  toggleFullscreen,
+}: ReturnType<typeof useFullscreen>): JSX.Element | null {
+  if (!isFullscreenEnabled) return null
+
+  return (
+    <Button
+      title={isFullscreen ? "Exit fullscreen" : "Go fullscreen"}
+      onClick={(e) => {
+        e.preventDefault()
+        toggleFullscreen()
+      }}
+    >
+      {isFullscreen ? <FullscreenExitIcon /> : <FullscreenEnterIcon />}
+    </Button>
+  )
 }

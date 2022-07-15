@@ -1,9 +1,9 @@
 import Accordion from "@gs/ui/Accordion"
 import clsx from "clsx"
-import { useEffect, useRef, useState } from "react"
-import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon"
-import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon"
+import { useState } from "react"
 
+import useFullscreen from "~/features/hooks/useFullscreen"
+import { FullscreenButton } from "~/features/ui/Button"
 import Mdx from "~/features/ui/Mdx"
 
 import { useEditorFormContext } from "./index"
@@ -14,56 +14,26 @@ export default function EditorFormMarkdownInput({
   defaultValue = "",
   required,
 }: EditorFormInputProps<string>) {
-  const ref = useRef<HTMLDetailsElement>(null)
-  const [isFullscreen, setIsFullscreen] = useState<boolean | null>(null)
+  const fullscreenProps = useFullscreen<HTMLDetailsElement>()
   const [value, setValue] = useState<string>(defaultValue)
-
-  useEffect(() => {
-    if (
-      window.document.fullscreenEnabled ||
-      (window.document as any).webkitFullscreenEnabled
-    ) {
-      setIsFullscreen((enabled) => enabled === true)
-    }
-  }, [])
-
-  const handleClick = () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-      ;(document as any).webkitExitFullscreen()
-      setIsFullscreen(false)
-    } else {
-      ref.current?.requestFullscreen()
-      ;(ref.current as any)?.webkitRequestFullScreen()
-      setIsFullscreen(true)
-    }
-  }
 
   const itemId = useEditorFormContext().itemId
 
   return (
     <Accordion
-      summary={isFullscreen ? `${itemId}'s ${name}` : name}
+      summary={fullscreenProps.isFullscreen ? `${itemId}'s ${name}` : name}
       open
       summaryClassName="!m-0"
-      summaryLeadingElement={
-        isFullscreen !== null ? (
-          <button
-            type="button"
-            onClick={handleClick}
-            title={isFullscreen ? "Exit fullscreen" : "Go fullscreen"}
-          >
-            {isFullscreen ? <FullscreenExitIcon /> : <FullscreenEnterIcon />}
-          </button>
-        ) : null
-      }
-      accordionRef={ref}
+      summaryLeadingElement={<FullscreenButton {...fullscreenProps} />}
+      accordionRef={fullscreenProps.targetRef}
       className="col-span-full"
     >
       <div
         className={clsx(
           "grid gap-2 rounded-sm border border-divider bg-default p-0 md:grid-cols-2",
-          isFullscreen ? "h-[calc(100vh_-_2.5rem)]" : "h-[50vh]",
+          fullscreenProps.isFullscreen
+            ? "h-[calc(100vh_-_2.5rem)]"
+            : "h-[50vh]",
         )}
       >
         <textarea

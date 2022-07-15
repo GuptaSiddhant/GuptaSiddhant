@@ -1,9 +1,12 @@
 import authenticator, { loginUser } from "@gs/service/auth.server"
-import CodeBlock from "@gs/ui/CodeBlock"
-import Section from "@gs/ui/Section"
 import { Form, useActionData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+
+import Hero from "~/features/hero"
+import Button from "~/features/ui/Button"
+import Input from "~/features/ui/Input"
+import { Paragraph } from "~/features/ui/Text"
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {
@@ -11,41 +14,55 @@ export const loader: LoaderFunction = async ({ request }) => {
   })
 }
 
+interface ActionData {
+  error?: string
+}
+
 export const action: ActionFunction = async ({ request }) => {
   try {
     return await loginUser(request)
   } catch (e: any) {
-    return json({ error: e.message }, 400)
+    return json<ActionData>({ error: e.message }, 400)
   }
 }
 
 export default function Login(): JSX.Element {
-  const actionData = useActionData()
+  const actionData = useActionData<ActionData>()
 
   return (
-    <Section.Prose>
-      <Form method="post">
-        <input
-          type="email"
-          name="email"
-          className="bg-default"
-          required
-          placeholder="Email"
-          autoComplete="email"
-        />
-        <input
-          type="password"
-          name="password"
-          className="bg-default"
-          required
-          placeholder="Password"
-          autoComplete="current-password"
-        />
-        <button>Login</button>
-      </Form>
-      <CodeBlock lang="json">
-        {JSON.stringify(actionData || null, null, 2)}
-      </CodeBlock>
-    </Section.Prose>
+    <Hero>
+      <Hero.Header title="Login" />
+      <Hero.Description>
+        <Form method="post" className="flex flex-col gap-4">
+          <fieldset className="flex flex-col gap-4 md:flex-row md:items-end">
+            <Input
+              label={<div>Email</div>}
+              labelClassName="flex-1"
+              type="email"
+              name="email"
+              className="w-full"
+              required
+              placeholder="Email"
+              autoComplete="username"
+              autoFocus
+            />
+            <Input
+              label={<div>Password</div>}
+              labelClassName="flex-1"
+              type="password"
+              name="password"
+              className="w-full"
+              required
+              placeholder="Password"
+              autoComplete="current-password"
+            />
+            <Button.Primary type="submit">Login</Button.Primary>
+          </fieldset>
+          <Paragraph className="text-negative">
+            {actionData?.error ? `Error: ${actionData.error}` : " "}
+          </Paragraph>
+        </Form>
+      </Hero.Description>
+    </Hero>
   )
 }
