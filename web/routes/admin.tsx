@@ -37,13 +37,13 @@ export default function Admin(): JSX.Element {
         }}
       >
         <AdminSidebar
-          actions={adminRegistry.actions.map((action) => ({
-            ...action,
-            children: action.icon,
-          }))}
           apps={adminRegistry.apps.map((app) => ({
             ...app,
             children: app.icon,
+          }))}
+          actions={adminRegistry.actions.map((action) => ({
+            ...action,
+            children: action.icon,
           }))}
         />
 

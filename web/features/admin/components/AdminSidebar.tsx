@@ -80,6 +80,7 @@ export interface AdminLinkProps {
   title: string
   onClick?: () => void
   isCollapsed?: boolean
+  linkPath?: string
 }
 
 function AdminAppLink({
@@ -88,6 +89,7 @@ function AdminAppLink({
   title,
   onClick,
   isCollapsed,
+  linkPath,
 }: AdminLinkProps): JSX.Element | null {
   const style = (props?: { isActive?: boolean }) =>
     clsx(
@@ -113,6 +115,7 @@ function AdminAction({
   title,
   onClick,
   isCollapsed,
+  linkPath,
 }: AdminLinkProps): JSX.Element | null {
   const styleClassName = clsx(
     "flex flex-1 gap-2 items-center py-1 rounded-sm",
@@ -136,7 +139,7 @@ function AdminAction({
   }
 
   return (
-    <Link to={id} className={styleClassName} title={title}>
+    <Link to={linkPath || id} className={styleClassName} title={title}>
       {children} {nameElement}
     </Link>
   )
