@@ -17,9 +17,9 @@ export function getDataFromModelObject(
 
     if (modelProperty.type !== "array") {
       const formValue = formData.get(key)?.toString()
-      if (!formValue) return
+      if (!formValue && modelProperty.type !== "boolean") return
 
-      data[modelKey] = getScalerValue(modelProperty, formValue)
+      data[modelKey] = getScalerValue(modelProperty, formValue || "")
       return
     }
 
@@ -75,7 +75,7 @@ export function getDataFromModelArray(
 
 function getScalerValue({ type }: ModelScalerType, value: string) {
   return type === "boolean"
-    ? value === "on" || value === "true"
+    ? Boolean(value === "on" || value === "true")
     : type === "number"
     ? parseFloat(value)
     : value

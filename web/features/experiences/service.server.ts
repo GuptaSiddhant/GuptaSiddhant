@@ -33,11 +33,13 @@ export async function getExperienceItem(id: string): Promise<ExperienceProps> {
   throw new Error(`Experience item ${id} not found`)
 }
 
-export async function getEducationList(): Promise<ExperienceProps[]> {
+export async function getEducationList(
+  includeDrafts?: boolean,
+): Promise<ExperienceProps[]> {
   const list = await databaseEducation.queryAll()
 
   return list
-    .filter((item) => __IS_DEV__ || !item.draft)
+    .filter((item) => includeDrafts || __IS_DEV__ || !item.draft)
     .map(transformEducationToExperience)
     .sort((a, b) => sortByDate(a.startDate, b.startDate))
 }
@@ -48,11 +50,13 @@ export async function getEducationItem(id: string): Promise<ExperienceProps> {
   return transformEducationToExperience(item)
 }
 
-export async function getCareerList(): Promise<ExperienceProps[]> {
+export async function getCareerList(
+  includeDrafts?: boolean,
+): Promise<ExperienceProps[]> {
   const list = await databaseCareer.queryAll()
 
   return list
-    .filter((item) => __IS_DEV__ || !item.draft)
+    .filter((item) => includeDrafts || __IS_DEV__ || !item.draft)
     .map(transformCareerToExperience)
     .sort((a, b) => sortByDate(a.startDate, b.startDate))
 }

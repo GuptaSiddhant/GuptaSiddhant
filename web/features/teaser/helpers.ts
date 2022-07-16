@@ -74,14 +74,14 @@ export function filterUniqueTagsByOccurrence(
   //   (a, b) => tagOccurrenceMap[b] - tagOccurrenceMap[a],
   // )
 
-  const sorted = Object.entries(tagOccurrenceMap)
-    .sort(([a], [b]) => tagOccurrenceMap[b] - tagOccurrenceMap[a])
-    .reduce(
-      (acc, [value, occurrence]) => [...acc, { value, occurrence }],
-      [] as Array<{ value: string; occurrence: number }>,
-    )
+  const sorted = Object.entries(tagOccurrenceMap).sort(
+    ([a], [b]) => tagOccurrenceMap[b] - tagOccurrenceMap[a],
+  )
 
-  return sorted
+  return sorted.reduce(
+    (acc, [value, occurrence]) => [...acc, { value, occurrence }],
+    [] as Array<{ value: string; occurrence: number }>,
+  )
 }
 
 export function getCrossSellTeasers(

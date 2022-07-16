@@ -31,6 +31,8 @@ export async function modifyDatabaseDocumentWithEditorForm<
     model.properties,
   ) as T
 
+  // console.log(data)
+
   switch (method) {
     case "PATCH": {
       database.invalidateCacheById(id)
