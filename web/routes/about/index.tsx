@@ -9,8 +9,10 @@ import { type LifeLineItems, LifeLineCategory } from "@gs/lifeline"
 import { createLifeline, createTocFromLifeline } from "@gs/lifeline/helpers"
 import Lifeline from "@gs/lifeline/Lifeline"
 import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/server-runtime"
+import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+
+import { createMetaTitle } from "~/features/helpers/meta"
 
 interface LoaderData {
   aboutInfo: AboutInfo
@@ -55,6 +57,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     lifelineSelectedCategory,
   })
 }
+
+export const meta: MetaFunction = () => ({ title: createMetaTitle("About") })
 
 export default function About(): JSX.Element {
   const {

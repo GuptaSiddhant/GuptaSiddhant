@@ -1,6 +1,7 @@
 import Hero from "@gs/hero"
 import { ExternalLink } from "@gs/ui/Link"
 import { Paragraph } from "@gs/ui/Text"
+import { Link } from "@remix-run/react"
 import ResumeIcon from "remixicon-react/FileUserLineIcon"
 
 import { aboutTexts } from "."
@@ -18,10 +19,20 @@ export default function AboutHero(): JSX.Element | null {
             {text}
           </Paragraph>
         ))}
-        <ExternalLink href="/resume.pdf" className="w-max gap-2 flex-center">
-          <ResumeIcon />
-          Download Resume
-        </ExternalLink>
+
+        <Paragraph className="flex gap-2 border-t border-divider pt-4 text-tertiary">
+          <ExternalLink href="/resume.pdf" className="w-max gap-2 flex-center">
+            <ResumeIcon />
+            Download Resume
+          </ExternalLink>
+          <span>
+            (or try the customisable{" "}
+            <Link to="/resume" className="text-link">
+              Resume builder
+            </Link>
+            ).
+          </span>
+        </Paragraph>
       </Hero.Description>
     </Hero>
   )

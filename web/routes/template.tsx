@@ -1,3 +1,4 @@
+import { createMetaTitle } from "@gs/helpers/meta"
 import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
 import {
   type ShouldReloadFunction,
@@ -29,7 +30,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export const headers: HeadersFunction = () => ({})
 
-export const meta: MetaFunction = () => ({})
+export const meta: MetaFunction = () => ({ title: createMetaTitle("") })
 
 export const links: LinksFunction = () => []
 

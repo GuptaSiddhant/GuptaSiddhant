@@ -6,13 +6,16 @@ import { Link, useLoaderData } from "@remix-run/react"
 import type {
   ErrorBoundaryComponent,
   LoaderFunction,
+  MetaFunction,
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 import { useMemo, useState } from "react"
 
+import { createMetaTitle } from "~/features/helpers/meta"
 import { filterUniqueTagsByOccurrence } from "~/features/teaser/helpers"
 import Input from "~/features/ui/Input"
 import { ExternalLink } from "~/features/ui/Link"
+import { H1 } from "~/features/ui/Text"
 import { capitalize } from "~/features/utils/format"
 
 const tags: string[] = filterUniqueTagsByOccurrence(
@@ -39,12 +42,18 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({ origin })
 }
 
+export const meta: MetaFunction = () => ({
+  title: createMetaTitle("Resume builder"),
+})
+
 export default function Resume(): JSX.Element {
   const { origin } = useLoaderData<LoaderData>()
   const [query, setQuery] = useState("")
-  const resumeUrl = useMemo(() => {
-    return origin + `/resume.pdf?${query}`
-  }, [query, origin])
+
+  const resumeUrl = useMemo(
+    () => origin + ["/resume.pdf", query].filter(Boolean).join("?"),
+    [query, origin],
+  )
 
   const handleSubmit = (form: HTMLFormElement): void => {
     const formData = new FormData(form).entries()
@@ -59,6 +68,8 @@ export default function Resume(): JSX.Element {
 
   return (
     <Section className="mx-auto !grid max-w-5xl gap-4 p-4 md:grid-cols-2">
+      <H1 className="col-span-2">Resume builder</H1>
+
       <form
         method="get"
         action="/resume.pdf"
