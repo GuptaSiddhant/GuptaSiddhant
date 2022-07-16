@@ -7,6 +7,7 @@ import PreviewIcon from "remixicon-react/EyeLineIcon"
 import SaveIcon from "remixicon-react/Save2FillIcon"
 
 import type { NavigationLinkProps } from "~/features/navigation/types"
+import useTransitionSubmissionToast from "~/features/toaster/useTransitionSubmissionToast"
 
 import AdminLayout from "../layout/AdminLayout"
 import EditorForm from "./EditorForm"
@@ -63,6 +64,14 @@ export default function EditorPage<T extends EditorHeaderProps>({
         },
       ]
     : []
+
+  useTransitionSubmissionToast({
+    GET: "Loading entry...",
+    POST: "Creating entry...",
+    PUT: "Updating entry...",
+    DELETE: "Deleting entry...",
+    PATCH: "Refreshing entry...",
+  })
 
   return (
     <AdminLayout

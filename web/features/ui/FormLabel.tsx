@@ -42,7 +42,7 @@ export default function FormLabel({
         <label
           htmlFor={htmlFor}
           onClick={onClick}
-          className="leading-none peer-required:after:text-negative peer-required:after:content-['*']"
+          className="flex-1 leading-none peer-required:after:text-negative peer-required:after:content-['*']"
         >
           {label}
         </label>

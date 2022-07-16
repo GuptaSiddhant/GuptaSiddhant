@@ -14,7 +14,7 @@ export default function EditorFormBooleanInput(
     <FormLabel
       htmlFor={id}
       label={capitalize(name)}
-      className="justify-between py-3  sm:gap-4"
+      className="justify-between py-3 sm:gap-2"
     >
       <input
         id={id}
