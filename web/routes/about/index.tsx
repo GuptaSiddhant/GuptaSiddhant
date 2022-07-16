@@ -13,19 +13,22 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import { createMetaTitle } from "~/features/helpers/meta"
+import { getAuthUser } from "~/features/service/auth.server"
 
 interface LoaderData {
+  isAuthenticated: boolean
   aboutInfo: AboutInfo
   lifeline: LifeLineItems
   lifelineToc: TocItem[]
   lifelineTags: string[]
   lifelineSelectedTags: string[]
-
   lifelineSelectedCategory: LifeLineCategory
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
+
+  const isAuthenticated = Boolean(await getAuthUser(request))
 
   const [aboutInfo, experienceList] = await Promise.all([
     getAboutInfo(),
@@ -49,6 +52,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const lifelineToc = createTocFromLifeline(lifeline)
 
   return json<LoaderData>({
+    isAuthenticated,
     aboutInfo,
     lifeline,
     lifelineToc,
@@ -67,6 +71,7 @@ export default function About(): JSX.Element {
     lifelineTags,
     lifelineSelectedTags,
     lifelineSelectedCategory,
+    isAuthenticated,
   } = useLoaderData<LoaderData>()
 
   return (
@@ -79,6 +84,7 @@ export default function About(): JSX.Element {
         tags={lifelineTags}
         selectedTags={lifelineSelectedTags}
         selectedCategory={lifelineSelectedCategory}
+        enableEditButton={isAuthenticated}
       />
     </>
   )

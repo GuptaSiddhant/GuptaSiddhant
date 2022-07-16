@@ -54,8 +54,10 @@ export function HeroHeaderCaption({
   if (typeof caption === "string")
     return (
       <Caption className="flex w-full items-center justify-between">
-        <span>{caption}</span>
-        {children}
+        <span className="flex-1">{caption}</span>
+        <div className="flex w-max items-center justify-end gap-4">
+          {children}
+        </div>
       </Caption>
     )
 
@@ -85,7 +87,9 @@ export function HeroHeaderCaption({
   return (
     <div className="flex w-full items-center justify-between">
       {captionElement}
-      {children}
+      <div className="flex w-max items-center justify-end gap-4">
+        {children}
+      </div>
     </div>
   )
 }

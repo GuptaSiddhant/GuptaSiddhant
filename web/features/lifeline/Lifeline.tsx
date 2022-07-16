@@ -16,6 +16,7 @@ export interface LifelineProps {
   tags?: string[]
   selectedTags?: string[]
   selectedCategory: LifeLineCategory
+  enableEditButton: boolean
 }
 
 export default function Lifeline({
@@ -24,6 +25,7 @@ export default function Lifeline({
   tags = [],
   selectedTags = [],
   selectedCategory,
+  enableEditButton,
 }: LifelineProps): JSX.Element | null {
   return (
     <LifelineContextProvider>
@@ -45,7 +47,13 @@ export default function Lifeline({
       >
         {lifeline.map((item) => {
           if ("category" in item)
-            return <ExperienceCard key={item.id} {...item} />
+            return (
+              <ExperienceCard
+                key={item.id}
+                {...item}
+                enableEditButton={enableEditButton}
+              />
+            )
 
           return <LifelineDivider key={item.id} {...item} />
         })}

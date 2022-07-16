@@ -30,6 +30,9 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
+import { EditIcon } from "~/features/icons"
+import { getAuthUser } from "~/features/service/auth.server"
+
 interface LoaderData {
   project: ProjectProps
   url: string
@@ -37,11 +40,14 @@ interface LoaderData {
   toc?: TocItem[]
   crossSell: TeaserProps[]
   assoc?: ExperienceProps
+  isAuthenticated: boolean
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id
   if (!id) throw new Error("Project id is required")
+
+  const isAuthenticated = Boolean(await getAuthUser(request))
 
   try {
     const { content, association, ...project } = await getProjectDetails(id)
@@ -60,6 +66,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       toc,
       crossSell,
       assoc,
+      isAuthenticated,
     })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
@@ -82,8 +89,9 @@ export default function ProjectDetails(): JSX.Element {
     toc = [],
     crossSell,
     assoc,
+    isAuthenticated,
   } = useLoaderData<LoaderData>()
-  const { title, subtitle, description, cover, icon, tags = [] } = project
+  const { id, title, subtitle, description, cover, icon, tags = [] } = project
 
   return (
     <>
@@ -97,6 +105,15 @@ export default function ProjectDetails(): JSX.Element {
           title={title}
           subtitle={subtitle}
         >
+          {isAuthenticated ? (
+            <Link
+              to={"/admin/editor/projects/" + id}
+              className="w-max"
+              title="Edit"
+            >
+              <EditIcon />
+            </Link>
+          ) : null}
           {assoc?.icon ? (
             <Link to={"/about/" + assoc.id}>
               <img

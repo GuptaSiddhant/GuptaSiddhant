@@ -20,7 +20,7 @@ import ShareTray from "@gs/ui/ShareTray"
 import TableOfContent from "@gs/ui/TableOfContent"
 import Tags from "@gs/ui/Tags"
 import { H2 } from "@gs/ui/Text"
-import { useLoaderData } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import {
   type LoaderFunction,
@@ -28,17 +28,23 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
+import { EditIcon } from "~/features/icons"
+import { getAuthUser } from "~/features/service/auth.server"
+
 interface LoaderData {
   post: BlogPostProps
   url: string
   mdx?: string
   toc?: TocItem[]
   crossSell: TeaserProps[]
+  isAuthenticated: boolean
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id
   if (!id) throw new Error("Blog post id is required")
+
+  const isAuthenticated = Boolean(await getAuthUser(request))
 
   try {
     const { content, ...post } = await getBlogPostDetails(id)
@@ -52,6 +58,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       mdx,
       toc,
       crossSell,
+      isAuthenticated,
     })
   } catch (e: any) {
     const reason = __IS_DEV__ ? `Reason: ${e?.message}` : ""
@@ -67,8 +74,15 @@ export const meta: MetaFunction = ({ data, params }) =>
   })
 
 export default function ProjectDetails(): JSX.Element {
-  const { post, url, mdx, toc = [], crossSell } = useLoaderData<LoaderData>()
-  const { title, subtitle, description, cover, icon, tags = [] } = post
+  const {
+    post,
+    url,
+    mdx,
+    toc = [],
+    crossSell,
+    isAuthenticated,
+  } = useLoaderData<LoaderData>()
+  const { id, title, subtitle, description, cover, icon, tags = [] } = post
 
   return (
     <>
@@ -81,7 +95,17 @@ export default function ProjectDetails(): JSX.Element {
           }}
           title={title}
           subtitle={subtitle}
-        />
+        >
+          {isAuthenticated ? (
+            <Link
+              to={"/admin/editor/blog/" + id}
+              className="w-max"
+              title="Edit"
+            >
+              <EditIcon />
+            </Link>
+          ) : null}
+        </Hero.Header>
 
         <Hero.Description description={description}>
           <div className="flex flex-wrap items-center justify-between gap-4">

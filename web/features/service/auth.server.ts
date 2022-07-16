@@ -47,7 +47,11 @@ const failureRedirect = "/login"
 const successRedirect = "/admin"
 
 export async function authenticateRoute(request: Request) {
-  return authenticator.isAuthenticated(request, { failureRedirect })
+  const redirectTo = request.url
+
+  return authenticator.isAuthenticated(request, {
+    failureRedirect: `${failureRedirect}?redirectTo=${redirectTo}`,
+  })
 }
 
 export async function getAuthUser(request: Request) {
@@ -58,9 +62,7 @@ export async function loginUser(request: Request) {
   const user = await authenticator.authenticate(
     AuthMethod.EmailPassword,
     request,
-    {
-      throwOnError: true,
-    },
+    { throwOnError: true },
   )
   const session = await cookieSession.getSession(request.headers.get("cookie"))
   session.set(authenticator.sessionKey, user)
@@ -68,7 +70,10 @@ export async function loginUser(request: Request) {
     "Set-Cookie": await cookieSession.commitSession(session),
   })
 
-  return redirect(successRedirect, { headers })
+  const redirectTo =
+    (await request.formData()).get("redirectTo")?.toString() || successRedirect
+
+  return redirect(redirectTo, { headers })
 }
 
 // Auth method: emailPassword

@@ -1,15 +1,19 @@
 import type { ExperienceProps } from "@gs/experiences/types"
 import type { LinkObject } from "@gs/types"
 import { ExternalLink } from "@gs/ui/Link"
+import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import EducationIcon from "remixicon-react/BookFillIcon"
 import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import GithubFillIcon from "remixicon-react/GithubFillIcon"
 import LinkedinBoxFillIcon from "remixicon-react/LinkedinBoxFillIcon"
 
+import { EditIcon } from "../icons"
 import LifelineCard from "./LifelineCard"
 
-export default function ExperienceCard(item: ExperienceProps): JSX.Element {
+export default function ExperienceCard(
+  item: ExperienceProps & { enableEditButton?: boolean },
+): JSX.Element {
   const {
     id,
     title,
@@ -19,10 +23,12 @@ export default function ExperienceCard(item: ExperienceProps): JSX.Element {
     description,
     gallery,
     icon,
+    category,
+    enableEditButton,
   } = item
 
   const homepageLink = links.find((l) => l.type === "homepage")?.url
-  const isCareerItem = item.category === "career"
+  const isCareerItem = category === "career"
 
   const cardClassName = clsx(
     isCareerItem
@@ -55,6 +61,16 @@ export default function ExperienceCard(item: ExperienceProps): JSX.Element {
       <LifelineCard.Description>{description}</LifelineCard.Description>
 
       <LifelineCard.Gallery gallery={gallery} iconUrl={icon} alt={id} />
+
+      {enableEditButton && (
+        <Link
+          to={`/admin/editor/${category}/${id}`}
+          className="absolute top-0 right-0 p-2"
+          title="Edit"
+        >
+          <EditIcon />
+        </Link>
+      )}
     </LifelineCard>
   )
 }

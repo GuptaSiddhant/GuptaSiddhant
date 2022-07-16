@@ -1,5 +1,5 @@
 import authenticator, { loginUser } from "@gs/service/auth.server"
-import { Form, useActionData } from "@remix-run/react"
+import { Form, useActionData, useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
@@ -8,10 +8,20 @@ import Button from "~/features/ui/Button"
 import Input from "~/features/ui/Input"
 import { Paragraph } from "~/features/ui/Text"
 
+interface LoaderData {
+  redirectTo?: string
+}
+
 export const loader: LoaderFunction = async ({ request }) => {
-  return await authenticator.isAuthenticated(request, {
+  const redirectTo = new URL(request.url).searchParams
+    .get("redirectTo")
+    ?.toString()
+
+  await authenticator.isAuthenticated(request, {
     successRedirect: "/admin",
   })
+
+  return json<LoaderData>({ redirectTo })
 }
 
 interface ActionData {
@@ -27,6 +37,7 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Login(): JSX.Element {
+  const { redirectTo } = useLoaderData<LoaderData>()
   const actionData = useActionData<ActionData>()
 
   return (
@@ -56,6 +67,7 @@ export default function Login(): JSX.Element {
               placeholder="Password"
               autoComplete="current-password"
             />
+            <input type={"hidden"} name="redirectTo" value={redirectTo} />
             <Button.Primary type="submit">Login</Button.Primary>
           </fieldset>
           <Paragraph className="text-negative">
