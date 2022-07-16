@@ -1,7 +1,12 @@
 import authenticator, { loginUser } from "@gs/service/auth.server"
+import { generateWebAuthNRequest, WebAuthNType } from "@gs/webauthn"
 import { Form, useActionData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+import {
+  solveLoginChallenge,
+  solveRegistrationChallenge,
+} from "@webauthn/client"
 
 import Hero from "~/features/hero"
 import Button from "~/features/ui/Button"
@@ -33,6 +38,9 @@ export default function Login(): JSX.Element {
     <Hero>
       <Hero.Header title="Login" />
       <Hero.Description>
+        <Button onClick={() => register("gs")}>Register</Button>
+        <Button onClick={() => login("gs")}>Login</Button>
+
         <Form method="post" className="flex flex-col gap-4">
           <fieldset className="flex flex-col gap-4 md:flex-row md:items-end">
             <Input
@@ -65,4 +73,29 @@ export default function Login(): JSX.Element {
       </Hero.Description>
     </Hero>
   )
+}
+
+async function register(username: string) {
+  const challenge = await generateWebAuthNRequest(
+    WebAuthNType.RequestRegister,
+    { id: "uuid", username },
+  )
+  const { loggedIn } = await generateWebAuthNRequest(
+    WebAuthNType.Register,
+    await solveRegistrationChallenge(challenge),
+  )
+
+  console.log({ username, loggedIn })
+}
+
+async function login(username: string) {
+  const challenge = await generateWebAuthNRequest(WebAuthNType.Login, {
+    username,
+  })
+  const { loggedIn } = await generateWebAuthNRequest(
+    WebAuthNType.Register,
+    await solveLoginChallenge(challenge),
+  )
+
+  console.log({ loggedIn })
 }
