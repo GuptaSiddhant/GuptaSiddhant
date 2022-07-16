@@ -45,28 +45,30 @@ export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
   from?: Date
   till?: Date
   disabledSections?: Record<Sections, boolean>
+  tags: string[]
 } {
   const fromParam = searchParams.get("from")
   const toParam = searchParams.get("to")
+  const tags = parseGetAllSearchParams(searchParams, "tag").map((t) =>
+    t.toLowerCase(),
+  )
   const enabledSections = parseGetAllSearchParams(searchParams, "section").map(
     (s) => s.toLowerCase(),
   )
 
-  let disabledSections: Record<Sections, boolean> | undefined = undefined
-
+  const disabledSections = {} as Record<Sections, boolean>
   if (enabledSections.length > 0) {
-    disabledSections = Object.keys(Sections).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: enabledSections.includes(key) ? false : true,
-      }),
-      {} as Record<Sections, boolean>,
-    )
+    Object.keys(Sections).forEach((key) => {
+      disabledSections[key as Sections] = enabledSections.includes(key)
+        ? false
+        : true
+    })
   }
 
   return {
     disabledSections,
     from: fromParam ? new Date(fromParam) : undefined,
     till: toParam ? new Date(toParam) : undefined,
+    tags,
   }
 }

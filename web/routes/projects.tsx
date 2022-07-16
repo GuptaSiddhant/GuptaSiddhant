@@ -2,7 +2,7 @@ import { ErrorSection } from "@gs/ui/Error"
 import { Outlet } from "@remix-run/react"
 import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 
-export default function Blog(): JSX.Element {
+export default function Projects(): JSX.Element {
   return <Outlet />
 }
 

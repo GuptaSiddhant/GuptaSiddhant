@@ -12,10 +12,8 @@ import {
 } from "./helpers"
 import Resume, { type ResumeProps } from "./Resume"
 
-export default async function handler(request: Request): Promise<string> {
-  const { origin, searchParams } = new URL(request.url)
-
-  const filters = getFiltersFromSearchParams(searchParams)
+export default async function generateResumeFromUrl(url: URL): Promise<string> {
+  const filters = getFiltersFromSearchParams(url.searchParams)
 
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
@@ -31,7 +29,7 @@ export default async function handler(request: Request): Promise<string> {
     contactLinks: transformAboutLinkToContactLinks(link),
     experiences: careerList,
     educations: educationList,
-    domain: origin,
+    domain: url.origin,
     terminalResumeCode: terminalResume.copyText!,
     skills: filters.disabledSections?.skills ? undefined : skills,
     aboutTexts,
@@ -45,19 +43,25 @@ async function getExperienceProps(
   filters?: ReturnType<typeof getFiltersFromSearchParams>,
   sectionKey?: Sections,
 ) {
-  const disabled = sectionKey ? filters?.disabledSections?.[sectionKey] : false
+  const disabled = Boolean(
+    sectionKey ? filters?.disabledSections?.[sectionKey] : false,
+  )
   if (disabled) return []
 
   const list = await callback()
   if (!filters) return list
 
+  const { tags, from, till } = filters
   return list.filter((item) => {
     const startDate = new Date(item.startDate)
     const endDate = item.endDate ? new Date(item.endDate) : undefined
     // Remove items that end before the filtered from-date
-    if (filters.from && endDate && endDate < filters.from) return false
+    if (from && endDate && endDate < from) return false
     // Remove items that starts after the filtered till-date
-    if (filters.till && startDate > filters.till) return false
+    if (till && startDate > till) return false
+    // Remove items that don't have any of the filtered tags
+    if (tags.length > 0 && !tags.some((tag) => item.tags?.includes(tag)))
+      return false
 
     return true
   })
