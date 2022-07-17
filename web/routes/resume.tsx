@@ -2,7 +2,7 @@ import { Sections } from "@gs/resume/helpers"
 import Button from "@gs/ui/Button"
 import { ErrorSection } from "@gs/ui/Error"
 import Section from "@gs/ui/Section"
-import { Link, useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 import type {
   ErrorBoundaryComponent,
   LoaderFunction,
@@ -67,8 +67,8 @@ export default function Resume(): JSX.Element {
   }
 
   return (
-    <Section className="mx-auto !grid max-w-5xl gap-4 p-4 md:grid-cols-2">
-      <H1 className="col-span-2">Resume builder</H1>
+    <Section className="mx-auto !grid max-w-5xl grid-cols-1 gap-4 p-4 md:grid-cols-2">
+      <H1 className="col-span-full">Resume builder</H1>
 
       <form
         method="get"
@@ -153,10 +153,11 @@ export default function Resume(): JSX.Element {
           </ExternalLink>
         </p>
       </form>
+
       <iframe
         title="resume-pdf"
         src={resumeUrl}
-        className="aspect-[3/4] w-full"
+        className="aspect-[7/10] w-full"
       />
     </Section>
   )

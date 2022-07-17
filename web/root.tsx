@@ -37,19 +37,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function App() {
-  const { about, navigationRemoteConfig, isAuthenticated, themeName } =
-    useLoaderData<RootLoaderData>()
-
-  const navigationLinks = useNavigationLinks({
-    about,
-    navigationRemoteConfig,
-    isAuthenticated,
-    themeName,
-  })
+  const { themeName } = useLoaderData<RootLoaderData>()
 
   return (
     <Document themeName={themeName}>
-      <AppLayout navigationLinks={navigationLinks}>
+      <AppLayout>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

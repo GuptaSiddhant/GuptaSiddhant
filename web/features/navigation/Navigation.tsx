@@ -1,18 +1,25 @@
 import { isExternalLink } from "@gs/helpers"
 import Menu, { type MenuActionProps } from "@gs/ui/Menu"
-import { NavLink } from "@remix-run/react"
+import { NavLink, useLoaderData } from "@remix-run/react"
 import { Fragment, useMemo } from "react"
 import NavMenuIcon from "remixicon-react/Menu3LineIcon"
 
+import type { RootLoaderData } from "../root"
 import type { NavigationLinkProps } from "./types"
+import useNavigationLinks from "./useNavigationLinks"
 
-export interface NavigationProps {
-  links: Array<NavigationLinkProps>
-}
+export default function Navigation(): JSX.Element | null {
+  const { about, navigationRemoteConfig, isAuthenticated, themeName } =
+    useLoaderData<RootLoaderData>()
+  const links = useNavigationLinks({
+    about,
+    navigationRemoteConfig,
+    isAuthenticated,
+    themeName,
+  })
 
-export default function Navigation({
-  links,
-}: NavigationProps): JSX.Element | null {
+  // console.log(about)
+
   if (links.length === 0) return null
 
   const internalLinks = links.filter(

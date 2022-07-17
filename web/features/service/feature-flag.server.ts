@@ -1,20 +1,13 @@
 import {
-  type FirebaseRemoteConfigTemplate,
   mutateFirebaseRemoteConfigMap,
   queryFirebaseRemoteConfigKeys,
   queryFirebaseRemoteConfigTemplate,
   queryFirebaseRemoteConfigValueAndTypeByKey,
 } from "@gs/firebase/remote-config"
 
-import {
-  deleteCachedKey,
-  deleteCachedKeysWith,
-  fetchCachedKey,
-} from "./cache.server"
+import { deleteCachedKey, fetchCachedKey } from "./cache.server"
 
-export enum FeatureFlagKey {
-  EnableSearch = "enableSearch",
-}
+export enum FeatureFlagKey {}
 
 const cacheKey = "feature-flags"
 

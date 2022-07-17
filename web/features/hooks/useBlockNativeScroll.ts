@@ -1,11 +1,15 @@
 import useSafeLayoutEffect from "./useSafeLayoutEffect"
 
-export default function useBlockNativeScroll() {
+export default function useBlockNativeScroll(disabled?: boolean) {
   return useSafeLayoutEffect(() => {
-    window.document.body.style.overflow = "hidden"
+    const previousOverflow = document.body.style.overflow
+
+    if (!disabled) {
+      window.document.body.style.overflow = "hidden"
+    }
 
     return () => {
-      window.document.body.style.overflow = "initial"
+      window.document.body.style.overflow = previousOverflow
     }
-  }, [])
+  }, [disabled])
 }
