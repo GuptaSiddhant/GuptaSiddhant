@@ -62,7 +62,7 @@ function SearchDialog({
       isOpen={isSearchOpen}
       dialogRef={dialogRef}
       closeDialog={closeSearch}
-      className="flex max-h-[75vh] flex-col gap-4"
+      className="flex max-h-[75vh] min-h-[50vh] flex-col gap-4"
     >
       <SearchInput {...fetcher} />
       <SearchResults

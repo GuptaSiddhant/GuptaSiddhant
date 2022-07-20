@@ -37,7 +37,7 @@ export default function SearchResults({
 
   if (!data) {
     return (
-      <output className="border-t border-divider pt-4 text-disabled flex-center">
+      <output className="flex-1 border-t border-divider pt-4 text-disabled flex-center">
         No results found
       </output>
     )
@@ -48,7 +48,7 @@ export default function SearchResults({
   return (
     <output
       className={clsx(
-        "grid gap-2 overflow-hidden border-t border-divider pt-4 md:grid-cols-2",
+        "grid flex-1 gap-2 overflow-hidden border-t border-divider pt-4 md:grid-cols-2",
       )}
     >
       <div

@@ -20,7 +20,7 @@ export default function SearchInput({
   useEffect(() => {
     if (isSearchOpen) {
       ref.current?.focus()
-      // load("/api?type=search")
+      load("/search")
     }
   }, [isSearchOpen, load])
 
@@ -28,7 +28,7 @@ export default function SearchInput({
     <Form
       className="relative flex w-full gap-2"
       method="get"
-      action="/api"
+      action="/search"
       onChange={(e) => submit(e.currentTarget)}
     >
       <Input
@@ -40,7 +40,6 @@ export default function SearchInput({
         placeholder="Search for anything..."
         inputRef={ref}
       />
-      <input type="hidden" name="type" value="search" />
 
       <label
         role={"presentation"}
