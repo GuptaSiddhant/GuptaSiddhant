@@ -10,11 +10,8 @@ export default function SearchInput({
   Form,
   submit,
   state,
-  inputRef,
-}: FetcherWithComponents<any> & {
-  inputRef: React.RefObject<HTMLInputElement>
-}): JSX.Element | null {
-  const { closeSearch } = useSearch()
+}: FetcherWithComponents<any>): JSX.Element | null {
+  const { closeSearch, inputRef } = useSearch()
   const isLoading = state === "submitting" || state === "loading"
 
   return (

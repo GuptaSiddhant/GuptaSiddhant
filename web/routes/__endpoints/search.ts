@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   try {
     const results = await fetchCachedKey(
-      `${searchCacheKey}/${query || "::init::"}`,
+      `${searchCacheKey}/${query ? `query="${query}"` : "::init::"}`,
       () => search(query, origin),
       { ttl: ONE_HOUR_IN_MS },
     )

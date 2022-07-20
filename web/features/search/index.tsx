@@ -1,17 +1,16 @@
-import { useFetcher } from "@remix-run/react"
-import React, { createContext, useContext, useEffect, useRef } from "react"
+import { createContext, useContext, useRef } from "react"
 import invariant from "tiny-invariant"
 
-import Dialog, { useDialog } from "../ui/Dialog"
-import SearchInput from "./SearchInput"
-import SearchResults, { type SearchResultsData } from "./SearchResults"
-import useSearchKeyDown from "./useSearchKeyDown"
+import { useDialog } from "../ui/Dialog"
+import SearchDialog from "./SearchDialog"
 
 export interface SearchContextValue {
   isSearchOpen: boolean
   toggleSearchOpen: () => void
   openSearch: () => void
   closeSearch: () => void
+  inputRef: React.RefObject<HTMLInputElement>
+  resultsRef: React.RefObject<HTMLDivElement>
 }
 
 const SearchContext = createContext<SearchContextValue | undefined>(undefined)
@@ -36,51 +35,22 @@ export function Search({
     toggleDialogOpen: toggleSearchOpen,
   } = useDialog()
 
+  const inputRef = useRef<HTMLInputElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
   return (
     <SearchContext.Provider
-      value={{ closeSearch, isSearchOpen, openSearch, toggleSearchOpen }}
+      value={{
+        closeSearch,
+        isSearchOpen,
+        openSearch,
+        toggleSearchOpen,
+        inputRef,
+        resultsRef,
+      }}
     >
       {children}
       <SearchDialog dialogRef={dialogRef} />
     </SearchContext.Provider>
-  )
-}
-
-function SearchDialog({
-  dialogRef,
-}: {
-  dialogRef: React.RefObject<HTMLDialogElement>
-}): JSX.Element | null {
-  const { isSearchOpen, closeSearch } = useSearch()
-  const inputRef = useRef<HTMLInputElement>(null)
-  const resultsRef = useRef<HTMLDivElement>(null)
-
-  const fetcher = useFetcher<SearchResultsData>()
-  const load = fetcher.load
-
-  useSearchKeyDown(inputRef, resultsRef)
-  useEffect(() => {
-    if (isSearchOpen) {
-      inputRef.current?.form?.reset()
-      inputRef.current?.focus()
-      load("/search")
-    }
-  }, [isSearchOpen, load])
-
-  return (
-    <Dialog
-      id="search"
-      isOpen={isSearchOpen}
-      dialogRef={dialogRef}
-      closeDialog={closeSearch}
-      className="flex h-[90vh] flex-col gap-4 lg:h-[60vh]"
-    >
-      <SearchInput {...fetcher} inputRef={inputRef} />
-      <SearchResults
-        resultsRef={resultsRef}
-        data={fetcher.data}
-        query={fetcher.submission?.formData.get("query")?.toString()}
-      />
-    </Dialog>
   )
 }

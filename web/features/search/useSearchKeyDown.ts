@@ -2,14 +2,10 @@ import useEventListener from "../hooks/useEventListener"
 import useSearch from "."
 
 const inputTagNames = ["input", "textarea", "select"]
-const alphabets = "abcdefghijklmnopqrstuvwxyz".split("")
-const numbers = "0123456789".split("")
+const alphanumerics = "abcdefghijklmnopqrstuvwxyz0123456789".split("")
 
-export default function useSearchKeyDown(
-  inputRef: React.RefObject<HTMLInputElement>,
-  resultsRef: React.RefObject<HTMLDivElement>,
-): void {
-  const { toggleSearchOpen } = useSearch()
+export default function useSearchKeyDown(): void {
+  const { toggleSearchOpen, inputRef, resultsRef } = useSearch()
 
   useEventListener("keydown", (event) => {
     if (event.metaKey) {
@@ -34,10 +30,8 @@ export default function useSearchKeyDown(
 
     // If an alphanumeric key, space or backspace is pressed, focus the search input field.
     if (
-      event.key === "Backspace" ||
-      event.key === " " ||
-      alphabets.includes(event.key.toLowerCase()) ||
-      numbers.includes(event.key)
+      alphanumerics.includes(event.key.toLowerCase()) ||
+      ["Backspace", " "].includes(event.key)
     ) {
       return inputRef.current?.focus()
     }

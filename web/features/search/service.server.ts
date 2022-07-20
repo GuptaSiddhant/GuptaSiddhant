@@ -29,6 +29,18 @@ export async function search(query?: string, origin?: string) {
   const dataKeys = Object.keys(apiTypes).filter(
     (k) => k !== "about" && k !== "skills",
   )
+
+  for (const key of dataKeys) {
+    if (key === query) {
+      const data: any[] = await apiTypes[key].queryAll()
+      const enrichedData = data.map((item) =>
+        generateLinkUrlBuilder(origin, key)(item),
+      )
+
+      return { [key]: enrichedData }
+    }
+  }
+
   const allData = await Promise.all(
     dataKeys.map((key) => apiTypes[key].queryAll()),
   )
@@ -48,7 +60,10 @@ export async function search(query?: string, origin?: string) {
       )
       const filteredData = data
         .filter((item) =>
-          query ? filterResultItemByQuery(item, query.toLowerCase()) : true,
+          query
+            ? key.includes(query.toLowerCase()) ||
+              filterResultItemByQuery(item, query.toLowerCase())
+            : true,
         )
         .map((item) => enrichDataWithLinkUrl(item))
         .slice(0, query ? 5 : 3)
