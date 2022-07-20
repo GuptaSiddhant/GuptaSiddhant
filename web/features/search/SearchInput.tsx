@@ -1,5 +1,4 @@
 import type { FetcherWithComponents } from "@remix-run/react"
-import { useEffect, useRef } from "react"
 
 import { CloseIcon, LoadingIcon } from "../icons"
 import Button from "../ui/Button"
@@ -11,18 +10,12 @@ export default function SearchInput({
   Form,
   submit,
   state,
-  load,
-}: FetcherWithComponents<any>): JSX.Element | null {
-  const { closeSearch, isSearchOpen } = useSearch()
-  const ref = useRef<HTMLInputElement>(null)
+  inputRef,
+}: FetcherWithComponents<any> & {
+  inputRef: React.RefObject<HTMLInputElement>
+}): JSX.Element | null {
+  const { closeSearch } = useSearch()
   const isLoading = state === "submitting" || state === "loading"
-
-  useEffect(() => {
-    if (isSearchOpen) {
-      ref.current?.focus()
-      load("/search")
-    }
-  }, [isSearchOpen, load])
 
   return (
     <Form
@@ -38,7 +31,9 @@ export default function SearchInput({
         className="h-10 w-full pl-10"
         type="search"
         placeholder="Search for anything..."
-        inputRef={ref}
+        inputRef={inputRef}
+        autoFocus
+        autoComplete="off"
       />
 
       <label

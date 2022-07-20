@@ -1,12 +1,11 @@
 import { useFetcher } from "@remix-run/react"
-import clsx from "clsx"
-import React, { createContext, useContext } from "react"
+import React, { createContext, useContext, useEffect, useRef } from "react"
 import invariant from "tiny-invariant"
 
 import Dialog, { useDialog } from "../ui/Dialog"
 import SearchInput from "./SearchInput"
 import SearchResults, { type SearchResultsData } from "./SearchResults"
-import useSearchShortcuts from "./useSearchShortcuts"
+import useSearchKeyDown from "./useSearchKeyDown"
 
 export interface SearchContextValue {
   isSearchOpen: boolean
@@ -52,9 +51,21 @@ function SearchDialog({
 }: {
   dialogRef: React.RefObject<HTMLDialogElement>
 }): JSX.Element | null {
-  useSearchShortcuts()
   const { isSearchOpen, closeSearch } = useSearch()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+
   const fetcher = useFetcher<SearchResultsData>()
+  const load = fetcher.load
+
+  useSearchKeyDown(inputRef, resultsRef)
+  useEffect(() => {
+    if (isSearchOpen) {
+      inputRef.current?.form?.reset()
+      inputRef.current?.focus()
+      load("/search")
+    }
+  }, [isSearchOpen, load])
 
   return (
     <Dialog
@@ -62,10 +73,11 @@ function SearchDialog({
       isOpen={isSearchOpen}
       dialogRef={dialogRef}
       closeDialog={closeSearch}
-      className="flex max-h-[75vh] min-h-[50vh] flex-col gap-4"
+      className="flex h-[90vh] flex-col gap-4 lg:h-[60vh]"
     >
-      <SearchInput {...fetcher} />
+      <SearchInput {...fetcher} inputRef={inputRef} />
       <SearchResults
+        resultsRef={resultsRef}
         data={fetcher.data}
         query={fetcher.submission?.formData.get("query")?.toString()}
       />

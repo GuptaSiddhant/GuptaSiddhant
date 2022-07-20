@@ -25,9 +25,11 @@ export interface SearchResultsData {
 export default function SearchResults({
   data,
   query,
+  resultsRef,
 }: {
   data?: SearchResultsData
   query?: string
+  resultsRef: React.RefObject<HTMLDivElement>
 }): JSX.Element | null {
   const [previewContent, setPreviewContent] = useState<
     React.ReactNode | undefined
@@ -54,6 +56,7 @@ export default function SearchResults({
       <div
         id="search-results"
         className="flex flex-col gap-2 overflow-y-auto overflow-x-hidden"
+        ref={resultsRef}
       >
         <SearchResultGroup
           label="Projects"
@@ -148,19 +151,18 @@ function SearchResultItem({
   return (
     <Link
       to={to}
+      id={`search-result-${id}`}
       className={clsx(
-        "mx-2 grid min-h-[2rem] grid-cols-[2rem_1fr] items-center gap-4 py-2 px-4",
+        "mx-2 grid grid-cols-[2rem_1fr] items-center gap-4 py-2 px-4 ",
         "rounded bg-transparent hocus:bg-secondary",
       )}
       onClick={closeSearch}
       onMouseEnter={() =>
         setPreviewContent?.(<SearchResultItemPreview {...props} />)
       }
-      // onMouseLeave={() => setPreviewContent?.(undefined)}
       onFocus={() =>
         setPreviewContent?.(<SearchResultItemPreview {...props} />)
       }
-      // onBlur={() => setPreviewContent?.(undefined)}
     >
       <div className="h-8 w-8">
         {icon || cover ? (

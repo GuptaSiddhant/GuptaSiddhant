@@ -8,7 +8,7 @@ const searchCacheKey = "search"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams, origin } = new URL(request.url)
-  const query = searchParams.get("query")?.toString()
+  const query = searchParams.get("query")?.toString().trim()
 
   try {
     const results = await fetchCachedKey(
