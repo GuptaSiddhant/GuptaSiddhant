@@ -1,8 +1,9 @@
 import { appLogger } from "@gs/service/logger.server"
-import { resolveStorageAssetUrl } from "@gs/service/storage.server"
+import storage from "@gs/service/storage.server"
 import { ErrorSection } from "@gs/ui/Error"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
+import invariant from "tiny-invariant"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const path = params["*"]
@@ -28,4 +29,20 @@ export default function Error404(): JSX.Element | null {
       message="Oops! Looks like you tried to visit a page that does not exist."
     />
   )
+}
+
+// Helpers
+
+async function resolveStorageAssetUrl(path?: string) {
+  invariant(path, "asset path is required")
+  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
+
+  if (assetExts.some((ext) => path.endsWith(ext))) {
+    const url = await storage.queryAssetPublicUrl(path)
+    invariant(url, "could not get public url for asset: '" + path + "'")
+
+    return url
+  }
+
+  throw new Error("Not an asset: '" + path + "'")
 }

@@ -18,8 +18,6 @@ export default function Navigation(): JSX.Element | null {
     themeName,
   })
 
-  // console.log(about)
-
   if (links.length === 0) return null
 
   const internalLinks = links.filter(

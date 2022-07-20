@@ -42,7 +42,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(type, "Cache type is invalid")
 
   const data = await getCachedKey(key)
-  if (!data) return redirect(adminApp.linkPath)
+
+  if (data === undefined || data === null) {
+    return redirect(adminApp.linkPath)
+  }
 
   const ttl = getCache().getRemainingTTL(key)
 

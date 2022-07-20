@@ -15,6 +15,7 @@ export { FirebaseStorageFile }
 
 export async function queryFirebaseStorageMetaData() {
   const data = (await getFirebaseStorageBucket().getMetadata())?.[0]
+  invariant(data, "Failed to get bucket metadata.")
 
   return {
     id: String(data.id),
@@ -67,7 +68,6 @@ export async function queryFirebaseStorageDirContents(
 
   const dirs = apiResponse.prefixes || []
   const files = _files.filter((file) => !file.name.endsWith(delimiter))
-  // console.log({ _files, dirs })
 
   return { dirs, files }
 }

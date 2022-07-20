@@ -9,19 +9,27 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 interface LoaderData {
-  metadata: StorageMetadata
+  metadata?: StorageMetadata
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const metadata = await storage.queryMetadata()
+  try {
+    const metadata = await storage.queryMetadata()
 
-  return json<LoaderData>({ metadata })
+    return json<LoaderData>({ metadata })
+  } catch {
+    return json<LoaderData>({})
+  }
 }
 
 export default function StorageIndex(): JSX.Element | null {
   const { metadata } = useLoaderData<LoaderData>()
   const adminApp = useAdminApp()
+
+  if (!metadata) {
+    return <AdminDashboard {...adminApp} children={null} />
+  }
 
   return (
     <AdminDashboard {...adminApp}>

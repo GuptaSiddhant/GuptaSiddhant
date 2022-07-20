@@ -50,10 +50,12 @@ export class Storage {
   queryAssetExists = async (path: string): Promise<boolean> =>
     queryFirebaseStorageFileExists(path)
 
-  queryAssetPublicUrl = async (path: string): Promise<string> =>
-    fetchCachedKey(this.#createCacheKey(path), () =>
-      queryFirebaseStorageFileSignedUrl(path),
-    )
+  queryAssetPublicUrl = async (path: string): Promise<string | undefined> =>
+    fetchCachedKey(this.#createCacheKey(path), async () => {
+      if (await this.queryAssetExists(path))
+        return queryFirebaseStorageFileSignedUrl(path)
+      return undefined
+    })
 
   queryAsset = async (path: string): Promise<StorageFile> => {
     const file = await queryFirebaseStorageFile(path)
@@ -115,10 +117,7 @@ export async function resolveStorageAssetUrl(path?: string) {
   invariant(path, "asset path is required")
   const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
 
-  if (
-    assetExts.some((ext) => path.endsWith(ext)) &&
-    (await storage.queryAssetExists(path))
-  ) {
+  if (assetExts.some((ext) => path.endsWith(ext))) {
     const url = await storage.queryAssetPublicUrl(path)
     invariant(url, "could not get url for asset: '" + path + "'")
 
