@@ -1,7 +1,7 @@
 import {
   type TransformedDocument,
-  getFirestoreCollectionRef,
   mutateFirestoreDocument,
+  queryFireStoreCollectionIds,
   queryFireStoreDocument,
 } from "@gs/firebase/firestore"
 import invariant from "tiny-invariant"
@@ -26,6 +26,7 @@ export type DatabaseDocument = TransformedDocument
 export type DatabaseType<T extends DatabaseDocument> = Database<T>
 
 const cacheKey = "database"
+const cacheKeysKey = "::keys::"
 
 export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   #model: string
@@ -57,22 +58,29 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
     )
   }
 
+  queryKeys = async (ignoreCache = false): Promise<string[]> => {
+    if (ignoreCache) this.invalidateCacheById(cacheKeysKey)
+
+    return fetchCachedKey(this.#createCacheKey(cacheKeysKey), () =>
+      queryFireStoreCollectionIds(this.#model),
+    )
+  }
+
   queryAll = async <TypeOverride extends DatabaseDocument = T>(
     ignoreCache = false,
   ) => {
-    const docsRefs = await getFirestoreCollectionRef<TypeOverride>(
-      this.#model,
-    ).listDocuments()
+    const keys = await this.queryKeys(ignoreCache)
 
     return Promise.all(
-      docsRefs.map((doc) => this.queryById(doc.id, ignoreCache)),
+      keys.map((id) => this.queryById<TypeOverride>(id, ignoreCache)),
     )
   }
 
   mutateById = async (id: string, data?: T) => {
-    return mutateFirestoreDocument(this.#model, id, data).then(() =>
-      this.invalidateCacheById(id),
-    )
+    return mutateFirestoreDocument(this.#model, id, data).then(() => {
+      this.invalidateCacheById(id)
+      this.invalidateCacheById(cacheKeysKey)
+    })
   }
 
   static queryModelById<T extends DatabaseDocument>(model: string, id: string) {

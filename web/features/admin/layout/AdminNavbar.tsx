@@ -145,6 +145,7 @@ export interface AdminNavbarGroupProps {
   showCount?: boolean
   openByDefault?: boolean
   children: NavigationLinkProps[]
+  actions?: React.ReactNode
 }
 
 function AdminNavbarGroup({
@@ -152,6 +153,7 @@ function AdminNavbarGroup({
   label,
   showCount = false,
   openByDefault = true,
+  actions,
 }: AdminNavbarGroupProps): JSX.Element | null {
   if (children.length === 0) return null
 
@@ -161,9 +163,12 @@ function AdminNavbarGroup({
       summary={label}
       summaryClassName={clsx("sticky top-0 sm:rounded-none")}
       summaryLeadingElement={
-        showCount ? (
-          <span className="font-normal">({children.length})</span>
-        ) : null
+        <>
+          {showCount ? (
+            <span className="font-normal">({children.length})</span>
+          ) : null}
+          {actions}
+        </>
       }
     >
       <ul className="flex list-none flex-col gap-1 px-2">

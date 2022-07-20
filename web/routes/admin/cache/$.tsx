@@ -3,11 +3,17 @@ import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { ONE_HOUR_IN_MS } from "@gs/constants"
 import useMediaQuery from "@gs/hooks/useMediaQuery"
+import { DeleteIcon } from "@gs/icons"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
 import type { ModifyCacheMethod } from "@gs/service/cache.server"
 import { modifyCache } from "@gs/service/cache.server"
-import { getCache, getCachedKey, parseCacheKey } from "@gs/service/cache.server"
+import {
+  getCache,
+  getCachedKey,
+  hasCachedKey,
+  parseCacheKey,
+} from "@gs/service/cache.server"
 import Action from "@gs/ui/Action"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { ErrorSection } from "@gs/ui/Error"
@@ -21,8 +27,10 @@ import type {
 } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-import DeleteIcon from "remixicon-react/DeleteBin7LineIcon"
+import clsx from "clsx"
 import invariant from "tiny-invariant"
+
+import { Paragraph } from "~/features/ui/Text"
 
 interface LoaderData {
   key: string
@@ -40,13 +48,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(key, "Cache key is required")
   const { type, value } = parseCacheKey(key) || {}
   invariant(type, "Cache type is invalid")
+  const isCached = hasCachedKey(key)
+
+  if (!isCached) return redirect(adminApp.linkPath)
 
   const data = await getCachedKey(key)
-
-  if (data === undefined || data === null) {
-    return redirect(adminApp.linkPath)
-  }
-
   const ttl = getCache().getRemainingTTL(key)
 
   return json<LoaderData>({
@@ -99,11 +105,23 @@ export default function CacheDetails(): JSX.Element | null {
       title={key}
       actions={actions}
       footer={<Footer />}
-      className="flex flex-col gap-4 p-4"
+      className={clsx(data ? "flex flex-col gap-4 p-4" : "p-4 flex-center")}
     >
-      <CodeBlock lang="json" wrap codeClassName="text-sm" className="!m-0">
-        {JSON.stringify(data, null, 2)}
-      </CodeBlock>
+      {data ? (
+        <CodeBlock lang="json" wrap codeClassName="text-sm" className="!m-0">
+          {JSON.stringify(data, null, 2)}
+        </CodeBlock>
+      ) : (
+        <Paragraph className="text-center text-base">
+          The cache key does not contain any data.
+          <br />
+          <br />
+          <span className="text-disabled">
+            Maybe there was an error while fetching the data or the source gave
+            an empty response.
+          </span>
+        </Paragraph>
+      )}
     </AdminLayout>
   )
 }

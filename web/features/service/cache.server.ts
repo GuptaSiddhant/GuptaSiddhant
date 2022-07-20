@@ -22,8 +22,13 @@ const appCache =
 export function getCache() {
   return appCache
 }
+
 export function getCachedKeys(): string[] {
   return [...getCache().keys()]
+}
+
+export function hasCachedKey(key: string): boolean {
+  return getCache().has(key)
 }
 
 export function getCachedKey(key: string) {

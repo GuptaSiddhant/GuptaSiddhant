@@ -25,6 +25,8 @@ import { json, redirect } from "@remix-run/server-runtime"
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
 import RefreshIcon from "remixicon-react/RefreshFillIcon"
 
+import { DeleteIcon } from "~/features/icons"
+
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 
 interface LoaderData {
@@ -58,7 +60,20 @@ export default function CacheAdminApp(): JSX.Element | null {
       id: type,
       label: type.toUpperCase().replace(/-/g, " "),
       showCount: true,
+      openByDefault: false,
       children: groupMap[type],
+      actions: (
+        <Action
+          title={`Clear cache for '${type}'.`}
+          method="delete"
+          confirm={`Are you sure about clearing '${type}' cache?`}
+          toast={`Clearing '${type}' cache ...`}
+          action={`${adminApp.linkPath}/${type}`}
+          body={{ key: type }}
+        >
+          <DeleteIcon />
+        </Action>
+      ),
     }),
   )
 

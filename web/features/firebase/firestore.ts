@@ -31,6 +31,16 @@ export async function queryFireStoreDocument<T extends TransformedDocument>(
   return data as T
 }
 
+export async function queryFireStoreCollectionIds(
+  collectionPath: string,
+): Promise<string[]> {
+  const documentRefs = await getFirestoreCollectionRef(
+    collectionPath,
+  ).listDocuments()
+
+  return documentRefs.map((doc) => doc.id)
+}
+
 // Mutations
 
 export async function mutateFirestoreCollection<T extends TransformedDocument>(
@@ -71,7 +81,7 @@ function getFirestore() {
   return global.firestore
 }
 
-export function getFirestoreCollectionRef<T extends TransformedDocument>(
+function getFirestoreCollectionRef<T extends TransformedDocument>(
   collectionPath: string,
 ) {
   return getFirestore().collection(collectionPath).withConverter<T>({
@@ -80,7 +90,7 @@ export function getFirestoreCollectionRef<T extends TransformedDocument>(
   })
 }
 
-export function getFirestoreDocumentRef<T extends TransformedDocument>(
+function getFirestoreDocumentRef<T extends TransformedDocument>(
   collectionPath: string,
   documentPath: string,
 ) {
