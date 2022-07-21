@@ -38,8 +38,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     [
       getCareerList(),
       getEducationList(),
-      getBlogPostTeaserList(),
-      getProjectTeaserList(),
+      getBlogPostTeaserList(100),
+      getProjectTeaserList(100),
     ],
   )
 

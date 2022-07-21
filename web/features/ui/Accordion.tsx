@@ -39,7 +39,7 @@ export default function Accordion({
       >
         <div
           className={clsx(
-            "inline-block w-[calc(100%_-_0.8rem)] pl-1",
+            "inline-block w-[calc(100%_-_1rem)] pl-1",
             "inline-flex items-center gap-2",
             summaryLeadingElement ? "justify-between" : "justify-start",
           )}

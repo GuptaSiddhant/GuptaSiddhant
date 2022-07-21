@@ -1,12 +1,6 @@
-import { DatabaseModel } from "@gs/service/database.server"
 import { formatDate } from "@gs/utils/format"
 
-import type {
-  CareerProps,
-  CommonExperienceProps,
-  EducationProps,
-  ExperienceProps,
-} from "./types"
+import type { CommonExperienceProps, ExperienceProps } from "./types"
 
 export function generateTagListFromExperienceProps(
   items: ExperienceProps[],
