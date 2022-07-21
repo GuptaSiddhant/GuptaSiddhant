@@ -16,7 +16,7 @@ import {
 export enum DatabaseModel {
   Projects = "projects",
   Blog = "blog",
-  Info = "info",
+  About = "about",
   Testimonies = "testimonies",
   Education = "education",
   Career = "career",

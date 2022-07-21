@@ -2,7 +2,7 @@ import { renderToString } from "@react-pdf/renderer"
 import { createElement } from "react"
 
 import { aboutTexts } from "@gs/about"
-import { getAboutInfo, getSkills } from "@gs/about/service.server"
+import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
 import { getCareerList, getEducationList } from "@gs/experiences/service.server"
 import type { ExperienceProps } from "@gs/experiences/types"
 
@@ -18,7 +18,7 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
 
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
-    getSkills(),
+    getAboutSkills(),
     getExperienceProps(getCareerList, filters, Sections.experience),
     getExperienceProps(getEducationList, filters, Sections.education),
   ])

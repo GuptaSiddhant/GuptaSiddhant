@@ -169,4 +169,4 @@ const skills = {
   language,
 }
 
-setFirestoreDocument("info", "skills", skills)
+setFirestoreDocument("about", "skills", skills)

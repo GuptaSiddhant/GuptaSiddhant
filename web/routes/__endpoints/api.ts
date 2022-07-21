@@ -1,6 +1,6 @@
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
-import { getAboutInfo, getSkills } from "@gs/about/service.server"
+import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
 import {
   getBlogPostDetails,
   getBlogPostTeaserList,
@@ -25,7 +25,7 @@ const apiTypes: Record<
   }
 > = {
   about: { queryAll: getAboutInfo },
-  skills: { queryAll: getSkills, linkPath: "about" },
+  skills: { queryAll: getAboutSkills, linkPath: "about" },
   projects: {
     queryAll: getProjectTeaserList,
     queryById: getProjectDetails,

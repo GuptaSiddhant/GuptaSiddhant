@@ -10,6 +10,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
 import { getAboutInfo } from "@gs/about/service.server"
+import usePullDownRefresh from "@gs/hooks/usePullDownRefresh"
 import { getNavigationRemoteConfig } from "@gs/navigation/service.server"
 import { type RootLoaderData } from "@gs/root"
 import AppLayout from "@gs/root/AppLayout"
@@ -38,6 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function App() {
   const { themeName } = useLoaderData<RootLoaderData>()
+  usePullDownRefresh()
 
   return (
     <Document themeName={themeName}>

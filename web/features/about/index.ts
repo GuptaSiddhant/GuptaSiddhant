@@ -29,7 +29,7 @@ export const aboutTexts = [
 ]
 
 export interface Skills extends Record<SkillCategory, SkillObject[]> {
-  // id: string
+  id: string
 }
 
 export type SkillCategory =
