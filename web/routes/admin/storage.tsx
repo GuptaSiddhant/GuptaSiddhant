@@ -1,3 +1,12 @@
+import { useLoaderData } from "@remix-run/react"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
+
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
@@ -13,14 +22,6 @@ import { ErrorSection } from "@gs/ui/Error"
 import Popover from "@gs/ui/Popover"
 import PopoverUpload from "@gs/ui/Popover/Upload"
 import { Caption } from "@gs/ui/Text"
-import { useLoaderData } from "@remix-run/react"
-import type {
-  ActionFunction,
-  ErrorBoundaryComponent,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime"
-import { json, redirect } from "@remix-run/server-runtime"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage)
 

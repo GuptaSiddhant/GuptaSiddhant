@@ -9,6 +9,10 @@ import { type BlogPostProps } from "."
 
 export const databaseBlog = new Database<BlogPostProps>(DatabaseModel.Blog)
 
+export async function getBlogPostKeys() {
+  return databaseBlog.queryKeys()
+}
+
 export async function getBlogPostTeaserList(
   limit = 10,
 ): Promise<TeaserProps[]> {

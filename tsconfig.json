@@ -2,8 +2,8 @@
   "include": ["remix.env.d.ts", "web/**/*.ts", "web/**/*.tsx"],
   "compilerOptions": {
     "paths": {
-      "~/*": ["./web/*"],
-      "@gs/*": ["./web/features/*"]
+      "@gs/*": ["./web/features/*"],
+      "~/*": ["./web/*"]
     },
     "baseUrl": ".",
     "allowJs": true,

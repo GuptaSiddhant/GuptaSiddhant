@@ -11,6 +11,10 @@ export const databaseProjects = new Database<ProjectProps>(
   DatabaseModel.Projects,
 )
 
+export async function getProjectsKeys() {
+  return databaseProjects.queryKeys()
+}
+
 export async function getProjectTeaserList(limit = 10): Promise<TeaserProps[]> {
   const list = await databaseProjects.queryAll()
 

@@ -33,6 +33,10 @@ export async function getExperienceItem(id: string): Promise<ExperienceProps> {
   throw new Error(`Experience item ${id} not found`)
 }
 
+export async function getEducationKeys() {
+  return databaseEducation.queryKeys()
+}
+
 export async function getEducationList(
   includeDrafts?: boolean,
 ): Promise<ExperienceProps[]> {
@@ -48,6 +52,10 @@ export async function getEducationItem(id: string): Promise<ExperienceProps> {
   const item = await databaseEducation.queryById(id)
 
   return transformEducationToExperience(item)
+}
+
+export async function getCareerKeys() {
+  return databaseCareer.queryKeys()
 }
 
 export async function getCareerList(

@@ -1,8 +1,21 @@
+import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
+import RefreshIcon from "remixicon-react/RefreshFillIcon"
+
+import { useLoaderData } from "@remix-run/react"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
+
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import { createAdminMeta, useAdminApp } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
+import { DeleteIcon } from "@gs/icons"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
 import {
@@ -14,18 +27,6 @@ import {
 import Action from "@gs/ui/Action"
 import { ErrorSection } from "@gs/ui/Error"
 import { Caption } from "@gs/ui/Text"
-import { useLoaderData } from "@remix-run/react"
-import type {
-  ActionFunction,
-  ErrorBoundaryComponent,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime"
-import { json, redirect } from "@remix-run/server-runtime"
-import ClearIcon from "remixicon-react/DeleteBin2FillIcon"
-import RefreshIcon from "remixicon-react/RefreshFillIcon"
-
-import { DeleteIcon } from "~/features/icons"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 
