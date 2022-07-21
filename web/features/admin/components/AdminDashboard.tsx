@@ -1,7 +1,8 @@
-import Table, { type TableProps } from "@gs/ui/Table"
-import { Caption } from "@gs/ui/Text"
 import clsx from "clsx"
 import type { ReactNode } from "react"
+
+import Table, { type TableProps } from "@gs/ui/Table"
+import { Caption } from "@gs/ui/Text"
 
 export interface AdminDashboardProps {
   children: ReactNode

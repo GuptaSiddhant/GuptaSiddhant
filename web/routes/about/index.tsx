@@ -1,19 +1,19 @@
+import { useLoaderData } from "@remix-run/react"
+import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
+import { json } from "@remix-run/server-runtime"
+
 import type { AboutInfo } from "@gs/about"
 import AboutHero from "@gs/about/AboutHero"
 import { getAboutInfo } from "@gs/about/service.server"
 import { generateTagListFromExperienceProps } from "@gs/experiences/helpers"
 import { getExperienceList } from "@gs/experiences/service.server"
+import { createMetaTitle } from "@gs/helpers/meta"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 import type { TocItem } from "@gs/helpers/table-of-contents"
 import { type LifeLineItems, LifeLineCategory } from "@gs/lifeline"
 import { createLifeline, createTocFromLifeline } from "@gs/lifeline/helpers"
 import Lifeline from "@gs/lifeline/Lifeline"
-import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
-
-import { createMetaTitle } from "~/features/helpers/meta"
-import { getAuthUser } from "~/features/service/auth.server"
+import { getAuthUser } from "@gs/service/auth.server"
 
 interface LoaderData {
   isAuthenticated: boolean

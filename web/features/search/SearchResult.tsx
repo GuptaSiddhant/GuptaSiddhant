@@ -1,5 +1,6 @@
-import { Link } from "@remix-run/react"
 import clsx from "clsx"
+
+import { Link } from "@remix-run/react"
 
 // import type { AboutInfo, Skills } from "../about"
 import type { Gallery } from "../types"

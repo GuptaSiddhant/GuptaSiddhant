@@ -1,5 +1,6 @@
-import type { BaseProps } from "@gs/types"
 import clsx from "clsx"
+
+import type { BaseProps } from "@gs/types"
 
 export default function Section({
   children,

@@ -1,6 +1,8 @@
-import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants"
-import { useTransition } from "@remix-run/react"
 import { type RefObject, useCallback, useEffect, useRef } from "react"
+
+import { useTransition } from "@remix-run/react"
+
+import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants"
 
 export default function ProgressBar(): JSX.Element {
   const elementRef = useProgress()

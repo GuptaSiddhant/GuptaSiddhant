@@ -1,8 +1,10 @@
+import { type ReactNode } from "react"
+
+import { Link } from "@remix-run/react"
+
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import type { To } from "@gs/types"
 import { AnchorLink } from "@gs/ui/Link"
-import { Link } from "@remix-run/react"
-import { type ReactNode } from "react"
 
 export default function AdminHeader({
   children,

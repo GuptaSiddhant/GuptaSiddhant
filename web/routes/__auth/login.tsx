@@ -1,12 +1,12 @@
-import authenticator, { loginUser } from "@gs/service/auth.server"
 import { Form, useActionData, useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import Hero from "~/features/hero"
-import Button from "~/features/ui/Button"
-import Input from "~/features/ui/Input"
-import { Paragraph } from "~/features/ui/Text"
+import Hero from "@gs/hero"
+import authenticator, { loginUser } from "@gs/service/auth.server"
+import Button from "@gs/ui/Button"
+import Input from "@gs/ui/Input"
+import { Paragraph } from "@gs/ui/Text"
 
 interface LoaderData {
   redirectTo?: string

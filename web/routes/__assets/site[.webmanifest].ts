@@ -1,8 +1,9 @@
+import type { LoaderFunction } from "@remix-run/server-runtime"
+
 import { getAboutInfo } from "@gs/about/service.server"
 import { internalNavigationLinks } from "@gs/navigation/useNavigationLinks"
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme"
 import type { WebApplicationManifest } from "@gs/types/webmanifest"
-import type { LoaderFunction } from "@remix-run/server-runtime"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const [about] = await Promise.all([getAboutInfo()])

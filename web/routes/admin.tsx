@@ -1,3 +1,12 @@
+import clsx from "clsx"
+
+import { type ShouldReloadFunction, Outlet } from "@remix-run/react"
+import {
+  type ErrorBoundaryComponent,
+  type LoaderFunction,
+  json,
+} from "@remix-run/server-runtime"
+
 import { adminRegistry } from "@gs/admin"
 import AdminSidebar from "@gs/admin/components/AdminSidebar"
 import { AdminContext } from "@gs/admin/context"
@@ -5,13 +14,6 @@ import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants"
 import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
-import { type ShouldReloadFunction, Outlet } from "@remix-run/react"
-import {
-  type ErrorBoundaryComponent,
-  type LoaderFunction,
-  json,
-} from "@remix-run/server-runtime"
-import clsx from "clsx"
 
 interface LoaderData {}
 

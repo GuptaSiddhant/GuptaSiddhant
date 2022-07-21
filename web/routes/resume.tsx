@@ -1,7 +1,5 @@
-import { Sections } from "@gs/resume/helpers"
-import Button from "@gs/ui/Button"
-import { ErrorSection } from "@gs/ui/Error"
-import Section from "@gs/ui/Section"
+import { useMemo, useState } from "react"
+
 import { useLoaderData } from "@remix-run/react"
 import type {
   ErrorBoundaryComponent,
@@ -9,14 +7,17 @@ import type {
   MetaFunction,
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
-import { useMemo, useState } from "react"
 
-import { createMetaTitle } from "~/features/helpers/meta"
-import { filterUniqueTagsByOccurrence } from "~/features/teaser/helpers"
-import Input from "~/features/ui/Input"
-import { ExternalLink } from "~/features/ui/Link"
-import { H1 } from "~/features/ui/Text"
-import { capitalize } from "~/features/utils/format"
+import { createMetaTitle } from "@gs/helpers/meta"
+import { Sections } from "@gs/resume/helpers"
+import { filterUniqueTagsByOccurrence } from "@gs/teaser/helpers"
+import Button from "@gs/ui/Button"
+import { ErrorSection } from "@gs/ui/Error"
+import Input from "@gs/ui/Input"
+import { ExternalLink } from "@gs/ui/Link"
+import Section from "@gs/ui/Section"
+import { H1 } from "@gs/ui/Text"
+import { capitalize } from "@gs/utils/format"
 
 const tags: string[] = filterUniqueTagsByOccurrence(
   [

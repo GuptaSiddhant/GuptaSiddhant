@@ -1,3 +1,5 @@
+import { type LoaderFunction, json } from "@remix-run/server-runtime"
+
 import { getAboutInfo, getSkills } from "@gs/about/service.server"
 import {
   getBlogPostDetails,
@@ -13,7 +15,6 @@ import {
   getProjectDetails,
   getProjectTeaserList,
 } from "@gs/projects/service.server"
-import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 const apiTypes: Record<
   string,

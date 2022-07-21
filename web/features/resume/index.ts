@@ -1,9 +1,10 @@
+import { renderToString } from "@react-pdf/renderer"
+import { createElement } from "react"
+
 import { aboutTexts } from "@gs/about"
 import { getAboutInfo, getSkills } from "@gs/about/service.server"
 import { getCareerList, getEducationList } from "@gs/experiences/service.server"
 import type { ExperienceProps } from "@gs/experiences/types"
-import { renderToString } from "@react-pdf/renderer"
-import { createElement } from "react"
 
 import {
   getFiltersFromSearchParams,

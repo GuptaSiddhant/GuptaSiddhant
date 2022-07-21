@@ -1,13 +1,15 @@
+import GithubIcon from "remixicon-react/GithubFillIcon"
+import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
+import MailIcon from "remixicon-react/MailLineIcon"
+
+import { useNavigate } from "@remix-run/react"
+
 import { type AboutInfo } from "@gs/about"
 import { AdminIcon } from "@gs/admin"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import SearchButton from "@gs/search/SearchButton"
 import type { ThemeName } from "@gs/theme"
 import ThemeToggleButton from "@gs/theme/ThemeToggleButton"
-import { useNavigate } from "@remix-run/react"
-import GithubIcon from "remixicon-react/GithubFillIcon"
-import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
-import MailIcon from "remixicon-react/MailLineIcon"
 
 import type { NavigationRemoteConfig } from "./service.server"
 

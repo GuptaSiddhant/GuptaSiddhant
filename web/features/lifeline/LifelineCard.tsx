@@ -1,10 +1,12 @@
+import clsx from "clsx"
+import type { ReactNode } from "react"
+
+import { Link } from "@remix-run/react"
+
 import type { Gallery } from "@gs/types"
 import { ExternalLink } from "@gs/ui/Link"
 import Mdx from "@gs/ui/Mdx"
 import { H5, H6, Paragraph } from "@gs/ui/Text"
-import { Link } from "@remix-run/react"
-import clsx from "clsx"
-import type { ReactNode } from "react"
 
 import useLifelineContext from "./context"
 

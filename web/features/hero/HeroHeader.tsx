@@ -1,11 +1,13 @@
-import { proseWidth } from "@gs/ui/Section"
-import { Caption, H1, SubHeading } from "@gs/ui/Text"
-import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import { type ReactElement, type ReactNode } from "react"
 import BackIcon from "remixicon-react/ArrowLeftLineIcon"
 import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
 import HashIcon from "remixicon-react/HashtagIcon"
+
+import { Link } from "@remix-run/react"
+
+import { proseWidth } from "@gs/ui/Section"
+import { Caption, H1, SubHeading } from "@gs/ui/Text"
 
 export interface HeroHeaderProps {
   title: string

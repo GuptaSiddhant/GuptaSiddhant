@@ -1,14 +1,3 @@
-import { getAboutInfo } from "@gs/about/service.server"
-import { getNavigationRemoteConfig } from "@gs/navigation/service.server"
-import useNavigationLinks from "@gs/navigation/useNavigationLinks"
-import { type RootLoaderData } from "@gs/root"
-import AppLayout from "@gs/root/AppLayout"
-import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries"
-import Document from "@gs/root/Document"
-import links from "@gs/root/links"
-import meta from "@gs/root/meta"
-import { getAuthUser } from "@gs/service/auth.server"
-import { getThemeFromRequest } from "@gs/theme/cookie.server"
 import type { ShouldReloadFunction } from "@remix-run/react"
 import {
   LiveReload,
@@ -19,6 +8,17 @@ import {
 } from "@remix-run/react"
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
+
+import { getAboutInfo } from "@gs/about/service.server"
+import { getNavigationRemoteConfig } from "@gs/navigation/service.server"
+import { type RootLoaderData } from "@gs/root"
+import AppLayout from "@gs/root/AppLayout"
+import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries"
+import Document from "@gs/root/Document"
+import links from "@gs/root/links"
+import meta from "@gs/root/meta"
+import { getAuthUser } from "@gs/service/auth.server"
+import { getThemeFromRequest } from "@gs/theme/cookie.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)

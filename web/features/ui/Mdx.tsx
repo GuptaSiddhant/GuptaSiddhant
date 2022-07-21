@@ -1,6 +1,7 @@
-import { generateHeadingId } from "@gs/helpers"
 import MdxToJsx from "markdown-to-jsx"
 import { type ElementType, Fragment, memo } from "react"
+
+import { generateHeadingId } from "@gs/helpers"
 
 import { Pre } from "./CodeBlock"
 import Img from "./Img"

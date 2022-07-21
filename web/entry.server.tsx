@@ -1,7 +1,9 @@
-import { initFirebase } from "@gs/firebase/init"
+import { renderToString } from "react-dom/server"
+
 import { RemixServer } from "@remix-run/react"
 import type { EntryContext } from "@remix-run/server-runtime"
-import { renderToString } from "react-dom/server"
+
+import { initFirebase } from "@gs/firebase/init"
 
 global.__IS_SERVER__ = typeof window === "undefined"
 global.__IS_DEV__ = process.env.NODE_ENV === "development"

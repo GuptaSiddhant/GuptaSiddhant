@@ -1,9 +1,11 @@
+import clsx from "clsx"
+import { type ComponentPropsWithoutRef } from "react"
+
+import { type LinkProps, Link } from "@remix-run/react"
+
 import { isExternalLink } from "@gs/helpers"
 import { ExternalLinkIcon } from "@gs/icons"
 import type { BaseProps } from "@gs/types"
-import { type LinkProps, Link } from "@remix-run/react"
-import clsx from "clsx"
-import { type ComponentPropsWithoutRef } from "react"
 
 export { type LinkProps, Link }
 

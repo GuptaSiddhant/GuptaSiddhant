@@ -1,7 +1,8 @@
-import { proseWidth } from "@gs/ui/Section"
-import { Paragraph } from "@gs/ui/Text"
 import clsx from "clsx"
 import { type ReactNode } from "react"
+
+import { proseWidth } from "@gs/ui/Section"
+import { Paragraph } from "@gs/ui/Text"
 
 export interface HeroDescriptionProps {
   description?: string

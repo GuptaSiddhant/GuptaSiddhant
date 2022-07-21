@@ -1,11 +1,12 @@
+import { useLoaderData } from "@remix-run/react"
+import type { LoaderFunction } from "@remix-run/server-runtime"
+import { json } from "@remix-run/server-runtime"
+
 import AdminDashboard from "@gs/admin/components/AdminDashboard"
 import { useAdminApp } from "@gs/admin/helpers"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { getCache } from "@gs/service/cache.server"
 import { transformMsToReadableString } from "@gs/utils/format"
-import { useLoaderData } from "@remix-run/react"
-import type { LoaderFunction } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
 
 interface LoaderData {
   max: number

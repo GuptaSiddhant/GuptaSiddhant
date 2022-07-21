@@ -1,5 +1,3 @@
-import { createMetaTitle } from "@gs/helpers/meta"
-import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
 import {
   type ShouldReloadFunction,
   Outlet,
@@ -15,6 +13,9 @@ import {
   json,
   redirect,
 } from "@remix-run/server-runtime"
+
+import { createMetaTitle } from "@gs/helpers/meta"
+import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
 
 interface LoaderData {}
 

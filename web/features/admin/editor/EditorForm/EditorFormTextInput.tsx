@@ -1,7 +1,8 @@
+import clsx from "clsx"
+
 import Input from "@gs/ui/Input"
 import Select from "@gs/ui/Select"
 import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
-import clsx from "clsx"
 
 import type { EditorFormInputProps } from "./types"
 

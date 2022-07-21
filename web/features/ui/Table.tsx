@@ -1,6 +1,7 @@
-import { capitalize } from "@gs/utils/format"
 import clsx from "clsx"
 import type { ReactNode } from "react"
+
+import { capitalize } from "@gs/utils/format"
 
 const preservedIds = ["actions"] as const
 

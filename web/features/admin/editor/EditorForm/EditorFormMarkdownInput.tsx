@@ -1,10 +1,10 @@
-import Accordion from "@gs/ui/Accordion"
 import clsx from "clsx"
 import { useState } from "react"
 
-import useFullscreen from "~/features/hooks/useFullscreen"
-import { FullscreenButton } from "~/features/ui/Button"
-import Mdx from "~/features/ui/Mdx"
+import useFullscreen from "@gs/hooks/useFullscreen"
+import Accordion from "@gs/ui/Accordion"
+import { FullscreenButton } from "@gs/ui/Button"
+import Mdx from "@gs/ui/Mdx"
 
 import { useEditorFormContext } from "./index"
 import type { EditorFormInputProps } from "./types"

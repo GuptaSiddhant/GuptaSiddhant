@@ -1,7 +1,9 @@
+import clsx from "clsx"
+
+import { Link } from "@remix-run/react"
+
 import type { BaseProps } from "@gs/about"
 import Section from "@gs/ui/Section"
-import { Link } from "@remix-run/react"
-import clsx from "clsx"
 
 import { type TeaserProps } from "."
 

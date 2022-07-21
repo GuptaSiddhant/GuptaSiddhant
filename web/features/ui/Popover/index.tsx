@@ -1,10 +1,11 @@
-import useEventListener from "@gs/hooks/useEventListener"
-import useFocusTrap from "@gs/hooks/useFocusTrap"
-import useStableCallback from "@gs/hooks/useStableCallback"
 import ReachPopover, { positionDefault } from "@reach/popover"
 import clsx from "clsx"
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 import invariant from "tiny-invariant"
+
+import useEventListener from "@gs/hooks/useEventListener"
+import useFocusTrap from "@gs/hooks/useFocusTrap"
+import useStableCallback from "@gs/hooks/useStableCallback"
 
 interface PopoverContextValue<T extends HTMLElement> {
   isOpen: boolean

@@ -1,5 +1,6 @@
-import { __IS_SERVER_WIN__, DEFAULT_SCROLL_OFFSET } from "@gs/constants"
 import { useReducer, useRef } from "react"
+
+import { __IS_SERVER_WIN__, DEFAULT_SCROLL_OFFSET } from "@gs/constants"
 
 import useEventListener from "./useEventListener"
 import useThrottle from "./useThrottle"

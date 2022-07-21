@@ -1,8 +1,10 @@
-import { isExternalLink } from "@gs/helpers"
-import Menu, { type MenuActionProps } from "@gs/ui/Menu"
-import { NavLink, useLoaderData } from "@remix-run/react"
 import { Fragment, useMemo } from "react"
 import NavMenuIcon from "remixicon-react/Menu3LineIcon"
+
+import { NavLink, useLoaderData } from "@remix-run/react"
+
+import { isExternalLink } from "@gs/helpers"
+import Menu, { type MenuActionProps } from "@gs/ui/Menu"
 
 import type { RootLoaderData } from "../root"
 import type { NavigationLinkProps } from "./types"

@@ -1,4 +1,3 @@
-import { useLocation, useNavigate } from "@remix-run/react"
 import {
   type ReactNode,
   createContext,
@@ -8,6 +7,8 @@ import {
   useState,
 } from "react"
 import invariant from "tiny-invariant"
+
+import { useLocation, useNavigate } from "@remix-run/react"
 
 export interface LifelineContextValue {
   selectedId?: string

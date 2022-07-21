@@ -1,14 +1,15 @@
+import {
+  type ActionFunction,
+  type LoaderFunction,
+  redirect,
+} from "@remix-run/server-runtime"
+
 import getCSSForThemeName, { type ThemeName, DEFAULT_THEME } from "@gs/theme"
 import {
   getThemeFromRequest,
   parseCookie,
   themeCookie,
 } from "@gs/theme/cookie.server"
-import {
-  type ActionFunction,
-  type LoaderFunction,
-  redirect,
-} from "@remix-run/server-runtime"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)

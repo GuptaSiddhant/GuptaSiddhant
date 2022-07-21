@@ -1,5 +1,6 @@
-import { getThemeFromThemeName } from "@gs/theme"
 import { type MetaFunction } from "@remix-run/server-runtime"
+
+import { getThemeFromThemeName } from "@gs/theme"
 
 import type { RootLoaderData } from "."
 

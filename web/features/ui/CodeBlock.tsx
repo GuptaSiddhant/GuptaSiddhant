@@ -1,11 +1,12 @@
+import clsx from "clsx"
+import Highlight, { type Language, defaultProps } from "prism-react-renderer"
+import { type ComponentPropsWithoutRef, Children } from "react"
+
 import {
   getLanguageBadgeProperties,
   getLanguageFromClassName,
   isLanguageSupported,
 } from "@gs/helpers/code-lang"
-import clsx from "clsx"
-import Highlight, { type Language, defaultProps } from "prism-react-renderer"
-import { type ComponentPropsWithoutRef, Children } from "react"
 
 import { CopyButton } from "./Button"
 

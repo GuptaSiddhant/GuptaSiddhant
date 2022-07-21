@@ -1,8 +1,10 @@
+import ResumeIcon from "remixicon-react/FileUserLineIcon"
+
+import { Link } from "@remix-run/react"
+
 import Hero from "@gs/hero"
 import { ExternalLink } from "@gs/ui/Link"
 import { Paragraph } from "@gs/ui/Text"
-import { Link } from "@remix-run/react"
-import ResumeIcon from "remixicon-react/FileUserLineIcon"
 
 import { aboutTexts } from "."
 

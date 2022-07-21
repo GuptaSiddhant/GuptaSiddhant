@@ -1,3 +1,13 @@
+import ProjectIcon from "remixicon-react/ArtboardFillIcon"
+import BlogIcon from "remixicon-react/QuillPenFillIcon"
+
+import { useLoaderData } from "@remix-run/react"
+import type {
+  ErrorBoundaryComponent,
+  LoaderFunction,
+} from "@remix-run/server-runtime"
+import { json } from "@remix-run/server-runtime"
+
 import { type AboutInfo } from "@gs/about"
 import { getAboutInfo } from "@gs/about/service.server"
 import { getBlogPostTeaserList } from "@gs/blog/service.server"
@@ -6,14 +16,6 @@ import HomeTeaserCarousel from "@gs/home/HomeTeaserCarousel"
 import { getProjectTeaserList } from "@gs/projects/service.server"
 import { type TeaserProps } from "@gs/teaser"
 import { ErrorSection } from "@gs/ui/Error"
-import { useLoaderData } from "@remix-run/react"
-import type {
-  ErrorBoundaryComponent,
-  LoaderFunction,
-} from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
-import ProjectIcon from "remixicon-react/ArtboardFillIcon"
-import BlogIcon from "remixicon-react/QuillPenFillIcon"
 
 interface LoaderData {
   about: AboutInfo

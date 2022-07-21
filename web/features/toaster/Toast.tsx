@@ -1,4 +1,3 @@
-import useAnimationFrame from "@gs/hooks/useAnimationFrame"
 import clsx from "clsx"
 import {
   type ReactNode,
@@ -9,6 +8,8 @@ import {
 } from "react"
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
 import invariant from "tiny-invariant"
+
+import useAnimationFrame from "@gs/hooks/useAnimationFrame"
 
 import useToaster from "."
 

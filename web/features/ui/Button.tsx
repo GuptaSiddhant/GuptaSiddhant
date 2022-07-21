@@ -1,4 +1,3 @@
-import useCopy from "@gs/hooks/useCopy"
 import clsx from "clsx"
 import {
   type ComponentPropsWithoutRef,
@@ -8,6 +7,8 @@ import {
 import CopyIcon from "remixicon-react/FileCopyLineIcon"
 import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon"
 import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon"
+
+import useCopy from "@gs/hooks/useCopy"
 
 import type useFullscreen from "../hooks/useFullscreen"
 

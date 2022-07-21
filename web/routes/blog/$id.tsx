@@ -1,3 +1,11 @@
+import { Link, useLoaderData } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
+import {
+  type LoaderFunction,
+  type MetaFunction,
+  json,
+} from "@remix-run/server-runtime"
+
 import { type BlogPostProps } from "@gs/blog"
 import {
   getBlogPostCrossSell,
@@ -10,6 +18,8 @@ import {
 import { generateArticleMeta } from "@gs/helpers/meta"
 import { type TocItem } from "@gs/helpers/table-of-contents"
 import Hero from "@gs/hero"
+import { EditIcon } from "@gs/icons"
+import { getAuthUser } from "@gs/service/auth.server"
 import { type TeaserProps } from "@gs/teaser"
 import TeaserCarousel from "@gs/teaser/TeaserCarousel"
 import Divider from "@gs/ui/Divider"
@@ -20,16 +30,6 @@ import ShareTray from "@gs/ui/ShareTray"
 import TableOfContent from "@gs/ui/TableOfContent"
 import Tags from "@gs/ui/Tags"
 import { H2 } from "@gs/ui/Text"
-import { Link, useLoaderData } from "@remix-run/react"
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
-import {
-  type LoaderFunction,
-  type MetaFunction,
-  json,
-} from "@remix-run/server-runtime"
-
-import { EditIcon } from "~/features/icons"
-import { getAuthUser } from "~/features/service/auth.server"
 
 interface LoaderData {
   post: BlogPostProps

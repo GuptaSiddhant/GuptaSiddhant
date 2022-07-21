@@ -1,18 +1,18 @@
+import invariant from "tiny-invariant"
+
+import { useLoaderData } from "@remix-run/react"
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
+
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
 import { type Model, getModelByDatabaseModel } from "@gs/models"
+import type { ProjectProps } from "@gs/projects"
+import { databaseProjects } from "@gs/projects/service.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { DatabaseModel } from "@gs/service/database.server"
-import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { redirect } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
-import invariant from "tiny-invariant"
-
-import type { ProjectProps } from "~/features/projects"
-import { databaseProjects } from "~/features/projects/service.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 

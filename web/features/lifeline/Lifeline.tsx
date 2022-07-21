@@ -1,8 +1,9 @@
+import clsx from "clsx"
+
 import type { TocItem } from "@gs/helpers/table-of-contents"
 import Reader from "@gs/ui/Reader"
 import { proseWidth } from "@gs/ui/Section"
 import TableOfContent from "@gs/ui/TableOfContent"
-import clsx from "clsx"
 
 import type { LifeLineCategory, LifeLineItems } from "."
 import { LifelineContextProvider } from "./context"

@@ -1,6 +1,7 @@
+import clsx from "clsx"
+
 import type { BaseProps } from "@gs/types"
 import Section, { proseWidth } from "@gs/ui/Section"
-import clsx from "clsx"
 
 import HeroDescription from "./HeroDescription"
 import HeroHeader from "./HeroHeader"

@@ -1,6 +1,7 @@
-import Action from "@gs/ui/Action"
 import DarkModeIcon from "remixicon-react/MoonFillIcon"
 import LightModeIcon from "remixicon-react/SunFillIcon"
+
+import Action from "@gs/ui/Action"
 
 import { type ThemeName } from "."
 

@@ -1,7 +1,9 @@
-import { type Model } from "@gs/models"
-import { type FormMethod, Form } from "@remix-run/react"
 import clsx from "clsx"
 import { createContext, useContext } from "react"
+
+import { type FormMethod, Form } from "@remix-run/react"
+
+import { type Model } from "@gs/models"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"

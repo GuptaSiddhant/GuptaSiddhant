@@ -1,5 +1,6 @@
-import { type LinkProps } from "@remix-run/react"
 import type { CSSProperties, ReactNode } from "react"
+
+import { type LinkProps } from "@remix-run/react"
 
 export type To = LinkProps["to"]
 

@@ -1,12 +1,14 @@
-import type { ExperienceProps } from "@gs/experiences/types"
-import type { LinkObject } from "@gs/types"
-import { ExternalLink } from "@gs/ui/Link"
-import { Link } from "@remix-run/react"
 import clsx from "clsx"
 import EducationIcon from "remixicon-react/BookFillIcon"
 import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import GithubFillIcon from "remixicon-react/GithubFillIcon"
 import LinkedinBoxFillIcon from "remixicon-react/LinkedinBoxFillIcon"
+
+import { Link } from "@remix-run/react"
+
+import type { ExperienceProps } from "@gs/experiences/types"
+import type { LinkObject } from "@gs/types"
+import { ExternalLink } from "@gs/ui/Link"
 
 import { EditIcon } from "../icons"
 import LifelineCard from "./LifelineCard"

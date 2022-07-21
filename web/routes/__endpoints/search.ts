@@ -1,8 +1,8 @@
-import { fetchCachedKey } from "@gs/service/cache.server"
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
-import { ONE_HOUR_IN_MS } from "~/features/constants"
-import { search } from "~/features/search/service.server"
+import { ONE_HOUR_IN_MS } from "@gs/constants"
+import { search } from "@gs/search/service.server"
+import { fetchCachedKey } from "@gs/service/cache.server"
 
 const searchCacheKey = "search"
 

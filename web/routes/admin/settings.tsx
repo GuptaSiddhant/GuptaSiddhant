@@ -1,3 +1,9 @@
+import type {
+  ErrorBoundaryComponent,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/server-runtime"
+
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
@@ -6,11 +12,6 @@ import type { AdminAppHandle } from "@gs/admin/types"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { ErrorSection } from "@gs/ui/Error"
 import { Caption } from "@gs/ui/Text"
-import type {
-  ErrorBoundaryComponent,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings)
 

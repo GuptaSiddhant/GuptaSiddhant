@@ -1,3 +1,11 @@
+import { useLoaderData } from "@remix-run/react"
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
+import {
+  type LoaderFunction,
+  type MetaFunction,
+  json,
+} from "@remix-run/server-runtime"
+
 import { createMetaTitle } from "@gs/helpers/meta"
 import { getProjectTeaserList } from "@gs/projects/service.server"
 import filterSortTeasers, {
@@ -7,13 +15,6 @@ import TeaserGrid from "@gs/teaser/TeaserGrid"
 import TeaserHero from "@gs/teaser/TeaserHero"
 import TeaserList from "@gs/teaser/TeaserList"
 import { ErrorSection } from "@gs/ui/Error"
-import { useLoaderData } from "@remix-run/react"
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
-import {
-  type LoaderFunction,
-  type MetaFunction,
-  json,
-} from "@remix-run/server-runtime"
 
 interface LoaderData extends FilterSortTeasersReturn {
   title: string

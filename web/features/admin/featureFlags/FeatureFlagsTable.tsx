@@ -1,3 +1,6 @@
+import clsx from "clsx"
+import { useMemo } from "react"
+
 import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons"
 import {
   type FeatureFlagJson,
@@ -7,8 +10,6 @@ import Action from "@gs/ui/Action"
 import Input from "@gs/ui/Input"
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
 import Table, { type TableColumnProps } from "@gs/ui/Table"
-import clsx from "clsx"
-import { useMemo } from "react"
 
 const FORM_ID = "new-flag"
 

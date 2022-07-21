@@ -1,3 +1,13 @@
+import RefetchIcon from "remixicon-react/RestartLineIcon"
+import invariant from "tiny-invariant"
+
+import { useLoaderData } from "@remix-run/react"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+} from "@remix-run/server-runtime"
+import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
+
 import FeatureFlagsTable from "@gs/admin/featureFlags/FeatureFlagsTable"
 import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
@@ -13,14 +23,6 @@ import {
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast"
 import Action from "@gs/ui/Action"
 import { ErrorSection } from "@gs/ui/Error"
-import { useLoaderData } from "@remix-run/react"
-import type {
-  ActionFunction,
-  ErrorBoundaryComponent,
-} from "@remix-run/server-runtime"
-import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
-import RefetchIcon from "remixicon-react/RestartLineIcon"
-import invariant from "tiny-invariant"
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap

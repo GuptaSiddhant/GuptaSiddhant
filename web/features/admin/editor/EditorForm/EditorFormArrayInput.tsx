@@ -1,10 +1,10 @@
-import type { ModelArrayType, ModelProperties } from "@gs/models"
 import clsx from "clsx"
 import { useState } from "react"
 
-import { DeleteIcon } from "~/features/icons"
-import Button from "~/features/ui/Button"
-import { capitalize } from "~/features/utils/format"
+import { DeleteIcon } from "@gs/icons"
+import type { ModelArrayType, ModelProperties } from "@gs/models"
+import Button from "@gs/ui/Button"
+import { capitalize } from "@gs/utils/format"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"

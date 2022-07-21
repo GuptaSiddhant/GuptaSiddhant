@@ -1,7 +1,8 @@
+import clsx from "clsx"
+
 import type { TeaserProps } from "@gs/teaser"
 import { Link } from "@gs/ui/Link"
 import Section, { proseWidth } from "@gs/ui/Section"
-import clsx from "clsx"
 
 export interface TeaserCarouselProps {
   id?: string

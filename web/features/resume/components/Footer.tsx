@@ -1,5 +1,6 @@
-import { formatDate } from "@gs/utils/format"
 import { StyleSheet, Text, View } from "@react-pdf/renderer"
+
+import { formatDate } from "@gs/utils/format"
 
 import { colors, texts } from "../theme"
 
