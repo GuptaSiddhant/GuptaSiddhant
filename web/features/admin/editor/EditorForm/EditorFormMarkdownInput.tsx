@@ -22,7 +22,7 @@ export default function EditorFormMarkdownInput({
   return (
     <Accordion
       summary={fullscreenProps.isFullscreen ? `${itemId}'s ${name}` : name}
-      open
+      open="always"
       summaryClassName="!m-0"
       summaryLeadingElement={<FullscreenButton {...fullscreenProps} />}
       accordionRef={fullscreenProps.targetRef}

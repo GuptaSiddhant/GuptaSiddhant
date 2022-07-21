@@ -20,9 +20,9 @@ export default function EditorIndex(): JSX.Element | null {
             header: "Collection",
           },
           {
-            id: "list",
+            id: "keys",
             header: "Entries",
-            cell: (row) => row.list.length,
+            cell: (row) => row.keys.length,
           },
         ]}
         headRowClassName={"border-b border-divider"}

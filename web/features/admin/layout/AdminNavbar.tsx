@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
-import { useEffect , useMemo , useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
@@ -113,7 +113,7 @@ function AdminNavFooter({
   return (
     <footer
       className={clsx(
-        "flex min-h-[3rem] items-center gap-2 border-t border-divider px-2",
+        "flex min-h-[2.5rem] items-center gap-2 border-t border-divider px-2",
         navCollapsed ? "justify-center" : "justify-between",
       )}
     >

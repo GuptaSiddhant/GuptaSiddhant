@@ -57,9 +57,9 @@ export default function AdminSidebar({
       {actions.length > 0 ? (
         <div
           className={clsx(
-            "flex h-max min-h-[3rem] w-full gap-2 border-t border-divider",
+            "flex h-max min-h-[2.5rem] w-full gap-2 border-t border-divider",
             isChildPathVisible
-              ? "flex-col justify-end py-1 px-0 sm:py-2"
+              ? "flex-col justify-end p-0 sm:py-1"
               : "flex-row flex-wrap p-2",
           )}
         >
@@ -121,7 +121,7 @@ function AdminAction({
 }: AdminLinkProps): JSX.Element | null {
   const styleClassName = clsx(
     "flex flex-1 gap-2 items-center py-1 rounded-sm",
-    "bg-secondary hover:bg-tertiary",
+    "bg-secondary text-secondary hocus:bg-tertiary hocus:text-primary",
     isCollapsed ? "px-1 mx-auto w-max" : "px-2",
   )
 
