@@ -6,25 +6,28 @@ import SortIcon from "remixicon-react/SortDescIcon"
 
 import { Form, useSubmit } from "@remix-run/react"
 
+import type { UniqueTag } from "@gs/helpers/filter"
 import RadioGroup from "@gs/ui/RadioGroup"
 import Select from "@gs/ui/Select"
 import { capitalize } from "@gs/utils/format"
 
 import { SortByOption, ViewAsOption } from "."
-import type { FilterSortTeasersReturn } from "./filter-sort"
 
-export interface TeaserFilterSortFormProps
-  extends Omit<FilterSortTeasersReturn, "teasers"> {
+export interface SummaryFilterSortFormProps {
   filterPlaceholder?: string
+  selectedTag: string
+  sortBy: SortByOption
+  viewAs: ViewAsOption
+  tags: UniqueTag[]
 }
 
-export default function TeaserFilterSortForm({
+export default function SummaryFilterSortForm({
   sortBy,
   tags = [],
   selectedTag,
   viewAs,
   filterPlaceholder = "All",
-}: TeaserFilterSortFormProps): JSX.Element | null {
+}: SummaryFilterSortFormProps): JSX.Element | null {
   const submit = useSubmit()
   const formId = "projects-filter-sort"
 
@@ -82,7 +85,7 @@ export default function TeaserFilterSortForm({
             title: "View as grid",
           },
           {
-            value: ViewAsOption.List,
+            value: ViewAsOption.Timeline,
             label: <ListIcon />,
             title: "View as list",
           },

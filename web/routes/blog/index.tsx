@@ -7,38 +7,50 @@ import {
 } from "@remix-run/server-runtime"
 
 import { getBlogSummaryItems } from "@gs/blog/service.server"
+import type { UniqueTag } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
-import type { SummaryItem } from "@gs/summary"
-import { ViewAsOption } from "@gs/summary"
+import { parseGetAllSearchParams } from "@gs/helpers/request"
+import type { SortByOption, SummaryItem } from "@gs/summary"
+import {
+  filterSortSummaryItems,
+  getUniqueTagsFromSummaryItems,
+  ViewAsOption,
+} from "@gs/summary"
 import SummaryGrid from "@gs/summary/SummaryGrid"
+import SummaryHero from "@gs/summary/SummaryHero"
 import SummaryTimeline from "@gs/summary/SummaryTimeline"
-import filterSortTeasers, {
-  type FilterSortTeasersReturn,
-} from "@gs/teaser/filter-sort"
-import TeaserHero from "@gs/teaser/TeaserHero"
 import { ErrorSection } from "@gs/ui/Error"
 
-interface LoaderData extends FilterSortTeasersReturn {
+interface LoaderData {
   title: string
   summaryItems: SummaryItem[]
+  selectedTag: string
+  sortBy: SortByOption
+  viewAs: ViewAsOption
+  tags: UniqueTag[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
-  // const blogPosts = await getBlogPostTeaserList(100)
-  const summaryItems = await getBlogSummaryItems()
-  const filterSortTeasersReturn = filterSortTeasers(
-    summaryItems,
-    searchParams,
-    {
-      defaultViewAs: ViewAsOption.Timeline,
-    },
-  )
+
+  const items = await getBlogSummaryItems()
+  const selectedTags = parseGetAllSearchParams(searchParams, "tag") ?? []
+  const viewAs = searchParams?.get("view") as ViewAsOption
+  const sortBy = searchParams?.get("sort") as SortByOption
+
+  const tags = getUniqueTagsFromSummaryItems(items)
+  const summaryItems = filterSortSummaryItems(items, {
+    selectedTags,
+    sortBy,
+  })
 
   return json<LoaderData>({
-    ...filterSortTeasersReturn,
     title: "Blog",
     summaryItems,
+    selectedTag: selectedTags[0],
+    sortBy,
+    viewAs,
+    tags,
   })
 }
 
@@ -47,22 +59,25 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
 })
 
 export default function Blog(): JSX.Element {
-  const { title, teasers, summaryItems, ...filterSortFormProps } =
+  const { title, summaryItems, viewAs, selectedTag, sortBy, tags } =
     useLoaderData<LoaderData>()
 
   return (
     <>
-      <TeaserHero
-        {...filterSortFormProps}
+      <SummaryHero
         filterPlaceholder="All posts"
         title={title}
         subtitle="Thoughts on somethings. Sometimes everything."
+        tags={tags}
+        selectedTag={selectedTag}
+        sortBy={sortBy}
+        viewAs={viewAs}
       />
 
-      {filterSortFormProps.viewAs === ViewAsOption.Timeline ? (
-        <SummaryTimeline items={summaryItems} />
-      ) : (
+      {viewAs === ViewAsOption.Grid ? (
         <SummaryGrid items={summaryItems} />
+      ) : (
+        <SummaryTimeline items={summaryItems} />
       )}
     </>
   )

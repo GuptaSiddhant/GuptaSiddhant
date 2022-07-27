@@ -2,30 +2,30 @@ import {
   type HeroHeaderCaptionIconType,
   HeroHeaderCaption,
 } from "@gs/hero/HeroHeader"
-import { type TeaserProps } from "@gs/teaser"
-import TeaserCarousel from "@gs/teaser/TeaserCarousel"
+import type { SummaryItem } from "@gs/summary"
+import SummarySlider from "@gs/summary/SummarySlider"
 import { InternalLink } from "@gs/ui/Link"
 import { H2 } from "@gs/ui/Text"
 
-export interface HomeTeaserCarouselProps {
+export interface HomeSummarySliderProps {
   caption: string
   children: React.ReactNode
   id: string
   linkText?: string
-  teasers: TeaserProps[]
+  items: SummaryItem[]
   icon?: HeroHeaderCaptionIconType
 }
 
-export default function HomeTeaserCarousel({
+export default function HomeSummarySlider({
   id,
-  teasers,
+  items,
   caption,
   children,
   linkText,
   icon = "hash",
-}: HomeTeaserCarouselProps) {
+}: HomeSummarySliderProps) {
   return (
-    <TeaserCarousel id={id} teasers={teasers} linkBaseUrl={`/${id}/`}>
+    <SummarySlider id={id} items={items}>
       <HeroHeaderCaption
         caption={{
           label: caption,
@@ -37,6 +37,6 @@ export default function HomeTeaserCarousel({
       <H2 className="!p-0">{children}</H2>
 
       {linkText ? <InternalLink to={`/${id}/`}>{linkText}</InternalLink> : null}
-    </TeaserCarousel>
+    </SummarySlider>
   )
 }

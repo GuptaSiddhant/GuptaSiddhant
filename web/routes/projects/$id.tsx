@@ -22,8 +22,8 @@ import {
   getProjectDetails,
 } from "@gs/projects/service.server"
 import { getAuthUser } from "@gs/service/auth.server"
-import { type TeaserProps } from "@gs/teaser"
-import TeaserCarousel from "@gs/teaser/TeaserCarousel"
+import type { SummaryItem } from "@gs/summary"
+import SummarySlider from "@gs/summary/SummarySlider"
 import Divider from "@gs/ui/Divider"
 import { ErrorSection } from "@gs/ui/Error"
 import Mdx from "@gs/ui/Mdx"
@@ -38,7 +38,7 @@ interface LoaderData {
   url: string
   mdx?: string
   toc?: TocItem[]
-  crossSell: TeaserProps[]
+  crossSell: SummaryItem[]
   assoc?: ExperienceProps
   isAuthenticated: boolean
 }
@@ -143,9 +143,9 @@ export default function ProjectDetails(): JSX.Element {
 
       <Divider />
 
-      <TeaserCarousel teasers={crossSell} linkBaseUrl="/projects/">
+      <SummarySlider items={crossSell} crossSell>
         <H2>More like this</H2>
-      </TeaserCarousel>
+      </SummarySlider>
     </>
   )
 }

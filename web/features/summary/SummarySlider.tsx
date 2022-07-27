@@ -5,6 +5,7 @@ import { Link } from "@remix-run/react"
 import type { BaseProps } from "@gs/types"
 import Section, { proseWidth } from "@gs/ui/Section"
 
+import { Sticker } from "./SummaryTimeline/TimelineCard"
 import type { SummaryItem } from "./types"
 
 export interface SummarySliderProps extends BaseProps {
@@ -82,6 +83,8 @@ function SummarySliderCard({
         >
           <span className={"text-shadow text-2xl font-bold"}>{title}</span>
         </div>
+
+        <Sticker {...item} />
       </article>
     </Link>
   )

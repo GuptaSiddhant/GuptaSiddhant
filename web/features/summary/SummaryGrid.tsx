@@ -5,6 +5,7 @@ import { Link } from "@remix-run/react"
 import type { BaseProps } from "@gs/types"
 import Section from "@gs/ui/Section"
 
+import { Sticker } from "./SummaryTimeline/TimelineCard"
 import type { SummaryItem } from "./types"
 
 export interface SummaryGridProps extends BaseProps {
@@ -82,6 +83,8 @@ function SummaryGridCard({
             </p>
           ) : null}
         </div>
+
+        <Sticker {...item} />
       </article>
     </Link>
   )

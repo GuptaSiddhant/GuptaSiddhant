@@ -234,7 +234,7 @@ function TimelineCardLinker({ links = [] }: { links?: LinkObject[] }) {
   )
 }
 
-function Sticker({ draft }: SummaryItem): JSX.Element | null {
+export function Sticker({ draft }: SummaryItem): JSX.Element | null {
   if (!draft) return null
 
   return (

@@ -35,10 +35,18 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   #createCacheKey = (id?: string) =>
     [cacheKey, this.#model, id].filter(Boolean).join("/")
 
-  invalidateCacheById = (id: string) =>
-    deleteCachedKey(this.#createCacheKey(id))
+  #invalidateIndexKey = () =>
+    deleteCachedKey([cacheKey, DatabaseModel.Index, this.#model].join("/"))
 
-  invalidateCacheAll = () => deleteCachedKeysWith(this.#createCacheKey())
+  invalidateCacheById = (id: string) => {
+    deleteCachedKey(this.#createCacheKey(id))
+    this.#invalidateIndexKey()
+  }
+
+  invalidateCacheAll = () => {
+    this.#invalidateIndexKey()
+    deleteCachedKeysWith(this.#createCacheKey())
+  }
 
   queryById = async <TypeOverride extends DatabaseDocument = T>(
     id: string,

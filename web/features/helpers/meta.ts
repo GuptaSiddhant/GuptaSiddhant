@@ -1,6 +1,6 @@
 import { type HtmlMetaDescriptor } from "@remix-run/server-runtime"
 
-import { type TeaserProps } from "@gs/teaser"
+import { type SummaryItem } from "@gs/summary"
 
 export function createMetaTitle(title?: string) {
   if (!title) return "Siddhant Gupta"
@@ -8,7 +8,7 @@ export function createMetaTitle(title?: string) {
   return `${title} | GS`
 }
 
-export function generateArticleMeta<T extends TeaserProps>(
+export function generateArticleMeta<T extends SummaryItem>(
   article?: T,
   options?: {
     id?: string

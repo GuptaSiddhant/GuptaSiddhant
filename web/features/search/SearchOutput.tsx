@@ -1,23 +1,21 @@
 import clsx from "clsx"
 import { useState } from "react"
 
+import type { SummaryItem } from "@gs/summary"
+
 // import type { AboutInfo, Skills } from "../about"
-import type { ExperienceProps } from "../experiences/types"
-import type { TeaserProps } from "../teaser"
 import Mdx from "../ui/Mdx"
 import Tags from "../ui/Tags"
 import useSearch from "."
 import { type SearchResultItemProps, SearchResultGroup } from "./SearchResult"
 
-type Enriched<T> = T & { linkUrl?: string }
-
 export interface SearchOutputData {
   // about: AboutInfo
   // skills: Skills
-  projects?: Enriched<TeaserProps>[]
-  blog?: Enriched<TeaserProps>[]
-  career?: Enriched<ExperienceProps>[]
-  education?: Enriched<ExperienceProps>[]
+  projects?: SummaryItem[]
+  blog?: SummaryItem[]
+  career?: SummaryItem[]
+  education?: SummaryItem[]
 }
 
 export default function SearchOutput({

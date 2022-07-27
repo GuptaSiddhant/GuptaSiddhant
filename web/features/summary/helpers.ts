@@ -115,3 +115,25 @@ function filterSummaryItemsByQueryAndTagsPredicate(
 
   return false
 }
+
+export function getCrossSellSummaryItems(
+  items: SummaryItem[],
+  id: string,
+): SummaryItem[] {
+  if (items.length <= 1) return []
+
+  const currentItemIndex = items.findIndex((t) => t.id === id)
+  if (currentItemIndex < 0) return items
+
+  const nextItemIndex =
+    currentItemIndex < items.length - 1 ? currentItemIndex + 1 : 0
+  const nextItem = items[nextItemIndex]
+
+  const currentItemTags = items[currentItemIndex]?.tags || []
+  const otherItemsWithSimilarTags = items.filter((item) => {
+    if (item.id === id || item.id === nextItem.id) return false
+    return item.tags?.some((t) => currentItemTags.includes(t))
+  })
+
+  return [nextItem, ...otherItemsWithSimilarTags]
+}

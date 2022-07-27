@@ -2,28 +2,28 @@ import { type ReactNode } from "react"
 
 import Hero from "@gs/hero"
 
-import TeaserFilterSortForm, {
-  type TeaserFilterSortFormProps,
-} from "./TeaserFilterSortForm"
+import SummaryFilterSortForm, {
+  type SummaryFilterSortFormProps,
+} from "./SummaryFilterSortForm"
 
-export interface TeaserHeroProps extends TeaserFilterSortFormProps {
+export interface SummaryHeroProps extends SummaryFilterSortFormProps {
   children?: ReactNode
   title: string
   subtitle?: string
 }
 
-export default function TeaserHero({
+export default function SummaryHero({
   children,
   title,
   subtitle,
   ...props
-}: TeaserHeroProps): JSX.Element | null {
+}: SummaryHeroProps): JSX.Element | null {
   return (
     <Hero>
       <Hero.Header title={title} subtitle={subtitle} />
       <Hero.Description>
         {children}
-        <TeaserFilterSortForm {...props} />
+        <SummaryFilterSortForm {...props} />
       </Hero.Description>
     </Hero>
   )

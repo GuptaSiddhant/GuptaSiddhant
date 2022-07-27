@@ -1,7 +1,7 @@
-import { type TeaserProps } from "@gs/teaser"
+import { type SummaryItem } from "@gs/summary"
 import { type Gallery, type LinkObject } from "@gs/types"
 
-export interface ProjectProps extends TeaserProps {
+export interface ProjectProps extends SummaryItem {
   association?: string
   dateEnd?: string
   dateStart: string

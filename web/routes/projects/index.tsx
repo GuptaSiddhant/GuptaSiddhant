@@ -17,8 +17,8 @@ import {
   ViewAsOption,
 } from "@gs/summary"
 import SummaryGrid from "@gs/summary/SummaryGrid"
+import SummaryHero from "@gs/summary/SummaryHero"
 import SummaryTimeline from "@gs/summary/SummaryTimeline"
-import TeaserHero from "@gs/teaser/TeaserHero"
 import { ErrorSection } from "@gs/ui/Error"
 
 interface LoaderData {
@@ -63,7 +63,7 @@ export default function Projects(): JSX.Element {
 
   return (
     <>
-      <TeaserHero
+      <SummaryHero
         filterPlaceholder="All projects"
         title={title}
         subtitle="I have been busy over the years, trying different things. Some are
@@ -74,7 +74,7 @@ export default function Projects(): JSX.Element {
         viewAs={viewAs}
       />
 
-      {viewAs === ViewAsOption.Grid ? (
+      {!viewAs || viewAs === ViewAsOption.Grid ? (
         <SummaryGrid items={summaryItems} />
       ) : (
         <SummaryTimeline items={summaryItems} />
