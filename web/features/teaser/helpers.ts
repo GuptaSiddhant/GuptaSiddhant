@@ -1,6 +1,7 @@
 import { type DocumentData } from "firebase-admin/firestore"
 
-import { sortByDate } from "@gs/helpers"
+import { sortByDate, typedBoolean } from "@gs/helpers"
+import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 
 import type { TeaserProps } from "."
 
@@ -50,39 +51,12 @@ export function filterPublishedTeaser(teaser: TeaserProps) {
 
 export function getUniqueTagsFromTeaserProps<T extends { tags?: string[] }>(
   teasers: T[],
-): UniqueTag[] {
-  const availableTags = teasers.flatMap((item) => item.tags).filter(Boolean)
+) {
+  const availableTags = teasers
+    .flatMap((item) => item.tags)
+    .filter(typedBoolean)
 
   return filterUniqueTagsByOccurrence(availableTags)
-}
-
-export interface UniqueTag {
-  value: string
-  occurrence: number
-}
-
-export function filterUniqueTagsByOccurrence(
-  tags: (string | undefined)[],
-): { value: string; occurrence: number }[] {
-  const tagOccurrenceMap: Record<string, number> = {}
-  for (const tag of tags) {
-    if (tag) {
-      const key = tag.toLowerCase()
-      tagOccurrenceMap[key] = (tagOccurrenceMap[key] || 0) + 1
-    }
-  }
-  // const sortedTagsByOccurrence = Object.keys(tagOccurrenceMap).sort(
-  //   (a, b) => tagOccurrenceMap[b] - tagOccurrenceMap[a],
-  // )
-
-  const sorted = Object.entries(tagOccurrenceMap).sort(
-    ([a], [b]) => tagOccurrenceMap[b] - tagOccurrenceMap[a],
-  )
-
-  return sorted.reduce(
-    (acc, [value, occurrence]) => [...acc, { value, occurrence }],
-    [] as Array<{ value: string; occurrence: number }>,
-  )
 }
 
 export function getCrossSellTeasers(

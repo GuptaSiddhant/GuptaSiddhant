@@ -8,9 +8,9 @@ import type {
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
+import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { Sections } from "@gs/resume/helpers"
-import { filterUniqueTagsByOccurrence } from "@gs/teaser/helpers"
 import Button from "@gs/ui/Button"
 import { ErrorSection } from "@gs/ui/Error"
 import Input from "@gs/ui/Input"

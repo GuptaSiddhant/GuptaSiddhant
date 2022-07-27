@@ -37,7 +37,7 @@ export default function Error404(): JSX.Element | null {
 
 async function resolveStorageAssetUrl(path?: string) {
   invariant(path, "asset path is required")
-  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
+  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf", "mp4"]
 
   if (assetExts.some((ext) => path.endsWith(ext))) {
     const url = await storage.queryAssetPublicUrl(path)

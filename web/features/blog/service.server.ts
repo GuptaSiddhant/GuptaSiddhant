@@ -1,24 +1,20 @@
 import Database, { DatabaseModel } from "@gs/service/database.server"
+import { querySummaryItemsByModel } from "@gs/summary/service.server"
 import { type TeaserProps } from "@gs/teaser"
-import {
-  getCrossSellTeasers,
-  getTeasersFromCollection,
-} from "@gs/teaser/helpers"
+import { getCrossSellTeasers } from "@gs/teaser/helpers"
 
 import { type BlogPostProps } from "."
 
-export const databaseBlog = new Database<BlogPostProps>(DatabaseModel.Blog)
+const model = DatabaseModel.Blog
+
+export const databaseBlog = new Database<BlogPostProps>(model)
 
 export async function getBlogPostKeys() {
   return databaseBlog.queryKeys()
 }
 
-export async function getBlogPostTeaserList(
-  limit = 10,
-): Promise<TeaserProps[]> {
-  const collection = await databaseBlog.queryAll()
-
-  return getTeasersFromCollection(collection, limit)
+export async function getBlogSummaryItems() {
+  return querySummaryItemsByModel(model)
 }
 
 export async function getBlogPostDetails(id: string): Promise<BlogPostProps> {
@@ -32,7 +28,7 @@ export async function getBlogPostCrossSell(
   id: string,
   limit: number = 6,
 ): Promise<TeaserProps[]> {
-  const teasers = await getBlogPostTeaserList(100)
+  const items = await getBlogSummaryItems()
 
-  return getCrossSellTeasers(teasers, id).slice(0, limit)
+  return getCrossSellTeasers(items, id).slice(0, limit)
 }

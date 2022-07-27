@@ -3,7 +3,7 @@ import { type LoaderFunction, json } from "@remix-run/server-runtime"
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
 import {
   getBlogPostDetails,
-  getBlogPostTeaserList,
+  getBlogSummaryItems,
 } from "@gs/blog/service.server"
 import {
   getCareerItem,
@@ -13,7 +13,7 @@ import {
 } from "@gs/experiences/service.server"
 import {
   getProjectDetails,
-  getProjectTeaserList,
+  getProjectsSummaryItems,
 } from "@gs/projects/service.server"
 
 const apiTypes: Record<
@@ -27,11 +27,11 @@ const apiTypes: Record<
   about: { queryAll: getAboutInfo },
   skills: { queryAll: getAboutSkills, linkPath: "about" },
   projects: {
-    queryAll: getProjectTeaserList,
+    queryAll: getProjectsSummaryItems,
     queryById: getProjectDetails,
   },
   blog: {
-    queryAll: getBlogPostTeaserList,
+    queryAll: getBlogSummaryItems,
     queryById: getBlogPostDetails,
   },
   education: {

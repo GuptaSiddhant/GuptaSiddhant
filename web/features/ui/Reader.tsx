@@ -15,7 +15,6 @@ const asideClassName = clsx("top-20 max-h-screen-main overflow-auto md:sticky")
 
 export default function Reader({
   children,
-
   id,
   className = proseReaderClassName,
   leftColumn,

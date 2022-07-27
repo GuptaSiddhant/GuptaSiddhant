@@ -72,6 +72,7 @@ export function ExternalLink({
       target="_blank"
       rel="noreferrer"
       title={tooltipLabel}
+      onClick={(e) => e.stopPropagation()}
     >
       {children}
       {enableIcon && <ExternalLinkIcon />}

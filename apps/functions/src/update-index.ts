@@ -1,5 +1,12 @@
 import * as functions from "firebase-functions"
-import { db, FieldValue, type DocumentData } from "./firestore"
+import axios from "axios"
+
+import {
+  db,
+  FieldValue,
+  type DocumentData,
+  transformFirestoreTimestampToFormattedDate,
+} from "./firestore"
 
 enum Model {
   Projects = "projects",
@@ -25,10 +32,16 @@ export const updateIndex = functions
 
     const indexDocRef = db.collection("index").doc(collectionId)
 
-    return await indexDocRef.set(
+    await indexDocRef.set(
       { [docId]: newIndexData ?? FieldValue.delete() },
       { merge: true },
     )
+
+    await axios.get(
+      "https://guptasiddhant.com/cache?key=database/index/" + collectionId,
+    )
+
+    return
   })
 
 function transformFirestoreDataToIndexItem(
@@ -57,6 +70,15 @@ function transformFirestoreDataToIndexItem(
       ? `/about/${docId}/`
       : `/${model}/${docId}/`
 
+  const duration = generateDurationString(data)
+  const date = transformFirestoreTimestampToFormattedDate(
+    data.date ||
+      data.dateStart ||
+      data.startDate ||
+      data.dateEnd ||
+      data.endDate,
+  )
+
   return {
     id: docId || data.id,
     model,
@@ -64,17 +86,13 @@ function transformFirestoreDataToIndexItem(
     subtitle,
     linkUrl,
 
-    date:
-      data.date ||
-      data.dateStart ||
-      data.startDate ||
-      data.dateEnd ||
-      data.endDate ||
-      undefined,
+    date,
     icon: data.icon ?? undefined,
     cover: (data.cover || data.gallery?.[0]?.url) ?? undefined,
     tags: data.tags || [],
     description: data.description ?? undefined,
+    links: data.links || [],
+    duration,
 
     draft: data.draft ?? true,
     featured: data.featured ?? false,
@@ -83,17 +101,43 @@ function transformFirestoreDataToIndexItem(
 
 interface IndexItemProps {
   id: string
-  model: Model
   title: string
-  subtitle?: string
-  linkUrl?: string
+  model: string
+  linkUrl: string
 
+  subtitle?: string
+  description?: string
   date?: string
   icon?: string
   cover?: string
   tags?: string[]
-  description?: string
+  links?: { url: string; alt?: string }[]
+  duration?: string
 
   draft?: boolean
   featured?: boolean
+}
+
+export function generateDurationString({
+  startDate,
+  endDate,
+  dateEnd,
+  dateStart,
+}: any): string | undefined {
+  if (!startDate && !endDate && !dateStart && !dateEnd) return undefined
+
+  const formatDate = (date: any) => {
+    const isoDate = transformFirestoreTimestampToFormattedDate(date)
+    if (!isoDate) return undefined
+    return new Date(isoDate).toLocaleDateString(undefined, {
+      month: "long",
+      year: "numeric",
+    })
+  }
+
+  const start =
+    startDate || dateStart ? formatDate(startDate || dateStart) : undefined
+  const end = endDate || dateEnd ? formatDate(endDate || dateEnd) : "Present"
+
+  return [start, end].filter(Boolean).join(" - ")
 }

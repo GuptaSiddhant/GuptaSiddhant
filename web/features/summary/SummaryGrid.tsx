@@ -5,28 +5,26 @@ import { Link } from "@remix-run/react"
 import type { BaseProps } from "@gs/types"
 import Section from "@gs/ui/Section"
 
-import { type TeaserProps } from "."
+import type { SummaryItem } from "./types"
 
-export interface TeaserGridProps extends BaseProps {
-  teasers: TeaserProps[]
-  linkBaseUrl?: string
+export interface SummaryGridProps extends BaseProps {
+  items: SummaryItem[]
 }
 
-export default function TeaserGrid({
-  teasers,
-  className,
-  linkBaseUrl,
-  ...props
-}: TeaserGridProps) {
+export default function SummaryGrid(
+  props: SummaryGridProps,
+): JSX.Element | null {
+  const { items, className, ...rest } = props
+  if (items.length === 0) return null
+
   return (
-    <Section {...props} className={clsx(className, "px-4 md:px-10")}>
+    <Section {...rest} className={clsx(className, "px-4 md:px-10")}>
       <div className="grid min-h-[400px] grid-flow-row-dense auto-rows-fr grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        {teasers.map((teaser) => (
-          <TeaserGridCard
-            key={teaser.id}
-            teaser={teaser}
-            className={teaser.featured ? "md:col-span-2" : "aspect-square"}
-            linkBaseUrl={linkBaseUrl}
+        {items.map((item) => (
+          <SummaryGridCard
+            key={item.id}
+            item={item}
+            className={item.featured ? "md:col-span-2" : "aspect-square"}
           />
         ))}
       </div>
@@ -34,25 +32,24 @@ export default function TeaserGrid({
   )
 }
 
-function TeaserGridCard({
-  teaser,
+function SummaryGridCard({
+  item,
   className,
-  linkBaseUrl,
 }: {
-  teaser: TeaserProps
+  item: SummaryItem
   className?: string
-  linkBaseUrl?: string
 }): JSX.Element {
-  const { id, title, icon, cover, subtitle, description, featured } = teaser
+  const { id, title, icon, cover, subtitle, description, featured, linkUrl } =
+    item
   const showDescription = Boolean(featured && description)
-  const to = linkBaseUrl ? `${linkBaseUrl}${id}` : id
+  const href = linkUrl ?? id
   const iconElement = icon ? (
     <img src={icon} alt={title} className="h-12 rounded object-contain" />
   ) : null
 
   return (
     <Link
-      to={to}
+      to={href.toString()}
       prefetch="intent"
       className={clsx("group", className)}
       aria-label={title}

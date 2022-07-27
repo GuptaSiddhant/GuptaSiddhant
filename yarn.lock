@@ -8316,6 +8316,7 @@ __metadata:
   dependencies:
     "@typescript-eslint/eslint-plugin": ^5.12.0
     "@typescript-eslint/parser": ^5.12.0
+    axios: ^0.27.2
     eslint: "*"
     eslint-config-google: ^0.14.0
     eslint-plugin-import: ^2.25.4

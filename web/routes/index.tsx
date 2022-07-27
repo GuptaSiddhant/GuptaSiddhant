@@ -10,10 +10,10 @@ import { json } from "@remix-run/server-runtime"
 
 import { type AboutInfo } from "@gs/about"
 import { getAboutInfo } from "@gs/about/service.server"
-import { getBlogPostTeaserList } from "@gs/blog/service.server"
+import { getBlogSummaryItems } from "@gs/blog/service.server"
 import HomeHeroSection from "@gs/home/HomeHeroSection"
 import HomeTeaserCarousel from "@gs/home/HomeTeaserCarousel"
-import { getProjectTeaserList } from "@gs/projects/service.server"
+import { getProjectsSummaryItems } from "@gs/projects/service.server"
 import { type TeaserProps } from "@gs/teaser"
 import { ErrorSection } from "@gs/ui/Error"
 
@@ -26,11 +26,11 @@ interface LoaderData {
 export const loader: LoaderFunction = async () => {
   const [about, projects, blogPosts] = await Promise.all([
     getAboutInfo(),
-    getProjectTeaserList(6),
-    getBlogPostTeaserList(6),
+    getProjectsSummaryItems(),
+    getBlogSummaryItems(),
   ])
 
-  return json<LoaderData>({ about, projects, blogPosts })
+  return json<LoaderData>({ about, projects: projects.slice(0, 6), blogPosts })
 }
 
 export default function Index() {

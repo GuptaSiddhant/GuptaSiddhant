@@ -1,0 +1,117 @@
+import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
+import { sortByDate, typedBoolean } from "@gs/utils/sort-filter"
+
+import type { SummaryItem } from "./types"
+
+export enum ViewAsOption {
+  Grid = "grid",
+  Timeline = "timeline",
+}
+
+export enum SortByOption {
+  Latest = "latest",
+  Oldest = "oldest",
+  Featured = "featured",
+}
+
+export function getUniqueTagsFromSummaryItems<T extends { tags?: string[] }>(
+  items: T[],
+) {
+  return filterUniqueTagsByOccurrence(
+    items.flatMap((item) => item.tags).filter(typedBoolean),
+  )
+}
+
+// Filter and sort the items
+export function filterSortSummaryItems(
+  items: SummaryItem[],
+  options?: {
+    sortBy?: SortByOption
+    selectedTags?: string[]
+    query?: string
+  },
+) {
+  const {
+    sortBy = SortByOption.Latest,
+    selectedTags = [],
+    query = "",
+  } = options || {}
+
+  const filteredItems =
+    selectedTags.length > 0 || query
+      ? items
+          .filter(filterPublishedSummaryItemPredicate)
+          .filter((item) =>
+            filterSummaryItemsByQueryAndTagsPredicate(
+              item,
+              selectedTags,
+              query,
+            ),
+          )
+      : items
+
+  const sortPredicate =
+    sortBy === SortByOption.Featured
+      ? sortSummaryItemsByFeaturedPredicate
+      : sortBy === SortByOption.Oldest
+      ? sortSummaryItemsByDateOldestFirstPredicate
+      : sortSummaryItemsByDateLatestFirstPredicate
+
+  return filteredItems.sort(sortPredicate)
+}
+
+function sortSummaryItemsByDateLatestFirstPredicate(
+  a: SummaryItem,
+  b: SummaryItem,
+) {
+  return sortByDate(a.date, b.date)
+}
+
+function sortSummaryItemsByDateOldestFirstPredicate(
+  a: SummaryItem,
+  b: SummaryItem,
+) {
+  return sortByDate(a.date, b.date, true)
+}
+
+function sortSummaryItemsByFeaturedPredicate(a: SummaryItem, b: SummaryItem) {
+  return (b.featured || false) > (a.featured || false) ? 1 : -1
+}
+
+function filterPublishedSummaryItemPredicate(item: SummaryItem) {
+  return __IS_DEV__ || !item.draft
+}
+
+function filterSummaryItemsByQueryAndTagsPredicate(
+  item: SummaryItem,
+  selectedTags: string[],
+  query: string,
+) {
+  const { tags = [], title, subtitle } = item
+  const lowerCaseQuery = query.toLowerCase().trim()
+  const lowerCaseSelectedTags = selectedTags.map((t) => t.toLowerCase())
+
+  // Tags
+  const lowercaseTags = tags.map((tag) => tag.toLowerCase())
+  if (
+    lowercaseTags.some(
+      (tag) =>
+        lowerCaseSelectedTags.includes(tag) ||
+        (lowerCaseQuery ? tag.includes(lowerCaseQuery) : false),
+    )
+  ) {
+    return true
+  }
+
+  if (
+    lowerCaseQuery &&
+    [title, subtitle]
+      .filter(typedBoolean)
+      .map((t) => t.toLowerCase())
+      .some((t) => t.includes(lowerCaseQuery))
+  ) {
+    return true
+  }
+
+  return false
+}

@@ -6,26 +6,51 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
+import type { UniqueTag } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
-import { getProjectTeaserList } from "@gs/projects/service.server"
-import filterSortTeasers, {
-  type FilterSortTeasersReturn,
-} from "@gs/teaser/filter-sort"
-import TeaserGrid from "@gs/teaser/TeaserGrid"
+import { parseGetAllSearchParams } from "@gs/helpers/request"
+import { getProjectsSummaryItems } from "@gs/projects/service.server"
+import type { SortByOption, SummaryItem } from "@gs/summary"
+import {
+  filterSortSummaryItems,
+  getUniqueTagsFromSummaryItems,
+  ViewAsOption,
+} from "@gs/summary"
+import SummaryGrid from "@gs/summary/SummaryGrid"
+import SummaryTimeline from "@gs/summary/SummaryTimeline"
 import TeaserHero from "@gs/teaser/TeaserHero"
-import TeaserList from "@gs/teaser/TeaserList"
 import { ErrorSection } from "@gs/ui/Error"
 
-interface LoaderData extends FilterSortTeasersReturn {
+interface LoaderData {
   title: string
+  summaryItems: SummaryItem[]
+  selectedTag: string
+  sortBy: SortByOption
+  viewAs: ViewAsOption
+  tags: UniqueTag[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
-  const projects = await getProjectTeaserList(100)
-  const filterSortTeasersReturn = filterSortTeasers(projects, searchParams)
+  const items = await getProjectsSummaryItems()
+  const selectedTags = parseGetAllSearchParams(searchParams, "tag") ?? []
+  const viewAs = searchParams?.get("view") as ViewAsOption
+  const sortBy = searchParams?.get("sort") as SortByOption
 
-  return json<LoaderData>({ ...filterSortTeasersReturn, title: "Projects" })
+  const tags = getUniqueTagsFromSummaryItems(items)
+  const summaryItems = filterSortSummaryItems(items, {
+    selectedTags,
+    sortBy,
+  })
+
+  return json<LoaderData>({
+    summaryItems,
+    title: "Projects",
+    selectedTag: selectedTags[0],
+    sortBy,
+    viewAs,
+    tags,
+  })
 }
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
@@ -33,22 +58,26 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
 })
 
 export default function Projects(): JSX.Element {
-  const { title, teasers, ...filterSortFormProps } = useLoaderData<LoaderData>()
+  const { title, summaryItems, viewAs, selectedTag, sortBy, tags } =
+    useLoaderData<LoaderData>()
 
   return (
     <>
       <TeaserHero
-        {...filterSortFormProps}
         filterPlaceholder="All projects"
         title={title}
         subtitle="I have been busy over the years, trying different things. Some are
         big, some are small and some are unfinished."
+        tags={tags}
+        selectedTag={selectedTag}
+        sortBy={sortBy}
+        viewAs={viewAs}
       />
 
-      {filterSortFormProps.viewAs === "list" ? (
-        <TeaserList teasers={teasers} />
+      {viewAs === ViewAsOption.Grid ? (
+        <SummaryGrid items={summaryItems} />
       ) : (
-        <TeaserGrid teasers={teasers} />
+        <SummaryTimeline items={summaryItems} />
       )}
     </>
   )

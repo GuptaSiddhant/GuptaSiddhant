@@ -1,4 +1,6 @@
-import { type TeaserProps, SortByOption, ViewAsOption } from "."
+import { ViewAsOption } from "@gs/summary"
+
+import { type TeaserProps, SortByOption } from "."
 import {
   getUniqueTagsFromTeaserProps,
   sortTeasersByDateOldestFirst,

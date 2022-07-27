@@ -6,6 +6,7 @@ import {
   queryFireStoreCollectionIds,
   queryFireStoreDocument,
 } from "@gs/firebase/firestore"
+import { DatabaseModel } from "@gs/models"
 
 import {
   deleteCachedKey,
@@ -13,16 +14,7 @@ import {
   fetchCachedKey,
 } from "./cache.server"
 
-export enum DatabaseModel {
-  Projects = "projects",
-  Blog = "blog",
-  About = "about",
-  Testimonies = "testimonies",
-  Education = "education",
-  Career = "career",
-  Users = "users",
-}
-
+export { DatabaseModel }
 export type DatabaseDocument = TransformedDocument
 export type DatabaseType<T extends DatabaseDocument> = Database<T>
 

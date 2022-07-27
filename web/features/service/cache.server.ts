@@ -54,11 +54,13 @@ export async function fetchCachedKey<T>(
   return result
 }
 
-export type ModifyCacheMethod = "DELETE"
+export enum ModifyCacheMethod {
+  DELETE = "DELETE",
+}
 
 export async function modifyCache(method: ModifyCacheMethod, key?: string) {
   switch (method) {
-    case "DELETE": {
+    case ModifyCacheMethod.DELETE: {
       if (key) {
         return deleteCachedKeysWith(key)
       } else {

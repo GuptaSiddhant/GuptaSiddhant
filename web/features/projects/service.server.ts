@@ -1,24 +1,20 @@
 import Database, { DatabaseModel } from "@gs/service/database.server"
+import { querySummaryItemsByModel } from "@gs/summary/service.server"
 import { type TeaserProps } from "@gs/teaser"
-import {
-  getCrossSellTeasers,
-  getTeasersFromCollection,
-} from "@gs/teaser/helpers"
+import { getCrossSellTeasers } from "@gs/teaser/helpers"
 
 import { type ProjectProps } from "."
 
-export const databaseProjects = new Database<ProjectProps>(
-  DatabaseModel.Projects,
-)
+const model = DatabaseModel.Projects
+
+export const databaseProjects = new Database<ProjectProps>(model)
 
 export async function getProjectsKeys() {
   return databaseProjects.queryKeys()
 }
 
-export async function getProjectTeaserList(limit = 10): Promise<TeaserProps[]> {
-  const list = await databaseProjects.queryAll()
-
-  return getTeasersFromCollection(list, limit)
+export async function getProjectsSummaryItems() {
+  return querySummaryItemsByModel(model)
 }
 
 export async function getProjectDetails(id: string): Promise<ProjectProps> {
@@ -32,7 +28,7 @@ export async function getProjectCrossSell(
   id: string,
   limit: number = 6,
 ): Promise<TeaserProps[]> {
-  const teasers = await getProjectTeaserList(100)
+  const teasers = await getProjectsSummaryItems()
 
   return getCrossSellTeasers(teasers, id).slice(0, limit)
 }

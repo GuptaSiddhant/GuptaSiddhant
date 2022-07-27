@@ -1,7 +1,7 @@
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
-import { getBlogPostTeaserList } from "@gs/blog/service.server"
+import { getBlogSummaryItems } from "@gs/blog/service.server"
 import { getCareerList, getEducationList } from "@gs/experiences/service.server"
-import { getProjectTeaserList } from "@gs/projects/service.server"
+import { getProjectsSummaryItems } from "@gs/projects/service.server"
 
 const apiTypes: Record<
   string,
@@ -13,8 +13,8 @@ const apiTypes: Record<
 > = {
   about: { queryAll: getAboutInfo },
   skills: { queryAll: getAboutSkills, linkPath: "about" },
-  projects: { queryAll: getProjectTeaserList },
-  blog: { queryAll: getBlogPostTeaserList },
+  projects: { queryAll: getProjectsSummaryItems },
+  blog: { queryAll: getBlogSummaryItems },
   education: {
     queryAll: getEducationList,
     linkPath: "about",
