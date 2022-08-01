@@ -8,6 +8,7 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
+import { getCareerKeys, getEducationKeys } from "@gs/experiences/service.server"
 import { type Model, getModelByDatabaseModel } from "@gs/models"
 import type { ProjectProps } from "@gs/projects"
 import { databaseProjects } from "@gs/projects/service.server"
@@ -34,6 +35,17 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   try {
     const item = await databaseProjects.queryById(id)
     invariant(item, "Projects item not found.")
+
+    const assocKeys = (
+      await Promise.all([getEducationKeys(), getCareerKeys()])
+    ).flat()
+
+    // Add options to association property
+    model.properties["association"] = {
+      type: "string",
+      optional: true,
+      enum: ["", ...assocKeys],
+    }
 
     return json<LoaderData>({ item, model })
   } catch (e: any) {

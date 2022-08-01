@@ -1,5 +1,7 @@
 import clsx from "clsx"
+import { useId } from "react"
 
+import FormLabel from "@gs/ui/FormLabel"
 import Input from "@gs/ui/Input"
 import Select from "@gs/ui/Select"
 import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
@@ -29,10 +31,12 @@ export default function EditorFormTextInput(
       {labelText}
     </span>
   )
+  const id = name + useId()
 
   if (options && options.length > 0) {
     return (
       <Select
+        id={id}
         label={labelElement}
         name={name}
         disabled={readOnly}
@@ -53,6 +57,7 @@ export default function EditorFormTextInput(
   if (isDate) {
     return (
       <Input
+        id={id}
         label={labelElement}
         labelClassName={clsx("flex flex-col")}
         type="date"
@@ -66,6 +71,29 @@ export default function EditorFormTextInput(
     )
   }
 
+  const isDescription = name.toLowerCase().includes("description")
+
+  if (isDescription) {
+    return (
+      <FormLabel
+        htmlFor={id}
+        label={labelElement}
+        className={clsx(className, "row-span-2")}
+        vertical
+      >
+        <textarea
+          id={id}
+          className="h-full w-full resize-none bg-transparent p-2"
+          name={name}
+          defaultValue={defaultValue}
+          readOnly={readOnly}
+          required={required}
+          placeholder="Enter description here"
+        />
+      </FormLabel>
+    )
+  }
+
   const isUrl = name.toLowerCase().includes("url")
   const isEmail = name.toLowerCase().includes("email")
   const placeholderText =
@@ -73,9 +101,14 @@ export default function EditorFormTextInput(
 
   return (
     <Input
+      id={id}
       label={labelElement}
-      labelClassName={clsx(className, "flex flex-col")}
-      className="w-full"
+      labelClassName={clsx(
+        className,
+        "flex flex-col",
+        isDescription && "row-span-2",
+      )}
+      className={"w-full"}
       name={name}
       defaultValue={defaultValue}
       readOnly={readOnly}
