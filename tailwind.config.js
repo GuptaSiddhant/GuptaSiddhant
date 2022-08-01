@@ -7,8 +7,8 @@ const config = {
   content: ["./web/**/*.{ts,tsx}"],
   theme: {
     fontFamily: {
-      sans: ["Nunito", "sans-serif"],
-      serif: ["monospace", "serif"],
+      sans: ["Nunito", "Helvetica", "sans-serif"],
+      serif: ["serif"],
       monospace: ["Fira Code", "Menlo", "monospace"],
     },
     zIndex: {

@@ -26,7 +26,9 @@ export default function HeroHeader({
     <header className={clsx("flex flex-col items-start gap-4", proseWidth)}>
       <HeroHeaderCaption caption={caption}>{children}</HeroHeaderCaption>
       <div className="mt-4 flex flex-col gap-4">
-        <H1 className="text-primary">{title}</H1>
+        <Link to="#">
+          <H1 className="text-primary">{title}</H1>
+        </Link>
         {subtitle ? (
           <SubHeading className="text-secondary">{subtitle}</SubHeading>
         ) : null}

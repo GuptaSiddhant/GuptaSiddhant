@@ -37,7 +37,7 @@ export function arrangeTocByLevels(
 }
 
 export function useCurrentActiveId(toc: TocItem[]): string {
-  const [activeId, setActiveId] = useState<string>("appendix")
+  const [activeId, setActiveId] = useState<string>("")
 
   const { hash } = useLocation()
   useEffect(() => {

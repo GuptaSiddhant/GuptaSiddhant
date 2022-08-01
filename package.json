@@ -27,7 +27,7 @@
   },
   "sideEffects": false,
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "packageManager": "yarn@3.2.1",
   "dependencies": {

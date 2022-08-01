@@ -71,7 +71,7 @@ function TimelineDivider({
         className="scroll-mt-20 no-underline"
       >
         <Caption className="relative">
-          {children}
+          {children?.toString().padStart(4, "0")}
           <div
             role="presentation"
             className={clsx(

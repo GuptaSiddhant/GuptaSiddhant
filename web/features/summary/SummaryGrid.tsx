@@ -43,14 +43,14 @@ function SummaryGridCard({
   const { id, title, icon, cover, subtitle, description, featured, linkUrl } =
     item
   const showDescription = Boolean(featured && description)
-  const href = linkUrl ?? id
+  const href = String(linkUrl ?? id)
   const iconElement = icon ? (
     <img src={icon} alt={title} className="h-12 rounded object-contain" />
   ) : null
 
   return (
     <Link
-      to={href.toString()}
+      to={href}
       prefetch="intent"
       className={clsx("group", className)}
       aria-label={title}

@@ -73,7 +73,7 @@ export const meta: MetaFunction = ({ data, params }) =>
     section: "Blog",
   })
 
-export default function ProjectDetails(): JSX.Element {
+export default function BlogPostDetails(): JSX.Element {
   const {
     post,
     url,
