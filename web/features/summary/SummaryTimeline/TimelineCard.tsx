@@ -46,14 +46,14 @@ export default function TimelineCard(props: {
           "flex w-full scroll-m-20 flex-col p-8 transition-colors",
           cover ? "pb-0" : "",
           modelStyling.text,
-          modelStyling.border,
+          modelStyling.borderHocus,
         )}
       >
         <Sticker {...props.item} />
 
         <TimelineCardTitle
-          icon={modelStyling.icon}
-          className={modelStyling.bg}
+          icon={icon ? <img src={icon} alt={title} /> : modelStyling.icon}
+          className={clsx(modelStyling.bg, modelStyling.border)}
           id={id}
         >
           {title}
@@ -68,7 +68,6 @@ export default function TimelineCard(props: {
 
         <TimelineCardGallery
           gallery={[{ url: cover || "", alt: "" }]}
-          iconUrl={icon}
           alt={id}
         />
       </article>
@@ -93,7 +92,7 @@ function TimelineCardTitle({
         className={clsx(
           className,
           "absolute -left-16 -top-0 aspect-square w-10 rounded-lg flex-center",
-          "text-white shadow-md",
+          "overflow-clip border-2 text-white shadow-md",
         )}
         role="presentation"
         title={id}

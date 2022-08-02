@@ -42,6 +42,7 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
   text: string
   border: string
   bg: string
+  borderHocus?: string
   icon?: React.ReactNode
 } {
   switch (modelName) {
@@ -49,7 +50,8 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
       return {
         bg: clsx("bg-purple-500"),
         text: clsx("text-purple-500"),
-        border: clsx(
+        border: clsx("border-purple-500"),
+        borderHocus: clsx(
           "group-hocus:border-purple-500 selected:border-purple-500",
         ),
         icon: <CareerIcon />,
@@ -59,7 +61,8 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
       return {
         bg: clsx("bg-red-500"),
         text: clsx("text-red-500"),
-        border: clsx("group-hocus:border-red-500 selected:border-red-500"),
+        border: clsx("border-red-500"),
+        borderHocus: clsx("group-hocus:border-red-500 selected:border-red-500"),
         icon: <EducationIcon />,
       }
     }
@@ -67,7 +70,10 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
       return {
         bg: clsx("bg-green-500"),
         text: clsx("text-green-500"),
-        border: clsx("group-hocus:border-green-500 selected:border-green-500"),
+        border: clsx("border-green-500"),
+        borderHocus: clsx(
+          "group-hocus:border-green-500 selected:border-green-500",
+        ),
         icon: <ProjectsIcon />,
       }
     }
@@ -75,7 +81,10 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
       return {
         bg: clsx("bg-blue-500"),
         text: clsx("text-blue-500"),
-        border: clsx("group-hocus:border-blue-500 selected:border-green-500"),
+        border: clsx("border-blue-500"),
+        borderHocus: clsx(
+          "group-hocus:border-blue-500 selected:border-blue-500",
+        ),
         icon: <BlogIcon />,
       }
     }
@@ -83,7 +92,10 @@ export function getStylingByDatabaseModel(modelName: DatabaseModel): {
       return {
         bg: clsx("bg-secondary"),
         text: clsx("text-secondary"),
-        border: clsx("selected:border-secondary group-hocus:border-secondary"),
+        border: clsx("border-secondary"),
+        borderHocus: clsx(
+          "selected:border-secondary group-hocus:border-secondary",
+        ),
       }
     }
   }
