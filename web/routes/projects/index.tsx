@@ -10,10 +10,11 @@ import type { UniqueTag } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 import { getProjectsSummaryItems } from "@gs/projects/service.server"
-import type { SortByOption, SummaryItem } from "@gs/summary"
 import {
+  type SummaryItem,
   filterSortSummaryItems,
   getUniqueTagsFromSummaryItems,
+  SortByOption,
   ViewAsOption,
 } from "@gs/summary"
 import SummaryGrid from "@gs/summary/SummaryGrid"
@@ -34,8 +35,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)
   const items = await getProjectsSummaryItems()
   const selectedTags = parseGetAllSearchParams(searchParams, "tag") ?? []
-  const viewAs = searchParams?.get("view") as ViewAsOption
-  const sortBy = searchParams?.get("sort") as SortByOption
+  const viewAs =
+    (searchParams?.get("view") as ViewAsOption) || ViewAsOption.Grid
+  const sortBy =
+    (searchParams?.get("sort") as SortByOption) || SortByOption.Latest
 
   const tags = getUniqueTagsFromSummaryItems(items)
   const summaryItems = filterSortSummaryItems(items, {
