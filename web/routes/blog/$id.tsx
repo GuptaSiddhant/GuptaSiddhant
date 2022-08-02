@@ -1,9 +1,10 @@
 import { Link, useLoaderData } from "@remix-run/react"
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
 import {
+  type ErrorBoundaryComponent,
   type LoaderFunction,
   type MetaFunction,
   json,
+  redirect,
 } from "@remix-run/server-runtime"
 
 import { type BlogPostProps } from "@gs/blog"
@@ -48,6 +49,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   try {
     const { content, ...post } = await getBlogPostDetails(id)
+    if (!__IS_DEV__ && post.draft) return redirect(`/blog/`)
+
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
     const crossSell = await getBlogPostCrossSell(id)

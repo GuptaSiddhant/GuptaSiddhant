@@ -4,6 +4,7 @@ import {
   type LoaderFunction,
   type MetaFunction,
   json,
+  redirect,
 } from "@remix-run/server-runtime"
 
 import { getExperienceItem } from "@gs/experiences/service.server"
@@ -51,10 +52,12 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   try {
     const { content, association, ...project } = await getProjectDetails(id)
+
+    if (!__IS_DEV__ && project.draft) return redirect(`/projects/`)
+
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
     const crossSell = await getProjectCrossSell(id)
-
     const assoc = association
       ? await getExperienceItem(association).catch(() => undefined)
       : undefined
