@@ -13,12 +13,12 @@ import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
-import { getBlogPostKeys } from "@gs/blog/service.server"
 import { getCareerKeys, getEducationKeys } from "@gs/experiences/service.server"
+import { getBlogKeys } from "@gs/models/blog.server"
+import { getProjectsKeys } from "@gs/models/projects.server"
 import type { NavigationLinkProps } from "@gs/navigation/types"
-import { getProjectsKeys } from "@gs/projects/service.server"
 import { authenticateRoute } from "@gs/service/auth.server"
-import { DatabaseModel } from "@gs/service/database.server"
+import { ModelName } from "@gs/service/database.server"
 import { ErrorSection } from "@gs/ui/Error"
 import Menu from "@gs/ui/Menu"
 import { Caption } from "@gs/ui/Text"
@@ -27,7 +27,7 @@ const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
 export interface LoaderData {
   entries: {
-    id: DatabaseModel
+    id: ModelName
     label: string
     keys: string[]
   }[]
@@ -36,27 +36,27 @@ export interface LoaderData {
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
   const [careerKeys, educationKeys, blogKeys, projectsKeys] = await Promise.all(
-    [getCareerKeys(), getEducationKeys(), getBlogPostKeys(), getProjectsKeys()],
+    [getCareerKeys(), getEducationKeys(), getBlogKeys(), getProjectsKeys()],
   )
 
   const allEditableEntries: LoaderData["entries"] = [
     {
-      id: DatabaseModel.Career,
+      id: ModelName.Career,
       label: "Career",
       keys: careerKeys,
     },
     {
-      id: DatabaseModel.Education,
+      id: ModelName.Education,
       label: "Education",
       keys: educationKeys,
     },
     {
-      id: DatabaseModel.Blog,
+      id: ModelName.Blog,
       label: "Blog",
       keys: blogKeys,
     },
     {
-      id: DatabaseModel.Projects,
+      id: ModelName.Projects,
       label: "Project",
       keys: projectsKeys,
     },

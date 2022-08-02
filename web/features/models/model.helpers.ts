@@ -1,4 +1,10 @@
-import type { ModelArrayType, ModelProperties, ModelScalerType } from "."
+import type {
+  Model,
+  ModelArrayType,
+  ModelProperties,
+  ModelScalerType,
+} from "./model.types"
+import type { Schema } from "./schema-type"
 
 export function getDataFromModelObject(
   keys: string[],
@@ -79,4 +85,20 @@ function getScalerValue({ type }: ModelScalerType, value: string) {
     : type === "number"
     ? parseFloat(value)
     : value
+}
+
+export function transformSchemaInModel(schema: Schema): Model {
+  const model = {
+    type: "object",
+    properties: schema.properties || {},
+  }
+
+  const required = schema.required || []
+  Object.keys(model.properties).forEach((key) => {
+    const optional = required.indexOf(key) === -1
+    ;(model.properties[key] as any).optional = optional
+    ;(model.properties[key] as any).required = !optional
+  })
+
+  return model as Model
 }

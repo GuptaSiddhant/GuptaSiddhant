@@ -49,7 +49,7 @@ const gallerySchema: Schema = {
   },
 }
 
-const commonCareerEducationSchema: Schema = {
+export const commonCareerEducationSchema: Schema = {
   type: "object",
   properties: {
     id: {
@@ -90,53 +90,7 @@ const commonCareerEducationSchema: Schema = {
   required: ["id", "startDate"],
 }
 
-export const educationSchema: Schema = {
-  type: "object",
-  properties: {
-    ...commonCareerEducationSchema.properties,
-    degree: {
-      type: "string",
-    },
-    field: {
-      type: "string",
-    },
-    school: {
-      type: "string",
-    },
-  },
-  required: [
-    ...(commonCareerEducationSchema.required || []),
-    "degree",
-    "field",
-    "school",
-  ],
-  additionalProperties: false,
-}
-
-export const careerSchema: Schema = {
-  type: "object",
-  properties: {
-    ...commonCareerEducationSchema.properties,
-    position: {
-      type: "string",
-    },
-    company: {
-      type: "string",
-    },
-    type: {
-      type: "string",
-      enum: ["full-time", "part-time", "freelancer", "intern", "contract"],
-    },
-  },
-  required: [
-    ...(commonCareerEducationSchema.required || []),
-    "position",
-    "company",
-  ],
-  additionalProperties: false,
-}
-
-const commonBlogProjectSchema: Schema = {
+export const commonBlogProjectSchema: Schema = {
   type: "object",
   properties: {
     id: {
@@ -175,32 +129,4 @@ const commonBlogProjectSchema: Schema = {
     links: linksSchema,
   },
   required: ["id", "title"],
-}
-
-export const blogSchema: Schema = {
-  type: "object",
-  properties: {
-    ...commonBlogProjectSchema.properties,
-    date: {
-      type: "string",
-    },
-  },
-  required: [...(commonBlogProjectSchema.required || []), "date"],
-}
-
-export const projectSchema: Schema = {
-  type: "object",
-  properties: {
-    ...commonBlogProjectSchema.properties,
-    dateStart: {
-      type: "string",
-    },
-    dateEnd: {
-      type: "string",
-    },
-    association: {
-      type: "string",
-    },
-  },
-  required: [...(commonBlogProjectSchema.required || []), "dateStart"],
 }

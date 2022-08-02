@@ -1,9 +1,9 @@
-import Database, { DatabaseModel } from "@gs/service/database.server"
+import Database, { ModelName } from "@gs/service/database.server"
 import Storage from "@gs/service/storage.server"
 
 export async function backupDatabase() {
   const backupData: Record<string, any> = {}
-  const models = Object.values(DatabaseModel)
+  const models = Object.values(ModelName)
 
   for (const model of models) {
     const data = await Database.queryModelAll(model)

@@ -10,10 +10,10 @@ import { json } from "@remix-run/server-runtime"
 
 import { type AboutInfo } from "@gs/about"
 import { getAboutInfo } from "@gs/about/service.server"
-import { getBlogSummaryItems } from "@gs/blog/service.server"
 import HomeHeroSection from "@gs/home/HomeHeroSection"
 import HomeSummarySlider from "@gs/home/HomeSummarySlider"
-import { getProjectsSummaryItems } from "@gs/projects/service.server"
+import { getBlogSummaryItems } from "@gs/models/blog.server"
+import { getProjectsSummaryItems } from "@gs/models/projects.server"
 import type { SummaryItem } from "@gs/summary"
 import { ErrorSection } from "@gs/ui/Error"
 

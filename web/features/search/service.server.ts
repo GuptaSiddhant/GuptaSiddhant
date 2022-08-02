@@ -1,7 +1,7 @@
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
-import { getBlogSummaryItems } from "@gs/blog/service.server"
 import { getCareerList, getEducationList } from "@gs/experiences/service.server"
-import { getProjectsSummaryItems } from "@gs/projects/service.server"
+import { getBlogSummaryItems } from "@gs/models/blog.server"
+import { getProjectsSummaryItems } from "@gs/models/projects.server"
 
 const apiTypes: Record<
   string,

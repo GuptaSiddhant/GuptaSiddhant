@@ -1,5 +1,5 @@
 import { sortByDate } from "@gs/helpers"
-import Database, { DatabaseModel } from "@gs/service/database.server"
+import Database, { ModelName } from "@gs/service/database.server"
 
 import {
   transformCareerToExperience,
@@ -7,9 +7,9 @@ import {
 } from "./transformers"
 import type { CareerProps, EducationProps, ExperienceProps } from "./types"
 
-export const databaseCareer = new Database<CareerProps>(DatabaseModel.Career)
+export const databaseCareer = new Database<CareerProps>(ModelName.Career)
 export const databaseEducation = new Database<EducationProps>(
-  DatabaseModel.Education,
+  ModelName.Education,
 )
 
 export async function getExperienceList(): Promise<ExperienceProps[]> {

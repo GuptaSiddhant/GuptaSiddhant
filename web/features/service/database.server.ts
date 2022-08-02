@@ -6,7 +6,7 @@ import {
   queryFireStoreCollectionIds,
   queryFireStoreDocument,
 } from "@gs/firebase/firestore"
-import { DatabaseModel } from "@gs/models"
+import { ModelName } from "@gs/models"
 
 import {
   deleteCachedKey,
@@ -14,7 +14,7 @@ import {
   fetchCachedKey,
 } from "./cache.server"
 
-export { DatabaseModel }
+export { ModelName }
 export type DatabaseDocument = TransformedDocument
 export type DatabaseType<T extends DatabaseDocument> = Database<T>
 
@@ -24,7 +24,7 @@ const cacheKeysKey = "::keys::"
 export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   #model: string
 
-  constructor(model: DatabaseModel) {
+  constructor(model: ModelName) {
     this.#model = model
   }
 
@@ -36,7 +36,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
     [cacheKey, this.#model, id].filter(Boolean).join("/")
 
   #invalidateIndexKey = () =>
-    deleteCachedKey([cacheKey, DatabaseModel.Index, this.#model].join("/"))
+    deleteCachedKey([cacheKey, ModelName.Index, this.#model].join("/"))
 
   invalidateCacheById = (id: string) => {
     deleteCachedKey(this.#createCacheKey(id))
@@ -78,32 +78,33 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   }
 
   mutateById = async (id: string, data?: T) => {
-    return mutateFirestoreDocument(this.#model, id, data).then(() => {
+    return mutateFirestoreDocument(this.#model, id, data).then((res) => {
       this.invalidateCacheById(id)
       this.invalidateCacheById(cacheKeysKey)
+      return res
     })
   }
 
   static queryModelById<T extends DatabaseDocument>(model: string, id: string) {
-    return new Database(validateDatabaseModel(model)).queryById<T>(id)
+    return new Database(validateModelName(model)).queryById<T>(id)
   }
 
   static queryModelAll<T extends DatabaseDocument>(model: string) {
-    return new Database(validateDatabaseModel(model)).queryAll<T>()
+    return new Database(validateModelName(model)).queryAll<T>()
   }
 
   static clearCache(model?: string) {
     if (!model) return deleteCachedKeysWith(cacheKey)
-    return new Database(validateDatabaseModel(model)).invalidateCacheAll()
+    return new Database(validateModelName(model)).invalidateCacheAll()
   }
 }
 
 // Helpers
 
-function validateDatabaseModel(model: string) {
+function validateModelName(model: string) {
   invariant(
-    Object.values(DatabaseModel).includes(model as DatabaseModel),
+    Object.values(ModelName).includes(model as ModelName),
     `Invalid database model '${model}'`,
   )
-  return model as DatabaseModel
+  return model as ModelName
 }

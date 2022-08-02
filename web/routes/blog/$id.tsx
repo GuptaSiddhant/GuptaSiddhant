@@ -7,11 +7,6 @@ import {
   redirect,
 } from "@remix-run/server-runtime"
 
-import { type BlogPostProps } from "@gs/blog"
-import {
-  getBlogPostCrossSell,
-  getBlogPostDetails,
-} from "@gs/blog/service.server"
 import {
   extractTocFromMdx,
   transformContentToMdx,
@@ -20,6 +15,11 @@ import { generateArticleMeta } from "@gs/helpers/meta"
 import { type TocItem } from "@gs/helpers/table-of-contents"
 import Hero from "@gs/hero"
 import { EditIcon } from "@gs/icons"
+import {
+  type BlogPostProps,
+  getBlogPost,
+  getBlogPostCrossSell,
+} from "@gs/models/blog.server"
 import { getAuthUser } from "@gs/service/auth.server"
 import type { SummaryItem } from "@gs/summary"
 import SummarySlider from "@gs/summary/SummarySlider"
@@ -48,7 +48,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const isAuthenticated = Boolean(await getAuthUser(request))
 
   try {
-    const { content, ...post } = await getBlogPostDetails(id)
+    const { content, ...post } = await getBlogPost(id)
     if (!__IS_DEV__ && post.draft) return redirect(`/blog/`)
 
     const mdx = transformContentToMdx(content)

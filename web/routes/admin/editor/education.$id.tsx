@@ -2,7 +2,7 @@ import invariant from "tiny-invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { json,redirect  } from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
 
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
@@ -10,9 +10,9 @@ import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.s
 import { adminLogger } from "@gs/admin/service.server"
 import { databaseEducation } from "@gs/experiences/service.server"
 import type { EducationProps } from "@gs/experiences/types"
-import { type Model, getModelByDatabaseModel } from "@gs/models"
+import { type Model, getModelByModelName } from "@gs/models"
 import { authenticateRoute } from "@gs/service/auth.server"
-import { DatabaseModel } from "@gs/service/database.server"
+import { ModelName } from "@gs/service/database.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -21,10 +21,11 @@ interface LoaderData {
   model: Model
 }
 
+const modelName = ModelName.Education
+
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const modelName = DatabaseModel.Education
-  const model = getModelByDatabaseModel(modelName)
+  const model = getModelByModelName(modelName)
 
   const id = params.id
   invariant(id, modelName + " id is required.")
@@ -49,7 +50,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
 
   const redirectTo = await modifyDatabaseDocumentWithEditorForm(
-    databaseEducation,
+    modelName,
     formData,
     request.method,
   )

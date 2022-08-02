@@ -17,11 +17,11 @@ import { generateArticleMeta } from "@gs/helpers/meta"
 import { type TocItem } from "@gs/helpers/table-of-contents"
 import Hero from "@gs/hero"
 import { EditIcon } from "@gs/icons"
-import { type ProjectProps } from "@gs/projects"
 import {
+  type ProjectProps,
+  getProject,
   getProjectCrossSell,
-  getProjectDetails,
-} from "@gs/projects/service.server"
+} from "@gs/models/projects.server"
 import { getAuthUser } from "@gs/service/auth.server"
 import type { SummaryItem } from "@gs/summary"
 import SummarySlider from "@gs/summary/SummarySlider"
@@ -51,7 +51,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const isAuthenticated = Boolean(await getAuthUser(request))
 
   try {
-    const { content, association, ...project } = await getProjectDetails(id)
+    const { content, association, ...project } = await getProject(id)
 
     if (!__IS_DEV__ && project.draft) return redirect(`/projects/`)
 

@@ -6,10 +6,10 @@ import {
   json,
 } from "@remix-run/server-runtime"
 
-import { getBlogSummaryItems } from "@gs/blog/service.server"
 import type { UniqueTag } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
+import { getBlogSummaryItems } from "@gs/models/blog.server"
 import {
   type SummaryItem,
   filterSortSummaryItems,

@@ -2,11 +2,11 @@ import invariant from "tiny-invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { json , redirect } from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
 
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import { authenticateRoute } from "@gs/service/auth.server"
-import Database, { DatabaseModel } from "@gs/service/database.server"
+import Database, { ModelName } from "@gs/service/database.server"
 import Action from "@gs/ui/Action"
 import { ErrorSection } from "@gs/ui/Error"
 import { Caption, Paragraph } from "@gs/ui/Text"
@@ -30,7 +30,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     return json<LoaderData>({ error: true })
   }
 
-  if (!Object.values(DatabaseModel).includes(collection as DatabaseModel)) {
+  if (!Object.values(ModelName).includes(collection as ModelName)) {
     return redirect(adminApp.linkPath)
   } else return json<LoaderData>({ error: false, collection })
 }

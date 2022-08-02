@@ -1,8 +1,8 @@
-import Database, { DatabaseModel } from "@gs/service/database.server"
+import Database, { ModelName } from "@gs/service/database.server"
 
 import type { AboutInfo, Skills } from "."
 
-const databaseInfo = new Database(DatabaseModel.About)
+const databaseInfo = new Database(ModelName.About)
 
 export async function getAboutInfo() {
   return databaseInfo.queryById<AboutInfo>("info")

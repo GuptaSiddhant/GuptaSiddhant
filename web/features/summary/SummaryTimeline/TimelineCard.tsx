@@ -8,7 +8,7 @@ import NpmIcon from "remixicon-react/NpmjsLineIcon"
 
 import { Link } from "@remix-run/react"
 
-import { getStylingByDatabaseModel } from "@gs/models"
+import { getStylingByModelName } from "@gs/models"
 import useRootContext from "@gs/root/RootContext"
 import type { Gallery, LinkObject } from "@gs/types"
 import Button from "@gs/ui/Button"
@@ -35,7 +35,7 @@ export default function TimelineCard(props: {
     duration,
     linkUrl,
   } = props.item
-  const modelStyling = getStylingByDatabaseModel(model)
+  const modelStyling = getStylingByModelName(model)
 
   return (
     <Link

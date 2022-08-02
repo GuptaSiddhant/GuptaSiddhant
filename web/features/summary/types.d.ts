@@ -1,10 +1,10 @@
-import { type DatabaseModel } from "@gs/service/database.server"
+import { type ModelName } from "@gs/service/database.server"
 import { type LinkObject } from "@gs/types"
 
 export interface SummaryItem {
   id: string
   title: string
-  model: DatabaseModel
+  model: ModelName
 
   subtitle?: string
   description?: string

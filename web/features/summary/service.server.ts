@@ -1,13 +1,13 @@
-import Database, { DatabaseModel } from "@gs/service/database.server"
+import Database, { ModelName } from "@gs/service/database.server"
 
 import type { SummaryItem } from "./types"
 
 const database = new Database<Record<string, SummaryItem> & { id: any }>(
-  DatabaseModel.Index,
+  ModelName.Index,
 )
 
 export async function querySummaryItemsByModel(
-  model: DatabaseModel,
+  model: ModelName,
   includeDrafts: boolean = false,
 ): Promise<SummaryItem[]> {
   const data = await database.queryById(model)

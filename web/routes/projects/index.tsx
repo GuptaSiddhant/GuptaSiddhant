@@ -9,7 +9,7 @@ import {
 import type { UniqueTag } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
-import { getProjectsSummaryItems } from "@gs/projects/service.server"
+import { getProjectsSummaryItems } from "@gs/models/projects.server"
 import {
   type SummaryItem,
   filterSortSummaryItems,

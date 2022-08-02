@@ -8,11 +8,13 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import type { BlogPostProps } from "@gs/blog"
-import { databaseBlog } from "@gs/blog/service.server"
-import { type Model, getModelByDatabaseModel } from "@gs/models"
+import { type Model, getModelByModelName } from "@gs/models"
+import {
+  type BlogPostProps,
+  getBlogModelName,
+  getBlogPost,
+} from "@gs/models/blog.server"
 import { authenticateRoute } from "@gs/service/auth.server"
-import { DatabaseModel } from "@gs/service/database.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -23,23 +25,23 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const modelName = DatabaseModel.Blog
-  const model = getModelByDatabaseModel(modelName)
+  const ModelName = getBlogModelName()
+  const model = getModelByModelName(ModelName)
 
   const id = params.id
-  invariant(id, modelName + " id is required.")
+  invariant(id, ModelName + " id is required.")
 
   if (id === "new") return json<LoaderData>({ model })
 
   try {
-    const item = await databaseBlog.queryById(id)
+    const item = await getBlogPost(id)
     invariant(item, "Blog item not found.")
 
     return json<LoaderData>({ item, model })
   } catch (e: any) {
     adminLogger.error(e.message)
 
-    return redirect(adminApp.linkPath + modelName)
+    return redirect(adminApp.linkPath + ModelName)
   }
 }
 
@@ -49,7 +51,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
 
   const redirectTo = await modifyDatabaseDocumentWithEditorForm(
-    databaseBlog,
+    getBlogModelName(),
     formData,
     request.method,
   )
