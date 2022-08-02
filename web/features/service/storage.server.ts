@@ -27,44 +27,47 @@ export type StorageFile = {
   updateTimestamp: string
   linkUrl: string
 }
-export type StorageMetadata = Awaited<ReturnType<typeof storage.queryMetadata>>
+export type StorageMetadata = Awaited<ReturnType<typeof Storage.queryMetadata>>
 
-export class Storage {
-  #createCacheKey = (path: string) => [cacheKey, path].filter(Boolean).join("/")
+export default class Storage {
+  static #createCacheKey = (path: string) =>
+    [cacheKey, path].filter(Boolean).join("/")
 
-  queryMetadata = async () => queryFirebaseStorageMetaData()
+  static queryMetadata = async () => queryFirebaseStorageMetaData()
 
-  invalidateCacheByPath = (path: string) =>
+  static invalidateCacheByPath = (path: string) =>
     deleteCachedKeysWith(this.#createCacheKey(path))
 
-  invalidateCacheAll = (path?: string) =>
+  static invalidateCacheAll = (path?: string) =>
     deleteCachedKeysWith(path ? this.#createCacheKey(path) : cacheKey)
 
   // Queries
 
-  queryAssetExists = async (path: string): Promise<boolean> =>
+  static queryAssetExists = async (path: string): Promise<boolean> =>
     fetchCachedKey(this.#createCacheKey(path + "--exists"), () =>
       queryFirebaseStorageFileExists(path),
     )
 
-  queryAssetPublicUrl = async (path: string): Promise<string | undefined> =>
+  static queryAssetPublicUrl = async (
+    path: string,
+  ): Promise<string | undefined> =>
     fetchCachedKey(this.#createCacheKey(path + "--publicUrl"), async () => {
       if (await this.queryAssetExists(path))
         return queryFirebaseStorageFileSignedUrl(path)
       return undefined
     })
 
-  queryAsset = async (path: string): Promise<StorageFile> => {
+  static queryAsset = async (path: string): Promise<StorageFile> => {
     const file = await queryFirebaseStorageFile(path)
     const publicUrl = await this.queryAssetPublicUrl(path)
 
     return transformFromFirebaseStorageFile(file, publicUrl)
   }
 
-  downloadAsset = async (path: string): Promise<File> =>
+  static downloadAsset = async (path: string): Promise<File> =>
     downloadFileFromFirebaseStorage(path)
 
-  queryDir = async (path?: string): Promise<StorageDir> =>
+  static queryDir = async (path?: string): Promise<StorageDir> =>
     queryFirebaseStorageDirContents(path).then((contents) => ({
       ...contents,
       files: contents.files.map((file) =>
@@ -73,14 +76,14 @@ export class Storage {
     }))
   // Mutations
 
-  mutateAsset = async (filePath: string, file?: string | File) =>
+  static mutateAsset = async (filePath: string, file?: string | File) =>
     mutateFirebaseStorageFile(filePath, file).then((res) => {
       this.invalidateCacheByPath(filePath)
       if (typeof res === "boolean") return res
       return transformFromFirebaseStorageFile(res, filePath)
     })
 
-  mutateDir = async (dirPath?: string, files?: Array<string | File>) =>
+  static mutateDir = async (dirPath?: string, files?: Array<string | File>) =>
     mutateFirebaseStorageDir(dirPath, files).then((resList) => {
       this.invalidateCacheAll(dirPath)
       return resList.map((res) => {
@@ -89,9 +92,6 @@ export class Storage {
       })
     })
 }
-
-const storage = new Storage()
-export default storage
 
 // Helpers
 

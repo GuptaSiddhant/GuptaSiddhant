@@ -1,5 +1,5 @@
 import Database, { DatabaseModel } from "@gs/service/database.server"
-import storage from "@gs/service/storage.server"
+import Storage from "@gs/service/storage.server"
 
 export async function backupDatabase() {
   const backupData: Record<string, any> = {}
@@ -17,7 +17,7 @@ export async function backupDatabase() {
     `${new Date().toISOString()}.json`,
   )
 
-  await storage.mutateAsset(filePath, file)
+  await Storage.mutateAsset(filePath, file)
 
   return generateBackupNameFromBackupPath(filePath)
 }

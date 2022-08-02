@@ -14,7 +14,7 @@ import {
 } from "@gs/admin/backup/service.server"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { authenticateRoute } from "@gs/service/auth.server"
-import storage, { type StorageFile } from "@gs/service/storage.server"
+import Storage, { type StorageFile } from "@gs/service/storage.server"
 import Action from "@gs/ui/Action"
 
 interface LoaderData {
@@ -26,7 +26,7 @@ const pathname = "/admin/settings/backups/"
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const { files } = await storage.queryDir("backup/")
+  const { files } = await Storage.queryDir("backup/")
   const list = files.map((file) => generateBackupNameFromBackupPath(file.name))
 
   return json<LoaderData>({ list, files })

@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant"
 
-import storage from "@gs/service/storage.server"
+import Storage from "@gs/service/storage.server"
 
 import { createAdminLogger } from "../service.server"
 import { generatePathsFromPath } from "./helpers"
@@ -21,7 +21,7 @@ export async function getStoragePaths(
       if (path.endsWith("/")) {
         const dirProps: StorageDirProps = {
           type: StoragePathType.Dir,
-          ...(await storage.queryDir(path)),
+          ...(await Storage.queryDir(path)),
           path,
         }
 
@@ -31,7 +31,7 @@ export async function getStoragePaths(
       const fileProps: StorageFileProps = {
         type: StoragePathType.File,
         path,
-        data: await storage.queryAsset(path),
+        data: await Storage.queryAsset(path),
       }
 
       return fileProps
@@ -56,7 +56,7 @@ export async function modifyStorage(
       invariant(prefix, "Dir prefix is required.")
 
       storageLogger.info(`Deleting dir "${prefix}".`)
-      await storage.mutateDir(prefix)
+      await Storage.mutateDir(prefix)
 
       return generateRedirectUrl(basePath, generatePathsFromPath(prefix).at(-2))
     }
@@ -65,7 +65,7 @@ export async function modifyStorage(
     invariant(path, "Asset path is required.")
 
     storageLogger.info(`Deleting asset "${path}".`)
-    await storage.mutateAsset(path)
+    await Storage.mutateAsset(path)
 
     return generateRedirectUrl(basePath, generatePathsFromPath(path).at(-2))
   }
@@ -77,7 +77,7 @@ export async function modifyStorage(
     const destination = form.get("destination")?.toString()
 
     storageLogger.info(`Creating asset(s) "${destination}".`)
-    const [firstUploadedFile] = await storage.mutateDir(destination, files)
+    const [firstUploadedFile] = await Storage.mutateDir(destination, files)
 
     const uploadedFileLink =
       typeof firstUploadedFile === "boolean"
@@ -96,7 +96,7 @@ export async function modifyStorage(
     invariant(name, "Asset new name is required.")
 
     storageLogger.info(`Renaming asset "${previousName}" to "${name}".`)
-    await storage.mutateAsset(previousName, name)
+    await Storage.mutateAsset(previousName, name)
 
     return generateRedirectUrl(basePath, name)
   }

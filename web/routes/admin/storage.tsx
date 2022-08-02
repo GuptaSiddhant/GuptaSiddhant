@@ -16,7 +16,7 @@ import type { AdminAppHandle } from "@gs/admin/types"
 import { RefreshIcon, UploadIcon } from "@gs/icons"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
-import storage, { type StorageDir } from "@gs/service/storage.server"
+import Storage, { type StorageDir } from "@gs/service/storage.server"
 import Action from "@gs/ui/Action"
 import { ErrorSection } from "@gs/ui/Error"
 import Popover from "@gs/ui/Popover"
@@ -29,7 +29,7 @@ interface LoaderData extends StorageDir {}
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const { dirs, files } = await storage.queryDir()
+  const { dirs, files } = await Storage.queryDir()
 
   return json<LoaderData>({ dirs, files })
 }

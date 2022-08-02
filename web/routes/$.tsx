@@ -5,7 +5,7 @@ import { redirect } from "@remix-run/server-runtime"
 
 import { ONE_DAY_IN_S } from "@gs/constants"
 import { appLogger } from "@gs/service/logger.server"
-import storage from "@gs/service/storage.server"
+import Storage from "@gs/service/storage.server"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const path = params["*"]
@@ -16,15 +16,15 @@ export const loader: LoaderFunction = async ({ params }) => {
     invariant(path, "asset path is required")
 
     if (assetRedirectExts.some((ext) => path.endsWith(ext))) {
-      const url = await storage.queryAssetPublicUrl(path)
+      const url = await Storage.queryAssetPublicUrl(path)
       invariant(url, "could not get url for asset: '" + path + "'")
 
       return redirect(url)
     }
 
     if (assetDownloadExts.some((ext) => path.endsWith(ext))) {
-      if (await storage.queryAssetExists(path)) {
-        const file = await storage.downloadAsset(path)
+      if (await Storage.queryAssetExists(path)) {
+        const file = await Storage.downloadAsset(path)
         invariant(file, "could not get file for asset: '" + path + "'")
         const ext = path.split(".").pop()
 

@@ -11,7 +11,7 @@ import { DeleteIcon } from "@gs/icons"
 import useRootContext from "@gs/root/RootContext"
 import { authenticateRoute } from "@gs/service/auth.server"
 import type { StorageFile } from "@gs/service/storage.server"
-import storage from "@gs/service/storage.server"
+import Storage from "@gs/service/storage.server"
 import Action from "@gs/ui/Action"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
@@ -34,8 +34,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const path = generateBackupPathFromBackupName(name)
 
   try {
-    const asset = await storage.queryAsset(path)
-    const file = await storage.downloadAsset(path)
+    const asset = await Storage.queryAsset(path)
+    const file = await Storage.downloadAsset(path)
     const data = JSON.stringify(JSON.parse(await file.text()), null, 2)
 
     return json<LoaderData>({ asset, name, path, data })
@@ -53,7 +53,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (request.method === "DELETE") {
     const path = form.get("path")?.toString()
     invariant(path, "Asset path is required.")
-    await storage.mutateAsset(path)
+    await Storage.mutateAsset(path)
 
     return redirect(adminApp.linkPath + "backups")
   }

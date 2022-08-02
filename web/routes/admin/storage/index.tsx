@@ -6,7 +6,7 @@ import AdminDashboard from "@gs/admin/components/AdminDashboard"
 import { useAdminApp } from "@gs/admin/helpers"
 import useRootContext from "@gs/root/RootContext"
 import { authenticateRoute } from "@gs/service/auth.server"
-import storage, { type StorageMetadata } from "@gs/service/storage.server"
+import Storage, { type StorageMetadata } from "@gs/service/storage.server"
 import { ExternalLink } from "@gs/ui/Link"
 import { formatDateTime } from "@gs/utils/format"
 
@@ -17,7 +17,7 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
   try {
-    const metadata = await storage.queryMetadata()
+    const metadata = await Storage.queryMetadata()
 
     return json<LoaderData>({ metadata })
   } catch {
