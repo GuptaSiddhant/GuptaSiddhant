@@ -1,5 +1,3 @@
-import invariant from "tiny-invariant"
-
 import {
   type FirebaseStorageFile,
   downloadFileFromFirebaseStorage,
@@ -12,11 +10,7 @@ import {
   queryFirebaseStorageMetaData,
 } from "@gs/firebase/storage"
 
-import {
-  deleteCachedKey,
-  deleteCachedKeysWith,
-  fetchCachedKey,
-} from "./cache.server"
+import { deleteCachedKeysWith, fetchCachedKey } from "./cache.server"
 
 const cacheKey = "storage"
 
@@ -41,7 +35,7 @@ export class Storage {
   queryMetadata = async () => queryFirebaseStorageMetaData()
 
   invalidateCacheByPath = (path: string) =>
-    deleteCachedKey(this.#createCacheKey(path))
+    deleteCachedKeysWith(this.#createCacheKey(path))
 
   invalidateCacheAll = (path?: string) =>
     deleteCachedKeysWith(path ? this.#createCacheKey(path) : cacheKey)
@@ -49,10 +43,12 @@ export class Storage {
   // Queries
 
   queryAssetExists = async (path: string): Promise<boolean> =>
-    queryFirebaseStorageFileExists(path)
+    fetchCachedKey(this.#createCacheKey(path + "--exists"), () =>
+      queryFirebaseStorageFileExists(path),
+    )
 
   queryAssetPublicUrl = async (path: string): Promise<string | undefined> =>
-    fetchCachedKey(this.#createCacheKey(path), async () => {
+    fetchCachedKey(this.#createCacheKey(path + "--publicUrl"), async () => {
       if (await this.queryAssetExists(path))
         return queryFirebaseStorageFileSignedUrl(path)
       return undefined
@@ -65,7 +61,7 @@ export class Storage {
     return transformFromFirebaseStorageFile(file, publicUrl)
   }
 
-  downloadAsset = (path: string): Promise<File> =>
+  downloadAsset = async (path: string): Promise<File> =>
     downloadFileFromFirebaseStorage(path)
 
   queryDir = async (path?: string): Promise<StorageDir> =>
@@ -112,18 +108,4 @@ function transformFromFirebaseStorageFile(
     updateTimestamp: file.metadata.updated,
     linkUrl: url || `/${file.metadata.name}`,
   }
-}
-
-export async function resolveStorageAssetUrl(path?: string) {
-  invariant(path, "asset path is required")
-  const assetExts = ["png", "jpg", "jpeg", "gif", "pdf"]
-
-  if (assetExts.some((ext) => path.endsWith(ext))) {
-    const url = await storage.queryAssetPublicUrl(path)
-    invariant(url, "could not get url for asset: '" + path + "'")
-
-    return url
-  }
-
-  throw new Error("Not an asset: '" + path + "'")
 }
