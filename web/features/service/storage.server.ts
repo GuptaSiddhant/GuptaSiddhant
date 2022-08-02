@@ -10,7 +10,11 @@ import {
   queryFirebaseStorageMetaData,
 } from "@gs/firebase/storage"
 
-import { deleteCachedKeysWith, fetchCachedKey } from "./cache.server"
+import {
+  deleteCachedKey,
+  deleteCachedKeysWith,
+  fetchCachedKey,
+} from "./cache.server"
 
 const cacheKey = "storage"
 
@@ -36,7 +40,7 @@ export default class Storage {
   static queryMetadata = async () => queryFirebaseStorageMetaData()
 
   static invalidateCacheByPath = (path: string) =>
-    deleteCachedKeysWith(this.#createCacheKey(path))
+    deleteCachedKey(this.#createCacheKey(path))
 
   static invalidateCacheAll = (path?: string) =>
     deleteCachedKeysWith(path ? this.#createCacheKey(path) : cacheKey)
@@ -44,14 +48,14 @@ export default class Storage {
   // Queries
 
   static queryAssetExists = async (path: string): Promise<boolean> =>
-    fetchCachedKey(this.#createCacheKey(path + "--exists"), () =>
+    fetchCachedKey(this.#createCacheKey(path), () =>
       queryFirebaseStorageFileExists(path),
     )
 
   static queryAssetPublicUrl = async (
     path: string,
   ): Promise<string | undefined> =>
-    fetchCachedKey(this.#createCacheKey(path + "--publicUrl"), async () => {
+    fetchCachedKey(this.#createCacheKey(path), async () => {
       if (await this.queryAssetExists(path))
         return queryFirebaseStorageFileSignedUrl(path)
       return undefined
@@ -59,9 +63,8 @@ export default class Storage {
 
   static queryAsset = async (path: string): Promise<StorageFile> => {
     const file = await queryFirebaseStorageFile(path)
-    const publicUrl = await this.queryAssetPublicUrl(path)
 
-    return transformFromFirebaseStorageFile(file, publicUrl)
+    return transformFromFirebaseStorageFile(file, path)
   }
 
   static downloadAsset = async (path: string): Promise<File> =>

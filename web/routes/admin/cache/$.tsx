@@ -91,7 +91,7 @@ export default function CacheDetails(): JSX.Element | null {
           body={{ key }}
           title="Delete cache item"
           method="delete"
-          action={`${adminApp.linkPath}/${key}`}
+          action={adminApp.linkPath + key}
           toast={"Deleting cache item"}
         >
           <DeleteIcon />
@@ -103,6 +103,7 @@ export default function CacheDetails(): JSX.Element | null {
   return (
     <AdminLayout
       title={key}
+      to={adminApp.linkPath + key}
       actions={actions}
       footer={<Footer />}
       className={clsx(data ? "flex flex-col gap-4 p-4" : "p-4 flex-center")}

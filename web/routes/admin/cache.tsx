@@ -69,7 +69,7 @@ export default function CacheAdminApp(): JSX.Element | null {
           method="delete"
           confirm={`Are you sure about clearing '${type}' cache?`}
           toast={`Clearing '${type}' cache ...`}
-          action={`${adminApp.linkPath}/${type}`}
+          action={adminApp.linkPath + type}
           body={{ key: type }}
         >
           <DeleteIcon />
