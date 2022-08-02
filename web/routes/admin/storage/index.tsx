@@ -4,6 +4,7 @@ import { json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "@gs/admin/components/AdminDashboard"
 import { useAdminApp } from "@gs/admin/helpers"
+import useRootContext from "@gs/root/RootContext"
 import { authenticateRoute } from "@gs/service/auth.server"
 import storage, { type StorageMetadata } from "@gs/service/storage.server"
 import { ExternalLink } from "@gs/ui/Link"
@@ -25,6 +26,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export default function StorageIndex(): JSX.Element | null {
+  const { locale } = useRootContext()
   const { metadata } = useLoaderData<LoaderData>()
   const adminApp = useAdminApp()
 
@@ -48,7 +50,7 @@ export default function StorageIndex(): JSX.Element | null {
           {
             id: "updateTimestamp",
             header: "Last Updated",
-            cell: (row) => formatDateTime(row.updateTimestamp),
+            cell: (row) => formatDateTime(row.updateTimestamp, { locale }),
           },
         ]}
       />

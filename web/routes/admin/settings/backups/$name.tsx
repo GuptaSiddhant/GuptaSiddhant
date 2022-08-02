@@ -2,12 +2,13 @@ import invariant from "tiny-invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { json,redirect  } from "@remix-run/server-runtime"
+import { json, redirect } from "@remix-run/server-runtime"
 
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import { generateBackupPathFromBackupName } from "@gs/admin/backup/service.server"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { DeleteIcon } from "@gs/icons"
+import useRootContext from "@gs/root/RootContext"
 import { authenticateRoute } from "@gs/service/auth.server"
 import type { StorageFile } from "@gs/service/storage.server"
 import storage from "@gs/service/storage.server"
@@ -62,6 +63,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function StoragePath(): JSX.Element | null {
   const { name, path, data, asset } = useLoaderData<LoaderData>()
+  const { locale } = useRootContext()
 
   return (
     <AdminLayout
@@ -69,7 +71,8 @@ export default function StoragePath(): JSX.Element | null {
       className="p-4"
       footer={
         <div className="flex justify-between text-base text-disabled">
-          Backup on {formatDateTime(new Date(asset.updateTimestamp))}
+          Backup on{" "}
+          {formatDateTime(new Date(asset.updateTimestamp), { locale })}
         </div>
       }
       actions={[

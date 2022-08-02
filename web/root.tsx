@@ -18,11 +18,15 @@ import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries"
 import Document from "@gs/root/Document"
 import links from "@gs/root/links"
 import meta from "@gs/root/meta"
+import { RootContext } from "@gs/root/RootContext"
 import { getAuthUser } from "@gs/service/auth.server"
 import { getThemeFromRequest } from "@gs/theme/cookie.server"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeName = await getThemeFromRequest(request)
+  const locale =
+    request.headers.get("Accept-Language")?.split(",")[0] || "en-GB"
+
   const [about, navigationRemoteConfig, authUser] = await Promise.all([
     getAboutInfo(),
     getNavigationRemoteConfig(),
@@ -34,22 +38,25 @@ export const loader: LoaderFunction = async ({ request }) => {
     navigationRemoteConfig,
     isAuthenticated: !!authUser,
     themeName,
+    locale,
   })
 }
 
 export default function App() {
-  const { themeName } = useLoaderData<RootLoaderData>()
+  const { themeName, locale } = useLoaderData<RootLoaderData>()
   usePullDownRefresh()
 
   return (
-    <Document themeName={themeName}>
-      <AppLayout>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </AppLayout>
-    </Document>
+    <RootContext.Provider value={{ themeName, locale }}>
+      <Document themeName={themeName}>
+        <AppLayout>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </AppLayout>
+      </Document>
+    </RootContext.Provider>
   )
 }
 

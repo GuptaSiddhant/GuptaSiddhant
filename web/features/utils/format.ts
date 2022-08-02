@@ -18,6 +18,12 @@ export function cleanupText(text?: string): string | undefined {
   return text.replace(/â€”/g, ":")
 }
 
+// DateTime
+
+interface DateTimeOptions extends Intl.DateTimeFormatOptions {
+  locale?: string
+}
+
 export function formatYYYYMMDD(date?: Date) {
   if (!date) return undefined
 
@@ -30,9 +36,9 @@ export function formatYYYYMMDD(date?: Date) {
 
 export function formatDate(
   date: Date | string,
-  options: Intl.DateTimeFormatOptions = {},
+  { locale, ...options }: DateTimeOptions = {},
 ): string {
-  return new Date(date).toLocaleDateString(undefined, {
+  return new Date(date).toLocaleDateString(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -42,9 +48,9 @@ export function formatDate(
 
 export function formatTime(
   date: Date | string,
-  options: Intl.DateTimeFormatOptions = {},
+  { locale, ...options }: DateTimeOptions = {},
 ): string {
-  return new Date(date).toLocaleDateString(undefined, {
+  return new Date(date).toLocaleDateString(locale, {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
@@ -54,9 +60,9 @@ export function formatTime(
 
 export function formatDateTime(
   date: Date | string,
-  options: Intl.DateTimeFormatOptions = {},
+  { locale, ...options }: DateTimeOptions = {},
 ): string {
-  return new Date(date).toLocaleDateString(undefined, {
+  return new Date(date).toLocaleDateString(locale, {
     day: "numeric",
     month: "numeric",
     year: "numeric",

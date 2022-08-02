@@ -9,7 +9,9 @@ import NpmIcon from "remixicon-react/NpmjsLineIcon"
 import { Link } from "@remix-run/react"
 
 import { getStylingByDatabaseModel } from "@gs/models"
+import useRootContext from "@gs/root/RootContext"
 import type { Gallery, LinkObject } from "@gs/types"
+import Button from "@gs/ui/Button"
 import { ExternalLink } from "@gs/ui/Link"
 import Mdx from "@gs/ui/Mdx"
 import { H5, H6, Paragraph } from "@gs/ui/Text"
@@ -20,6 +22,7 @@ import type { SummaryItem } from "../types"
 export default function TimelineCard(props: {
   item: SummaryItem
 }): JSX.Element | null {
+  const { locale } = useRootContext()
   const {
     id,
     title,
@@ -62,7 +65,7 @@ export default function TimelineCard(props: {
         <TimelineCardSubtitle>{subtitle}</TimelineCardSubtitle>
 
         <TimelineCardByline>
-          {duration || formatDate(date || new Date())}
+          {duration || formatDate(date || new Date(), { locale })}
           <TimelineCardLinker links={links} />
         </TimelineCardByline>
 
@@ -219,14 +222,18 @@ function TimelineCardLinker({ links = [] }: { links?: LinkObject[] }) {
         })()
 
         return (
-          <ExternalLink
+          <Button
             key={type || url}
-            href={url}
-            disableUnderline
-            tooltipLabel={title || type}
+            title={title || type}
+            onClick={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+              window.open(url, "__blank")
+            }}
+            className="text-link hocus:text-link-hover"
           >
             {content}
-          </ExternalLink>
+          </Button>
         )
       })}
     </>

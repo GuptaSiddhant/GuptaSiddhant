@@ -2,6 +2,7 @@ import clsx from "clsx"
 
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
+import useRootContext from "@gs/root/RootContext"
 import { type StorageFile } from "@gs/service/storage.server"
 import Accordion from "@gs/ui/Accordion"
 import Action from "@gs/ui/Action"
@@ -79,6 +80,8 @@ export default function StorageFileView({
 }
 
 function StorageFileDataView(file: StorageFile): JSX.Element {
+  const { locale } = useRootContext()
+
   return (
     <Accordion
       open
@@ -101,12 +104,12 @@ function StorageFileDataView(file: StorageFile): JSX.Element {
           {
             id: "createTimestamp",
             header: "Created at",
-            cell: (row) => formatDateTime(row.createTimestamp),
+            cell: (row) => formatDateTime(row.createTimestamp, { locale }),
           },
           {
             id: "updateTimestamp",
             header: "Updated at",
-            cell: (row) => formatDateTime(row.updateTimestamp),
+            cell: (row) => formatDateTime(row.updateTimestamp, { locale }),
           },
         ]}
       />
