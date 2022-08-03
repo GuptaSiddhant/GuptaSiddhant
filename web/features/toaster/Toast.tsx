@@ -7,7 +7,7 @@ import {
   useState,
 } from "react"
 import CloseIcon from "remixicon-react/CloseCircleLineIcon"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import useAnimationFrame from "@gs/hooks/useAnimationFrame"
 

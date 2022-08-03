@@ -1,7 +1,7 @@
-import invariant from "tiny-invariant"
-
 import { useMatches } from "@remix-run/react"
 import type { MetaDescriptor } from "@remix-run/server-runtime"
+
+import invariant from "@gs/utils/invariant"
 
 import type { AdminAppProps } from "."
 

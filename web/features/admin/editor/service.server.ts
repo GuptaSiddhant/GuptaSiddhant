@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import { getModelByModelName } from "@gs/models"
 import { getDataFromModelObject } from "@gs/models/helpers/model.helpers"

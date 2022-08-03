@@ -1,7 +1,7 @@
 import ReachPopover, { positionDefault } from "@reach/popover"
 import clsx from "clsx"
 import { createContext, useContext, useEffect, useRef, useState } from "react"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import useEventListener from "@gs/hooks/useEventListener"
 import useFocusTrap from "@gs/hooks/useFocusTrap"

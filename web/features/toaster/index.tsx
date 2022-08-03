@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import { type ReactNode, createContext, useContext } from "react"
 import ClearIcon from "remixicon-react/CloseCircleLineIcon"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import type { ToastProps } from "./Toast"
 import Toast from "./Toast"

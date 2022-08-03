@@ -48,7 +48,6 @@
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
     "remixicon-react": "^1.0.0",
-    "tiny-invariant": "^1.2.0",
     "tslog": "^3.3.3"
   },
   "devDependencies": {

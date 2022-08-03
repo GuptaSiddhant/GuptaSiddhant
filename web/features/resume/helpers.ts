@@ -5,15 +5,9 @@ import { type AboutInfo } from "@gs/about"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 
 import useResumeContext from "./ResumeContext"
+import Sections from "./sections"
 import { type ResumeColors, type ResumeTexts } from "./theme"
 import type { ContactLinkProps } from "./types"
-
-export enum Sections {
-  about = "about",
-  experience = "experience",
-  education = "education",
-  skills = "skills",
-}
 
 export function useStyleSheet(
   styles: (theme: {

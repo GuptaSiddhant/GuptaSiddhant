@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 const FIREBASE_AUTH_BASE_URL =
   "https://identitytoolkit.googleapis.com/v1/accounts:"

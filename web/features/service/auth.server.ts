@@ -1,6 +1,6 @@
 import { Authenticator } from "remix-auth"
 import { FormStrategy } from "remix-auth-form"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import { createCookieSessionStorage, redirect } from "@remix-run/node"
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useRef } from "react"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import { useDialog } from "../ui/Dialog"
 import SearchDialog from "./SearchDialog"

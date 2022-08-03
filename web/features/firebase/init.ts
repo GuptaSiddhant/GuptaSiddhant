@@ -1,6 +1,6 @@
 import { type App, cert, initializeApp } from "firebase-admin/app"
 import { type Firestore, getFirestore } from "firebase-admin/firestore"
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 export function initFirebase() {
   const FIREBASE_SERVICE_ACCOUNT_KEY = process.env.FIREBASE_SERVICE_ACCOUNT_KEY

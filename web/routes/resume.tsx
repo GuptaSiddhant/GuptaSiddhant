@@ -12,7 +12,7 @@ import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"
-import { Sections } from "@gs/resume/helpers"
+import Sections from "@gs/resume/sections"
 import Button from "@gs/ui/Button"
 import { ErrorSection } from "@gs/ui/Error"
 import Input from "@gs/ui/Input"
@@ -47,6 +47,7 @@ export const meta: MetaFunction = () => ({
 
 export default function Resume(): JSX.Element {
   const { origin, tags } = useLoaderData<LoaderData>()
+  console.log({ origin, tags })
   const [query, setQuery] = useState("")
 
   const resumeUrl = useMemo(
