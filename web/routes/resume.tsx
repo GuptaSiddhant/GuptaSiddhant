@@ -12,12 +12,18 @@ import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
 import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"
-import Sections from "@gs/resume/sections"
+import {
+  ResumeFonts,
+  ResumePalettes,
+  ResumeSections,
+} from "@gs/resume/constants"
 import Button from "@gs/ui/Button"
 import { ErrorSection } from "@gs/ui/Error"
 import Input from "@gs/ui/Input"
 import { ExternalLink } from "@gs/ui/Link"
 import Section from "@gs/ui/Section"
+import Select from "@gs/ui/Select"
+import Tags from "@gs/ui/Tags"
 import { H1 } from "@gs/ui/Text"
 import { capitalize } from "@gs/utils/format"
 
@@ -47,7 +53,6 @@ export const meta: MetaFunction = () => ({
 
 export default function Resume(): JSX.Element {
   const { origin, tags } = useLoaderData<LoaderData>()
-  console.log({ origin, tags })
   const [query, setQuery] = useState("")
 
   const resumeUrl = useMemo(
@@ -79,65 +84,10 @@ export default function Resume(): JSX.Element {
           handleSubmit(e.currentTarget)
         }}
       >
-        <fieldset className="border-b border-divider pb-4">
-          <legend className="mt-4 mb-2 font-bold">Time period</legend>
-          <div className="grid grid-cols-2 gap-4">
-            <Input
-              label={"From"}
-              labelClassName={"flex flex-col text-base flex-1"}
-              type="date"
-              pattern="^\\d{4}-\\d{2}-\\d{2}$"
-              placeholder="YYYY-MM-DD"
-              name={"from"}
-            />
-            <Input
-              label={"Till"}
-              labelClassName={"flex flex-col text-sm flex-1"}
-              type="date"
-              pattern="^\\d{4}-\\d{2}-\\d{2}$"
-              placeholder="YYYY-MM-DD"
-              name={"till"}
-            />
-          </div>
-        </fieldset>
-
-        <fieldset className="border-b border-divider pb-4">
-          <legend className="mt-4 mb-2 font-bold">Include sections</legend>
-          <div className="grid grid-cols-3 gap-x-4 gap-y-2">
-            {Object.values(Sections).map((value) =>
-              value !== "about" ? (
-                <label
-                  key={value}
-                  className="flex items-center gap-2 text-base"
-                >
-                  <input type="checkbox" name="section" value={value} />
-                  {capitalize(value)}
-                </label>
-              ) : null,
-            )}
-          </div>
-        </fieldset>
-
-        <fieldset className="border-b border-divider pb-4">
-          <legend className="mt-4 mb-2 font-bold">Tags</legend>
-          <div className="grid grid-cols-3 gap-x-4 gap-y-2">
-            {tags.map((tag) => (
-              <label key={tag} className="flex items-center gap-2 text-base">
-                <input type="checkbox" name="tag" value={tag} />
-                {capitalize(tag)}
-              </label>
-            ))}
-            <label className="col-span-3 flex flex-col text-sm">
-              {"Other tags"}
-              <Input
-                type="text"
-                name="tag"
-                placeholder="Comma separated tags"
-                className="w-full"
-              />
-            </label>
-          </div>
-        </fieldset>
+        <DateFilter />
+        <SectionFilter />
+        <TagFilter tags={tags} />
+        <StyleFilter />
 
         <Button.Primary type="submit" className="justify-center">
           Generate PDF
@@ -165,4 +115,101 @@ export default function Resume(): JSX.Element {
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Problem with resume" error={error} />
+}
+
+// Components
+
+function DateFilter(): JSX.Element | null {
+  const commonInputProps = {
+    labelClassName: "flex flex-col text-base flex-1",
+    type: "date",
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$",
+    placeholder: "YYYY-MM-DD",
+  }
+
+  return (
+    <fieldset className="border-b border-divider pb-4">
+      <legend className="mt-4 mb-2 font-bold">Time period</legend>
+      <div className="grid grid-cols-2 gap-4">
+        <Input {...commonInputProps} label={"From"} name={"from"} />
+        <Input {...commonInputProps} label={"Till"} name={"till"} />
+      </div>
+    </fieldset>
+  )
+}
+
+function SectionFilter(): JSX.Element | null {
+  return (
+    <fieldset className="border-b border-divider pb-4">
+      <legend className="mt-4 mb-2 font-bold">Include sections</legend>
+      <div className="grid grid-cols-3 gap-x-4 gap-y-2">
+        {Object.values(ResumeSections).map((value) =>
+          value !== "about" ? (
+            <Tags.Checkbox
+              key={value}
+              name="section"
+              value={value.toLowerCase()}
+              label={capitalize(value)}
+            />
+          ) : null,
+        )}
+      </div>
+    </fieldset>
+  )
+}
+
+function TagFilter({ tags }: { tags: string[] }): JSX.Element | null {
+  return (
+    <fieldset className="border-b border-divider pb-4">
+      <legend className="mt-4 mb-2 font-bold">Tags</legend>
+      <div className="grid gap-x-4 gap-y-2">
+        <Tags.List
+          tags={tags}
+          TagComponent={({ tag }) => (
+            <Tags.Checkbox
+              value={tag.toLowerCase()}
+              name="tag"
+              label={capitalize(tag)}
+            />
+          )}
+        />
+        <label className="col-span-3 flex flex-col text-sm">
+          {"Other tags"}
+          <Input
+            type="text"
+            name="tag"
+            placeholder="Comma separated tags"
+            className="w-full"
+          />
+        </label>
+      </div>
+    </fieldset>
+  )
+}
+
+function StyleFilter(): JSX.Element | null {
+  const fonts = Object.values(ResumeFonts)
+  const colors = Object.values(ResumePalettes)
+
+  return (
+    <fieldset className="border-b border-divider pb-4">
+      <legend className="mt-4 mb-2 font-bold">Styling</legend>
+      <div className="grid grid-cols-2 gap-4">
+        <Select label="Font" name={"font"}>
+          {fonts.map((font) => (
+            <Select.Option value={font} key={font}>
+              {font}
+            </Select.Option>
+          ))}
+        </Select>
+        <Select label="Color" name={"color"}>
+          {colors.map((color) => (
+            <Select.Option value={color} key={color}>
+              {color}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
+    </fieldset>
+  )
 }

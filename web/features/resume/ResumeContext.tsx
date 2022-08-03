@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react"
 
+import type { ResumeFonts, ResumePalettes } from "./constants"
 import {
-  type FontType,
   type ResumeColors,
   type ResumeTexts,
   generateColors,
@@ -28,12 +28,12 @@ export function ResumeContextProvider({
   font,
   color,
 }: {
-  font: FontType
-  color?: string
+  font: ResumeFonts
+  color?: ResumePalettes
   children: React.ReactNode
 }): JSX.Element | null {
   const texts = generateTexts(font)
-  const colors = generateColors(color?.toLowerCase())
+  const colors = generateColors(color)
 
   return (
     <ResumeContext.Provider value={{ texts, colors }}>

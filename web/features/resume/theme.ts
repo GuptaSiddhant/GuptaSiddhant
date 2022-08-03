@@ -1,5 +1,14 @@
-import { black, rose, sky, slate, white } from "tailwindcss/colors"
+import {
+  black,
+  emerald,
+  purple,
+  rose,
+  sky,
+  slate,
+  white,
+} from "tailwindcss/colors"
 
+import { type ResumeFonts, ResumePalettes } from "./constants"
 import type { Style } from "./types"
 
 const fonts = {
@@ -13,8 +22,21 @@ const fonts = {
 
 // Functions
 
-export function generateColors(color?: string) {
-  const palette = color === "red" ? rose : color === "blue" ? sky : slate
+export function generateColors(color?: ResumePalettes) {
+  const palette = (() => {
+    switch (color) {
+      case ResumePalettes.Red:
+        return rose
+      case ResumePalettes.Blue:
+        return sky
+      case ResumePalettes.Green:
+        return emerald
+      case ResumePalettes.Purple:
+        return purple
+      default:
+        return slate
+    }
+  })()
 
   return {
     white,
@@ -39,9 +61,7 @@ type TextType = `h1` | `h2` | `h3` | `h4` | `h5` | `h6` | `p` | "mono" | "small"
 
 export type ResumeTexts = Record<TextType, Style>
 
-export type FontType = "mono" | "sans" | "serif"
-
-export function generateTexts(font: FontType): ResumeTexts {
+export function generateTexts(font: ResumeFonts): ResumeTexts {
   const fontRegular =
     font === "serif" ? fonts.serif : font === "sans" ? fonts.sans : fonts.mono
   const fontBold =

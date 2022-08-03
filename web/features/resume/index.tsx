@@ -6,25 +6,31 @@ import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"
 import type { SummaryItem } from "@gs/summary"
 
+import type { ResumePalettes } from "./constants"
+import { type ResumeFonts, ResumeSections } from "./constants"
 import {
   getFiltersFromSearchParams,
-  Sections,
   transformAboutLinkToContactLinks,
 } from "./helpers"
 import Resume, { type ResumeProps } from "./Resume"
 import { ResumeContextProvider } from "./ResumeContext"
-import { type FontType } from "./theme"
 
 export default async function generateResumeFromUrl(url: URL): Promise<string> {
-  const font = (url.searchParams.get("font") || "mono") as FontType
-  const color = url.searchParams.get("color") ?? undefined
   const filters = getFiltersFromSearchParams(url.searchParams)
+  const font = (url.searchParams.get("font") || "mono") as ResumeFonts
+  const color = (url.searchParams.get("color")?.toLowerCase() ?? undefined) as
+    | ResumePalettes
+    | undefined
 
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
     getAboutSkills(),
-    getSummaryItems(getCareerSummaryItems, filters, Sections.experience),
-    getSummaryItems(getEducationSummaryItems, filters, Sections.education),
+    getSummaryItems(getCareerSummaryItems, filters, ResumeSections.experience),
+    getSummaryItems(
+      getEducationSummaryItems,
+      filters,
+      ResumeSections.education,
+    ),
   ])
   const { link, name, title, terminalResume } = aboutInfo
 
@@ -52,7 +58,7 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
 async function getSummaryItems(
   callback: () => Promise<SummaryItem[]>,
   filters?: ReturnType<typeof getFiltersFromSearchParams>,
-  sectionKey?: Sections,
+  sectionKey?: ResumeSections,
 ) {
   const disabled = Boolean(
     sectionKey ? filters?.disabledSections?.[sectionKey] : false,

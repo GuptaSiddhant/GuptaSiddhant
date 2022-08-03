@@ -99,7 +99,7 @@ function TagCheckbox({
           "peer-checked:bg-quaternary bg-secondary",
           "hocus:bg-tertiary peer-checked:hocus:bg-disabled",
           "peer-hocus:ring-4",
-          "flex items-center gap-2",
+          "flex items-center justify-between gap-2",
           "after:text-sm after:text-negative after:content-none peer-checked:after:content-['×']",
           "peer-disabled:cursor-not-allowed peer-disabled:bg-secondary peer-disabled:text-disabled",
           className,

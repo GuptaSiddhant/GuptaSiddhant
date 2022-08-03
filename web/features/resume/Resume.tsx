@@ -10,7 +10,8 @@ import ResumeFooter from "./components/ResumeFooter"
 import ResumeHeader from "./components/ResumeHeader"
 import ResumeHero from "./components/ResumeHero"
 import ResumeSection from "./components/ResumeSection"
-import { createAboutLink, Sections } from "./helpers"
+import { ResumeSections } from "./constants"
+import { createAboutLink } from "./helpers"
 import useResumeContext from "./ResumeContext"
 import type { ContactLinkProps } from "./types"
 
@@ -76,7 +77,7 @@ export default function Resume({
         </ResumeSection>
 
         <ResumeSection
-          title={capitalize(Sections.experience)}
+          title={capitalize(ResumeSections.experience)}
           disable={experiences.length === 0}
         >
           {experiences.map((item) => (
@@ -85,7 +86,7 @@ export default function Resume({
         </ResumeSection>
 
         <ResumeSection
-          title={capitalize(Sections.education)}
+          title={capitalize(ResumeSections.education)}
           disable={educations.length === 0}
         >
           {educations.map((item) => (
@@ -93,7 +94,10 @@ export default function Resume({
           ))}
         </ResumeSection>
 
-        <ResumeSection title={capitalize(Sections.skills)} disable={!skills}>
+        <ResumeSection
+          title={capitalize(ResumeSections.skills)}
+          disable={!skills}
+        >
           {skills
             ? Object.keys(skills).map((category) =>
                 category === "id" ? null : category === "language" ? (

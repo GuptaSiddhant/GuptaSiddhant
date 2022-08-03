@@ -4,8 +4,8 @@ import type { Style } from "@react-pdf/types"
 import { type AboutInfo } from "@gs/about"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 
+import { ResumeSections } from "./constants"
 import useResumeContext from "./ResumeContext"
-import Sections from "./sections"
 import { type ResumeColors, type ResumeTexts } from "./theme"
 import type { ContactLinkProps } from "./types"
 
@@ -54,7 +54,7 @@ export function createAboutLink(domain: string, id: string) {
 export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
   from?: Date
   till?: Date
-  disabledSections?: Record<Sections, boolean>
+  disabledSections?: Record<ResumeSections, boolean>
   tags: string[]
 } {
   const fromParam = searchParams.get("from")
@@ -66,10 +66,10 @@ export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
     (s) => s.toLowerCase(),
   )
 
-  const disabledSections = {} as Record<Sections, boolean>
+  const disabledSections = {} as Record<ResumeSections, boolean>
   if (enabledSections.length > 0) {
-    Object.keys(Sections).forEach((key) => {
-      disabledSections[key as Sections] = enabledSections.includes(key)
+    Object.keys(ResumeSections).forEach((key) => {
+      disabledSections[key as ResumeSections] = enabledSections.includes(key)
         ? false
         : true
     })
