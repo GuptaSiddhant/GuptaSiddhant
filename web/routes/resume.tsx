@@ -10,6 +10,8 @@ import { json } from "@remix-run/server-runtime"
 
 import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
+import { getCareerSummaryItems } from "@gs/models/career.server"
+import { getEducationSummaryItems } from "@gs/models/education.server"
 import { Sections } from "@gs/resume/helpers"
 import Button from "@gs/ui/Button"
 import { ErrorSection } from "@gs/ui/Error"
@@ -19,28 +21,24 @@ import Section from "@gs/ui/Section"
 import { H1 } from "@gs/ui/Text"
 import { capitalize } from "@gs/utils/format"
 
-const tags: string[] = filterUniqueTagsByOccurrence(
-  [
-    "Code",
-    "Design",
-    "Management",
-    "Entrepreneur",
-    "Engineering",
-    "Web",
-    "Startup",
-    "Mobile",
-    "Admissions",
-    "Marketing",
-  ].map((t) => t.toLowerCase()),
-).map((t) => t.value)
-
 interface LoaderData {
   origin: string
+  tags: string[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { origin } = new URL(request.url)
-  return json<LoaderData>({ origin })
+  const [educationList, careerList] = await Promise.all([
+    getEducationSummaryItems(),
+    getCareerSummaryItems(),
+  ])
+
+  const tags =
+    filterUniqueTagsByOccurrence(
+      [...educationList, ...careerList].flatMap((item) => item.tags || []),
+    ).map((t) => t.value.toLowerCase()) || []
+
+  return json<LoaderData>({ origin, tags })
 }
 
 export const meta: MetaFunction = () => ({
@@ -48,7 +46,7 @@ export const meta: MetaFunction = () => ({
 })
 
 export default function Resume(): JSX.Element {
-  const { origin } = useLoaderData<LoaderData>()
+  const { origin, tags } = useLoaderData<LoaderData>()
   const [query, setQuery] = useState("")
 
   const resumeUrl = useMemo(

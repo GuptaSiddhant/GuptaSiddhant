@@ -1,68 +1,91 @@
-import { black, slate as tailwind, white } from "tailwindcss/colors"
+import { black, rose, sky, slate, white } from "tailwindcss/colors"
 
 import type { Style } from "./types"
-
-export const colors = {
-  // palette
-  ...tailwind,
-  white,
-  black,
-  // text
-  textPrimary: tailwind[900],
-  textSecondary: tailwind[700],
-  textDisabled: tailwind[500],
-  // bg
-  bgBase: white,
-  bgFloat: tailwind[50],
-  // border
-  border: tailwind[200],
-}
-
-// Texts
 
 const fonts = {
   mono: "Courier",
   monoBold: "Courier-Bold",
   sans: "Helvetica",
   sansBold: "Helvetica-Bold",
-  serif: "Times",
+  serif: "Times-Roman",
   serifBold: "Times-Bold",
 }
 
+// Functions
+
+export function generateColors(color?: string) {
+  const palette = color === "red" ? rose : color === "blue" ? sky : slate
+
+  return {
+    white,
+    black,
+    // text
+    textPrimary: palette[900],
+    textSecondary: palette[700],
+    textDisabled: palette[500],
+    // bg
+    bgBase: white,
+    bgFloat: palette[50],
+    // border
+    border: palette[200],
+  } as const
+}
+
+export type ResumeColors = ReturnType<typeof generateColors>
+
+// Texts
+
 type TextType = `h1` | `h2` | `h3` | `h4` | `h5` | `h6` | `p` | "mono" | "small"
 
-export const texts: Record<TextType, Style> = {
-  h1: {
-    fontFamily: fonts.monoBold,
-    fontSize: 24,
-  },
-  h2: {
-    fontFamily: fonts.monoBold,
-    fontSize: 20,
-  },
-  h3: {
-    fontFamily: fonts.monoBold,
-    fontSize: 18,
-  },
-  h4: {
-    fontFamily: fonts.mono,
-    fontSize: 16,
-  },
-  h5: {
-    fontFamily: fonts.mono,
-    fontSize: 14,
-  },
-  h6: {
-    fontFamily: fonts.monoBold,
-    fontSize: 12,
-  },
-  mono: { fontFamily: fonts.mono, fontSize: 12 },
-  p: {
-    fontFamily: fonts.sans,
-    fontSize: 12,
-  },
-  small: {
-    fontFamily: fonts.mono,
-    fontSize: 10,
-  },
+export type ResumeTexts = Record<TextType, Style>
+
+export type FontType = "mono" | "sans" | "serif"
+
+export function generateTexts(font: FontType): ResumeTexts {
+  const fontRegular =
+    font === "serif" ? fonts.serif : font === "sans" ? fonts.sans : fonts.mono
+  const fontBold =
+    font === "serif"
+      ? fonts.serifBold
+      : font === "sans"
+      ? fonts.sansBold
+      : fonts.monoBold
+
+  const texts: ResumeTexts = {
+    h1: {
+      fontFamily: fontBold,
+      fontSize: 24,
+    },
+    h2: {
+      fontFamily: fontBold,
+      fontSize: 20,
+    },
+    h3: {
+      fontFamily: fontBold,
+      fontSize: 18,
+    },
+    h4: {
+      fontFamily: fontRegular,
+      fontSize: 16,
+    },
+    h5: {
+      fontFamily: fontRegular,
+      fontSize: 14,
+    },
+    h6: {
+      fontFamily: fontBold,
+      fontSize: 12,
+    },
+    p: {
+      fontFamily: fontRegular,
+      fontSize: 12,
+    },
+    small: {
+      fontFamily: fontRegular,
+      fontSize: 10,
+    },
+    mono: { fontFamily: fonts.mono, fontSize: 12 },
+  }
+
+  return texts
 }

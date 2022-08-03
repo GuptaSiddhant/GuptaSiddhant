@@ -1,6 +1,11 @@
+import { StyleSheet } from "@react-pdf/renderer"
+import type { Style } from "@react-pdf/types"
+
 import { type AboutInfo } from "@gs/about"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 
+import useResumeContext from "./ResumeContext"
+import { type ResumeColors, type ResumeTexts } from "./theme"
 import type { ContactLinkProps } from "./types"
 
 export enum Sections {
@@ -8,6 +13,17 @@ export enum Sections {
   experience = "experience",
   education = "education",
   skills = "skills",
+}
+
+export function useStyleSheet(
+  styles: (theme: {
+    texts: ResumeTexts
+    colors: ResumeColors
+  }) => Record<string, Style>,
+) {
+  const { colors, texts } = useResumeContext()
+
+  return StyleSheet.create(styles({ colors, texts }))
 }
 
 export function transformAboutLinkToContactLinks(

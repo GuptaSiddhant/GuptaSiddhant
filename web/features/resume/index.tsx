@@ -1,5 +1,4 @@
 import { renderToString } from "@react-pdf/renderer"
-import { createElement } from "react"
 
 import { aboutTexts } from "@gs/about"
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
@@ -13,8 +12,12 @@ import {
   transformAboutLinkToContactLinks,
 } from "./helpers"
 import Resume, { type ResumeProps } from "./Resume"
+import { ResumeContextProvider } from "./ResumeContext"
+import { type FontType } from "./theme"
 
 export default async function generateResumeFromUrl(url: URL): Promise<string> {
+  const font = (url.searchParams.get("font") || "mono") as FontType
+  const color = url.searchParams.get("color") ?? undefined
   const filters = getFiltersFromSearchParams(url.searchParams)
 
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
@@ -39,7 +42,11 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
     aboutTexts,
   }
 
-  return renderToString(createElement(Resume, resumeProps))
+  return renderToString(
+    <ResumeContextProvider font={font} color={color}>
+      <Resume {...resumeProps} />
+    </ResumeContextProvider>,
+  )
 }
 
 async function getSummaryItems(

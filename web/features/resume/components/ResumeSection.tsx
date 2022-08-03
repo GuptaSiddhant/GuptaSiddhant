@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "@react-pdf/renderer"
+import { Text, View } from "@react-pdf/renderer"
 
-import { texts } from "../theme"
+import { useStyleSheet } from "../helpers"
 import type { BasePdfProps } from "../types"
 
 export interface SectionProps extends BasePdfProps {
@@ -9,13 +9,21 @@ export interface SectionProps extends BasePdfProps {
   wrap?: boolean
 }
 
-export default function Section({
+export default function ResumeSection({
   children,
   style = {},
   title,
   disable = false,
   wrap = true,
 }: SectionProps): JSX.Element | null {
+  const styles = useStyleSheet(({ texts, colors }) => ({
+    section: {
+      marginBottom: 32,
+      marginHorizontal: 32,
+    },
+    titleText: { ...texts.h2, marginVertical: 4, color: colors.black },
+  }))
+
   if (disable) return null
 
   return (
@@ -29,11 +37,3 @@ export default function Section({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  section: {
-    marginBottom: 32,
-    marginHorizontal: 32,
-  },
-  titleText: { ...texts.h2, marginVertical: 4 },
-})

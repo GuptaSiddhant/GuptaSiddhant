@@ -4,14 +4,14 @@ import type { SkillCategory, Skills } from "@gs/about"
 import type { SummaryItem } from "@gs/summary"
 import { capitalize } from "@gs/utils/format"
 
-import type { CardProps } from "./components/Card"
-import Card from "./components/Card"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
-import Hero from "./components/Hero"
-import Section from "./components/Section"
+import type { ResumeCardProps } from "./components/ResumeCard"
+import ResumeCard from "./components/ResumeCard"
+import ResumeFooter from "./components/ResumeFooter"
+import ResumeHeader from "./components/ResumeHeader"
+import ResumeHero from "./components/ResumeHero"
+import ResumeSection from "./components/ResumeSection"
 import { createAboutLink, Sections } from "./helpers"
-import { texts } from "./theme"
+import useResumeContext from "./ResumeContext"
 import type { ContactLinkProps } from "./types"
 
 export interface ResumeProps {
@@ -43,6 +43,8 @@ export default function Resume({
   aboutTexts = [],
   skills,
 }: ResumeProps): JSX.Element {
+  const { texts, colors } = useResumeContext()
+
   return (
     <Document
       title={`${name} - ${subject}`}
@@ -52,66 +54,72 @@ export default function Resume({
       keywords="resume, cv, portfolio"
       creator={domain.split("//")[1]}
     >
-      <Page style={{ ...texts.mono, paddingBottom: 40 }}>
-        <Header title={name} subject={subject} />
+      <Page
+        style={{ ...texts.p, color: colors.textPrimary, paddingBottom: 40 }}
+      >
+        <ResumeHeader title={name} subject={subject} />
 
-        <Hero title={name} subtitle={position} contactLinks={contactLinks}>
+        <ResumeHero
+          title={name}
+          subtitle={position}
+          contactLinks={contactLinks}
+        >
           {terminalResumeCode}
-        </Hero>
+        </ResumeHero>
 
-        <Section disable={aboutTexts.length === 0}>
+        <ResumeSection disable={aboutTexts.length === 0}>
           {aboutTexts.map((text, index) => (
             <Text key={index} style={{ marginBottom: 4 }}>
               {text}
             </Text>
           ))}
-        </Section>
+        </ResumeSection>
 
-        <Section
+        <ResumeSection
           title={capitalize(Sections.experience)}
           disable={experiences.length === 0}
         >
           {experiences.map((item) => (
-            <Card key={item.id} {...genCardProps(item, domain)} />
+            <ResumeCard key={item.id} {...genCardProps(item, domain)} />
           ))}
-        </Section>
+        </ResumeSection>
 
-        <Section
+        <ResumeSection
           title={capitalize(Sections.education)}
           disable={educations.length === 0}
         >
           {educations.map((item) => (
-            <Card key={item.id} {...genCardProps(item, domain)} />
+            <ResumeCard key={item.id} {...genCardProps(item, domain)} />
           ))}
-        </Section>
+        </ResumeSection>
 
-        <Section title={capitalize(Sections.skills)} disable={!skills}>
+        <ResumeSection title={capitalize(Sections.skills)} disable={!skills}>
           {skills
             ? Object.keys(skills).map((category) =>
-                category === "language" ? (
-                  <Card key="language" caption="Languages">
+                category === "id" ? null : category === "language" ? (
+                  <ResumeCard key="language" caption="Languages">
                     {skills["language"]
                       .map((l) => `${l.title} - ${l.level}`)
                       .join("\n")}
-                  </Card>
+                  </ResumeCard>
                 ) : (
-                  <Card key={category} caption={capitalize(category)}>
+                  <ResumeCard key={category} caption={capitalize(category)}>
                     {skills[category as SkillCategory]
                       ?.map((skill) => skill.title)
                       .join(", ")}
-                  </Card>
+                  </ResumeCard>
                 ),
               )
             : null}
-        </Section>
+        </ResumeSection>
 
-        <Footer />
+        <ResumeFooter />
       </Page>
     </Document>
   )
 }
 
-function genCardProps(item: SummaryItem, domain: string): CardProps {
+function genCardProps(item: SummaryItem, domain: string): ResumeCardProps {
   const { id, title, subtitle, description } = item
   return {
     link: createAboutLink(domain, id),
