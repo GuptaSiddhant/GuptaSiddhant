@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"

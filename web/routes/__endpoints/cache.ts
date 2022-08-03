@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 

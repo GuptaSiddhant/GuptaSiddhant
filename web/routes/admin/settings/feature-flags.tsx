@@ -1,5 +1,4 @@
 import RefetchIcon from "remixicon-react/RestartLineIcon"
-import invariant from "tiny-invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type {
@@ -23,6 +22,7 @@ import {
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast"
 import Action from "@gs/ui/Action"
 import { ErrorSection } from "@gs/ui/Error"
+import invariant from "@gs/utils/invariant"
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap

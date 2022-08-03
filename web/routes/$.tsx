@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant"
+import invariant from "@gs/utils/invariant"
 
 import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
