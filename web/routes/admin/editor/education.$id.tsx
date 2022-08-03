@@ -8,9 +8,9 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { databaseEducation } from "@gs/experiences/service.server"
-import type { EducationProps } from "@gs/experiences/types"
 import { type Model, getModelByModelName } from "@gs/models"
+import type { EducationProps } from "@gs/models/education.model"
+import { getEducationItem } from "@gs/models/education.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { ModelName } from "@gs/service/database.server"
 
@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (id === "new") return json<LoaderData>({ model })
 
   try {
-    const item = await databaseEducation.queryById(id, true)
+    const item = await getEducationItem(id, false, true)
     invariant(item, "Education item not found.")
 
     return json<LoaderData>({ item, model })

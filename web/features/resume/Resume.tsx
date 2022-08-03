@@ -1,8 +1,7 @@
 import { Document, Page, Text } from "@react-pdf/renderer"
 
 import type { SkillCategory, Skills } from "@gs/about"
-import { generateDurationString } from "@gs/experiences/helpers"
-import type { ExperienceProps } from "@gs/experiences/types"
+import type { SummaryItem } from "@gs/summary"
 import { capitalize } from "@gs/utils/format"
 
 import type { CardProps } from "./components/Card"
@@ -26,8 +25,8 @@ export interface ResumeProps {
   contactLinks: ContactLinkProps[]
 
   aboutTexts?: string[]
-  experiences?: ExperienceProps[]
-  educations?: ExperienceProps[]
+  experiences?: SummaryItem[]
+  educations?: SummaryItem[]
   skills?: Skills
 }
 
@@ -112,13 +111,13 @@ export default function Resume({
   )
 }
 
-function genCardProps(item: ExperienceProps, domain: string): CardProps {
+function genCardProps(item: SummaryItem, domain: string): CardProps {
   const { id, title, subtitle, description } = item
   return {
     link: createAboutLink(domain, id),
     title,
     subtitle,
-    caption: generateDurationString(item, { month: "2-digit" }),
+    caption: item.duration,
     children: description,
   }
 }

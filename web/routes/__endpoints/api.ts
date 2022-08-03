@@ -1,13 +1,12 @@
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
-import {
-  getCareerItem,
-  getCareerList,
-  getEducationItem,
-  getEducationList,
-} from "@gs/experiences/service.server"
 import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog.server"
+import { getCareerItem, getCareerSummaryItems } from "@gs/models/career.server"
+import {
+  getEducationItem,
+  getEducationSummaryItems,
+} from "@gs/models/education.server"
 import { getProject, getProjectsSummaryItems } from "@gs/models/projects.server"
 
 const apiTypes: Record<
@@ -29,12 +28,12 @@ const apiTypes: Record<
     queryById: getBlogPost,
   },
   education: {
-    queryAll: getEducationList,
+    queryAll: getEducationSummaryItems,
     queryById: getEducationItem,
     linkPath: "about",
   },
   career: {
-    queryAll: getCareerList,
+    queryAll: getCareerSummaryItems,
     queryById: getCareerItem,
     linkPath: "about",
   },

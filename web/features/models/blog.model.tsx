@@ -1,10 +1,13 @@
 import clsx from "clsx"
 import BlogIcon from "remixicon-react/QuillPenLineIcon"
 
-import { transformSchemaInModel } from "./model.helpers"
-import type { ModelStyling } from "./model.types"
-import { commonBlogProjectSchema } from "./schema.helpers"
-import type { Schema } from "./schema-type"
+import type { SummaryItem } from "@gs/summary"
+import type { Gallery } from "@gs/types"
+
+import { transformSchemaInModel } from "./helpers/model.helpers"
+import type { ModelStyling } from "./helpers/model.types"
+import { commonBlogProjectSchema } from "./helpers/schema.helpers"
+import type { Schema } from "./helpers/schema.types"
 
 const schema: Schema = {
   type: "object",
@@ -28,3 +31,8 @@ const styling: ModelStyling = {
 }
 
 export default { schema, model, styling }
+
+export interface BlogPostProps extends SummaryItem {
+  content?: string
+  gallery?: Gallery
+}

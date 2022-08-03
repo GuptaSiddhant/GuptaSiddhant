@@ -20,7 +20,7 @@ export function cleanupText(text?: string): string | undefined {
 
 // DateTime
 
-interface DateTimeOptions extends Intl.DateTimeFormatOptions {
+export interface DateTimeOptions extends Intl.DateTimeFormatOptions {
   locale?: string
 }
 

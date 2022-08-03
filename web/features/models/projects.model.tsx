@@ -1,10 +1,13 @@
 import clsx from "clsx"
 import ProjectsIcon from "remixicon-react/ArtboardLineIcon"
 
-import { transformSchemaInModel } from "./model.helpers"
-import type { ModelStyling } from "./model.types"
-import { commonBlogProjectSchema } from "./schema.helpers"
-import type { Schema } from "./schema-type"
+import type { SummaryItem } from "@gs/summary"
+import type { Gallery } from "@gs/types"
+
+import { transformSchemaInModel } from "./helpers/model.helpers"
+import type { ModelStyling } from "./helpers/model.types"
+import { commonBlogProjectSchema } from "./helpers/schema.helpers"
+import type { Schema } from "./helpers/schema.types"
 
 const schema: Schema = {
   type: "object",
@@ -34,3 +37,11 @@ const styling: ModelStyling = {
 }
 
 export default { schema, model, styling }
+
+export interface ProjectProps extends SummaryItem {
+  association?: string
+  dateEnd?: string
+  dateStart: string
+  content?: string
+  gallery?: Gallery
+}

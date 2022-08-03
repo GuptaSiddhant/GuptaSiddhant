@@ -8,9 +8,9 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { databaseCareer } from "@gs/experiences/service.server"
-import type { CareerProps } from "@gs/experiences/types"
 import { type Model, getModelByModelName } from "@gs/models"
+import type { CareerProps } from "@gs/models/career.model"
+import { getCareerItem } from "@gs/models/career.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { ModelName } from "@gs/service/database.server"
 
@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (id === "new") return json<LoaderData>({ model })
 
   try {
-    const item = await databaseCareer.queryById(id)
+    const item = await getCareerItem(id, false, true)
     invariant(item, "Career item not found.")
 
     return json<LoaderData>({ item, model })

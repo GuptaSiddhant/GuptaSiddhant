@@ -3,7 +3,7 @@ import clsx from "clsx"
 import blog from "./blog.model"
 import career from "./career.model"
 import education from "./education.model"
-import type { Model, ModelStyling } from "./model.types"
+import type { Model, ModelStyling } from "./helpers/model.types"
 import projects from "./projects.model"
 
 export enum ModelName {
@@ -18,6 +18,7 @@ export enum ModelName {
 }
 
 export type { Model }
+export * from "./helpers/model.helpers"
 
 export function getModelByModelName(modelName: ModelName) {
   switch (modelName) {

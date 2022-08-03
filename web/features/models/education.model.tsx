@@ -1,10 +1,13 @@
 import clsx from "clsx"
 import EducationIcon from "remixicon-react/BookFillIcon"
 
-import { transformSchemaInModel } from "./model.helpers"
-import type { ModelStyling } from "./model.types"
-import { commonCareerEducationSchema } from "./schema.helpers"
-import type { Schema } from "./schema-type"
+import type { SummaryItem } from "@gs/summary"
+import type { Gallery } from "@gs/types"
+
+import { transformSchemaInModel } from "./helpers/model.helpers"
+import type { ModelStyling } from "./helpers/model.types"
+import { commonCareerEducationSchema } from "./helpers/schema.helpers"
+import type { Schema } from "./helpers/schema.types"
 
 const schema: Schema = {
   type: "object",
@@ -40,3 +43,13 @@ const styling: ModelStyling = {
 }
 
 export default { schema, model, styling }
+
+export interface EducationProps extends Omit<SummaryItem, "title" | "model"> {
+  degree: string
+  field: string
+  school: string
+  startDate: string
+  endDate?: string
+  location?: string
+  gallery?: Gallery
+}

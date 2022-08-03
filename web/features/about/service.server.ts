@@ -1,3 +1,5 @@
+import { redirect } from "@remix-run/server-runtime"
+
 import Database, { ModelName } from "@gs/service/database.server"
 
 import type { AboutInfo, Skills } from "."
@@ -18,4 +20,10 @@ export async function getAboutSkills() {
     language,
     soft,
   }
+}
+
+export function redirectToAbout(path?: string) {
+  const pathWithoutSlash = path?.split("/").slice(0, -1).join("-") || ""
+
+  return redirect(`/about/#${pathWithoutSlash}`, 301)
 }

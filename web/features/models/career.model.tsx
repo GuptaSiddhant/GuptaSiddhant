@@ -1,10 +1,13 @@
 import clsx from "clsx"
 import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 
-import { transformSchemaInModel } from "./model.helpers"
-import type { ModelStyling } from "./model.types"
-import { commonCareerEducationSchema } from "./schema.helpers"
-import type { Schema } from "./schema-type"
+import type { SummaryItem } from "@gs/summary"
+import type { Gallery } from "@gs/types"
+
+import { transformSchemaInModel } from "./helpers/model.helpers"
+import type { ModelStyling } from "./helpers/model.types"
+import { commonCareerEducationSchema } from "./helpers/schema.helpers"
+import type { Schema } from "./helpers/schema.types"
 
 const schema: Schema = {
   type: "object",
@@ -40,3 +43,21 @@ const styling: ModelStyling = {
 }
 
 export default { schema, model, styling }
+
+export enum CareerRoleType {
+  FullTime = "full-time",
+  PartTime = "part-time",
+  Freelancer = "freelancer",
+  Intern = "intern",
+  Contract = "contract",
+}
+
+export interface CareerProps extends Omit<SummaryItem, "title" | "model"> {
+  position: string
+  company: string
+  type?: CareerRoleType
+  gallery?: Gallery
+  startDate: string
+  endDate?: string
+  location?: string
+}

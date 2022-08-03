@@ -7,8 +7,6 @@ import {
   redirect,
 } from "@remix-run/server-runtime"
 
-import { getExperienceItem } from "@gs/experiences/service.server"
-import type { ExperienceProps } from "@gs/experiences/types"
 import {
   extractTocFromMdx,
   transformContentToMdx,
@@ -20,6 +18,7 @@ import { EditIcon } from "@gs/icons"
 import {
   type ProjectProps,
   getProject,
+  getProjectAssociationById,
   getProjectCrossSell,
 } from "@gs/models/projects.server"
 import { getAuthUser } from "@gs/service/auth.server"
@@ -40,7 +39,7 @@ interface LoaderData {
   mdx?: string
   toc?: TocItem[]
   crossSell: SummaryItem[]
-  assoc?: ExperienceProps
+  associationItem?: SummaryItem
   isAuthenticated: boolean
 }
 
@@ -58,9 +57,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const mdx = transformContentToMdx(content)
     const toc = extractTocFromMdx(mdx)
     const crossSell = await getProjectCrossSell(id)
-    const assoc = association
-      ? await getExperienceItem(association).catch(() => undefined)
-      : undefined
+    const associationItem = await getProjectAssociationById(association)
 
     return json<LoaderData>({
       project,
@@ -68,7 +65,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       mdx,
       toc,
       crossSell,
-      assoc,
+      associationItem,
       isAuthenticated,
     })
   } catch (e: any) {
@@ -91,7 +88,7 @@ export default function ProjectDetails(): JSX.Element {
     mdx,
     toc = [],
     crossSell,
-    assoc,
+    associationItem,
     isAuthenticated,
   } = useLoaderData<LoaderData>()
   const { id, title, subtitle, description, cover, icon, tags = [] } = project
@@ -117,12 +114,14 @@ export default function ProjectDetails(): JSX.Element {
               <EditIcon />
             </Link>
           ) : null}
-          {assoc?.icon ? (
-            <Link to={"/about/" + assoc.id}>
+          {associationItem?.icon ? (
+            <Link
+              to={associationItem.linkUrl || "/about/" + associationItem.id}
+            >
               <img
-                src={assoc.icon}
-                title={assoc.subtitle}
-                alt={assoc.subtitle}
+                src={associationItem.icon}
+                title={associationItem.subtitle}
+                alt={associationItem.subtitle}
                 className="h-8 w-8 rounded-sm bg-inverse object-contain"
                 loading="eager"
               />

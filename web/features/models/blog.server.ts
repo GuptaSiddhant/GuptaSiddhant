@@ -1,20 +1,14 @@
 import Database, { ModelName } from "@gs/service/database.server"
 import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary"
-import { querySummaryItemsByModel } from "@gs/summary/service.server"
-import type { Gallery, LinkObject } from "@gs/types"
+import { querySummaryItemsByModelName } from "@gs/summary/service.server"
 
-const model = ModelName.Blog
-const db = new Database<BlogPostProps>(model)
+import type { BlogPostProps } from "./blog.model"
 
-export interface BlogPostProps extends SummaryItem {
-  association?: string
-  content?: string
-  links?: LinkObject[]
-  gallery?: Gallery
-}
+const modelName = ModelName.Blog
+const db = new Database<BlogPostProps>(modelName)
 
 export function getBlogModelName() {
-  return model
+  return modelName
 }
 
 export function getBlogDatabase() {
@@ -26,7 +20,7 @@ export async function getBlogKeys() {
 }
 
 export async function getBlogSummaryItems() {
-  return querySummaryItemsByModel(model)
+  return querySummaryItemsByModelName(modelName)
 }
 
 export async function getBlogPost(id: string): Promise<BlogPostProps> {
@@ -44,3 +38,5 @@ export async function getBlogPostCrossSell(
 
   return getCrossSellSummaryItems(items, id).slice(0, limit)
 }
+
+export { BlogPostProps }

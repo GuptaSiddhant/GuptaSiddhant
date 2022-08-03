@@ -1,6 +1,7 @@
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
-import { getCareerList, getEducationList } from "@gs/experiences/service.server"
 import { getBlogSummaryItems } from "@gs/models/blog.server"
+import { getCareerSummaryItems } from "@gs/models/career.server"
+import { getEducationSummaryItems } from "@gs/models/education.server"
 import { getProjectsSummaryItems } from "@gs/models/projects.server"
 
 const apiTypes: Record<
@@ -8,20 +9,17 @@ const apiTypes: Record<
   {
     queryAll: () => Promise<any>
     queryById?: (id: string) => Promise<any>
-    linkPath?: string
   }
 > = {
   about: { queryAll: getAboutInfo },
-  skills: { queryAll: getAboutSkills, linkPath: "about" },
+  skills: { queryAll: getAboutSkills },
   projects: { queryAll: getProjectsSummaryItems },
   blog: { queryAll: getBlogSummaryItems },
   education: {
-    queryAll: getEducationList,
-    linkPath: "about",
+    queryAll: getEducationSummaryItems,
   },
   career: {
-    queryAll: getCareerList,
-    linkPath: "about",
+    queryAll: getCareerSummaryItems,
   },
 }
 
@@ -54,10 +52,7 @@ export async function search(query?: string, origin?: string) {
       }
 
       // Array of items
-      const enrichDataWithLinkUrl = generateLinkUrlBuilder(
-        origin,
-        apiTypes[key].linkPath || key,
-      )
+      const enrichDataWithLinkUrl = generateLinkUrlBuilder(origin, key)
       const filteredData = data
         .filter((item) =>
           query

@@ -1,4 +1,4 @@
-import type { Schema } from "./schema-type"
+import type { Schema } from "./schema.types"
 
 const linksSchema: Schema = {
   type: "array",

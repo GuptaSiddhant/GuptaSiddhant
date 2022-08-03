@@ -3,8 +3,9 @@ import { createElement } from "react"
 
 import { aboutTexts } from "@gs/about"
 import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
-import { getCareerList, getEducationList } from "@gs/experiences/service.server"
-import type { ExperienceProps } from "@gs/experiences/types"
+import { getCareerSummaryItems } from "@gs/models/career.server"
+import { getEducationSummaryItems } from "@gs/models/education.server"
+import type { SummaryItem } from "@gs/summary"
 
 import {
   getFiltersFromSearchParams,
@@ -19,8 +20,8 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
   const [aboutInfo, skills, careerList, educationList] = await Promise.all([
     getAboutInfo(),
     getAboutSkills(),
-    getExperienceProps(getCareerList, filters, Sections.experience),
-    getExperienceProps(getEducationList, filters, Sections.education),
+    getSummaryItems(getCareerSummaryItems, filters, Sections.experience),
+    getSummaryItems(getEducationSummaryItems, filters, Sections.education),
   ])
   const { link, name, title, terminalResume } = aboutInfo
 
@@ -32,15 +33,17 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
     educations: educationList,
     domain: url.origin,
     terminalResumeCode: terminalResume.copyText!,
-    skills: filters.disabledSections?.skills ? undefined : skills,
+    skills: filters.disabledSections?.skills
+      ? undefined
+      : { ...skills, id: "" },
     aboutTexts,
   }
 
   return renderToString(createElement(Resume, resumeProps))
 }
 
-async function getExperienceProps(
-  callback: () => Promise<ExperienceProps[]>,
+async function getSummaryItems(
+  callback: () => Promise<SummaryItem[]>,
   filters?: ReturnType<typeof getFiltersFromSearchParams>,
   sectionKey?: Sections,
 ) {
@@ -54,12 +57,11 @@ async function getExperienceProps(
 
   const { tags, from, till } = filters
   return list.filter((item) => {
-    const startDate = new Date(item.startDate)
-    const endDate = item.endDate ? new Date(item.endDate) : undefined
-    // Remove items that end before the filtered from-date
-    if (from && endDate && endDate < from) return false
-    // Remove items that starts after the filtered till-date
-    if (till && startDate > till) return false
+    const date = item.date ? new Date(item.date) : new Date()
+
+    if (till && date > till) return false
+    if (from && date < from) return false
+
     // Remove items that don't have any of the filtered tags
     if (tags.length > 0 && !tags.some((tag) => item.tags?.includes(tag)))
       return false

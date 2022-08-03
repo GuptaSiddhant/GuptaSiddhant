@@ -22,21 +22,21 @@ const cacheKey = "database"
 const cacheKeysKey = "::keys::"
 
 export default class Database<T extends DatabaseDocument = DatabaseDocument> {
-  #model: string
+  #modelName: string
 
-  constructor(model: ModelName) {
-    this.#model = model
+  constructor(modelName: ModelName) {
+    this.#modelName = modelName
   }
 
   get model() {
-    return this.#model
+    return this.#modelName
   }
 
   #createCacheKey = (id?: string) =>
-    [cacheKey, this.#model, id].filter(Boolean).join("/")
+    [cacheKey, this.#modelName, id].filter(Boolean).join("/")
 
   #invalidateIndexKey = () =>
-    deleteCachedKey([cacheKey, ModelName.Index, this.#model].join("/"))
+    deleteCachedKey([cacheKey, ModelName.Index, this.#modelName].join("/"))
 
   invalidateCacheById = (id: string) => {
     deleteCachedKey(this.#createCacheKey(id))
@@ -55,7 +55,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
     if (ignoreCache) this.invalidateCacheById(id)
 
     return fetchCachedKey(this.#createCacheKey(id), () =>
-      queryFireStoreDocument<TypeOverride>(this.#model, id),
+      queryFireStoreDocument<TypeOverride>(this.#modelName, id),
     )
   }
 
@@ -63,7 +63,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
     if (ignoreCache) this.invalidateCacheById(cacheKeysKey)
 
     return fetchCachedKey(this.#createCacheKey(cacheKeysKey), () =>
-      queryFireStoreCollectionIds(this.#model),
+      queryFireStoreCollectionIds(this.#modelName),
     )
   }
 
@@ -78,7 +78,7 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
   }
 
   mutateById = async (id: string, data?: T) => {
-    return mutateFirestoreDocument(this.#model, id, data).then((res) => {
+    return mutateFirestoreDocument(this.#modelName, id, data).then((res) => {
       this.invalidateCacheById(id)
       this.invalidateCacheById(cacheKeysKey)
       return res

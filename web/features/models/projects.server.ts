@@ -1,22 +1,16 @@
 import Database, { ModelName } from "@gs/service/database.server"
 import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary"
-import { querySummaryItemsByModel } from "@gs/summary/service.server"
-import type { Gallery, LinkObject } from "@gs/types"
+import { querySummaryItemsByModelName } from "@gs/summary/service.server"
 
-const model = ModelName.Projects
-const db = new Database<ProjectProps>(model)
+import { getCareerItem } from "./career.server"
+import { getEducationItem } from "./education.server"
+import type { ProjectProps } from "./projects.model"
 
-export interface ProjectProps extends SummaryItem {
-  association?: string
-  dateEnd?: string
-  dateStart: string
-  content?: string
-  links?: LinkObject[]
-  gallery?: Gallery
-}
+const modelName = ModelName.Projects
+const db = new Database<ProjectProps>(modelName)
 
 export function getProjectsModelName() {
-  return model
+  return modelName
 }
 
 export function getProjectsDatabase() {
@@ -28,7 +22,7 @@ export async function getProjectsKeys() {
 }
 
 export async function getProjectsSummaryItems() {
-  return querySummaryItemsByModel(model)
+  return querySummaryItemsByModelName(modelName)
 }
 
 export async function getProject(id: string): Promise<ProjectProps> {
@@ -46,3 +40,22 @@ export async function getProjectCrossSell(
 
   return getCrossSellSummaryItems(items, id).slice(0, limit)
 }
+
+export async function getProjectAssociationById(
+  assocId?: string,
+): Promise<SummaryItem | undefined> {
+  if (!assocId) return undefined
+
+  const [educationItem, careerItem] = await Promise.allSettled([
+    getEducationItem(assocId, true),
+    getCareerItem(assocId, true),
+  ])
+
+  return careerItem.status === "fulfilled"
+    ? careerItem.value
+    : educationItem.status === "fulfilled"
+    ? educationItem.value
+    : undefined
+}
+
+export { ProjectProps }

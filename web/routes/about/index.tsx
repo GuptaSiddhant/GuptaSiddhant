@@ -5,24 +5,29 @@ import { json } from "@remix-run/server-runtime"
 import type { AboutInfo } from "@gs/about"
 import AboutHero from "@gs/about/AboutHero"
 import { getAboutInfo } from "@gs/about/service.server"
-import { generateTagListFromExperienceProps } from "@gs/experiences/helpers"
-import { getExperienceList } from "@gs/experiences/service.server"
 import { createMetaTitle } from "@gs/helpers/meta"
-import { parseGetAllSearchParams } from "@gs/helpers/request"
-import type { TocItem } from "@gs/helpers/table-of-contents"
-import { type LifeLineItems, LifeLineCategory } from "@gs/lifeline"
-import { createLifeline, createTocFromLifeline } from "@gs/lifeline/helpers"
-import Lifeline from "@gs/lifeline/Lifeline"
+// import { parseGetAllSearchParams } from "@gs/helpers/request"
+import { ModelName } from "@gs/models"
+import { getCareerSummaryItems } from "@gs/models/career.server"
+// import { generateTagListFromExperienceProps } from "@gs/experiences/helpers"
+import { getEducationSummaryItems } from "@gs/models/education.server"
+// import type { TocItem } from "@gs/helpers/table-of-contents"
+// import { type LifeLineItems, LifeLineCategory } from "@gs/lifeline"
+// import { createLifeline, createTocFromLifeline } from "@gs/lifeline/helpers"
+// import Lifeline from "@gs/lifeline/Lifeline"
 import { getAuthUser } from "@gs/service/auth.server"
+import { type SummaryItem } from "@gs/summary"
+import SummaryTimeline from "@gs/summary/SummaryTimeline"
 
 interface LoaderData {
   isAuthenticated: boolean
   aboutInfo: AboutInfo
-  lifeline: LifeLineItems
-  lifelineToc: TocItem[]
-  lifelineTags: string[]
-  lifelineSelectedTags: string[]
-  lifelineSelectedCategory: LifeLineCategory
+  items: SummaryItem[]
+  // lifeline: LifeLineItems
+  // lifelineToc: TocItem[]
+  // lifelineTags: string[]
+  // lifelineSelectedTags: string[]
+  // lifelineSelectedCategory: LifeLineCategory
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -30,54 +35,51 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const isAuthenticated = Boolean(await getAuthUser(request))
 
-  const [aboutInfo, experienceList] = await Promise.all([
+  const [aboutInfo, careerList, educationList] = await Promise.all([
     getAboutInfo(),
-    getExperienceList(),
+    getCareerSummaryItems(),
+    getEducationSummaryItems(),
   ])
 
-  const lifelineSelectedCategory = (searchParams.get("category")?.toString() ||
-    LifeLineCategory.All) as LifeLineCategory
+  const lifelineSelectedCategory = (searchParams.get("category")?.toString() ??
+    "") as ModelName
 
   const items =
-    lifelineSelectedCategory === LifeLineCategory.Education
-      ? experienceList.filter(({ category }) => category === "education")
-      : lifelineSelectedCategory === LifeLineCategory.Career
-      ? experienceList.filter(({ category }) => category === "career")
-      : experienceList
+    lifelineSelectedCategory === ModelName.Education
+      ? educationList
+      : lifelineSelectedCategory === ModelName.Career
+      ? careerList
+      : [...careerList, ...educationList]
 
-  const lifelineSelectedTags = parseGetAllSearchParams(searchParams, "tags")
-  const lifelineTags = generateTagListFromExperienceProps(items)
+  // const lifelineSelectedTags = parseGetAllSearchParams(searchParams, "tags")
+  // const lifelineTags = generateTagListFromExperienceProps(items)
 
-  const lifeline = createLifeline(items, lifelineSelectedTags)
-  const lifelineToc = createTocFromLifeline(lifeline)
+  // const lifeline = createLifeline(items, lifelineSelectedTags)
+  // const lifelineToc = createTocFromLifeline(lifeline)
 
   return json<LoaderData>({
     isAuthenticated,
     aboutInfo,
-    lifeline,
-    lifelineToc,
-    lifelineTags,
-    lifelineSelectedTags,
-    lifelineSelectedCategory,
+    items,
+    // lifeline,
+    // lifelineToc,
+    // lifelineTags,
+    // lifelineSelectedTags,
+    // lifelineSelectedCategory,
   })
 }
 
 export const meta: MetaFunction = () => ({ title: createMetaTitle("About") })
 
 export default function About(): JSX.Element {
-  const {
-    lifeline,
-    lifelineToc,
-    lifelineTags,
-    lifelineSelectedTags,
-    lifelineSelectedCategory,
-    isAuthenticated,
-  } = useLoaderData<LoaderData>()
+  const { items } = useLoaderData<LoaderData>()
 
   return (
     <>
       <AboutHero />
 
+      <SummaryTimeline items={items} />
+      {/* 
       <Lifeline
         lifeline={lifeline}
         toc={lifelineToc}
@@ -85,7 +87,7 @@ export default function About(): JSX.Element {
         selectedTags={lifelineSelectedTags}
         selectedCategory={lifelineSelectedCategory}
         enableEditButton={isAuthenticated}
-      />
+      /> */}
     </>
   )
 }

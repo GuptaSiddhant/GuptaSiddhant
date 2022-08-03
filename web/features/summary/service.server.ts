@@ -6,11 +6,11 @@ const database = new Database<Record<string, SummaryItem> & { id: any }>(
   ModelName.Index,
 )
 
-export async function querySummaryItemsByModel(
-  model: ModelName,
+export async function querySummaryItemsByModelName(
+  modelName: ModelName,
   includeDrafts: boolean = false,
 ): Promise<SummaryItem[]> {
-  const data = await database.queryById(model)
+  const data = await database.queryById(modelName)
 
   return Object.values(data)
     .filter((item) => typeof item === "object")

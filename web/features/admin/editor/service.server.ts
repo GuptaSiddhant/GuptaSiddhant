@@ -1,7 +1,7 @@
 import invariant from "tiny-invariant"
 
 import { getModelByModelName } from "@gs/models"
-import { getDataFromModelObject } from "@gs/models/model.helpers"
+import { getDataFromModelObject } from "@gs/models/helpers/model.helpers"
 import Database, {
   type DatabaseDocument,
   type ModelName,

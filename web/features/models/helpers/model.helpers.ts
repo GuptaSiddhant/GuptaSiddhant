@@ -4,7 +4,7 @@ import type {
   ModelProperties,
   ModelScalerType,
 } from "./model.types"
-import type { Schema } from "./schema-type"
+import type { Schema } from "./schema.types"
 
 export function getDataFromModelObject(
   keys: string[],
