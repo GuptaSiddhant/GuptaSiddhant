@@ -1,4 +1,9 @@
-import { ONE_DAY_IN_MS, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants"
+import {
+  DEFAULT_LOCALE,
+  ONE_DAY_IN_MS,
+  ONE_HOUR_IN_MS,
+  ONE_MIN_IN_MS,
+} from "@gs/constants"
 
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -27,16 +32,16 @@ export interface DateTimeOptions extends Intl.DateTimeFormatOptions {
 export function formatYYYYMMDD(date?: Date) {
   if (!date) return undefined
 
-  return `${date.getFullYear().toString().padStart(4, "0")}-${(
-    date.getMonth() + 1
-  )
-    .toString()
-    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`
+  const YYYY = date.getFullYear().toString().padStart(4, "0")
+  const MM = (date.getMonth() + 1).toString().padStart(2, "0")
+  const DD = date.getDate().toString().padStart(2, "0")
+
+  return `${YYYY}-${MM}-${DD}`
 }
 
 export function formatDate(
   date: Date | string,
-  { locale, ...options }: DateTimeOptions = {},
+  { locale = DEFAULT_LOCALE, ...options }: DateTimeOptions = {},
 ): string {
   return new Date(date).toLocaleDateString(locale, {
     day: "numeric",
@@ -48,19 +53,14 @@ export function formatDate(
 
 export function formatTime(
   date: Date | string,
-  { locale, ...options }: DateTimeOptions = {},
+  locale: string = DEFAULT_LOCALE,
 ): string {
-  return new Date(date).toLocaleDateString(locale, {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    ...options,
-  })
+  return new Date(date).toLocaleTimeString(locale)
 }
 
 export function formatDateTime(
   date: Date | string,
-  { locale, ...options }: DateTimeOptions = {},
+  { locale = DEFAULT_LOCALE, ...options }: DateTimeOptions = {},
 ): string {
   return new Date(date).toLocaleDateString(locale, {
     day: "numeric",
@@ -73,25 +73,39 @@ export function formatDateTime(
   })
 }
 
-export function formatUnit(value: number, unit: string = "byte"): string {
-  return new Intl.NumberFormat(undefined, {
+export function formatUnit(
+  value: number,
+  unit: string = "byte",
+  locale: string = DEFAULT_LOCALE,
+): string {
+  return new Intl.NumberFormat(locale, {
     style: "unit",
     unit,
+    unitDisplay: "long",
     maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
+    // minimumFractionDigits: 2,
   }).format(value)
 }
 
-export function formatList(list: string[], parts?: false): string
+export function formatList(
+  list: string[],
+  parts?: false,
+  locale?: string,
+): string
 export function formatList(
   list: string[],
   parts: true,
+  locale?: string,
 ): Array<{
   type: "literal" | "element"
   value: string
 }>
-export function formatList(list: string[], parts?: boolean) {
-  const formatter = new Intl.ListFormat("en", {
+export function formatList(
+  list: string[],
+  parts?: boolean,
+  locale: string = DEFAULT_LOCALE,
+) {
+  const formatter = new Intl.ListFormat(locale, {
     style: "long",
     type: "conjunction",
   })
@@ -122,5 +136,5 @@ export function transformMsToReadableString(ms: number): string {
   if (seconds === 1) dateStr.push("1 second")
   if (seconds > 1) dateStr.push(`${seconds.toFixed(2)} seconds`)
 
-  return dateStr.join(", ")
+  return formatList(dateStr)
 }

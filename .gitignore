@@ -16,6 +16,8 @@ build
 
 **/*/package-lock.json
 
+coverage
+
 # Local Netlify folder
 .netlify
 

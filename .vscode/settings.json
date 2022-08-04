@@ -3,6 +3,7 @@
     ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
   "cSpell.words": ["remixicon", "tailwindcss"],
+  "editor.rulers": [ 80 ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
