@@ -24,9 +24,10 @@
     "db:backup": "node ./scripts/db-backup.js",
     "db:restore": "FIRESTORE_EMULATOR_HOST=\"localhost:8080\" FIREBASE_STORAGE_EMULATOR_HOST=\"localhost:9199\" node ./scripts/db-restore.js",
     "emulator": "firebase emulators:start --import=./.firebase-emulator --export-on-exit",
-    "test": "vitest run",
-    "test:dev": "vitest dev",
-    "test:coverage": "vitest run --coverage"
+    "test": "vitest run --dir web",
+    "test:dev": "vitest dev --dir web",
+    "test:coverage": "vitest run --dir web --coverage",
+    "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json;"
   },
   "sideEffects": false,
   "engines": {
