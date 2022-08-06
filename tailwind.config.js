@@ -56,6 +56,7 @@ const config = {
         progress: `var(--color-bg-progress)`,
         positive: `var(--color-bg-positive)`,
         negative: `var(--color-bg-negative)`,
+        float: `var(--color-bg-float)`,
       },
       borderColor: {
         highlight: "highlight",

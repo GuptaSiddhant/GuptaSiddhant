@@ -54,7 +54,8 @@ type BgColors = Record<
   | "inverse"
   | "progress"
   | "negative"
-  | "positive",
+  | "positive"
+  | "float",
   string
 >
 

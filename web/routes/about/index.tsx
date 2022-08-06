@@ -16,7 +16,7 @@ import { getEducationSummaryItems } from "@gs/models/education.server"
 // import { createLifeline, createTocFromLifeline } from "@gs/lifeline/helpers"
 // import Lifeline from "@gs/lifeline/Lifeline"
 import { getAuthUser } from "@gs/service/auth.server"
-import { type SummaryItem } from "@gs/summary"
+import { type SummaryItem, filterSortSummaryItems } from "@gs/summary"
 import SummaryTimeline from "@gs/summary/SummaryTimeline"
 
 interface LoaderData {
@@ -44,12 +44,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   const lifelineSelectedCategory = (searchParams.get("category")?.toString() ??
     "") as ModelName
 
-  const items =
+  const summaryItems =
     lifelineSelectedCategory === ModelName.Education
       ? educationList
       : lifelineSelectedCategory === ModelName.Career
       ? careerList
       : [...careerList, ...educationList]
+
+  const items = filterSortSummaryItems(summaryItems)
 
   // const lifelineSelectedTags = parseGetAllSearchParams(searchParams, "tags")
   // const lifelineTags = generateTagListFromExperienceProps(items)

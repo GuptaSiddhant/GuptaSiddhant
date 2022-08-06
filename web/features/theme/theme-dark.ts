@@ -23,6 +23,7 @@ const darkThemeColors: ThemeColors = {
     progress: blue[400],
     negative: red[600],
     positive: green[600],
+    float: "#000c",
   },
   border: {
     divider: gray[600],

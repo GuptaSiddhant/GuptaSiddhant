@@ -56,9 +56,9 @@ export default function Dialog({
       onClick={handleDialogClick}
       className={clsx(
         className,
-        "animate-appear-btt shadow-xl backdrop:bg-black/50",
+        "animate-appear-btt shadow-xl backdrop:bg-black/10",
         "-w-screen-m8 rounded-lg border border-divider lg:w-2/3 2xl:w-1/2",
-        "bg-primary text-default",
+        "bg-float text-default backdrop-blur-md",
         isOpen ? "block" : "hidden",
       )}
     >

@@ -23,6 +23,7 @@ const lightThemeColors: ThemeColors = {
     progress: blue[600],
     negative: red[500],
     positive: green[500],
+    float: "#fffd",
   },
   border: {
     divider: gray[200],

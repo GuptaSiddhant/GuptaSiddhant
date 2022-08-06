@@ -31,9 +31,7 @@ export default function SearchOutput({
     SearchResultItemProps | undefined
   >(undefined)
 
-  if (!data && !query) return null
-
-  if (!data) {
+  if (isDataEmpty(data)) {
     return (
       <output className="flex-1 border-t border-divider pt-4 text-disabled flex-center">
         No results found
@@ -41,7 +39,7 @@ export default function SearchOutput({
     )
   }
 
-  const { projects, blog, career, education } = data
+  const { projects, blog, career, education } = data!
 
   return (
     <output
@@ -114,13 +112,13 @@ function SearchOutputPreview({
         <img
           src={heroImageUrl}
           alt={id}
-          className="mb-4 aspect-video w-full overflow-hidden object-cover"
+          className="mb-4 aspect-video min-h-[200px] w-full overflow-hidden object-cover"
         />
       ) : icon ? (
         <img
           src={icon}
           alt={id}
-          className="mb-4 h-16 w-16 overflow-hidden rounded bg-inverse object-cover"
+          className="mb-4 min-h-[4rem] w-16 overflow-hidden rounded bg-inverse object-cover"
         />
       ) : null}
       <div className="text-2xl font-bold">{title}</div>
@@ -132,4 +130,16 @@ function SearchOutputPreview({
       {description ? <Mdx mdx={description} /> : null}
     </>
   )
+}
+
+function isDataEmpty(data?: SearchOutputData): boolean {
+  if (!data) return true
+  if (typeof data !== "object") return true
+  const values = Object.values(data)
+
+  if (values.length === 0) return true
+  if (values.every((value) => !Array.isArray(value) || value.length === 0))
+    return true
+
+  return false
 }
