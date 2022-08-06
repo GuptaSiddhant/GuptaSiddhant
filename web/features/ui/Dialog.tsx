@@ -2,7 +2,6 @@ import clsx from "clsx"
 import { useState } from "react"
 
 import useBlockNativeScroll from "../hooks/useBlockNativeScroll"
-import useEventListener from "../hooks/useEventListener"
 import useFocusTrap from "../hooks/useFocusTrap"
 import useStableCallback from "../hooks/useStableCallback"
 
@@ -13,6 +12,7 @@ export interface DialogProps {
   children: React.ReactNode
   id?: string
   className?: string
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDialogElement>) => void
 }
 
 export default function Dialog({
@@ -22,6 +22,7 @@ export default function Dialog({
   id,
   className,
   isOpen,
+  onKeyDown,
 }: DialogProps): JSX.Element | null {
   useBlockNativeScroll(!isOpen)
 
@@ -42,12 +43,15 @@ export default function Dialog({
     },
   )
 
-  useEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isOpen) {
-      e.preventDefault()
-      return closeDialog()
-    }
-  })
+  const handleKeyDown = useStableCallback(
+    (e: React.KeyboardEvent<HTMLDialogElement>) => {
+      if (e.key === "Escape" && isOpen) {
+        e.preventDefault()
+        return closeDialog()
+      }
+      onKeyDown?.(e)
+    },
+  )
 
   return (
     <dialog
@@ -61,6 +65,7 @@ export default function Dialog({
         "bg-float text-default backdrop-blur-md",
         isOpen ? "block" : "hidden",
       )}
+      onKeyDown={handleKeyDown}
     >
       {children}
     </dialog>

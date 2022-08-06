@@ -7,4 +7,5 @@ export interface NavigationLinkProps {
   onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   download?: string
   external?: boolean
+  shortcut?: string[]
 }

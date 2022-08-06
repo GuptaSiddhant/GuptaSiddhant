@@ -1,17 +1,19 @@
-import useEventListener from "../hooks/useEventListener"
+import useStableCallback from "@gs/hooks/useStableCallback"
+
 import useSearch from "."
 
 const inputTagNames = ["input", "textarea", "select"]
 const alphanumerics = "abcdefghijklmnopqrstuvwxyz0123456789".split("")
 
-export default function useSearchKeyDown(): void {
-  const { toggleSearchOpen, inputRef, resultsRef } = useSearch()
+export default function useSearchKeyDown() {
+  const { closeSearch, inputRef, resultsRef } = useSearch()
 
-  useEventListener("keydown", (event) => {
+  return useStableCallback((event: React.KeyboardEvent<HTMLDialogElement>) => {
     if (event.metaKey) {
       if (event.key === "k" || event.key === "K") {
         event.preventDefault()
-        toggleSearchOpen()
+        event.stopPropagation()
+        closeSearch()
       }
       return
     }

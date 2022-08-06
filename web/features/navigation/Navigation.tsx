@@ -1,24 +1,16 @@
 import { Fragment, useMemo } from "react"
 import NavMenuIcon from "remixicon-react/Menu3LineIcon"
 
-import { NavLink, useLoaderData } from "@remix-run/react"
+import { NavLink } from "@remix-run/react"
 
 import { isExternalLink } from "@gs/helpers"
 import Menu, { type MenuActionProps } from "@gs/ui/Menu"
 
-import type { RootLoaderData } from "../root"
 import type { NavigationLinkProps } from "./types"
 import useNavigationLinks from "./useNavigationLinks"
 
 export default function Navigation(): JSX.Element | null {
-  const { about, navigationRemoteConfig, isAuthenticated, themeName } =
-    useLoaderData<RootLoaderData>()
-  const links = useNavigationLinks({
-    about,
-    navigationRemoteConfig,
-    isAuthenticated,
-    themeName,
-  })
+  const links = useNavigationLinks()
 
   if (links.length === 0) return null
 

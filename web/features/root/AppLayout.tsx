@@ -12,6 +12,7 @@ import { FAB } from "@gs/ui/Button"
 
 import Logo from "./Logo"
 import ProgressBar from "./ProgressBar"
+import Shortcuts from "./Shortcuts"
 
 export interface AppLayoutProps {
   children: ReactNode
@@ -80,6 +81,7 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
         </footer>
 
         <ProgressBar />
+        <Shortcuts />
       </Search>
     </Toaster>
   )

@@ -14,11 +14,11 @@ export default function SearchDialog({
   dialogRef: React.RefObject<HTMLDialogElement>
 }): JSX.Element | null {
   const { isSearchOpen, closeSearch, inputRef } = useSearch()
+  const handleSearchKeyDown = useSearchKeyDown()
 
   const fetcher = useFetcher<SearchOutputData>()
   const load = fetcher.load
 
-  useSearchKeyDown()
   useEffect(() => {
     if (isSearchOpen) {
       inputRef.current?.form?.reset()
@@ -34,6 +34,7 @@ export default function SearchDialog({
       dialogRef={dialogRef}
       closeDialog={closeSearch}
       className="flex h-[90vh] flex-col gap-4 lg:h-[60vh]"
+      onKeyDown={handleSearchKeyDown}
     >
       <SearchInput {...fetcher} />
       <SearchOutput

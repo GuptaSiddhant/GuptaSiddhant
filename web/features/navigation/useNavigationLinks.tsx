@@ -2,11 +2,12 @@ import GithubIcon from "remixicon-react/GithubFillIcon"
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 
-import { useNavigate } from "@remix-run/react"
+import { useLoaderData, useNavigate } from "@remix-run/react"
 
 import { type AboutInfo } from "@gs/about"
 import { AdminIcon } from "@gs/admin"
 import type { NavigationLinkProps } from "@gs/navigation/types"
+import type { RootLoaderData } from "@gs/root"
 import SearchButton from "@gs/search/SearchButton"
 import type { ThemeName } from "@gs/theme"
 import ThemeToggleButton from "@gs/theme/ThemeToggleButton"
@@ -21,15 +22,18 @@ export interface UseNavigationLinksProps {
 }
 
 export const internalNavigationLinks: NavigationLinkProps[] = [
-  { id: "about", to: "/about", children: "About" },
-  { id: "projects", to: "/projects", children: "Projects" },
-  { id: "blog", to: "/blog", children: "Blog" },
+  { id: "about", to: "/about", children: "About", shortcut: ["Shift", "A"] },
+  {
+    id: "projects",
+    to: "/projects",
+    children: "Projects",
+    shortcut: ["Shift", "P"],
+  },
+  { id: "blog", to: "/blog", children: "Blog", shortcut: ["Shift", "B"] },
 ]
 
-export default function useNavigationLinks({
-  about,
-  themeName,
-}: UseNavigationLinksProps): NavigationLinkProps[] {
+export default function useNavigationLinks(): NavigationLinkProps[] {
+  const { about, themeName } = useLoaderData<RootLoaderData>()
   const navigate = useNavigate()
   const { email, github, linkedin } = about.link || {}
 
@@ -39,13 +43,20 @@ export default function useNavigationLinks({
 
   // External
 
-  if (github) links.push({ id: "GitHub", to: github, children: <GithubIcon /> })
+  if (github)
+    links.push({
+      id: "GitHub",
+      to: github,
+      children: <GithubIcon />,
+      shortcut: ["Shift", "G"],
+    })
 
   if (linkedin)
     links.push({
       id: "LinkedIn",
       to: linkedin,
       children: <LinkedinIcon />,
+      shortcut: ["Shift", "L"],
     })
 
   if (email)
@@ -53,6 +64,7 @@ export default function useNavigationLinks({
       id: "Contact",
       to: email,
       children: <MailIcon />,
+      shortcut: ["Shift", "C"],
     })
 
   // Buttons
