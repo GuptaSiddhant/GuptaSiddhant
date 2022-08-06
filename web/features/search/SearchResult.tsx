@@ -1,8 +1,7 @@
 import clsx from "clsx"
 
-import { Link } from "@remix-run/react"
+import { Link, useNavigate } from "@remix-run/react"
 
-// import type { AboutInfo, Skills } from "../about"
 import type { Gallery } from "../types"
 import Accordion from "../ui/Accordion"
 import useSearch from "."
@@ -57,18 +56,32 @@ export function SearchResultItem({
   const { id, title, subtitle, icon, cover, linkUrl } = props
   const to = new URL(linkUrl || id)
   const { closeSearch } = useSearch()
+  const navigate = useNavigate()
+
+  const handleInteraction = () => setPreviewProps?.(props)
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    if (e.ctrlKey) {
+      if (e.key === "e" || e.key === "E") {
+        e.preventDefault()
+        closeSearch()
+        navigate(to + "/edit")
+      }
+    }
+  }
 
   return (
     <Link
       to={to}
       id={`search-result-${id}`}
+      onClick={closeSearch}
+      onMouseEnter={handleInteraction}
+      onFocus={handleInteraction}
+      onKeyDown={handleKeyDown}
       className={clsx(
         "mx-2 grid grid-cols-[2rem_1fr] items-center gap-4 py-2 px-4 ",
         "rounded bg-transparent hocus:bg-secondary",
       )}
-      onClick={closeSearch}
-      onMouseEnter={() => setPreviewProps?.(props)}
-      onFocus={() => setPreviewProps?.(props)}
     >
       <div className="h-8 w-8">
         {icon || cover ? (

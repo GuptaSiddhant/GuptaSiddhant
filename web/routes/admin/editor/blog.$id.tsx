@@ -1,5 +1,3 @@
-import invariant from "@gs/utils/invariant"
-
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
@@ -15,6 +13,7 @@ import {
   getBlogPost,
 } from "@gs/models/blog.server"
 import { authenticateRoute } from "@gs/service/auth.server"
+import invariant from "@gs/utils/invariant"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 

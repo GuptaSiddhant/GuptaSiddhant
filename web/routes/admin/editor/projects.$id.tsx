@@ -1,5 +1,3 @@
-import invariant from "@gs/utils/invariant"
-
 import { useLoaderData } from "@remix-run/react"
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
@@ -11,9 +9,13 @@ import { adminLogger } from "@gs/admin/service.server"
 import { type Model, getModelByModelName } from "@gs/models"
 import { getCareerKeys } from "@gs/models/career.server"
 import { getEducationKeys } from "@gs/models/education.server"
-import { type ProjectProps, getProject } from "@gs/models/projects.server"
+import {
+  type ProjectProps,
+  getProject,
+  getProjectsModelName,
+} from "@gs/models/projects.server"
 import { authenticateRoute } from "@gs/service/auth.server"
-import { ModelName } from "@gs/service/database.server"
+import invariant from "@gs/utils/invariant"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -22,10 +24,10 @@ interface LoaderData {
   model: Model
 }
 
-const modelName = ModelName.Projects
-
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
+
+  const modelName = getProjectsModelName()
   const model = getModelByModelName(modelName)
 
   const id = params.id
@@ -62,7 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
 
   const redirectTo = await modifyDatabaseDocumentWithEditorForm(
-    modelName,
+    getProjectsModelName(),
     formData,
     request.method,
   )

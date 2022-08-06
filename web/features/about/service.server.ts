@@ -1,6 +1,7 @@
 import { redirect } from "@remix-run/server-runtime"
 
-import Database, { ModelName } from "@gs/service/database.server"
+import Database from "@gs/service/database.server"
+import { ModelName } from "@gs/models"
 
 import type { AboutInfo, Skills } from "."
 

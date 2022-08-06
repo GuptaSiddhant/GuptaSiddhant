@@ -1,5 +1,3 @@
-import invariant from "@gs/utils/invariant"
-
 import {
   type TransformedDocument,
   mutateFirestoreDocument,
@@ -7,6 +5,7 @@ import {
   queryFireStoreDocument,
 } from "@gs/firebase/firestore"
 import { ModelName } from "@gs/models"
+import invariant from "@gs/utils/invariant"
 
 import {
   deleteCachedKey,
@@ -14,7 +13,6 @@ import {
   fetchCachedKey,
 } from "./cache.server"
 
-export { ModelName }
 export type DatabaseDocument = TransformedDocument
 export type DatabaseType<T extends DatabaseDocument> = Database<T>
 

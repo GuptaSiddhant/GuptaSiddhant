@@ -1,4 +1,5 @@
-import Database, { ModelName } from "@gs/service/database.server"
+import Database from "@gs/service/database.server"
+import { ModelName } from "@gs/models"
 import Storage from "@gs/service/storage.server"
 
 export async function backupDatabase() {
