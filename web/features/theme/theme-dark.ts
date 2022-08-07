@@ -7,7 +7,7 @@ const darkThemeColors: ThemeColors = {
     secondary: gray[200],
     tertiary: gray[300],
     disabled: gray[400],
-    inverse: gray[800],
+    inverse: gray[900],
     link: blue[400],
     "link-hover": blue[300],
     positive: green[400],

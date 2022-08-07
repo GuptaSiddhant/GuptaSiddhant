@@ -31,7 +31,7 @@ export default function HomeHeroSection(about: AboutInfo): JSX.Element {
         </InternalLink>
       </div>
 
-      <CodeBlock copyText={terminalResume.copyText}>
+      <CodeBlock copyText={terminalResume.copyText} wrap>
         {JSON.parse(terminalResume.code)}
       </CodeBlock>
     </Hero>

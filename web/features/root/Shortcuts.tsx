@@ -3,7 +3,6 @@ import { useNavigate } from "@remix-run/react"
 import { isExternalLink } from "@gs/helpers"
 import useEventListener from "@gs/hooks/useEventListener"
 import useNavigationLinks from "@gs/navigation/useNavigationLinks"
-import useSearch from "@gs/search"
 
 const inputTagNames = ["input", "textarea", "select"]
 
@@ -14,20 +13,10 @@ export default function Shortcuts(): JSX.Element | null {
 }
 
 function useShortcuts() {
-  const { openSearch, isSearchOpen } = useSearch()
   const links = useNavigationLinks()
   const navigate = useNavigate()
 
   return useEventListener("keydown", (event) => {
-    if (event.metaKey) {
-      if (event.key === "k" || event.key === "K") {
-        event.preventDefault()
-        event.stopPropagation()
-        !isSearchOpen && openSearch()
-        return
-      }
-    }
-
     const activeElement = window.document.activeElement as HTMLElement | null
     // Do not react to keydown events if an input field is focussed,
     // unless it is the search input field.
@@ -38,8 +27,8 @@ function useShortcuts() {
       return
     }
 
-    links.forEach(({ shortcut, id, to }) => {
-      if (to && shortcut) {
+    links.forEach(({ shortcut, to, onClick }) => {
+      if (shortcut) {
         const shortcutLowercase = shortcut.map((key) => key.toLowerCase())
         const needShift = shortcutLowercase.includes("shift")
         const needCtrl = shortcutLowercase.includes("ctrl")
@@ -56,9 +45,14 @@ function useShortcuts() {
         if (needAlt && !event.altKey) return
 
         if (event.key === key || event.key === key.toUpperCase()) {
-          const external = isExternalLink(to.toString())
-          if (!external) navigate(to)
-          else window.open(to.toString(), "__blank")
+          event.preventDefault()
+          event.stopPropagation()
+          onClick?.(event as any)
+          if (to) {
+            const external = isExternalLink(to.toString())
+            if (!external) navigate(to)
+            else window.open(to.toString(), "__blank")
+          }
         }
       }
     })

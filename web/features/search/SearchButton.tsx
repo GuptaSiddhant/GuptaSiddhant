@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react"
-import SearchIcon from "remixicon-react/Search2LineIcon"
+import Icon from "remixicon-react/Search2LineIcon"
 
-import Button from "../ui/Button"
-import useSearch from "."
-
-export default function SearchButton() {
-  const { toggleSearchOpen } = useSearch()
+export default function SearchIcon() {
   const [isMac, setIsMac] = useState(false)
-
-  // useEffect(() => openSearch(), [openSearch])
 
   useEffect(() => {
     const userAgent: string = window.navigator?.userAgent || "unknown"
@@ -18,10 +12,8 @@ export default function SearchButton() {
   const title = "Search [" + (isMac ? "Cmd" : "Win") + "+K]"
 
   return (
-    <Button onClick={toggleSearchOpen} title={title}>
-      <SearchIcon />
-    </Button>
+    <span title={title}>
+      <Icon />
+    </span>
   )
 }
-
-export { SearchIcon }

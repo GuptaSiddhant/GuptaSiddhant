@@ -1,10 +1,13 @@
+import { useTransition } from "react"
+
 import type { FetcherWithComponents } from "@remix-run/react"
 
-import { CloseIcon, LoadingIcon } from "../icons"
-import Button from "../ui/Button"
-import Input from "../ui/Input"
+import { CloseIcon, LoadingIcon } from "@gs/icons"
+import Button from "@gs/ui/Button"
+import Input from "@gs/ui/Input"
+
 import useSearch from "."
-import { SearchIcon } from "./SearchButton"
+import SearchIcon from "./SearchButton"
 
 export default function SearchInput({
   Form,
@@ -12,14 +15,15 @@ export default function SearchInput({
   state,
 }: FetcherWithComponents<any>): JSX.Element | null {
   const { closeSearch, inputRef } = useSearch()
-  const isLoading = state === "submitting" || state === "loading"
+  const [isPending, startTransition] = useTransition()
+  const isLoading = state === "submitting" || state === "loading" || isPending
 
   return (
     <Form
       className="relative flex w-full gap-2"
       method="get"
       action="/search"
-      onChange={(e) => submit(e.currentTarget)}
+      onChange={(e) => startTransition(() => submit(e.currentTarget))}
     >
       <Input
         id="search-input"
@@ -27,7 +31,7 @@ export default function SearchInput({
         labelClassName="flex-1"
         className="h-10 w-full pl-10"
         type="search"
-        placeholder="Search for anything..."
+        placeholder="Search..."
         inputRef={inputRef}
         autoFocus
         autoComplete="off"

@@ -8,6 +8,7 @@ import { type AboutInfo } from "@gs/about"
 import { AdminIcon } from "@gs/admin"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import type { RootLoaderData } from "@gs/root"
+import useSearch from "@gs/search"
 import SearchButton from "@gs/search/SearchButton"
 import type { ThemeName } from "@gs/theme"
 import ThemeToggleButton from "@gs/theme/ThemeToggleButton"
@@ -34,6 +35,7 @@ export const internalNavigationLinks: NavigationLinkProps[] = [
 
 export default function useNavigationLinks(): NavigationLinkProps[] {
   const { about, themeName } = useLoaderData<RootLoaderData>()
+  const { toggleSearchOpen } = useSearch()
   const navigate = useNavigate()
   const { email, github, linkedin } = about.link || {}
 
@@ -71,13 +73,16 @@ export default function useNavigationLinks(): NavigationLinkProps[] {
 
   links.push({
     id: "Search",
+    onClick: toggleSearchOpen,
     children: <SearchButton />,
+    shortcut: ["Meta", "K"],
   })
 
   links.push({
     id: "Admin",
     onClick: () => navigate("/admin"),
     children: <AdminIcon />,
+    shortcut: ["Shift", "Q"],
   })
 
   links.push({

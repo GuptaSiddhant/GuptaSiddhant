@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { type ReactNode, useCallback } from "react"
 import UpIcon from "remixicon-react/ArrowUpLineIcon"
 
-import useOffsetScroll from "@gs/hooks/useOffsetScroll"
+import useScroll from "@gs/hooks/useScroll"
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight"
 import { RoundedCorner } from "@gs/icons"
 import Navigation from "@gs/navigation/Navigation"
@@ -20,7 +20,7 @@ export interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
   const headerRef = useSetHeaderHeight()
-  const { isOffsetScrolled: scrollButtonVisible } = useOffsetScroll()
+  const { isOffsetCrossed: scrollButtonVisible } = useScroll()
 
   const handleScrollToTop = useCallback(() => {
     window?.scrollTo({ top: 0, behavior: "smooth" })

@@ -7,7 +7,7 @@ const lightThemeColors: ThemeColors = {
     secondary: gray[800],
     tertiary: gray[700],
     disabled: gray[600],
-    inverse: gray[200],
+    inverse: gray[50],
     link: blue[600],
     "link-hover": blue[700],
     positive: green[600],
