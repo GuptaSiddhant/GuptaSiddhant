@@ -1,4 +1,4 @@
-import { type AboutInfo } from "@gs/about"
+import { type AboutInfo } from "@gs/models/about.model"
 import Hero from "@gs/hero"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { ExternalLink, InternalLink } from "@gs/ui/Link"

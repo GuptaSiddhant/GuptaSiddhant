@@ -4,7 +4,7 @@ import MailIcon from "remixicon-react/MailLineIcon"
 
 import { useLoaderData, useNavigate } from "@remix-run/react"
 
-import { type AboutInfo } from "@gs/about"
+import { type AboutInfo } from "@gs/models/about.model"
 import { AdminIcon } from "@gs/admin"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import type { RootLoaderData } from "@gs/root"

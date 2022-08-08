@@ -6,7 +6,7 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { type Model, getModelByModelName } from "@gs/models"
+import { type Model, type ModelName, getModelByModelName } from "@gs/models"
 import { getCareerKeys } from "@gs/models/career.server"
 import { getEducationKeys } from "@gs/models/education.server"
 import {
@@ -22,6 +22,7 @@ const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 interface LoaderData {
   item?: ProjectProps
   model: Model
+  modelName: ModelName
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -33,7 +34,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id
   invariant(id, modelName + " id is required.")
 
-  if (id === "new") return json<LoaderData>({ model })
+  if (id === "new") return json<LoaderData>({ model, modelName })
 
   try {
     const item = await getProject(id)
@@ -50,7 +51,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       enum: ["", ...assocKeys],
     }
 
-    return json<LoaderData>({ item, model })
+    return json<LoaderData>({ item, model, modelName })
   } catch (e: any) {
     adminLogger.error(e.message)
 
@@ -73,14 +74,14 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function ProjectsEditor(): JSX.Element | null {
-  const { item, model } = useLoaderData<LoaderData>()
+  const { item, model, modelName } = useLoaderData<LoaderData>()
 
   return (
     <EditorPage
       item={item}
       model={model}
+      basePreviewPath={modelName}
       headerPrefix={"Projects"}
-      basePreviewPath="projects"
     />
   )
 }

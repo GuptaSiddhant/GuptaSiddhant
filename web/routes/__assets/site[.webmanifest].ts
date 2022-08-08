@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/server-runtime"
 
-import { getAboutInfo } from "@gs/about/service.server"
+import { getAboutInfo } from "@gs/models/about.server"
 import { internalNavigationLinks } from "@gs/navigation/useNavigationLinks"
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme"
 import type { WebApplicationManifest } from "@gs/types/webmanifest"

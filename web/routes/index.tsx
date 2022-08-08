@@ -8,8 +8,8 @@ import type {
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import { type AboutInfo } from "@gs/about"
-import { getAboutInfo } from "@gs/about/service.server"
+import { type AboutInfo } from "@gs/models/about.model"
+import { getAboutInfo } from "@gs/models/about.server"
 import HomeHeroSection from "@gs/home/HomeHeroSection"
 import HomeSummarySlider from "@gs/home/HomeSummarySlider"
 import { getBlogSummaryItems } from "@gs/models/blog.server"

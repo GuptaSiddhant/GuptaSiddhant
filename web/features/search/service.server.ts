@@ -1,4 +1,5 @@
-import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
+import { getAboutSkills } from "@gs/models/about.server"
+import { getAboutInfo } from "@gs/models/about.server"
 import { getBlogSummaryItems } from "@gs/models/blog.server"
 import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"

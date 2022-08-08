@@ -14,6 +14,7 @@ import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
 import { ModelName } from "@gs/models"
+import { getAboutKeys } from "@gs/models/about.server"
 import { getBlogKeys } from "@gs/models/blog.server"
 import { getCareerKeys } from "@gs/models/career.server"
 import { getEducationKeys } from "@gs/models/education.server"
@@ -31,16 +32,28 @@ export interface LoaderData {
     id: ModelName
     label: string
     keys: string[]
+    disableNew?: boolean
   }[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const [careerKeys, educationKeys, blogKeys, projectsKeys] = await Promise.all(
-    [getCareerKeys(), getEducationKeys(), getBlogKeys(), getProjectsKeys()],
-  )
+  const [careerKeys, educationKeys, blogKeys, projectsKeys, aboutKeys] =
+    await Promise.all([
+      getCareerKeys(),
+      getEducationKeys(),
+      getBlogKeys(),
+      getProjectsKeys(),
+      getAboutKeys(),
+    ])
 
   const allEditableEntries: LoaderData["entries"] = [
+    {
+      id: ModelName.About,
+      label: "About",
+      keys: aboutKeys,
+      disableNew: true,
+    },
     {
       id: ModelName.Career,
       label: "Career",
@@ -92,11 +105,13 @@ export default function EditorAdminApp(): JSX.Element | null {
       id: "new",
       children: (
         <Menu
-          actions={entries.map((e) => ({
-            id: e.id,
-            children: "New " + e.label,
-            to: `${e.id}/new`,
-          }))}
+          actions={entries
+            .filter((e) => !e.disableNew)
+            .map((e) => ({
+              id: e.id,
+              children: "New " + e.label,
+              to: `${e.id}/new`,
+            }))}
         >
           <NewIcon />
         </Menu>

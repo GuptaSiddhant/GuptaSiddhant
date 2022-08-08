@@ -1,8 +1,7 @@
-import invariant from "@gs/utils/invariant"
-
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import { modifyCache, ModifyCacheMethod } from "@gs/service/cache.server"
+import invariant from "@gs/utils/invariant"
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { searchParams } = new URL(request.url)

@@ -6,7 +6,7 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { type Model, getModelByModelName } from "@gs/models"
+import { type Model, type ModelName, getModelByModelName } from "@gs/models"
 import type { EducationProps } from "@gs/models/education.model"
 import {
   getEducationItem,
@@ -20,6 +20,7 @@ const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 interface LoaderData {
   item?: EducationProps
   model: Model
+  modelName: ModelName
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -30,13 +31,13 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id
   invariant(id, modelName + " id is required.")
 
-  if (id === "new") return json<LoaderData>({ model })
+  if (id === "new") return json<LoaderData>({ model, modelName })
 
   try {
     const item = await getEducationItem(id, false, true)
     invariant(item, "Education item not found.")
 
-    return json<LoaderData>({ item, model })
+    return json<LoaderData>({ item, model, modelName })
   } catch (e: any) {
     adminLogger.error(e.message)
 
@@ -59,14 +60,14 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function EducationEditor(): JSX.Element | null {
-  const { item, model } = useLoaderData<LoaderData>()
+  const { item, model, modelName } = useLoaderData<LoaderData>()
 
   return (
     <EditorPage
       item={item}
       model={model}
+      basePreviewPath={modelName}
       headerPrefix="Education"
-      basePreviewPath="about"
     />
   )
 }

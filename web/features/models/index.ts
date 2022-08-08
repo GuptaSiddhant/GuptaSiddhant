@@ -1,10 +1,12 @@
 import clsx from "clsx"
 
+import about from "./about.model"
 import blog from "./blog.model"
 import career from "./career.model"
 import education from "./education.model"
 import type { Model, ModelStyling } from "./helpers/model.types"
 import projects from "./projects.model"
+import skills from "./skills.model"
 
 export enum ModelName {
   Projects = "projects",
@@ -15,6 +17,7 @@ export enum ModelName {
   Career = "career",
   Users = "users",
   Index = "index",
+  Skills = "skills",
 }
 
 export type { Model }
@@ -30,6 +33,10 @@ export function getModelByModelName(modelName: ModelName) {
       return blog.model
     case ModelName.Projects:
       return projects.model
+    case ModelName.About:
+      return about.model
+    case ModelName.Skills:
+      return skills.model
     default:
       throw new Error(`Unknown model name: ${modelName}`)
   }

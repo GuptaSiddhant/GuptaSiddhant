@@ -20,7 +20,7 @@ interface EditorPageProps<T> {
   headerPrefix: string
   item?: T
   model: Model
-  basePreviewPath: string
+  basePreviewPath?: string
 }
 
 export default function EditorPage<T extends EditorHeaderProps>({
@@ -32,21 +32,25 @@ export default function EditorPage<T extends EditorHeaderProps>({
   const formId = item ? `editor-${item.id}` : "editor-new"
   const name = headerPrefix + ": " + (item?.id || "new")
 
-  const existingItemActions: NavigationLinkProps[] = item
-    ? [
-        {
-          id: "Refresh",
-          children: (
-            <Action.Form
-              method="patch"
-              body={{ id: item.id }}
-              title="Refresh entry"
-              reloadDocument
-            >
-              <RefreshIcon />
-            </Action.Form>
-          ),
-        },
+  const existingItemActions: NavigationLinkProps[] = []
+
+  if (item) {
+    existingItemActions.push({
+      id: "Refresh",
+      children: (
+        <Action.Form
+          method="patch"
+          body={{ id: item.id }}
+          title="Refresh entry"
+          reloadDocument
+        >
+          <RefreshIcon />
+        </Action.Form>
+      ),
+    })
+
+    if (basePreviewPath) {
+      existingItemActions.push(
         {
           id: "Delete",
           children: (
@@ -66,8 +70,9 @@ export default function EditorPage<T extends EditorHeaderProps>({
           external: true,
           children: <PreviewIcon />,
         },
-      ]
-    : []
+      )
+    }
+  }
 
   useTransitionSubmissionToast({
     GET: "Loading entry...",

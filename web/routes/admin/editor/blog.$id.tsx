@@ -6,7 +6,7 @@ import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
-import { type Model, getModelByModelName } from "@gs/models"
+import { type Model, type ModelName, getModelByModelName } from "@gs/models"
 import {
   type BlogPostProps,
   getBlogModelName,
@@ -20,27 +20,28 @@ const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 interface LoaderData {
   item?: BlogPostProps
   model: Model
+  modelName: ModelName
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
-  const ModelName = getBlogModelName()
-  const model = getModelByModelName(ModelName)
+  const modelName = getBlogModelName()
+  const model = getModelByModelName(modelName)
 
   const id = params.id
-  invariant(id, ModelName + " id is required.")
+  invariant(id, modelName + " id is required.")
 
-  if (id === "new") return json<LoaderData>({ model })
+  if (id === "new") return json<LoaderData>({ model, modelName })
 
   try {
     const item = await getBlogPost(id)
     invariant(item, "Blog item not found.")
 
-    return json<LoaderData>({ item, model })
+    return json<LoaderData>({ item, model, modelName })
   } catch (e: any) {
     adminLogger.error(e.message)
 
-    return redirect(adminApp.linkPath + ModelName)
+    return redirect(adminApp.linkPath + modelName)
   }
 }
 
@@ -59,14 +60,14 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function BlogEditor(): JSX.Element | null {
-  const { item, model } = useLoaderData<LoaderData>()
+  const { item, model, modelName } = useLoaderData<LoaderData>()
 
   return (
     <EditorPage
       item={item}
       model={model}
+      basePreviewPath={modelName}
       headerPrefix={"Blog"}
-      basePreviewPath="blog"
     />
   )
 }

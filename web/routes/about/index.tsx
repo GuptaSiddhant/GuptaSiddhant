@@ -1,12 +1,15 @@
-import { useLoaderData } from "@remix-run/react"
+import ResumeIcon from "remixicon-react/FileUserLineIcon"
+
+import { Link, useLoaderData } from "@remix-run/react"
 import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import type { AboutInfo } from "@gs/about"
-import AboutHero from "@gs/about/AboutHero"
-import { getAboutInfo } from "@gs/about/service.server"
+import { aboutTexts } from "@gs/about"
 import { createMetaTitle } from "@gs/helpers/meta"
+import Hero from "@gs/hero"
 import { ModelName } from "@gs/models"
+import type { AboutInfo } from "@gs/models/about.model"
+import { getAboutInfo } from "@gs/models/about.server"
 import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"
 // import type { TocItem } from "@gs/helpers/table-of-contents"
@@ -14,6 +17,8 @@ import { getEducationSummaryItems } from "@gs/models/education.server"
 import { getAuthUser } from "@gs/service/auth.server"
 import { type SummaryItem, filterSortSummaryItems } from "@gs/summary"
 import SummaryTimeline from "@gs/summary/SummaryTimeline"
+import { ExternalLink } from "@gs/ui/Link"
+import { Paragraph } from "@gs/ui/Text"
 
 interface LoaderData {
   isAuthenticated: boolean
@@ -87,5 +92,37 @@ export default function About(): JSX.Element {
         enableEditButton={isAuthenticated}
       /> */}
     </>
+  )
+}
+
+function AboutHero(): JSX.Element | null {
+  return (
+    <Hero>
+      <Hero.Header
+        title="About me"
+        subtitle={["Full-stack developer", "UI designer"].join(" | ")}
+      />
+      <Hero.Description>
+        {aboutTexts.map((text, index) => (
+          <Paragraph className="text-tertiary" key={index}>
+            {text}
+          </Paragraph>
+        ))}
+
+        <Paragraph className="flex gap-2 border-t border-divider pt-4 text-tertiary">
+          <ExternalLink href="/resume.pdf" className="w-max gap-2 flex-center">
+            <ResumeIcon />
+            Download Resume
+          </ExternalLink>
+          <span>
+            (or try the customisable{" "}
+            <Link to="/resume" className="text-link">
+              Resume builder
+            </Link>
+            ).
+          </span>
+        </Paragraph>
+      </Hero.Description>
+    </Hero>
   )
 }

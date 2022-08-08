@@ -1,7 +1,7 @@
 import { renderToString } from "@react-pdf/renderer"
 
 import { aboutTexts } from "@gs/about"
-import { getAboutInfo, getAboutSkills } from "@gs/about/service.server"
+import { getAboutInfo, getAboutSkills } from "@gs/models/about.server"
 import { getCareerSummaryItems } from "@gs/models/career.server"
 import { getEducationSummaryItems } from "@gs/models/education.server"
 import type { SummaryItem } from "@gs/summary"

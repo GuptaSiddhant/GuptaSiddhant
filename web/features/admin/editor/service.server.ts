@@ -1,31 +1,27 @@
-import invariant from "@gs/utils/invariant"
-
-import { getModelByModelName } from "@gs/models"
+import { type ModelName, getModelByModelName } from "@gs/models"
 import { getDataFromModelObject } from "@gs/models/helpers/model.helpers"
-import Database, {
-  type DatabaseDocument,
-  type ModelName,
-} from "@gs/service/database.server"
+import Database, { type DatabaseDocument } from "@gs/service/database.server"
+import invariant from "@gs/utils/invariant"
 
 export async function modifyDatabaseDocumentWithEditorForm<
   T extends DatabaseDocument,
 >(
-  ModelName: ModelName,
+  modelName: ModelName,
   formData: FormData,
   method: string,
 ): Promise<string | undefined> {
   const id = formData.get("id")?.toString()
-  invariant(id, ModelName + " id is required.")
-  const database = new Database(ModelName)
+  invariant(id, modelName + " id is required.")
+  const database = new Database(modelName)
 
   if (method === "DELETE") {
     const deleted = await database.mutateById(id)
 
-    if (deleted) return generateRedirectUrl(ModelName)
-    return generateRedirectUrl(ModelName, id)
+    if (deleted) return generateRedirectUrl(modelName)
+    return generateRedirectUrl(modelName, id)
   }
 
-  const model = getModelByModelName(ModelName)
+  const model = getModelByModelName(modelName)
   const data = getDataFromModelObject(
     Object.keys(model.properties),
     formData,
@@ -45,7 +41,7 @@ export async function modifyDatabaseDocumentWithEditorForm<
     }
   }
 
-  return generateRedirectUrl(ModelName, id)
+  return generateRedirectUrl(modelName, id)
 }
 
 // Helper

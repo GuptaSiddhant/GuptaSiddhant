@@ -1,7 +1,7 @@
 import { StyleSheet } from "@react-pdf/renderer"
 import type { Style } from "@react-pdf/types"
 
-import { type AboutInfo } from "@gs/about"
+import { type AboutInfo } from "@gs/models/about.model"
 import { parseGetAllSearchParams } from "@gs/helpers/request"
 
 import { ResumeSections } from "./constants"
