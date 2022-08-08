@@ -6,6 +6,7 @@ import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon"
 
 import { Link } from "@remix-run/react"
 
+import { generateAssetTransformedUrl } from "@gs/helpers/assets"
 import useElementStore from "@gs/hooks/useElementStore"
 import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll"
 import type { BaseProps } from "@gs/types"
@@ -108,6 +109,10 @@ function SummarySliderCard({
   cardRef?: React.RefObject<HTMLElement>
 }): JSX.Element {
   const { id, title, cover, linkUrl } = item
+  const imageSrc = generateAssetTransformedUrl(cover, {
+    aspectRatio: 3 / 4,
+    height: 400,
+  })
 
   return (
     <Link
@@ -124,7 +129,7 @@ function SummarySliderCard({
           "bg-secondary bg-cover bg-center bg-no-repeat",
           "aspect-[3/4] h-72 snap-center",
         )}
-        style={{ backgroundImage: `url(${cover})` }}
+        style={{ backgroundImage: `url(${imageSrc})` }}
       >
         <div
           className={clsx(

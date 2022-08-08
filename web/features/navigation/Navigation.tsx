@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from "react"
+import { Fragment, useId, useMemo } from "react"
 import NavMenuIcon from "remixicon-react/Menu3LineIcon"
 
 import { NavLink } from "@remix-run/react"
@@ -93,13 +93,20 @@ function ButtonsList({
 }: {
   buttons: NavigationLinkProps[]
 }): JSX.Element | null {
+  const uid = useId()
+
   return (
     <ul className="flex items-center justify-start gap-4 text-lg text-secondary">
       {buttons.map(({ id, onClick, children }) => {
         if (!onClick) return <Fragment key={id}>{children}</Fragment>
 
         return (
-          <button key={id} onClick={onClick} type="button">
+          <button
+            key={uid + "-" + id}
+            onClick={onClick}
+            type="button"
+            title={id}
+          >
             {children}
           </button>
         )

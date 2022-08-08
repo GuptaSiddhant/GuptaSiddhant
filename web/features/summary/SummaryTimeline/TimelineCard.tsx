@@ -8,6 +8,10 @@ import NpmIcon from "remixicon-react/NpmjsLineIcon"
 
 import { Link } from "@remix-run/react"
 
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/helpers/assets"
 import { getStylingByModelName } from "@gs/models"
 import useRootContext from "@gs/root/RootContext"
 import type { Gallery, LinkObject } from "@gs/types"
@@ -35,6 +39,14 @@ export default function TimelineCard(props: {
     linkUrl,
   } = props.item
   const modelStyling = getStylingByModelName(model)
+  const imageUrl = generateAssetTransformedUrl(cover, {
+    aspectRatio: 2,
+    height: 400,
+  })
+  const iconUrl = generateAssetTransformedUrl(
+    icon,
+    assetTransformationOptions.ICON,
+  )
 
   return (
     <Link
@@ -54,7 +66,7 @@ export default function TimelineCard(props: {
         <Sticker {...props.item} />
 
         <TimelineCardTitle
-          icon={icon ? <img src={icon} alt={title} /> : modelStyling.icon}
+          icon={iconUrl ? <img src={iconUrl} alt={title} /> : modelStyling.icon}
           className={clsx(modelStyling.bg, modelStyling.border)}
           id={id}
         >
@@ -69,7 +81,7 @@ export default function TimelineCard(props: {
         </TimelineCardByline>
 
         <TimelineCardGallery
-          gallery={[{ url: cover || "", alt: "" }]}
+          gallery={[{ url: imageUrl || "", alt: title }]}
           alt={id}
         />
       </article>

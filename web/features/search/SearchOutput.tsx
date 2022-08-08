@@ -1,6 +1,10 @@
 import clsx from "clsx"
 import { useState } from "react"
 
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/helpers/assets"
 import type { SummaryItem } from "@gs/summary"
 
 // import type { AboutInfo, Skills } from "../about"
@@ -104,7 +108,17 @@ function SearchOutputPreview({
   description,
   ...props
 }: SearchResultItemProps): JSX.Element {
-  const heroImageUrl = cover || props.gallery?.[0]?.url
+  const heroImageUrl = generateAssetTransformedUrl(
+    cover || props.gallery?.[0]?.url,
+    {
+      aspectRatio: 16 / 9,
+      width: 500,
+    },
+  )
+  const iconUrl = generateAssetTransformedUrl(
+    icon,
+    assetTransformationOptions.ICON,
+  )
 
   return (
     <>
@@ -114,9 +128,9 @@ function SearchOutputPreview({
           alt={id}
           className="mb-4 aspect-video min-h-[200px] w-full overflow-hidden object-cover"
         />
-      ) : icon ? (
+      ) : iconUrl ? (
         <img
-          src={icon}
+          src={iconUrl}
           alt={id}
           className="mb-4 min-h-[4rem] w-16 overflow-hidden rounded bg-inverse object-cover"
         />

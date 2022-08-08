@@ -2,6 +2,11 @@ import clsx from "clsx"
 
 import { Link, useNavigate } from "@remix-run/react"
 
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/helpers/assets"
+
 import type { Gallery } from "../types"
 import Accordion from "../ui/Accordion"
 import useSearch from "."
@@ -70,6 +75,11 @@ export function SearchResultItem({
     }
   }
 
+  const iconUrl = generateAssetTransformedUrl(
+    icon || cover,
+    assetTransformationOptions.ICON,
+  )
+
   return (
     <Link
       to={to}
@@ -84,9 +94,9 @@ export function SearchResultItem({
       )}
     >
       <div className="h-8 w-8">
-        {icon || cover ? (
+        {iconUrl ? (
           <img
-            src={icon || cover}
+            src={iconUrl}
             alt={id}
             className="h-full w-full rounded-sm bg-inverse object-cover"
             loading="lazy"

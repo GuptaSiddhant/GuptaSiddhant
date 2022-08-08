@@ -1,18 +1,20 @@
-import type { ExperienceProps } from "@gs/experiences/types"
 import { sortByDate } from "@gs/helpers"
 import type { TocItem } from "@gs/helpers/table-of-contents"
 
-import type { LifeLineItem, LifeLineItems } from "."
+type ExperienceProps = any
+type LifeLineItem = any
 
 export function createLifeline(
   items: ExperienceProps[],
   selectedTags: string[] = [],
-): LifeLineItems {
+): LifeLineItem[] {
   const filteredItems =
     selectedTags.length > 0
       ? items.filter((item) =>
           item.tags
-            ? item.tags.some((tag) => selectedTags.includes(tag.toLowerCase()))
+            ? item.tags.some((tag: string) =>
+                selectedTags.includes(tag.toLowerCase()),
+              )
             : true,
         )
       : items
@@ -22,7 +24,7 @@ export function createLifeline(
     sortByDate(a[sortBy], b[sortBy]),
   )
 
-  const lifeline: LifeLineItems = []
+  const lifeline: LifeLineItem[] = []
 
   // Start with an year in the future
   let currentYear: number = new Date().setFullYear(

@@ -2,7 +2,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 
 import { ONE_DAY_IN_S } from "@gs/constants"
-import { generateTransformedAssetUrl } from "@gs/helpers/assets"
+import { generateCloudinaryUrl } from "@gs/helpers/assets"
 import { appLogger } from "@gs/service/logger.server"
 import Storage from "@gs/service/storage.server"
 import invariant from "@gs/utils/invariant"
@@ -68,9 +68,8 @@ async function assetLoader(
   }
 
   if (assetRedirectExts.some((ext) => path.endsWith(ext))) {
-    console.log("Asset", { path, params })
     if (await Storage.queryAssetExists(path)) {
-      return redirect(generateTransformedAssetUrl(path, params), 301)
+      return redirect(generateCloudinaryUrl(path, params), 301)
     }
   }
 

@@ -1,6 +1,10 @@
 import PreviewIcon from "remixicon-react/EyeLineIcon"
 import SaveIcon from "remixicon-react/Save2FillIcon"
 
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/helpers/assets"
 import { DeleteIcon, RefreshIcon } from "@gs/icons"
 import { type Model } from "@gs/models"
 import type { NavigationLinkProps } from "@gs/navigation/types"
@@ -112,9 +116,18 @@ function EditorHeader({
 }: EditorHeaderProps): JSX.Element | null {
   if (!icon) return <strong>{id}</strong>
 
+  const iconUrl = generateAssetTransformedUrl(icon, {
+    ...assetTransformationOptions.ICON,
+    dpr: 1,
+  })
+
   return (
     <div className="flex items-center gap-2">
-      <img src={icon} className="h-6 w-6 rounded-sm  object-cover" alt={id} />
+      <img
+        src={iconUrl}
+        className="h-6 w-6 rounded-sm  object-cover"
+        alt={id}
+      />
       <strong>{id}</strong>
     </div>
   )

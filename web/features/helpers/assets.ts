@@ -1,12 +1,10 @@
-const cloudinaryBaseUrl =
-  "https://guptasiddhant.mo.cloudinary.net/firebase-storage/"
-const defaultCloudinaryTransformations = ["f_auto", "fl_progressive"]
-
-export function generateTransformedAssetUrl(
+export function generateCloudinaryUrl(
   path: string,
   transformations?: Record<string, string>,
 ) {
-  const transformationsList = defaultCloudinaryTransformations
+  const cloudinaryBaseUrl =
+    "https://guptasiddhant.mo.cloudinary.net/firebase-storage/"
+  const transformationsList: string[] = []
   Object.entries(transformations || {}).forEach(([key, value]) => {
     transformationsList.push(`${key}_${value}`)
   })
@@ -41,7 +39,7 @@ export interface AssetTransformationOptions {
 
 export function generateAssetTransformations(
   options: AssetTransformationOptions,
-  returnAsObject: false | undefined,
+  returnAsObject?: false | undefined,
 ): string
 export function generateAssetTransformations(
   options: AssetTransformationOptions,
@@ -52,25 +50,50 @@ export function generateAssetTransformations(
   returnAsObject?: boolean,
 ): any {
   // https://cloudinary.com/documentation/media_optimizer_transformations#supported_transformations
-  const transformations = new URLSearchParams()
+  const transformations = new URLSearchParams({ f: "auto", fl: "progressive" })
 
   // https://cloudinary.com/documentation/resizing_and_cropping
   transformations.append("c", options.resize || "fill") // crop/resize
-  transformations.append("dpr", options.dpr?.toFixed(2) || "auto")
+  transformations.append("dpr", options.dpr?.toString() || "auto")
   if (options.resizeOrigin) transformations.append("g", options.resizeOrigin)
-  if (options.width) transformations.append("w", options.width.toFixed(2))
-  if (options.height) transformations.append("h", options.height.toFixed(2))
+  if (options.width) transformations.append("w", options.width.toString())
+  if (options.height) transformations.append("h", options.height.toString())
   if (options.aspectRatio)
-    transformations.append("ar", options.aspectRatio.toFixed(2))
+    transformations.append("ar", options.aspectRatio.toString())
 
   // https://cloudinary.com/documentation/image_optimization#how_to_optimize_image_quality
   transformations.append(
     "q",
     typeof options.quality === "number"
-      ? options.quality.toFixed(2)
+      ? options.quality.toString()
       : options.quality || "auto",
   )
 
+  transformations.sort()
+
   if (returnAsObject) return Object.fromEntries(transformations)
   return transformations.toString()
+}
+
+export function generateAssetTransformedUrl(
+  url: string,
+  options?: AssetTransformationOptions,
+): string
+export function generateAssetTransformedUrl(
+  url: string | undefined,
+  options?: AssetTransformationOptions,
+): string | undefined
+export function generateAssetTransformedUrl(
+  url: string | undefined,
+  options?: AssetTransformationOptions,
+) {
+  if (!url) return undefined
+  return url + "?" + generateAssetTransformations(options || {})
+}
+
+export const assetTransformationOptions: Record<
+  "ICON",
+  AssetTransformationOptions
+> = {
+  ICON: { aspectRatio: 1, height: 50, dpr: 2, resize: "fit" },
 }

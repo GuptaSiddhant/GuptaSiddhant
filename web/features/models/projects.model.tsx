@@ -30,7 +30,7 @@ const model = transformSchemaInModel(schema)
 
 const styling: ModelStyling = {
   bg: clsx("bg-green-500"),
-  text: clsx("text-green-500"),
+  text: clsx("text-green-600"),
   border: clsx("border-green-500"),
   borderHocus: clsx("group-hocus:border-green-500 selected:border-green-500"),
   icon: <ProjectsIcon />,

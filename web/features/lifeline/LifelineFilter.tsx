@@ -8,12 +8,10 @@ import Select from "@gs/ui/Select"
 import Tags from "@gs/ui/Tags"
 import { capitalize } from "@gs/utils/format"
 
-import type { LifeLineCategory } from "."
-
 export interface LifelineFilterProps {
   tags: string[]
   selectedTags: string[]
-  selectedCategory: LifeLineCategory
+  selectedCategory: string
 }
 
 export default function LifelineFilter({
