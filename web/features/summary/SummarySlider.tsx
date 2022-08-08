@@ -1,5 +1,6 @@
 import clsx from "clsx"
-import { useRef } from "react"
+import { useCallback, useRef } from "react"
+import type { RemixiconReactIconComponentType } from "remixicon-react"
 import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon"
 import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon"
 
@@ -24,7 +25,7 @@ export default function SummarySlider(
 ): JSX.Element | null {
   const { children, crossSell, items, ...rest } = props
 
-  const elementRef = useRef<HTMLDivElement>(null)
+  const sliderRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLElement>(null)
 
   const cardWidth = useElementStore(
@@ -32,6 +33,20 @@ export default function SummarySlider(
     "load",
     () => (cardRef.current?.getBoundingClientRect().width || 0) + 10,
     () => 0,
+  )
+
+  const { scrollDistanceRatio, isScrollCompleted, isScrollStarted } =
+    useScrollElement(sliderRef, {
+      direction: ScrollDirection.HORIZONTAL,
+    })
+
+  const scrollSliderByCardWidth = useCallback(
+    (next: boolean) =>
+      sliderRef.current?.scrollBy({
+        behavior: "smooth",
+        left: cardWidth * (next ? 1 : -1),
+      }),
+    [cardWidth],
   )
 
   if (items.length === 0) return null
@@ -46,13 +61,13 @@ export default function SummarySlider(
 
       <main className="relative">
         <div
-          ref={elementRef}
+          ref={sliderRef}
           className={clsx(
-            "flex gap-4 sm:gap-10",
-            "w-full overflow-auto py-4",
+            "flex gap-4 sm:gap-8",
+            "w-full overflow-auto p-8 pt-4",
             "hide-scroll snap-x snap-mandatory",
           )}
-          style={{ paddingLeft: `max(1rem, calc((100vw - 64ch) / 2))` }}
+          style={{ paddingInline: `max(1rem, calc((100vw - 64ch) / 2))` }}
         >
           {items.map((item) => (
             <SummarySliderCard
@@ -65,76 +80,21 @@ export default function SummarySlider(
         </div>
 
         <SummarySliderOverlay
-          sliderRef={elementRef}
-          scrollByDistance={cardWidth}
-          direction="left"
-        >
-          <ArrowLeftIcon size={48} />
-        </SummarySliderOverlay>
-
+          direction="previous"
+          isDisabled={!isScrollStarted}
+          scrollDistanceRatio={scrollDistanceRatio}
+          scrollSlider={scrollSliderByCardWidth}
+          Icon={ArrowLeftIcon}
+        />
         <SummarySliderOverlay
-          sliderRef={elementRef}
-          scrollByDistance={cardWidth}
-          direction="right"
-        >
-          <ArrowRightIcon size={48} />
-        </SummarySliderOverlay>
+          direction="next"
+          isDisabled={isScrollCompleted}
+          scrollDistanceRatio={1 - scrollDistanceRatio}
+          scrollSlider={scrollSliderByCardWidth}
+          Icon={ArrowRightIcon}
+        />
       </main>
     </Section>
-  )
-}
-
-function SummarySliderOverlay({
-  direction,
-  scrollByDistance,
-  sliderRef,
-
-  children,
-}: {
-  direction: "right" | "left"
-  scrollByDistance: number
-  sliderRef: React.RefObject<HTMLElement>
-
-  children: React.ReactNode
-}): JSX.Element {
-  const { scrollDistanceRatio, isScrollCompleted, isScrollStarted } =
-    useScrollElement(sliderRef, {
-      direction: ScrollDirection.HORIZONTAL,
-    })
-
-  const isNext = direction === "right"
-
-  return (
-    <button
-      data-direction={direction}
-      role="presentation"
-      className={clsx(
-        "absolute top-0 bottom-0 z-[1]",
-        "from-inverse to-transparent",
-        isNext ? "right-0 bg-gradient-to-l" : "left-0 bg-gradient-to-r",
-      )}
-      style={{
-        width: `calc(8vw * ${
-          isNext ? 1 - scrollDistanceRatio : scrollDistanceRatio
-        })`,
-      }}
-      onClick={() =>
-        sliderRef.current?.scrollBy({
-          behavior: "smooth",
-          left: scrollByDistance * (isNext ? 1 : -1),
-        })
-      }
-    >
-      <div
-        className={clsx(
-          "absolute",
-          isNext ? "right-1" : "left-1",
-          isNext ? isScrollCompleted && "hidden" : !isScrollStarted && "hidden",
-        )}
-      >
-        {children}
-      </div>
-    </button>
   )
 }
 
@@ -179,5 +139,51 @@ function SummarySliderCard({
         <Sticker {...item} />
       </article>
     </Link>
+  )
+}
+
+interface SummarySliderOverlayProps {
+  direction: "next" | "previous"
+  scrollDistanceRatio: number
+  isDisabled: boolean
+  scrollSlider: (isNext: boolean) => void
+  Icon: RemixiconReactIconComponentType
+}
+
+function SummarySliderOverlay({
+  direction,
+  scrollDistanceRatio,
+  scrollSlider,
+  isDisabled,
+  Icon,
+}: SummarySliderOverlayProps): JSX.Element {
+  const isNext = direction === "next"
+
+  return (
+    <button
+      data-direction={direction}
+      role="presentation"
+      className={clsx(
+        "absolute top-0 bottom-0 z-[1]",
+        "from-inverse to-transparent text-secondary",
+        isNext ? "right-0 bg-gradient-to-l" : "left-0 bg-gradient-to-r",
+      )}
+      style={{
+        width: ` calc(max(8vw, 4rem) * ${scrollDistanceRatio})`,
+      }}
+      onClick={() => scrollSlider(isNext)}
+      disabled={isDisabled}
+    >
+      <Icon
+        size="3rem"
+        className={clsx(
+          "transition-[opacity_transform] duration-300",
+          "absolute -translate-y-1/2 drop-shadow-icon",
+          "transform-gpu hover:scale-110",
+          isNext ? "right-1" : "left-1",
+          isDisabled && "opacity-0",
+        )}
+      />
+    </button>
   )
 }

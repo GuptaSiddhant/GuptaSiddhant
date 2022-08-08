@@ -35,6 +35,7 @@ const config = {
     },
     extend: {
       colors: {
+        DEFAULT: `var(--color-text-default)`,
         default: `var(--color-text-default)`,
         primary: `var(--color-text-primary)`,
         secondary: `var(--color-text-secondary)`,
@@ -47,6 +48,7 @@ const config = {
         negative: `var(--color-text-negative)`,
       },
       backgroundColor: {
+        DEFAULT: `var(--color-bg-default)`,
         default: `var(--color-bg-default)`,
         primary: `var(--color-bg-primary)`,
         secondary: `var(--color-bg-secondary)`,
@@ -59,14 +61,17 @@ const config = {
         float: `var(--color-bg-float)`,
       },
       borderColor: {
-        highlight: "highlight",
+        DEFAULT: `var(--color-border-divider)`,
         divider: `var(--color-border-divider)`,
+        highlight: "highlight",
       },
       fill: ({ theme }) => ({
         bg: theme("backgroundColor.default"),
         text: theme("textColor.default"),
       }),
-
+      dropShadow: {
+        icon: `0 2px 4px rgba(0, 0, 0, 0.5)`,
+      },
       screens: {
         "small-only": { max: "640px" },
         xs: "400px",
@@ -74,11 +79,15 @@ const config = {
         "3xl": "2200px",
       },
       animation: {
+        appear: "appear 0.2s ease-in",
         "appear-btt": "appear-btt 0.2s linear",
         "appear-rtl": "appear-rtl 0.2s ease-out",
         "disappear-ltr": "disappear-ltr 0.2s ease-in",
       },
       keyframes: {
+        appear: {
+          "0%": { opacity: 0.5 },
+        },
         "appear-btt": {
           "0%": { transform: "translateY(50%)", opacity: 0.5 },
         },
