@@ -2,12 +2,15 @@ import type { LoaderFunction } from "@remix-run/server-runtime"
 import { redirect } from "@remix-run/server-runtime"
 
 import { ONE_DAY_IN_S } from "@gs/constants"
+import { generateTransformedAssetUrl } from "@gs/helpers/assets"
 import { appLogger } from "@gs/service/logger.server"
 import Storage from "@gs/service/storage.server"
 import invariant from "@gs/utils/invariant"
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
   const path = params["*"]
+  const { searchParams } = new URL(request.url)
+
   let response: Response | void
 
   try {
@@ -16,7 +19,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     response = await redirectLoader(path)
     if (response) return response
 
-    response = await assetLoader(path)
+    response = await assetLoader(path, Object.fromEntries(searchParams))
     if (response) return response
 
     throw new Error("404")
@@ -38,15 +41,37 @@ async function redirectLoader(path: string): Promise<Response | void> {
   }
 }
 
-async function assetLoader(path: string): Promise<Response | void> {
-  const assetDownloadExts = ["png", "jpg", "jpeg", "gif", "pdf", "webp", "avif"]
-  const assetRedirectExts = ["mp4", "webm", "ogg", "mp3", "wav", "flac"]
+async function assetLoader(
+  path: string,
+  params?: Record<string, string>,
+): Promise<Response | void> {
+  const assetOriginalExts = ["mp4", "webm", "ogg", "mp3", "wav", "flac"]
+  const assetRedirectExts = [
+    "png",
+    "jpg",
+    "jpeg",
+    "gif",
+    "webp",
+    "avif",
+    "heif",
+    "heic",
+    "jp2",
+    "svg",
+  ]
+  const assetDownloadExts = ["pdf"]
 
-  if (assetRedirectExts.some((ext) => path.endsWith(ext))) {
+  if (assetOriginalExts.some((ext) => path.endsWith(ext))) {
     const url = await Storage.queryAssetPublicUrl(path)
     invariant(url, "could not get url for asset: '" + path + "'")
 
     return redirect(url)
+  }
+
+  if (assetRedirectExts.some((ext) => path.endsWith(ext))) {
+    console.log("Asset", { path, params })
+    if (await Storage.queryAssetExists(path)) {
+      return redirect(generateTransformedAssetUrl(path, params), 301)
+    }
   }
 
   if (assetDownloadExts.some((ext) => path.endsWith(ext))) {
