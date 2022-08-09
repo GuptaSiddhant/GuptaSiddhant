@@ -1,5 +1,4 @@
 import clsx from "clsx"
-import invariant from "@gs/utils/invariant"
 
 import { useLoaderData } from "@remix-run/react"
 import type {
@@ -22,6 +21,7 @@ import type { ModifyCacheMethod } from "@gs/service/cache.server"
 import {
   getCache,
   getCachedKey,
+  getCachedTypes,
   hasCachedKey,
   modifyCache,
   parseCacheKey,
@@ -29,8 +29,9 @@ import {
 import Action from "@gs/ui/Action"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { ErrorSection } from "@gs/ui/Error"
-import { Paragraph } from "@gs/ui/Text"
+import { Caption, Paragraph } from "@gs/ui/Text"
 import { transformMsToReadableString } from "@gs/utils/format"
+import invariant from "@gs/utils/invariant"
 
 interface LoaderData {
   key: string
@@ -41,16 +42,24 @@ interface LoaderData {
 }
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
+const onlyCacheTypeError = "cache-type" as const
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   await authenticateRoute(request)
   const key = params["*"]
-  invariant(key, "Cache key is required")
-  const { type, value } = parseCacheKey(key) || {}
-  invariant(type, "Cache type is invalid")
-  const isCached = hasCachedKey(key)
+  invariant(key, "Cache key is required.")
 
-  if (!isCached) return redirect(adminApp.linkPath)
+  const { type, value } = parseCacheKey(key) || {}
+  const allTypes = getCachedTypes()
+  if (!type || !allTypes.includes(type)) {
+    throw new Error(`Cache type "${type}" is invalid.`)
+  }
+
+  if (!hasCachedKey(key)) {
+    if (!value) throw new Error(onlyCacheTypeError + ":" + type)
+
+    return redirect(adminApp.linkPath + type)
+  }
 
   const data = await getCachedKey(key)
   const ttl = getCache().getRemainingTTL(key)
@@ -128,7 +137,30 @@ export default function CacheDetails(): JSX.Element | null {
 }
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Problem with Cache key" error={error} />
+  if (!error.message.startsWith(onlyCacheTypeError)) {
+    return <ErrorSection title="Problem with Cache key" error={error} />
+  }
+
+  const type = error.message.split(":")[1]
+
+  return (
+    <div className="h-full flex-col gap-4 flex-center">
+      <Caption>{type}</Caption>
+      <Paragraph className="text-disabled">
+        Pick an entry from the sidebar.
+      </Paragraph>
+      <Action
+        title={`Clear cache for '${type}'.`}
+        method="delete"
+        confirm={`Are you sure about clearing '${type}' cache?`}
+        toast={`Clearing '${type}' cache ...`}
+        action={adminApp.linkPath + type}
+        body={{ key: type }}
+      >
+        Clear cache
+      </Action>
+    </div>
+  )
 }
 
 export const meta: MetaFunction = ({ data }) => {

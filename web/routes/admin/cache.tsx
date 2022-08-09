@@ -61,7 +61,6 @@ export default function CacheAdminApp(): JSX.Element | null {
       id: type,
       label: type.toUpperCase().replace(/-/g, " "),
       showCount: true,
-      openByDefault: false,
       children: groupMap[type],
       actions: (
         <Action

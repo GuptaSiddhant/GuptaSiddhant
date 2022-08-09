@@ -20,6 +20,7 @@ export function generateNavbarGroupsFromStorageDirContents(
       id: "directories",
       label: "Directories",
       showCount: true,
+      openByDefault: true,
       children: dirs.map((dir) => ({
         id: dir,
         children: extractLastPartOfFilePath(dir),
@@ -30,6 +31,7 @@ export function generateNavbarGroupsFromStorageDirContents(
       id: "files",
       label: "Files",
       showCount: true,
+      openByDefault: true,
       children: files
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((file) => ({

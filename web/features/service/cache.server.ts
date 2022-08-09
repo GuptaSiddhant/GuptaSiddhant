@@ -28,6 +28,10 @@ export function getCachedKeys(): string[] {
   return [...getCache().keys()]
 }
 
+export function getCachedTypes(): string[] {
+  return [...new Set(getCachedKeys().map((key) => parseCacheKey(key).type))]
+}
+
 export function hasCachedKey(key: string): boolean {
   return getCache().has(key)
 }
@@ -90,9 +94,7 @@ export function createCacheKey(type: string, value: string) {
   return [type, value].filter(Boolean).join("::")
 }
 
-export function parseCacheKey(
-  key: string,
-): { type: string; value: string } | undefined {
+export function parseCacheKey(key: string): { type: string; value: string } {
   const [type, ...value] = key.split("/")
   return { type, value: value.join("/") }
 }

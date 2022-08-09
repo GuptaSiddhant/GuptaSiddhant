@@ -14,7 +14,7 @@ import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
 import { ModelName } from "@gs/models"
-import { getAboutKeys, getAboutSkills } from "@gs/models/about.server"
+import { getAboutKeys } from "@gs/models/about.server"
 import { getBlogKeys } from "@gs/models/blog.server"
 import { getCareerKeys } from "@gs/models/career.server"
 import { getEducationKeys } from "@gs/models/education.server"
@@ -63,14 +63,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function EditorAdminApp(): JSX.Element | null {
   const loaderData = useLoaderData<LoaderData>()
   const { entries } = loaderData
-  const { pathname } = useLocation()
 
   const navGroups: AdminNavbarGroupProps[] = entries.map(
     ({ id, label, keys }) => ({
       id,
       label,
       showCount: true,
-      openByDefault: pathname.includes(id),
       children: keys.map((key) => ({
         id: key,
         children: key,

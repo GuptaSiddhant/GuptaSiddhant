@@ -1,5 +1,9 @@
 import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
+import type {
+  ActionFunction,
+  ErrorBoundaryComponent,
+  LoaderFunction,
+} from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
 
 import { AdminAppId, adminRegistry } from "@gs/admin"
@@ -14,7 +18,6 @@ import invariant from "@gs/utils/invariant"
 const adminApp = adminRegistry.getApp(AdminAppId.Storage)
 
 interface LoaderData {
-  error: boolean
   collection?: string
 }
 
@@ -26,13 +29,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   const [collection, id] = path.split("/")
 
-  if (id) {
-    return json<LoaderData>({ error: true })
-  }
+  if (id) throw new Error("404")
 
   if (!Object.values(ModelName).includes(collection as ModelName)) {
     return redirect(adminApp.linkPath)
-  } else return json<LoaderData>({ error: false, collection })
+  } else return json<LoaderData>({ collection })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -50,16 +51,7 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Error404(): JSX.Element | null {
-  const { error, collection } = useLoaderData<LoaderData>()
-
-  if (error)
-    return (
-      <ErrorSection
-        caption={"Error 404"}
-        title="Editor id not found"
-        message="Oops! Looks like you tried to visit an entry that does not exist."
-      />
-    )
+  const { collection } = useLoaderData<LoaderData>()
 
   return (
     <div className="h-full flex-col gap-4 flex-center">
@@ -76,5 +68,15 @@ export default function Error404(): JSX.Element | null {
         Clear cache
       </Action>
     </div>
+  )
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = () => {
+  return (
+    <ErrorSection
+      caption={"Error 404"}
+      title="Editor id not found"
+      message="Oops! Looks like you tried to visit an entry that does not exist."
+    />
   )
 }

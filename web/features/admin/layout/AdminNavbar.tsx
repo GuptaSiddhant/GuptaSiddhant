@@ -1,10 +1,10 @@
 import clsx from "clsx"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
 import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
 
-import { NavLink } from "@remix-run/react"
+import { NavLink, useLocation } from "@remix-run/react"
 
 import useMediaQuery from "@gs/hooks/useMediaQuery"
 import type { NavigationLinkProps } from "@gs/navigation/types"
@@ -149,17 +149,26 @@ export interface AdminNavbarGroupProps {
 }
 
 function AdminNavbarGroup({
+  id,
   children,
   label,
   showCount = false,
-  openByDefault = true,
+  openByDefault,
   actions,
 }: AdminNavbarGroupProps): JSX.Element | null {
+  const { pathname } = useLocation()
+  const isPathnameMatch = pathname.includes(id)
+  const ref = useRef<HTMLElement>(null)
+  useEffect(() => {
+    isPathnameMatch && ref.current?.focus()
+  }, [isPathnameMatch])
+
   if (children.length === 0) return null
 
   return (
     <Accordion
-      open={openByDefault}
+      summaryRef={ref}
+      open={openByDefault ?? isPathnameMatch}
       summary={label}
       summaryClassName={clsx("sticky top-0 sm:rounded-none")}
       summaryLeadingElement={

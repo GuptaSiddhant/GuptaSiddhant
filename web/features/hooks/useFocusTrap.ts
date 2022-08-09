@@ -22,8 +22,10 @@ export default function useFocusTrap<T extends HTMLElement = HTMLDivElement>(
     if (e.shiftKey) {
       if (document.activeElement === firstFocusableEl) {
         e.preventDefault()
+        e.stopPropagation()
         return lastFocusableEl.focus()
       }
+      return
     }
 
     if (document.activeElement === lastFocusableEl) {

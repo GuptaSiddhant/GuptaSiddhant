@@ -8,6 +8,7 @@ export interface AccordionProps {
   summaryClassName?: string
   summaryLeadingElement?: React.ReactNode
   accordionRef?: React.Ref<HTMLDetailsElement>
+  summaryRef?: React.Ref<HTMLElement>
 }
 
 export default function Accordion({
@@ -18,6 +19,7 @@ export default function Accordion({
   summaryClassName,
   summaryLeadingElement,
   accordionRef,
+  summaryRef,
 }: AccordionProps): JSX.Element | null {
   const alwaysOpen = open === "always"
   const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "details"
@@ -34,6 +36,7 @@ export default function Accordion({
     >
       {summary && (
         <AccordionSummary
+          summaryRef={summaryRef}
           className={summaryClassName}
           alwaysOpen={alwaysOpen}
           leadingElement={summaryLeadingElement}
@@ -53,6 +56,7 @@ export interface AccordionSummaryProps {
   className?: string
   leadingElement?: React.ReactNode
   alwaysOpen?: boolean
+  summaryRef?: React.Ref<HTMLElement>
 }
 
 function AccordionSummary({
@@ -60,11 +64,13 @@ function AccordionSummary({
   className,
   leadingElement,
   alwaysOpen,
+  summaryRef,
 }: AccordionSummaryProps): JSX.Element | null {
   const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "summary"
 
   return (
     <TagName
+      ref={summaryRef as React.Ref<any>}
       className={clsx(
         className,
         "mb-1 rounded-md bg-default py-2 px-4 text-sm font-bold",

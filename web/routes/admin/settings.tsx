@@ -26,6 +26,7 @@ export default function SettingsAdminApp(): JSX.Element | null {
     {
       id: "settings",
       label: "Settings",
+      openByDefault: true,
       children: [
         {
           id: "feature-flags",

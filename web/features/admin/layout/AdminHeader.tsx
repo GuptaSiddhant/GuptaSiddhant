@@ -1,4 +1,4 @@
-import { type ReactNode } from "react"
+import { type ReactNode, useEffect, useRef } from "react"
 
 import { Link } from "@remix-run/react"
 
@@ -19,6 +19,9 @@ export default function AdminHeader({
   collapsed?: boolean
   icon: ReactNode
 }): JSX.Element {
+  const ref = useRef<HTMLAnchorElement>(null)
+  useEffect(() => ref.current?.focus(), [])
+
   if (collapsed)
     return (
       <header className="flex h-full w-full flex-col gap-4">
@@ -26,6 +29,7 @@ export default function AdminHeader({
           to={to || "."}
           title={children?.toString() || "App"}
           className="h-12 w-full border-b border-divider bg-secondary flex-center"
+          ref={ref}
         >
           {icon}
         </Link>
@@ -52,6 +56,7 @@ export default function AdminHeader({
       <Link
         className="flex items-center gap-4 overflow-hidden text-ellipsis whitespace-nowrap"
         to={to || "."}
+        ref={ref}
       >
         {children}
       </Link>

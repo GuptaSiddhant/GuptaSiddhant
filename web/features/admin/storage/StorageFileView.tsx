@@ -1,6 +1,10 @@
 import clsx from "clsx"
 
+import { useLocation } from "@remix-run/react"
+
 import AdminLayout from "@gs/admin/layout/AdminLayout"
+import { __IS_SERVER_WIN__ } from "@gs/constants"
+import useWindowStore from "@gs/hooks/useWindowStore"
 import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
 import useRootContext from "@gs/root/RootContext"
 import { type StorageFile } from "@gs/service/storage.server"
@@ -120,8 +124,15 @@ function StorageFileDataView(file: StorageFile): JSX.Element {
 function StorageFilePreview(file: StorageFile): JSX.Element | null {
   const { linkUrl, contentType, name } = file
   const type = getFileTypeFromFileContentType(contentType)
+  const originUrl = useWindowStore(
+    "load",
+    () => window.location.origin,
+    () => "http://localhost",
+  )
 
   if (!type) return null
+
+  const embedUrl = new URL(linkUrl, originUrl).toString()
 
   return (
     <Accordion
@@ -130,7 +141,7 @@ function StorageFilePreview(file: StorageFile): JSX.Element | null {
       summaryClassName="rounded-none sticky top-0"
     >
       <embed
-        src={linkUrl}
+        src={embedUrl}
         type={contentType}
         title={name}
         className={clsx(
