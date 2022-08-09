@@ -31,8 +31,11 @@ export const action: ActionFunction = async ({ request }) => {
   const redirectTo = formData.get("originPath")?.toString() || "/"
   const newThemeName = formData.get("theme")?.toString()
   const prevThemeName: ThemeName = parsedCookie.theme || DEFAULT_THEME
-
-  parsedCookie.theme = newThemeName || prevThemeName
+  if (newThemeName === "toggle") {
+    parsedCookie.theme = prevThemeName === "light" ? "dark" : "light"
+  } else {
+    parsedCookie.theme = newThemeName || prevThemeName
+  }
 
   return redirect(redirectTo, {
     headers: { "Set-Cookie": await themeCookie.serialize(parsedCookie) },

@@ -24,7 +24,7 @@ export default function HeroImage({
     icon,
     assetTransformationOptions.ICON,
   )
-  const imageUrl = generateAssetTransformedUrl(src, { quality: "good" })
+  const imageUrl = generateAssetTransformedUrl(src)
 
   return (
     <figure

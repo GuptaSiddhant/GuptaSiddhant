@@ -15,10 +15,10 @@ export default function Navigation(): JSX.Element | null {
   if (links.length === 0) return null
 
   const internalLinks = links.filter(
-    (link) => link.to && !isExternalLink(link.to.toString()),
+    (link) => link.to && !isExternalLink(link.to.toString()) && !link.external,
   )
   const externalLinks = links.filter(
-    (link) => link.to && isExternalLink(link.to.toString()),
+    (link) => (link.to && isExternalLink(link.to.toString())) || link.external,
   )
   const buttons = links.filter((link) => !link.to)
 

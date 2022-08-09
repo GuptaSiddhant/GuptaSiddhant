@@ -34,9 +34,9 @@ export const internalNavigationLinks: NavigationLinkProps[] = [
 ]
 
 export default function useNavigationLinks(): NavigationLinkProps[] {
-  const { about, themeName } = useLoaderData<RootLoaderData>()
-  const { toggleSearchOpen } = useSearch()
   const navigate = useNavigate()
+  const { toggleSearchOpen } = useSearch()
+  const { about, themeName } = useLoaderData<RootLoaderData>()
   const { email, github, linkedin } = about.link || {}
 
   const links: NavigationLinkProps[] = []

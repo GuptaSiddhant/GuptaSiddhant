@@ -30,11 +30,11 @@ export interface AssetTransformationOptions {
     | "east"
     | "west"
     | `${"north" | "south"}_${"east" | "west"}`
-  /** DPR multiplier. @default "auto" */
+  /** DPR multiplier.  */
   dpr?: number
 
-  /** Quality (integer 0-100). @default "auto" */
-  quality?: number | "good" | "best" | "auto" | "eco" | "low"
+  /** Quality (integer 0-100) */
+  quality?: number
 }
 
 export function generateAssetTransformations(
@@ -53,8 +53,10 @@ export function generateAssetTransformations(
   const transformations = new URLSearchParams({ f: "auto", fl: "progressive" })
 
   // https://cloudinary.com/documentation/resizing_and_cropping
-  transformations.append("c", options.resize || "fill") // crop/resize
-  transformations.append("dpr", options.dpr?.toString() || "auto")
+  if (Object.keys(options).length > 0) {
+    transformations.append("c", options.resize || "fill") // crop/resize
+  }
+  if (options.dpr) transformations.append("dpr", options.dpr.toString())
   if (options.resizeOrigin) transformations.append("g", options.resizeOrigin)
   if (options.width) transformations.append("w", options.width.toString())
   if (options.height) transformations.append("h", options.height.toString())
@@ -62,12 +64,7 @@ export function generateAssetTransformations(
     transformations.append("ar", options.aspectRatio.toString())
 
   // https://cloudinary.com/documentation/image_optimization#how_to_optimize_image_quality
-  transformations.append(
-    "q",
-    typeof options.quality === "number"
-      ? options.quality.toString()
-      : options.quality || "auto",
-  )
+  if (options.quality) transformations.append("q", options.quality.toString())
 
   transformations.sort()
 

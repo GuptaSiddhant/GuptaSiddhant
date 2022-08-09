@@ -2,7 +2,9 @@ import { useNavigate } from "@remix-run/react"
 
 import { isExternalLink } from "@gs/helpers"
 import useEventListener from "@gs/hooks/useEventListener"
+import type { NavigationLinkProps } from "@gs/navigation/types"
 import useNavigationLinks from "@gs/navigation/useNavigationLinks"
+import { useToggleTheme } from "@gs/theme/ThemeToggleButton"
 
 const inputTagNames = ["input", "textarea", "select"]
 
@@ -13,8 +15,16 @@ export default function Shortcuts(): JSX.Element | null {
 }
 
 function useShortcuts() {
-  const links = useNavigationLinks()
   const navigate = useNavigate()
+  const links = useNavigationLinks()
+  const shortcuts: Partial<NavigationLinkProps>[] = [
+    ...links,
+    {
+      id: "search",
+      onClick: useToggleTheme(),
+      shortcut: ["Shift", "D"],
+    },
+  ]
 
   return useEventListener("keydown", (event) => {
     const activeElement = window.document.activeElement as HTMLElement | null
@@ -27,7 +37,7 @@ function useShortcuts() {
       return
     }
 
-    links.forEach(({ shortcut, to, onClick }) => {
+    shortcuts.forEach(({ shortcut, to, onClick }) => {
       if (shortcut) {
         const shortcutLowercase = shortcut.map((key) => key.toLowerCase())
         const needShift = shortcutLowercase.includes("shift")

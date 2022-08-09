@@ -2,7 +2,7 @@ import { type LinksFunction } from "@remix-run/server-runtime"
 
 import fontStyles from "@gs/styles/font.css"
 import globalStyles from "@gs/styles/global.css"
-import prismRhemeStyles from "@gs/styles/prism-vscode-dark.css"
+import prismThemeStyles from "@gs/styles/prism-vscode-dark.css"
 import reachMenuButtonStyles from "@gs/styles/reach-menu-button.css"
 import tailwindStyles from "@gs/styles/tailwind.generated.css"
 
@@ -40,7 +40,7 @@ const links: LinksFunction = () => [
   { rel: "stylesheet", href: "/theme.css" },
   { rel: "stylesheet", href: globalStyles },
   { rel: "stylesheet", href: tailwindStyles },
-  { rel: "stylesheet", href: prismRhemeStyles },
+  { rel: "stylesheet", href: prismThemeStyles },
   { rel: "stylesheet", href: reachMenuButtonStyles },
 ]
 
