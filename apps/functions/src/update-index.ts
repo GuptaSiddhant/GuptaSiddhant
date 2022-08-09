@@ -90,6 +90,7 @@ function transformFirestoreDataToIndexItem(
     description: data.description ?? undefined,
     links: data.links || [],
     duration,
+    association: data.association || "",
 
     draft: data.draft ?? true,
     featured: data.featured ?? false,
@@ -110,6 +111,7 @@ interface IndexItemProps {
   tags?: string[]
   links?: { url: string; alt?: string }[]
   duration?: string
+  association?: string
 
   draft?: boolean
   featured?: boolean
