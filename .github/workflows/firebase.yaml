@@ -24,9 +24,9 @@ jobs:
           cache: "yarn"
 
       - name: Setup Credentials
-        run: >
-          | echo $FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM > /firebase.json;
-          | export GOOGLE_APPLICATION_CREDENTIALS="/firebase.json"
+        run: |
+          echo $FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM > /firebase.json;
+          export GOOGLE_APPLICATION_CREDENTIALS="/firebase.json";
 
       - name: Install dependencies
         run: yarn workspaces focus functions
