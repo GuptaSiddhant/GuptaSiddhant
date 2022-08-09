@@ -32,5 +32,4 @@ jobs:
         run: yarn workspaces focus functions
 
       - name: Deploy to Firebase
-        working-directory: ./apps/functions
-        run: yarn deploy
+        run: yarn deploy:functions

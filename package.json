@@ -27,7 +27,8 @@
     "test": "vitest run --dir web",
     "test:dev": "vitest dev --dir web",
     "test:coverage": "vitest run --dir web --coverage",
-    "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json;"
+    "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json",
+    "deploy:functions": "yarn workspace functions deploy"
   },
   "sideEffects": false,
   "engines": {
