@@ -1,4 +1,4 @@
-import { type ModelName } from "@gs/service/database.server"
+import { type ModelName } from "@gs/models"
 import { type LinkObject } from "@gs/types"
 
 export interface SummaryItem {
@@ -15,6 +15,7 @@ export interface SummaryItem {
   links?: LinkObject[]
   linkUrl?: string
   duration?: string
+  association?: string
 
   draft?: boolean
   featured?: boolean

@@ -5,6 +5,7 @@ import { querySummaryItemsByModelName } from "@gs/summary/service.server"
 import { generateDurationString } from "@gs/utils/format"
 
 import type { EducationProps } from "./education.model"
+import { getProjectsSummaryItems } from "./projects.server"
 
 const modelName = ModelName.Education
 const db = new Database<EducationProps>(modelName)
@@ -23,6 +24,14 @@ export async function getEducationKeys() {
 
 export async function getEducationSummaryItems() {
   return querySummaryItemsByModelName(modelName)
+}
+
+export async function getEducationAssociatedProjects(id: string) {
+  const projects = await getProjectsSummaryItems()
+
+  return projects.filter(
+    ({ association }) => association === `${modelName}/${id}`,
+  )
 }
 
 // Get original item

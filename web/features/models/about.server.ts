@@ -38,7 +38,11 @@ export async function getAboutSkills() {
 export { AboutInfo, Skills }
 
 export function redirectToAbout(path?: string) {
-  const pathWithoutSlash = path?.split("/").slice(0, -1).join("-") || ""
+  const pathWithoutSlash =
+    path
+      ?.split("/")
+      .filter((t) => t !== "")
+      .join("-") || ""
 
   return redirect(`/about/#${pathWithoutSlash}`, 301)
 }
