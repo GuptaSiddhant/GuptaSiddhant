@@ -1,10 +1,10 @@
-import Database from "@gs/service/database.server"
 import { ModelName } from "@gs/models"
+import Database from "@gs/service/database.server"
 import { type SummaryItem } from "@gs/summary"
 import { querySummaryItemsByModelName } from "@gs/summary/service.server"
+import { generateDurationString } from "@gs/utils/format"
 
 import type { CareerProps } from "./career.model"
-import { generateDurationString } from "./helpers"
 
 const modelName = ModelName.Career
 const db = new Database<CareerProps>(modelName)

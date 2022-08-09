@@ -4,22 +4,18 @@ import EducationIcon from "remixicon-react/BookFillIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { transformSchemaInModel } from "./helpers/model.helpers"
-import type { ModelStyling } from "./helpers/model.types"
-import { commonCareerEducationSchema } from "./helpers/schema.helpers"
-import type { Schema } from "./helpers/schema.types"
+import { commonCareerEducationModel } from "./helpers"
+import type { Model, ModelStyling } from "./helpers/model.types"
 
-const schema: Schema = {
+const model: Model = {
   type: "object",
   properties: {
-    ...commonCareerEducationSchema.properties,
-    degree: { type: "string", required: true },
-    field: { type: "string", required: true },
-    school: { type: "string", required: true },
+    ...commonCareerEducationModel.properties,
+    degree: { type: "string", required: true, size: "medium" },
+    field: { type: "string", required: true, size: "medium" },
+    school: { type: "string", required: true, size: "medium" },
   },
 }
-
-const model = transformSchemaInModel(schema)
 
 const styling: ModelStyling = {
   bg: clsx("bg-red-500"),
@@ -29,7 +25,7 @@ const styling: ModelStyling = {
   icon: <EducationIcon />,
 }
 
-export default { schema, model, styling }
+export default { model, styling }
 
 export interface EducationProps extends Omit<SummaryItem, "title" | "model"> {
   degree: string

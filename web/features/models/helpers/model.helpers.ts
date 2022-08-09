@@ -1,10 +1,8 @@
 import type {
-  Model,
-  ModelArrayType,
   ModelProperties,
+  ModelProperty,
   ModelScalerType,
 } from "./model.types"
-import type { Schema } from "./schema.types"
 
 export function getDataFromModelObject(
   keys: string[],
@@ -56,9 +54,29 @@ export function getDataFromModelObject(
 export function getDataFromModelArray(
   modelKey: string,
   formData: FormData,
-  items: ModelArrayType<any>,
+  items: ModelProperty<any>,
 ) {
-  if (items.type !== "object") {
+  if (items.type === "object") {
+    const formKeysArray = [...formData.keys()]
+      .filter((k) => k.startsWith(modelKey))
+      .reduce((acc, k) => {
+        const [modelKey, indexStr] = k.split(".")
+        const index = Number.parseInt(indexStr, 10)
+        acc[index] =
+          acc[index] ||
+          Object.keys(items.properties).map((x) => `${modelKey}.${index}.${x}`)
+
+        return acc
+      }, [])
+
+    const values = formKeysArray.map((formKeys) =>
+      getDataFromModelObject(formKeys, formData, items.properties, []),
+    )
+
+    return values
+  }
+
+  if (items.type !== "array") {
     const formValue = formData.get(modelKey)?.toString()
     if (!formValue) return
 
@@ -69,23 +87,7 @@ export function getDataFromModelArray(
       .map((val) => getScalerValue(items, val))
   }
 
-  const formKeysArray = [...formData.keys()]
-    .filter((k) => k.startsWith(modelKey))
-    .reduce((acc, k) => {
-      const [modelKey, indexStr] = k.split(".")
-      const index = Number.parseInt(indexStr, 10)
-      acc[index] =
-        acc[index] ||
-        Object.keys(items.properties).map((x) => `${modelKey}.${index}.${x}`)
-
-      return acc
-    }, [])
-
-  const values = formKeysArray.map((formKeys) =>
-    getDataFromModelObject(formKeys, formData, items.properties, []),
-  )
-
-  return values
+  // TODO: handle array of arrays
 }
 
 function getScalerValue({ type }: ModelScalerType, value: string) {
@@ -94,20 +96,4 @@ function getScalerValue({ type }: ModelScalerType, value: string) {
     : type === "number"
     ? parseFloat(value)
     : value
-}
-
-export function transformSchemaInModel(schema: Schema): Model {
-  const model = {
-    type: "object",
-    properties: schema.properties || {},
-  }
-
-  // const required = schema.required || []
-  // Object.keys(model.properties).forEach((key) => {
-  //   const optional = required.indexOf(key) === -1
-  //   ;(model.properties[key] as any).optional = optional
-  //   ;(model.properties[key] as any).required = !optional
-  // })
-
-  return model as Model
 }

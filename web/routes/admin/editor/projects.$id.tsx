@@ -7,11 +7,15 @@ import EditorPage from "@gs/admin/editor/EditorPage"
 import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
 import { type Model, type ModelName, getModelByModelName } from "@gs/models"
-import { getCareerKeys } from "@gs/models/career.server"
-import { getEducationKeys } from "@gs/models/education.server"
+import { getCareerKeys, getCareerModelName } from "@gs/models/career.server"
+import {
+  getEducationKeys,
+  getEducationModelName,
+} from "@gs/models/education.server"
 import {
   type ProjectProps,
   getProject,
+  getProjectAssociationKeys,
   getProjectsModelName,
 } from "@gs/models/projects.server"
 import { authenticateRoute } from "@gs/service/auth.server"
@@ -40,14 +44,12 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const item = await getProject(id)
     invariant(item, "Projects item not found.")
 
-    const assocKeys = (
-      await Promise.all([getEducationKeys(), getCareerKeys()])
-    ).flat()
+    const assocKeys = await getProjectAssociationKeys()
 
     // Add options to association property
     model.properties["association"] = {
+      ...(model.properties["association"] || {}),
       type: "string",
-      optional: true,
       enum: ["", ...assocKeys],
     }
 

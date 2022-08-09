@@ -1,7 +1,6 @@
-import { transformSchemaInModel } from "./helpers/model.helpers"
-import type { Schema } from "./helpers/schema.types"
+import type { Model } from "./helpers/model.types"
 
-const schema: Schema = {
+const model: Model = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
@@ -12,7 +11,7 @@ const schema: Schema = {
       type: "object",
       required: true,
       properties: {
-        code: { type: "string", contentMediaType: "code", required: true },
+        code: { type: "string", format: "code", required: true },
         copyText: { type: "string" },
       },
     },
@@ -45,9 +44,7 @@ const schema: Schema = {
   },
 }
 
-const model = transformSchemaInModel(schema)
-
-export default { schema, model }
+export default { model }
 
 export interface AboutInfo {
   id: string

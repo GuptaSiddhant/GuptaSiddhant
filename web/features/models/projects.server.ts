@@ -3,8 +3,16 @@ import Database from "@gs/service/database.server"
 import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary"
 import { querySummaryItemsByModelName } from "@gs/summary/service.server"
 
-import { getCareerItem } from "./career.server"
-import { getEducationItem } from "./education.server"
+import {
+  getCareerItem,
+  getCareerKeys,
+  getCareerModelName,
+} from "./career.server"
+import {
+  getEducationItem,
+  getEducationKeys,
+  getEducationModelName,
+} from "./education.server"
 import type { ProjectProps } from "./projects.model"
 
 const modelName = ModelName.Projects
@@ -42,10 +50,29 @@ export async function getProjectCrossSell(
   return getCrossSellSummaryItems(items, id).slice(0, limit)
 }
 
+export async function getProjectAssociationKeys() {
+  const keysList = await Promise.all([
+    getEducationKeys().then((keys) =>
+      keys.map((k) => `${getEducationModelName()}/${k}`),
+    ),
+    getCareerKeys().then((keys) =>
+      keys.map((k) => `${getCareerModelName()}/${k}`),
+    ),
+  ])
+
+  return keysList.flat().sort()
+}
+
 export async function getProjectAssociationById(
   assocId?: string,
 ): Promise<SummaryItem | undefined> {
   if (!assocId) return undefined
+
+  if (assocId.includes("/")) {
+    const [modelName, id] = assocId.split("/")
+
+    return Database.queryModelById(modelName, id) as any
+  }
 
   const [educationItem, careerItem] = await Promise.allSettled([
     getEducationItem(assocId, true),

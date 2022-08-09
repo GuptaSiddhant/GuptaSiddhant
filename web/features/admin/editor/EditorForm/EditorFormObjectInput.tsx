@@ -35,7 +35,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
   const formTextEntries = formEntries
     .filter(
       ([_, modelProp]) =>
-        (modelProp.type === "string" && !modelProp.contentMediaType) ||
+        (modelProp.type === "string" && !modelProp.format) ||
         modelProp.type === "number",
     )
     .sort(sortRequiredPredicate)
@@ -43,15 +43,14 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
   const formMarkdownEntries = formEntries
     .filter(
       ([_, modelProp]) =>
-        modelProp.type === "string" &&
-        modelProp.contentMediaType === "markdown",
+        modelProp.type === "string" && modelProp.format === "markdown",
     )
     .sort(sortRequiredPredicate)
 
   const formCodeEntries = formEntries
     .filter(
       ([_, modelProp]) =>
-        modelProp.type === "string" && modelProp.contentMediaType === "code",
+        modelProp.type === "string" && modelProp.format === "code",
     )
     .sort(sortRequiredPredicate)
 
@@ -67,6 +66,15 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
     .filter(([_, modelProp]) => modelProp.type === "object")
     .sort(sortRequiredPredicate)
 
+  const colClassName = (size?: string) =>
+    clsx(
+      size === "medium"
+        ? "col-span-2"
+        : size === "large"
+        ? "col-span-full"
+        : "",
+    )
+
   return (
     <>
       {formTextEntries.length > 0 &&
@@ -77,7 +85,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
             defaultValue={item?.[key as keyof T] as any}
             required={modelProp.required}
             options={"enum" in modelProp ? modelProp.enum : []}
-            className="col-span-2"
+            className={colClassName(modelProp.size)}
           />
         ))}
       {formBooleanEntries.length > 0 &&
@@ -90,6 +98,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
                 newItem ? modelProp.default : (item?.[key as keyof T] as any)
               }
               required={modelProp.required}
+              className={colClassName(modelProp.size)}
             />
           ) : null,
         )}

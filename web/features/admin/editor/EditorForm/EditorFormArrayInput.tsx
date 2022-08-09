@@ -3,8 +3,8 @@ import { useState } from "react"
 
 import { DeleteIcon } from "@gs/icons"
 import type {
-  ModelArrayType,
   ModelProperties,
+  ModelProperty,
 } from "@gs/models/helpers/model.types"
 import Button from "@gs/ui/Button"
 import { toTitleCase } from "@gs/utils/format"
@@ -19,7 +19,7 @@ export default function EditorFormArrayInput({
   item,
 }: {
   name: string
-  list?: ModelArrayType<any>
+  list?: ModelProperty<any>
   item?: any
   required?: boolean
 }): JSX.Element | null {

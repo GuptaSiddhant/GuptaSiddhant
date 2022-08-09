@@ -34,6 +34,7 @@ export default function EditorFormTextInput(
       <Select
         id={id}
         label={labelElement}
+        className={className}
         name={name}
         disabled={readOnly}
         defaultValue={defaultValue}
@@ -56,7 +57,7 @@ export default function EditorFormTextInput(
       <Input
         id={id}
         label={labelElement}
-        labelClassName={clsx("flex flex-col")}
+        labelClassName={clsx(className, "flex flex-col")}
         type="date"
         pattern="^\\d{4}-\\d{2}-\\d{2}$"
         placeholder="YYYY-MM-DD"

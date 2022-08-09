@@ -1,7 +1,6 @@
-import { transformSchemaInModel } from "./helpers/model.helpers"
-import type { Schema } from "./helpers/schema.types"
+import type { Model, ModelArrayType } from "./helpers/model.types"
 
-const skillSchema: Schema = {
+const skillModel: ModelArrayType<object> = {
   type: "array",
   items: {
     type: "object",
@@ -18,21 +17,19 @@ const skillSchema: Schema = {
   },
 }
 
-const schema: Schema = {
+const model: Model = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
-    soft: skillSchema,
-    frontend: skillSchema,
-    backend: skillSchema,
-    design: skillSchema,
-    language: skillSchema,
+    soft: skillModel,
+    frontend: skillModel,
+    backend: skillModel,
+    design: skillModel,
+    language: skillModel,
   },
 }
 
-const model = transformSchemaInModel(schema)
-
-export default { schema, model }
+export default { model }
 
 export interface Skills extends Record<SkillCategory, SkillObject[]> {
   id: string

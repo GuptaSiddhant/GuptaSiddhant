@@ -4,25 +4,21 @@ import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { transformSchemaInModel } from "./helpers/model.helpers"
-import type { ModelStyling } from "./helpers/model.types"
-import { commonCareerEducationSchema } from "./helpers/schema.helpers"
-import type { Schema } from "./helpers/schema.types"
+import { commonCareerEducationModel } from "./helpers"
+import type { Model, ModelStyling } from "./helpers/model.types"
 
-const schema: Schema = {
+const model: Model = {
   type: "object",
   properties: {
-    ...commonCareerEducationSchema.properties,
-    position: { type: "string", required: true },
-    company: { type: "string", required: true },
+    ...commonCareerEducationModel.properties,
+    position: { type: "string", required: true, size: "medium" },
+    company: { type: "string", required: true, size: "medium" },
     type: {
       type: "string",
       enum: ["full-time", "part-time", "freelancer", "intern", "contract"],
     },
   },
 }
-
-const model = transformSchemaInModel(schema)
 
 const styling: ModelStyling = {
   bg: clsx("bg-purple-500"),
@@ -32,7 +28,7 @@ const styling: ModelStyling = {
   icon: <CareerIcon />,
 }
 
-export default { schema, model, styling }
+export default { model, styling }
 
 export enum CareerRoleType {
   FullTime = "full-time",

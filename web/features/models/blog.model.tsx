@@ -4,20 +4,16 @@ import BlogIcon from "remixicon-react/QuillPenLineIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { transformSchemaInModel } from "./helpers/model.helpers"
-import type { ModelStyling } from "./helpers/model.types"
-import { commonBlogProjectSchema } from "./helpers/schema.helpers"
-import type { Schema } from "./helpers/schema.types"
+import { commonBlogProjectModel } from "./helpers"
+import type { Model, ModelStyling } from "./helpers/model.types"
 
-const schema: Schema = {
+const model: Model = {
   type: "object",
   properties: {
-    ...commonBlogProjectSchema.properties,
+    ...commonBlogProjectModel.properties,
     date: { type: "string", required: true },
   },
 }
-
-const model = transformSchemaInModel(schema)
 
 const styling: ModelStyling = {
   bg: clsx("bg-blue-500"),
@@ -27,7 +23,7 @@ const styling: ModelStyling = {
   icon: <BlogIcon />,
 }
 
-export default { schema, model, styling }
+export default { model, styling }
 
 export interface BlogPostProps extends SummaryItem {
   content?: string
