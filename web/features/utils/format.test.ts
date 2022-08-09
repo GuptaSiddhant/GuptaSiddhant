@@ -12,6 +12,7 @@ import {
   formatUnit,
   formatYYYYMMDD,
   toKebabCase,
+  toTitleCase,
   transformMsToReadableString,
 } from "./format"
 
@@ -115,8 +116,14 @@ describe("Formatting string", () => {
   })
 
   test("toKebabCase", () => {
-    expect(toKebabCase("helloWorld 123")).toMatchInlineSnapshot(
-      '"hello-world-123"',
+    expect(toKebabCase("helloWorld 123  000")).toMatchInlineSnapshot(
+      '"hello-world-123-000"',
+    )
+  })
+
+  test("toTitleCase", () => {
+    expect(toTitleCase("helloWorld 123  000")).toMatchInlineSnapshot(
+      '"Hello world 123 000"',
     )
   })
 

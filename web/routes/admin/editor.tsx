@@ -14,7 +14,7 @@ import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
 import { ModelName } from "@gs/models"
-import { getAboutKeys } from "@gs/models/about.server"
+import { getAboutKeys, getAboutSkills } from "@gs/models/about.server"
 import { getBlogKeys } from "@gs/models/blog.server"
 import { getCareerKeys } from "@gs/models/career.server"
 import { getEducationKeys } from "@gs/models/education.server"
@@ -32,7 +32,7 @@ export interface LoaderData {
     id: ModelName
     label: string
     keys: string[]
-    disableNew?: boolean
+    allowNew?: boolean
   }[]
 }
 
@@ -48,32 +48,11 @@ export const loader: LoaderFunction = async ({ request }) => {
     ])
 
   const allEditableEntries: LoaderData["entries"] = [
-    {
-      id: ModelName.About,
-      label: "About",
-      keys: aboutKeys,
-      disableNew: true,
-    },
-    {
-      id: ModelName.Career,
-      label: "Career",
-      keys: careerKeys,
-    },
-    {
-      id: ModelName.Education,
-      label: "Education",
-      keys: educationKeys,
-    },
-    {
-      id: ModelName.Blog,
-      label: "Blog",
-      keys: blogKeys,
-    },
-    {
-      id: ModelName.Projects,
-      label: "Project",
-      keys: projectsKeys,
-    },
+    { id: ModelName.About, label: "About", keys: aboutKeys, allowNew: false },
+    { id: ModelName.Career, label: "Career", keys: careerKeys },
+    { id: ModelName.Education, label: "Education", keys: educationKeys },
+    { id: ModelName.Blog, label: "Blog", keys: blogKeys },
+    { id: ModelName.Projects, label: "Project", keys: projectsKeys },
   ].sort((a, b) => a.label.localeCompare(b.label))
 
   return json<LoaderData>({
@@ -106,7 +85,7 @@ export default function EditorAdminApp(): JSX.Element | null {
       children: (
         <Menu
           actions={entries
-            .filter((e) => !e.disableNew)
+            .filter((e) => e.allowNew !== false)
             .map((e) => ({
               id: e.id,
               children: "New " + e.label,

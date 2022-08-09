@@ -21,16 +21,8 @@ export function getDataFromModelObject(
     const modelProperty = properties[modelKey]
     if (!modelProperty) return
 
-    if (modelProperty.type !== "array") {
-      const formValue = formData.get(key)?.toString()
-      if (!formValue && modelProperty.type !== "boolean") return
-
-      data[modelKey] = getScalerValue(modelProperty, formValue || "")
-      return
-    }
-
     // array
-    if (modelProperty.type === "array" && modelProperty.items) {
+    if (modelProperty.type === "array") {
       const value = getDataFromModelArray(
         modelKey,
         formData,
@@ -39,6 +31,23 @@ export function getDataFromModelObject(
       if (value) data[modelKey] = value
       return
     }
+
+    if (modelProperty.type === "object") {
+      const value = getDataFromModelObject(
+        Object.keys(modelProperty.properties),
+        formData,
+        modelProperty.properties,
+      )
+      if (value) data[modelKey] = value
+      return
+    }
+
+    // scaler
+
+    const formValue = formData.get(key)?.toString()
+    if (!formValue && modelProperty.type !== "boolean") return
+
+    data[modelKey] = getScalerValue(modelProperty, formValue || "")
   })
 
   return data
@@ -93,12 +102,12 @@ export function transformSchemaInModel(schema: Schema): Model {
     properties: schema.properties || {},
   }
 
-  const required = schema.required || []
-  Object.keys(model.properties).forEach((key) => {
-    const optional = required.indexOf(key) === -1
-    ;(model.properties[key] as any).optional = optional
-    ;(model.properties[key] as any).required = !optional
-  })
+  // const required = schema.required || []
+  // Object.keys(model.properties).forEach((key) => {
+  //   const optional = required.indexOf(key) === -1
+  //   ;(model.properties[key] as any).optional = optional
+  //   ;(model.properties[key] as any).required = !optional
+  // })
 
   return model as Model
 }

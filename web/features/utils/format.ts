@@ -12,9 +12,13 @@ export function capitalize(str: string): string {
 export function toKebabCase(str: string): string {
   return str
     .replace(/([a-z])([A-Z])/g, "$1-$2")
-    .replace(new RegExp(" ", "g"), "-")
+    .replace(new RegExp(" +", "g"), "-")
     .replace(new RegExp("/", "g"), "--")
     .toLowerCase()
+}
+
+export function toTitleCase(str: string): string {
+  return capitalize(toKebabCase(str)).replace(new RegExp("-+", "g"), " ")
 }
 
 export function cleanupText(text?: string): string | undefined {

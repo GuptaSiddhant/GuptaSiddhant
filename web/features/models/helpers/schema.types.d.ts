@@ -29,7 +29,7 @@ export type CoreSchemaMetaSchema2 =
       contains?: CoreSchemaMetaSchema2
       maxProperties?: NonNegativeInteger
       minProperties?: NonNegativeIntegerDefault0
-      required?: StringArray
+      required?: boolean
       additionalProperties?: CoreSchemaMetaSchema2
       definitions?: {
         [k: string]: CoreSchemaMetaSchema2
@@ -98,7 +98,7 @@ export interface CoreSchemaMetaSchema1 {
   contains?: CoreSchemaMetaSchema2
   maxProperties?: NonNegativeInteger
   minProperties?: NonNegativeIntegerDefault0
-  required?: StringArray
+  required?: boolean
   additionalProperties?: CoreSchemaMetaSchema2
   definitions?: {
     [k: string]: CoreSchemaMetaSchema2

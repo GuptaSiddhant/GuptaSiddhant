@@ -4,6 +4,7 @@ import {
   type WriteResult,
   Timestamp,
 } from "firebase-admin/firestore"
+
 import invariant from "@gs/utils/invariant"
 
 export interface TransformedDocument {

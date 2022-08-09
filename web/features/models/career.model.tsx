@@ -13,23 +13,13 @@ const schema: Schema = {
   type: "object",
   properties: {
     ...commonCareerEducationSchema.properties,
-    position: {
-      type: "string",
-    },
-    company: {
-      type: "string",
-    },
+    position: { type: "string", required: true },
+    company: { type: "string", required: true },
     type: {
       type: "string",
       enum: ["full-time", "part-time", "freelancer", "intern", "contract"],
     },
   },
-  required: [
-    ...(commonCareerEducationSchema.required || []),
-    "position",
-    "company",
-  ],
-  additionalProperties: false,
 }
 
 const model = transformSchemaInModel(schema)

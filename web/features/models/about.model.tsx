@@ -4,26 +4,26 @@ import type { Schema } from "./helpers/schema.types"
 const schema: Schema = {
   type: "object",
   properties: {
-    id: { type: "string" },
-    name: { type: "string" },
-    shortName: { type: "string" },
-    title: { type: "string" },
+    id: { type: "string", required: true },
+    name: { type: "string", required: true },
+    shortName: { type: "string", required: true },
+    title: { type: "string", required: true },
     terminalResume: {
       type: "object",
+      required: true,
       properties: {
-        code: { type: "string" },
+        code: { type: "string", contentMediaType: "code", required: true },
         copyText: { type: "string" },
       },
-      required: ["code"],
     },
     currentCompany: {
       type: "object",
+      required: true,
       properties: {
-        name: { type: "string" },
+        name: { type: "string", required: true },
         link: { type: "string" },
         hiringLink: { type: "string" },
       },
-      required: ["name"],
     },
     techStack: {
       type: "array",
@@ -43,14 +43,6 @@ const schema: Schema = {
       },
     },
   },
-  required: [
-    "id",
-    "name",
-    "shortName",
-    "title",
-    "terminalResume",
-    "currentCompany",
-  ],
 }
 
 const model = transformSchemaInModel(schema)

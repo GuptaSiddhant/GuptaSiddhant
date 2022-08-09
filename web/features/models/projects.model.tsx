@@ -13,17 +13,10 @@ const schema: Schema = {
   type: "object",
   properties: {
     ...commonBlogProjectSchema.properties,
-    dateStart: {
-      type: "string",
-    },
-    dateEnd: {
-      type: "string",
-    },
-    association: {
-      type: "string",
-    },
+    dateStart: { type: "string", required: true },
+    dateEnd: { type: "string" },
+    association: { type: "string" },
   },
-  required: [...(commonBlogProjectSchema.required || []), "dateStart"],
 }
 
 const model = transformSchemaInModel(schema)

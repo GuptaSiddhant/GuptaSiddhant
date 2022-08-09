@@ -10,7 +10,7 @@ interface SupportedLanguageProperties {
 const javascriptClassName = clsx("bg-yellow-400 dark:bg-yellow-700")
 const typescriptClassName = clsx("bg-blue-300 dark:bg-blue-700")
 
-const supportedLanguages: SupportedLanguageProperties[] = [
+export const supportedLanguages: SupportedLanguageProperties[] = [
   { lang: "markup" },
   { lang: "bash" },
   { lang: "clike" },
@@ -71,3 +71,5 @@ export function getLanguageFromClassName(className: string): Language {
 
   return isLanguageSupported(lang) ? (lang as Language) : "bash"
 }
+
+export { Language }

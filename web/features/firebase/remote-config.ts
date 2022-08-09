@@ -3,6 +3,7 @@ import {
   type RemoteConfigTemplate,
   getRemoteConfig,
 } from "firebase-admin/remote-config"
+
 import invariant from "@gs/utils/invariant"
 
 export type FirebaseRemoteConfigTemplate = RemoteConfigTemplate

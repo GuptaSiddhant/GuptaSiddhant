@@ -4,8 +4,8 @@ import MailIcon from "remixicon-react/MailLineIcon"
 
 import { useLoaderData, useNavigate } from "@remix-run/react"
 
-import { type AboutInfo } from "@gs/models/about.model"
 import { AdminIcon } from "@gs/admin"
+import { type AboutInfo } from "@gs/models/about.model"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import type { RootLoaderData } from "@gs/root"
 import useSearch from "@gs/search"
@@ -64,7 +64,7 @@ export default function useNavigationLinks(): NavigationLinkProps[] {
   if (email)
     links.push({
       id: "Contact",
-      to: email,
+      to: email.includes("mailto") ? email : `mailto:${email}`,
       children: <MailIcon />,
       shortcut: ["Shift", "C"],
     })

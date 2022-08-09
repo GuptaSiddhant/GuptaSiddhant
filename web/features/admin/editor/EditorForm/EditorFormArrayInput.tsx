@@ -2,12 +2,16 @@ import clsx from "clsx"
 import { useState } from "react"
 
 import { DeleteIcon } from "@gs/icons"
-import type { ModelArrayType, ModelProperties } from "@gs/models"
+import type {
+  ModelArrayType,
+  ModelProperties,
+} from "@gs/models/helpers/model.types"
 import Button from "@gs/ui/Button"
-import { capitalize } from "@gs/utils/format"
+import { toTitleCase } from "@gs/utils/format"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"
+import { fieldsetClassName } from "./helpers"
 
 export default function EditorFormArrayInput({
   name,
@@ -31,11 +35,14 @@ export default function EditorFormArrayInput({
     )
   }
 
+  const value = item?.[name] || []
+  if (!Array.isArray(value)) return null
+
   return (
     <EditorFormTextInput
       name={name}
-      defaultValue={item?.[name]}
-      required={list.optional === false}
+      defaultValue={value.join(", ")}
+      required={list.required}
       placeholder={`Comma separated values (${list.type})`}
       className="col-span-full"
     />
@@ -59,8 +66,10 @@ export function EditorFormObjectList({
     setList(list.filter((_, i) => i !== index))
 
   return (
-    <fieldset className="col-span-full flex flex-col gap-2 rounded border border-divider p-2">
-      <legend className="text-base">{capitalize(name)}</legend>
+    <fieldset
+      className={clsx("col-span-full flex flex-col gap-2", fieldsetClassName)}
+    >
+      <legend className="px-1 text-base">{toTitleCase(name)}</legend>
 
       {list.map((item = {}, index: number) => (
         <div

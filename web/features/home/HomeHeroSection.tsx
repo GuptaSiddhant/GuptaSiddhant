@@ -1,5 +1,5 @@
-import { type AboutInfo } from "@gs/models/about.model"
 import Hero from "@gs/hero"
+import { type AboutInfo } from "@gs/models/about.model"
 import CodeBlock from "@gs/ui/CodeBlock"
 import { ExternalLink, InternalLink } from "@gs/ui/Link"
 import { ChangingText, H1 } from "@gs/ui/Text"
@@ -32,7 +32,7 @@ export default function HomeHeroSection(about: AboutInfo): JSX.Element {
       </div>
 
       <CodeBlock copyText={terminalResume.copyText} wrap>
-        {JSON.parse(terminalResume.code)}
+        {terminalResume.code}
       </CodeBlock>
     </Hero>
   )

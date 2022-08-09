@@ -99,7 +99,7 @@ const config = {
         },
       },
       minHeight: {
-        input: "2.5rem",
+        input: "2rem",
         "screen-main": "calc(100vh - 10em)",
       },
       maxHeight: {

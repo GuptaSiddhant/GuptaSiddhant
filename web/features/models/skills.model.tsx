@@ -1,28 +1,33 @@
 import { transformSchemaInModel } from "./helpers/model.helpers"
 import type { Schema } from "./helpers/schema.types"
 
-const skill: Schema = {
-  type: "object",
-  properties: {
-    title: { type: "string" },
-    linkUrl: { type: "string" },
-    iconUrl: { type: "string" },
-    level: { type: "string", enum: ["advanced", "intermediate", "basic"] },
+const skillSchema: Schema = {
+  type: "array",
+  items: {
+    type: "object",
+    properties: {
+      title: { type: "string", required: true },
+      linkUrl: { type: "string" },
+      iconUrl: { type: "string" },
+      level: {
+        type: "string",
+        required: true,
+        enum: ["advanced", "intermediate", "basic"],
+      },
+    },
   },
-  required: ["title"],
 }
 
 const schema: Schema = {
   type: "object",
   properties: {
-    id: { type: "string" },
-    soft: { type: "array", items: skill },
-    frontend: { type: "array", items: skill },
-    backend: { type: "array", items: skill },
-    design: { type: "array", items: skill },
-    language: { type: "array", items: skill },
+    id: { type: "string", required: true },
+    soft: skillSchema,
+    frontend: skillSchema,
+    backend: skillSchema,
+    design: skillSchema,
+    language: skillSchema,
   },
-  required: ["id", "soft", "frontend", "backend", "design", "language"],
 }
 
 const model = transformSchemaInModel(schema)

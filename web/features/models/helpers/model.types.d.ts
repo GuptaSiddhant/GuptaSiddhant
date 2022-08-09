@@ -13,14 +13,13 @@ export type ModelProperty<T extends any> =
   | {
       type: "array"
       items: ModelArrayType<T>
-      optional?: boolean
+      required?: boolean
     }
 
 export type ModelObjectType<T extends any> = {
   type: "object"
   properties: ModelProperties<T>
-  required?: T[]
-  optional?: boolean
+  required?: boolean
 }
 
 export type ModelProperties<T extends any> = Record<string, ModelProperty<T>>
@@ -28,18 +27,19 @@ export type ModelProperties<T extends any> = Record<string, ModelProperty<T>>
 export type ModelScalerType =
   | {
       type: "boolean"
-      optional?: boolean
+      required?: boolean
       default?: boolean
     }
   | {
       type: "number"
-      optional?: boolean
+      required?: boolean
     }
   | {
       type: "string"
-      optional?: boolean
+      required?: boolean
       enum?: string[]
-      contentMediaType?: "markdown"
+      contentMediaType?: "markdown" | "code"
     }
+  | ModelObjectType<any>
 
 export type ModelArrayType<T extends any> = ModelScalerType | ModelObjectType<T>

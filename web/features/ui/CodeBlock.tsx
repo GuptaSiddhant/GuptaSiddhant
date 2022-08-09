@@ -1,8 +1,9 @@
 import clsx from "clsx"
-import Highlight, { type Language, defaultProps } from "prism-react-renderer"
+import Highlight, { defaultProps } from "prism-react-renderer"
 import { type ComponentPropsWithoutRef, Children } from "react"
 
 import {
+  type Language,
   getLanguageBadgeProperties,
   getLanguageFromClassName,
   isLanguageSupported,
@@ -17,6 +18,7 @@ export interface CodeBlockProps {
   copyText?: string
   wrap?: boolean
   codeClassName?: string
+  hideBadge?: boolean
 }
 
 export default function CodeBlock({
@@ -26,6 +28,7 @@ export default function CodeBlock({
   copyText,
   wrap,
   codeClassName,
+  hideBadge,
 }: CodeBlockProps) {
   const language = lang && isLanguageSupported(lang) ? lang : "bash"
 
@@ -48,7 +51,9 @@ export default function CodeBlock({
           />
         )}
       />
-      <CodeBadge language={language} copyText={copyText || children.trim()} />
+      {!hideBadge && (
+        <CodeBadge language={language} copyText={copyText || children.trim()} />
+      )}
     </output>
   )
 }

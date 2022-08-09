@@ -4,8 +4,9 @@ import { useId } from "react"
 import FormLabel from "@gs/ui/FormLabel"
 import Input from "@gs/ui/Input"
 import Select from "@gs/ui/Select"
-import { capitalize, formatYYYYMMDD } from "@gs/utils/format"
+import { formatYYYYMMDD, toTitleCase } from "@gs/utils/format"
 
+import { requiredLabelClassName } from "./helpers"
 import type { EditorFormInputProps } from "./types"
 
 export default function EditorFormTextInput(
@@ -20,15 +21,10 @@ export default function EditorFormTextInput(
     options,
     className,
   } = props
-  const labelText = capitalize(name.split(".").at(-1) || name)
+
   const labelElement = (
-    <span
-      className={clsx(
-        "text-sm",
-        required && "after:text-negative after:content-['*']",
-      )}
-    >
-      {labelText}
+    <span className={clsx("text-sm", requiredLabelClassName(required))}>
+      {toTitleCase(name.split(".").at(-1) || name)}
     </span>
   )
   const id = name + useId()
@@ -42,6 +38,7 @@ export default function EditorFormTextInput(
         disabled={readOnly}
         defaultValue={defaultValue}
         vertical
+        required={required}
       >
         {options.map((option) => (
           <Select.Option key={option} value={option}>
@@ -64,6 +61,7 @@ export default function EditorFormTextInput(
         pattern="^\\d{4}-\\d{2}-\\d{2}$"
         placeholder="YYYY-MM-DD"
         name={name}
+        required={required}
         defaultValue={
           defaultValue ? formatYYYYMMDD(new Date(defaultValue)) : undefined
         }

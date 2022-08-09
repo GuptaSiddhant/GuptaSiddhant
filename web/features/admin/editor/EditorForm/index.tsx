@@ -7,6 +7,7 @@ import { type Model } from "@gs/models"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"
+import { objectGridClassName } from "./helpers"
 
 const EditorFormContext = createContext<{ itemId: string; newItem?: boolean }>({
   itemId: "new",
@@ -33,10 +34,7 @@ export default function EditorForm<T extends { id: string }>({
         id={formId}
         method={method}
         replace
-        className={clsx(
-          "grid grid-flow-row-dense gap-4",
-          "grid-cols-2 md:grid-cols-4 xl:grid-cols-6",
-        )}
+        className={clsx(objectGridClassName)}
       >
         {item?.id ? (
           <input type="hidden" name="id" value={item.id} />

@@ -16,6 +16,7 @@ export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   label?: ReactNode
   onClear?: (selectRef: RefObject<HTMLSelectElement>) => void
   vertical?: boolean
+  inputClassName?: string
 }
 export type OptionProps = ComponentPropsWithoutRef<"option"> & {
   optionRef?: ForwardedRef<HTMLOptionElement> | null
@@ -32,6 +33,7 @@ export default function Select({
   className,
   onClear,
   vertical,
+  inputClassName,
   ...props
 }: SelectProps): JSX.Element | null {
   const selectRef = useRef<HTMLSelectElement>(null)
@@ -59,8 +61,9 @@ export default function Select({
         id={selectId}
         ref={selectRef}
         className={clsx(
+          inputClassName,
           "peer appearance-none rounded-none bg-transparent",
-          "w-full py-2 pl-2",
+          "w-full py-1 pl-2",
           onClear ? "pr-10" : "pr-6",
         )}
       >

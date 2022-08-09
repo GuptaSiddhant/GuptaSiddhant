@@ -5,12 +5,8 @@ const linksSchema: Schema = {
   items: {
     type: "object",
     properties: {
-      url: {
-        type: "string",
-      },
-      title: {
-        type: "string",
-      },
+      url: { type: "string", required: true },
+      title: { type: "string" },
       type: {
         type: "string",
         enum: [
@@ -27,8 +23,6 @@ const linksSchema: Schema = {
         ],
       },
     },
-    required: ["url"],
-    additionalProperties: false,
   },
 }
 
@@ -37,96 +31,42 @@ const gallerySchema: Schema = {
   items: {
     type: "object",
     properties: {
-      url: {
-        type: "string",
-      },
-      alt: {
-        type: "string",
-      },
+      url: { type: "string", required: true },
+      alt: { type: "string", required: true },
     },
-    required: ["url", "alt"],
-    additionalProperties: false,
   },
 }
 
 export const commonCareerEducationSchema: Schema = {
   type: "object",
   properties: {
-    id: {
-      type: "string",
-    },
-    description: {
-      type: "string",
-      contentMediaType: "markdown",
-    },
-    startDate: {
-      type: "string",
-    },
-    endDate: {
-      type: "string",
-    },
-    icon: {
-      type: "string",
-    },
+    id: { type: "string", required: true },
+    description: { type: "string", contentMediaType: "markdown" },
+    startDate: { type: "string", required: true },
+    endDate: { type: "string" },
+    icon: { type: "string" },
     links: linksSchema,
     gallery: gallerySchema,
-    location: {
-      type: "string",
-    },
-    tags: {
-      type: "array",
-      items: {
-        type: "string",
-      },
-    },
-    featured: {
-      type: "boolean",
-    },
-    draft: {
-      type: "boolean",
-      default: true,
-    },
+    location: { type: "string" },
+    tags: { type: "array", items: { type: "string" } },
+    featured: { type: "boolean" },
+    draft: { type: "boolean", default: true },
   },
-  required: ["id", "startDate"],
 }
 
 export const commonBlogProjectSchema: Schema = {
   type: "object",
   properties: {
-    id: {
-      type: "string",
-    },
-    title: {
-      type: "string",
-    },
-    subtitle: {
-      type: "string",
-    },
-    description: {
-      type: "string",
-    },
-    content: {
-      type: "string",
-      contentMediaType: "markdown",
-    },
-    icon: {
-      type: "string",
-    },
-    tags: {
-      type: "array",
-      items: {
-        type: "string",
-      },
-    },
-    featured: {
-      type: "boolean",
-    },
-    draft: {
-      type: "boolean",
-      default: true,
-    },
+    id: { type: "string", required: true },
+    title: { type: "string", required: true },
+    subtitle: { type: "string" },
+    description: { type: "string" },
+    content: { type: "string", contentMediaType: "markdown" },
+    icon: { type: "string" },
+    tags: { type: "array", items: { type: "string" } },
+    featured: { type: "boolean" },
+    draft: { type: "boolean", default: true },
     gallery: gallerySchema,
     links: linksSchema,
   },
-  required: ["id", "title"],
 }

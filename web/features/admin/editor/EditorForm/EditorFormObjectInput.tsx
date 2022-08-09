@@ -1,10 +1,20 @@
-import type { ModelProperties, ModelProperty } from "@gs/models"
+import clsx from "clsx"
+
+import type { ModelProperties } from "@gs/models/helpers/model.types"
+import { toTitleCase } from "@gs/utils/format"
 
 import { useEditorFormContext } from "."
 import EditorFormArrayInput from "./EditorFormArrayInput"
 import EditorFormBooleanInput from "./EditorFormBooleanInput"
+import EditorFormCodeInput from "./EditorFormCodeInput"
 import EditorFormMarkdownInput from "./EditorFormMarkdownInput"
 import EditorFormTextInput from "./EditorFormTextInput"
+import {
+  fieldsetClassName,
+  objectGridClassName,
+  requiredLabelClassName,
+  sortRequiredPredicate,
+} from "./helpers"
 
 export default function EditorFormObjectInput<T extends Record<string, any>>({
   properties,
@@ -22,18 +32,13 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
     .filter(([prop]) => prop !== "id")
     .sort(([a], [b]) => b.localeCompare(a))
 
-  const sortRequired = (
-    a: [string, ModelProperty<string>],
-    b: [string, ModelProperty<string>],
-  ) => (a[1].optional ? 1 : b[1].optional ? -1 : 0)
-
   const formTextEntries = formEntries
     .filter(
       ([_, modelProp]) =>
         (modelProp.type === "string" && !modelProp.contentMediaType) ||
         modelProp.type === "number",
     )
-    .sort(sortRequired)
+    .sort(sortRequiredPredicate)
 
   const formMarkdownEntries = formEntries
     .filter(
@@ -41,15 +46,26 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
         modelProp.type === "string" &&
         modelProp.contentMediaType === "markdown",
     )
-    .sort(sortRequired)
+    .sort(sortRequiredPredicate)
+
+  const formCodeEntries = formEntries
+    .filter(
+      ([_, modelProp]) =>
+        modelProp.type === "string" && modelProp.contentMediaType === "code",
+    )
+    .sort(sortRequiredPredicate)
 
   const formBooleanEntries = formEntries
     .filter(([_, modelProp]) => modelProp.type === "boolean")
-    .sort(sortRequired)
+    .sort(sortRequiredPredicate)
 
   const formArrayEntries = formEntries
     .filter(([_, modelProp]) => modelProp.type === "array")
-    .sort(sortRequired)
+    .sort(sortRequiredPredicate)
+
+  const formObjectEntries = formEntries
+    .filter(([_, modelProp]) => modelProp.type === "object")
+    .sort(sortRequiredPredicate)
 
   return (
     <>
@@ -59,7 +75,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
             key={key}
             name={namePrefix + key}
             defaultValue={item?.[key as keyof T] as any}
-            required={modelProp.optional === false}
+            required={modelProp.required}
             options={"enum" in modelProp ? modelProp.enum : []}
             className="col-span-2"
           />
@@ -73,7 +89,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
               defaultValue={
                 newItem ? modelProp.default : (item?.[key as keyof T] as any)
               }
-              required={modelProp.optional === false}
+              required={modelProp.required}
             />
           ) : null,
         )}
@@ -82,7 +98,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
         <EditorFormArrayInput
           key={key}
           name={namePrefix + key}
-          required={modelProp.optional === false}
+          required={modelProp.required}
           item={item}
           list={modelProp.type === "array" ? modelProp.items : undefined}
         />
@@ -93,9 +109,41 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
           key={key}
           name={namePrefix + key}
           defaultValue={item?.[key as keyof T] as any}
-          required={modelProp.optional === false}
+          required={modelProp.required}
         />
       ))}
+
+      {formCodeEntries.map(([key, modelProp]) => (
+        <EditorFormCodeInput
+          key={key}
+          name={namePrefix + key}
+          defaultValue={item?.[key as keyof T] as any}
+          required={modelProp.required}
+        />
+      ))}
+
+      {formObjectEntries.map(([key, modelProp]) =>
+        modelProp.type === "object" ? (
+          <fieldset
+            aria-required={modelProp.required}
+            className={clsx(objectGridClassName, fieldsetClassName)}
+          >
+            <legend
+              className={clsx(
+                "px-1 text-base",
+                requiredLabelClassName(modelProp.required),
+              )}
+            >
+              {toTitleCase(key)}
+            </legend>
+            <EditorFormObjectInput
+              key={key}
+              {...modelProp}
+              item={item?.[key]}
+            />
+          </fieldset>
+        ) : null,
+      )}
     </>
   )
 }

@@ -1,22 +1,25 @@
 import clsx from "clsx"
 import { useState } from "react"
 
+import { type Language, supportedLanguages } from "@gs/helpers/code-lang"
 import useFullscreen from "@gs/hooks/useFullscreen"
 import Accordion from "@gs/ui/Accordion"
 import { FullscreenButton } from "@gs/ui/Button"
-import Mdx from "@gs/ui/Mdx"
+import CodeBlock from "@gs/ui/CodeBlock"
+import Select from "@gs/ui/Select"
 
 import { requiredLabelClassName } from "./helpers"
 import { useEditorFormContext } from "./index"
 import type { EditorFormInputProps } from "./types"
 
-export default function EditorFormMarkdownInput({
+export default function EditorFormCodeInput({
   name,
   defaultValue = "",
   required,
 }: EditorFormInputProps<string>) {
   const fullscreenProps = useFullscreen<HTMLDetailsElement>()
   const [value, setValue] = useState<string>(defaultValue)
+  const [lang, setLang] = useState<Language>("bash")
 
   const itemId = useEditorFormContext().itemId
 
@@ -28,8 +31,22 @@ export default function EditorFormMarkdownInput({
         </span>
       }
       open="always"
-      summaryClassName="!m-0"
-      summaryLeadingElement={<FullscreenButton {...fullscreenProps} />}
+      summaryClassName={clsx("!m-0")}
+      summaryLeadingElement={
+        <>
+          <Select
+            value={lang}
+            onChange={(e) => setLang(e.currentTarget.value as Language)}
+          >
+            {supportedLanguages.map(({ lang }) => (
+              <Select.Option key={lang} value={lang}>
+                {lang}
+              </Select.Option>
+            ))}
+          </Select>
+          <FullscreenButton {...fullscreenProps} />
+        </>
+      }
       accordionRef={fullscreenProps.targetRef}
       className="col-span-full"
     >
@@ -51,9 +68,10 @@ export default function EditorFormMarkdownInput({
             "h-full w-full resize-none overflow-auto rounded bg-secondary p-2 font-monospace text-sm",
           )}
         />
-        <div className="prose prose-sm mx-auto hidden h-full w-full overflow-y-auto overflow-x-hidden rounded-sm bg-primary p-2 dark:prose-invert md:block">
-          <Mdx mdx={value} lazyLoadImages={false} />
-        </div>
+
+        <CodeBlock className="!m-0" wrap hideBadge lang={lang}>
+          {value}
+        </CodeBlock>
       </div>
     </Accordion>
   )

@@ -1,5 +1,5 @@
 import FormLabel from "@gs/ui/FormLabel"
-import { capitalize } from "@gs/utils/format"
+import { toTitleCase } from "@gs/utils/format"
 
 import type { EditorFormInputProps } from "./types"
 
@@ -13,7 +13,7 @@ export default function EditorFormBooleanInput(
   return (
     <FormLabel
       htmlFor={id}
-      label={capitalize(name)}
+      label={toTitleCase(name)}
       className="justify-between py-3 sm:gap-2"
     >
       <input

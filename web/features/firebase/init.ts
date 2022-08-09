@@ -1,5 +1,6 @@
 import { type App, cert, initializeApp } from "firebase-admin/app"
 import { type Firestore, getFirestore } from "firebase-admin/firestore"
+
 import invariant from "@gs/utils/invariant"
 
 export function initFirebase() {
