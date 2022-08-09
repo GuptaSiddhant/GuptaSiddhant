@@ -31,5 +31,8 @@ jobs:
       - name: Install dependencies
         run: yarn workspaces focus functions
 
+      - name: Install firebase tools
+        run: npm i -g firebase-tools
+
       - name: Deploy to Firebase
-        run: yarn deploy:functions
+        run: "npx firebase deploy --only functions"
