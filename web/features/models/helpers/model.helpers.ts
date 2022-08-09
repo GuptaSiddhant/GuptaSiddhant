@@ -1,13 +1,9 @@
-import type {
-  ModelProperties,
-  ModelProperty,
-  ModelScalerType,
-} from "./model.types"
+import type { Model, ModelsMap, ModelScalerType } from "./model.types"
 
 export function getDataFromModelObject(
   keys: string[],
   formData: FormData,
-  properties: ModelProperties<any>,
+  properties: ModelsMap,
   modelKeys: string[] = keys,
 ) {
   const data: Record<string, any> = {}
@@ -54,7 +50,7 @@ export function getDataFromModelObject(
 export function getDataFromModelArray(
   modelKey: string,
   formData: FormData,
-  items: ModelProperty<any>,
+  items: Model,
 ) {
   if (items.type === "object") {
     const formKeysArray = [...formData.keys()]

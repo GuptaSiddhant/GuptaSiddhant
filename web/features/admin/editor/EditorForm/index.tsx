@@ -26,6 +26,8 @@ export default function EditorForm<T extends { id: string }>({
   model,
   formId,
 }: EditorFormProps<T>): JSX.Element | null {
+  if (model.type !== "object") return null
+
   return (
     <EditorFormContext.Provider
       value={{ itemId: item?.id || "new", newItem: !item?.id }}

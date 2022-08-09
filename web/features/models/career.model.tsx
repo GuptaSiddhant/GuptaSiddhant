@@ -5,14 +5,18 @@ import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
 import { commonCareerEducationModel } from "./helpers"
-import type { Model, ModelStyling } from "./helpers/model.types"
+import {
+  type ModelObjectType,
+  type ModelStyling,
+  ModelSize,
+} from "./helpers/model.types"
 
-const model: Model = {
+const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonCareerEducationModel.properties,
-    position: { type: "string", required: true, size: "medium" },
-    company: { type: "string", required: true, size: "medium" },
+    position: { type: "string", required: true, size: ModelSize.MEDIUM },
+    company: { type: "string", required: true, size: ModelSize.MEDIUM },
     type: {
       type: "string",
       enum: ["full-time", "part-time", "freelancer", "intern", "contract"],

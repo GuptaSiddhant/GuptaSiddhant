@@ -5,15 +5,16 @@ import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
 import { commonBlogProjectModel } from "./helpers"
-import type { Model, ModelStyling } from "./helpers/model.types"
+import type { ModelObjectType, ModelStyling } from "./helpers/model.types"
+import { ModelSize } from "./helpers/model.types"
 
-const model: Model = {
+const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonBlogProjectModel.properties,
     dateStart: { type: "string", required: true },
     dateEnd: { type: "string" },
-    association: { type: "string", size: "medium" },
+    association: { type: "string", size: ModelSize.MEDIUM },
   },
 }
 

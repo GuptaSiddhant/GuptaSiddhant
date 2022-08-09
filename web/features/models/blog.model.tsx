@@ -5,9 +5,9 @@ import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
 import { commonBlogProjectModel } from "./helpers"
-import type { Model, ModelStyling } from "./helpers/model.types"
+import type { ModelObjectType, ModelStyling } from "./helpers/model.types"
 
-const model: Model = {
+const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonBlogProjectModel.properties,

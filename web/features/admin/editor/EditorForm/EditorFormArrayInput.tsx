@@ -2,10 +2,7 @@ import clsx from "clsx"
 import { useState } from "react"
 
 import { DeleteIcon } from "@gs/icons"
-import type {
-  ModelProperties,
-  ModelProperty,
-} from "@gs/models/helpers/model.types"
+import type { Model, ModelsMap } from "@gs/models/helpers/model.types"
 import Button from "@gs/ui/Button"
 import { toTitleCase } from "@gs/utils/format"
 
@@ -19,7 +16,7 @@ export default function EditorFormArrayInput({
   item,
 }: {
   name: string
-  list?: ModelProperty<any>
+  list?: Model
   item?: any
   required?: boolean
 }): JSX.Element | null {
@@ -56,7 +53,7 @@ export function EditorFormObjectList({
 }: {
   name: string
   items: any[]
-  properties: ModelProperties<any>
+  properties: ModelsMap
 }): JSX.Element | null {
   const [list, setList] = useState(items)
 

@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import type { ModelProperties } from "@gs/models/helpers/model.types"
+import type { ModelsMap } from "@gs/models/helpers/model.types"
 import { toTitleCase } from "@gs/utils/format"
 
 import { useEditorFormContext } from "."
@@ -21,16 +21,16 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
   item,
   namePrefix = "",
 }: {
-  properties: ModelProperties<any>
+  properties: ModelsMap
   item?: T
   namePrefix?: string
   className?: string
 }) {
   const { newItem } = useEditorFormContext()
 
-  const formEntries = Object.entries(properties)
-    .filter(([prop]) => prop !== "id")
-    .sort(([a], [b]) => b.localeCompare(a))
+  const formEntries = Object.entries(properties).filter(
+    ([prop]) => prop !== "id",
+  )
 
   const formTextEntries = formEntries
     .filter(
@@ -68,10 +68,10 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
 
   const colClassName = (size?: string) =>
     clsx(
-      size === "medium"
-        ? "col-span-2"
-        : size === "large"
+      size === "large"
         ? "col-span-full"
+        : size === "medium"
+        ? "col-span-2"
         : "",
     )
 

@@ -4,14 +4,14 @@ import {
   useLoaderData,
 } from "@remix-run/react"
 import {
-  type ActionFunction,
+  // type ActionFunction,
   type ErrorBoundaryComponent,
   type HeadersFunction,
   type LinksFunction,
   type LoaderFunction,
   type MetaFunction,
   json,
-  redirect,
+  // redirect,
 } from "@remix-run/server-runtime"
 
 import { createMetaTitle } from "@gs/helpers/meta"
@@ -23,11 +23,13 @@ export const loader: LoaderFunction = async () => {
   return json<LoaderData>({})
 }
 
+/*
 export const action: ActionFunction = async ({ request }) => {
   const { pathname } = new URL(request.url)
 
   return redirect(pathname)
 }
+*/
 
 export const headers: HeadersFunction = () => ({})
 

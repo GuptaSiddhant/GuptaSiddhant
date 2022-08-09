@@ -35,6 +35,7 @@ export default function HeroImage({
       )}
     >
       <img
+        key={imageUrl}
         src={imageUrl}
         alt={alt}
         className="h-full min-h-[50vh] w-full rounded-md object-cover"
@@ -47,6 +48,7 @@ export default function HeroImage({
       ) : null}
       {iconUrl ? (
         <img
+          key={imageUrl}
           src={iconUrl}
           alt={alt ? `${alt} icon` : undefined}
           className="absolute top-4 left-4 mb-2 h-12 rounded-md object-contain"

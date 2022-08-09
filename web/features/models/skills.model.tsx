@@ -1,6 +1,6 @@
-import type { Model, ModelArrayType } from "./helpers/model.types"
+import type { ModelArrayType, ModelObjectType } from "./helpers/model.types"
 
-const skillModel: ModelArrayType<object> = {
+const skillModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
@@ -17,7 +17,7 @@ const skillModel: ModelArrayType<object> = {
   },
 }
 
-const model: Model = {
+const model: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },

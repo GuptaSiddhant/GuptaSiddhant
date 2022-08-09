@@ -1,12 +1,13 @@
-import type { Model, ModelArrayType } from "./model.types"
+import type { ModelArrayType, ModelObjectType } from "./model.types"
+import { ModelSize } from "./model.types"
 
-const linksModel: ModelArrayType<object> = {
+const linksModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
     properties: {
-      url: { type: "string", required: true, size: "medium" },
-      title: { type: "string", size: "medium" },
+      url: { type: "string", required: true, size: ModelSize.MEDIUM },
+      title: { type: "string", size: ModelSize.MEDIUM },
       type: {
         type: "string",
         enum: [
@@ -26,22 +27,22 @@ const linksModel: ModelArrayType<object> = {
   },
 }
 
-const galleryModel: ModelArrayType<object> = {
+const galleryModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
     properties: {
-      url: { type: "string", required: true, size: "medium" },
-      alt: { type: "string", required: true, size: "medium" },
+      url: { type: "string", required: true, size: ModelSize.MEDIUM },
+      alt: { type: "string", required: true, size: ModelSize.MEDIUM },
     },
   },
 }
 
-const commonModel: Model = {
+const commonModel: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
-    icon: { type: "string", size: "medium" },
+    icon: { type: "string", size: ModelSize.MEDIUM },
     tags: { type: "array", items: { type: "string" } },
     links: linksModel,
     gallery: galleryModel,
@@ -50,7 +51,7 @@ const commonModel: Model = {
   },
 }
 
-export const commonCareerEducationModel: Model = {
+export const commonCareerEducationModel: ModelObjectType = {
   type: "object",
   properties: {
     ...commonModel.properties,
@@ -58,18 +59,18 @@ export const commonCareerEducationModel: Model = {
     description: { type: "string", format: "markdown" },
     startDate: { type: "string", required: true },
     endDate: { type: "string" },
-    location: { type: "string", size: "medium" },
+    location: { type: "string", size: ModelSize.MEDIUM },
   },
 }
 
-export const commonBlogProjectModel: Model = {
+export const commonBlogProjectModel: ModelObjectType = {
   type: "object",
   properties: {
     ...commonModel.properties,
 
-    title: { type: "string", required: true, size: "medium" },
-    subtitle: { type: "string", size: "medium" },
-    description: { type: "string", size: "large" },
+    title: { type: "string", required: true, size: ModelSize.MEDIUM },
+    subtitle: { type: "string", size: ModelSize.MEDIUM },
+    description: { type: "string", size: ModelSize.LARGE },
     content: { type: "string", format: "markdown" },
   },
 }
