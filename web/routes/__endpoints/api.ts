@@ -1,7 +1,6 @@
 import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
-import { getAboutSkills } from "@gs/models/about.server"
-import { getAboutInfo } from "@gs/models/about.server"
+import { getAboutInfo, getAboutSkills } from "@gs/models/about.server"
 import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog.server"
 import { getCareerItem, getCareerSummaryItems } from "@gs/models/career.server"
 import {

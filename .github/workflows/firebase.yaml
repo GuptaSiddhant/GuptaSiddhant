@@ -1,0 +1,36 @@
+name: Firebase
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/functions/**
+      - .github/workflows/deploy-functions.yaml
+
+jobs:
+  publish:
+    name: Deploy Firebase functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: Setup Credentials
+        run: >
+          | echo $FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM > /firebase.json;
+          | export GOOGLE_APPLICATION_CREDENTIALS="/firebase.json"
+
+      - name: Install dependencies
+        run: yarn workspaces focus functions
+
+      - name: Deploy to Firebase
+        working-directory: ./apps/functions
+        run: yarn deploy

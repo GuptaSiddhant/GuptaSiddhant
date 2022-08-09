@@ -65,10 +65,7 @@ function transformFirestoreDataToIndexItem(
       ? [data.company, data.location].filter(Boolean).join(", ")
       : data.subtitle
 
-  const linkUrl =
-    model === Model.Education || model === Model.Career
-      ? `/about/${docId}/`
-      : `/${model}/${docId}/`
+  const linkUrl = `/${model}/${docId}/`
 
   const duration = generateDurationString(data)
   const date = transformFirestoreTimestampToFormattedDate(
