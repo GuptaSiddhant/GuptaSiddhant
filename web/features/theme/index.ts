@@ -23,3 +23,5 @@ export function getThemeFromThemeName(themeName?: ThemeName) {
 export function checkIfDarkTheme(name?: ThemeName) {
   return name !== "light"
 }
+
+export type { ThemeColors } from "./utils"

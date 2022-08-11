@@ -8,12 +8,6 @@ import tailwindStyles from "@gs/styles/tailwind.generated.css"
 
 const links: LinksFunction = () => [
   {
-    rel: "preload",
-    as: "font",
-    href: "https://fonts.gstatic.com/s/nunito/v20/XRXV3I6Li01BKofINeaBTMnFcQ.woff2",
-    crossOrigin: "anonymous",
-  },
-  {
     rel: "preconnect",
     href: "https://firebasestorage.googleapis.com",
   },
