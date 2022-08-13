@@ -1,0 +1,34 @@
+{
+  "name": "recanvas",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "node": "./dist/index.cjs",
+    "import": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "node scripts/esbuild.js",
+    "build:types": "tsc",
+    "dev": "node scripts/esbuild.js watch",
+    "serve": "PORT=6001 node scripts/server.js",
+    "test": "nodemon --watch dist --watch scripts/server.js --exec yarn serve"
+  },
+  "dependencies": {
+    "canvas": "^2.9.3",
+    "react-reconciler": "^0.29.0",
+    "yoga-layout-prebuilt": "^1.10.0"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "@types/react": "^18.0.14",
+    "@types/react-reconciler": "^0",
+    "esbuild": "^0.15.0",
+    "nodemon": "^2.0.19",
+    "typescript": "^4.7.4"
+  }
+}
