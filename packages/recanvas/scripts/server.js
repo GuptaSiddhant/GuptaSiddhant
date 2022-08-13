@@ -12,7 +12,7 @@ const server = http.createServer(function (req, res) {
 })
 
 const port = process.env.PORT || 6001
-// server.listen(port, () => console.log("Server is running at port:", port))
+server.listen(port, () => console.log("Server is running at port:", port))
 
 /** @param {http.IncomingMessage} req */
 function renderRequestLog(req, showParams = true) {

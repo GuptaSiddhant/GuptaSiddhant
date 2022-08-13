@@ -1,7 +1,7 @@
 import { createElement } from "react"
 
-import { ElementName } from "../constants"
-import type { ElementProps } from "../types"
+import { ElementName } from "../dom/constants"
+import type { ElementProps } from "../dom/types"
 
 export interface ViewProps extends ElementProps {}
 

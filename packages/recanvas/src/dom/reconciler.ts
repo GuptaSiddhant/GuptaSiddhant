@@ -12,7 +12,7 @@ import {
   setAttribute,
   setStyle,
   setTextNodeValue,
-} from "./dom"
+} from "./helpers"
 import type { Styles } from "./style"
 import type {
   DOMElement,

@@ -1,12 +1,9 @@
 import { createElement } from "react"
 
-import { ElementName } from "../constants"
-import type { RecanvasFont } from "../text"
-import type { ElementProps } from "../types"
+import { ElementName } from "../dom/constants"
+import type { ElementProps } from "../dom/types"
 
-export interface TextProps extends ElementProps {
-  font?: RecanvasFont
-}
+export interface TextProps extends ElementProps {}
 
 export default function Text({ children, ...props }: TextProps) {
   return createElement(ElementName.Text, props, children)

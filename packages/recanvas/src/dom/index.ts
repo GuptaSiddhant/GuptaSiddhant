@@ -1,13 +1,11 @@
-// import { createElement } from "react"
 import type { FiberRoot } from "react-reconciler"
 
-// import Canvas from "./components/Canvas"
 import { ElementName } from "./constants"
-import { createNode } from "./dom"
+import { createNode } from "./helpers"
 import reconciler from "./reconciler"
 import type { DOMElement } from "./types"
 
-export default class Recanvas {
+export default class RenderDOM {
   readonly #container: FiberRoot
   readonly #rootNode: DOMElement
 
@@ -25,9 +23,7 @@ export default class Recanvas {
     )
   }
 
-  render(node: React.ReactNode): void {
-    // const tree = createElement(Canvas, {}, node)
-
-    reconciler.updateContainer(node, this.#container, null)
+  render(node: React.ReactNode, callback?: () => void): void {
+    reconciler.updateContainer(node, this.#container, null, callback)
   }
 }
