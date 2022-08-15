@@ -1,5 +1,3 @@
-// import type { Styles } from "../dom/style"
-
 import type { Canvas } from "canvas"
 import { createCanvas } from "canvas"
 import { TEXT_NAME } from "src/dom/constants"

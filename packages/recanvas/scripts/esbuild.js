@@ -11,15 +11,10 @@ const commonBuildOptions = {
   entryPoints: ["src/index.ts"],
   color: true,
   bundle: true,
-  external: [
-    "react",
-    "react-*",
-    "canvas",
-    "yoga-layout",
-    "yoga-layout-prebuilt",
-  ],
+  external: ["react", "react-reconciler", "canvas", "yoga-layout-prebuilt"],
   logLevel: "info",
   target: "es2015",
+  minify: !watch,
 }
 
 esbuild
@@ -35,7 +30,6 @@ if (!watch) {
   esbuild
     .build({
       ...commonBuildOptions,
-      minify: true,
       outfile: "dist/index.cjs",
       platform: "node",
     })

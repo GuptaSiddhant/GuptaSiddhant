@@ -1,5 +1,4 @@
-import Yoga from "yoga-layout-prebuilt"
-
+import Yoga from "../yoga"
 import { ElementName, TEXT_NAME } from "./constants"
 import applyStyles, { type Styles } from "./style"
 import { measureTextNode } from "./text"

@@ -1,8 +1,8 @@
 import { type Canvas, createCanvas } from "canvas"
 import { ElementName } from "src/dom/constants"
-import Yoga from "yoga-layout-prebuilt"
 
 import type { DOMNode } from "../dom"
+import Yoga from "../yoga"
 import { insertTextNode, insertViewNode, resizeCanvas } from "./helpers"
 
 export default function render(node: DOMNode): Canvas {

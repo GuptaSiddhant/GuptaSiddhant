@@ -25,6 +25,7 @@ coverage
 
 .turbo
 
+.yarn
 .cache
 **/.cache
 **/*/.cache

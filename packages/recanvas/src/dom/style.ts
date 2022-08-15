@@ -1,10 +1,4 @@
-/**
- * @license MIT
- * @author vdemedes <vdemedes@gmail.com>
- * @see https://github.dev/vadimdemedes/ink/*
- */
-
-import Yoga from "yoga-layout-prebuilt"
+import Yoga from "../yoga"
 
 export interface Styles {
   truncate?: boolean

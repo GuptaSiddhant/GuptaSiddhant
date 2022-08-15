@@ -1,6 +1,6 @@
 import createReconciler, { type Fiber, type HostConfig } from "react-reconciler"
-import Yoga from "yoga-layout-prebuilt"
 
+import Yoga from "../yoga"
 import { ElementName } from "./constants"
 import {
   appendChildNode,

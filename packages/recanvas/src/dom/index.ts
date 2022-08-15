@@ -1,6 +1,8 @@
 /**
- * License: MIT © vdemedes <vdemedes@gmail.com>
- * @see https://github.dev/vadimdemedes/ink/
+ * The code for creating DOM nodes with Yoga-layout is
+ * copied and adapted from "react-ink" library created by vdemedes.
+ * @license MIT © vdemedes <vdemedes@gmail.com>
+ * @see https://github.com/vadimdemedes/ink/blob/v3.2.0/license
  */
 
 import { ElementName } from "./constants"
