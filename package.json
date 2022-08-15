@@ -50,7 +50,7 @@
     "prism-react-renderer": "^1.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recanvas": "^0.1.0",
+    "recanvas": "^0.1.1",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
     "remixicon-react": "^1.0.0",
