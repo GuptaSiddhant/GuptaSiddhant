@@ -9229,7 +9229,11 @@ __metadata:
     prism-react-renderer: ^1.3.3
     react: ^18.2.0
     react-dom: ^18.2.0
+<<<<<<< HEAD
     recanvas: ^0.1.1
+=======
+    recanvas: ^0.1.0
+>>>>>>> parent of f6f6253 (Build recanvas before web:build)
     remix-auth: ^3.2.2
     remix-auth-form: ^1.1.2
     remixicon-react: ^1.0.0
@@ -13950,9 +13954,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
 "recanvas@npm:^0.1.1":
   version: 0.1.1
   resolution: "recanvas@npm:0.1.1"
+=======
+"recanvas@^0.1.0, recanvas@workspace:packages/recanvas":
+  version: 0.0.0-use.local
+  resolution: "recanvas@workspace:packages/recanvas"
+>>>>>>> parent of f6f6253 (Build recanvas before web:build)
   dependencies:
     canvas: ^2.9.3
     react-reconciler: ^0.29.0
