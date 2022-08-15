@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build": "node scripts/esbuild.js",
-    "build:types": "tsc",
+    "build:types": "tsc; echo 'Built recanvas types'",
     "dev": "node scripts/esbuild.js watch",
     "serve": "PORT=6001 node scripts/server.js",
     "test": "nodemon --watch dist --watch scripts/server.js --exec yarn serve",

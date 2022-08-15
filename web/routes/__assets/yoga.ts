@@ -44,14 +44,20 @@ function generateThumbnail({
   const color = theme.text.default
   const backgroundColor = theme.bg.primary
   const padding = 20
-  const maxWidth = width - padding * 2
-  const maxHeight = height - padding * 2
 
   const canvas = renderCanvas(
-    createElement(View, {}, createElement(Text, {}, "Hello")),
+    createElement(
+      View,
+      { style: { backgroundColor } as any },
+      createElement(Text, { style: { color } as any }, "Hello"),
+    ),
     {
       width,
       height,
+      paddingBottom: padding,
+      paddingTop: padding,
+      paddingRight: padding,
+      paddingLeft: padding,
     },
   )
 

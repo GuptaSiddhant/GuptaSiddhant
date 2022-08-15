@@ -1,10 +1,10 @@
 import { Authenticator } from "remix-auth"
 import { FormStrategy } from "remix-auth-form"
-import invariant from "@gs/utils/invariant"
 
 import { createCookieSessionStorage, redirect } from "@remix-run/node"
 
 import { signInWithEmailPassword } from "@gs/firebase/auth"
+import invariant from "@gs/utils/invariant"
 
 // Auth Session
 
