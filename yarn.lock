@@ -8918,9 +8918,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"functions@workspace:apps/functions":
+"functions@workspace:packages/functions":
   version: 0.0.0-use.local
-  resolution: "functions@workspace:apps/functions"
+  resolution: "functions@workspace:packages/functions"
   dependencies:
     "@typescript-eslint/eslint-plugin": ^5.12.0
     "@typescript-eslint/parser": ^5.12.0
@@ -9459,6 +9459,7 @@ __metadata:
     prism-react-renderer: ^1.3.3
     react: ^18.2.0
     react-dom: ^18.2.0
+    recanvas: ^0.1.0
     remix-auth: ^3.2.2
     remix-auth-form: ^1.1.2
     remixicon-react: ^1.0.0
@@ -9508,9 +9509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"guptasiddhant@workspace:apps/cli":
+"guptasiddhant@workspace:packages/cli":
   version: 0.0.0-use.local
-  resolution: "guptasiddhant@workspace:apps/cli"
+  resolution: "guptasiddhant@workspace:packages/cli"
   dependencies:
     "@jsdevtools/npm-publish": ^1.4.3
     "@types/node": ^16.0.0
@@ -14224,7 +14225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recanvas@workspace:packages/recanvas":
+"recanvas@^0.1.0, recanvas@workspace:packages/recanvas":
   version: 0.0.0-use.local
   resolution: "recanvas@workspace:packages/recanvas"
   dependencies:
