@@ -8537,6 +8537,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"imager@workspace:packages/imager":
+  version: 0.0.0-use.local
+  resolution: "imager@workspace:packages/imager"
+  dependencies:
+    react: ^18
+    recanvas: ^0.1.0
+    typescript: "*"
+  languageName: unknown
+  linkType: soft
+
 "import-fresh@npm:^3.0.0, import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -12652,7 +12662,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
+"react@npm:^18, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
