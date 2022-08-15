@@ -24,14 +24,31 @@ export function generateArticleMeta<T extends SummaryItem>(
       }' not found`,
     }
 
-  const { title, description, cover, tags = [] } = article
+  const {
+    title,
+    description,
+    cover,
+    tags = [],
+    linkUrl,
+    subtitle = "",
+  } = article
+
+  const socialImageUrl =
+    "/social-image.png?" +
+    new URLSearchParams({
+      title,
+      subtitle,
+      imageUrl: cover || "",
+      url: options?.url || linkUrl || "",
+      caption: options?.section || "",
+    }).toString()
 
   return {
     title: createMetaTitle(title),
     description,
     "og:title": title,
     "og:description": description,
-    "og:image": cover,
+    "og:image": socialImageUrl,
     "og:url": options?.url,
     "og:type": "article",
     "og:article:section": options?.section,

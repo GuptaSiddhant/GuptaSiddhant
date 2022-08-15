@@ -6,19 +6,22 @@ import recanvasRequest from "@gs/service/recanvas.server"
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme"
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { searchParams } = new URL(request.url)
+  const { searchParams, origin } = new URL(request.url)
   const theme = getThemeFromThemeName(DEFAULT_THEME)
 
   const title = searchParams.get("title")
   if (!title) return new Response("title is required", { status: 400 })
 
-  const subtitle = searchParams.get("subtitle") ?? undefined
-  const imageUrl = searchParams.get("imageUrl") ?? undefined
+  const url = searchParams.get("url") || origin
+  const caption = searchParams.get("caption") || undefined
+  const subtitle = searchParams.get("subtitle") || undefined
+  const imageUrl = searchParams.get("imageUrl") || undefined
 
   const width = 800
   const height = width * (9 / 16)
   const color = theme.text.default
-  const padding = 20
+  const padding = width / 40
+  const fontSize = width / 40
 
   const element = (
     <View
@@ -43,15 +46,17 @@ export const loader: LoaderFunction = async ({ request }) => {
           ...({ backgroundColor: theme.bg.primary } as any),
         }}
       >
-        <TitleView {...{ title, subtitle, color, padding }} />
+        <TitleView
+          {...{ caption, title, subtitle, color, padding, fontSize }}
+        />
         <AuthorView
-          {...{ color, padding }}
+          {...{ color, padding, fontSize }}
           title="Siddhant Gupta"
-          subtitle="guptasiddhant.com"
+          subtitle={url}
         />
       </View>
 
-      <ImageView padding={padding} src={imageUrl} />
+      <ImageView padding={padding} src={imageUrl} fontSize={fontSize} />
     </View>
   )
 
@@ -67,11 +72,15 @@ function TitleView({
   color,
   padding,
   subtitle,
+  fontSize,
+  caption,
 }: {
   title: string
   subtitle?: string
   padding: number
   color: string
+  fontSize: number
+  caption?: string
 }) {
   return (
     <View
@@ -84,19 +93,31 @@ function TitleView({
         paddingLeft: padding,
       }}
     >
+      {caption && (
+        <Text
+          font={{
+            size: fontSize,
+            family: "Verdana" as any,
+            weight: "bold" as any,
+          }}
+          style={{ flexGrow: 0, ...({ color } as any) }}
+        >
+          {caption.toUpperCase()}
+        </Text>
+      )}
       <Text
         font={{
-          size: 36,
+          size: fontSize * 1.8,
           family: "Verdana" as any,
           weight: "bold" as any,
         }}
-        style={{ flexGrow: 0, ...({ color } as any) }}
+        style={{ flexGrow: 0, marginTop: padding, ...({ color } as any) }}
       >
         {title}
       </Text>
       {subtitle && (
         <Text
-          font={{ size: 24, family: "Verdana" as any }}
+          font={{ size: fontSize, family: "Verdana" as any }}
           style={{ flexGrow: 0, marginTop: padding, ...({ color } as any) }}
         >
           {subtitle}
@@ -111,11 +132,13 @@ function AuthorView({
   color,
   padding,
   subtitle,
+  fontSize,
 }: {
   title: string
   subtitle: string
   padding: number
   color: string
+  fontSize: number
 }) {
   return (
     <View
@@ -130,7 +153,7 @@ function AuthorView({
     >
       <Text
         font={{
-          size: 24,
+          size: fontSize * 1.1,
           family: "Verdana" as any,
           weight: "bold" as any,
         }}
@@ -139,7 +162,7 @@ function AuthorView({
         {title}
       </Text>
       <Text
-        font={{ size: 20, family: "Verdana" as any }}
+        font={{ size: fontSize * 0.9, family: "Verdana" as any }}
         style={{ flexGrow: 0, ...({ color } as any) }}
       >
         {subtitle}
@@ -151,9 +174,11 @@ function AuthorView({
 function ImageView({
   padding,
   src,
+  fontSize,
 }: {
   padding: number
   src?: string
+  fontSize: number
 }): JSX.Element | null {
   if (!src) return null
 
@@ -172,7 +197,7 @@ function ImageView({
     >
       <Text
         style={{ flexGrow: 0 }}
-        font={{ size: 20, family: "Verdana" as any }}
+        font={{ size: fontSize, family: "Verdana" as any }}
       >
         {src.replace(/\//g, "\n")}
       </Text>
