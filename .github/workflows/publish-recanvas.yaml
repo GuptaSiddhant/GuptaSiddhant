@@ -1,22 +1,22 @@
-name: "Publish"
+name: "Publish Recanvas"
 on:
   push:
     branches:
       - main
     paths:
-      - apps/cli/**
-      - .github/workflows/publish.yaml
+      - packages/recanvas/**
+      - .github/workflows/publish-recanvas.yaml
 
 env:
   INPUT_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
 jobs:
   publish:
-    name: Publish CLI
+    name: Publish to NPM
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./apps/cli"
+        working-directory: "./packages/recanvas"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,7 +33,7 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
 
       - name: Install dependencies
-        run: yarn workspaces focus guptasiddhant
+        run: yarn workspaces focus recanvas
 
       - name: Publish to NPM
         run: node scripts/publish.js
