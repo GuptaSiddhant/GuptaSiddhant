@@ -6,12 +6,13 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "run-s -l recanvas:build web:build:css web:build:remix",
     "cli:build": "yarn workspace guptasiddhant build",
     "cli:dev": "yarn workspace guptasiddhant dev",
     "cli:start": "yarn workspace guptasiddhant start",
     "functions:dev": "yarn workspace functions serve",
     "functions:deploy": "yarn workspace functions deploy",
-    "build": "run-s -l web:build:css web:build:remix",
+    "recanvas:build": "yarn workspace recanvas build",
     "web:build:css": "tailwindcss --minify -o ./web/features/styles/tailwind.generated.css",
     "web:build:remix": "remix build",
     "dev": "run-p web:dev:css web:dev:remix",
@@ -50,7 +51,6 @@
     "prism-react-renderer": "^1.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recanvas": "^0.1.1",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
     "remixicon-react": "^1.0.0",
