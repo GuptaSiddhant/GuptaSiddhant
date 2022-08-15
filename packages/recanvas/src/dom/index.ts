@@ -1,29 +1,36 @@
-import type { FiberRoot } from "react-reconciler"
+/**
+ * License: MIT © vdemedes <vdemedes@gmail.com>
+ * @see https://github.dev/vadimdemedes/ink/
+ */
 
 import { ElementName } from "./constants"
 import { createNode } from "./helpers"
 import reconciler from "./reconciler"
-import type { DOMElement } from "./types"
+import type { Styles } from "./style"
+import type { RecanvasFont } from "./text"
 
-export default class RenderDOM {
-  readonly #container: FiberRoot
-  readonly #rootNode: DOMElement
+export default function renderDom(
+  element: React.ReactNode,
+  style: Styles & { width: number; height: number },
+  font?: RecanvasFont,
+  callback?: () => void,
+) {
+  const root = createNode(ElementName.Root, { style, font })
 
-  constructor() {
-    this.#rootNode = createNode(ElementName.Root)
-    this.#container = reconciler.createContainer(
-      this.#rootNode,
-      0,
-      null,
-      false,
-      false,
-      "",
-      () => {},
-      null,
-    )
-  }
+  const container = reconciler.createContainer(
+    root,
+    0,
+    null,
+    false,
+    false,
+    "",
+    () => {},
+    null,
+  )
 
-  render(node: React.ReactNode, callback?: () => void): void {
-    reconciler.updateContainer(node, this.#container, null, callback)
-  }
+  reconciler.updateContainer(element, container, null, callback)
+
+  return root
 }
+
+export * from "./types"

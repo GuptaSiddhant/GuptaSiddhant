@@ -1,14 +1,21 @@
 import http from "http"
 import { createElement } from "react"
 
-import { renderCanvas } from "../dist/index.js"
+import { renderCanvas, Text, View } from "../dist/index.js"
 
+// @todo : remove
 getCanvas()
 
 const server = http.createServer(function (req, res) {
   const { params } = renderRequestLog(req, false)
-  res.writeHead(200, { "Content-type": "image/png" })
-  res.end(getCanvas(params))
+  const canvas = getCanvas(params)
+
+  res.writeHead(200, {
+    "Content-type": "image/png",
+    width: canvas.width,
+    height: canvas.height,
+  })
+  res.end(canvas.toBuffer())
 })
 
 const port = process.env.PORT || 6001
@@ -44,24 +51,70 @@ function renderRequestLog(req, showParams = true) {
  * @param {{[k: string]: string}} params
  * */
 function getCanvas(params) {
+  const width = 800
+  const height = width / (16 / 9)
+
   const element = createElement(
-    "canvas-root",
+    View,
     {
       style: {
-        backgroundColor: "green",
+        flexDirection: "column",
+        // backgroundColor: "green",
+        justifyContent: "space-around",
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingBottom: 20,
       },
     },
-    createElement("canvas-view", {
-      style: {
-        width: 200,
-        height: 300,
-        backgroundColor: "blue",
+    createElement(
+      View,
+      {
+        style: {
+          backgroundColor: "blue",
+          paddingTop: 20,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingBottom: 20,
+          alignItems: "center",
+          justifyContent: "center",
+        },
       },
-    }),
-    createElement("canvas-text", {}, "Hello World"),
+      createElement(
+        Text,
+        {
+          style: {
+            color: "white",
+            backgroundColor: "grey",
+            flexGrow: 0,
+          },
+        },
+        "Hello World",
+      ),
+    ),
+    createElement(
+      View,
+      {
+        style: {
+          backgroundColor: "red",
+          paddingTop: 20,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingBottom: 20,
+          flexDirection: "column",
+        },
+      },
+      createElement(
+        Text,
+        {
+          style: { color: "black", backgroundColor: "grey" },
+          font: { size: 32 },
+        },
+
+        "Hello World from the land of Canvas. It is a beautiful day today.",
+      ),
+    ),
   )
 
-  const x = renderCanvas(element, 500, 400)
-  console.log(x)
-  return x
+  return renderCanvas(element, { width, height })
 }

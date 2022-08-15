@@ -1,15 +1,19 @@
-import Recanvas from "./canvas"
-import RenderDOM from "./dom"
+import renderNodeToCanvas from "./canvas"
+import type { RecanvasFont } from "./canvas/text"
+import renderDom from "./dom"
+import type { Styles } from "./dom/style"
 
 export function renderCanvas(
   element: React.ReactNode,
-  width: number,
-  height = width,
+  style: Styles & { width: number; height: number },
+  font?: RecanvasFont,
   callback?: () => void,
 ) {
-  const canvas = new Recanvas(width, height, "blue")
+  const node = renderDom(element, style, font, callback)
 
-  new RenderDOM().render(element, callback)
-
-  return canvas.buffer()
+  return renderNodeToCanvas(node)
 }
+
+// Components
+export { type TextProps, default as Text } from "./components/Text"
+export { type ViewProps, default as View } from "./components/View"

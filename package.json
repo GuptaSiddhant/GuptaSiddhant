@@ -2,7 +2,8 @@
   "name": "gs-monorepo",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "cli:build": "yarn workspace guptasiddhant build",
@@ -67,7 +68,6 @@
     "@types/node": "^16.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "c8": "^7.12.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.18.0",
     "eslint-plugin-import": "^2.26.0",

@@ -142,9 +142,7 @@ function applyPaddingStyles(node: Yoga.YogaNode, style: Styles): void {
 }
 
 function applyFlexStyles(node: Yoga.YogaNode, style: Styles): void {
-  if ("flexGrow" in style) {
-    node.setFlexGrow(style.flexGrow ?? 0)
-  }
+  node.setFlexGrow(style.flexGrow ?? 1)
 
   if ("flexShrink" in style) {
     node.setFlexShrink(
@@ -152,22 +150,14 @@ function applyFlexStyles(node: Yoga.YogaNode, style: Styles): void {
     )
   }
 
-  if ("flexDirection" in style) {
-    if (style.flexDirection === "row") {
-      node.setFlexDirection(Yoga.FLEX_DIRECTION_ROW)
-    }
-
-    if (style.flexDirection === "row-reverse") {
-      node.setFlexDirection(Yoga.FLEX_DIRECTION_ROW_REVERSE)
-    }
-
-    if (style.flexDirection === "column") {
-      node.setFlexDirection(Yoga.FLEX_DIRECTION_COLUMN)
-    }
-
-    if (style.flexDirection === "column-reverse") {
-      node.setFlexDirection(Yoga.FLEX_DIRECTION_COLUMN_REVERSE)
-    }
+  if (style.flexDirection === "column") {
+    node.setFlexDirection(Yoga.FLEX_DIRECTION_COLUMN)
+  } else if (style.flexDirection === "row-reverse") {
+    node.setFlexDirection(Yoga.FLEX_DIRECTION_ROW_REVERSE)
+  } else if (style.flexDirection === "column-reverse") {
+    node.setFlexDirection(Yoga.FLEX_DIRECTION_COLUMN_REVERSE)
+  } else {
+    node.setFlexDirection(Yoga.FLEX_DIRECTION_ROW)
   }
 
   if ("flexBasis" in style) {
@@ -279,10 +269,10 @@ function applyDimensionStyles(node: Yoga.YogaNode, style: Styles): void {
 }
 
 function applyDisplayStyles(node: Yoga.YogaNode, style: Styles): void {
-  if ("display" in style) {
-    node.setDisplay(
-      style.display === "flex" ? Yoga.DISPLAY_FLEX : Yoga.DISPLAY_NONE,
-    )
+  if ("display" in style && style.display === "none") {
+    node.setDisplay(Yoga.DISPLAY_NONE)
+  } else {
+    node.setDisplay(Yoga.DISPLAY_FLEX)
   }
 }
 

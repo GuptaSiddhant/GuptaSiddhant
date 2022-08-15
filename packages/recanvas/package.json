@@ -1,19 +1,30 @@
 {
   "name": "recanvas",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
+    "directory": "packages/recanvas"
+  },
+  "author": "Siddhant Gupta <me@guptasiddhant.com>",
+  "license": "MIT",
   "main": "dist/index.cjs",
   "types": "dist/index.d.ts",
   "exports": {
     "node": "./dist/index.cjs",
     "import": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "node scripts/esbuild.js",
     "build:types": "tsc",
     "dev": "node scripts/esbuild.js watch",
     "serve": "PORT=6001 node scripts/server.js",
-    "test": "nodemon --watch dist --watch scripts/server.js --exec yarn serve"
+    "test": "nodemon --watch dist --watch scripts/server.js --exec yarn serve",
+    "prepublishOnly": "npm run build; npm run build:types"
   },
   "dependencies": {
     "canvas": "^2.9.3",
@@ -24,6 +35,7 @@
     "react": "*"
   },
   "devDependencies": {
+    "@jsdevtools/npm-publish": "^1.4.3",
     "@types/node": "^16.0.0",
     "@types/react": "^18.0.14",
     "@types/react-reconciler": "^0",

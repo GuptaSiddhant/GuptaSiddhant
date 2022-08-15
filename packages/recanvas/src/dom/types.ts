@@ -15,13 +15,11 @@ export type DOMElement = {
   attributes: {
     [key: string]: DOMNodeAttribute
   }
-  internal_transform?: OutputTransformer
 } & Node
 
 interface Node {
   parentNode: DOMElement | null
   yogaNode: Yoga.YogaNode
-  internal_static?: boolean
   style: Styles
 }
 

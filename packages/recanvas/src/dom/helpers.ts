@@ -1,8 +1,3 @@
-/**
- * License: MIT © vdemedes <vdemedes@gmail.com>
- * @see https://github.dev/vadimdemedes/ink/
- */
-
 import Yoga from "yoga-layout-prebuilt"
 
 import { ElementName, TEXT_NAME } from "./constants"
@@ -39,7 +34,8 @@ export function createNode(
 
   if (props.style) setStyle(node, props.style)
   for (const [key, value] of Object.entries(props)) {
-    if (key === "children" || key === "style") continue
+    if (Object.keys(props).includes(key)) continue
+
     setAttribute(node, key, value as DOMNodeAttribute)
   }
 
