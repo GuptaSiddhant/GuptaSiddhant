@@ -17,3 +17,13 @@ export function renderCanvas(
 // Components
 export { type TextProps, default as Text } from "./components/Text"
 export { type ViewProps, default as View } from "./components/View"
+
+// Enums and Types
+export {
+  type RecanvasFont,
+  RecanvasFontFamily,
+  RecanvasFontStyle,
+  RecanvasFontVariant,
+  RecanvasFontWeight,
+} from "./canvas/text"
+export { type Styles } from "./dom/style"

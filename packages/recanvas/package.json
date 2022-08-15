@@ -1,6 +1,6 @@
 {
   "name": "recanvas",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "repository": {
     "type": "git",
@@ -17,6 +17,14 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "canvas",
+    "yoga",
+    "flex",
+    "node",
+    "image"
   ],
   "scripts": {
     "build": "node scripts/esbuild.js",
