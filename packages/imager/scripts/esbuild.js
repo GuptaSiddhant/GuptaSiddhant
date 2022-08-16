@@ -7,11 +7,11 @@ const watch = args.includes("watch")
 /** @type import("esbuild").BuildOptions */
 const buildOptions = {
   entryPoints: ["./src/index.tsx"],
-  outfile: "./build/index.js",
+  outfile: "./api/index.js",
   bundle: true,
   platform: "node",
   target: ["node16"],
-  external: ["react", "recanvas"],
+  external: ["react", "recanvas", "express"],
   inject: ["./scripts/react_shim.js"],
   minify: !watch,
   watch,
