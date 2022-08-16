@@ -31,8 +31,8 @@ jobs:
       - name: Install dependencies
         run: yarn workspaces focus functions
 
-      - name: Install firebase tools
-        run: npm install --location=global firebase-tools
+      # - name: Install firebase tools
+      #   run: npm install --location=global firebase-tools
 
       - name: Deploy to Firebase
         env:

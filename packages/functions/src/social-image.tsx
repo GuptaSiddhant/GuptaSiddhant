@@ -48,9 +48,10 @@ async function createSocialImage(
 
   res.writeHead(200, {
     "Content-type": "image/png",
+    "Cache-Control": "public, max-age=2592000",
+    "Context-width": canvas.width,
+    "Content-height": canvas.height,
     "Content-Length": Buffer.byteLength(buffer),
-    width: canvas.width,
-    height: canvas.height,
   })
   res.end(buffer)
 }

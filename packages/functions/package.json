@@ -29,6 +29,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-import": "^2.25.4",
     "firebase-functions-test": "^0.2.0",
+    "firebase-tools": "^11.3.0",
     "typescript": "*"
   },
   "private": true
