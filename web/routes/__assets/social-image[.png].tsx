@@ -1,5 +1,4 @@
 import type { LoaderFunction } from "@remix-run/server-runtime"
-import { redirect } from "@remix-run/server-runtime"
 
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme"
 
@@ -26,22 +25,21 @@ export const loader: LoaderFunction = async ({ request }) => {
     url,
   })
 
-  return redirect(
+  // return redirect(
+  //   `https://europe-west1-guptasiddhant-com.cloudfunctions.net/socialImage?${params.toString()}`,
+  // )
+
+  const image = await fetch(
     `https://europe-west1-guptasiddhant-com.cloudfunctions.net/socialImage?${params.toString()}`,
-  )
+  ).then((res) => res.blob())
 
-  // const image = await fetch(
-  //   `https://europe-west1-guptasiddhant-com.cloudfunctions.net/socialImage?` +
-  //     params.toString(),
-  // ).then((res) => res.blob())
-
-  // return new Response(image, {
-  //   headers: {
-  //     "Content-Type": "image/png",
-  //     "Content-Length": image.size.toString(),
-  //     "Cache-Control": "public, max-age=31536000",
-  //   },
-  // })
+  return new Response(image, {
+    headers: {
+      "Content-Type": "image/png",
+      "Content-Length": image.size.toString(),
+      "Cache-Control": "public, max-age=31536000",
+    },
+  })
 }
 
 export function CatchBoundary() {}

@@ -24,6 +24,8 @@ export function generateArticleMeta<T extends SummaryItem>(
       }' not found`,
     }
 
+  const url = options?.url ? new URL(options?.url) : undefined
+
   const {
     title,
     description,
@@ -34,6 +36,7 @@ export function generateArticleMeta<T extends SummaryItem>(
   } = article
 
   const socialImageUrl =
+    (url?.origin || "") +
     "/social-image.png?" +
     new URLSearchParams({
       title,
