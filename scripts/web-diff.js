@@ -4,7 +4,7 @@
 const { spawnSync } = require("child_process")
 
 const { stdout } = spawnSync(
-  ...transformCommand(`git diff --name-only HEAD~2 HEAD`),
+  ...transformCommand(`git diff --name-only HEAD~1 HEAD`),
 )
 const pathList = stdout.split("\n").filter(Boolean)
 
