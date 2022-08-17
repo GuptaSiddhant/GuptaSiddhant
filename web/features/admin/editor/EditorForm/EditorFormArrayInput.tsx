@@ -8,7 +8,7 @@ import { toTitleCase } from "@gs/utils/format"
 
 import EditorFormObjectInput from "./EditorFormObjectInput"
 import EditorFormTextInput from "./EditorFormTextInput"
-import { fieldsetClassName } from "./helpers"
+import { fieldsetClassName, objectGridClassName } from "./helpers"
 
 export default function EditorFormArrayInput({
   name,
@@ -83,7 +83,7 @@ export function EditorFormObjectList({
               <DeleteIcon className="scale-90" />
             </button>
           </div>
-          <div className="grid flex-1 grid-cols-2 gap-2 md:grid-cols-4 xl:grid-cols-6">
+          <div className={clsx("flex-1", objectGridClassName)}>
             <EditorFormObjectInput
               item={item}
               properties={properties}

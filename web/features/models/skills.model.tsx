@@ -1,13 +1,14 @@
 import type { ModelArrayType, ModelObjectType } from "./helpers/model.types"
+import { ModelSize } from "./helpers/model.types"
 
 const skillModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
     properties: {
-      title: { type: "string", required: true },
-      linkUrl: { type: "string" },
-      iconUrl: { type: "string" },
+      title: { type: "string", required: true, size: ModelSize.MEDIUM },
+      linkUrl: { type: "string", size: ModelSize.LARGE },
+      iconUrl: { type: "string", size: ModelSize.FULL },
       level: {
         type: "string",
         required: true,

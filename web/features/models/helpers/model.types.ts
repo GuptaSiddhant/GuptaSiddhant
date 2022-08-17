@@ -4,6 +4,7 @@ export enum ModelSize {
   SMALL = "small",
   MEDIUM = "medium",
   LARGE = "large",
+  FULL = "full",
 }
 
 export type Model = {

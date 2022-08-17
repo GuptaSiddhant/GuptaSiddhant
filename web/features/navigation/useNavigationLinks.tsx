@@ -2,9 +2,8 @@ import GithubIcon from "remixicon-react/GithubFillIcon"
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
 import MailIcon from "remixicon-react/MailLineIcon"
 
-import { useLoaderData, useNavigate } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react"
 
-import { AdminIcon } from "@gs/admin"
 import { type AboutInfo } from "@gs/models/about.model"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import type { RootLoaderData } from "@gs/root"
@@ -34,7 +33,6 @@ export const internalNavigationLinks: NavigationLinkProps[] = [
 ]
 
 export default function useNavigationLinks(): NavigationLinkProps[] {
-  const navigate = useNavigate()
   const { toggleSearchOpen } = useSearch()
   const { about, themeName } = useLoaderData<RootLoaderData>()
   const { email, github, linkedin } = about.link || {}
@@ -76,13 +74,6 @@ export default function useNavigationLinks(): NavigationLinkProps[] {
     onClick: toggleSearchOpen,
     children: <SearchButton />,
     shortcut: ["Meta", "K"],
-  })
-
-  links.push({
-    id: "Admin",
-    onClick: () => navigate("/admin"),
-    children: <AdminIcon />,
-    shortcut: ["Shift", "Q"],
   })
 
   links.push({

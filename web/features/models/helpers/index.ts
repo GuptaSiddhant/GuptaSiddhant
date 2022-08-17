@@ -6,7 +6,7 @@ const linksModel: ModelArrayType = {
   items: {
     type: "object",
     properties: {
-      url: { type: "string", required: true, size: ModelSize.MEDIUM },
+      url: { type: "string", required: true, size: ModelSize.LARGE },
       title: { type: "string", size: ModelSize.MEDIUM },
       type: {
         type: "string",
@@ -32,7 +32,7 @@ const galleryModel: ModelArrayType = {
   items: {
     type: "object",
     properties: {
-      url: { type: "string", required: true, size: ModelSize.MEDIUM },
+      url: { type: "string", required: true, size: ModelSize.LARGE },
       alt: { type: "string", required: true, size: ModelSize.MEDIUM },
     },
   },

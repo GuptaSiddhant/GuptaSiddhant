@@ -24,12 +24,16 @@ function useShortcuts() {
       onClick: useToggleTheme(),
       shortcut: ["Shift", "D"],
     },
+    {
+      id: "Admin",
+      onClick: () => navigate("/admin"),
+      shortcut: ["Shift", "Q"],
+    },
   ]
 
   return useEventListener("keydown", (event) => {
     const activeElement = window.document.activeElement as HTMLElement | null
-    // Do not react to keydown events if an input field is focussed,
-    // unless it is the search input field.
+    // Do not react to keydown events if an input field is focussed
     if (
       activeElement &&
       inputTagNames.includes(activeElement.tagName.toLowerCase())

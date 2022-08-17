@@ -64,3 +64,20 @@ export function getStylingByModelName(modelName: ModelName): ModelStyling {
     }
   }
 }
+
+export function getLabelByModelName(modelName: ModelName): string {
+  let label: string = ""
+  Object.entries(ModelName).forEach(([key, value]) => {
+    if (value === modelName) {
+      label = key
+    }
+  })
+
+  return label
+}
+
+export function verifyValidModelName(name: string): boolean {
+  const modelNames = Object.values(ModelName) as string[]
+
+  return modelNames.includes(name)
+}

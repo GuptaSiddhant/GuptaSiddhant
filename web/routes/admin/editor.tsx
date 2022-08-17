@@ -1,6 +1,6 @@
 import NewIcon from "remixicon-react/AddBoxFillIcon"
 
-import { Outlet, useLoaderData, useLocation } from "@remix-run/react"
+import { Outlet, useLoaderData } from "@remix-run/react"
 import {
   type ErrorBoundaryComponent,
   type LoaderFunction,
@@ -13,7 +13,7 @@ import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
 import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
 import type { AdminAppHandle } from "@gs/admin/types"
-import { ModelName } from "@gs/models"
+import { getLabelByModelName, ModelName } from "@gs/models"
 import { getAboutKeys } from "@gs/models/about.server"
 import { getBlogKeys } from "@gs/models/blog.server"
 import { getCareerKeys } from "@gs/models/career.server"
@@ -47,17 +47,17 @@ export const loader: LoaderFunction = async ({ request }) => {
       getAboutKeys(),
     ])
 
-  const allEditableEntries: LoaderData["entries"] = [
-    { id: ModelName.About, label: "About", keys: aboutKeys, allowNew: false },
-    { id: ModelName.Career, label: "Career", keys: careerKeys },
-    { id: ModelName.Education, label: "Education", keys: educationKeys },
-    { id: ModelName.Blog, label: "Blog", keys: blogKeys },
-    { id: ModelName.Projects, label: "Project", keys: projectsKeys },
-  ].sort((a, b) => a.label.localeCompare(b.label))
+  const entries: LoaderData["entries"] = [
+    { id: ModelName.About, keys: aboutKeys, allowNew: false },
+    { id: ModelName.Career, keys: careerKeys },
+    { id: ModelName.Education, keys: educationKeys },
+    { id: ModelName.Blog, keys: blogKeys },
+    { id: ModelName.Projects, keys: projectsKeys },
+  ]
+    .map((entry) => ({ ...entry, label: getLabelByModelName(entry.id) }))
+    .sort((a, b) => a.label.localeCompare(b.label))
 
-  return json<LoaderData>({
-    entries: allEditableEntries,
-  })
+  return json<LoaderData>({ entries })
 }
 
 export default function EditorAdminApp(): JSX.Element | null {

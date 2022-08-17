@@ -6,10 +6,14 @@ const inputTagNames = ["input", "textarea", "select"]
 const alphanumerics = "abcdefghijklmnopqrstuvwxyz0123456789".split("")
 
 export default function useSearchKeyDown() {
-  const { inputRef, resultsRef } = useSearch()
+  const { inputRef, resultsRef, closeSearch } = useSearch()
 
   return useStableCallback((event: React.KeyboardEvent<HTMLDialogElement>) => {
     const activeElement = window.document.activeElement as HTMLElement | null
+
+    if (event.metaKey && (event.key === "k" || event.key === "K")) {
+      return closeSearch()
+    }
 
     // Do not react to keydown events if an input field is focussed,
     // unless it is the search input field.

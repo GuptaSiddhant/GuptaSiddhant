@@ -14,6 +14,7 @@ export default function EditorFormMarkdownInput({
   name,
   defaultValue = "",
   required,
+  className,
 }: EditorFormInputProps<string>) {
   const fullscreenProps = useFullscreen<HTMLDetailsElement>()
   const [value, setValue] = useState<string>(defaultValue)
@@ -36,9 +37,7 @@ export default function EditorFormMarkdownInput({
       <div
         className={clsx(
           "grid gap-2 rounded-sm border border-divider bg-default p-0 md:grid-cols-2",
-          fullscreenProps.isFullscreen
-            ? "h-[calc(100vh_-_2.5rem)]"
-            : "h-[50vh]",
+          fullscreenProps.isFullscreen ? "h-[calc(100vh_-_2.5rem)]" : className,
         )}
       >
         <textarea

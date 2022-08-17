@@ -11,6 +11,8 @@ import EditorFormMarkdownInput from "./EditorFormMarkdownInput"
 import EditorFormTextInput from "./EditorFormTextInput"
 import {
   fieldsetClassName,
+  generateColumnClassNameForModeSize,
+  generateInputHeightClassNameForModeSize,
   objectGridClassName,
   requiredLabelClassName,
   sortRequiredPredicate,
@@ -66,15 +68,6 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
     .filter(([_, modelProp]) => modelProp.type === "object")
     .sort(sortRequiredPredicate)
 
-  const colClassName = (size?: string) =>
-    clsx(
-      size === "large"
-        ? "col-span-full"
-        : size === "medium"
-        ? "col-span-2"
-        : "",
-    )
-
   return (
     <>
       {formTextEntries.length > 0 &&
@@ -85,7 +78,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
             defaultValue={item?.[key as keyof T] as any}
             required={modelProp.required}
             options={"enum" in modelProp ? modelProp.enum : []}
-            className={colClassName(modelProp.size)}
+            className={generateColumnClassNameForModeSize(modelProp.size)}
           />
         ))}
       {formBooleanEntries.length > 0 &&
@@ -98,7 +91,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
                 newItem ? modelProp.default : (item?.[key as keyof T] as any)
               }
               required={modelProp.required}
-              className={colClassName(modelProp.size)}
+              className={generateColumnClassNameForModeSize(modelProp.size)}
             />
           ) : null,
         )}
@@ -119,6 +112,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
           name={namePrefix + key}
           defaultValue={item?.[key as keyof T] as any}
           required={modelProp.required}
+          className={generateInputHeightClassNameForModeSize(modelProp.size)}
         />
       ))}
 
@@ -128,6 +122,7 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
           name={namePrefix + key}
           defaultValue={item?.[key as keyof T] as any}
           required={modelProp.required}
+          className={generateInputHeightClassNameForModeSize(modelProp.size)}
         />
       ))}
 
