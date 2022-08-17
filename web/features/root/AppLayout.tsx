@@ -39,8 +39,8 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
           )}
         >
           <Logo />
-
           <Navigation />
+
           <RoundedCorner className="top-full left-4 rotate-0" />
           <RoundedCorner className="top-full right-4 rotate-90" />
         </header>
@@ -76,6 +76,7 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
               <UpIcon aria-label="Scroll to top" />
             </FAB>
           ) : null}
+
           <RoundedCorner className="bottom-full left-4 -rotate-90" />
           <RoundedCorner className="bottom-full right-4 rotate-180" />
         </footer>
