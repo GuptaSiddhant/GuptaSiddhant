@@ -1,4 +1,4 @@
-import type { Model, ModelsMap, ModelScalerType } from "./model.types"
+import type { Model, ModelScalerType, ModelsMap } from "./model.types"
 
 export function getDataFromModelObject(
   keys: string[],
@@ -28,9 +28,12 @@ export function getDataFromModelObject(
 
     if (modelProperty.type === "object") {
       const value = getDataFromModelObject(
-        Object.keys(modelProperty.properties),
+        Object.keys(modelProperty.properties).map((k) =>
+          [key, k].filter(Boolean).join("."),
+        ),
         formData,
         modelProperty.properties,
+        Object.keys(modelProperty.properties),
       )
       if (value) data[modelKey] = value
       return

@@ -142,8 +142,9 @@ export default function EditorFormObjectInput<T extends Record<string, any>>({
             </legend>
             <EditorFormObjectInput
               key={key}
-              {...modelProp}
               item={item?.[key]}
+              {...modelProp}
+              namePrefix={[namePrefix, key].filter(Boolean).join(".") + "."}
             />
           </fieldset>
         ) : null,
