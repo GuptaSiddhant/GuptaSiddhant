@@ -8,17 +8,17 @@ import Select from "@gs/ui/Select"
 import Tags from "@gs/ui/Tags"
 import { capitalize } from "@gs/utils/format"
 
-export interface LifelineFilterProps {
+export interface TimelineFilterProps {
   tags: string[]
   selectedTags: string[]
   selectedCategory: string
 }
 
-export default function LifelineFilter({
+export default function TimelineFilter({
   tags = [],
   selectedTags = [],
   selectedCategory,
-}: LifelineFilterProps): JSX.Element | null {
+}: TimelineFilterProps): JSX.Element | null {
   const submit = useSubmit()
 
   if (tags.length === 0) return null
