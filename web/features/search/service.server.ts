@@ -1,9 +1,8 @@
-import { getAboutSkills } from "@gs/models/about.server"
-import { getAboutInfo } from "@gs/models/about.server"
-import { getBlogSummaryItems } from "@gs/models/blog.server"
-import { getCareerSummaryItems } from "@gs/models/career.server"
-import { getEducationSummaryItems } from "@gs/models/education.server"
-import { getProjectsSummaryItems } from "@gs/models/projects.server"
+import { getAboutInfo, getAboutSkills } from "@gs/models/about/index.server"
+import { getBlogSummaryItems } from "@gs/models/blog/index.server"
+import { getCareerSummaryItems } from "@gs/models/career/index.server"
+import { getEducationSummaryItems } from "@gs/models/education/index.server"
+import { getProjectsSummaryItems } from "@gs/models/projects/index.server"
 
 const apiTypes: Record<
   string,

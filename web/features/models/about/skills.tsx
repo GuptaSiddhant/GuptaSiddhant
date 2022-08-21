@@ -1,5 +1,5 @@
-import type { ModelArrayType, ModelObjectType } from "./helpers/model.types"
-import { ModelSize } from "./helpers/model.types"
+import type { ModelArrayType, ModelObjectType } from "../helpers/model.types"
+import { ModelSize } from "../helpers/model.types"
 
 const skillModel: ModelArrayType = {
   type: "array",

@@ -11,13 +11,13 @@ import {
   getDataFromModelObject,
   getModelByModelName,
 } from "@gs/models"
-import type { Skills } from "@gs/models/about.server"
+import type { Skills } from "@gs/models/about/index.server"
 import {
   aboutSkillsKey,
   getAboutDatabase,
   getAboutSkills,
   getAboutSkillsModelName,
-} from "@gs/models/about.server"
+} from "@gs/models/about/index.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { type DatabaseDocument } from "@gs/service/database.server"
 

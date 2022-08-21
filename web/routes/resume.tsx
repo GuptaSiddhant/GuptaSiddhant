@@ -10,8 +10,8 @@ import { json } from "@remix-run/server-runtime"
 
 import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter"
 import { createMetaTitle } from "@gs/helpers/meta"
-import { getCareerSummaryItems } from "@gs/models/career.server"
-import { getEducationSummaryItems } from "@gs/models/education.server"
+import { getCareerSummaryItems } from "@gs/models/career/index.server"
+import { getEducationSummaryItems } from "@gs/models/education/index.server"
 import {
   ResumeFonts,
   ResumePalettes,

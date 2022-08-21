@@ -4,9 +4,12 @@ import ProjectsIcon from "remixicon-react/ArtboardLineIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { commonBlogProjectModel } from "./helpers"
-import type { ModelObjectType, ModelStyling } from "./helpers/model.types"
-import { ModelSize } from "./helpers/model.types"
+import { commonBlogProjectModel } from "../helpers"
+import {
+  type ModelObjectType,
+  type ModelStyling,
+  ModelSize,
+} from "../helpers/model.types"
 
 const model: ModelObjectType = {
   type: "object",

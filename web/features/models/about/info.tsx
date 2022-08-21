@@ -1,5 +1,5 @@
-import type { Model } from "./helpers/model.types"
-import { ModelSize } from "./helpers/model.types"
+import type { Model } from "../helpers/model.types"
+import { ModelSize } from "../helpers/model.types"
 
 const model: Model = {
   type: "object",

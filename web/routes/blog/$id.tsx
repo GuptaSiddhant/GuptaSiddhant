@@ -19,7 +19,7 @@ import {
   type BlogPostProps,
   getBlogPost,
   getBlogPostCrossSell,
-} from "@gs/models/blog.server"
+} from "@gs/models/blog/index.server"
 import { getAuthUser } from "@gs/service/auth.server"
 import type { SummaryItem } from "@gs/summary"
 import SummarySlider from "@gs/summary/SummarySlider"

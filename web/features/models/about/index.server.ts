@@ -3,8 +3,8 @@ import { redirect } from "@remix-run/server-runtime"
 import { ModelName } from "@gs/models"
 import Database from "@gs/service/database.server"
 
-import type { AboutInfo } from "./about.model"
-import type { Skills } from "./skills.model"
+import type { AboutInfo } from "./info"
+import type { Skills } from "./skills"
 
 const modelName = ModelName.About
 const db = new Database(modelName)

@@ -14,7 +14,7 @@ import {
   verifyValidModelName,
 } from "@gs/models"
 import { getItemByModelName } from "@gs/models/index.server"
-import { getProjectAssociationKeys } from "@gs/models/projects.server"
+import { getProjectAssociationKeys } from "@gs/models/projects/index.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import invariant from "@gs/utils/invariant"
 

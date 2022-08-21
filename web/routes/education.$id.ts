@@ -1,7 +1,7 @@
 import { type LoaderFunction } from "@remix-run/server-runtime"
 
-import { redirectToAbout } from "@gs/models/about.server"
-// import { getEducationAssociatedProjects } from "@gs/models/education.server"
+import { redirectToAbout } from "@gs/models/about/index.server"
+// import { getEducationAssociatedProjects } from "@gs/models/education/index.server"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const id = params.id

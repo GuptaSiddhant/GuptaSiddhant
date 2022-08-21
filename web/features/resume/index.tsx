@@ -1,9 +1,9 @@
 import { renderToString } from "@react-pdf/renderer"
 
 import { aboutTexts } from "@gs/about"
-import { getAboutInfo, getAboutSkills } from "@gs/models/about.server"
-import { getCareerSummaryItems } from "@gs/models/career.server"
-import { getEducationSummaryItems } from "@gs/models/education.server"
+import { getAboutInfo, getAboutSkills } from "@gs/models/about/index.server"
+import { getCareerSummaryItems } from "@gs/models/career/index.server"
+import { getEducationSummaryItems } from "@gs/models/education/index.server"
 import type { SummaryItem } from "@gs/summary"
 
 import type { ResumePalettes } from "./constants"

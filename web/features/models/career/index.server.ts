@@ -4,29 +4,29 @@ import { type SummaryItem } from "@gs/summary"
 import { querySummaryItemsByModelName } from "@gs/summary/service.server"
 import { generateDurationString } from "@gs/utils/format"
 
-import type { EducationProps } from "./education.model"
-import { getProjectsSummaryItems } from "./projects.server"
+import { getProjectsSummaryItems } from "../projects/index.server"
+import type { CareerProps } from "."
 
-const modelName = ModelName.Education
-const db = new Database<EducationProps>(modelName)
+const modelName = ModelName.Career
+const db = new Database<CareerProps>(modelName)
 
-export function getEducationModelName() {
+export function getCareerModelName() {
   return modelName
 }
 
-export function getEducationDatabase() {
+export function getCareerDatabase() {
   return db
 }
 
-export async function getEducationKeys() {
+export async function getCareerKeys() {
   return db.queryKeys()
 }
 
-export async function getEducationSummaryItems() {
+export async function getCareerSummaryItems() {
   return querySummaryItemsByModelName(modelName)
 }
 
-export async function getEducationAssociatedProjects(id: string) {
+export async function getCareerAssociatedProjects(id: string) {
   const projects = await getProjectsSummaryItems()
 
   return projects.filter(
@@ -36,18 +36,18 @@ export async function getEducationAssociatedProjects(id: string) {
 
 // Get original item
 
-export async function getEducationItem(
+export async function getCareerItem(
   id: string,
   transform: true,
   ignoreCache?: boolean,
 ): Promise<SummaryItem>
-export async function getEducationItem(
+export async function getCareerItem(
   id: string,
   transform: false,
   ignoreCache?: boolean,
-): Promise<EducationProps>
-export async function getEducationItem(id: string): Promise<EducationProps>
-export async function getEducationItem(
+): Promise<CareerProps>
+export async function getCareerItem(id: string): Promise<CareerProps>
+export async function getCareerItem(
   id: string,
   transform?: boolean,
   ignoreCache?: boolean,
@@ -57,23 +57,22 @@ export async function getEducationItem(
 
   if (!transform) return { ...item, cover }
 
-  return transformEducationToSummaryItem({ ...item, cover })
+  return transformCareerToSummaryItem({ ...item, cover })
 }
 
-function transformEducationToSummaryItem({
-  degree,
-  field,
-  school,
+export function transformCareerToSummaryItem({
+  position,
+  company,
   location,
   ...rest
-}: EducationProps): SummaryItem {
+}: CareerProps): SummaryItem {
   return {
     ...rest,
     model: modelName,
-    title: [degree, field].filter(Boolean).join(" - "),
-    subtitle: [school, location].filter(Boolean).join(", "),
+    title: [position].filter(Boolean).join(" - "),
+    subtitle: [company, location].filter(Boolean).join(", "),
     duration: generateDurationString(rest),
   }
 }
 
-export { EducationProps }
+export { CareerProps }

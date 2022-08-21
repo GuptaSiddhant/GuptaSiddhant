@@ -1,6 +1,6 @@
 import { Document, Page, Text } from "@react-pdf/renderer"
 
-import type { SkillCategory, Skills } from "@gs/models/skills.model"
+import type { SkillCategory, Skills } from "@gs/models/about/skills"
 import type { SummaryItem } from "@gs/summary"
 import { capitalize } from "@gs/utils/format"
 

@@ -4,12 +4,12 @@ import CareerIcon from "remixicon-react/Briefcase5FillIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { commonCareerEducationModel } from "./helpers"
+import { commonCareerEducationModel } from "../helpers"
 import {
   type ModelObjectType,
   type ModelStyling,
   ModelSize,
-} from "./helpers/model.types"
+} from "../helpers/model.types"
 
 const model: ModelObjectType = {
   type: "object",

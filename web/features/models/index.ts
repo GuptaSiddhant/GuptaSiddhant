@@ -1,12 +1,12 @@
 import clsx from "clsx"
 
-import about from "./about.model"
-import blog from "./blog.model"
-import career from "./career.model"
-import education from "./education.model"
+import about from "./about/info"
+import skills from "./about/skills"
+import blog from "./blog"
+import career from "./career"
+import education from "./education"
 import type { Model, ModelStyling } from "./helpers/model.types"
-import projects from "./projects.model"
-import skills from "./skills.model"
+import projects from "./projects"
 
 export enum ModelName {
   Projects = "projects",

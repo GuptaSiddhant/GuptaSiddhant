@@ -20,7 +20,7 @@ import {
   getProject,
   getProjectAssociationById,
   getProjectCrossSell,
-} from "@gs/models/projects.server"
+} from "@gs/models/projects/index.server"
 import { getAuthUser } from "@gs/service/auth.server"
 import type { SummaryItem } from "@gs/summary"
 import SummarySlider from "@gs/summary/SummarySlider"

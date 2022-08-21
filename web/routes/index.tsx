@@ -8,12 +8,12 @@ import type {
 } from "@remix-run/server-runtime"
 import { json } from "@remix-run/server-runtime"
 
-import { type AboutInfo } from "@gs/models/about.model"
-import { getAboutInfo } from "@gs/models/about.server"
 import HomeHeroSection from "@gs/home/HomeHeroSection"
 import HomeSummarySlider from "@gs/home/HomeSummarySlider"
-import { getBlogSummaryItems } from "@gs/models/blog.server"
-import { getProjectsSummaryItems } from "@gs/models/projects.server"
+import { getAboutInfo } from "@gs/models/about/index.server"
+import { type AboutInfo } from "@gs/models/about/info"
+import { getBlogSummaryItems } from "@gs/models/blog/index.server"
+import { getProjectsSummaryItems } from "@gs/models/projects/index.server"
 import type { SummaryItem } from "@gs/summary"
 import { ErrorSection } from "@gs/ui/Error"
 

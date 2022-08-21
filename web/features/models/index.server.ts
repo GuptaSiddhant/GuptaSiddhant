@@ -4,11 +4,11 @@ import {
   type Skills,
   getAboutInfo,
   getAboutSkills,
-} from "./about.server"
-import { type BlogPostProps, getBlogPost } from "./blog.server"
-import { type CareerProps, getCareerItem } from "./career.server"
-import { type EducationProps, getEducationItem } from "./education.server"
-import { type ProjectProps, getProject } from "./projects.server"
+} from "./about/index.server"
+import { type BlogPostProps, getBlogPost } from "./blog/index.server"
+import { type CareerProps, getCareerItem } from "./career/index.server"
+import { type EducationProps, getEducationItem } from "./education/index.server"
+import { type ProjectProps, getProject } from "./projects/index.server"
 
 export async function getItemByModelName(
   modelName: ModelName.Career,

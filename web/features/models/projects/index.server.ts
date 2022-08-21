@@ -7,13 +7,13 @@ import {
   getCareerItem,
   getCareerKeys,
   getCareerModelName,
-} from "./career.server"
+} from "../career/index.server"
 import {
   getEducationItem,
   getEducationKeys,
   getEducationModelName,
-} from "./education.server"
-import type { ProjectProps } from "./projects.model"
+} from "../education/index.server"
+import type { ProjectProps } from "."
 
 const modelName = ModelName.Projects
 const db = new Database<ProjectProps>(modelName)
