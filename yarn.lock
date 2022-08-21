@@ -7627,7 +7627,7 @@ __metadata:
     firebase-functions-test: ^0.2.0
     firebase-tools: ^11.3.0
     react: 18
-    recanvas: "*"
+    recanvas: 0.1.7
     typescript: "*"
   languageName: unknown
   linkType: soft
@@ -12739,7 +12739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recanvas@npm:*":
+"recanvas@npm:0.1.7":
   version: 0.1.7
   resolution: "recanvas@npm:0.1.7"
   dependencies:

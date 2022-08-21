@@ -19,7 +19,7 @@
     "firebase-admin": "*",
     "firebase-functions": "^3.18.0",
     "react": "18",
-    "recanvas": "*"
+    "recanvas": "0.1.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
