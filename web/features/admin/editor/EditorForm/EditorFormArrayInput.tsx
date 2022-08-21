@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { useState } from "react"
 
 import { DeleteIcon } from "@gs/icons"
-import type { Model, ModelsMap } from "@gs/models/helpers/model.types"
+import type { Model, ModelsMap } from "@gs/models/types"
 import Button from "@gs/ui/Button"
 import { toTitleCase } from "@gs/utils/format"
 

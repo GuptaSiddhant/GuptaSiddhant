@@ -75,7 +75,7 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(pathname)
 }
 
-export default function BlogEditor(): JSX.Element | null {
+export default function Editor(): JSX.Element | null {
   const { skills, model } = useLoaderData<LoaderData>()
 
   return <EditorPage item={skills} model={model} headerPrefix={"About"} />

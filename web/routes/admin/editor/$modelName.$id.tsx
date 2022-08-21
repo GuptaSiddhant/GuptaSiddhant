@@ -13,8 +13,8 @@ import {
   ModelName,
   verifyValidModelName,
 } from "@gs/models"
-import { getItemByModelName } from "@gs/models/index.server"
 import { getProjectAssociationKeys } from "@gs/models/projects/index.server"
+import { getItemByModelName } from "@gs/models/service.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import invariant from "@gs/utils/invariant"
 
@@ -79,7 +79,7 @@ export async function action({ request, params }: DataFunctionArgs) {
   return redirect(redirectTo || pathname)
 }
 
-export default function ItemEditor(): JSX.Element | null {
+export default function Editor(): JSX.Element | null {
   const { item, model, modelName, modelLabel } = useLoaderData<LoaderData>()
 
   return (

@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import { type Model, ModelSize } from "@gs/models/helpers/model.types"
+import { type Model, ModelSize } from "@gs/models/types"
 
 export const objectGridClassName = clsx(
   "grid grid-flow-row-dense gap-4",

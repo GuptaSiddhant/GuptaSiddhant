@@ -1,5 +1,5 @@
-import type { Model } from "../helpers/model.types"
-import { ModelSize } from "../helpers/model.types"
+import type { Model } from "../types"
+import { ModelSize } from "../types"
 
 const model: Model = {
   type: "object",
@@ -8,16 +8,7 @@ const model: Model = {
     name: { type: "string", required: true, size: ModelSize.MEDIUM },
     shortName: { type: "string", required: true },
     title: { type: "string", required: true, size: ModelSize.MEDIUM },
-
-    currentCompany: {
-      type: "object",
-      required: true,
-      properties: {
-        name: { type: "string", required: true, size: ModelSize.MEDIUM },
-        link: { type: "string", size: ModelSize.MEDIUM },
-        hiringLink: { type: "string", size: ModelSize.MEDIUM },
-      },
-    },
+    currentCompany: { type: "string" },
     terminalResume: {
       type: "object",
       required: true,
@@ -34,6 +25,18 @@ const model: Model = {
     techStack: {
       type: "array",
       items: { type: "string" },
+    },
+    hero: {
+      type: "object",
+      required: true,
+      properties: {
+        title: { type: "string", size: ModelSize.FULL },
+        adjectives: {
+          type: "array",
+          required: true,
+          items: { type: "string" },
+        },
+      },
     },
     heroAdjectives: {
       type: "array",
@@ -62,7 +65,11 @@ export interface AboutInfo {
     code: string
     copyText?: string
   }
-  currentCompany: { name: string; hiringLink?: string; link?: string }
+  hero: {
+    title: string
+    adjectives: string[]
+  }
+  currentCompany?: string
   techStack?: string[]
   heroAdjectives?: string[]
   link?: Record<AboutLinkKey, string>

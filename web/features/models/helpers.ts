@@ -1,4 +1,4 @@
-import type { Model, ModelScalerType, ModelsMap } from "./model.types"
+import type { Model, ModelScalerType, ModelsMap } from "./types"
 
 export function getDataFromModelObject(
   keys: string[],
@@ -11,6 +11,7 @@ export function getDataFromModelObject(
   keys.forEach((key, i) => {
     const modelKey =
       key === modelKeys[i] ? key : key.split(".").slice(-1).join("")
+    console.log({ key, modelKey })
 
     const modelProperty = properties[modelKey]
     if (!modelProperty) return
@@ -55,6 +56,8 @@ export function getDataFromModelArray(
   formData: FormData,
   items: Model,
 ) {
+  console.log({ items, modelKey })
+
   if (items.type === "object") {
     const formKeysArray = [...formData.keys()]
       .filter((k) => k.startsWith(modelKey))

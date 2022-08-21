@@ -10,9 +10,9 @@ import { json } from "@remix-run/server-runtime"
 
 import HomeHeroSection from "@gs/home/HomeHeroSection"
 import HomeSummarySlider from "@gs/home/HomeSummarySlider"
-import { getAboutInfo } from "@gs/models/about/index.server"
-import { type AboutInfo } from "@gs/models/about/info"
+import { type AboutInfo, getAboutInfo } from "@gs/models/about/index.server"
 import { getBlogSummaryItems } from "@gs/models/blog/index.server"
+import { type CareerProps, getCareerItem } from "@gs/models/career/index.server"
 import { getProjectsSummaryItems } from "@gs/models/projects/index.server"
 import type { SummaryItem } from "@gs/summary"
 import { ErrorSection } from "@gs/ui/Error"
@@ -21,6 +21,7 @@ interface LoaderData {
   about: AboutInfo
   projects: SummaryItem[]
   blogPosts: SummaryItem[]
+  currentCompany?: CareerProps
 }
 
 export const loader: LoaderFunction = async () => {
@@ -29,16 +30,25 @@ export const loader: LoaderFunction = async () => {
     getProjectsSummaryItems(),
     getBlogSummaryItems(),
   ])
+  const currentCompany = about.currentCompany
+    ? await getCareerItem(about.currentCompany)
+    : undefined
 
-  return json<LoaderData>({ about, projects: projects.slice(0, 6), blogPosts })
+  return json<LoaderData>({
+    about,
+    currentCompany,
+    projects: projects.slice(0, 6),
+    blogPosts,
+  })
 }
 
 export default function Index() {
-  const { about, projects, blogPosts } = useLoaderData<LoaderData>()
+  const { about, currentCompany, projects, blogPosts } =
+    useLoaderData<LoaderData>()
 
   return (
     <>
-      <HomeHeroSection {...about} />
+      <HomeHeroSection about={about} currentCompany={currentCompany} />
 
       <HomeSummarySlider
         id="projects"

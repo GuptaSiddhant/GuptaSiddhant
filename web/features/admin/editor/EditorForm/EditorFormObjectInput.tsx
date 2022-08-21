@@ -1,6 +1,6 @@
 import clsx from "clsx"
 
-import type { ModelsMap } from "@gs/models/helpers/model.types"
+import type { ModelsMap } from "@gs/models/types"
 import { toTitleCase } from "@gs/utils/format"
 
 import { useEditorFormContext } from "."

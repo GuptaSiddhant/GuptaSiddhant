@@ -5,8 +5,8 @@ import skills from "./about/skills"
 import blog from "./blog"
 import career from "./career"
 import education from "./education"
-import type { Model, ModelStyling } from "./helpers/model.types"
 import projects from "./projects"
+import type { Model, ModelStyling } from "./types"
 
 export enum ModelName {
   Projects = "projects",
@@ -21,7 +21,7 @@ export enum ModelName {
 }
 
 export type { Model }
-export * from "./helpers/model.helpers"
+export * from "./helpers"
 
 export function getModelByModelName(modelName: ModelName) {
   switch (modelName) {

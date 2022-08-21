@@ -1,7 +1,7 @@
-import type { ModelArrayType, ModelObjectType } from "./model.types"
-import { ModelSize } from "./model.types"
+import type { ModelArrayType, ModelObjectType } from "./types"
+import { ModelSize } from "./types"
 
-const linksModel: ModelArrayType = {
+export const linksModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
@@ -27,7 +27,7 @@ const linksModel: ModelArrayType = {
   },
 }
 
-const galleryModel: ModelArrayType = {
+export const galleryModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
@@ -38,7 +38,7 @@ const galleryModel: ModelArrayType = {
   },
 }
 
-const commonModel: ModelObjectType = {
+export const summaryModel: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
@@ -54,7 +54,7 @@ const commonModel: ModelObjectType = {
 export const commonCareerEducationModel: ModelObjectType = {
   type: "object",
   properties: {
-    ...commonModel.properties,
+    ...summaryModel.properties,
 
     description: { type: "string", format: "markdown" },
     startDate: { type: "string", required: true },
@@ -66,7 +66,7 @@ export const commonCareerEducationModel: ModelObjectType = {
 export const commonBlogProjectModel: ModelObjectType = {
   type: "object",
   properties: {
-    ...commonModel.properties,
+    ...summaryModel.properties,
 
     title: { type: "string", required: true, size: ModelSize.MEDIUM },
     subtitle: { type: "string", size: ModelSize.MEDIUM },

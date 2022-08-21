@@ -4,12 +4,8 @@ import EducationIcon from "remixicon-react/BookFillIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { commonCareerEducationModel } from "../helpers"
-import {
-  type ModelObjectType,
-  type ModelStyling,
-  ModelSize,
-} from "../helpers/model.types"
+import { commonCareerEducationModel } from "../common-models"
+import { type ModelObjectType, type ModelStyling, ModelSize } from "../types"
 
 const model: ModelObjectType = {
   type: "object",

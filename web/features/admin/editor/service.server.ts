@@ -1,5 +1,5 @@
 import { type ModelName, getModelByModelName } from "@gs/models"
-import { getDataFromModelObject } from "@gs/models/helpers/model.helpers"
+import { getDataFromModelObject } from "@gs/models/helpers"
 import Database, { type DatabaseDocument } from "@gs/service/database.server"
 import invariant from "@gs/utils/invariant"
 

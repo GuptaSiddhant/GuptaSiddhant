@@ -4,8 +4,8 @@ import BlogIcon from "remixicon-react/QuillPenLineIcon"
 import type { SummaryItem } from "@gs/summary"
 import type { Gallery } from "@gs/types"
 
-import { commonBlogProjectModel } from "../helpers"
-import type { ModelObjectType, ModelStyling } from "../helpers/model.types"
+import { commonBlogProjectModel } from "../common-models"
+import type { ModelObjectType, ModelStyling } from "../types"
 
 const model: ModelObjectType = {
   type: "object",

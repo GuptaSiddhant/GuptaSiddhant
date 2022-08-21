@@ -7,9 +7,9 @@ import EditorPage from "@gs/admin/editor/EditorPage"
 import { adminLogger } from "@gs/admin/service.server"
 import {
   type Model,
-  type ModelName,
   getDataFromModelObject,
   getModelByModelName,
+  ModelName,
 } from "@gs/models"
 import type { AboutInfo } from "@gs/models/about/index.server"
 import {
@@ -18,6 +18,7 @@ import {
   getAboutInfo,
   getAboutModelName,
 } from "@gs/models/about/index.server"
+import { getCareerKeys } from "@gs/models/career/index.server"
 import { authenticateRoute } from "@gs/service/auth.server"
 import { type DatabaseDocument } from "@gs/service/database.server"
 
@@ -36,8 +37,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   try {
     const info = await getAboutInfo()
+    const enrichedModel = await enrichModel(modelName, model)
 
-    return json<LoaderData>({ info, model, modelName })
+    return json<LoaderData>({ info, model: enrichedModel, modelName })
   } catch (e: any) {
     adminLogger.error(e.message)
 
@@ -67,6 +69,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     case "POST":
     case "PUT": {
+      console.log(data)
       database.mutateById(aboutInfoKey, data)
       break
     }
@@ -75,8 +78,27 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(pathname)
 }
 
-export default function BlogEditor(): JSX.Element | null {
+export default function Editor(): JSX.Element | null {
   const { info, model } = useLoaderData<LoaderData>()
 
   return <EditorPage item={info} model={model} headerPrefix={"About"} />
+}
+
+// Helpers
+
+async function enrichModel(modelName: ModelName, model: Model): Promise<Model> {
+  if (modelName === ModelName.About) {
+    const keys = await getCareerKeys()
+
+    if (model.type === "object") {
+      // Add options to association property
+      model.properties["currentCompany"] = {
+        ...(model.properties["currentCompany"] || {}),
+        type: "string",
+        enum: ["", ...keys],
+      }
+    }
+  }
+
+  return model
 }
