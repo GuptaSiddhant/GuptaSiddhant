@@ -5,7 +5,6 @@ import { redirectToAbout } from "@gs/models/about/index.server"
 
 export const loader: LoaderFunction = async ({ params }) => {
   const id = params.id
-  console.log({ id })
 
   // const associatedProjects = await getEducationAssociatedProjects(id || "")
 

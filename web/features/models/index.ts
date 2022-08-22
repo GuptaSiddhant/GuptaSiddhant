@@ -21,7 +21,6 @@ export enum ModelName {
 }
 
 export type { Model }
-export * from "./helpers"
 
 export function getModelByModelName(modelName: ModelName) {
   switch (modelName) {

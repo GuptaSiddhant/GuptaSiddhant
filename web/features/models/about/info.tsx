@@ -30,11 +30,11 @@ const model: Model = {
       type: "object",
       required: true,
       properties: {
-        title: { type: "string", size: ModelSize.FULL },
+        title: { type: "string", size: ModelSize.FULL, required: true },
         adjectives: {
           type: "array",
-          required: true,
           items: { type: "string" },
+          required: true,
         },
       },
     },

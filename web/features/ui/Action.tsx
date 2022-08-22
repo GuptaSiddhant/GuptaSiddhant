@@ -101,7 +101,9 @@ function FormAction({
   confirm,
   method = "get",
   ...props
-}: Omit<ActionProps, "toast">): JSX.Element | null {
+}: Omit<ActionProps, "toast" | "method"> & {
+  method: "get" | "post"
+}): JSX.Element | null {
   const originPath = useOriginPath()
   const submit = useSubmit()
 

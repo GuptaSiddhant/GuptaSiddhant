@@ -4,7 +4,6 @@ import { json, redirect } from "@remix-run/server-runtime"
 
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
-import { modifyDatabaseDocumentWithEditorForm } from "@gs/admin/editor/service.server"
 import { adminLogger } from "@gs/admin/service.server"
 import {
   type Model,
@@ -14,8 +13,12 @@ import {
   verifyValidModelName,
 } from "@gs/models"
 import { getProjectAssociationKeys } from "@gs/models/projects/index.server"
-import { getItemByModelName } from "@gs/models/service.server"
+import {
+  getItemByModelName,
+  mutateDatabaseByModelNameAndFormData,
+} from "@gs/models/service.server"
 import { authenticateRoute } from "@gs/service/auth.server"
+import Database from "@gs/service/database.server"
 import invariant from "@gs/utils/invariant"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
@@ -63,20 +66,26 @@ export async function loader({ params, request }: DataFunctionArgs) {
 export async function action({ request, params }: DataFunctionArgs) {
   await authenticateRoute(request)
 
-  const { modelName: name } = params
-  invariant(name, "ModelName is required.")
-
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
 
+  const { modelName: name } = params
+  invariant(name, "ModelName is required.")
   const modelName = name as ModelName
-  const redirectTo = await modifyDatabaseDocumentWithEditorForm(
-    modelName,
-    formData,
-    request.method,
-  )
 
-  return redirect(redirectTo || pathname)
+  const id = formData.get("id")?.toString()
+  invariant(id, modelName + " id is required.")
+
+  const database = new Database(modelName)
+
+  if (request.method === "DELETE") {
+    const deleted = await database.mutateById(id)
+    return redirect(generateRedirectUrl(modelName, deleted ? "" : id))
+  }
+
+  await mutateDatabaseByModelNameAndFormData(modelName, formData, database, id)
+
+  return redirect(generateRedirectUrl(modelName, id) || pathname)
 }
 
 export default function Editor(): JSX.Element | null {
@@ -109,4 +118,8 @@ async function enrichModel(modelName: ModelName, model: Model): Promise<Model> {
   }
 
   return model
+}
+
+function generateRedirectUrl(...paths: string[]) {
+  return ["/admin/editor", ...paths].join("/")
 }

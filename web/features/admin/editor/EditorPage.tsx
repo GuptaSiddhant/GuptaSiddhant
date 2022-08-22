@@ -39,8 +39,8 @@ export default function EditorPage<T extends EditorHeaderProps>({
       id: "Refresh",
       children: (
         <Action.Form
-          method="patch"
-          body={{ id: item.id }}
+          method="post"
+          body={{ id: item.id, invalidate: true }}
           title="Refresh entry"
           reloadDocument
         >

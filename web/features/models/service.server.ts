@@ -1,4 +1,7 @@
-import { ModelName } from "."
+import type { DatabaseDocument } from "@gs/service/database.server"
+import type Database from "@gs/service/database.server"
+
+import { getModelByModelName, ModelName } from "."
 import {
   type AboutInfo,
   type Skills,
@@ -8,7 +11,22 @@ import {
 import { type BlogPostProps, getBlogPost } from "./blog/index.server"
 import { type CareerProps, getCareerItem } from "./career/index.server"
 import { type EducationProps, getEducationItem } from "./education/index.server"
+import { parseFormDataWithModelObject } from "./parser"
 import { type ProjectProps, getProject } from "./projects/index.server"
+
+export async function mutateDatabaseByModelNameAndFormData(
+  modelName: ModelName,
+  formData: FormData,
+  database: Database,
+  id: string,
+) {
+  const invalidate = formData.get("invalidate")?.toString() === "true"
+  const model = getModelByModelName(modelName)
+  const data = parseFormDataWithModelObject(formData, model) as DatabaseDocument
+
+  if (invalidate) database.invalidateCacheById(id)
+  else database.mutateById(id, data)
+}
 
 export async function getItemByModelName(
   modelName: ModelName.Career,

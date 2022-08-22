@@ -7,12 +7,13 @@ const skillModel: ModelArrayType = {
     type: "object",
     properties: {
       title: { type: "string", required: true, size: ModelSize.MEDIUM },
-      linkUrl: { type: "string", size: ModelSize.LARGE },
-      iconUrl: { type: "string", size: ModelSize.FULL },
+      linkUrl: { type: "string", size: ModelSize.MEDIUM },
+      iconUrl: { type: "string", size: ModelSize.MEDIUM },
       level: {
         type: "string",
         required: true,
         enum: ["advanced", "intermediate", "basic"],
+        size: ModelSize.MEDIUM,
       },
     },
   },

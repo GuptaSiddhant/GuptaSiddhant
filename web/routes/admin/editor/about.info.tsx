@@ -5,12 +5,7 @@ import { json, redirect } from "@remix-run/server-runtime"
 import { AdminAppId, adminRegistry } from "@gs/admin"
 import EditorPage from "@gs/admin/editor/EditorPage"
 import { adminLogger } from "@gs/admin/service.server"
-import {
-  type Model,
-  getDataFromModelObject,
-  getModelByModelName,
-  ModelName,
-} from "@gs/models"
+import { type Model, getModelByModelName, ModelName } from "@gs/models"
 import type { AboutInfo } from "@gs/models/about/index.server"
 import {
   aboutInfoKey,
@@ -19,8 +14,8 @@ import {
   getAboutModelName,
 } from "@gs/models/about/index.server"
 import { getCareerKeys } from "@gs/models/career/index.server"
+import { mutateDatabaseByModelNameAndFormData } from "@gs/models/service.server"
 import { authenticateRoute } from "@gs/service/auth.server"
-import { type DatabaseDocument } from "@gs/service/database.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -51,29 +46,15 @@ export const action: ActionFunction = async ({ request }) => {
   await authenticateRoute(request)
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
-
   const database = getAboutDatabase()
   const modelName = getAboutModelName()
-  const model = getModelByModelName(modelName)
-  const data = getDataFromModelObject(
-    Object.keys(model.properties),
+
+  await mutateDatabaseByModelNameAndFormData(
+    modelName,
     formData,
-    model.properties,
-  ) as DatabaseDocument
-
-  switch (request.method) {
-    case "PATCH": {
-      database.invalidateCacheById(aboutInfoKey)
-      break
-    }
-
-    case "POST":
-    case "PUT": {
-      console.log(data)
-      database.mutateById(aboutInfoKey, data)
-      break
-    }
-  }
+    database,
+    aboutInfoKey,
+  )
 
   return redirect(pathname)
 }
