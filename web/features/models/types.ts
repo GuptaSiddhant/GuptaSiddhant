@@ -7,19 +7,16 @@ export enum ModelSize {
   FULL = "full",
 }
 
-export type Model = {
-  required?: boolean
-  size?: ModelSize
-} & (ModelScalerType | ModelObjectType | ModelArrayType)
+export type Model = ModelScalerType | ModelObjectType | ModelArrayType
 
-export type ModelObjectType = {
+export type ModelObjectType = ModelCommon & {
   type: "object"
   properties: ModelsMap
 }
 
-export type ModelArrayType = {
+export type ModelArrayType = ModelCommon & {
   type: "array"
-  items: Model
+  items: ModelScalerType | ModelObjectType
 }
 
 export type ModelScalerType =
@@ -27,18 +24,18 @@ export type ModelScalerType =
   | ModelStringType
   | ModelNumberType
 
-export type ModelStringType = {
+export type ModelStringType = ModelCommon & {
   type: "string"
   enum?: string[]
   format?: "markdown" | "code"
 }
 
-export type ModelBooleanType = {
+export type ModelBooleanType = ModelCommon & {
   type: "boolean"
   default?: boolean
 }
 
-export type ModelNumberType = {
+export type ModelNumberType = ModelCommon & {
   type: "number"
 }
 
@@ -48,4 +45,9 @@ export interface ModelStyling {
   bg: string
   borderHocus?: string
   icon?: React.ReactNode
+}
+
+interface ModelCommon {
+  required?: boolean
+  size?: ModelSize
 }

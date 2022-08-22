@@ -10,6 +10,16 @@ test("FormData with object model", () => {
     type: "object",
     properties: {
       id: { type: "string", required: true },
+      about: {
+        type: "object",
+        required: true,
+        properties: {
+          name: { type: "string", required: true },
+          age: { type: "number" },
+          online: { type: "boolean" },
+          gender: { type: "string", enum: ["m", "f", "o"] },
+        },
+      },
       links: {
         type: "array",
         items: {
@@ -24,48 +34,27 @@ test("FormData with object model", () => {
   }
 
   const formData = new FormData()
-  formData.set("id", "links")
+  formData.set("id", "info")
+  formData.set("about.name", "ABC")
+  formData.set("about.age", "22")
+  formData.set("about.online", "on")
+  formData.set("about.gender", "o")
   formData.set("links.0.url", "https://github.com")
   formData.set("links.0.alt", "github")
   formData.set("links.1.url", "https://linkedin.com")
   formData.set("links.1.alt", "linkedin")
 
   const expected = {
-    id: "links",
+    id: "info",
+    about: {
+      name: "ABC",
+      age: 22,
+      online: true,
+      gender: "o",
+    },
     links: [
       { url: "https://github.com", alt: "github" },
       { url: "https://linkedin.com", alt: "linkedin" },
-    ],
-  }
-
-  const actual = parseFormDataWithModelObject(formData, model)
-  expect(actual).toEqual(expected)
-})
-
-test("FormData with array of array", () => {
-  const model: ModelObjectType = {
-    type: "object",
-    properties: {
-      id: { type: "string", required: true },
-      marks: {
-        type: "array",
-        items: { type: "array", items: { type: "number" } },
-      },
-    },
-  }
-
-  const formData = new FormData()
-  formData.set("id", "marks")
-  formData.set("marks.0", "100, 99, 98")
-  formData.set("marks.1", "90,91, 92")
-  formData.set("marks.2", "60,  70,    80")
-
-  const expected = {
-    id: "marks",
-    marks: [
-      [100, 99, 98],
-      [90, 91, 92],
-      [60, 70, 80],
     ],
   }
 

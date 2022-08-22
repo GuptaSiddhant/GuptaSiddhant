@@ -45,24 +45,16 @@ function parseFormDataWithModelArray(
 ): any[] {
   const itemModel = model.items
 
-  if (itemModel.type === "object" || itemModel.type === "array") {
+  if (itemModel.type === "object") {
     const keyIndices = [...formData.keys()]
       .filter((k) => k.startsWith(key))
       .map((k) => k.slice(key.length).split(".")[1])
 
     const countArray = Array([...new Set(keyIndices)].length).fill(0)
 
-    if (itemModel.type === "object") {
-      return countArray.map((_, index) =>
-        parseFormDataWithModelObject(formData, itemModel, `${key}.${index}`),
-      )
-    }
-
-    if (itemModel.type === "array") {
-      return countArray.map((_, index) =>
-        parseFormDataWithModelArray(formData, itemModel, `${key}.${index}`),
-      )
-    }
+    return countArray.map((_, index) =>
+      parseFormDataWithModelObject(formData, itemModel, `${key}.${index}`),
+    )
   }
 
   // Scaler

@@ -100,12 +100,7 @@ export default function EditorPage<T extends EditorHeaderProps>({
         ...existingItemActions,
       ]}
     >
-      <EditorForm
-        formId={formId}
-        item={item}
-        model={model}
-        method={item ? "put" : "post"}
-      />
+      <EditorForm formId={formId} data={item} model={model} />
     </AdminLayout>
   )
 }
