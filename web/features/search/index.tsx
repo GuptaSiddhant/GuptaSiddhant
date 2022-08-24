@@ -1,5 +1,6 @@
 import { createContext, useContext, useRef } from "react"
 
+import useStableCallback from "@gs/hooks/useStableCallback"
 import invariant from "@gs/utils/invariant"
 
 import { useDialog } from "../ui/Dialog"
@@ -10,6 +11,7 @@ export interface SearchContextValue {
   toggleSearchOpen: () => void
   openSearch: () => void
   closeSearch: () => void
+  openSearchWithInput: (input: string) => void
   inputRef: React.RefObject<HTMLInputElement>
   resultsRef: React.RefObject<HTMLDivElement>
 }
@@ -39,6 +41,16 @@ export function Search({
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsRef = useRef<HTMLDivElement>(null)
 
+  const openSearchWithInput = useStableCallback((input: string) => {
+    openSearch()
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus()
+        inputRef.current.value = input
+      }
+    }, 1000)
+  })
+
   return (
     <SearchContext.Provider
       value={{
@@ -48,6 +60,7 @@ export function Search({
         toggleSearchOpen,
         inputRef,
         resultsRef,
+        openSearchWithInput,
       }}
     >
       {children}

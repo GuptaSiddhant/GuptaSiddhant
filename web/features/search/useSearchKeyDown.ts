@@ -10,6 +10,7 @@ export default function useSearchKeyDown() {
 
   return useStableCallback((event: React.KeyboardEvent<HTMLDialogElement>) => {
     const activeElement = window.document.activeElement as HTMLElement | null
+    console.log({ key: event.key })
 
     if (event.metaKey && (event.key === "k" || event.key === "K")) {
       return closeSearch()

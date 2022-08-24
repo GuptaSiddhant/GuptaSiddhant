@@ -126,7 +126,7 @@ function SearchOutputPreview({
         <img
           src={heroImageUrl}
           alt={id}
-          className="mb-4 aspect-video min-h-[200px] w-full overflow-hidden object-cover"
+          className="mb-4 aspect-video min-h-[200px] w-full overflow-hidden rounded object-cover"
         />
       ) : iconUrl ? (
         <img

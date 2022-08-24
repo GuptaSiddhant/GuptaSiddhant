@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { type ReactElement, type ReactNode } from "react"
+import { type ReactElement, type ReactNode, useEffect, useRef } from "react"
 import BackIcon from "remixicon-react/ArrowLeftLineIcon"
 import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
 import HashIcon from "remixicon-react/HashtagIcon"
@@ -22,11 +22,14 @@ export default function HeroHeader({
   subtitle,
   children,
 }: HeroHeaderProps): JSX.Element | null {
+  const headingLinkRef = useRef<HTMLAnchorElement>(null)
+  useEffect(() => headingLinkRef.current?.focus(), [])
+
   return (
     <header className={clsx("flex flex-col items-start gap-4", proseWidth)}>
       <HeroHeaderCaption caption={caption}>{children}</HeroHeaderCaption>
       <div className="mt-4 flex flex-col gap-4">
-        <Link to="#">
+        <Link to="#" ref={headingLinkRef}>
           <H1 className="text-primary">{title}</H1>
         </Link>
         {subtitle ? (

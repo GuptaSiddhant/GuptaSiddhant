@@ -35,6 +35,8 @@ export default function SearchInput({
         inputRef={inputRef}
         autoFocus
         autoComplete="off"
+        enterKeyHint="search"
+        onChange={console.log}
       />
 
       <label

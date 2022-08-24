@@ -20,11 +20,7 @@ export default function SearchDialog({
   const load = fetcher.load
 
   useEffect(() => {
-    if (isSearchOpen) {
-      inputRef.current?.form?.reset()
-      inputRef.current?.focus()
-      load("/search")
-    }
+    if (isSearchOpen) load("/search")
   }, [isSearchOpen, load, inputRef])
 
   return (

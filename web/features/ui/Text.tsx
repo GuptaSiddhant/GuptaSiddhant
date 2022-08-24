@@ -15,6 +15,7 @@ const commonHeadingClassName = clsx("font-bold leading-tight !m-0")
 
 export interface HeadingProps extends BaseProps {
   link?: boolean
+  headingRef?: React.Ref<HTMLHeadingElement>
 }
 
 export function H1(props: HeadingProps) {
@@ -119,17 +120,20 @@ function HeadingWrapper({
   as: Component = "h1",
   link = false,
   headingClassName,
+  headingRef,
   ...props
 }: ComponentPropsWithoutRef<"h1"> & {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
   link?: boolean
   headingClassName?: string
+  headingRef?: React.Ref<HTMLHeadingElement>
 }): JSX.Element | null {
   const uid = id || generateHeadingId(children)
 
   const element = (
     <Component
       {...props}
+      ref={headingRef}
       id={uid}
       className={clsx(
         headingClassName,

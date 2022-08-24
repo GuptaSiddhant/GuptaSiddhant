@@ -1,4 +1,6 @@
-export type ModelsMap = Record<string, Model>
+export type ModelsMap = {
+  [key: string]: Model
+}
 
 export enum ModelSize {
   SMALL = "small",
@@ -43,7 +45,7 @@ export interface ModelStyling {
   text: string
   border: string
   bg: string
-  borderHocus?: string
+  borderHocus?: string // hover and focus
   icon?: React.ReactNode
 }
 

@@ -29,10 +29,6 @@ export default function EditorArrayInput(
     return <EditorObjectList name={name} data={data} model={itemModel} />
   }
 
-  if (itemModel.type === "array") {
-    throw new Error("Nested arrays are not supported")
-  }
-
   return (
     <EditorScalerInput
       name={name}
@@ -43,6 +39,8 @@ export default function EditorArrayInput(
       required={required}
     />
   )
+
+  // throw new Error("Nested arrays are not supported")
 }
 
 function EditorObjectList(props: {
