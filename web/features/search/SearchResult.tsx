@@ -6,10 +6,12 @@ import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
 } from "@gs/helpers/assets"
+import Button from "@gs/ui/Button"
 
 import type { Gallery } from "../types"
 import Accordion from "../ui/Accordion"
 import useSearch from "."
+import type { Command } from "./commands"
 
 export interface SearchResultGroupProps {
   label: string
@@ -59,7 +61,7 @@ export function SearchResultItem({
   ...props
 }: SearchResultItemProps): JSX.Element | null {
   const { id, title, subtitle, icon, cover, linkUrl } = props
-  const to = new URL(linkUrl || id)
+  const to = new URL(linkUrl || id, "https://guptasiddhant.com")
   const { closeSearch } = useSearch()
   const navigate = useNavigate()
 
@@ -108,5 +110,21 @@ export function SearchResultItem({
         <span className="text-sm">{subtitle}</span>
       </div>
     </Link>
+  )
+}
+
+export function CommandItem(command: Command): JSX.Element | null {
+  const { id, title, onClick } = command
+  const { closeSearch } = useSearch()
+
+  const handleClick = () => {
+    closeSearch()
+    onClick()
+  }
+
+  return (
+    <Button data-testid={id} onClick={handleClick} className={"p-2"}>
+      {title}
+    </Button>
   )
 }

@@ -180,7 +180,7 @@ function SummarySliderOverlay({
       disabled={isDisabled}
     >
       <Icon
-        size="3rem"
+        size={48}
         className={clsx(
           "transition-[opacity_transform] duration-300",
           "absolute -translate-y-1/2 drop-shadow-icon",

@@ -7,10 +7,19 @@ import type { NavigationLinkProps } from "@gs/navigation/types"
 const inputTagNames = ["input", "textarea", "select"]
 
 export enum ShortcutModifier {
-  SHIFT = "SHIFT",
-  META = "META",
-  ALT = "ALT",
-  CONTROL = "CTRL",
+  SHIFT = "Shift",
+  META = "Meta",
+  ALT = "Alt",
+  CONTROL = "Ctrl",
+}
+
+export enum KeyboardKey {
+  BACKSPACE = "Backspace",
+  SPACE = " ",
+  ARROW_DOWN = "ArrowDown",
+  ARROW_RIGHT = "ArrowRight",
+  ARROW_LEFT = "ArrowLeft",
+  ARROW_UP = "ArrowUp",
 }
 
 export default function useShortcutsCallback(

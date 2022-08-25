@@ -1,9 +1,8 @@
-import { useEffect } from "react"
-
 import { useFetcher } from "@remix-run/react"
 
 import Dialog from "../ui/Dialog"
 import useSearch from "."
+import { useCommands } from "./commands"
 import SearchInput from "./SearchInput"
 import SearchOutput, { type SearchOutputData } from "./SearchOutput"
 import useSearchKeyDown from "./useSearchKeyDown"
@@ -13,15 +12,11 @@ export default function SearchDialog({
 }: {
   dialogRef: React.RefObject<HTMLDialogElement>
 }): JSX.Element | null {
-  const { isSearchOpen, closeSearch, inputRef } = useSearch()
+  const { isSearchOpen, closeSearch } = useSearch()
+
   const handleSearchKeyDown = useSearchKeyDown()
-
   const fetcher = useFetcher<SearchOutputData>()
-  const load = fetcher.load
-
-  useEffect(() => {
-    if (isSearchOpen) load("/search")
-  }, [isSearchOpen, load, inputRef])
+  const commands = useCommands()
 
   return (
     <Dialog
@@ -35,6 +30,7 @@ export default function SearchDialog({
       <SearchInput {...fetcher} />
       <SearchOutput
         data={fetcher.data}
+        commands={commands}
         query={fetcher.submission?.formData.get("query")?.toString()}
       />
     </Dialog>

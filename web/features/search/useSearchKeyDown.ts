@@ -1,3 +1,4 @@
+import { KeyboardKey } from "@gs/hooks/useShortcutsCallback"
 import useStableCallback from "@gs/hooks/useStableCallback"
 
 import useSearch from "."
@@ -10,7 +11,6 @@ export default function useSearchKeyDown() {
 
   return useStableCallback((event: React.KeyboardEvent<HTMLDialogElement>) => {
     const activeElement = window.document.activeElement as HTMLElement | null
-    console.log({ key: event.key })
 
     if (event.metaKey && (event.key === "k" || event.key === "K")) {
       return closeSearch()
@@ -28,15 +28,16 @@ export default function useSearchKeyDown() {
 
     // If an alphanumeric key, space or backspace is pressed, focus the search input field.
     if (
-      alphanumerics.includes(event.key.toLowerCase()) ||
-      ["Backspace", " "].includes(event.key)
+      [KeyboardKey.BACKSPACE, KeyboardKey.SPACE, ...alphanumerics]
+        .map((k) => k.toLowerCase())
+        .includes(event.key.toLowerCase())
     ) {
       return inputRef.current?.focus()
     }
 
     // Results
 
-    const results = resultsRef.current?.querySelectorAll("a[href]")
+    const results = resultsRef.current?.querySelectorAll("a[href], button")
     if (!results) return
 
     const { activeIndex, focusElementAtIndex } = getResultHelpers(
@@ -45,7 +46,7 @@ export default function useSearchKeyDown() {
     )
 
     // If down arrow is pressed, focus the next result.
-    if (event.key === "ArrowDown") {
+    if (event.key === KeyboardKey.ARROW_DOWN) {
       event.preventDefault()
 
       if (activeIndex === results.length - 1) {
@@ -55,7 +56,7 @@ export default function useSearchKeyDown() {
     }
 
     // If up arrow is pressed, focus the next result.
-    if (event.key === "ArrowUp") {
+    if (event.key === KeyboardKey.ARROW_UP) {
       event.preventDefault()
 
       if (activeIndex <= 0) {

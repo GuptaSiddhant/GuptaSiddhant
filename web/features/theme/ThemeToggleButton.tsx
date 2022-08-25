@@ -1,7 +1,7 @@
 import DarkModeIcon from "remixicon-react/MoonFillIcon"
 import LightModeIcon from "remixicon-react/SunFillIcon"
 
-import { useSubmit } from "@remix-run/react"
+import { useFetcher } from "@remix-run/react"
 
 import useWindowStore from "@gs/hooks/useWindowStore"
 import Action from "@gs/ui/Action"
@@ -32,18 +32,21 @@ export function ThemeIcon({ themeName }: { themeName: ThemeName }) {
 }
 
 export function useToggleTheme() {
-  const submit = useSubmit()
+  const { submit, type } = useFetcher()
   const originPath = useWindowStore(
     "load",
     () => window.location.href,
     () => "",
   )
 
+  if (type === "done") {
+    window.location.replace(originPath)
+  }
+
   return () => {
     submit(
       { theme: "toggle", originPath },
       { action: "/theme.css", method: "post" },
     )
-    window.location.replace(originPath)
   }
 }

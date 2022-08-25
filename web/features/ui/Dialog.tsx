@@ -72,19 +72,29 @@ export default function Dialog({
   )
 }
 
-export function useDialog() {
-  const dialogRef = useFocusTrap<HTMLDialogElement>()
+export interface UseDialogOptions {
+  initialOpen?: boolean
+  onDialogOpen?: () => void
+  onDialogClose?: () => void
+}
 
-  const [isOpen, setIsOpen] = useState(false)
+export function useDialog(options: UseDialogOptions = {}) {
+  const { initialOpen, onDialogClose, onDialogOpen } = options
+
+  const dialogRef = useFocusTrap<HTMLDialogElement>()
+  const [isOpen, setIsOpen] = useState(Boolean(initialOpen))
 
   const openDialog = useStableCallback(() => {
     if (dialogRef.current?.open) return
     dialogRef.current?.showModal()
     setIsOpen(true)
+    onDialogOpen?.()
   })
+
   const closeDialog = useStableCallback(() => {
     dialogRef.current?.close()
     setIsOpen(false)
+    onDialogClose?.()
   })
 
   const toggleDialogOpen = useStableCallback(() => {

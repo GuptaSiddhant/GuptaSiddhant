@@ -1,4 +1,10 @@
-import { createContext, useContext, useRef } from "react"
+import {
+  createContext,
+  startTransition,
+  useContext,
+  useRef,
+  useState,
+} from "react"
 
 import useStableCallback from "@gs/hooks/useStableCallback"
 import invariant from "@gs/utils/invariant"
@@ -8,6 +14,8 @@ import SearchDialog from "./SearchDialog"
 
 export interface SearchContextValue {
   isSearchOpen: boolean
+  inputValue: string
+  changeInputValue: (value: string) => void
   toggleSearchOpen: () => void
   openSearch: () => void
   closeSearch: () => void
@@ -30,25 +38,26 @@ export function Search({
 }: {
   children: React.ReactNode
 }): JSX.Element | null {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+  const [inputValue, setInputValue] = useState("")
+
   const {
     dialogRef,
     closeDialog: closeSearch,
     isOpen: isSearchOpen,
     openDialog: openSearch,
     toggleDialogOpen: toggleSearchOpen,
-  } = useDialog()
-
-  const inputRef = useRef<HTMLInputElement>(null)
-  const resultsRef = useRef<HTMLDivElement>(null)
+  } = useDialog({
+    onDialogOpen: () => inputRef.current?.focus(),
+    onDialogClose: () => {
+      if (inputRef.current) inputRef.current.value = ""
+    },
+  })
 
   const openSearchWithInput = useStableCallback((input: string) => {
     openSearch()
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus()
-        inputRef.current.value = input
-      }
-    }, 1000)
+    startTransition(() => setInputValue(input))
   })
 
   return (
@@ -61,6 +70,8 @@ export function Search({
         inputRef,
         resultsRef,
         openSearchWithInput,
+        inputValue,
+        changeInputValue: setInputValue,
       }}
     >
       {children}

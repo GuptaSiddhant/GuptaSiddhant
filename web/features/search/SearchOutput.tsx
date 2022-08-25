@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import {
   assetTransformationOptions,
@@ -11,11 +11,14 @@ import type { SummaryItem } from "@gs/summary"
 import Mdx from "../ui/Mdx"
 import Tags from "../ui/Tags"
 import useSearch from "."
-import { type SearchResultItemProps, SearchResultGroup } from "./SearchResult"
+import type { Command } from "./commands"
+import {
+  type SearchResultItemProps,
+  CommandItem,
+  SearchResultGroup,
+} from "./SearchResult"
 
 export interface SearchOutputData {
-  // about: AboutInfo
-  // skills: Skills
   projects?: SummaryItem[]
   blog?: SummaryItem[]
   career?: SummaryItem[]
@@ -24,16 +27,32 @@ export interface SearchOutputData {
 
 export default function SearchOutput({
   data,
-  query,
+  commands,
 }: {
   data?: SearchOutputData
   query?: string
+  commands: Command[]
 }): JSX.Element | null {
-  const { resultsRef } = useSearch()
+  const { resultsRef, inputValue } = useSearch()
+
+  const cmdMode = useMemo(() => inputValue.startsWith(">"), [inputValue])
 
   const [previewProps, setPreviewProps] = useState<
     SearchResultItemProps | undefined
   >(undefined)
+
+  if (cmdMode) {
+    return (
+      <output
+        ref={resultsRef as any}
+        className="flex h-auto flex-col gap-2 overflow-y-auto overflow-x-hidden p-2"
+      >
+        {commands.map((command) => (
+          <CommandItem key={command.id} {...command} />
+        ))}
+      </output>
+    )
+  }
 
   if (isDataEmpty(data)) {
     return (
