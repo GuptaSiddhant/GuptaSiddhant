@@ -13,6 +13,7 @@ import { type CareerProps, getCareerItem } from "./career/index.server"
 import { type EducationProps, getEducationItem } from "./education/index.server"
 import { parseFormDataWithModelObject } from "./parser"
 import { type ProjectProps, getProject } from "./projects/index.server"
+import { getUser } from "./users/index.server"
 
 export async function mutateDatabaseByModelNameAndFormData(
   modelName: ModelName,
@@ -80,6 +81,8 @@ export async function getItemByModelName(
       return getBlogPost(id)
     case ModelName.Projects:
       return getProject(id)
+    case ModelName.Users:
+      return getUser(id)
     default:
       throw new Error(`Unknown model name: ${modelName}`)
   }

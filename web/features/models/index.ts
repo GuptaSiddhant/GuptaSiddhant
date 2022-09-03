@@ -7,6 +7,7 @@ import career from "./career"
 import education from "./education"
 import projects from "./projects"
 import type { Model, ModelStyling } from "./types"
+import users from "./users"
 
 export enum ModelName {
   Projects = "projects",
@@ -36,6 +37,8 @@ export function getModelByModelName(modelName: ModelName) {
       return about.model
     case ModelName.Skills:
       return skills.model
+    case ModelName.Users:
+      return users.model
     default:
       throw new Error(`Unknown model name: ${modelName}`)
   }

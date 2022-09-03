@@ -15,7 +15,10 @@ import {
 } from "@gs/models/about/index.server"
 import { getCareerKeys } from "@gs/models/career/index.server"
 import { mutateDatabaseByModelNameAndFormData } from "@gs/models/service.server"
-import { authenticateRoute } from "@gs/service/auth.server"
+import {
+  authenticateRoute,
+  isUserHasWriteAccess,
+} from "@gs/service/auth.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -23,10 +26,12 @@ interface LoaderData {
   info?: AboutInfo
   model: Model
   modelName: ModelName
+  hasWriteAccess: boolean
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  const user = await authenticateRoute(request)
+  const hasWriteAccess = await isUserHasWriteAccess(user)
   const modelName = getAboutModelName()
   const model = getModelByModelName(modelName)
 
@@ -34,7 +39,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     const info = await getAboutInfo()
     const enrichedModel = await enrichModel(modelName, model)
 
-    return json<LoaderData>({ info, model: enrichedModel, modelName })
+    return json<LoaderData>({
+      info,
+      model: enrichedModel,
+      modelName,
+      hasWriteAccess,
+    })
   } catch (e: any) {
     adminLogger.error(e.message)
 
@@ -60,9 +70,16 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Editor(): JSX.Element | null {
-  const { info, model } = useLoaderData<LoaderData>()
+  const { info, model, hasWriteAccess } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={info} model={model} headerPrefix={"About"} />
+  return (
+    <EditorPage
+      item={info}
+      model={model}
+      headerPrefix={"About"}
+      readonly={!hasWriteAccess}
+    />
+  )
 }
 
 // Helpers

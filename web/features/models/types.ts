@@ -29,7 +29,7 @@ export type ModelScalerType =
 export type ModelStringType = ModelCommon & {
   type: "string"
   enum?: string[]
-  format?: "markdown" | "code"
+  format?: "markdown" | "code" | "email" | "date"
 }
 
 export type ModelBooleanType = ModelCommon & {

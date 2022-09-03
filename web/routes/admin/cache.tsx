@@ -31,16 +31,15 @@ import { Caption } from "@gs/ui/Text"
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 
 interface LoaderData {
-  groupMap: Record<string, NavigationLinkProps[]>
+  keys: string[]
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
 
   const keys = [...getCache().keys()].sort()
-  const groupMap = createGroupMapFromKeys(keys)
 
-  return json<LoaderData>({ groupMap })
+  return json<LoaderData>({ keys })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -54,7 +53,8 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function CacheAdminApp(): JSX.Element | null {
   const adminApp = useAdminApp()
-  const { groupMap } = useLoaderData<LoaderData>()
+  const { keys } = useLoaderData<LoaderData>()
+  const groupMap = createGroupMapFromKeys(keys)
 
   const navGroups: AdminNavbarGroupProps[] = Object.keys(groupMap).map(
     (type) => ({

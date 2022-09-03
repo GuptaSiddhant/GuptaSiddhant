@@ -14,6 +14,7 @@ import { generateNavbarGroupsFromStorageDirContents } from "@gs/admin/storage/he
 import { modifyStorage } from "@gs/admin/storage/service.server"
 import type { AdminAppHandle } from "@gs/admin/types"
 import { RefreshIcon, UploadIcon } from "@gs/icons"
+import { UserRole } from "@gs/models/users"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
 import Storage, { type StorageDir } from "@gs/service/storage.server"
@@ -35,7 +36,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request, UserRole.EDITOR)
   const { method } = request
   const form = await request.formData()
 
@@ -58,7 +59,7 @@ export default function StorageAdminApp(): JSX.Element | null {
     {
       id: "refresh",
       children: (
-        <Action.Form title="Refresh">
+        <Action.Form method="get" title="Refresh">
           <RefreshIcon />
         </Action.Form>
       ),

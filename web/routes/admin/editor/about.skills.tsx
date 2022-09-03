@@ -14,7 +14,10 @@ import {
   getAboutSkillsModelName,
 } from "@gs/models/about/index.server"
 import { mutateDatabaseByModelNameAndFormData } from "@gs/models/service.server"
-import { authenticateRoute } from "@gs/service/auth.server"
+import {
+  authenticateRoute,
+  isUserHasWriteAccess,
+} from "@gs/service/auth.server"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor)
 
@@ -22,17 +25,20 @@ interface LoaderData {
   skills?: Skills
   model: Model
   modelName: ModelName
+  hasWriteAccess: boolean
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  const user = await authenticateRoute(request)
+  const hasWriteAccess = await isUserHasWriteAccess(user)
+
   const modelName = getAboutSkillsModelName()
   const model = getModelByModelName(modelName)
 
   try {
     const skills = await getAboutSkills()
 
-    return json<LoaderData>({ skills, model, modelName })
+    return json<LoaderData>({ skills, model, modelName, hasWriteAccess })
   } catch (e: any) {
     adminLogger.error(e.message)
 
@@ -58,7 +64,14 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function Editor(): JSX.Element | null {
-  const { skills, model } = useLoaderData<LoaderData>()
+  const { skills, model, hasWriteAccess } = useLoaderData<LoaderData>()
 
-  return <EditorPage item={skills} model={model} headerPrefix={"About"} />
+  return (
+    <EditorPage
+      item={skills}
+      model={model}
+      headerPrefix={"About"}
+      readonly={!hasWriteAccess}
+    />
+  )
 }

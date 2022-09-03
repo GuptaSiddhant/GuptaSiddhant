@@ -19,8 +19,12 @@ import { getBlogKeys } from "@gs/models/blog/index.server"
 import { getCareerKeys } from "@gs/models/career/index.server"
 import { getEducationKeys } from "@gs/models/education/index.server"
 import { getProjectsKeys } from "@gs/models/projects/index.server"
+import { getUsersKeys } from "@gs/models/users/index.server"
 import type { NavigationLinkProps } from "@gs/navigation/types"
-import { authenticateRoute } from "@gs/service/auth.server"
+import {
+  authenticateRoute,
+  isUserHasWriteAccess,
+} from "@gs/service/auth.server"
 import { ErrorSection } from "@gs/ui/Error"
 import Menu from "@gs/ui/Menu"
 import { Caption } from "@gs/ui/Text"
@@ -34,18 +38,28 @@ export interface LoaderData {
     keys: string[]
     allowNew?: boolean
   }[]
+  hasWriteAccess: boolean
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
-  const [careerKeys, educationKeys, blogKeys, projectsKeys, aboutKeys] =
-    await Promise.all([
-      getCareerKeys(),
-      getEducationKeys(),
-      getBlogKeys(),
-      getProjectsKeys(),
-      getAboutKeys(),
-    ])
+  const user = await authenticateRoute(request)
+  const hasWriteAccess = await isUserHasWriteAccess(user)
+
+  const [
+    careerKeys,
+    educationKeys,
+    blogKeys,
+    projectsKeys,
+    aboutKeys,
+    usersKeys,
+  ] = await Promise.all([
+    getCareerKeys(),
+    getEducationKeys(),
+    getBlogKeys(),
+    getProjectsKeys(),
+    getAboutKeys(),
+    getUsersKeys(),
+  ])
 
   const entries: LoaderData["entries"] = [
     { id: ModelName.About, keys: aboutKeys, allowNew: false },
@@ -53,16 +67,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     { id: ModelName.Education, keys: educationKeys },
     { id: ModelName.Blog, keys: blogKeys },
     { id: ModelName.Projects, keys: projectsKeys },
+    { id: ModelName.Users, keys: usersKeys },
   ]
     .map((entry) => ({ ...entry, label: getLabelByModelName(entry.id) }))
     .sort((a, b) => a.label.localeCompare(b.label))
 
-  return json<LoaderData>({ entries })
+  return json<LoaderData>({ entries, hasWriteAccess })
 }
 
 export default function EditorAdminApp(): JSX.Element | null {
   const loaderData = useLoaderData<LoaderData>()
-  const { entries } = loaderData
+  const { entries, hasWriteAccess } = loaderData
 
   const navGroups: AdminNavbarGroupProps[] = entries.map(
     ({ id, label, keys }) => ({
@@ -101,7 +116,7 @@ export default function EditorAdminApp(): JSX.Element | null {
       {...adminApp}
       header={<Caption>{adminApp.title}</Caption>}
       navGroups={navGroups}
-      actions={actions}
+      actions={hasWriteAccess ? actions : undefined}
     >
       <Outlet context={loaderData} />
     </AdminLayout>

@@ -21,6 +21,7 @@ interface EditorPageProps<T> {
   item?: T
   model: Model
   basePreviewPath?: string
+  readonly?: boolean
 }
 
 export default function EditorPage<T extends EditorHeaderProps>({
@@ -28,6 +29,7 @@ export default function EditorPage<T extends EditorHeaderProps>({
   model,
   headerPrefix = "New",
   basePreviewPath,
+  readonly = true,
 }: EditorPageProps<T>): JSX.Element | null {
   const formId = item ? `editor-${item.id}` : "editor-new"
   const name = headerPrefix + ": " + (item?.id || "new")
@@ -50,8 +52,8 @@ export default function EditorPage<T extends EditorHeaderProps>({
     })
 
     if (basePreviewPath) {
-      existingItemActions.push(
-        {
+      if (!readonly) {
+        existingItemActions.push({
           id: "Delete",
           children: (
             <Action
@@ -63,14 +65,14 @@ export default function EditorPage<T extends EditorHeaderProps>({
               <DeleteIcon />
             </Action>
           ),
-        },
-        {
-          id: "Preview",
-          to: `/${basePreviewPath}/${item.id}`,
-          external: true,
-          children: <PreviewIcon />,
-        },
-      )
+        })
+      }
+      existingItemActions.push({
+        id: "Preview",
+        to: `/${basePreviewPath}/${item.id}`,
+        external: true,
+        children: <PreviewIcon />,
+      })
     }
   }
 
@@ -88,17 +90,21 @@ export default function EditorPage<T extends EditorHeaderProps>({
       header={<EditorHeader id={name} icon={item?.icon} />}
       key={formId}
       className="p-4"
-      actions={[
-        {
-          id: "save",
-          children: (
-            <Button form={formId} type="submit" title="Save">
-              <SaveIcon />
-            </Button>
-          ),
-        },
-        ...existingItemActions,
-      ]}
+      actions={
+        readonly
+          ? existingItemActions
+          : [
+              {
+                id: "save",
+                children: (
+                  <Button form={formId} type="submit" title="Save">
+                    <SaveIcon />
+                  </Button>
+                ),
+              },
+              ...existingItemActions,
+            ]
+      }
     >
       <EditorForm formId={formId} data={item} model={model} />
     </AdminLayout>

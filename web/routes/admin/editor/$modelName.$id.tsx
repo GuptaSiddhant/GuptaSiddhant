@@ -17,7 +17,10 @@ import {
   getItemByModelName,
   mutateDatabaseByModelNameAndFormData,
 } from "@gs/models/service.server"
-import { authenticateRoute } from "@gs/service/auth.server"
+import {
+  authenticateRoute,
+  isUserHasWriteAccess,
+} from "@gs/service/auth.server"
 import Database from "@gs/service/database.server"
 import invariant from "@gs/utils/invariant"
 
@@ -28,10 +31,12 @@ interface LoaderData {
   model: Model
   modelName: ModelName
   modelLabel: string
+  hasWriteAccess: boolean
 }
 
 export async function loader({ params, request }: DataFunctionArgs) {
-  await authenticateRoute(request)
+  const user = await authenticateRoute(request)
+  const hasWriteAccess = await isUserHasWriteAccess(user)
 
   const { modelName: name, id } = params
   invariant(name, "ModelName is required.")
@@ -42,7 +47,8 @@ export async function loader({ params, request }: DataFunctionArgs) {
   const modelLabel = getLabelByModelName(modelName)
   const model = getModelByModelName(modelName)
 
-  if (id === "new") return json<LoaderData>({ model, modelName, modelLabel })
+  if (id === "new")
+    return json<LoaderData>({ model, modelName, modelLabel, hasWriteAccess })
 
   try {
     const item = await getItemByModelName(modelName, id)
@@ -55,6 +61,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
       model: enrichedModel,
       modelLabel,
       modelName,
+      hasWriteAccess,
     })
   } catch (e: any) {
     adminLogger.error(e.message)
@@ -64,7 +71,11 @@ export async function loader({ params, request }: DataFunctionArgs) {
 }
 
 export async function action({ request, params }: DataFunctionArgs) {
-  await authenticateRoute(request)
+  const user = await authenticateRoute(request)
+  invariant(
+    await isUserHasWriteAccess(user),
+    `The user '${user.email}' does not have write-access.`,
+  )
 
   const { pathname } = new URL(request.url)
   const formData = await request.formData()
@@ -89,7 +100,8 @@ export async function action({ request, params }: DataFunctionArgs) {
 }
 
 export default function Editor(): JSX.Element | null {
-  const { item, model, modelName, modelLabel } = useLoaderData<LoaderData>()
+  const { item, model, modelName, modelLabel, hasWriteAccess } =
+    useLoaderData<LoaderData>()
 
   return (
     <EditorPage
@@ -97,6 +109,7 @@ export default function Editor(): JSX.Element | null {
       model={model}
       basePreviewPath={modelName}
       headerPrefix={modelLabel}
+      readonly={!hasWriteAccess}
     />
   )
 }

@@ -4,6 +4,8 @@ import { FormStrategy } from "remix-auth-form"
 import { createCookieSessionStorage, redirect } from "@remix-run/node"
 
 import { signInWithEmailPassword } from "@gs/firebase/auth"
+import { UserRole } from "@gs/models/users"
+import { type UserProps, getUser } from "@gs/models/users/index.server"
 import invariant from "@gs/utils/invariant"
 
 // Auth Session
@@ -28,7 +30,7 @@ const cookieSession = createCookieSessionStorage({
 
 // Authenticator
 
-export interface AuthUser {
+export interface AuthUser extends UserProps {
   idToken: string
   refreshToken: string
   email: string
@@ -48,16 +50,60 @@ export enum AuthMethod {
 const failureRedirect = "/login"
 const successRedirect = "/admin"
 
-export async function authenticateRoute(request: Request) {
-  const redirectTo = request.url
-
-  return authenticator.isAuthenticated(request, {
-    failureRedirect: `${failureRedirect}?redirectTo=${redirectTo}`,
+export async function authenticateRoute(
+  request: Request,
+  ...userRoles: UserRole[]
+): Promise<AuthUser> {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: `${failureRedirect}?redirectTo=${request.url}`,
   })
+  if (userRoles.length > 0) {
+    if (userRoles.includes(UserRole.GUEST)) {
+      userRoles.push(UserRole.EDITOR, UserRole.ADMIN)
+    } else if (userRoles.includes(UserRole.EDITOR)) {
+      userRoles.push(UserRole.ADMIN)
+    }
+
+    const hasAccess = await isUserHasAccess(user, ...userRoles)
+    if (!hasAccess) throw redirect(failureRedirect)
+  }
+
+  return user
 }
 
-export async function getAuthUser(request: Request) {
-  return authenticator.isAuthenticated(request)
+export async function getAuthUser(request: Request): Promise<UserProps | null> {
+  const user = await authenticator.isAuthenticated(request)
+  if (!user) return null
+
+  return await getUser(user.email)
+}
+
+export async function isUserHasWriteAccess<T extends { email: string }>(
+  user?: T | null,
+) {
+  return isUserHasAccess(user, UserRole.ADMIN, UserRole.EDITOR)
+}
+
+export async function isUserHasAdminAccess<T extends { email: string }>(
+  user?: T | null,
+) {
+  return isUserHasAccess(user, UserRole.ADMIN)
+}
+
+export async function isUserHasAccess<T extends { email: string }>(
+  user: T | null | undefined,
+  ...roles: UserRole[]
+) {
+  if (!user) return false
+
+  let role = UserRole.GUEST
+  if ("role" in user) role = (user as any).role
+  else {
+    const authUser = await getUser(user.email)
+    role = authUser.role
+  }
+
+  return roles.includes(role)
 }
 
 export async function loginUser(request: Request) {
@@ -91,11 +137,14 @@ authenticator.use(
     const user = await signInWithEmailPassword(email, password)
     if ("error" in user) throw new Error(user.error.message)
 
+    const userFromDatabase = await getUser(user.email)
+
     const authUser: AuthUser = {
       idToken: user.idToken,
       refreshToken: user.refreshToken,
-      email: user.email,
       expiresIn: user.expiresIn,
+      ...userFromDatabase,
+      email: user.email,
     }
 
     return authUser

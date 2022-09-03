@@ -10,6 +10,7 @@ import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime"
 import FeatureFlagsTable from "@gs/admin/featureFlags/FeatureFlagsTable"
 import { createAdminMeta } from "@gs/admin/helpers"
 import AdminLayout from "@gs/admin/layout/AdminLayout"
+import { UserRole } from "@gs/models/users"
 import type { NavigationLinkProps } from "@gs/navigation/types"
 import { authenticateRoute } from "@gs/service/auth.server"
 import {
@@ -29,7 +30,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request, UserRole.ADMIN)
   const featureFlags = await getAllFeatureFlags()
   invariant(featureFlags, "featureFlags could not be loaded")
 
