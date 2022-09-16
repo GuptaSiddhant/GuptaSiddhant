@@ -11,6 +11,13 @@ const links: LinksFunction = () => [
     rel: "preconnect",
     href: "https://firebasestorage.googleapis.com",
   },
+  {
+    rel: "preload",
+    href: "/fonts/Nunito.woff2",
+    as: "font",
+    type: "font/woff2",
+    crossorigin: true,
+  },
   // {
   //   rel: "apple-touch-icon",
   //   sizes: "180x180",

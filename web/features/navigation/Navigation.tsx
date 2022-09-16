@@ -96,7 +96,7 @@ function ButtonsList({
   const uid = useId()
 
   return (
-    <ul className="flex items-center justify-start gap-4 text-lg text-secondary">
+    <div className="flex items-center justify-start gap-4 text-lg text-secondary">
       {buttons.map(({ id, onClick, children }) => {
         if (!onClick) return <Fragment key={id}>{children}</Fragment>
 
@@ -111,7 +111,7 @@ function ButtonsList({
           </button>
         )
       })}
-    </ul>
+    </div>
   )
 }
 

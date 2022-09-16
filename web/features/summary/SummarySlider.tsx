@@ -80,14 +80,14 @@ export default function SummarySlider(
           ))}
         </div>
 
-        <SummarySliderOverlay
+        <SummarySliderButtonOverlay
           direction="previous"
           isDisabled={!isScrollStarted}
           scrollDistanceRatio={scrollDistanceRatio}
           scrollSlider={scrollSliderByCardWidth}
           Icon={ArrowLeftIcon}
         />
-        <SummarySliderOverlay
+        <SummarySliderButtonOverlay
           direction="next"
           isDisabled={isScrollCompleted}
           scrollDistanceRatio={1 - scrollDistanceRatio}
@@ -147,7 +147,7 @@ function SummarySliderCard({
   )
 }
 
-interface SummarySliderOverlayProps {
+interface SummarySliderButtonOverlayProps {
   direction: "next" | "previous"
   scrollDistanceRatio: number
   isDisabled: boolean
@@ -155,26 +155,26 @@ interface SummarySliderOverlayProps {
   Icon: RemixiconReactIconComponentType
 }
 
-function SummarySliderOverlay({
+function SummarySliderButtonOverlay({
   direction,
   scrollDistanceRatio,
   scrollSlider,
   isDisabled,
   Icon,
-}: SummarySliderOverlayProps): JSX.Element {
+}: SummarySliderButtonOverlayProps): JSX.Element {
   const isNext = direction === "next"
 
   return (
     <button
       data-direction={direction}
-      role="presentation"
+      title={`Show ${direction}`}
       className={clsx(
         "absolute top-0 bottom-0 z-[1]",
         "from-inverse to-transparent text-secondary",
         isNext ? "right-0 bg-gradient-to-l" : "left-0 bg-gradient-to-r",
       )}
       style={{
-        width: ` calc(max(8vw, 4rem) * ${scrollDistanceRatio})`,
+        width: `calc(max(8vw, 4rem) * ${scrollDistanceRatio})`,
       }}
       onClick={() => scrollSlider(isNext)}
       disabled={isDisabled}
