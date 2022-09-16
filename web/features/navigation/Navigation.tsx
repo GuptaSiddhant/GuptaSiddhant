@@ -41,12 +41,10 @@ function MobileNavigation({
   externalLinks,
   buttons,
 }: NavProps): JSX.Element | null {
-  const uid = useId()
-
   const actions: MenuActionProps[] = useMemo(() => {
     const actionsFromInternalLinks: MenuActionProps[] = internalLinks.map(
       ({ id, to = "#", children }) => ({
-        id: uid + id,
+        id,
         to,
         children,
       }),
@@ -98,13 +96,18 @@ function ButtonsList({
   const uid = useId()
 
   return (
-    <div className="flex items-center justify-start gap-4 text-lg text-secondary">
+    <div
+      className="flex items-center justify-start gap-4 text-lg text-secondary"
+      role="menubar"
+    >
       {buttons.map(({ id, onClick, children }) => {
         if (!onClick) return <Fragment key={id}>{children}</Fragment>
 
         return (
           <button
-            key={uid + "-" + id}
+            key={id}
+            id={uid + "-" + id}
+            role="menuitem"
             onClick={onClick}
             type="button"
             title={id}
@@ -125,12 +128,17 @@ function InternalLinksList({
   const uid = useId()
 
   return (
-    <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
+    <ul
+      className="flex items-center justify-start gap-6 text-lg text-secondary"
+      role="menubar"
+    >
       {links.map(({ id, to, children }) => (
-        <li key={uid + id} className="flex select-none items-center ">
+        <li key={id} className="flex select-none items-center" role="none">
           <NavLink
+            id={uid + "-" + id}
             to={to!}
             prefetch="intent"
+            role="menuitem"
             className={({ isActive }) =>
               isActive
                 ? "font-bold text-primary"
@@ -152,21 +160,32 @@ function ExternalLinksList({
 }): JSX.Element | null {
   const uid = useId()
   return (
-    <ul className="flex items-center justify-end gap-4 text-lg text-secondary">
-      {links.map(({ to, children, ...props }) => (
-        <li key={uid + props.id} className="flex select-none items-center ">
+    <ul
+      className="flex items-center justify-end gap-4 text-lg text-secondary"
+      role="menubar"
+    >
+      {links.map(({ to, children, id, ...props }) => (
+        <li key={id} className="flex select-none items-center" role="none">
           {to ? (
             <a
               {...props}
+              id={uid + "-" + id}
               href={to?.toString()}
-              title={props.id}
+              title={id}
               target="_blank"
               rel="noreferrer"
+              role="menuitem"
             >
               {children}
             </a>
           ) : props.onClick ? (
-            <button type="button" {...props} title={props.id}>
+            <button
+              type="button"
+              {...props}
+              id={uid + "-" + id}
+              title={id}
+              role="menuitem"
+            >
               {children}
             </button>
           ) : (
