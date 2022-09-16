@@ -24,7 +24,7 @@ export default function useWindowStore<T, K extends keyof EventMap>(
         eventRef.current = event
         callback()
       }
-      window.addEventListener(eventType, listener)
+      window.addEventListener(eventType, listener, { passive: true })
 
       return () => window.removeEventListener(eventType, listener)
     },

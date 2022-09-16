@@ -41,10 +41,12 @@ function MobileNavigation({
   externalLinks,
   buttons,
 }: NavProps): JSX.Element | null {
+  const uid = useId()
+
   const actions: MenuActionProps[] = useMemo(() => {
     const actionsFromInternalLinks: MenuActionProps[] = internalLinks.map(
       ({ id, to = "#", children }) => ({
-        id,
+        id: uid + id,
         to,
         children,
       }),
@@ -120,10 +122,12 @@ function InternalLinksList({
 }: {
   links: Array<NavigationLinkProps>
 }): JSX.Element | null {
+  const uid = useId()
+
   return (
     <ul className="flex items-center justify-start gap-6 text-lg text-secondary">
       {links.map(({ id, to, children }) => (
-        <li key={id} className="flex select-none items-center ">
+        <li key={uid + id} className="flex select-none items-center ">
           <NavLink
             to={to!}
             prefetch="intent"
@@ -146,10 +150,11 @@ function ExternalLinksList({
 }: {
   links: Array<NavigationLinkProps>
 }): JSX.Element | null {
+  const uid = useId()
   return (
     <ul className="flex items-center justify-end gap-4 text-lg text-secondary">
       {links.map(({ to, children, ...props }) => (
-        <li key={props.id} className="flex select-none items-center ">
+        <li key={uid + props.id} className="flex select-none items-center ">
           {to ? (
             <a
               {...props}
