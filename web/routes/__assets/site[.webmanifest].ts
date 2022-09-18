@@ -1,11 +1,11 @@
-import type { LoaderFunction } from "@remix-run/server-runtime"
+import type { LoaderArgs } from "@remix-run/server-runtime"
 
 import { getAboutInfo } from "@gs/models/about/index.server"
 import { internalNavigationLinks } from "@gs/navigation/useNavigationLinks"
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme"
 import type { WebApplicationManifest } from "@gs/types/webmanifest"
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader(_: LoaderArgs): Promise<Response> {
   const [about] = await Promise.all([getAboutInfo()])
 
   const theme = getThemeFromThemeName(DEFAULT_THEME)
@@ -24,22 +24,16 @@ export const loader: LoaderFunction = async ({ request }) => {
     lang: "en-GB",
     orientation: "portrait-primary",
     icons: [
-      //   {
-      //     src: "/favicon/android-chrome-192x192.png",
-      //     sizes: "192x192",
-      //     type: "image/png",
-      //   },
-      //   {
-      //     src: "/favicon/android-chrome-384x384.png",
-      //     sizes: "384x384",
-      //     type: "image/png",
-      //     purpose: "any maskable",
-      //   },
-      //   {
-      //     src: "/favicon/android-chrome-384x384.png",
-      //     sizes: "512x512",
-      //     type: "image/png",
-      //   },
+      {
+        src: "/assets/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        src: "/assets/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
     ],
     shortcuts: [
       {

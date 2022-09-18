@@ -25,4 +25,5 @@ export {
 }
 
 export { ExternalLinkIcon } from "./ExternalLinkIcon"
+export { GSIcon } from "./GSIcon"
 export { RoundedCorner } from "./RoundedCorner"
