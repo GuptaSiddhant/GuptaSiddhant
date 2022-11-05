@@ -34,7 +34,7 @@ export type ModelStringType = ModelCommon & {
 
 export type ModelBooleanType = ModelCommon & {
   type: "boolean"
-  default?: boolean
+  // default?: boolean
 }
 
 export type ModelNumberType = ModelCommon & {

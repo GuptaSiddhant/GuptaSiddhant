@@ -29,3 +29,5 @@ export interface BlogPostProps extends SummaryItem {
   content?: string
   gallery?: Gallery
 }
+
+export { BlogIcon }

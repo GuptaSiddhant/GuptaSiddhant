@@ -19,12 +19,13 @@ export interface SummarySliderProps extends BaseProps {
   items: SummaryItem[]
   children?: React.ReactNode
   crossSell?: boolean
+  showCardSubtitle?: boolean
 }
 
 export default function SummarySlider(
   props: SummarySliderProps,
 ): JSX.Element | null {
-  const { children, crossSell, items, ...rest } = props
+  const { children, crossSell, items, showCardSubtitle, ...rest } = props
 
   const sliderRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLElement>(null)
@@ -76,6 +77,7 @@ export default function SummarySlider(
               className={crossSell ? "" : "sm:h-96"}
               item={item}
               cardRef={cardRef}
+              showSubtitle={showCardSubtitle}
             />
           ))}
         </div>
@@ -103,12 +105,14 @@ function SummarySliderCard({
   item,
   className,
   cardRef,
+  showSubtitle,
 }: {
   item: SummaryItem
   className?: string
   cardRef?: React.RefObject<HTMLElement>
+  showSubtitle?: boolean
 }): JSX.Element {
-  const { id, title, cover, linkUrl } = item
+  const { id, title, cover, linkUrl, subtitle, icon } = item
   const imageSrc = generateAssetTransformedUrl(cover, {
     aspectRatio: 3 / 4,
     height: 400,
@@ -126,11 +130,19 @@ function SummarySliderCard({
         className={clsx(
           className,
           "relative overflow-hidden rounded-lg shadow-xl",
-          "bg-secondary bg-cover bg-center bg-no-repeat",
-          "aspect-[3/4] h-72 snap-center",
+          "bg-secondary bg-center bg-no-repeat",
+          "aspect-[3/4] h-72 snap-center bg-cover",
         )}
         style={{ backgroundImage: `url(${imageSrc})` }}
       >
+        {!imageSrc && (
+          <div
+            role="none"
+            className="absolute inset-0 bg-white bg-cover bg-center bg-no-repeat blur-md dark:bg-black"
+            style={{ backgroundImage: `url(${icon})` }}
+          />
+        )}
+
         <div
           className={clsx(
             "absolute bottom-0 left-0 right-0",
@@ -138,7 +150,12 @@ function SummarySliderCard({
             "p-4 transition-[padding] duration-300 group-hocus:py-8",
           )}
         >
-          <span className={"text-shadow text-2xl font-bold"}>{title}</span>
+          <span className={"text-shadow block text-2xl font-bold"}>
+            {title}
+          </span>
+          {showSubtitle && (
+            <span className={"text-shadow text-lg font-bold"}>{subtitle}</span>
+          )}
         </div>
 
         <Sticker {...item} />

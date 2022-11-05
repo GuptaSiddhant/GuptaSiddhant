@@ -36,3 +36,5 @@ export interface EducationProps extends Omit<SummaryItem, "title" | "model"> {
   location?: string
   gallery?: Gallery
 }
+
+export { EducationIcon }

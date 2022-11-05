@@ -47,3 +47,5 @@ export interface CareerProps extends Omit<SummaryItem, "title" | "model"> {
   endDate?: string
   location?: string
 }
+
+export { CareerIcon }

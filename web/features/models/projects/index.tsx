@@ -34,3 +34,5 @@ export interface ProjectProps extends SummaryItem {
   content?: string
   gallery?: Gallery
 }
+
+export { ProjectsIcon }

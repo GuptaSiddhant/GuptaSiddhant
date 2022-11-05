@@ -60,29 +60,32 @@ export function filterSortSummaryItems(
   return filteredItems.sort(sortPredicate)
 }
 
-function sortSummaryItemsByDateLatestFirstPredicate(
+export function sortSummaryItemsByDateLatestFirstPredicate(
   a: SummaryItem,
   b: SummaryItem,
 ) {
   return sortByDate(a.date, b.date)
 }
 
-function sortSummaryItemsByDateOldestFirstPredicate(
+export function sortSummaryItemsByDateOldestFirstPredicate(
   a: SummaryItem,
   b: SummaryItem,
 ) {
   return sortByDate(a.date, b.date, true)
 }
 
-function sortSummaryItemsByFeaturedPredicate(a: SummaryItem, b: SummaryItem) {
+export function sortSummaryItemsByFeaturedPredicate(
+  a: SummaryItem,
+  b: SummaryItem,
+) {
   return (b.featured || false) > (a.featured || false) ? 1 : -1
 }
 
-function filterPublishedSummaryItemPredicate(item: SummaryItem) {
+export function filterPublishedSummaryItemPredicate(item: SummaryItem) {
   return __IS_DEV__ || !item.draft
 }
 
-function filterSummaryItemsByQueryAndTagsPredicate(
+export function filterSummaryItemsByQueryAndTagsPredicate(
   item: SummaryItem,
   selectedTags: string[],
   query: string,

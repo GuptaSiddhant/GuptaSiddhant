@@ -14,6 +14,7 @@ export interface HomeSummarySliderProps {
   linkText?: string
   items: SummaryItem[]
   icon?: HeroHeaderCaptionIconType
+  showCardSubtitle?: boolean
 }
 
 export default function HomeSummarySlider({
@@ -23,9 +24,10 @@ export default function HomeSummarySlider({
   children,
   linkText,
   icon = "hash",
+  showCardSubtitle,
 }: HomeSummarySliderProps) {
   return (
-    <SummarySlider id={id} items={items}>
+    <SummarySlider id={id} items={items} showCardSubtitle={showCardSubtitle}>
       <HeroHeaderCaption
         caption={{
           label: caption,

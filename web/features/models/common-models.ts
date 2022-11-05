@@ -47,7 +47,7 @@ export const summaryModel: ModelObjectType = {
     links: linksModel,
     gallery: galleryModel,
     featured: { type: "boolean" },
-    draft: { type: "boolean", default: true },
+    draft: { type: "boolean" },
   },
 }
 

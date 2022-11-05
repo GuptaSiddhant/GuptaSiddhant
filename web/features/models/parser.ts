@@ -84,7 +84,8 @@ function parseFormValueWithModelScaler(
   }
 
   if (model.type === "boolean") {
-    if (value === null) return Boolean(model.default)
+    if (value === null) return false
+
     return Boolean(value === "on" || value === "true")
   }
 

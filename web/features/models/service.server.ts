@@ -25,6 +25,8 @@ export async function mutateDatabaseByModelNameAndFormData(
   const model = getModelByModelName(modelName)
   const data = parseFormDataWithModelObject(formData, model) as DatabaseDocument
 
+  // console.log({ invalidate, model, data, database, id })
+
   if (invalidate) database.invalidateCacheById(id)
   else database.mutateById(id, data)
 }

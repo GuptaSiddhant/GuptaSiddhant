@@ -1,6 +1,7 @@
 import { ModelName } from "@gs/models"
 import Database from "@gs/service/database.server"
 
+import { sortSummaryItemsByDateLatestFirstPredicate } from "./helpers"
 import type { SummaryItem } from "./types"
 
 const database = new Database<Record<string, SummaryItem> & { id: any }>(
@@ -16,4 +17,5 @@ export async function querySummaryItemsByModelName(
   return Object.values(data)
     .filter((item) => typeof item === "object")
     .filter((item) => includeDrafts || __IS_DEV__ || !item.draft)
+    .sort(sortSummaryItemsByDateLatestFirstPredicate)
 }
