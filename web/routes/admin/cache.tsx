@@ -5,7 +5,7 @@ import { useLoaderData } from "@remix-run/react"
 import type {
   ActionFunction,
   ErrorBoundaryComponent,
-  LoaderFunction,
+  LoaderArgs,
   MetaFunction,
 } from "@remix-run/server-runtime"
 import { json, redirect } from "@remix-run/server-runtime"
@@ -30,16 +30,13 @@ import { Caption } from "@gs/ui/Text"
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache)
 
-interface LoaderData {
-  keys: string[]
-}
-
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   await authenticateRoute(request)
 
   const keys = [...getCache().keys()].sort()
 
-  return json<LoaderData>({ keys })
+  const groupMap = createGroupMapFromKeys(keys)
+  return json({ keys, groupMap })
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -53,29 +50,26 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function CacheAdminApp(): JSX.Element | null {
   const adminApp = useAdminApp()
-  const { keys } = useLoaderData<LoaderData>()
-  const groupMap = createGroupMapFromKeys(keys)
+  const { groupMap } = useLoaderData<typeof loader>()
 
-  const navGroups: AdminNavbarGroupProps[] = Object.keys(groupMap).map(
-    (type) => ({
-      id: type,
-      label: type.toUpperCase().replace(/-/g, " "),
-      showCount: true,
-      children: groupMap[type],
-      actions: (
-        <Action
-          title={`Clear cache for '${type}'.`}
-          method="delete"
-          confirm={`Are you sure about clearing '${type}' cache?`}
-          toast={`Clearing '${type}' cache ...`}
-          action={adminApp.linkPath + type}
-          body={{ key: type }}
-        >
-          <DeleteIcon />
-        </Action>
-      ),
-    }),
-  )
+  const navGroups = Object.keys(groupMap).map((type) => ({
+    id: type,
+    label: type.toUpperCase().replace(/-/g, " "),
+    showCount: true,
+    children: groupMap[type],
+    actions: (
+      <Action
+        title={`Clear cache for '${type}'.`}
+        method="delete"
+        confirm={`Are you sure about clearing '${type}' cache?`}
+        toast={`Clearing '${type}' cache ...`}
+        action={adminApp.linkPath + type}
+        body={{ key: type }}
+      >
+        <DeleteIcon />
+      </Action>
+    ),
+  })) as AdminNavbarGroupProps[]
 
   const actions: NavigationLinkProps[] = [
     {

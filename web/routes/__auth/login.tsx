@@ -13,6 +13,7 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  console.log("login-loader")
   const redirectTo = new URL(request.url).searchParams
     .get("redirectTo")
     ?.toString()

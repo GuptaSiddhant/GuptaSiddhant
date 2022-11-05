@@ -1,3 +1,4 @@
+import type { Strategy } from "remix-auth"
 import { Authenticator } from "remix-auth"
 import { FormStrategy } from "remix-auth-form"
 
@@ -54,9 +55,15 @@ export async function authenticateRoute(
   request: Request,
   ...userRoles: UserRole[]
 ): Promise<AuthUser> {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: `${failureRedirect}?redirectTo=${request.url}`,
+  return authenticate(request, ...userRoles).catch(() => {
+    throw redirect(`${failureRedirect}?redirectTo=${request.url}`)
   })
+}
+
+export async function authenticate(request: Request, ...userRoles: UserRole[]) {
+  const user = await authenticator.isAuthenticated(request)
+  if (!user) throw new Error("Unauthorised")
+
   if (userRoles.length > 0) {
     if (userRoles.includes(UserRole.GUEST)) {
       userRoles.push(UserRole.EDITOR, UserRole.ADMIN)
@@ -65,7 +72,7 @@ export async function authenticateRoute(
     }
 
     const hasAccess = await isUserHasAccess(user, ...userRoles)
-    if (!hasAccess) throw redirect(failureRedirect)
+    if (!hasAccess) throw new Error("Access restricted")
   }
 
   return user
@@ -107,10 +114,12 @@ export async function isUserHasAccess<T extends { email: string }>(
 }
 
 export async function loginUser(request: Request) {
+  const formData = await request.formData()
+
   const user = await authenticator.authenticate(
     AuthMethod.EmailPassword,
     request,
-    { throwOnError: true },
+    { throwOnError: true, context: { formData } },
   )
   const session = await cookieSession.getSession(request.headers.get("cookie"))
   session.set(authenticator.sessionKey, user)
@@ -118,36 +127,34 @@ export async function loginUser(request: Request) {
     "Set-Cookie": await cookieSession.commitSession(session),
   })
 
-  const redirectTo =
-    (await request.formData()).get("redirectTo")?.toString() || successRedirect
+  const redirectTo = formData.get("redirectTo")?.toString() || successRedirect
 
   return redirect(redirectTo, { headers })
 }
 
 // Auth method: emailPassword
 
-authenticator.use(
-  new FormStrategy(async ({ form }) => {
-    const email = form.get("email")?.toString()
-    invariant(email, "email is required")
+const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
+  const email = form.get("email")?.toString()
+  invariant(email, "email is required")
 
-    const password = form.get("password")?.toString()
-    invariant(password, "password is required")
+  const password = form.get("password")?.toString()
+  invariant(password, "password is required")
 
-    const user = await signInWithEmailPassword(email, password)
-    if ("error" in user) throw new Error(user.error.message)
+  const user = await signInWithEmailPassword(email, password)
+  if ("error" in user) throw new Error(user.error.message)
 
-    const userFromDatabase = await getUser(user.email)
+  const userFromDatabase = await getUser(user.email)
 
-    const authUser: AuthUser = {
-      idToken: user.idToken,
-      refreshToken: user.refreshToken,
-      expiresIn: user.expiresIn,
-      ...userFromDatabase,
-      email: user.email,
-    }
+  const authUser: AuthUser = {
+    idToken: user.idToken,
+    refreshToken: user.refreshToken,
+    expiresIn: user.expiresIn,
+    ...userFromDatabase,
+    email: user.email,
+  }
 
-    return authUser
-  }),
-  AuthMethod.EmailPassword,
-)
+  return authUser
+}) as unknown as Strategy<AuthUser, never>
+
+authenticator.use(emailPasswordStrategy, AuthMethod.EmailPassword)

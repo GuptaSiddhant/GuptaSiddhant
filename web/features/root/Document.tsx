@@ -24,7 +24,7 @@ export default function Document({
       dir="ltr"
       className={clsx(
         "m-0 p-0 text-[16px] lg:text-[18px]",
-        isDarkTheme && "dark",
+        isDarkTheme ? "dark" : "light",
       )}
     >
       <head>

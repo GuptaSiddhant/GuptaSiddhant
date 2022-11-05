@@ -4,6 +4,7 @@ import EditorIcon from "remixicon-react/EditBoxFillIcon"
 import StorageIcon from "remixicon-react/HardDrive2FillIcon"
 import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
 import SettingsIcon from "remixicon-react/Settings3FillIcon"
+import GraphQLIcon from "remixicon-react/TerminalWindowFillIcon"
 
 import AdminRegistry from "./registry"
 import type { AdminAction, AdminApp } from "./types"
@@ -15,6 +16,7 @@ export enum AdminAppId {
   Settings = "settings",
   Cache = "cache",
   Storage = "storage",
+  GraphQL = "graphql",
 }
 
 export const adminRegistry = new AdminRegistry<AdminAppId>({
@@ -35,6 +37,10 @@ export const adminRegistry = new AdminRegistry<AdminAppId>({
   .registerApp(AdminAppId.Storage, {
     title: "Storage",
     icon: <StorageIcon />,
+  })
+  .registerApp(AdminAppId.GraphQL, {
+    title: "GraphQL",
+    icon: <GraphQLIcon />,
   })
   .registerAction({
     id: "logout",
