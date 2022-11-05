@@ -1,0 +1,15 @@
+type Query {
+  test: Boolean
+  projects(limit: Int): [SummaryItem]
+  blog(limit: Int): [SummaryItem]
+  education(limit: Int): [SummaryItem]
+  career(limit: Int): [SummaryItem]
+}
+
+type SummaryItem {
+  id: String!
+  title: String!
+  subtitle: String
+  description: String
+  date: String
+}
