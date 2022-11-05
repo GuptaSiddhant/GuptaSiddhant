@@ -3,7 +3,10 @@ import { type LoaderFunction, json } from "@remix-run/server-runtime"
 
 import AdminDashboard from "@gs/admin/components/AdminDashboard"
 import { useAdminApp } from "@gs/admin/helpers"
-import { queryFirebaseRemoteConfigKeys } from "@gs/firebase/remote-config"
+import {
+  queryFirebaseRemoteConfigKeys,
+  queryFirebaseRemoteConfigTemplate,
+} from "@gs/firebase/remote-config"
 import { authenticateRoute } from "@gs/service/auth.server"
 
 interface LoaderData {
@@ -12,7 +15,8 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request)
-  const featureConfigKeys = await queryFirebaseRemoteConfigKeys()
+  const template = await queryFirebaseRemoteConfigTemplate()
+  const featureConfigKeys = await queryFirebaseRemoteConfigKeys(template)
 
   return json<LoaderData>({ featureConfigKeys })
 }
