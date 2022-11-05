@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions"
 import { createElement } from "react"
-import { renderCanvas, Text, View } from "recanvas"
+import { renderCanvas, Text, View } from "@recanvas/node"
 
 export const socialImage = functions
   .region("europe-west1")
