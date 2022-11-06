@@ -130,18 +130,19 @@ function SummarySliderCard({
         className={clsx(
           className,
           "relative overflow-hidden rounded-lg shadow-xl",
-          "bg-secondary bg-center bg-no-repeat",
-          "aspect-[3/4] h-72 snap-center bg-cover",
+          "aspect-[3/4] h-72 snap-center bg-secondary",
         )}
-        style={{ backgroundImage: `url(${imageSrc})` }}
       >
-        {!imageSrc && (
-          <div
-            role="none"
-            className="absolute inset-0 bg-white bg-cover bg-center bg-no-repeat blur-md dark:bg-black"
-            style={{ backgroundImage: `url(${icon})` }}
-          />
-        )}
+        <div
+          role="none"
+          className={clsx(
+            "absolute inset-0 bg-cover bg-center bg-no-repeat",
+            !imageSrc
+              ? "blur-md"
+              : "transition-[filter] duration-300 group-hocus:blur-sm",
+          )}
+          style={{ backgroundImage: `url(${imageSrc || icon})` }}
+        />
 
         <div
           className={clsx(
@@ -153,9 +154,17 @@ function SummarySliderCard({
           <span className={"text-shadow block text-2xl font-bold"}>
             {title}
           </span>
-          {showSubtitle && (
-            <span className={"text-shadow text-lg font-bold"}>{subtitle}</span>
-          )}
+
+          <span
+            className={clsx(
+              "text-shadow text-lg font-bold",
+              showSubtitle
+                ? "block"
+                : "hidden opacity-50 transition-opacity duration-300 group-hocus:block group-hocus:opacity-100 ",
+            )}
+          >
+            {subtitle}
+          </span>
         </div>
 
         <Sticker {...item} />
