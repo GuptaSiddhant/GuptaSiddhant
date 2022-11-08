@@ -1,19 +1,19 @@
-import clsx from "clsx"
-import { type ReactElement, type ReactNode, useEffect, useRef } from "react"
-import BackIcon from "remixicon-react/ArrowLeftLineIcon"
-import ErrorIcon from "remixicon-react/ErrorWarningLineIcon"
-import HashIcon from "remixicon-react/HashtagIcon"
+import clsx from "clsx";
+import { type ReactElement, type ReactNode, useEffect, useRef } from "react";
+import BackIcon from "remixicon-react/ArrowLeftLineIcon";
+import ErrorIcon from "remixicon-react/ErrorWarningLineIcon";
+import HashIcon from "remixicon-react/HashtagIcon";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
-import { proseWidth } from "@gs/ui/Section"
-import { Caption, H1, SubHeading } from "@gs/ui/Text"
+import { proseWidth } from "@gs/ui/Section";
+import { Caption, H1, SubHeading } from "@gs/ui/Text";
 
 export interface HeroHeaderProps {
-  title: string
-  subtitle?: string
-  caption?: HeroHeaderCaptionType
-  children?: ReactNode
+  title: string;
+  subtitle?: string;
+  caption?: HeroHeaderCaptionType;
+  children?: ReactNode;
 }
 
 export default function HeroHeader({
@@ -22,8 +22,8 @@ export default function HeroHeader({
   subtitle,
   children,
 }: HeroHeaderProps): JSX.Element | null {
-  const headingLinkRef = useRef<HTMLAnchorElement>(null)
-  useEffect(() => headingLinkRef.current?.focus(), [])
+  const headingLinkRef = useRef<HTMLAnchorElement>(null);
+  useEffect(() => headingLinkRef.current?.focus(), []);
 
   return (
     <header className={clsx("flex flex-col items-start gap-4", proseWidth)}>
@@ -37,28 +37,30 @@ export default function HeroHeader({
         ) : null}
       </div>
     </header>
-  )
+  );
 }
 
 export type HeroHeaderCaptionType =
   | string
   | {
-      label: string
-      to?: string
-      className?: string
-      icon?: HeroHeaderCaptionIconType
-    }
+      label: string;
+      to?: string;
+      className?: string;
+      icon?: HeroHeaderCaptionIconType;
+    };
 
 export function HeroHeaderCaption({
   caption,
   children,
 }: {
-  caption?: HeroHeaderCaptionType
-  children?: ReactNode
+  caption?: HeroHeaderCaptionType;
+  children?: ReactNode;
 }) {
-  if (!caption) return null
+  if (!caption) {
+    return null;
+  }
 
-  if (typeof caption === "string")
+  if (typeof caption === "string") {
     return (
       <Caption className="flex w-full items-center justify-between">
         <span className="flex-1">{caption}</span>
@@ -66,11 +68,12 @@ export function HeroHeaderCaption({
           {children}
         </div>
       </Caption>
-    )
+    );
+  }
 
   const { icon, className = caption.className } = getHeroHeaderCaptionIcon(
     caption.icon,
-  )
+  );
 
   const captionElement = (
     <Link to={caption.to || "#"} className={clsx("relative", className)}>
@@ -87,9 +90,11 @@ export function HeroHeaderCaption({
         </div>
       ) : null}
     </Link>
-  )
+  );
 
-  if (!children) return captionElement
+  if (!children) {
+    return captionElement;
+  }
 
   return (
     <div className="flex w-full items-center justify-between">
@@ -98,23 +103,27 @@ export function HeroHeaderCaption({
         {children}
       </div>
     </div>
-  )
+  );
 }
 
-export type HeroHeaderCaptionIconType = ReactElement | "back" | "hash" | "error"
+export type HeroHeaderCaptionIconType =
+  | ReactElement
+  | "back"
+  | "hash"
+  | "error";
 
 function getHeroHeaderCaptionIcon(icon?: HeroHeaderCaptionIconType): {
-  icon?: ReactElement
-  className?: string
+  icon?: ReactElement;
+  className?: string;
 } {
   switch (icon) {
     case "back":
-      return { icon: <BackIcon />, className: "text-link" }
+      return { icon: <BackIcon />, className: "text-link" };
     case "hash":
-      return { icon: <HashIcon />, className: "text-tertiary" }
+      return { icon: <HashIcon />, className: "text-tertiary" };
     case "error":
-      return { icon: <ErrorIcon />, className: "text-negative" }
+      return { icon: <ErrorIcon />, className: "text-negative" };
     default:
-      return { icon }
+      return { icon };
   }
 }

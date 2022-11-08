@@ -1,30 +1,30 @@
-import clsx from "clsx"
-import { type ReactNode, useCallback } from "react"
-import UpIcon from "remixicon-react/ArrowUpLineIcon"
+import clsx from "clsx";
+import { type ReactNode, useCallback } from "react";
+import UpIcon from "remixicon-react/ArrowUpLineIcon";
 
-import useScroll from "@gs/hooks/useScroll"
-import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight"
-import { RoundedCorner } from "@gs/icons"
-import Navigation from "@gs/navigation/Navigation"
-import { Search } from "@gs/search"
-import { Toaster } from "@gs/toaster"
-import { FAB } from "@gs/ui/Button"
+import useScroll from "@gs/hooks/useScroll";
+import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight";
+import { RoundedCorner } from "@gs/icons";
+import Navigation from "@gs/navigation/Navigation";
+import { Search } from "@gs/search";
+import { Toaster } from "@gs/toaster";
+import { FAB } from "@gs/ui/Button";
 
-import Logo from "./Logo"
-import ProgressBar from "./ProgressBar"
-import Shortcuts from "./Shortcuts"
+import Logo from "./Logo";
+import ProgressBar from "./ProgressBar";
+import Shortcuts from "./Shortcuts";
 
 export interface AppLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
-  const headerRef = useSetHeaderHeight()
-  const { isOffsetCrossed: scrollButtonVisible } = useScroll()
+  const headerRef = useSetHeaderHeight();
+  const { isOffsetCrossed: scrollButtonVisible } = useScroll();
 
   const handleScrollToTop = useCallback(() => {
-    window?.scrollTo({ top: 0, behavior: "smooth" })
-  }, [])
+    window?.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <Toaster>
@@ -54,7 +54,7 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
             "py-8",
           )}
           style={{
-            paddingLeft: `env(safe-area-inset-left)`,
+            paddingLeft: "env(safe-area-inset-left)",
           }}
         >
           {children}
@@ -85,5 +85,5 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
         <Shortcuts />
       </Search>
     </Toaster>
-  )
+  );
 }

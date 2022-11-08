@@ -1,15 +1,15 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
+} from "@gs/helpers/assets";
 
 export interface HeroImageProps {
-  src?: string
-  icon?: string
-  alt?: string
-  caption?: string
+  src?: string;
+  icon?: string;
+  alt?: string;
+  caption?: string;
 }
 
 export default function HeroImage({
@@ -18,13 +18,15 @@ export default function HeroImage({
   icon,
   src,
 }: HeroImageProps): JSX.Element | null {
-  if (!src) return null
+  if (!src) {
+    return null;
+  }
 
   const iconUrl = generateAssetTransformedUrl(
     icon,
     assetTransformationOptions.ICON,
-  )
-  const imageUrl = generateAssetTransformedUrl(src)
+  );
+  const imageUrl = generateAssetTransformedUrl(src);
 
   return (
     <figure
@@ -56,5 +58,5 @@ export default function HeroImage({
         />
       ) : null}
     </figure>
-  )
+  );
 }

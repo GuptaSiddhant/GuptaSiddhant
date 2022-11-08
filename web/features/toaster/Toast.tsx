@@ -1,33 +1,33 @@
-import clsx from "clsx"
+import clsx from "clsx";
 import {
   type ReactNode,
   createContext,
   useContext,
   useEffect,
   useState,
-} from "react"
-import CloseIcon from "remixicon-react/CloseCircleLineIcon"
-import invariant from "@gs/utils/invariant"
+} from "react";
+import CloseIcon from "remixicon-react/CloseCircleLineIcon";
 
-import useAnimationFrame from "@gs/hooks/useAnimationFrame"
+import useAnimationFrame from "@gs/hooks/useAnimationFrame";
+import invariant from "@gs/utils/invariant";
 
-import useToaster from "."
+import useToaster from ".";
 
-const ToastContext = createContext<ToastProps | undefined>(undefined)
+const ToastContext = createContext<ToastProps | undefined>(undefined);
 
 export interface ToastProps {
-  id: string
-  title: string
-  icon?: ReactNode
-  dismissed?: boolean
-  durationInMs?: number
-  persistent?: boolean
-  className?: string
-  children?: ReactNode
-  variant?: ToastVariant
+  id: string;
+  title: string;
+  icon?: ReactNode;
+  dismissed?: boolean;
+  durationInMs?: number;
+  persistent?: boolean;
+  className?: string;
+  children?: ReactNode;
+  variant?: ToastVariant;
 }
 
-type ToastVariant = "success" | "error" | "info"
+type ToastVariant = "success" | "error" | "info";
 
 export default function Toast(toast: ToastProps): JSX.Element {
   const {
@@ -39,13 +39,13 @@ export default function Toast(toast: ToastProps): JSX.Element {
     className,
     children,
     variant,
-  } = toast
-  const [isHovering, setIsHovering] = useState(false)
+  } = toast;
+  const [isHovering, setIsHovering] = useState(false);
 
   return (
     <ToastContext.Provider value={toast}>
       <div
-        id={"toast-" + id}
+        id={`toast-${id}`}
         className={clsx(
           className,
           "relative w-full overflow-hidden rounded border bg-secondary shadow-xl",
@@ -63,21 +63,21 @@ export default function Toast(toast: ToastProps): JSX.Element {
           </div>
         )}
 
-        {!persistent ? <Progress isPaused={isHovering} /> : null}
+        {persistent ? null : <Progress isPaused={isHovering} />}
       </div>
     </ToastContext.Provider>
-  )
+  );
 }
 
-Toast.DismissButton = DismissToastButton
+Toast.DismissButton = DismissToastButton;
 
 // Helpers
 
 function useToast(): ToastProps {
-  const context = useContext(ToastContext)
-  invariant(context, "Toast must be wrapped in a ToastProvider")
+  const context = useContext(ToastContext);
+  invariant(context, "Toast must be wrapped in a ToastProvider");
 
-  return context
+  return context;
 }
 
 function getClassNameForToastVariant(
@@ -86,13 +86,13 @@ function getClassNameForToastVariant(
 ): string {
   switch (variant) {
     case "success":
-      return bg ? "bg-green-500" : "border-green-500"
+      return bg ? "bg-green-500" : "border-green-500";
     case "error":
-      return bg ? "bg-red-500" : "border-red-500"
+      return bg ? "bg-red-500" : "border-red-500";
     case "info":
-      return bg ? "bg-blue-500" : "border-blue-500"
+      return bg ? "bg-blue-500" : "border-blue-500";
     default:
-      return clsx(bg ? "bg-gray-500" : "border-gray-500")
+      return clsx(bg ? "bg-gray-500" : "border-gray-500");
   }
 }
 
@@ -101,31 +101,35 @@ function getClassNameForToastVariant(
 function DismissToastButton({
   children,
 }: {
-  children?: ReactNode
+  children?: ReactNode;
 }): JSX.Element {
-  const { dismissToast } = useToaster()
-  const { id } = useToast()
+  const { dismissToast } = useToaster();
+  const { id } = useToast();
 
   return (
     <button type="button" onClick={() => dismissToast(id)}>
       {children || <CloseIcon className="fill-red-300" />}
       <span className="sr-only">Dismiss toast</span>
     </button>
-  )
+  );
 }
 
 function Progress({ isPaused = false }: { isPaused?: boolean }): JSX.Element {
-  const { dismissToast } = useToaster()
-  const { id, variant, durationInMs = 5000 } = useToast()
-  const [remainingTimeInMs, setRemainingTimeInMs] = useState(durationInMs)
+  const { dismissToast } = useToaster();
+  const { id, variant, durationInMs = 5000 } = useToast();
+  const [remainingTimeInMs, setRemainingTimeInMs] = useState(durationInMs);
 
   useAnimationFrame(({ delta }) => {
-    if (!isPaused) setRemainingTimeInMs((p) => p - delta)
-  })
+    if (!isPaused) {
+      setRemainingTimeInMs((p) => p - delta);
+    }
+  });
 
   useEffect(() => {
-    if (remainingTimeInMs <= 0) dismissToast(id)
-  }, [remainingTimeInMs, id, dismissToast])
+    if (remainingTimeInMs <= 0) {
+      dismissToast(id);
+    }
+  }, [remainingTimeInMs, id, dismissToast]);
 
   return (
     <div className="absolute bottom-0 left-0 right-0 h-1">
@@ -133,9 +137,9 @@ function Progress({ isPaused = false }: { isPaused?: boolean }): JSX.Element {
         className={getClassNameForToastVariant(variant, true)}
         style={{
           height: "100%",
-          width: (remainingTimeInMs / durationInMs) * 100 + "%",
+          width: `${(remainingTimeInMs / durationInMs) * 100}%`,
         }}
       />
     </div>
-  )
+  );
 }

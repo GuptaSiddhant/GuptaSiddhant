@@ -1,19 +1,19 @@
-import clsx from "clsx"
-import { type ComponentPropsWithoutRef } from "react"
+import clsx from "clsx";
+import { type ComponentPropsWithoutRef } from "react";
 
-import { type LinkProps, Link } from "@remix-run/react"
+import { type LinkProps, Link } from "@remix-run/react";
 
-import { isExternalLink } from "@gs/helpers"
-import { ExternalLinkIcon } from "@gs/icons"
-import type { BaseProps } from "@gs/types"
+import { isExternalLink } from "@gs/helpers";
+import { ExternalLinkIcon } from "@gs/icons";
+import type { BaseProps } from "@gs/types";
 
-export { type LinkProps, Link }
+export { type LinkProps, Link };
 
 export interface ExternalLinkProps {
-  href?: string
-  tooltipLabel?: string
-  enableIcon?: boolean
-  disableUnderline?: boolean
+  href?: string;
+  tooltipLabel?: string;
+  enableIcon?: boolean;
+  disableUnderline?: boolean;
 }
 
 export function AnchorLink({
@@ -21,13 +21,15 @@ export function AnchorLink({
   enableIcon,
   ...props
 }: ComponentPropsWithoutRef<"a"> & { enableIcon?: boolean }): JSX.Element {
-  if (!href) return <></>
-
-  if (isExternalLink(href)) {
-    return <ExternalLink href={href} enableIcon={enableIcon} {...props} />
+  if (!href) {
+    return <></>;
   }
 
-  return <InternalLink to={href} {...props} />
+  if (isExternalLink(href)) {
+    return <ExternalLink href={href} enableIcon={enableIcon} {...props} />;
+  }
+
+  return <InternalLink to={href} {...props} />;
 }
 
 export function InternalLink({
@@ -45,7 +47,7 @@ export function InternalLink({
     >
       {children}
     </Link>
-  )
+  );
 }
 
 /** ExternalLink component */
@@ -58,9 +60,12 @@ export function ExternalLink({
   disableUnderline,
   ...props
 }: BaseProps & ExternalLinkProps): JSX.Element | null {
-  if (!href) return <>{children}</>
+  if (!href) {
+    return <>{children}</>;
+  }
 
   return (
+    // rome-ignore lint(a11y/useValidAnchor): Need to stop click propagation
     <a
       {...props}
       href={href}
@@ -77,5 +82,5 @@ export function ExternalLink({
       {children}
       {enableIcon && <ExternalLinkIcon />}
     </a>
-  )
+  );
 }

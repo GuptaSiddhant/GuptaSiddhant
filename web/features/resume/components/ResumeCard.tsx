@@ -1,13 +1,13 @@
-import { Link, Text, View } from "@react-pdf/renderer"
+import { Link, Text, View } from "@react-pdf/renderer";
 
-import { useStyleSheet } from "../helpers"
-import type { BasePdfProps } from "../types"
+import { useStyleSheet } from "../helpers";
+import type { BasePdfProps } from "../types";
 
 export interface ResumeCardProps extends BasePdfProps {
-  title?: string
-  subtitle?: string
-  caption?: string
-  link?: string
+  title?: string;
+  subtitle?: string;
+  caption?: string;
+  link?: string;
 }
 
 export default function ResumeCard({
@@ -34,7 +34,7 @@ export default function ResumeCard({
       color: colors.textDisabled,
       marginTop: 4,
     },
-  }))
+  }));
 
   return (
     <View style={[styles.container, style]} wrap={false}>
@@ -47,7 +47,7 @@ export default function ResumeCard({
       <View style={styles.rightColumn}>
         <Link src={link} style={{ textDecoration: "none" }}>
           {title ? (
-            <Text style={styles.titleText} {...({ bookmark: title } as any)}>
+            <Text style={styles.titleText} {...{ bookmark: title }}>
               {title}
             </Text>
           ) : null}
@@ -60,5 +60,5 @@ export default function ResumeCard({
         ) : null}
       </View>
     </View>
-  )
+  );
 }

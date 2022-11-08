@@ -1,53 +1,53 @@
-import { ModelName } from "@gs/models"
-import Database from "@gs/service/database.server"
-import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary"
-import { querySummaryItemsByModelName } from "@gs/summary/service.server"
+import { ModelName } from "@gs/models";
+import Database from "@gs/service/database.server";
+import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary";
+import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
 import {
   getCareerItem,
   getCareerKeys,
   getCareerModelName,
-} from "../career/index.server"
+} from "../career/index.server";
 import {
   getEducationItem,
   getEducationKeys,
   getEducationModelName,
-} from "../education/index.server"
-import type { ProjectProps } from "."
+} from "../education/index.server";
+import type { ProjectProps } from ".";
 
-const modelName = ModelName.Projects
-const db = new Database<ProjectProps>(modelName)
+const modelName = ModelName.Projects;
+const db = new Database<ProjectProps>(modelName);
 
 export function getProjectsModelName() {
-  return modelName
+  return modelName;
 }
 
 export function getProjectsDatabase() {
-  return db
+  return db;
 }
 
 export async function getProjectsKeys() {
-  return db.queryKeys()
+  return db.queryKeys();
 }
 
 export async function getProjectsSummaryItems() {
-  return querySummaryItemsByModelName(modelName)
+  return querySummaryItemsByModelName(modelName);
 }
 
 export async function getProject(id: string): Promise<ProjectProps> {
-  const project = await db.queryById(id)
-  const cover: string | undefined = project.gallery?.[0]?.url
+  const project = await db.queryById(id);
+  const cover: string | undefined = project.gallery?.[0]?.url;
 
-  return { ...project, cover }
+  return { ...project, cover };
 }
 
 export async function getProjectCrossSell(
   id: string,
   limit: number = 6,
 ): Promise<SummaryItem[]> {
-  const items = await getProjectsSummaryItems()
+  const items = await getProjectsSummaryItems();
 
-  return getCrossSellSummaryItems(items, id).slice(0, limit)
+  return getCrossSellSummaryItems(items, id).slice(0, limit);
 }
 
 export async function getProjectAssociationKeys() {
@@ -58,32 +58,34 @@ export async function getProjectAssociationKeys() {
     getCareerKeys().then((keys) =>
       keys.map((k) => `${getCareerModelName()}/${k}`),
     ),
-  ])
+  ]);
 
-  return keysList.flat().sort()
+  return keysList.flat().sort();
 }
 
 export async function getProjectAssociationById(
   assocId?: string,
 ): Promise<SummaryItem | undefined> {
-  if (!assocId) return undefined
+  if (!assocId) {
+    return undefined;
+  }
 
   if (assocId.includes("/")) {
-    const [modelName, id] = assocId.split("/")
+    const [modelName, id] = assocId.split("/");
 
-    return Database.queryModelById(modelName, id) as any
+    return Database.queryModelById(modelName, id) as any;
   }
 
   const [educationItem, careerItem] = await Promise.allSettled([
     getEducationItem(assocId, true),
     getCareerItem(assocId, true),
-  ])
+  ]);
 
   return careerItem.status === "fulfilled"
     ? careerItem.value
     : educationItem.status === "fulfilled"
     ? educationItem.value
-    : undefined
+    : undefined;
 }
 
-export { ProjectProps }
+export { ProjectProps };

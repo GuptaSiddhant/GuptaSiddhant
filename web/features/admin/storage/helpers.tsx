@@ -1,15 +1,15 @@
-import CodeIcon from "remixicon-react/FileCodeLineIcon"
-import FileIcon from "remixicon-react/FileLineIcon"
-import PdfIcon from "remixicon-react/FilePdfLineIcon"
-import TextFileIcon from "remixicon-react/FileTextLineIcon"
-import ZipIcon from "remixicon-react/FileZipLineIcon"
-import FontIcon from "remixicon-react/FontSizeIcon"
-import ImageIcon from "remixicon-react/ImageLineIcon"
-import VideoIcon from "remixicon-react/VideoLineIcon"
+import CodeIcon from "remixicon-react/FileCodeLineIcon";
+import FileIcon from "remixicon-react/FileLineIcon";
+import PdfIcon from "remixicon-react/FilePdfLineIcon";
+import TextFileIcon from "remixicon-react/FileTextLineIcon";
+import ZipIcon from "remixicon-react/FileZipLineIcon";
+import FontIcon from "remixicon-react/FontSizeIcon";
+import ImageIcon from "remixicon-react/ImageLineIcon";
+import VideoIcon from "remixicon-react/VideoLineIcon";
 
-import { type StorageFile } from "@gs/service/storage.server"
+import { type StorageFile } from "@gs/service/storage.server";
 
-import { type AdminNavbarGroupProps } from "../layout/AdminNavbar"
+import { type AdminNavbarGroupProps } from "../layout/AdminNavbar";
 
 export function generateNavbarGroupsFromStorageDirContents(
   dirs: string[],
@@ -49,27 +49,27 @@ export function generateNavbarGroupsFromStorageDirContents(
           to: file.name,
         })),
     },
-  ]
+  ];
 }
 
 export function extractLastPartOfFilePath(path: string) {
-  return path.split("/").filter(Boolean).slice(-1).join("/")
+  return path.split("/").filter(Boolean).slice(-1).join("/");
 }
 
 export function generatePathsFromPath(path: string, delimiter = "/"): string[] {
-  const paths: string[] = []
-  const isAllDirectories = path.endsWith(delimiter)
-  const pathParts = path.split(delimiter).filter(Boolean)
+  const paths: string[] = [];
+  const isAllDirectories = path.endsWith(delimiter);
+  const pathParts = path.split(delimiter).filter(Boolean);
 
   pathParts.forEach((_, index, parts) => {
-    const newOath = parts.slice(0, index + 1).join(delimiter)
+    const newOath = parts.slice(0, index + 1).join(delimiter);
     if (index < parts.length - 1 || isAllDirectories) {
-      return paths.push(newOath + delimiter)
+      return paths.push(newOath + delimiter);
     }
-    return paths.push(path)
-  })
+    return paths.push(path);
+  });
 
-  return paths
+  return paths;
 }
 
 export enum FileType {
@@ -86,36 +86,51 @@ export enum FileType {
 export function getFileTypeFromFileContentType(
   contentType: string,
 ): FileType | undefined {
-  if (!contentType) return undefined
+  if (!contentType) {
+    return undefined;
+  }
+  if (contentType.includes("image")) {
+    return FileType.Image;
+  }
+  if (contentType.includes("pdf")) {
+    return FileType.Pdf;
+  }
+  if (contentType.includes("font")) {
+    return FileType.Font;
+  }
+  if (contentType.includes("zip")) {
+    return FileType.Zip;
+  }
+  if (contentType.includes("video")) {
+    return FileType.Video;
+  }
+  if (contentType.includes("text/plain")) {
+    return FileType.Text;
+  }
+  if (contentType.includes("application")) {
+    return FileType.Code;
+  }
 
-  if (contentType.includes("image")) return FileType.Image
-  if (contentType.includes("pdf")) return FileType.Pdf
-  if (contentType.includes("font")) return FileType.Font
-  if (contentType.includes("zip")) return FileType.Zip
-  if (contentType.includes("video")) return FileType.Video
-  if (contentType.includes("text/plain")) return FileType.Text
-  if (contentType.includes("application")) return FileType.Code
-
-  return FileType.Other
+  return FileType.Other;
 }
 
 export function getIconFromFileType(type?: FileType): JSX.Element | null {
   switch (type) {
     case FileType.Image:
-      return <ImageIcon />
+      return <ImageIcon />;
     case FileType.Pdf:
-      return <PdfIcon />
+      return <PdfIcon />;
     case FileType.Font:
-      return <FontIcon />
+      return <FontIcon />;
     case FileType.Zip:
-      return <ZipIcon />
+      return <ZipIcon />;
     case FileType.Video:
-      return <VideoIcon />
+      return <VideoIcon />;
     case FileType.Text:
-      return <TextFileIcon />
+      return <TextFileIcon />;
     case FileType.Code:
-      return <CodeIcon />
+      return <CodeIcon />;
     default:
-      return <FileIcon />
+      return <FileIcon />;
   }
 }

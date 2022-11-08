@@ -1,24 +1,24 @@
-import clsx from "clsx"
-import { useMemo } from "react"
+import clsx from "clsx";
+import { useMemo } from "react";
 
-import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons"
+import { CreateIcon, DeleteIcon, ToggleOffIcon, ToggleOnIcon } from "@gs/icons";
 import {
   type FeatureFlagJson,
   type FeatureFlagsMap,
-} from "@gs/service/feature-flag.server"
-import Action from "@gs/ui/Action"
-import Input from "@gs/ui/Input"
-import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
-import Table, { type TableColumnProps } from "@gs/ui/Table"
+} from "@gs/service/feature-flag.server";
+import Action from "@gs/ui/Action";
+import Input from "@gs/ui/Input";
+import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
+import Table, { type TableColumnProps } from "@gs/ui/Table";
 
-const FORM_ID = "new-flag"
+const FORM_ID = "new-flag";
 
 export interface FeatureFlagsTableProps {
-  featureFlags: FeatureFlagsMap
+  featureFlags: FeatureFlagsMap;
 }
 
 interface FeatureFlagsTableData extends FeatureFlagJson {
-  flag: string
+  flag: string;
 }
 
 export default function FeatureFlagsTable({
@@ -38,7 +38,7 @@ export default function FeatureFlagsTable({
       })),
     ],
     [featureFlags],
-  )
+  );
 
   const tableColumns: TableColumnProps<FeatureFlagsTableData>[] = useMemo(
     () => [
@@ -66,7 +66,7 @@ export default function FeatureFlagsTable({
       },
     ],
     [],
-  )
+  );
 
   return (
     <Table
@@ -78,17 +78,19 @@ export default function FeatureFlagsTable({
       headRowClassName="border-b border-divider bg-default"
       headCellClassName="px-4 py-2 text-secondary text-sm text-left border-r border-divider"
     />
-  )
+  );
 }
 
 function FlagKeyCell({
   flag,
   currentFlags,
 }: {
-  flag: string
-  currentFlags: string[]
+  flag: string;
+  currentFlags: string[];
 }) {
-  if (flag) return <span className="font-monospace text-sm">{flag}</span>
+  if (flag) {
+    return <span className="font-monospace text-sm">{flag}</span>;
+  }
 
   return (
     <Input
@@ -101,15 +103,15 @@ function FlagKeyCell({
       datalist={currentFlags}
       autoComplete="off"
     />
-  )
+  );
 }
 
 function ToggleCell({
   row,
   dev,
 }: {
-  row: FeatureFlagsTableData
-  dev?: boolean
+  row: FeatureFlagsTableData;
+  dev?: boolean;
 }) {
   if (!row.flag) {
     return (
@@ -117,17 +119,17 @@ function ToggleCell({
         <input type="checkbox" name={dev ? "dev" : "prod"} form={FORM_ID} />
         <span className="text-base text-tertiary">Enable?</span>
       </label>
-    )
+    );
   }
 
-  const value: boolean = dev ? row.dev : row.prod
+  const value: boolean = dev ? row.dev : row.prod;
 
   return (
     <div className="flex">
       <Action.Form
-        method="put"
+        method="post"
         title="Toggle flag"
-        body={{ ...row, [dev ? "dev" : "prod"]: !value }}
+        body={{ ...row, [dev ? "dev" : "prod"]: !value, intent: "toggle" }}
       >
         <span
           className={clsx(
@@ -139,13 +141,13 @@ function ToggleCell({
         </span>
       </Action.Form>
     </div>
-  )
+  );
 }
 
 function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
   const buttonClassName = clsx(
     "shadow-md border border-divider rounded p-1 bg-secondary hocus:bg-tertiary",
-  )
+  );
 
   if (!flag) {
     return (
@@ -160,15 +162,15 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
           <span>Add</span>
         </Action.Form>
       </div>
-    )
+    );
   }
 
   return (
     <div className="flex gap-2">
       <Action.Form
-        method="delete"
+        method="post"
         title="Delete flag"
-        body={{ flag }}
+        body={{ flag, intent: "delete" }}
         className={buttonClassName}
         confirm={getDeleteConfirmProps(`'${flag}' flag`)}
       >
@@ -177,7 +179,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
       {dev && prod ? (
         <Action.Form
-          method="patch"
+          method="post"
           title="Disable all"
           body={{ flag, dev: false, prod: false }}
           className={buttonClassName}
@@ -186,16 +188,16 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
         </Action.Form>
       ) : null}
 
-      {!dev && !prod ? (
+      {dev || prod ? null : (
         <Action.Form
-          method="patch"
+          method="post"
           title="Enable all"
           body={{ flag, dev: true, prod: true }}
           className={buttonClassName}
         >
           <ToggleOnIcon className="text-positive" />
         </Action.Form>
-      ) : null}
+      )}
     </div>
-  )
+  );
 }

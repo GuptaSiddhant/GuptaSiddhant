@@ -3,97 +3,104 @@ import {
   mutateFirestoreDocument,
   queryFireStoreCollectionIds,
   queryFireStoreDocument,
-} from "@gs/firebase/firestore"
-import { ModelName } from "@gs/models"
-import invariant from "@gs/utils/invariant"
+} from "@gs/firebase/firestore";
+import { ModelName } from "@gs/models";
+import invariant from "@gs/utils/invariant";
 
 import {
   deleteCachedKey,
   deleteCachedKeysWith,
   fetchCachedKey,
-} from "./cache.server"
+} from "./cache.server";
 
-export type DatabaseDocument = TransformedDocument
-export type DatabaseType<T extends DatabaseDocument> = Database<T>
+export type DatabaseDocument = TransformedDocument;
+export type DatabaseType<T extends DatabaseDocument> = Database<T>;
 
-const cacheKey = "database"
-const cacheKeysKey = "::keys::"
+const cacheKey = "database";
+const cacheKeysKey = "::keys::";
 
 export default class Database<T extends DatabaseDocument = DatabaseDocument> {
-  #modelName: string
+  #modelName: string;
 
   constructor(modelName: ModelName) {
-    this.#modelName = modelName
+    this.#modelName = modelName;
   }
 
   get model() {
-    return this.#modelName
+    return this.#modelName;
   }
 
   #createCacheKey = (id?: string) =>
-    [cacheKey, this.#modelName, id].filter(Boolean).join("/")
+    [cacheKey, this.#modelName, id].filter(Boolean).join("/");
 
   #invalidateIndexKey = () =>
-    deleteCachedKey([cacheKey, ModelName.Index, this.#modelName].join("/"))
+    deleteCachedKey([cacheKey, ModelName.Index, this.#modelName].join("/"));
 
   invalidateCacheById = (id: string) => {
-    deleteCachedKey(this.#createCacheKey(id))
-    this.#invalidateIndexKey()
-  }
+    deleteCachedKey(this.#createCacheKey(id));
+    this.#invalidateIndexKey();
+  };
 
   invalidateCacheAll = () => {
-    this.#invalidateIndexKey()
-    deleteCachedKeysWith(this.#createCacheKey())
-  }
+    this.#invalidateIndexKey();
+    deleteCachedKeysWith(this.#createCacheKey());
+  };
 
   queryById = async <TypeOverride extends DatabaseDocument = T>(
     id: string,
     ignoreCache = false,
   ) => {
-    if (ignoreCache) this.invalidateCacheById(id)
+    if (ignoreCache) {
+      this.invalidateCacheById(id);
+    }
 
     return fetchCachedKey(this.#createCacheKey(id), () =>
       queryFireStoreDocument<TypeOverride>(this.#modelName, id),
-    )
-  }
+    );
+  };
 
   queryKeys = async (ignoreCache = false): Promise<string[]> => {
-    if (ignoreCache) this.invalidateCacheById(cacheKeysKey)
+    if (ignoreCache) {
+      this.invalidateCacheById(cacheKeysKey);
+    }
 
     return fetchCachedKey(this.#createCacheKey(cacheKeysKey), () =>
       queryFireStoreCollectionIds(this.#modelName),
-    )
-  }
+    );
+  };
 
   queryAll = async <TypeOverride extends DatabaseDocument = T>(
     ignoreCache = false,
   ) => {
-    const keys = await this.queryKeys(ignoreCache)
+    const keys = await this.queryKeys(ignoreCache);
 
     return Promise.all(
       keys.map((id) => this.queryById<TypeOverride>(id, ignoreCache)),
-    )
-  }
+    );
+  };
 
   mutateById = async (id: string, data?: T) => {
     return mutateFirestoreDocument(this.#modelName, id, data).then((res) => {
-      this.invalidateCacheById(id)
-      this.invalidateCacheById(cacheKeysKey)
-      return res
-    })
-  }
+      this.invalidateCacheById(id);
+      this.invalidateCacheById(cacheKeysKey);
+      return res;
+    });
+  };
 
   static queryModelById<T extends DatabaseDocument>(model: string, id: string) {
-    return new Database(validateModelName(model)).queryById<T>(id)
+    return new Database(validateModelName(model)).queryById<T>(id);
   }
 
   static queryModelAll<T extends DatabaseDocument>(model: string) {
-    return new Database(validateModelName(model)).queryAll<T>()
+    return new Database(validateModelName(model)).queryAll<T>();
   }
 
   static clearCache(model?: string) {
-    if (!model) return deleteCachedKeysWith(cacheKey)
-    return new Database(validateModelName(model)).invalidateCacheAll()
+    if (!model) {
+      return deleteCachedKeysWith(cacheKey);
+    }
+
+    return new Database(validateModelName(model)).invalidateCacheAll();
   }
 }
 
@@ -103,6 +110,6 @@ function validateModelName(model: string) {
   invariant(
     Object.values(ModelName).includes(model as ModelName),
     `Invalid database model '${model}'`,
-  )
-  return model as ModelName
+  );
+  return model as ModelName;
 }

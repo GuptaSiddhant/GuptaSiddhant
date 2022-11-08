@@ -1,33 +1,33 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 import type {
   ModelArrayType,
   ModelObjectType,
   ModelScalerType,
   ModelStringType,
-} from "@gs/models/types"
+} from "@gs/models/types";
 
-import { EditorFormContextProvider, useEditorForm } from "./context"
-import EditorArrayInput from "./EditorArrayInput"
-import EditorPreviewInput from "./EditorPreviewInput"
-import EditorTextInput from "./EditorScalerInput"
+import { EditorFormContextProvider, useEditorForm } from "./context";
+import EditorArrayInput from "./EditorArrayInput";
+import EditorPreviewInput from "./EditorPreviewInput";
+import EditorTextInput from "./EditorScalerInput";
 import {
   EditorInputLabel,
   fieldsetClassName,
   objectGridClassName,
   sortPredicate,
-} from "./helpers"
+} from "./helpers";
 
-export interface EditorObjectInputProps<T = any> {
-  data?: T
-  model: ModelObjectType
-  prefix?: string
+export interface EditorObjectInputProps<V = unknown, T = Record<string, V>> {
+  data?: T;
+  model: ModelObjectType;
+  prefix?: string;
 }
 
 export default function EditorObjectInput<T extends { id?: string }>(
-  props: EditorObjectInputProps<T>,
+  props: EditorObjectInputProps<string, T>,
 ): JSX.Element | null {
-  const id = props.data?.id
+  const id = props.data?.id;
 
   return (
     <EditorFormContextProvider
@@ -40,11 +40,11 @@ export default function EditorObjectInput<T extends { id?: string }>(
       <PreviewInputs {...props} />
       <ObjectInputs {...props} />
     </EditorFormContextProvider>
-  )
+  );
 }
 
 function ScalerInputs(props: EditorObjectInputProps): JSX.Element | null {
-  const { addPrefix } = useEditorForm()
+  const { addPrefix } = useEditorForm();
   const entries = Object.entries(props.model.properties)
     .filter(
       ([name, model]) =>
@@ -53,7 +53,7 @@ function ScalerInputs(props: EditorObjectInputProps): JSX.Element | null {
           model.type === "number" ||
           model.type === "boolean"),
     )
-    .sort(sortPredicate) as Array<[string, ModelScalerType]>
+    .sort(sortPredicate) as Array<[string, ModelScalerType]>;
 
   return (
     <>
@@ -66,14 +66,14 @@ function ScalerInputs(props: EditorObjectInputProps): JSX.Element | null {
         />
       ))}
     </>
-  )
+  );
 }
 
 function ArrayInputs(props: EditorObjectInputProps): JSX.Element | null {
-  const { addPrefix } = useEditorForm()
+  const { addPrefix } = useEditorForm();
   const entries = Object.entries(props.model.properties)
     .filter(([_, model]) => model.type === "array")
-    .sort(sortPredicate) as Array<[string, ModelArrayType]>
+    .sort(sortPredicate) as Array<[string, ModelArrayType]>;
 
   return (
     <>
@@ -81,19 +81,21 @@ function ArrayInputs(props: EditorObjectInputProps): JSX.Element | null {
         <EditorArrayInput
           key={addPrefix(name)}
           name={addPrefix(name)}
-          data={props.data?.[name]}
+          data={props.data?.[name] as unknown[]}
           model={model}
         />
       ))}
     </>
-  )
+  );
 }
 
-function PreviewInputs(props: EditorObjectInputProps): JSX.Element | null {
-  const { addPrefix } = useEditorForm()
+function PreviewInputs(
+  props: EditorObjectInputProps<string>,
+): JSX.Element | null {
+  const { addPrefix } = useEditorForm();
   const entries = Object.entries(props.model.properties)
     .filter(([_, model]) => model.type === "string" && !!model.format)
-    .sort(sortPredicate) as Array<[string, ModelStringType]>
+    .sort(sortPredicate) as Array<[string, ModelStringType]>;
 
   return (
     <>
@@ -106,14 +108,14 @@ function PreviewInputs(props: EditorObjectInputProps): JSX.Element | null {
         />
       ))}
     </>
-  )
+  );
 }
 
 function ObjectInputs(props: EditorObjectInputProps): JSX.Element | null {
-  const { addPrefix } = useEditorForm()
+  const { addPrefix } = useEditorForm();
   const entries = Object.entries(props.model.properties)
     .filter(([_, model]) => model.type === "object")
-    .sort(sortPredicate) as Array<[string, ModelObjectType]>
+    .sort(sortPredicate) as Array<[string, ModelObjectType]>;
 
   return (
     <>
@@ -128,12 +130,12 @@ function ObjectInputs(props: EditorObjectInputProps): JSX.Element | null {
           </legend>
 
           <EditorObjectInput
-            data={props.data?.[name]}
+            data={props.data?.[name] as { id?: string }}
             model={model}
             prefix={name}
           />
         </fieldset>
       ))}
     </>
-  )
+  );
 }

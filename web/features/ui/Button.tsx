@@ -1,20 +1,20 @@
-import clsx from "clsx"
+import clsx from "clsx";
 import {
   type ComponentPropsWithoutRef,
   type ForwardedRef,
   forwardRef,
-} from "react"
-import CopyIcon from "remixicon-react/FileCopyLineIcon"
-import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon"
-import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon"
+} from "react";
+import CopyIcon from "remixicon-react/FileCopyLineIcon";
+import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon";
+import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon";
 
-import useCopy from "@gs/hooks/useCopy"
+import useCopy from "@gs/hooks/useCopy";
 
-import type useFullscreen from "../hooks/useFullscreen"
+import type useFullscreen from "../hooks/useFullscreen";
 
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
-  buttonRef?: ForwardedRef<HTMLButtonElement> | null
-}
+  buttonRef?: ForwardedRef<HTMLButtonElement> | null;
+};
 
 export default function Button({
   className,
@@ -32,18 +32,18 @@ export default function Button({
         className,
       )}
     />
-  )
+  );
 }
 
-Button.Primary = PrimaryButton
-Button.Secondary = SecondaryButton
+Button.Primary = PrimaryButton;
+Button.Secondary = SecondaryButton;
 
 export const ButtonWithRef = forwardRef<
   HTMLButtonElement,
   ComponentPropsWithoutRef<"button">
 >(function ButtonWithRef(props, ref) {
-  return <Button {...props} buttonRef={ref} />
-})
+  return <Button {...props} buttonRef={ref} />;
+});
 
 export function PrimaryButton(props: ButtonProps): JSX.Element | null {
   return (
@@ -55,7 +55,7 @@ export function PrimaryButton(props: ButtonProps): JSX.Element | null {
         "bg-link text-inverse hocus:enabled:opacity-90",
       )}
     />
-  )
+  );
 }
 
 export function SecondaryButton(props: ButtonProps): JSX.Element | null {
@@ -69,31 +69,33 @@ export function SecondaryButton(props: ButtonProps): JSX.Element | null {
         "disabled:text-disabled/50 text-secondary hocus:enabled:text-tertiary",
       )}
     />
-  )
+  );
 }
 
 export const fabClassName = clsx(
   "bg-default text-tertiary hocus:text-secondary p-2 text-sm rounded z-popover fixed m-1",
-)
+);
 export const fabBottomLeftClassName = clsx(
   fabClassName,
   "bottom-4 left-4 rounded-bl-xl",
-)
+);
 
 export function FAB(props: ButtonProps): JSX.Element | null {
-  return <Button {...props} className={clsx(props.className, fabClassName)} />
+  return <Button {...props} className={clsx(props.className, fabClassName)} />;
 }
 
 export function CopyButton({
   children,
   className,
 }: {
-  children: string
-  className?: string
+  children: string;
+  className?: string;
 }): JSX.Element | null {
-  const [copied, copy, isAvailable] = useCopy(children)
+  const [copied, copy, isAvailable] = useCopy(children);
 
-  if (!children) return null
+  if (!children) {
+    return null;
+  }
 
   return isAvailable ? (
     <Button
@@ -103,7 +105,7 @@ export function CopyButton({
     >
       {copied ? "✅" : <CopyIcon size={"1em"} />}
     </Button>
-  ) : null
+  ) : null;
 }
 
 export function FullscreenButton({
@@ -111,17 +113,19 @@ export function FullscreenButton({
   isFullscreenEnabled,
   toggleFullscreen,
 }: ReturnType<typeof useFullscreen>): JSX.Element | null {
-  if (!isFullscreenEnabled) return null
+  if (!isFullscreenEnabled) {
+    return null;
+  }
 
   return (
     <Button
       title={isFullscreen ? "Exit fullscreen" : "Go fullscreen"}
       onClick={(e) => {
-        e.preventDefault()
-        toggleFullscreen()
+        e.preventDefault();
+        toggleFullscreen();
       }}
     >
       {isFullscreen ? <FullscreenExitIcon /> : <FullscreenEnterIcon />}
     </Button>
-  )
+  );
 }

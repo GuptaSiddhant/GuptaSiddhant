@@ -1,31 +1,31 @@
-import clsx from "clsx"
-import type { ReactNode } from "react"
-import PrototypeIcon from "remixicon-react/DeviceLineIcon"
-import GithubIcon from "remixicon-react/GithubFillIcon"
-import HomepageIcon from "remixicon-react/GlobalLineIcon"
-import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon"
-import NpmIcon from "remixicon-react/NpmjsLineIcon"
+import clsx from "clsx";
+import type { ReactNode } from "react";
+import PrototypeIcon from "remixicon-react/DeviceLineIcon";
+import GithubIcon from "remixicon-react/GithubFillIcon";
+import HomepageIcon from "remixicon-react/GlobalLineIcon";
+import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon";
+import NpmIcon from "remixicon-react/NpmjsLineIcon";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
-import { getStylingByModelName } from "@gs/models"
-import useRootContext from "@gs/root/RootContext"
-import type { Gallery, LinkObject } from "@gs/types"
-import Button from "@gs/ui/Button"
-import Mdx from "@gs/ui/Mdx"
-import { H5, H6, Paragraph } from "@gs/ui/Text"
-import { formatDate } from "@gs/utils/format"
+} from "@gs/helpers/assets";
+import { getStylingByModelName } from "@gs/models";
+import useRootContext from "@gs/root/RootContext";
+import type { Gallery, LinkObject } from "@gs/types";
+import Button from "@gs/ui/Button";
+// import Mdx from "@gs/ui/Mdx";
+import { H5, H6, Paragraph } from "@gs/ui/Text";
+import { formatDate } from "@gs/utils/format";
 
-import type { SummaryItem } from "../types"
+import type { SummaryItem } from "../types";
 
 export default function TimelineCard(props: {
-  item: SummaryItem
+  item: SummaryItem;
 }): JSX.Element | null {
-  const { locale } = useRootContext()
+  const { locale } = useRootContext();
   const {
     id,
     title,
@@ -37,16 +37,16 @@ export default function TimelineCard(props: {
     links = [],
     duration,
     linkUrl,
-  } = props.item
-  const modelStyling = getStylingByModelName(model)
+  } = props.item;
+  const modelStyling = getStylingByModelName(model);
   const imageUrl = generateAssetTransformedUrl(cover, {
     aspectRatio: 2,
     height: 400,
-  })
+  });
   const iconUrl = generateAssetTransformedUrl(
     icon,
     assetTransformationOptions.ICON,
-  )
+  );
 
   return (
     <Link
@@ -86,7 +86,7 @@ export default function TimelineCard(props: {
         />
       </article>
     </Link>
-  )
+  );
 }
 
 function TimelineCardTitle({
@@ -95,10 +95,10 @@ function TimelineCardTitle({
   icon,
   id,
 }: {
-  className?: string
-  children: ReactNode
-  icon: ReactNode
-  id?: string
+  className?: string;
+  children: ReactNode;
+  icon: ReactNode;
+  id?: string;
 }) {
   return (
     <H5 className="relative text-secondary group-hocus:text-primary">
@@ -115,15 +115,15 @@ function TimelineCardTitle({
       </div>
       {children}
     </H5>
-  )
+  );
 }
 
 function TimelineCardSubtitle({
   children,
   className,
 }: {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }) {
   return (
     <H6
@@ -134,15 +134,15 @@ function TimelineCardSubtitle({
     >
       {children}
     </H6>
-  )
+  );
 }
 
 function TimelineCardByline({
   children,
   className,
 }: {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }) {
   return (
     <Paragraph
@@ -153,41 +153,43 @@ function TimelineCardByline({
     >
       {children}
     </Paragraph>
-  )
+  );
 }
 
-function TimelineCardDescription({
-  children,
-  className,
-}: {
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <div
-      className={clsx(
-        className,
-        "mt-4 overflow-auto text-sm",
-        "prose prose-sm prose-li:marker:text-disabled dark:prose-invert",
-        "max-h-0 transition-[max-height] duration-300 group-hocus:max-h-screen group-selected:max-h-screen",
-      )}
-    >
-      <Mdx mdx={children?.toString() || ""} />
-    </div>
-  )
-}
+// function TimelineCardDescription({
+//   children,
+//   className,
+// }: {
+//   children: ReactNode
+//   className?: string
+// }) {
+//   return (
+//     <div
+//       className={clsx(
+//         className,
+//         "mt-4 overflow-auto text-sm",
+//         "prose prose-sm prose-li:marker:text-disabled dark:prose-invert",
+//         "max-h-0 transition-[max-height] duration-300 group-hocus:max-h-screen group-selected:max-h-screen",
+//       )}
+//     >
+//       <Mdx mdx={children?.toString() || ""} />
+//     </div>
+//   )
+// }
 
 function TimelineCardGallery({
   gallery = [],
   iconUrl,
   alt,
 }: {
-  alt: string
-  gallery?: Gallery
-  iconUrl?: string
+  alt: string;
+  gallery?: Gallery;
+  iconUrl?: string;
 }): JSX.Element | null {
-  const coverUrl = gallery?.[0]?.url
-  if (!coverUrl) return null
+  const coverUrl = gallery?.[0]?.url;
+  if (!coverUrl) {
+    return null;
+  }
 
   return (
     <figure className={clsx("relative -mx-8 mt-8 h-72 overflow-hidden")}>
@@ -200,16 +202,18 @@ function TimelineCardGallery({
       {iconUrl ? (
         <img
           src={iconUrl}
-          alt={alt + " icon"}
+          alt={`${alt} icon`}
           className="absolute bottom-4 left-4 aspect-square h-10 rounded object-contain"
         />
       ) : null}
     </figure>
-  )
+  );
 }
 
 function TimelineCardLinker({ links = [] }: { links?: LinkObject[] }) {
-  if (links.length === 0) return null
+  if (links.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -218,45 +222,47 @@ function TimelineCardLinker({ links = [] }: { links?: LinkObject[] }) {
         const content = (() => {
           switch (type) {
             case "homepage":
-              return <HomepageIcon />
+              return <HomepageIcon />;
             case "linkedin":
-              return <LinkedinIcon />
+              return <LinkedinIcon />;
             case "github":
-              return <GithubIcon />
+              return <GithubIcon />;
             case "npm":
-              return <NpmIcon />
+              return <NpmIcon />;
             case "prototype":
-              return <PrototypeIcon />
+              return <PrototypeIcon />;
             default:
-              return title || type
+              return title || type;
           }
-        })()
+        })();
 
         return (
           <Button
             key={type || url}
             title={title || type}
             onClick={(e) => {
-              e.stopPropagation()
-              e.preventDefault()
-              window.open(url, "__blank")
+              e.stopPropagation();
+              e.preventDefault();
+              window.open(url, "__blank");
             }}
             className="text-link hocus:text-link-hover"
           >
             {content}
           </Button>
-        )
+        );
       })}
     </>
-  )
+  );
 }
 
 export function Sticker({ draft }: SummaryItem): JSX.Element | null {
-  if (!draft) return null
+  if (!draft) {
+    return null;
+  }
 
   return (
     <div className="absolute top-0 right-0 rounded-bl-md rounded-tr-md bg-black px-2">
       Draft
     </div>
-  )
+  );
 }

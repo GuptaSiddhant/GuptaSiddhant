@@ -1,13 +1,13 @@
-import LRUCache, { type Options } from "lru-cache"
+import LRUCache, { type Options } from "lru-cache";
 
-import { ONE_DAY_IN_MS } from "@gs/constants"
+import { ONE_DAY_IN_MS } from "@gs/constants";
 
-import { createLogger } from "./logger.server"
+import { createLogger } from "./logger.server";
 
-const logger = createLogger("Cache")
+const logger = createLogger("Cache");
 
 declare global {
-  var appCache: LRUCache<string, unknown>
+  var appCache: LRUCache<string, unknown>;
 }
 
 const appCache =
@@ -16,29 +16,31 @@ const appCache =
     max: 300,
     allowStale: true,
     ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
-  }))
+  }));
 
 // Utils
 
 export function getCache() {
-  return appCache
+  return appCache;
 }
 
 export function getCachedKeys(): string[] {
-  return [...getCache().keys()]
+  return [...getCache().keys()];
 }
 
 export function getCachedTypes(): string[] {
-  return [...new Set(getCachedKeys().map((key) => parseCacheKey(key).type))]
+  return [...new Set(getCachedKeys().map((key) => parseCacheKey(key).type))];
 }
 
 export function hasCachedKey(key: string): boolean {
-  return getCache().has(key)
+  return getCache().has(key);
 }
 
 export function getCachedKey(key: string) {
-  const cache = getCache()
-  if (cache.has(key)) return cache.get(key)
+  const cache = getCache();
+  if (cache.has(key)) {
+    return cache.get(key);
+  }
 }
 
 export async function fetchCachedKey<T>(
@@ -46,16 +48,18 @@ export async function fetchCachedKey<T>(
   fn: () => Promise<T>,
   options?: Options<string, unknown>,
 ): Promise<T> {
-  const cache = getCache()
+  const cache = getCache();
 
-  if (cache.has(key)) return cache.get(key) as T
+  if (cache.has(key)) {
+    return cache.get(key) as T;
+  }
 
-  logger.info("Fetching:", key)
-  const result = await fn()
+  logger.info("Fetching:", key);
+  const result = await fn();
 
-  cache.set(key, result, options)
+  cache.set(key, result, options);
 
-  return result
+  return result;
 }
 
 export enum ModifyCacheMethod {
@@ -66,9 +70,9 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
   switch (method) {
     case ModifyCacheMethod.DELETE: {
       if (key) {
-        return deleteCachedKeysWith(key)
+        return deleteCachedKeysWith(key);
       } else {
-        return clearCache()
+        return clearCache();
       }
     }
   }
@@ -77,24 +81,24 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
 export function deleteCachedKeysWith(key: string) {
   return getCachedKeys()
     .filter((k) => k.includes(key))
-    .forEach(deleteCachedKey)
+    .forEach(deleteCachedKey);
 }
 
 export function deleteCachedKey(key: string) {
-  logger.debug('Deleted key "' + key + '":', new Date().toISOString())
-  return getCache().delete(key)
+  logger.debug(`Deleted key "${key}":`, new Date().toISOString());
+  return getCache().delete(key);
 }
 
 export function clearCache() {
-  logger.debug("Cleared:", new Date().toISOString())
-  return getCache().clear()
+  logger.debug("Cleared:", new Date().toISOString());
+  return getCache().clear();
 }
 
 export function createCacheKey(type: string, value: string) {
-  return [type, value].filter(Boolean).join("::")
+  return [type, value].filter(Boolean).join("::");
 }
 
 export function parseCacheKey(key: string): { type: string; value: string } {
-  const [type, ...value] = key.split("/")
-  return { type, value: value.join("/") }
+  const [type, ...value] = key.split("/");
+  return { type, value: value.join("/") };
 }

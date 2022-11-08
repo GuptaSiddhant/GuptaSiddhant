@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react";
 
-import { useLocation } from "@remix-run/react"
+import { useLocation } from "@remix-run/react";
 
-import useEventListener from "@gs/hooks/useEventListener"
+import useEventListener from "@gs/hooks/useEventListener";
 
-import { __IS_SERVER_WIN__ } from "../constants"
-import useThrottle from "../hooks/useThrottle"
+import { __IS_SERVER_WIN__ } from "../constants";
+import useThrottle from "../hooks/useThrottle";
 
 export interface TocItem {
-  level: number
-  id: string
-  text: string
-  children: TocItem[]
+  level: number;
+  id: string;
+  text: string;
+  children: TocItem[];
 }
 
 export function arrangeTocByLevels(
@@ -20,32 +20,34 @@ export function arrangeTocByLevels(
   currentIndex: number,
   originalList: TocItem[],
 ) {
-  const currentLevel = currentItem.level
-  const parentIndex = toc.findIndex((i) => currentLevel > i.level) > -1
-  if (parentIndex) return toc
+  const currentLevel = currentItem.level;
+  const parentIndex = toc.findIndex((i) => currentLevel > i.level) > -1;
+  if (parentIndex) {
+    return toc;
+  }
 
   const nextElementIndexWithSameLevel = originalList
     .slice(currentIndex + 1)
-    .find((i) => i.level === currentLevel)
+    .find((i) => i.level === currentLevel);
   const nextIndex = nextElementIndexWithSameLevel
     ? originalList.indexOf(nextElementIndexWithSameLevel)
-    : originalList.length
-  const subArray = originalList.slice(currentIndex + 1, nextIndex)
-  currentItem.children = [...subArray.reduce(arrangeTocByLevels, [])]
+    : originalList.length;
+  const subArray = originalList.slice(currentIndex + 1, nextIndex);
+  currentItem.children = [...subArray.reduce(arrangeTocByLevels, [])];
 
-  return [...toc, currentItem]
+  return [...toc, currentItem];
 }
 
 export function useCurrentActiveId(toc: TocItem[]): string {
-  const [activeId, setActiveId] = useState<string>("")
+  const [activeId, setActiveId] = useState<string>("");
 
-  const { hash } = useLocation()
+  const { hash } = useLocation();
   useEffect(() => {
-    const id = hash.replace("#", "")
+    const id = hash.replace("#", "");
     if (toc.find((item) => item.id === id)) {
-      setActiveId(id)
+      setActiveId(id);
     }
-  }, [toc, hash])
+  }, [toc, hash]);
 
   const elements = useMemo(
     () =>
@@ -53,25 +55,37 @@ export function useCurrentActiveId(toc: TocItem[]): string {
         __IS_SERVER_WIN__ ? null : document.getElementById(id),
       ),
     [toc],
-  )
+  );
 
   const [throttledHandler] = useThrottle(() => {
-    const elementsAfterScroll = elements.filter((element) => {
-      if (!element) return false
+    const lastElementAfterScroll = elements.filter((element) => {
+      if (!element) {
+        return false;
+      }
 
-      const elementTop = element.getBoundingClientRect().top
-      const elementPositionTop = elementTop
+      const elementTop = element.getBoundingClientRect().top;
+      const elementPositionTop = elementTop;
 
-      return elementPositionTop <= 100
-    })
+      return elementPositionTop <= 100;
+    })[
+      elements.filter((element) => {
+        if (!element) {
+          return false;
+        }
 
-    const lastElementAfterScroll =
-      elementsAfterScroll[elementsAfterScroll.length - 1]
+        const elementTop = element.getBoundingClientRect().top;
+        const elementPositionTop = elementTop;
 
-    if (lastElementAfterScroll) setActiveId(lastElementAfterScroll.id)
-  }, 500)
+        return elementPositionTop <= 100;
+      }).length - 1
+    ];
 
-  useEventListener("scroll", throttledHandler, { immediate: true })
+    if (lastElementAfterScroll) {
+      setActiveId(lastElementAfterScroll.id);
+    }
+  }, 500);
 
-  return activeId
+  useEventListener("scroll", throttledHandler, { immediate: true });
+
+  return activeId;
 }

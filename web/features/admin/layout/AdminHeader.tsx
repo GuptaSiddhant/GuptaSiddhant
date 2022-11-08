@@ -1,10 +1,10 @@
-import { type ReactNode, useEffect, useRef } from "react"
+import { type ReactNode, useEffect, useRef } from "react";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
-import type { NavigationLinkProps } from "@gs/navigation/types"
-import type { To } from "@gs/types"
-import { AnchorLink } from "@gs/ui/Link"
+import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { To } from "@gs/types";
+import { AnchorLink } from "@gs/ui/Link";
 
 export default function AdminHeader({
   children,
@@ -13,16 +13,16 @@ export default function AdminHeader({
   icon,
   to,
 }: {
-  to?: To
-  children: ReactNode
-  actions?: NavigationLinkProps[]
-  collapsed?: boolean
-  icon: ReactNode
+  to?: To;
+  children: ReactNode;
+  actions?: NavigationLinkProps[];
+  collapsed?: boolean;
+  icon: ReactNode;
 }): JSX.Element {
-  const ref = useRef<HTMLAnchorElement>(null)
-  useEffect(() => ref.current?.focus(), [])
+  const ref = useRef<HTMLAnchorElement>(null);
+  useEffect(() => ref.current?.focus(), []);
 
-  if (collapsed)
+  if (collapsed) {
     return (
       <header className="flex h-full w-full flex-col gap-4">
         <Link
@@ -49,7 +49,8 @@ export default function AdminHeader({
           {children}
         </Link>
       </header>
-    )
+    );
+  }
 
   return (
     <header className="sticky top-0 grid min-h-[3rem] grid-cols-[1fr_max-content] items-center gap-2 border-b border-divider bg-secondary px-4">
@@ -66,7 +67,7 @@ export default function AdminHeader({
         ))}
       </div>
     </header>
-  )
+  );
 }
 
 function AdminAction({
@@ -86,7 +87,7 @@ function AdminAction({
       >
         {children}
       </button>
-    )
+    );
   }
 
   if (to) {
@@ -99,8 +100,8 @@ function AdminAction({
       >
         {children}
       </AnchorLink>
-    )
+    );
   }
 
-  return <>{children}</>
+  return <>{children}</>;
 }

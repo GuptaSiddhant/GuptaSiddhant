@@ -1,33 +1,33 @@
-import clsx from "clsx"
-import type { ReactNode } from "react"
+import clsx from "clsx";
+import type { ReactNode } from "react";
 
-import { capitalize } from "@gs/utils/format"
+import { capitalize } from "@gs/utils/format";
 
-const preservedIds = ["actions"] as const
+const preservedIds = ["actions"] as const;
 
 export interface TableProps<T extends object> {
-  caption?: string
-  data: T[]
-  columns: TableColumnProps<T>[]
-  orientation?: "horizontal" | "vertical"
-  className?: string
-  captionClassName?: string
-  headRowClassName?: string
-  headCellClassName?: string
-  bodyRowClassName?: string
-  bodyCellClassName?: string
+  caption?: string;
+  data: T[];
+  columns: TableColumnProps<T>[];
+  orientation?: "horizontal" | "vertical";
+  className?: string;
+  captionClassName?: string;
+  headRowClassName?: string;
+  headCellClassName?: string;
+  bodyRowClassName?: string;
+  bodyCellClassName?: string;
 }
 
 export interface TableColumnProps<T extends object> {
-  id: keyof T | typeof preservedIds[number]
-  headerClassName?: string
-  cellClassName?: string
-  header?: ReactNode | ((data: T[]) => ReactNode)
-  cell?: (row: T, data: T[]) => ReactNode
+  id: keyof T | typeof preservedIds[number];
+  headerClassName?: string;
+  cellClassName?: string;
+  header?: ReactNode | ((data: T[]) => ReactNode);
+  cell?: (row: T, data: T[]) => ReactNode;
 }
 
 export default function Table<T extends object>(props: TableProps<T>) {
-  const { caption, orientation = "horizontal" } = props
+  const { caption, orientation = "horizontal" } = props;
   return (
     <table className={clsx(props.className, "border-collapse")}>
       <caption
@@ -42,7 +42,7 @@ export default function Table<T extends object>(props: TableProps<T>) {
         <HorizontalTable {...props} />
       )}
     </table>
-  )
+  );
 }
 
 function VerticalTable<T extends object>({
@@ -68,7 +68,7 @@ function VerticalTable<T extends object>({
         </tr>
       ))}
     </tbody>
-  )
+  );
 }
 
 function HorizontalTable<T extends object>({
@@ -105,18 +105,18 @@ function HorizontalTable<T extends object>({
         ))}
       </tbody>
     </>
-  )
+  );
 }
 
 function getHeaderElement<T extends object>(
   column: TableColumnProps<T>,
   data: T[],
 ): React.ReactNode {
-  const { id, header } = column
+  const { id, header } = column;
 
   return typeof header === "function"
     ? header(data)
-    : header ?? capitalize(id.toString())
+    : header ?? capitalize(id.toString());
 }
 
 function getCellElement<T extends object>(
@@ -124,13 +124,14 @@ function getCellElement<T extends object>(
   row: T,
   data: T[],
 ): React.ReactNode {
-  const { id, cell } = column
+  const { id, cell } = column;
 
+  // rome-ignore lint(nursery/noExplicitAny): Too difficult
   const content: any =
     typeof id === "string" &&
     preservedIds.includes(id as typeof preservedIds[number])
       ? null
-      : row?.[id as keyof T] ?? null
+      : row?.[id as keyof T] ?? null;
 
-  return cell?.(row, data) ?? content
+  return cell?.(row, data) ?? content;
 }

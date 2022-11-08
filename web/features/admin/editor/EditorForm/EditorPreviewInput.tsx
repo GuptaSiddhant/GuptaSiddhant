@@ -1,52 +1,52 @@
-import clsx from "clsx"
-import { useState } from "react"
+import clsx from "clsx";
+import { useState } from "react";
 
-import { type Language, supportedLanguages } from "@gs/helpers/code-lang"
-import useFullscreen from "@gs/hooks/useFullscreen"
-import type { ModelStringType } from "@gs/models/types"
-import Accordion from "@gs/ui/Accordion"
-import { FullscreenButton } from "@gs/ui/Button"
-import CodeBlock from "@gs/ui/CodeBlock"
-import Mdx from "@gs/ui/Mdx"
-import Select from "@gs/ui/Select"
+import { type Language, supportedLanguages } from "@gs/helpers/code-lang";
+import useFullscreen from "@gs/hooks/useFullscreen";
+import type { ModelStringType } from "@gs/models/types";
+import Accordion from "@gs/ui/Accordion";
+import { FullscreenButton } from "@gs/ui/Button";
+import CodeBlock from "@gs/ui/CodeBlock";
+import Mdx from "@gs/ui/Mdx";
+import Select from "@gs/ui/Select";
 
-import { useEditorForm } from "./context"
+import { useEditorForm } from "./context";
 import {
   EditorInputLabel,
   generateInputHeightClassNameForModeSize,
-} from "./helpers"
+} from "./helpers";
 
 export interface EditorPreviewInputProps {
-  name: string
-  model: ModelStringType
-  data: string
-  readonly?: boolean
-  className?: string
+  name: string;
+  model: ModelStringType;
+  data?: string;
+  readonly?: boolean;
+  className?: string;
 }
 
 export default function EditorPreviewInput(
   props: EditorPreviewInputProps,
 ): JSX.Element | null {
   if (props.model.format === "markdown") {
-    return <EditorMarkdownInput {...props} />
+    return <EditorMarkdownInput {...props} />;
   }
 
   if (props.model.format === "code") {
-    return <EditorFormCodeInput {...props} />
+    return <EditorFormCodeInput {...props} />;
   }
 
-  return null
+  return null;
 }
 
 function EditorMarkdownInput(
   props: EditorPreviewInputProps,
 ): JSX.Element | null {
-  const { name, className, data, model } = props
-  const { required, size } = model
+  const { name, className, data, model } = props;
+  const { required, size } = model;
 
-  const { itemId } = useEditorForm()
-  const fullscreenProps = useFullscreen<HTMLDetailsElement>()
-  const [value, setValue] = useState<string>(data)
+  const { itemId } = useEditorForm();
+  const fullscreenProps = useFullscreen<HTMLDetailsElement>();
+  const [value, setValue] = useState<string | undefined>(data);
 
   return (
     <Accordion
@@ -86,20 +86,20 @@ function EditorMarkdownInput(
         </div>
       </div>
     </Accordion>
-  )
+  );
 }
 
 function EditorFormCodeInput(
   props: EditorPreviewInputProps,
 ): JSX.Element | null {
-  const { name, className, data, model } = props
-  const { required, size } = model
+  const { name, className, data, model } = props;
+  const { required, size } = model;
 
-  const fullscreenProps = useFullscreen<HTMLDetailsElement>()
-  const [value, setValue] = useState<string>(data)
-  const [lang, setLang] = useState<Language>("bash")
+  const fullscreenProps = useFullscreen<HTMLDetailsElement>();
+  const [value, setValue] = useState<string | undefined>(data);
+  const [lang, setLang] = useState<Language>("bash");
 
-  const { itemId } = useEditorForm()
+  const { itemId } = useEditorForm();
 
   return (
     <Accordion
@@ -150,9 +150,9 @@ function EditorFormCodeInput(
         />
 
         <CodeBlock className="!m-0" wrap hideBadge lang={lang}>
-          {value}
+          {value || ""}
         </CodeBlock>
       </div>
     </Accordion>
-  )
+  );
 }

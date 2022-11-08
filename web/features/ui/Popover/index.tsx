@@ -1,39 +1,40 @@
-import { Popover as ReachPopover, positionDefault } from "@reach/popover"
-import clsx from "clsx"
-import { createContext, useContext, useEffect, useRef, useState } from "react"
+import { Popover as ReachPopover, positionDefault } from "@reach/popover";
+import clsx from "clsx";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
-import useEventListener from "@gs/hooks/useEventListener"
-import useFocusTrap from "@gs/hooks/useFocusTrap"
-import useStableCallback from "@gs/hooks/useStableCallback"
-import invariant from "@gs/utils/invariant"
+import useEventListener from "@gs/hooks/useEventListener";
+import useFocusTrap from "@gs/hooks/useFocusTrap";
+import useStableCallback from "@gs/hooks/useStableCallback";
+import invariant from "@gs/utils/invariant";
 
 interface PopoverContextValue<T extends HTMLElement> {
-  isOpen: boolean
-  closePopover: () => void
-  initialFocusRef: React.RefObject<T>
+  isOpen: boolean;
+  closePopover: () => void;
+  initialFocusRef: React.RefObject<T>;
 }
 
+// rome-ignore lint(nursery/noExplicitAny): Defined in usePopoverContext
 const PopoverContext = createContext<PopoverContextValue<any> | undefined>(
   undefined,
-)
+);
 
 export interface PopoverProps {
   children:
     | React.ReactNode
     | ((props: {
-        isOpen: boolean
-        closePopover: () => void
-      }) => React.ReactNode)
-  className?: string
-  title?: string
-  content: React.ReactNode
+        isOpen: boolean;
+        closePopover: () => void;
+      }) => React.ReactNode);
+  className?: string;
+  title?: string;
+  content: React.ReactNode;
 }
 
 const popoverClassName = clsx(
   "rounded border border-solid border-gray-500 bg-primary dark:bg-tertiary",
   "block overflow-y-auto shadow-lg outline-none",
   "z-popover max-h-screen-main [&[hidden]]:hidden",
-)
+);
 
 export default function Popover({
   children,
@@ -48,7 +49,7 @@ export default function Popover({
     targetButtonRef,
     initialFocusRef,
     popoverRef,
-  } = usePopover()
+  } = usePopover();
 
   return (
     <>
@@ -77,53 +78,61 @@ export default function Popover({
         </PopoverContext.Provider>
       </ReachPopover>
     </>
-  )
+  );
 }
 
 function usePopover() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
-  const popoverRef = useFocusTrap(!isOpen)
-  const targetButtonRef = useRef<HTMLButtonElement>(null)
-  const initialFocusRef = useRef<HTMLElement>(null)
+  const popoverRef = useFocusTrap(!isOpen);
+  const targetButtonRef = useRef<HTMLButtonElement>(null);
+  const initialFocusRef = useRef<HTMLElement>(null);
 
   const toggleIsPopoverOpen = useStableCallback(() => {
     setIsOpen((isOpen) => {
-      if (!isOpen) return true
+      if (!isOpen) {
+        return true;
+      }
 
-      targetButtonRef.current?.focus()
-      return false
-    })
-  })
+      targetButtonRef.current?.focus();
+      return false;
+    });
+  });
 
   useEffect(() => {
-    if (isOpen) initialFocusRef.current?.focus()
-  }, [isOpen])
+    if (isOpen) {
+      initialFocusRef.current?.focus();
+    }
+  }, [isOpen]);
 
-  const openPopover = useStableCallback(() => setIsOpen(true))
+  const openPopover = useStableCallback(() => setIsOpen(true));
 
   const closePopover = useStableCallback(() => {
-    setIsOpen(false)
-    targetButtonRef.current?.focus()
-  })
+    setIsOpen(false);
+    targetButtonRef.current?.focus();
+  });
 
   useEventListener(
     "keydown",
     (e) => e.key === "Escape" && isOpen && closePopover(),
     { target: popoverRef.current! },
-  )
+  );
 
   useEventListener(
     "click",
     (e) => {
-      if (!isOpen) return
-      if (popoverRef.current?.contains(e.target as Node)) return
-      if (targetButtonRef.current?.contains(e.target as Node)) return
+      if (
+        !isOpen ||
+        popoverRef.current?.contains(e.target as Node) ||
+        targetButtonRef.current?.contains(e.target as Node)
+      ) {
+        return;
+      }
 
-      closePopover()
+      closePopover();
     },
     {},
-  )
+  );
 
   return {
     isOpen,
@@ -133,14 +142,14 @@ function usePopover() {
     popoverRef,
     targetButtonRef,
     initialFocusRef,
-  }
+  };
 }
 
 export function usePopoverContext<
   T extends HTMLElement = HTMLButtonElement,
 >(): PopoverContextValue<T> {
-  const context = useContext(PopoverContext)
-  invariant(context, "PopoverContext must be used within a Popover")
+  const context = useContext(PopoverContext);
+  invariant(context, "PopoverContext must be used within a Popover");
 
-  return context
+  return context;
 }

@@ -1,28 +1,25 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { useLocation } from "@remix-run/react"
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import useWindowStore from "@gs/hooks/useWindowStore";
+import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons";
+import useRootContext from "@gs/root/RootContext";
+import { type StorageFile } from "@gs/service/storage.server";
+import Accordion from "@gs/ui/Accordion";
+import Action from "@gs/ui/Action";
+import Popover from "@gs/ui/Popover";
+import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
+import PopoverRenameContent from "@gs/ui/Popover/Rename";
+import { formatDateTime, formatUnit } from "@gs/utils/format";
 
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { __IS_SERVER_WIN__ } from "@gs/constants"
-import useWindowStore from "@gs/hooks/useWindowStore"
-import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons"
-import useRootContext from "@gs/root/RootContext"
-import { type StorageFile } from "@gs/service/storage.server"
-import Accordion from "@gs/ui/Accordion"
-import Action from "@gs/ui/Action"
-import Popover from "@gs/ui/Popover"
-import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
-import PopoverRenameContent from "@gs/ui/Popover/Rename"
-import { formatDateTime, formatUnit } from "@gs/utils/format"
-
-import AdminDashboard from "../components/AdminDashboard"
+import AdminDashboard from "../components/AdminDashboard";
 import {
   extractLastPartOfFilePath,
   FileType,
   getFileTypeFromFileContentType,
   getIconFromFileType,
-} from "./helpers"
-import { type StorageFileProps } from "./types"
+} from "./helpers";
+import { type StorageFileProps } from "./types";
 
 export interface StorageFileViewProps extends StorageFileProps {}
 
@@ -30,9 +27,9 @@ export default function StorageFileView({
   path,
   data,
 }: StorageFileViewProps): JSX.Element | null {
-  const name = extractLastPartOfFilePath(path)
-  const type = getFileTypeFromFileContentType(data.contentType)
-  const icon = getIconFromFileType(type)
+  const name = extractLastPartOfFilePath(path);
+  const type = getFileTypeFromFileContentType(data.contentType);
+  const icon = getIconFromFileType(type);
 
   return (
     <AdminLayout
@@ -80,11 +77,11 @@ export default function StorageFileView({
       <StorageFileDataView {...data} />
       <StorageFilePreview {...data} />
     </AdminLayout>
-  )
+  );
 }
 
 function StorageFileDataView(file: StorageFile): JSX.Element {
-  const { locale } = useRootContext()
+  const { locale } = useRootContext();
 
   return (
     <Accordion
@@ -118,21 +115,23 @@ function StorageFileDataView(file: StorageFile): JSX.Element {
         ]}
       />
     </Accordion>
-  )
+  );
 }
 
 function StorageFilePreview(file: StorageFile): JSX.Element | null {
-  const { linkUrl, contentType, name } = file
-  const type = getFileTypeFromFileContentType(contentType)
+  const { linkUrl, contentType, name } = file;
+  const type = getFileTypeFromFileContentType(contentType);
   const originUrl = useWindowStore(
     "load",
     () => window.location.origin,
     () => "http://localhost",
-  )
+  );
 
-  if (!type) return null
+  if (!type) {
+    return null;
+  }
 
-  const embedUrl = new URL(linkUrl, originUrl).toString()
+  const embedUrl = new URL(linkUrl, originUrl).toString();
 
   return (
     <Accordion
@@ -152,5 +151,5 @@ function StorageFilePreview(file: StorageFile): JSX.Element | null {
         )}
       />
     </Accordion>
-  )
+  );
 }

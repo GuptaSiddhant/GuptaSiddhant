@@ -1,26 +1,28 @@
-import clsx from "clsx"
-import { useMemo } from "react"
-import TocIcon from "remixicon-react/FileListLineIcon"
+import clsx from "clsx";
+import { useMemo } from "react";
+import TocIcon from "remixicon-react/FileListLineIcon";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
 import {
   type TocItem,
   arrangeTocByLevels,
   useCurrentActiveId,
-} from "@gs/helpers/table-of-contents"
-import { fabBottomLeftClassName } from "@gs/ui/Button"
-import Menu, { type MenuActionProps } from "@gs/ui/Menu"
+} from "@gs/helpers/table-of-contents";
+import { fabBottomLeftClassName } from "@gs/ui/Button";
+import Menu, { type MenuActionProps } from "@gs/ui/Menu";
 
-const TOC_LEVEL_GAP = 8
+const TOC_LEVEL_GAP = 8;
 
 export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
-  const activeId = useCurrentActiveId(toc)
+  const activeId = useCurrentActiveId(toc);
 
-  if (toc.length === 0) return null
+  if (toc.length === 0) {
+    return null;
+  }
 
-  const arrangedToc = toc.reduce(arrangeTocByLevels, [])
-  const tocHighestLevel = arrangedToc[0]?.level || 1
+  const arrangedToc = toc.reduce(arrangeTocByLevels, []);
+  const tocHighestLevel = arrangedToc[0]?.level || 1;
 
   return (
     <>
@@ -38,14 +40,14 @@ export default function TableOfContent({ toc = [] }: { toc: TocItem[] }) {
         activeId={activeId}
       />
     </>
-  )
+  );
 }
 
 export interface TableOfContentProps {
-  toc: TocItem[]
-  highestLevel: number
-  activeId?: string
-  className?: string
+  toc: TocItem[];
+  highestLevel: number;
+  activeId?: string;
+  className?: string;
 }
 
 // Floating
@@ -59,7 +61,7 @@ export function FloatingTableOfContent({
   const actions: MenuActionProps[] | undefined = useMemo(
     () =>
       toc?.map(({ id, text, level }) => {
-        const isActive = activeId?.toLowerCase() === id.toLowerCase()
+        const isActive = activeId?.toLowerCase() === id.toLowerCase();
 
         return {
           id,
@@ -74,18 +76,20 @@ export function FloatingTableOfContent({
             </span>
           ),
           to: `#${id}`,
-        }
+        };
       }),
     [toc, highestLevel, activeId],
-  )
+  );
 
-  if (!actions || actions.length === 0) return null
+  if (!actions || actions.length === 0) {
+    return null;
+  }
 
   return (
     <Menu actions={actions} className={clsx(className, fabBottomLeftClassName)}>
       <TocIcon aria-label="Table of contents" />
     </Menu>
-  )
+  );
 }
 
 // Inline
@@ -101,17 +105,20 @@ export function InlineTableOfContent({
         <TocListItem key={item.id} tocItem={item} {...options} />
       ))}
     </nav>
-  )
+  );
 }
 
-type TocListItemOptions = Pick<TableOfContentProps, "highestLevel" | "activeId">
+type TocListItemOptions = Pick<
+  TableOfContentProps,
+  "highestLevel" | "activeId"
+>;
 
 interface TocListItemProps extends TocListItemOptions {
-  tocItem: TocItem
+  tocItem: TocItem;
 }
 
 function TocListItem(props: TocListItemProps): JSX.Element | null {
-  const { id, children, level } = props.tocItem
+  const { id, children, level } = props.tocItem;
 
   return (
     <li
@@ -124,7 +131,7 @@ function TocListItem(props: TocListItemProps): JSX.Element | null {
         <TocListAccordion key={id} {...props} />
       )}
     </li>
-  )
+  );
 }
 
 function TocListAccordion({
@@ -138,7 +145,7 @@ function TocListAccordion({
       </summary>
       <InlineTableOfContent toc={children} {...options} />
     </details>
-  )
+  );
 }
 
 function TocListLeafItem({ tocItem, ...options }: TocListItemProps) {
@@ -150,7 +157,7 @@ function TocListLeafItem({ tocItem, ...options }: TocListItemProps) {
     >
       <TocItemLink {...tocItem} activeId={options.activeId} />
     </span>
-  )
+  );
 }
 
 function TocItemLink({
@@ -158,16 +165,16 @@ function TocItemLink({
   activeId,
   text,
 }: {
-  id: string
-  activeId?: string
-  text: string
+  id: string;
+  activeId?: string;
+  text: string;
 }): JSX.Element | null {
-  const isActive = activeId?.toLowerCase() === id.toLowerCase()
+  const isActive = activeId?.toLowerCase() === id.toLowerCase();
 
   return (
     <Link
       replace
-      to={"#" + id}
+      to={`#${id}`}
       className={clsx(
         isActive ? "font-bold text-primary" : "text-tertiary",
         "hover:text-default",
@@ -175,5 +182,5 @@ function TocItemLink({
     >
       {text}
     </Link>
-  )
+  );
 }

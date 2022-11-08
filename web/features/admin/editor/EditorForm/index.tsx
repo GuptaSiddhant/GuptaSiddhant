@@ -1,17 +1,17 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Form } from "@remix-run/react"
+import { Form } from "@remix-run/react";
 
-import { type Model } from "@gs/models"
+import { type Model } from "@gs/models";
 
-import EditorObjectInput from "./EditorObjectInput"
-import EditorTextInput from "./EditorScalerInput"
-import { objectGridClassName } from "./helpers"
+import EditorObjectInput from "./EditorObjectInput";
+import EditorTextInput from "./EditorScalerInput";
+import { objectGridClassName } from "./helpers";
 
 export interface EditorFormProps<T extends Record<string, any>> {
-  formId: string
-  data?: T
-  model: Model
+  formId: string;
+  data?: T;
+  model: Model;
 }
 
 export default function EditorForm<T extends { id: string }>({
@@ -20,7 +20,9 @@ export default function EditorForm<T extends { id: string }>({
   formId,
 }: EditorFormProps<T>): JSX.Element | null {
   // Every form is represented in an object form.
-  if (model.type !== "object") return null
+  if (model.type !== "object") {
+    return null;
+  }
 
   return (
     <Form
@@ -42,5 +44,5 @@ export default function EditorForm<T extends { id: string }>({
 
       <EditorObjectInput data={data} model={model} />
     </Form>
-  )
+  );
 }

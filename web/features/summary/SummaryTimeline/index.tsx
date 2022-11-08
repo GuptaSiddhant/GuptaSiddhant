@@ -1,27 +1,29 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
-import type { BaseProps } from "@gs/types"
-import Reader from "@gs/ui/Reader"
-import { proseWidth } from "@gs/ui/Section"
-import { Caption } from "@gs/ui/Text"
+import type { BaseProps } from "@gs/types";
+import Reader from "@gs/ui/Reader";
+import { proseWidth } from "@gs/ui/Section";
+import { Caption } from "@gs/ui/Text";
 
-import type { SummaryItem } from "../types"
-import { createTimeline } from "./timeline-helpers"
-import SummaryTimelineCard from "./TimelineCard"
+import type { SummaryItem } from "../types";
+import { createTimeline } from "./timeline-helpers";
+import SummaryTimelineCard from "./TimelineCard";
 
 export interface SummaryTimelineProps extends BaseProps {
-  items: SummaryItem[]
+  items: SummaryItem[];
 }
 
 export default function SummaryTimeline(
   props: SummaryTimelineProps,
 ): JSX.Element | null {
-  const { items, className, ...rest } = props
-  if (items.length === 0) return null
+  const { items, ...rest } = props;
+  if (items.length === 0) {
+    return null;
+  }
 
-  const timeline = createTimeline(items)
+  const timeline = createTimeline(items);
 
   return (
     <Reader
@@ -41,19 +43,20 @@ export default function SummaryTimeline(
       //   }
     >
       {timeline.map((item) => {
-        if ("model" in item)
-          return <SummaryTimelineCard key={item.id} item={item} />
+        if ("model" in item) {
+          return <SummaryTimelineCard key={item.id} item={item} />;
+        }
 
-        return <TimelineDivider key={item.id} {...item} />
+        return <TimelineDivider key={item.id} {...item} />;
       })}
     </Reader>
-  )
+  );
 }
 
 interface TimelineDividerProps {
-  id: string
-  type: "year"
-  children: React.ReactNode
+  id: string;
+  type: "year";
+  children: React.ReactNode;
 }
 
 function TimelineDivider({
@@ -62,7 +65,7 @@ function TimelineDivider({
   children,
 }: TimelineDividerProps): JSX.Element | null {
   if (type === "year") {
-    const linkId = id
+    const linkId = id;
 
     return (
       <Link
@@ -80,8 +83,8 @@ function TimelineDivider({
           />
         </Caption>
       </Link>
-    )
+    );
   }
 
-  return null
+  return null;
 }

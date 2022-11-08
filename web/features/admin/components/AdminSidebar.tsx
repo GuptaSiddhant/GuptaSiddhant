@@ -1,14 +1,14 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Link, NavLink, useLocation } from "@remix-run/react"
+import { Link, NavLink, useLocation } from "@remix-run/react";
 
-import { Caption } from "@gs/ui/Text"
+import { Caption } from "@gs/ui/Text";
 
-import { AdminIcon } from "../index"
+import { AdminIcon } from "../index";
 
 export interface AdminSidebarProps {
-  apps: AdminLinkProps[]
-  actions: AdminLinkProps[]
+  apps: AdminLinkProps[];
+  actions: AdminLinkProps[];
 }
 
 export default function AdminSidebar({
@@ -16,7 +16,7 @@ export default function AdminSidebar({
   actions,
 }: AdminSidebarProps): JSX.Element | null {
   const isChildPathVisible =
-    useLocation().pathname.split("/").filter(Boolean).length > 1
+    useLocation().pathname.split("/").filter(Boolean).length > 1;
 
   return (
     <aside
@@ -73,16 +73,16 @@ export default function AdminSidebar({
         </div>
       ) : null}
     </aside>
-  )
+  );
 }
 
 export interface AdminLinkProps {
-  id: string
-  children: React.ReactNode
-  title: string
-  onClick?: () => void
-  isCollapsed?: boolean
-  linkPath?: string
+  id: string;
+  children: React.ReactNode;
+  title: string;
+  onClick?: () => void;
+  isCollapsed?: boolean;
+  linkPath?: string;
 }
 
 function AdminAppLink({
@@ -91,7 +91,6 @@ function AdminAppLink({
   title,
   onClick,
   isCollapsed,
-  linkPath,
 }: AdminLinkProps): JSX.Element | null {
   const style = (props?: { isActive?: boolean }) =>
     clsx(
@@ -100,15 +99,15 @@ function AdminAppLink({
       props?.isActive
         ? "bg-tertiary border border-divider"
         : "bg-secondary hover:bg-tertiary",
-    )
+    );
 
-  const nameElement = isCollapsed ? null : <strong>{title}</strong>
+  const nameElement = isCollapsed ? null : <strong>{title}</strong>;
 
   return (
     <NavLink to={id} title={title} className={style} onClick={onClick}>
       {children} {nameElement}
     </NavLink>
-  )
+  );
 }
 
 function AdminAction({
@@ -123,9 +122,9 @@ function AdminAction({
     "flex flex-1 gap-2 items-center py-1 rounded-sm",
     "bg-secondary text-secondary hocus:bg-tertiary hocus:text-primary",
     isCollapsed ? "px-1 mx-auto w-max" : "px-2",
-  )
+  );
 
-  const nameElement = isCollapsed ? null : <span>{title}</span>
+  const nameElement = isCollapsed ? null : <span>{title}</span>;
 
   if (onClick) {
     return (
@@ -137,12 +136,12 @@ function AdminAction({
       >
         {children} {nameElement}
       </button>
-    )
+    );
   }
 
   return (
     <Link to={linkPath || id} className={styleClassName} title={title}>
       {children} {nameElement}
     </Link>
-  )
+  );
 }

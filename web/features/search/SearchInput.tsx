@@ -1,14 +1,14 @@
-import { useEffect, useTransition } from "react"
+import { useEffect, useTransition } from "react";
 
-import type { FetcherWithComponents } from "@remix-run/react"
+import type { FetcherWithComponents } from "@remix-run/react";
 
-import { CloseIcon, LoadingIcon } from "@gs/icons"
-import Button from "@gs/ui/Button"
-import Input from "@gs/ui/Input"
+import { CloseIcon, LoadingIcon } from "@gs/icons";
+import Button from "@gs/ui/Button";
+import Input from "@gs/ui/Input";
 
-import useSearch from "."
-import { isCommand } from "./commands"
-import SearchIcon from "./SearchButton"
+import useSearch from ".";
+import { isCommand } from "./commands";
+import SearchIcon from "./SearchButton";
 
 export default function SearchInput({
   Form,
@@ -17,16 +17,20 @@ export default function SearchInput({
   load,
 }: FetcherWithComponents<any>): JSX.Element | null {
   const { closeSearch, inputRef, isSearchOpen, inputValue, changeInputValue } =
-    useSearch()
-  const [isPending, startTransition] = useTransition()
-  const isLoading = state === "submitting" || state === "loading" || isPending
+    useSearch();
+  const [isPending, startTransition] = useTransition();
+  const isLoading = state === "submitting" || state === "loading" || isPending;
 
   useEffect(() => {
-    const input = inputRef.current
-    if (isCommand(input?.value)) return
+    const input = inputRef.current;
+    if (isCommand(input?.value)) {
+      return;
+    }
 
-    if (isSearchOpen) load("/search")
-  }, [isSearchOpen, load, inputRef])
+    if (isSearchOpen) {
+      load("/search");
+    }
+  }, [isSearchOpen, load, inputRef]);
 
   return (
     <Form
@@ -34,11 +38,13 @@ export default function SearchInput({
       method="get"
       action="/search"
       onChange={(e) => {
-        const value = inputRef.current?.value || ""
-        changeInputValue(value)
-        if (isCommand(value)) return
+        const value = inputRef.current?.value || "";
+        changeInputValue(value);
+        if (isCommand(value)) {
+          return;
+        }
 
-        startTransition(() => submit(e.currentTarget))
+        startTransition(() => submit(e.currentTarget));
       }}
     >
       <Input
@@ -73,5 +79,5 @@ export default function SearchInput({
         <span className="sr-only">Close</span>
       </Button.Secondary>
     </Form>
-  )
+  );
 }

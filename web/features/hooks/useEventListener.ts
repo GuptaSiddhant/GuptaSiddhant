@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 
-import useStableCallback from "./useStableCallback"
+import useStableCallback from "./useStableCallback";
 
 export interface UseEventListenerOptions {
-  immediate?: boolean
-  target?: Window | Document | HTMLElement | EventTarget | MediaQueryList
+  immediate?: boolean;
+  target?: Window | Document | HTMLElement | EventTarget | MediaQueryList;
 }
 
 export default function useEventListener<K extends keyof WindowEventMap>(
@@ -12,16 +12,21 @@ export default function useEventListener<K extends keyof WindowEventMap>(
   callback: (e: WindowEventMap[K]) => void,
   options?: UseEventListenerOptions,
 ) {
-  const listener = useStableCallback(callback)
+  const listener = useStableCallback(callback);
   const { immediate = false, target = __IS_SERVER__ ? undefined : window } =
-    options || {}
+    options || {};
 
   useEffect(() => {
-    if (immediate) listener?.({} as WindowEventMap[K])
-    ;(target || window)?.addEventListener(eventName, listener as any)
+    if (immediate) {
+      listener?.({} as WindowEventMap[K]);
+    }
+
+    // rome-ignore lint(nursery/noExplicitAny): Complex
+    (target || window)?.addEventListener(eventName, listener as any);
 
     return () => {
-      ;(target || window)?.removeEventListener(eventName, listener as any)
-    }
-  }, [eventName, immediate, target, listener])
+      // rome-ignore lint(nursery/noExplicitAny): Complex
+      (target || window)?.removeEventListener(eventName, listener as any);
+    };
+  }, [eventName, immediate, target, listener]);
 }

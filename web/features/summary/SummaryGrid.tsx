@@ -1,27 +1,29 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
-import { getStylingByModelName } from "@gs/models"
-import type { BaseProps } from "@gs/types"
-import Section from "@gs/ui/Section"
+} from "@gs/helpers/assets";
+import { getStylingByModelName } from "@gs/models";
+import type { BaseProps } from "@gs/types";
+import Section from "@gs/ui/Section";
 
-import { Sticker } from "./SummaryTimeline/TimelineCard"
-import type { SummaryItem } from "./types"
+import { Sticker } from "./SummaryTimeline/TimelineCard";
+import type { SummaryItem } from "./types";
 
 export interface SummaryGridProps extends BaseProps {
-  items: SummaryItem[]
+  items: SummaryItem[];
 }
 
 export default function SummaryGrid(
   props: SummaryGridProps,
 ): JSX.Element | null {
-  const { items, className, ...rest } = props
-  if (items.length === 0) return null
+  const { items, className, ...rest } = props;
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
     <Section {...rest} className={clsx(className, "px-4 md:px-10")}>
@@ -31,15 +33,15 @@ export default function SummaryGrid(
         ))}
       </div>
     </Section>
-  )
+  );
 }
 
 function SummaryGridCard({
   item,
   className,
 }: {
-  item: SummaryItem
-  className?: string
+  item: SummaryItem;
+  className?: string;
 }): JSX.Element {
   const {
     id,
@@ -51,23 +53,23 @@ function SummaryGridCard({
     featured,
     linkUrl,
     model,
-  } = item
-  const modelStyling = getStylingByModelName(model)
-  const showDescription = Boolean(featured && description)
-  const href = String(linkUrl ?? id)
+  } = item;
+  const modelStyling = getStylingByModelName(model);
+  const showDescription = Boolean(featured && description);
+  const href = String(linkUrl ?? id);
 
   const iconUrl = generateAssetTransformedUrl(
     icon,
     assetTransformationOptions.ICON,
-  )
+  );
   const imageUrl = generateAssetTransformedUrl(cover, {
     aspectRatio: featured ? 2 : 1,
     height: 400,
-  })
+  });
 
   const iconElement = iconUrl ? (
     <img src={iconUrl} alt={title} className="h-12 rounded object-contain" />
-  ) : null
+  ) : null;
 
   return (
     <Link
@@ -113,5 +115,5 @@ function SummaryGridCard({
         <Sticker {...item} />
       </article>
     </Link>
-  )
+  );
 }

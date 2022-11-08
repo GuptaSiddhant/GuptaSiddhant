@@ -1,17 +1,17 @@
-import clsx from "clsx"
-import FilterIcon from "remixicon-react/Filter3LineIcon"
+import clsx from "clsx";
+import FilterIcon from "remixicon-react/Filter3LineIcon";
 
-import { Form, useSubmit } from "@remix-run/react"
+import { Form, useSubmit } from "@remix-run/react";
 
-import Button from "@gs/ui/Button"
-import Select from "@gs/ui/Select"
-import Tags from "@gs/ui/Tags"
-import { capitalize } from "@gs/utils/format"
+import Button from "@gs/ui/Button";
+import Select from "@gs/ui/Select";
+import Tags from "@gs/ui/Tags";
+import { capitalize } from "@gs/utils/format";
 
 export interface TimelineFilterProps {
-  tags: string[]
-  selectedTags: string[]
-  selectedCategory: string
+  tags: string[];
+  selectedTags: string[];
+  selectedCategory: string;
 }
 
 export default function TimelineFilter({
@@ -19,9 +19,11 @@ export default function TimelineFilter({
   selectedTags = [],
   selectedCategory,
 }: TimelineFilterProps): JSX.Element | null {
-  const submit = useSubmit()
+  const submit = useSubmit();
 
-  if (tags.length === 0) return null
+  if (tags.length === 0) {
+    return null;
+  }
 
   return (
     <Form
@@ -63,5 +65,5 @@ export default function TimelineFilter({
         }
       />
     </Form>
-  )
+  );
 }

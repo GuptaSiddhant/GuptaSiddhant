@@ -1,32 +1,37 @@
-import { ModelName } from "@gs/models"
-import Database from "@gs/service/database.server"
-import Storage from "@gs/service/storage.server"
+import { ModelName } from "@gs/models";
+import Database from "@gs/service/database.server";
+import Storage from "@gs/service/storage.server";
 
 export async function backupDatabase() {
-  const backupData: Record<string, any> = {}
-  const models = Object.values(ModelName)
+  const backupData: Record<string, unknown> = {};
+  const models = Object.values(ModelName);
 
   for (const model of models) {
-    const data = await Database.queryModelAll(model)
-    backupData[model] = data
+    const data = await Database.queryModelAll(model);
+    backupData[model] = data;
   }
 
-  const str = JSON.stringify(backupData)
-  const bytes = new TextEncoder().encode(str)
-  const file = new File([bytes], "database.json")
+  const str = JSON.stringify(backupData);
+  const bytes = new TextEncoder().encode(str);
+  const file = new File([bytes], "database.json");
   const filePath = generateBackupPathFromBackupName(
     `${new Date().toISOString()}.json`,
-  )
+  );
 
-  await Storage.mutateAsset(filePath, file)
+  await Storage.mutateAsset(filePath, file);
 
-  return generateBackupNameFromBackupPath(filePath)
+  return generateBackupNameFromBackupPath(filePath);
 }
 
 export function generateBackupNameFromBackupPath(path: string): string {
-  return path.split("/").filter(Boolean).slice(-1).join("/").split("backup-")[1]
+  return path
+    .split("/")
+    .filter(Boolean)
+    .slice(-1)
+    .join("/")
+    .split("backup-")[1];
 }
 
 export function generateBackupPathFromBackupName(name: string): string {
-  return `backup/backup-${name}`
+  return `backup/backup-${name}`;
 }

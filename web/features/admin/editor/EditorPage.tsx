@@ -1,27 +1,27 @@
-import PreviewIcon from "remixicon-react/EyeLineIcon"
-import SaveIcon from "remixicon-react/Save2FillIcon"
+import PreviewIcon from "remixicon-react/EyeLineIcon";
+import SaveIcon from "remixicon-react/Save2FillIcon";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
-import { DeleteIcon, RefreshIcon } from "@gs/icons"
-import { type Model } from "@gs/models"
-import type { NavigationLinkProps } from "@gs/navigation/types"
-import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast"
-import Action from "@gs/ui/Action"
-import Button from "@gs/ui/Button"
-import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
+} from "@gs/helpers/assets";
+import { DeleteIcon, RefreshIcon } from "@gs/icons";
+import { type Model } from "@gs/models";
+import type { NavigationLinkProps } from "@gs/navigation/types";
+import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
+import Action from "@gs/ui/Action";
+import Button from "@gs/ui/Button";
+import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
 
-import AdminLayout from "../layout/AdminLayout"
-import EditorForm from "./EditorForm"
+import AdminLayout from "../layout/AdminLayout";
+import EditorForm from "./EditorForm";
 
 interface EditorPageProps<T> {
-  headerPrefix: string
-  item?: T
-  model: Model
-  basePreviewPath?: string
-  readonly?: boolean
+  headerPrefix: string;
+  item?: T;
+  model: Model;
+  basePreviewPath?: string;
+  readonly?: boolean;
 }
 
 export default function EditorPage<T extends EditorHeaderProps>({
@@ -31,10 +31,10 @@ export default function EditorPage<T extends EditorHeaderProps>({
   basePreviewPath,
   readonly = true,
 }: EditorPageProps<T>): JSX.Element | null {
-  const formId = item ? `editor-${item.id}` : "editor-new"
-  const name = headerPrefix + ": " + (item?.id || "new")
+  const formId = item ? `editor-${item.id}` : "editor-new";
+  const name = `${headerPrefix}: ${item?.id || "new"}`;
 
-  const existingItemActions: NavigationLinkProps[] = []
+  const existingItemActions: NavigationLinkProps[] = [];
 
   if (item) {
     existingItemActions.push({
@@ -49,7 +49,7 @@ export default function EditorPage<T extends EditorHeaderProps>({
           <RefreshIcon />
         </Action.Form>
       ),
-    })
+    });
 
     if (basePreviewPath) {
       if (!readonly) {
@@ -65,14 +65,14 @@ export default function EditorPage<T extends EditorHeaderProps>({
               <DeleteIcon />
             </Action>
           ),
-        })
+        });
       }
       existingItemActions.push({
         id: "Preview",
         to: `/${basePreviewPath}/${item.id}`,
         external: true,
         children: <PreviewIcon />,
-      })
+      });
     }
   }
 
@@ -82,7 +82,7 @@ export default function EditorPage<T extends EditorHeaderProps>({
     PUT: "Updating entry...",
     DELETE: "Deleting entry...",
     PATCH: "Refreshing entry...",
-  })
+  });
 
   return (
     <AdminLayout
@@ -108,24 +108,26 @@ export default function EditorPage<T extends EditorHeaderProps>({
     >
       <EditorForm formId={formId} data={item} model={model} />
     </AdminLayout>
-  )
+  );
 }
 
 interface EditorHeaderProps {
-  id: string
-  icon?: string
+  id: string;
+  icon?: string;
 }
 
 function EditorHeader({
   icon,
   id = "New",
 }: EditorHeaderProps): JSX.Element | null {
-  if (!icon) return <strong>{id}</strong>
+  if (!icon) {
+    return <strong>{id}</strong>;
+  }
 
   const iconUrl = generateAssetTransformedUrl(icon, {
     ...assetTransformationOptions.ICON,
     dpr: 1,
-  })
+  });
 
   return (
     <div className="flex items-center gap-2">
@@ -136,5 +138,5 @@ function EditorHeader({
       />
       <strong>{id}</strong>
     </div>
-  )
+  );
 }

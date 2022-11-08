@@ -1,29 +1,31 @@
-import { StyleSheet } from "@react-pdf/renderer"
-import type { Style } from "@react-pdf/types"
+import { StyleSheet } from "@react-pdf/renderer";
+import type { Style } from "@react-pdf/types";
 
-import { type AboutInfo } from "@gs/models/about/info"
-import { parseGetAllSearchParams } from "@gs/helpers/request"
+import { parseGetAllSearchParams } from "@gs/helpers/request";
+import { type AboutInfo } from "@gs/models/about/info";
 
-import { ResumeSections } from "./constants"
-import useResumeContext from "./ResumeContext"
-import { type ResumeColors, type ResumeTexts } from "./theme"
-import type { ContactLinkProps } from "./types"
+import { ResumeSections } from "./constants";
+import useResumeContext from "./ResumeContext";
+import { type ResumeColors, type ResumeTexts } from "./theme";
+import type { ContactLinkProps } from "./types";
 
 export function useStyleSheet(
   styles: (theme: {
-    texts: ResumeTexts
-    colors: ResumeColors
+    texts: ResumeTexts;
+    colors: ResumeColors;
   }) => Record<string, Style>,
 ) {
-  const { colors, texts } = useResumeContext()
+  const { colors, texts } = useResumeContext();
 
-  return StyleSheet.create(styles({ colors, texts }))
+  return StyleSheet.create(styles({ colors, texts }));
 }
 
 export function transformAboutLinkToContactLinks(
   link: AboutInfo["link"],
 ): ContactLinkProps[] {
-  if (!link) return []
+  if (!link) {
+    return [];
+  }
 
   return Object.entries(link)
     .sort()
@@ -37,42 +39,42 @@ export function transformAboutLinkToContactLinks(
           ? linkUrl.split("in/")[1]
           : key.toLowerCase() === "github"
           ? linkUrl.split("com/")[1]
-          : linkUrl
+          : linkUrl;
 
       return {
         key,
         value,
         linkUrl,
-      }
-    })
+      };
+    });
 }
 
 export function createAboutLink(domain: string, id: string) {
-  return `${domain}/about/${id}`
+  return `${domain}/about/${id}`;
 }
 
 export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
-  from?: Date
-  till?: Date
-  disabledSections?: Record<ResumeSections, boolean>
-  tags: string[]
+  from?: Date;
+  till?: Date;
+  disabledSections?: Record<ResumeSections, boolean>;
+  tags: string[];
 } {
-  const fromParam = searchParams.get("from")
-  const toParam = searchParams.get("to")
+  const fromParam = searchParams.get("from");
+  const toParam = searchParams.get("to");
   const tags = parseGetAllSearchParams(searchParams, "tag").map((t) =>
     t.toLowerCase(),
-  )
+  );
   const enabledSections = parseGetAllSearchParams(searchParams, "section").map(
     (s) => s.toLowerCase(),
-  )
+  );
 
-  const disabledSections = {} as Record<ResumeSections, boolean>
+  const disabledSections = {} as Record<ResumeSections, boolean>;
   if (enabledSections.length > 0) {
     Object.keys(ResumeSections).forEach((key) => {
       disabledSections[key as ResumeSections] = enabledSections.includes(key)
         ? false
-        : true
-    })
+        : true;
+    });
   }
 
   return {
@@ -80,5 +82,5 @@ export function getFiltersFromSearchParams(searchParams: URLSearchParams): {
     from: fromParam ? new Date(fromParam) : undefined,
     till: toParam ? new Date(toParam) : undefined,
     tags,
-  }
+  };
 }

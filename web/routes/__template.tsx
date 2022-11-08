@@ -2,7 +2,7 @@ import {
   type ShouldReloadFunction,
   Outlet,
   useLoaderData,
-} from "@remix-run/react"
+} from "@remix-run/react";
 import {
   // type ActionFunction,
   type ErrorBoundaryComponent,
@@ -12,16 +12,16 @@ import {
   type MetaFunction,
   json,
   // redirect,
-} from "@remix-run/server-runtime"
+} from "@remix-run/server-runtime";
 
-import { createMetaTitle } from "@gs/helpers/meta"
-import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
+import { createMetaTitle } from "@gs/helpers/meta";
+import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
 
 interface LoaderData {}
 
 export const loader: LoaderFunction = async () => {
-  return json<LoaderData>({})
-}
+  return json<LoaderData>({});
+};
 
 /*
 export const action: ActionFunction = async ({ request }) => {
@@ -31,26 +31,26 @@ export const action: ActionFunction = async ({ request }) => {
 }
 */
 
-export const headers: HeadersFunction = () => ({})
+export const headers: HeadersFunction = () => ({});
 
-export const meta: MetaFunction = () => ({ title: createMetaTitle("") })
+export const meta: MetaFunction = () => ({ title: createMetaTitle("") });
 
-export const links: LinksFunction = () => []
+export const links: LinksFunction = () => [];
 
 export default function Page(): JSX.Element | null {
-  const loaderData = useLoaderData<LoaderData>()
+  const loaderData = useLoaderData<LoaderData>();
 
-  return <Outlet context={loaderData} />
+  return <Outlet context={loaderData} />;
 }
 
 export const CatchBoundary = () => {
-  return <CatchBoundarySection />
-}
+  return <CatchBoundarySection />;
+};
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection error={error} />
-}
+  return <ErrorSection error={error} />;
+};
 
-export const unstable_shouldReload: ShouldReloadFunction = () => true
+export const unstable_shouldReload: ShouldReloadFunction = () => true;
 
-export const handle: any = {}
+export const handle = {};

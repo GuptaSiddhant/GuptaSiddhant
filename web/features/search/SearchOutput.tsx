@@ -1,45 +1,45 @@
-import clsx from "clsx"
-import { useMemo, useState } from "react"
+import clsx from "clsx";
+import { useMemo, useState } from "react";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
-import type { SummaryItem } from "@gs/summary"
+} from "@gs/helpers/assets";
+import type { SummaryItem } from "@gs/summary";
 
 // import type { AboutInfo, Skills } from "../about"
-import Mdx from "../ui/Mdx"
-import Tags from "../ui/Tags"
-import useSearch from "."
-import type { Command } from "./commands"
+import Mdx from "../ui/Mdx";
+import Tags from "../ui/Tags";
+import useSearch from ".";
+import type { Command } from "./commands";
 import {
   type SearchResultItemProps,
   CommandItem,
   SearchResultGroup,
-} from "./SearchResult"
+} from "./SearchResult";
 
 export interface SearchOutputData {
-  projects?: SummaryItem[]
-  blog?: SummaryItem[]
-  career?: SummaryItem[]
-  education?: SummaryItem[]
+  projects?: SummaryItem[];
+  blog?: SummaryItem[];
+  career?: SummaryItem[];
+  education?: SummaryItem[];
 }
 
 export default function SearchOutput({
   data,
   commands,
 }: {
-  data?: SearchOutputData
-  query?: string
-  commands: Command[]
+  data?: SearchOutputData;
+  query?: string;
+  commands: Command[];
 }): JSX.Element | null {
-  const { resultsRef, inputValue } = useSearch()
+  const { resultsRef, inputValue } = useSearch();
 
-  const cmdMode = useMemo(() => inputValue.startsWith(">"), [inputValue])
+  const cmdMode = useMemo(() => inputValue.startsWith(">"), [inputValue]);
 
   const [previewProps, setPreviewProps] = useState<
     SearchResultItemProps | undefined
-  >(undefined)
+  >(undefined);
 
   if (cmdMode) {
     return (
@@ -51,7 +51,7 @@ export default function SearchOutput({
           <CommandItem key={command.id} {...command} />
         ))}
       </output>
-    )
+    );
   }
 
   if (isDataEmpty(data)) {
@@ -59,10 +59,10 @@ export default function SearchOutput({
       <output className="flex-1 border-t border-divider pt-4 text-disabled flex-center">
         No results found
       </output>
-    )
+    );
   }
 
-  const { projects, blog, career, education } = data!
+  const { projects, blog, career, education } = data!;
 
   return (
     <output
@@ -114,7 +114,7 @@ export default function SearchOutput({
         )}
       </div>
     </output>
-  )
+  );
 }
 
 function SearchOutputPreview({
@@ -133,11 +133,11 @@ function SearchOutputPreview({
       aspectRatio: 16 / 9,
       width: 500,
     },
-  )
+  );
   const iconUrl = generateAssetTransformedUrl(
     icon,
     assetTransformationOptions.ICON,
-  )
+  );
 
   return (
     <>
@@ -162,17 +162,25 @@ function SearchOutputPreview({
 
       {description ? <Mdx mdx={description} /> : null}
     </>
-  )
+  );
 }
 
 function isDataEmpty(data?: SearchOutputData): boolean {
-  if (!data) return true
-  if (typeof data !== "object") return true
-  const values = Object.values(data)
+  if (!data) {
+    return true;
+  }
+  if (typeof data !== "object") {
+    return true;
+  }
 
-  if (values.length === 0) return true
-  if (values.every((value) => !Array.isArray(value) || value.length === 0))
-    return true
+  const values = Object.values(data);
 
-  return false
+  if (values.length === 0) {
+    return true;
+  }
+  if (values.every((value) => !Array.isArray(value) || value.length === 0)) {
+    return true;
+  }
+
+  return false;
 }

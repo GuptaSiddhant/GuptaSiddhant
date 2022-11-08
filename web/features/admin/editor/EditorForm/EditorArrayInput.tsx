@@ -1,32 +1,32 @@
-import clsx from "clsx"
-import { useState } from "react"
+import clsx from "clsx";
+import { useState } from "react";
 
-import { DeleteIcon } from "@gs/icons"
-import type { ModelArrayType, ModelObjectType } from "@gs/models/types"
-import Button from "@gs/ui/Button"
+import { DeleteIcon } from "@gs/icons";
+import type { ModelArrayType, ModelObjectType } from "@gs/models/types";
+import Button from "@gs/ui/Button";
 
-import EditorObjectInput from "./EditorObjectInput"
-import EditorScalerInput from "./EditorScalerInput"
+import EditorObjectInput from "./EditorObjectInput";
+import EditorScalerInput from "./EditorScalerInput";
 import {
   EditorInputLabel,
   fieldsetClassName,
   objectGridClassName,
-} from "./helpers"
+} from "./helpers";
 
 export interface EditorArrayInputProps {
-  name: string
-  model: ModelArrayType
-  data: any[]
+  name: string;
+  model: ModelArrayType;
+  data?: unknown[];
 }
 
 export default function EditorArrayInput(
   props: EditorArrayInputProps,
 ): JSX.Element | null {
-  const { name, data = [], model } = props
-  const { required, items: itemModel } = model
+  const { name, data = [], model } = props;
+  const { required, items: itemModel } = model;
 
   if (itemModel.type === "object") {
-    return <EditorObjectList name={name} data={data} model={itemModel} />
+    return <EditorObjectList name={name} data={data} model={itemModel} />;
   }
 
   return (
@@ -38,24 +38,24 @@ export default function EditorArrayInput(
       className="!col-span-full"
       required={required}
     />
-  )
+  );
 
   // throw new Error("Nested arrays are not supported")
 }
 
 function EditorObjectList(props: {
-  name: string
-  model: ModelObjectType
-  data: any[]
+  name: string;
+  model: ModelObjectType;
+  data: unknown[];
 }): JSX.Element | null {
-  const { name, data = [], model } = props
-  const { required } = model
+  const { name, data = [], model } = props;
+  const { required } = model;
 
-  const [list, setList] = useState(data)
+  const [list, setList] = useState(data);
 
-  const handleAdd = () => setList((l) => [...l, {}])
+  const handleAdd = () => setList((l) => [...l, {}]);
   const handleRemove = (index: number) =>
-    setList(list.filter((_, i) => i !== index))
+    setList(list.filter((_, i) => i !== index));
 
   return (
     <fieldset
@@ -69,7 +69,7 @@ function EditorObjectList(props: {
 
       <ol>
         {list.map((item, index) => {
-          const key = `${name}.${index}`
+          const key = `${name}.${index}`;
 
           return (
             <li
@@ -88,10 +88,14 @@ function EditorObjectList(props: {
                 </button>
               </div>
               <div className={clsx("flex-1", objectGridClassName)}>
-                <EditorObjectInput data={item} model={model} prefix={key} />
+                <EditorObjectInput
+                  data={item as { id?: string } | undefined}
+                  model={model}
+                  prefix={key}
+                />
               </div>
             </li>
-          )
+          );
         })}
       </ol>
 
@@ -103,5 +107,5 @@ function EditorObjectList(props: {
         + Add item
       </Button.Secondary>
     </fieldset>
-  )
+  );
 }

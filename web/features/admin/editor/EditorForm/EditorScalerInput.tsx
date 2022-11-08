@@ -1,54 +1,66 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import type { ModelScalerType } from "@gs/models/types"
-import FormLabel from "@gs/ui/FormLabel"
-import Input from "@gs/ui/Input"
-import Select from "@gs/ui/Select"
-import { formatYYYYMMDD } from "@gs/utils/format"
+import type { ModelScalerType } from "@gs/models/types";
+import FormLabel from "@gs/ui/FormLabel";
+import Input from "@gs/ui/Input";
+import Select from "@gs/ui/Select";
+import { formatYYYYMMDD } from "@gs/utils/format";
 
-import { EditorInputLabel, generateColumnClassNameForModeSize } from "./helpers"
+import {
+  EditorInputLabel,
+  generateColumnClassNameForModeSize,
+} from "./helpers";
 
 export interface EditorScalerInputProps<T = any> {
-  name: string
-  model: ModelScalerType
-  data: T
-  readonly?: boolean
-  required?: boolean
-  className?: string
-  placeholder?: string
+  name: string;
+  model: ModelScalerType;
+  data: T;
+  readonly?: boolean;
+  required?: boolean;
+  className?: string;
+  placeholder?: string;
 }
 
 export default function EditorScalerInput(
   props: EditorScalerInputProps,
 ): JSX.Element | null {
-  const { name, model } = props
-  if (model.type === "boolean") return <EditorCheckboxInput {...props} />
+  const { name, model } = props;
+  if (model.type === "boolean") {
+    return <EditorCheckboxInput {...props} />;
+  }
 
-  if (model.type !== "string" && model.type !== "number") return null
+  if (model.type !== "string" && model.type !== "number") {
+    return null;
+  }
 
-  const options = model.type === "string" ? model.enum || [] : []
-  if (options.length > 0)
-    return <EditorSelectInput {...props} options={options} />
+  const options = model.type === "string" ? model.enum || [] : [];
+  if (options.length > 0) {
+    return <EditorSelectInput {...props} options={options} />;
+  }
 
-  const isDate = name.toLowerCase().includes("date")
-  if (isDate) return <EditorDateInput {...props} />
+  const isDate = name.toLowerCase().includes("date");
+  if (isDate) {
+    return <EditorDateInput {...props} />;
+  }
 
-  const isDescription = name.toLowerCase().includes("description")
-  if (isDescription) return <EditorMultiLineTextInput {...props} />
+  const isDescription = name.toLowerCase().includes("description");
+  if (isDescription) {
+    return <EditorMultiLineTextInput {...props} />;
+  }
 
-  return <EditorSingleLineTextInput {...props} />
+  return <EditorSingleLineTextInput {...props} />;
 }
 
 function EditorSingleLineTextInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className, placeholder } = props
-  const required = props.required || model.required || false
+  const { name, model, data, readonly, className, placeholder } = props;
+  const required = props.required || model.required;
 
-  const isUrl = name.toLowerCase().includes("url")
-  const isEmail = name.toLowerCase().includes("email")
+  const isUrl = name.toLowerCase().includes("url");
+  const isEmail = name.toLowerCase().includes("email");
   const placeholderText =
-    placeholder || (isUrl ? "https://" : isEmail ? "abc@xyx" : "")
+    placeholder || (isUrl ? "https://" : isEmail ? "abc@xyx" : "");
 
   return (
     <Input
@@ -67,14 +79,14 @@ function EditorSingleLineTextInput(
       placeholder={placeholderText}
       type={isEmail ? "email" : "text"}
     />
-  )
+  );
 }
 
 function EditorMultiLineTextInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className } = props
-  const required = props.required || model.required || false
+  const { name, model, data, readonly, className } = props;
+  const required = props.required || model.required;
 
   return (
     <FormLabel
@@ -97,14 +109,14 @@ function EditorMultiLineTextInput(
         placeholder="Enter description here"
       />
     </FormLabel>
-  )
+  );
 }
 
 function EditorDateInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className } = props
-  const required = props.required || model.required || false
+  const { name, model, data, readonly, className } = props;
+  const required = props.required || model.required;
 
   return (
     <Input
@@ -123,14 +135,14 @@ function EditorDateInput(
       readOnly={readonly}
       defaultValue={data ? formatYYYYMMDD(new Date(data)) : undefined}
     />
-  )
+  );
 }
 
 function EditorSelectInput(
   props: EditorScalerInputProps<string> & { options?: string[] },
 ): JSX.Element | null {
-  const { name, model, data, readonly, className, options = [] } = props
-  const required = props.required || model.required || false
+  const { name, model, data, readonly, className, options = [] } = props;
+  const required = props.required || model.required;
 
   return (
     <Select
@@ -152,14 +164,14 @@ function EditorSelectInput(
         </Select.Option>
       ))}
     </Select>
-  )
+  );
 }
 
 function EditorCheckboxInput(
   props: EditorScalerInputProps<boolean>,
 ): JSX.Element | null {
-  const { name, className, data, readonly, model } = props
-  const required = props.required || model.required || false
+  const { name, className, data, readonly, model } = props;
+  const required = props.required || model.required;
 
   return (
     <FormLabel
@@ -180,5 +192,5 @@ function EditorCheckboxInput(
         readOnly={readonly}
       />
     </FormLabel>
-  )
+  );
 }

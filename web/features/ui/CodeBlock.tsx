@@ -1,24 +1,24 @@
-import clsx from "clsx"
-import Highlight, { defaultProps } from "prism-react-renderer"
-import { type ComponentPropsWithoutRef, Children } from "react"
+import clsx from "clsx";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import { type ComponentPropsWithoutRef, Children } from "react";
 
 import {
   type Language,
   getLanguageBadgeProperties,
   getLanguageFromClassName,
   isLanguageSupported,
-} from "@gs/helpers/code-lang"
+} from "@gs/helpers/code-lang";
 
-import { CopyButton } from "./Button"
+import { CopyButton } from "./Button";
 
 export interface CodeBlockProps {
-  children: string
-  lang?: Language
-  className?: string
-  copyText?: string
-  wrap?: boolean
-  codeClassName?: string
-  hideBadge?: boolean
+  children: string;
+  lang?: Language;
+  className?: string;
+  copyText?: string;
+  wrap?: boolean;
+  codeClassName?: string;
+  hideBadge?: boolean;
 }
 
 export default function CodeBlock({
@@ -30,7 +30,7 @@ export default function CodeBlock({
   codeClassName,
   hideBadge,
 }: CodeBlockProps) {
-  const language = lang && isLanguageSupported(lang) ? lang : "bash"
+  const language = lang && isLanguageSupported(lang) ? lang : "bash";
 
   return (
     <output
@@ -55,19 +55,19 @@ export default function CodeBlock({
         <CodeBadge language={language} copyText={copyText || children.trim()} />
       )}
     </output>
-  )
+  );
 }
 
 interface CodePreProps {
-  className: string
-  getLineProps: Highlight["getLineProps"]
-  getTokenProps: Highlight["getTokenProps"]
+  className: string;
+  getLineProps: Highlight["getLineProps"];
+  getTokenProps: Highlight["getTokenProps"];
   tokens: {
-    types: string[]
-    content: string
-    empty?: boolean
-  }[][]
-  wrap?: boolean
+    types: string[];
+    content: string;
+    empty?: boolean;
+  }[][];
+  wrap?: boolean;
 }
 
 function CodePre({
@@ -79,7 +79,7 @@ function CodePre({
 }: CodePreProps): JSX.Element | null {
   return (
     <div className="w-full rounded-md border border-divider text-sm font-normal dark:border-0">
-      <pre className={clsx(className, `overflow-scroll !bg-transparent`)}>
+      <pre className={clsx(className, "overflow-scroll !bg-transparent")}>
         <code className={clsx(className, "match-braces")} style={{}}>
           {tokens.map((line, i) => (
             <div
@@ -91,7 +91,7 @@ function CodePre({
               }}
             >
               {line.map((token, key) => {
-                const tokenProps = getTokenProps({ token, key })
+                const tokenProps = getTokenProps({ token, key });
                 return (
                   <span
                     key={key}
@@ -99,24 +99,24 @@ function CodePre({
                     className={clsx(tokenProps.className)}
                     style={{}}
                   />
-                )
+                );
               })}
             </div>
           ))}
         </code>
       </pre>
     </div>
-  )
+  );
 }
 
 interface CodeBadgeProps {
-  copyText?: string
-  language: Language
+  copyText?: string;
+  language: Language;
 }
 
 function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
   const { className = clsx("bg-disabled text-gray-200"), label = language } =
-    getLanguageBadgeProperties(language) || {}
+    getLanguageBadgeProperties(language) || {};
 
   return (
     <div
@@ -133,17 +133,17 @@ function CodeBadge({ copyText, language }: CodeBadgeProps): JSX.Element | null {
       ) : null}
       {label}
     </div>
-  )
+  );
 }
 
 export function Pre(props: ComponentPropsWithoutRef<"pre">): JSX.Element {
   const { className, children } = (
     Children.toArray(props.children)[0] as {
-      props: { className: string; children: string }
+      props: { className: string; children: string };
     }
-  )?.props
+  )?.props;
 
-  const lang = getLanguageFromClassName(className)
+  const lang = getLanguageFromClassName(className);
 
-  return <CodeBlock lang={lang}>{children}</CodeBlock>
+  return <CodeBlock lang={lang}>{children}</CodeBlock>;
 }

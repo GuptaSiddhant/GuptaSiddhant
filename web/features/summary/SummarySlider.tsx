@@ -1,46 +1,46 @@
-import clsx from "clsx"
-import { useCallback, useRef } from "react"
-import type { RemixiconReactIconComponentType } from "remixicon-react"
-import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon"
-import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon"
+import clsx from "clsx";
+import { useCallback, useRef } from "react";
+import type { RemixiconReactIconComponentType } from "remixicon-react";
+import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon";
+import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
-import { generateAssetTransformedUrl } from "@gs/helpers/assets"
-import useElementStore from "@gs/hooks/useElementStore"
-import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll"
-import type { BaseProps } from "@gs/types"
-import Section, { proseWidth } from "@gs/ui/Section"
+import { generateAssetTransformedUrl } from "@gs/helpers/assets";
+import useElementStore from "@gs/hooks/useElementStore";
+import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll";
+import type { BaseProps } from "@gs/types";
+import Section, { proseWidth } from "@gs/ui/Section";
 
-import { Sticker } from "./SummaryTimeline/TimelineCard"
-import type { SummaryItem } from "./types"
+import { Sticker } from "./SummaryTimeline/TimelineCard";
+import type { SummaryItem } from "./types";
 
 export interface SummarySliderProps extends BaseProps {
-  items: SummaryItem[]
-  children?: React.ReactNode
-  crossSell?: boolean
-  showCardSubtitle?: boolean
+  items: SummaryItem[];
+  children?: React.ReactNode;
+  crossSell?: boolean;
+  showCardSubtitle?: boolean;
 }
 
 export default function SummarySlider(
   props: SummarySliderProps,
 ): JSX.Element | null {
-  const { children, crossSell, items, showCardSubtitle, ...rest } = props
+  const { children, crossSell, items, showCardSubtitle, ...rest } = props;
 
-  const sliderRef = useRef<HTMLDivElement>(null)
-  const cardRef = useRef<HTMLElement>(null)
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
 
   const cardWidth = useElementStore(
     cardRef,
     "load",
     () => (cardRef.current?.getBoundingClientRect().width || 0) + 10,
     () => 0,
-  )
+  );
 
   const { scrollDistanceRatio, isScrollCompleted, isScrollStarted } =
     useScrollElement(sliderRef, {
       direction: ScrollDirection.HORIZONTAL,
-    })
+    });
 
   const scrollSliderByCardWidth = useCallback(
     (next: boolean) =>
@@ -49,9 +49,11 @@ export default function SummarySlider(
         left: cardWidth * (next ? 1 : -1),
       }),
     [cardWidth],
-  )
+  );
 
-  if (items.length === 0) return null
+  if (items.length === 0) {
+    return null;
+  }
 
   return (
     <Section {...rest}>
@@ -69,7 +71,7 @@ export default function SummarySlider(
             "w-full overflow-auto p-8 pt-4",
             "hide-scroll snap-x snap-mandatory",
           )}
-          style={{ paddingInline: `max(1rem, calc((100vw - 64ch) / 2))` }}
+          style={{ paddingInline: "max(1rem, calc((100vw - 64ch) / 2))" }}
         >
           {items.map((item) => (
             <SummarySliderCard
@@ -98,7 +100,7 @@ export default function SummarySlider(
         />
       </main>
     </Section>
-  )
+  );
 }
 
 function SummarySliderCard({
@@ -107,16 +109,16 @@ function SummarySliderCard({
   cardRef,
   showSubtitle,
 }: {
-  item: SummaryItem
-  className?: string
-  cardRef?: React.RefObject<HTMLElement>
-  showSubtitle?: boolean
+  item: SummaryItem;
+  className?: string;
+  cardRef?: React.RefObject<HTMLElement>;
+  showSubtitle?: boolean;
 }): JSX.Element {
-  const { id, title, cover, linkUrl, subtitle, icon } = item
+  const { id, title, cover, linkUrl, subtitle, icon } = item;
   const imageSrc = generateAssetTransformedUrl(cover, {
     aspectRatio: 3 / 4,
     height: 400,
-  })
+  });
 
   return (
     <Link
@@ -137,9 +139,9 @@ function SummarySliderCard({
           role="none"
           className={clsx(
             "absolute inset-0 bg-cover bg-center bg-no-repeat",
-            !imageSrc
-              ? "blur-md"
-              : "transition-[filter] duration-300 group-hocus:blur-sm",
+            imageSrc
+              ? "transition-[filter] duration-300 group-hocus:blur-sm"
+              : "blur-md",
           )}
           style={{ backgroundImage: `url(${imageSrc || icon})` }}
         />
@@ -170,15 +172,15 @@ function SummarySliderCard({
         <Sticker {...item} />
       </article>
     </Link>
-  )
+  );
 }
 
 interface SummarySliderButtonOverlayProps {
-  direction: "next" | "previous"
-  scrollDistanceRatio: number
-  isDisabled: boolean
-  scrollSlider: (isNext: boolean) => void
-  Icon: RemixiconReactIconComponentType
+  direction: "next" | "previous";
+  scrollDistanceRatio: number;
+  isDisabled: boolean;
+  scrollSlider: (isNext: boolean) => void;
+  Icon: RemixiconReactIconComponentType;
 }
 
 function SummarySliderButtonOverlay({
@@ -188,7 +190,7 @@ function SummarySliderButtonOverlay({
   isDisabled,
   Icon,
 }: SummarySliderButtonOverlayProps): JSX.Element {
-  const isNext = direction === "next"
+  const isNext = direction === "next";
 
   return (
     <button
@@ -216,5 +218,5 @@ function SummarySliderButtonOverlay({
         )}
       />
     </button>
-  )
+  );
 }

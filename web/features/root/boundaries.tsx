@@ -1,10 +1,10 @@
-import { useCatch } from "@remix-run/react"
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime"
+import { useCatch } from "@remix-run/react";
+import type { ErrorBoundaryComponent } from "@remix-run/server-runtime";
 
-import CodeBlock from "@gs/ui/CodeBlock"
-import { ErrorPage } from "@gs/ui/Error"
+import CodeBlock from "@gs/ui/CodeBlock";
+import { ErrorPage } from "@gs/ui/Error";
 
-import Document from "./Document"
+import Document from "./Document";
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
@@ -13,27 +13,29 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
         {error.stack && <CodeBlock>{error.stack}</CodeBlock>}
       </ErrorPage>
     </Document>
-  )
-}
+  );
+};
 
 export function CatchBoundary() {
-  const caught = useCatch()
+  const caught = useCatch();
 
-  let message
+  let message;
   switch (caught.status) {
-    case 401:
+    case 401: {
       message =
-        "Oops! Looks like you tried to visit a page that you do not have access to."
-      break
-    case 404:
+        "Oops! Looks like you tried to visit a page that you do not have access to.";
+      break;
+    }
+    case 404: {
       message =
-        "Oops! Looks like you tried to visit a page that does not exist."
-      break
+        "Oops! Looks like you tried to visit a page that does not exist.";
+      break;
+    }
     default:
-      throw new Error(caught.data || caught.statusText)
+      throw new Error(caught.data || caught.statusText);
   }
 
-  const heading = `${caught.status}: ${caught.statusText}`
+  const heading = `${caught.status}: ${caught.statusText}`;
 
   return (
     <Document error>
@@ -43,5 +45,5 @@ export function CatchBoundary() {
         message={message}
       />
     </Document>
-  )
+  );
 }

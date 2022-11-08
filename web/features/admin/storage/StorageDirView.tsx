@@ -1,33 +1,35 @@
-import FolderIcon from "remixicon-react/Folder3FillIcon"
+import FolderIcon from "remixicon-react/Folder3FillIcon";
 
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { DeleteIcon } from "@gs/icons"
-import Action from "@gs/ui/Action"
-import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { DeleteIcon } from "@gs/icons";
+import Action from "@gs/ui/Action";
+import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
 
-import AdminDashboard from "../components/AdminDashboard"
+import AdminDashboard from "../components/AdminDashboard";
 import {
   extractLastPartOfFilePath,
   generateNavbarGroupsFromStorageDirContents,
-} from "./helpers"
-import StorageFileView from "./StorageFileView"
-import { type StoragePathProps, StoragePathType } from "./types"
+} from "./helpers";
+import StorageFileView from "./StorageFileView";
+import { type StoragePathProps, StoragePathType } from "./types";
 
 export default function StorageDirView({
   storagePaths = [],
   prevStoragePath,
 }: {
-  storagePaths: StoragePathProps[]
-  prevStoragePath?: StoragePathProps
+  storagePaths: StoragePathProps[];
+  prevStoragePath?: StoragePathProps;
 }): JSX.Element | null {
-  if (storagePaths.length === 0)
-    return <FolderInfo storagePath={prevStoragePath} />
+  if (storagePaths.length === 0) {
+    return <FolderInfo storagePath={prevStoragePath} />;
+  }
 
-  const [currentPath, ...subPaths] = storagePaths
-  const name = extractLastPartOfFilePath(currentPath.path)
+  const [currentPath, ...subPaths] = storagePaths;
+  const name = extractLastPartOfFilePath(currentPath.path);
 
-  if (currentPath.type === StoragePathType.File)
-    return <StorageFileView key={currentPath.path} {...currentPath} />
+  if (currentPath.type === StoragePathType.File) {
+    return <StorageFileView key={currentPath.path} {...currentPath} />;
+  }
 
   return (
     <AdminLayout
@@ -57,16 +59,19 @@ export default function StorageDirView({
     >
       <StorageDirView storagePaths={subPaths} prevStoragePath={currentPath} />
     </AdminLayout>
-  )
+  );
 }
 
 function FolderInfo({
   storagePath,
 }: {
-  storagePath?: StoragePathProps
+  storagePath?: StoragePathProps;
 }): JSX.Element | null {
-  if (!storagePath || storagePath.type === StoragePathType.File) return null
-  const name = extractLastPartOfFilePath(storagePath.path)
+  if (!storagePath || storagePath.type === StoragePathType.File) {
+    return null;
+  }
+
+  const name = extractLastPartOfFilePath(storagePath.path);
 
   return (
     <AdminDashboard icon={<FolderIcon />} title={name}>
@@ -85,5 +90,5 @@ function FolderInfo({
         ]}
       />
     </AdminDashboard>
-  )
+  );
 }

@@ -1,25 +1,25 @@
-import clsx from "clsx"
-import type { Dispatch, ReactNode, SetStateAction } from "react"
-import { useEffect, useMemo, useRef, useState } from "react"
-import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon"
-import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon"
+import clsx from "clsx";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon";
+import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon";
 
-import { NavLink, useLocation } from "@remix-run/react"
+import { NavLink, useLocation } from "@remix-run/react";
 
-import useMediaQuery from "@gs/hooks/useMediaQuery"
-import type { NavigationLinkProps } from "@gs/navigation/types"
-import type { To } from "@gs/types"
-import Accordion from "@gs/ui/Accordion"
+import useMediaQuery from "@gs/hooks/useMediaQuery";
+import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { To } from "@gs/types";
+import Accordion from "@gs/ui/Accordion";
 
-import AdminHeader from "./AdminHeader"
+import AdminHeader from "./AdminHeader";
 
 export interface AdminNavbarProps {
-  title?: string
-  icon?: ReactNode
-  navGroups?: AdminNavbarGroupProps[]
-  header?: ReactNode
-  actions?: NavigationLinkProps[]
-  to?: To
+  title?: string;
+  icon?: ReactNode;
+  navGroups?: AdminNavbarGroupProps[];
+  header?: ReactNode;
+  actions?: NavigationLinkProps[];
+  to?: To;
 }
 
 export default function AdminNavbar({
@@ -30,28 +30,32 @@ export default function AdminNavbar({
   actions,
   to,
 }: AdminNavbarProps): JSX.Element | null {
-  const [navCollapsed, setNavCollapsed] = useState(false)
+  const [navCollapsed, setNavCollapsed] = useState(false);
 
-  const isMobileWidth = useMediaQuery("(max-width: 768px)")
-  useEffect(() => setNavCollapsed(isMobileWidth), [isMobileWidth])
+  const isMobileWidth = useMediaQuery("(max-width: 768px)");
+  useEffect(() => setNavCollapsed(isMobileWidth), [isMobileWidth]);
 
-  const [filterTerm, setFilterTerm] = useState("")
+  const [filterTerm, setFilterTerm] = useState("");
   const filteredNavGroups = useMemo(
     () =>
       filterTerm
         ? navGroups.map((group) => ({
             ...group,
             children: group.children.filter(({ id, children }) => {
-              if (typeof children === "string")
-                return children.toLowerCase().includes(filterTerm)
-              return id.toLowerCase().includes(filterTerm)
+              if (typeof children === "string") {
+                return children.toLowerCase().includes(filterTerm);
+              }
+
+              return id.toLowerCase().includes(filterTerm);
             }),
           }))
         : navGroups,
     [navGroups, filterTerm],
-  )
+  );
 
-  if (navGroups.length === 0) return null
+  if (navGroups.length === 0) {
+    return null;
+  }
 
   return (
     <aside
@@ -96,7 +100,7 @@ export default function AdminNavbar({
         setNavCollapsed={setNavCollapsed}
       />
     </aside>
-  )
+  );
 }
 
 function AdminNavFooter({
@@ -105,10 +109,10 @@ function AdminNavFooter({
   setFilterTerm,
   setNavCollapsed,
 }: {
-  placeholder?: string
-  navCollapsed: boolean
-  setNavCollapsed: Dispatch<SetStateAction<boolean>>
-  setFilterTerm: Dispatch<SetStateAction<string>>
+  placeholder?: string;
+  navCollapsed: boolean;
+  setNavCollapsed: Dispatch<SetStateAction<boolean>>;
+  setFilterTerm: Dispatch<SetStateAction<string>>;
 }): JSX.Element | null {
   return (
     <footer
@@ -136,16 +140,16 @@ function AdminNavFooter({
         </span>
       </button>
     </footer>
-  )
+  );
 }
 
 export interface AdminNavbarGroupProps {
-  id: string
-  label: string
-  showCount?: boolean
-  openByDefault?: boolean
-  children: NavigationLinkProps[]
-  actions?: React.ReactNode
+  id: string;
+  label: string;
+  showCount?: boolean;
+  openByDefault?: boolean;
+  children: NavigationLinkProps[];
+  actions?: React.ReactNode;
 }
 
 function AdminNavbarGroup({
@@ -156,14 +160,16 @@ function AdminNavbarGroup({
   openByDefault,
   actions,
 }: AdminNavbarGroupProps): JSX.Element | null {
-  const { pathname } = useLocation()
-  const isPathnameMatch = pathname.includes(id)
-  const ref = useRef<HTMLElement>(null)
+  const { pathname } = useLocation();
+  const isPathnameMatch = pathname.includes(id);
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
-    isPathnameMatch && ref.current?.focus()
-  }, [isPathnameMatch])
+    isPathnameMatch && ref.current?.focus();
+  }, [isPathnameMatch]);
 
-  if (children.length === 0) return null
+  if (children.length === 0) {
+    return null;
+  }
 
   return (
     <Accordion
@@ -186,7 +192,7 @@ function AdminNavbarGroup({
         ))}
       </ul>
     </Accordion>
-  )
+  );
 }
 
 function AdminNavbarItem({
@@ -210,5 +216,5 @@ function AdminNavbarItem({
     >
       <li>{children}</li>
     </NavLink>
-  )
+  );
 }

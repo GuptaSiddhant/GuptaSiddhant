@@ -1,32 +1,35 @@
-import clsx from "clsx"
-import { type ReactNode, createContext, useContext } from "react"
-import ClearIcon from "remixicon-react/CloseCircleLineIcon"
-import invariant from "@gs/utils/invariant"
+import clsx from "clsx";
+import { type ReactNode, createContext, useContext } from "react";
+import ClearIcon from "remixicon-react/CloseCircleLineIcon";
 
-import type { ToastProps } from "./Toast"
-import Toast from "./Toast"
-import useToasts from "./useToasts"
+import invariant from "@gs/utils/invariant";
+
+import type { ToastProps } from "./Toast";
+import Toast from "./Toast";
+import useToasts from "./useToasts";
 
 export interface ToasterContextValue {
-  addToast: (toast: ToastProps) => string
-  dismissToast: (toast?: string | ToastProps) => void
+  addToast: (toast: ToastProps) => string;
+  dismissToast: (toast?: string | ToastProps) => void;
 }
 
-const ToasterContext = createContext<ToasterContextValue | undefined>(undefined)
+const ToasterContext = createContext<ToasterContextValue | undefined>(
+  undefined,
+);
 
 export default function useToaster(): ToasterContextValue {
-  const context = useContext(ToasterContext)
-  invariant(context, "useToast must be used within a Toaster.")
+  const context = useContext(ToasterContext);
+  invariant(context, "useToast must be used within a Toaster.");
 
-  return context
+  return context;
 }
 
 export function Toaster({
   children,
 }: {
-  children: ReactNode
+  children: ReactNode;
 }): JSX.Element | null {
-  const { toasts, addToast, dismissToast, dismissAllToasts } = useToasts()
+  const { toasts, addToast, dismissToast, dismissAllToasts } = useToasts();
 
   return (
     <ToasterContext.Provider value={{ addToast, dismissToast }}>
@@ -56,7 +59,7 @@ export function Toaster({
         ) : null}
       </div>
     </ToasterContext.Provider>
-  )
+  );
 }
 
-export { ToastProps }
+export { ToastProps };

@@ -1,11 +1,11 @@
-import { type RefObject, useCallback, useEffect, useRef } from "react"
+import { type RefObject, useCallback, useEffect, useRef } from "react";
 
-import { useTransition } from "@remix-run/react"
+import { useTransition } from "@remix-run/react";
 
-import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants"
+import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 
 export default function ProgressBar(): JSX.Element {
-  const elementRef = useProgress()
+  const elementRef = useProgress();
 
   return (
     <div
@@ -18,52 +18,64 @@ export default function ProgressBar(): JSX.Element {
         className="bg-progress transition-[width] ease-out"
       />
     </div>
-  )
+  );
 }
 
 /**
  * @see https://gist.github.com/edmundhung/023e85cc731466bb5f4b350590ab30ea
  */
 function useProgress(): RefObject<HTMLDivElement> {
-  const elementRef = useRef<HTMLDivElement>(null)
-  const timeout = useRef<NodeJS.Timeout>()
-  const { location } = useTransition()
+  const elementRef = useRef<HTMLDivElement>(null);
+  const timeout = useRef<NodeJS.Timeout>();
+  const { location } = useTransition();
 
-  const updateWidth = useCallback(
-    (ms: number) => {
-      const element = elementRef.current
-      if (!element) return
+  // rome-ignore lint(nursery/useExhaustiveDependencies): Incorrect linting
+  const updateWidth = useCallback((ms: number) => {
+    const element = elementRef.current;
+    if (!element) {
+      return;
+    }
 
-      timeout.current = setTimeout(() => {
-        const width = parseFloat(element.style.width)
-        const percent = !isNaN(width) ? 10 + 0.9 * width : 0
-        element.style.width = `${percent}%`
-        updateWidth(100)
-      }, ms)
-    },
-    [elementRef],
-  )
+    timeout.current = setTimeout(() => {
+      const width = Number.parseFloat(element.style.width);
+      const percent = Number.isNaN(width) ? 0 : 10 + 0.9 * width;
+      element.style.width = `${percent}%`;
+      updateWidth(100);
+    }, ms);
+  }, []);
 
   useEffect(() => {
-    if (!location || !elementRef.current) return
-    if (timeout.current) clearTimeout(timeout.current)
+    if (!(location && elementRef.current)) {
+      return;
+    }
 
-    const element = elementRef.current
-    element.style.width = `0%`
-    updateWidth(300)
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+
+    const element = elementRef.current;
+    element.style.width = "0%";
+    updateWidth(300);
 
     return () => {
-      if (timeout.current) clearTimeout(timeout.current)
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
 
-      if (element.style.width === `0%`) return
+      if (element.style.width === "0%") {
+        return;
+      }
 
-      element.style.width = `100%`
+      element.style.width = "100%";
       timeout.current = setTimeout(() => {
-        if (element?.style.width !== "100%") return
-        element.style.width = ``
-      }, 200)
-    }
-  }, [location, elementRef, updateWidth])
+        if (element?.style.width !== "100%") {
+          return;
+        }
 
-  return elementRef
+        element.style.width = "";
+      }, 200);
+    };
+  }, [location, updateWidth]);
+
+  return elementRef;
 }

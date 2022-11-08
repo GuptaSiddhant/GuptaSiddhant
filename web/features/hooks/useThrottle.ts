@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * useThrottle
@@ -12,41 +12,41 @@ import { useCallback, useEffect, useRef, useState } from "react"
 export default function useThrottle(
   function_: Function,
   timeout: number = 300,
-): [(...args: any) => any, boolean] {
-  const [ready, setReady] = useState(true)
-  const timerRef = useRef<number | undefined>(undefined)
+): [(...args: unknown[]) => unknown, boolean] {
+  const [ready, setReady] = useState(true);
+  const timerRef = useRef<number | undefined>(undefined);
 
   if (!function_ || typeof function_ !== "function") {
     throw new Error(
       "As a first argument, you need to pass a function to useThrottle hook.",
-    )
+    );
   }
 
   const throttledFunction = useCallback(
-    (...args: any) => {
+    (...args: unknown[]) => {
       if (!ready) {
-        return
+        return;
       }
 
-      setReady(false)
-      function_(...args)
+      setReady(false);
+      function_(...args);
     },
     [ready, function_],
-  )
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (!ready) {
         timerRef.current = window.setTimeout(() => {
-          setReady(true)
-        }, timeout)
+          setReady(true);
+        }, timeout);
 
-        return () => window.clearTimeout(timerRef.current)
+        return () => window.clearTimeout(timerRef.current);
       }
     } else {
-      console.warn("useThrottle: window is undefined.")
+      console.warn("useThrottle: window is undefined.");
     }
-  }, [ready, timeout])
+  }, [ready, timeout]);
 
-  return [throttledFunction, ready]
+  return [throttledFunction, ready];
 }

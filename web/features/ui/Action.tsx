@@ -1,4 +1,4 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 import {
   type FormProps,
@@ -6,24 +6,24 @@ import {
   useFetcher,
   useLocation,
   useSubmit,
-} from "@remix-run/react"
+} from "@remix-run/react";
 
-import useStableCallback from "@gs/hooks/useStableCallback"
-import { type ToastProps } from "@gs/toaster/Toast"
+import useStableCallback from "@gs/hooks/useStableCallback";
+import { type ToastProps } from "@gs/toaster/Toast";
 
-import useToastWithMinDuration from "../toaster/useToastWithMinDuration"
-import Button from "./Button"
-import Popover from "./Popover"
+import useToastWithMinDuration from "../toaster/useToastWithMinDuration";
+import Button from "./Button";
+import Popover from "./Popover";
 import PopoverConfirmContent, {
   type PopoverConfirmProps,
-} from "./Popover/Confirm"
+} from "./Popover/Confirm";
 
 export interface ActionProps extends FormProps {
-  children: React.ReactNode
-  title: string
-  body?: Record<string, any>
-  confirm?: Partial<PopoverConfirmProps> | string
-  toast?: string | Omit<ToastProps, "id">
+  children: React.ReactNode;
+  title: string;
+  body?: Record<string, unknown>;
+  confirm?: Partial<PopoverConfirmProps> | string;
+  toast?: string | Omit<ToastProps, "id">;
 }
 
 export default function Action({
@@ -39,11 +39,11 @@ export default function Action({
   replace = true,
   id,
 }: ActionProps): JSX.Element | null {
-  const originPath = useOriginPath()
+  const originPath = useOriginPath();
 
-  const { submit, submission, state } = useFetcher()
-  const key = submission?.key
-  const isSubmitting = state === "submitting"
+  const { submit, submission, state } = useFetcher();
+  const key = submission?.key;
+  const isSubmitting = state === "submitting";
 
   useToastWithMinDuration(
     {
@@ -55,11 +55,11 @@ export default function Action({
         : toastProps!),
     },
     Boolean(isSubmitting && toastProps),
-  )
+  );
 
   const handleSubmit = useStableCallback(() =>
     submit({ ...body, originPath }, { replace, method, action, encType }),
-  )
+  );
 
   if (confirm) {
     return (
@@ -74,7 +74,7 @@ export default function Action({
       >
         <div className={clsx(className, "gap-2 flex-center")}>{children}</div>
       </Popover>
-    )
+    );
   }
 
   return (
@@ -88,10 +88,10 @@ export default function Action({
     >
       {children}
     </Button>
-  )
+  );
 }
 
-Action.Form = FormAction
+Action.Form = FormAction;
 
 function FormAction({
   body = {},
@@ -102,10 +102,10 @@ function FormAction({
   method = "get",
   ...props
 }: Omit<ActionProps, "toast" | "method"> & {
-  method: "get" | "post"
+  method: "get" | "post";
 }): JSX.Element | null {
-  const originPath = useOriginPath()
-  const submit = useSubmit()
+  const originPath = useOriginPath();
+  const submit = useSubmit();
 
   if (!confirm) {
     return (
@@ -117,7 +117,7 @@ function FormAction({
           {children}
         </button>
       </Form>
-    )
+    );
   }
 
   return (
@@ -134,7 +134,7 @@ function FormAction({
                 replace: true,
                 ...props,
               },
-            )
+            );
           }}
         />
       }
@@ -143,11 +143,11 @@ function FormAction({
         {children}
       </div>
     </Popover>
-  )
+  );
 }
 
 function useOriginPath() {
-  const { pathname, search, hash } = useLocation()
+  const { pathname, search, hash } = useLocation();
 
-  return `${pathname}${search}${hash}`
+  return `${pathname}${search}${hash}`;
 }

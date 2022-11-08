@@ -1,17 +1,17 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { proseReaderClassName } from "./Section"
+import { proseReaderClassName } from "./Section";
 
 export interface ReaderProps {
-  id?: string
-  children?: React.ReactNode
-  className?: string
+  id?: string;
+  children?: React.ReactNode;
+  className?: string;
 
-  leftColumn?: React.ReactNode
-  rightColumn?: React.ReactNode
+  leftColumn?: React.ReactNode;
+  rightColumn?: React.ReactNode;
 }
 
-const asideClassName = clsx("top-20 max-h-screen-main overflow-auto md:sticky")
+const asideClassName = clsx("top-20 max-h-screen-main overflow-auto md:sticky");
 
 export default function Reader({
   children,
@@ -20,7 +20,9 @@ export default function Reader({
   leftColumn,
   rightColumn,
 }: ReaderProps): JSX.Element | null {
-  if (!children) return null
+  if (!children) {
+    return null;
+  }
 
   return (
     <section
@@ -43,5 +45,5 @@ export default function Reader({
         <div className={asideClassName}>{rightColumn}</div>
       </aside>
     </section>
-  )
+  );
 }

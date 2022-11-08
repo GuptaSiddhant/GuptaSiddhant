@@ -1,17 +1,17 @@
-import invariant from "@gs/utils/invariant"
+import { typedBoolean } from "@gs/helpers";
+import Storage from "@gs/service/storage.server";
+import invariant from "@gs/utils/invariant";
 
-import Storage from "@gs/service/storage.server"
-
-import { createAdminLogger } from "../service.server"
-import { generatePathsFromPath } from "./helpers"
+import { createAdminLogger } from "../service.server";
+import { generatePathsFromPath } from "./helpers";
 import {
   type StorageDirProps,
   type StorageFileProps,
   type StoragePathProps,
   StoragePathType,
-} from "./types"
+} from "./types";
 
-const storageLogger = createAdminLogger("Storage")
+const storageLogger = createAdminLogger("Storage");
 
 export async function getStoragePaths(
   paths: string[],
@@ -23,24 +23,24 @@ export async function getStoragePaths(
           type: StoragePathType.Dir,
           ...(await Storage.queryDir(path)),
           path,
-        }
+        };
 
-        return dirProps
+        return dirProps;
       }
 
       const fileProps: StorageFileProps = {
         type: StoragePathType.File,
         path,
         data: await Storage.queryAsset(path),
-      }
+      };
 
-      return fileProps
+      return fileProps;
     }),
-  )
+  );
 
   return res
-    .filter((res) => res.status === "fulfilled")
-    .map((res) => (res as any).value)
+    .map((res) => (res.status === "fulfilled" ? res.value : undefined))
+    .filter(typedBoolean);
 }
 
 export async function modifyStorage(
@@ -49,63 +49,70 @@ export async function modifyStorage(
   basePath = "/admin/storage",
 ): Promise<string | undefined> {
   if (method === "DELETE") {
-    const type = form.get("type")?.toString()
+    const type = form.get("type")?.toString();
 
     if (type === "dir") {
-      const prefix = form.get("prefix")?.toString()
-      invariant(prefix, "Dir prefix is required.")
+      const prefix = form.get("prefix")?.toString();
+      invariant(prefix, "Dir prefix is required.");
 
-      storageLogger.info(`Deleting dir "${prefix}".`)
-      await Storage.mutateDir(prefix)
+      storageLogger.info(`Deleting dir "${prefix}".`);
+      await Storage.mutateDir(prefix);
 
-      return generateRedirectUrl(basePath, generatePathsFromPath(prefix).at(-2))
+      return generateRedirectUrl(
+        basePath,
+        generatePathsFromPath(prefix).at(-2),
+      );
     }
 
-    const path = form.get("path")?.toString()
-    invariant(path, "Asset path is required.")
+    const path = form.get("path")?.toString();
+    invariant(path, "Asset path is required.");
 
-    storageLogger.info(`Deleting asset "${path}".`)
-    await Storage.mutateAsset(path)
+    storageLogger.info(`Deleting asset "${path}".`);
+    await Storage.mutateAsset(path);
 
-    return generateRedirectUrl(basePath, generatePathsFromPath(path).at(-2))
+    return generateRedirectUrl(basePath, generatePathsFromPath(path).at(-2));
   }
 
   if (method === "POST") {
-    const files = form.getAll("files") as File[]
-    invariant(files, "File path is required.")
+    const files = form.getAll("files") as File[];
+    invariant(files, "File path is required.");
 
-    const destination = form.get("destination")?.toString()
+    const destination = form.get("destination")?.toString();
 
-    storageLogger.info(`Creating asset(s) "${destination}".`)
-    const [firstUploadedFile] = await Storage.mutateDir(destination, files)
+    storageLogger.info(`Creating asset(s) "${destination}".`);
+    const [firstUploadedFile] = await Storage.mutateDir(destination, files);
 
     const uploadedFileLink =
       typeof firstUploadedFile === "boolean"
         ? undefined
-        : firstUploadedFile?.linkUrl
+        : firstUploadedFile?.linkUrl;
 
     return uploadedFileLink
       ? generateRedirectUrl(basePath, uploadedFileLink)
-      : undefined
+      : undefined;
   }
 
   if (method === "PATCH") {
-    const previousName = form.get("previousName")?.toString()
-    invariant(previousName, "Asset previousName is required.")
-    const name = form.get("name")?.toString()
-    invariant(name, "Asset new name is required.")
+    const previousName = form.get("previousName")?.toString();
+    invariant(previousName, "Asset previousName is required.");
+    const name = form.get("name")?.toString();
+    invariant(name, "Asset new name is required.");
 
-    storageLogger.info(`Renaming asset "${previousName}" to "${name}".`)
-    await Storage.mutateAsset(previousName, name)
+    storageLogger.info(`Renaming asset "${previousName}" to "${name}".`);
+    await Storage.mutateAsset(previousName, name);
 
-    return generateRedirectUrl(basePath, name)
+    return generateRedirectUrl(basePath, name);
   }
 
-  return
+  return;
 }
 
 function generateRedirectUrl(basePath: string, path?: string) {
-  if (!path) return `${basePath}/`
-  if (path.startsWith("/")) return `${basePath}${path}`
-  return `${basePath}/${path}`
+  if (!path) {
+    return `${basePath}/`;
+  }
+  if (path.startsWith("/")) {
+    return `${basePath}${path}`;
+  }
+  return `${basePath}/${path}`;
 }

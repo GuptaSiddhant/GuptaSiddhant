@@ -1,22 +1,22 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { Link, useNavigate } from "@remix-run/react"
+import { Link, useNavigate } from "@remix-run/react";
 
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets"
-import Button from "@gs/ui/Button"
+} from "@gs/helpers/assets";
+import Button from "@gs/ui/Button";
 
-import type { Gallery } from "../types"
-import Accordion from "../ui/Accordion"
-import useSearch from "."
-import type { Command } from "./commands"
+import type { Gallery } from "../types";
+import Accordion from "../ui/Accordion";
+import useSearch from ".";
+import type { Command } from "./commands";
 
 export interface SearchResultGroupProps {
-  label: string
-  items?: SearchResultItemProps[]
-  setPreviewProps: (content: SearchResultItemProps) => void
+  label: string;
+  items?: SearchResultItemProps[];
+  setPreviewProps: (content: SearchResultItemProps) => void;
 }
 
 export function SearchResultGroup({
@@ -24,7 +24,10 @@ export function SearchResultGroup({
   items = [],
   setPreviewProps,
 }: SearchResultGroupProps): JSX.Element | null {
-  if (items.length === 0) return null
+  if (items.length === 0) {
+    return null;
+  }
+
   return (
     <Accordion
       summary={<strong>{label}</strong>}
@@ -40,47 +43,47 @@ export function SearchResultGroup({
         />
       ))}
     </Accordion>
-  )
+  );
 }
 
 export interface SearchResultItemProps {
-  id: string
-  title: string
-  subtitle?: string
-  icon?: string
-  cover?: string
-  linkUrl?: string
-  tags?: string[]
-  gallery?: Gallery
-  description?: string
-  setPreviewProps?: (content: SearchResultItemProps) => void
+  id: string;
+  title: string;
+  subtitle?: string;
+  icon?: string;
+  cover?: string;
+  linkUrl?: string;
+  tags?: string[];
+  gallery?: Gallery;
+  description?: string;
+  setPreviewProps?: (content: SearchResultItemProps) => void;
 }
 
 export function SearchResultItem({
   setPreviewProps,
   ...props
 }: SearchResultItemProps): JSX.Element | null {
-  const { id, title, subtitle, icon, cover, linkUrl } = props
-  const to = new URL(linkUrl || id, "https://guptasiddhant.com")
-  const { closeSearch } = useSearch()
-  const navigate = useNavigate()
+  const { id, title, subtitle, icon, cover, linkUrl } = props;
+  const to = new URL(linkUrl || id, "https://guptasiddhant.com");
+  const { closeSearch } = useSearch();
+  const navigate = useNavigate();
 
-  const handleInteraction = () => setPreviewProps?.(props)
+  const handleInteraction = () => setPreviewProps?.(props);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
     if (e.ctrlKey) {
       if (e.key === "e" || e.key === "E") {
-        e.preventDefault()
-        closeSearch()
-        navigate(to + "/edit")
+        e.preventDefault();
+        closeSearch();
+        navigate(`${to}/edit`);
       }
     }
-  }
+  };
 
   const iconUrl = generateAssetTransformedUrl(
     icon || cover,
     assetTransformationOptions.ICON,
-  )
+  );
 
   return (
     <Link
@@ -110,21 +113,21 @@ export function SearchResultItem({
         <span className="text-sm">{subtitle}</span>
       </div>
     </Link>
-  )
+  );
 }
 
 export function CommandItem(command: Command): JSX.Element | null {
-  const { id, title, onClick } = command
-  const { closeSearch } = useSearch()
+  const { id, title, onClick } = command;
+  const { closeSearch } = useSearch();
 
   const handleClick = () => {
-    closeSearch()
-    onClick()
-  }
+    closeSearch();
+    onClick();
+  };
 
   return (
     <Button data-testid={id} onClick={handleClick} className={"p-2"}>
       {title}
     </Button>
-  )
+  );
 }
