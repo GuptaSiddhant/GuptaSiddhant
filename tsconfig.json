@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "strict": true,
     "target": "ES2019",
     "esModuleInterop": true,

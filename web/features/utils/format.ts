@@ -3,10 +3,10 @@ import {
   ONE_DAY_IN_MS,
   ONE_HOUR_IN_MS,
   ONE_MIN_IN_MS,
-} from "@gs/constants"
+} from "@gs/constants";
 
 export function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export function toKebabCase(str: string): string {
@@ -14,33 +14,37 @@ export function toKebabCase(str: string): string {
     .replace(/([a-z])([A-Z])/g, "$1-$2")
     .replace(new RegExp(" +", "g"), "-")
     .replace(new RegExp("/", "g"), "--")
-    .toLowerCase()
+    .toLowerCase();
 }
 
 export function toTitleCase(str: string): string {
-  return capitalize(toKebabCase(str)).replace(new RegExp("-+", "g"), " ")
+  return capitalize(toKebabCase(str)).replace(new RegExp("-+", "g"), " ");
 }
 
 export function cleanupText(text?: string): string | undefined {
-  if (!text) return undefined
+  if (text) {
+    return text.replace(/â€”/g, ":");
+  }
 
-  return text.replace(/â€”/g, ":")
+  return undefined;
 }
 
 // DateTime
 
 export interface DateTimeOptions extends Intl.DateTimeFormatOptions {
-  locale?: string
+  locale?: string;
 }
 
 export function formatYYYYMMDD(date?: Date) {
-  if (!date) return undefined
+  if (!date) {
+    return undefined;
+  }
 
-  const YYYY = date.getFullYear().toString().padStart(4, "0")
-  const MM = (date.getMonth() + 1).toString().padStart(2, "0")
-  const DD = date.getDate().toString().padStart(2, "0")
+  const YYYY = date.getFullYear().toString().padStart(4, "0");
+  const MM = (date.getMonth() + 1).toString().padStart(2, "0");
+  const DD = date.getDate().toString().padStart(2, "0");
 
-  return `${YYYY}-${MM}-${DD}`
+  return `${YYYY}-${MM}-${DD}`;
 }
 
 export function formatDate(
@@ -52,14 +56,14 @@ export function formatDate(
     month: "long",
     year: "numeric",
     ...options,
-  })
+  });
 }
 
 export function formatTime(
   date: Date | string,
   locale: string = DEFAULT_LOCALE,
 ): string {
-  return new Date(date).toLocaleTimeString(locale)
+  return new Date(date).toLocaleTimeString(locale);
 }
 
 export function formatDateTime(
@@ -74,21 +78,21 @@ export function formatDateTime(
     minute: "2-digit",
     second: "2-digit",
     ...options,
-  })
+  });
 }
 
 export function generateDurationString<
   T extends {
-    startDate: string
-    endDate?: string
+    startDate: string;
+    endDate?: string;
   },
 >({ startDate, endDate }: T, options: DateTimeOptions = {}): string {
-  const start = formatDate(startDate, { day: undefined, ...options })
+  const start = formatDate(startDate, { day: undefined, ...options });
   const end = endDate
     ? formatDate(endDate, { day: undefined, ...options })
-    : "Present"
+    : "Present";
 
-  return [start, end].filter(Boolean).join(" - ")
+  return [start, end].filter(Boolean).join(" - ");
 }
 
 export function formatUnit(
@@ -102,57 +106,73 @@ export function formatUnit(
     unitDisplay: "long",
     maximumFractionDigits: 2,
     // minimumFractionDigits: 2,
-  }).format(value)
+  }).format(value);
 }
 
 export function formatList(
   list: string[],
   parts?: false,
   locale?: string,
-): string
+): string;
 export function formatList(
   list: string[],
   parts: true,
   locale?: string,
 ): Array<{
-  type: "literal" | "element"
-  value: string
-}>
+  type: "literal" | "element";
+  value: string;
+}>;
 export function formatList(
   list: string[],
   parts?: boolean,
   locale: string = DEFAULT_LOCALE,
-) {
+) {  
   const formatter = new Intl.ListFormat(locale, {
     style: "long",
     type: "conjunction",
-  })
+  });
 
-  return parts ? formatter.formatToParts(list) : formatter.format(list)
+  return parts ? formatter.formatToParts(list) : formatter.format(list);
 }
 
 export function transformMsToReadableString(ms: number): string {
-  const dateStr: string[] = []
-  let remainingTimeInMs = ms
+  const dateStr: string[] = [];
+  let remainingTimeInMs = ms;
 
-  const days = Math.floor(remainingTimeInMs / ONE_DAY_IN_MS)
-  if (days === 1) dateStr.push("1 day")
-  if (days > 1) dateStr.push(`${days} days`)
-  remainingTimeInMs = remainingTimeInMs - days * ONE_DAY_IN_MS
+  const days = Math.floor(remainingTimeInMs / ONE_DAY_IN_MS);
+  if (days === 1) {
+    dateStr.push("1 day");
+  }
+  if (days > 1) {
+    dateStr.push(`${days} days`);
+  }
+  remainingTimeInMs = remainingTimeInMs - days * ONE_DAY_IN_MS;
 
-  const hours = Math.floor(remainingTimeInMs / ONE_HOUR_IN_MS)
-  if (hours === 1) dateStr.push("1 hour")
-  if (hours > 1) dateStr.push(`${hours} hours`)
-  remainingTimeInMs = remainingTimeInMs - hours * ONE_HOUR_IN_MS
+  const hours = Math.floor(remainingTimeInMs / ONE_HOUR_IN_MS);
+  if (hours === 1) {
+    dateStr.push("1 hour");
+  }
+  if (hours > 1) {
+    dateStr.push(`${hours} hours`);
+  }
+  remainingTimeInMs = remainingTimeInMs - hours * ONE_HOUR_IN_MS;
 
-  const minutes = Math.floor(remainingTimeInMs / ONE_MIN_IN_MS)
-  if (minutes === 1) dateStr.push("1 minute")
-  if (minutes > 1) dateStr.push(`${minutes} minutes`)
-  remainingTimeInMs = remainingTimeInMs - minutes * ONE_MIN_IN_MS
+  const minutes = Math.floor(remainingTimeInMs / ONE_MIN_IN_MS);
+  if (minutes === 1) {
+    dateStr.push("1 minute");
+  }
+  if (minutes > 1) {
+    dateStr.push(`${minutes} minutes`);
+  }
+  remainingTimeInMs = remainingTimeInMs - minutes * ONE_MIN_IN_MS;
 
-  const seconds = remainingTimeInMs / 1000
-  if (seconds === 1) dateStr.push("1 second")
-  if (seconds > 1) dateStr.push(`${seconds.toFixed(2)} seconds`)
+  const seconds = remainingTimeInMs / 1000;
+  if (seconds === 1) {
+    dateStr.push("1 second");
+  }
+  if (seconds > 1) {
+    dateStr.push(`${seconds.toFixed(2)} seconds`);
+  }
 
-  return formatList(dateStr)
+  return formatList(dateStr);
 }

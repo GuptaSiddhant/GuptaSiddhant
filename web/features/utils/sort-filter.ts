@@ -1,7 +1,7 @@
 export function typedBoolean<T>(
   value: T,
 ): value is Exclude<T, "" | 0 | false | null | undefined> {
-  return Boolean(value)
+  return Boolean(value);
 }
 
 export function sortByDate(
@@ -11,8 +11,11 @@ export function sortByDate(
 ) {
   const order =
     (b?.toString() || new Date().toISOString()) >
-    (a?.toString() || new Date().toISOString())
+    (a?.toString() || new Date().toISOString());
 
-  if (invert) return order ? -1 : 1
-  return order ? 1 : -1
+  if (invert) {
+    return order ? -1 : 1;
+  }
+
+  return order ? 1 : -1;
 }
