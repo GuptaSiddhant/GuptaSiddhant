@@ -1,13 +1,13 @@
-// import colors from "tailwindcss/colors"
+import colors from "tailwindcss/colors";
 
-// export const {
-//   neutral: gray,
-//   white,
-//   black,
-//   sky: blue,
-//   emerald: green,
-//   rose: red,
-// } = colors
+export const {
+  neutral: gray,
+  white,
+  black,
+  sky: blue,
+  emerald: green,
+  rose: red,
+} = colors;
 
 export function generateCSSValue(theme: ThemeColors) {
   const { text, bg, border } = theme;

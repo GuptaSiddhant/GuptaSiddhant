@@ -14,10 +14,29 @@ export default function GraphQL() {
     return null;
   }
 
-  const defaultQuery = `query Projects($limit: Int) {
-  projects(limit: $limit) {
-    title
+  const defaultQuery = `query ($limit: Int) {
+  about {
+    name
   }
+  projects(limit: $limit) {
+    ...Item
+  }
+  blog(limit: $limit) {
+    ...Item
+  }
+  education(limit: $limit) {
+    ...Item
+  }
+  career(limit: $limit) {
+    ...Item
+  }
+}
+
+fragment Item on SummaryItem {
+  title
+  subtitle
+  description
+  date
 }`;
 
   const variables = `{
@@ -25,11 +44,13 @@ export default function GraphQL() {
 }`;
 
   return (
-    <GraphiQL
-      fetcher={createGraphiQLFetcher({ url: "/graphql" })}
-      defaultQuery={defaultQuery}
-      variables={variables}
-    />
+    <div id="graphiql" className="fixed top-10 z-0 inset-4">
+      <GraphiQL
+        fetcher={createGraphiQLFetcher({ url: "/graphql" })}
+        defaultQuery={defaultQuery}
+        variables={variables}
+      />
+    </div>
   );
 }
 

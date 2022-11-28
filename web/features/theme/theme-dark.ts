@@ -1,4 +1,12 @@
-import { type ThemeColors, black, blue, gray, green, red, white } from "./utils"
+import {
+  type ThemeColors,
+  black,
+  blue,
+  gray,
+  green,
+  red,
+  white,
+} from "./utils";
 
 const darkThemeColors: ThemeColors = {
   text: {
@@ -28,6 +36,6 @@ const darkThemeColors: ThemeColors = {
   border: {
     divider: gray[600],
   },
-}
+};
 
-export default darkThemeColors
+export default darkThemeColors;
