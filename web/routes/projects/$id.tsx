@@ -121,6 +121,7 @@ export default function ProjectDetails(): JSX.Element {
           {associationItem?.icon ? (
             <Link
               to={associationItem.linkUrl || `/about/${associationItem.id}`}
+              title={associationItem.subtitle || associationItem.title}
             >
               <img
                 src={associationItem.icon}
