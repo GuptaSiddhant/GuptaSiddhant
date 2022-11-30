@@ -1,17 +1,18 @@
-import { renderToPipeableStream } from "react-dom/server"
-import { PassThrough } from "stream"
+import { renderToPipeableStream } from "react-dom/server";
+import { PassThrough } from "stream";
 
-import { Response } from "@remix-run/node"
-import { RemixServer } from "@remix-run/react"
-import type { EntryContext } from "@remix-run/server-runtime"
+import { Response } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
+import type { EntryContext } from "@remix-run/server-runtime";
 
-import { initFirebase } from "@gs/firebase/init"
+import { initFirebase } from "@gs/firebase/init";
+import { appLogger } from "@gs/service/logger.server";
 
-global.__IS_SERVER__ = typeof window === "undefined"
-global.__IS_DEV__ = process.env.NODE_ENV === "development"
-const ABORT_DELAY = 5_000
+global.__IS_SERVER__ = typeof window === "undefined";
+global.__IS_DEV__ = process.env.NODE_ENV === "development";
+const ABORT_DELAY = 5_000;
 
-initFirebase()
+initFirebase();
 
 export default function handleRequest(
   request: Request,
@@ -19,42 +20,44 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
+  appLogger.logRequest(request);
+
   return new Promise((resolve, reject) => {
-    let didError = false
+    let didError = false;
 
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer context={remixContext} url={request.url} />,
       {
         onShellReady: () => {
-          const body = new PassThrough()
+          const body = new PassThrough();
 
-          responseHeaders.set("Content-Type", "text/html")
+          responseHeaders.set("Content-Type", "text/html");
 
           resolve(
             new Response(body, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
             }),
-          )
+          );
 
-          pipe(body)
+          pipe(body);
         },
         onShellError: (err) => {
-          reject(err)
+          reject(err);
         },
         onError: (error) => {
-          didError = true
+          didError = true;
 
-          console.error(error)
+          console.error(error);
         },
       },
-    )
+    );
 
-    setTimeout(abort, ABORT_DELAY)
-  })
+    setTimeout(abort, ABORT_DELAY);
+  });
 }
 
 declare global {
-  var __IS_SERVER__: boolean
-  var __IS_DEV__: boolean
+  var __IS_SERVER__: boolean;
+  var __IS_DEV__: boolean;
 }

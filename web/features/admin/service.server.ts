@@ -1,7 +1,7 @@
-import { createLogger } from "@gs/service/logger.server"
+import Logger from "@gs/service/logger.server";
 
-export const adminLogger = createLogger("Admin")
+export const adminLogger = new Logger("Admin");
 
 export function createAdminLogger(prefix: string) {
-  return createLogger("Admin", `${prefix}:`)
+  return new Logger(`Admin [${prefix}]:`);
 }

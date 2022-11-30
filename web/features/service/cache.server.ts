@@ -2,9 +2,9 @@ import LRUCache, { type Options } from "lru-cache";
 
 import { ONE_DAY_IN_MS } from "@gs/constants";
 
-import { createLogger } from "./logger.server";
+import Logger from "./logger.server";
 
-const logger = createLogger("Cache");
+const logger = new Logger("Cache");
 
 declare global {
   var appCache: LRUCache<string, unknown>;
@@ -54,7 +54,7 @@ export async function fetchCachedKey<T>(
     return cache.get(key) as T;
   }
 
-  logger.info("Fetching:", key);
+  logger.info(`Fetching: ${key}`);
   const result = await fn();
 
   cache.set(key, result, options);
@@ -85,12 +85,12 @@ export function deleteCachedKeysWith(key: string) {
 }
 
 export function deleteCachedKey(key: string) {
-  logger.debug(`Deleted key "${key}":`, new Date().toISOString());
+  logger.info(`Deleted key "${key}": ${new Date().toISOString()}`);
   return getCache().delete(key);
 }
 
 export function clearCache() {
-  logger.debug("Cleared:", new Date().toISOString());
+  logger.info(`Cleared: ${new Date().toISOString()}`);
   return getCache().clear();
 }
 
