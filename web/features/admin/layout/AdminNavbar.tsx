@@ -201,6 +201,10 @@ function AdminNavbarItem({
   onClick,
   to,
 }: NavigationLinkProps): JSX.Element | null {
+  if (!(to || onClick)) {
+    return null;
+  }
+
   return (
     <NavLink
       id={id}

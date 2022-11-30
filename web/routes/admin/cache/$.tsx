@@ -1,23 +1,23 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { useLoaderData } from "@remix-run/react"
+import { useLoaderData } from "@remix-run/react";
 import type {
   ActionFunction,
   ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
-} from "@remix-run/server-runtime"
-import { json, redirect } from "@remix-run/server-runtime"
+} from "@remix-run/server-runtime";
+import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin"
-import { createAdminMeta } from "@gs/admin/helpers"
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { ONE_HOUR_IN_MS } from "@gs/constants"
-import useMediaQuery from "@gs/hooks/useMediaQuery"
-import { DeleteIcon } from "@gs/icons"
-import type { NavigationLinkProps } from "@gs/navigation/types"
-import { authenticateRoute } from "@gs/service/auth.server"
-import type { ModifyCacheMethod } from "@gs/service/cache.server"
+import { AdminAppId, adminRegistry } from "@gs/admin";
+import { createAdminMeta } from "@gs/admin/helpers";
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { ONE_HOUR_IN_MS } from "@gs/constants";
+import useMediaQuery from "@gs/hooks/useMediaQuery";
+import { DeleteIcon } from "@gs/icons";
+import type { NavigationLinkProps } from "@gs/navigation/types";
+import { authenticateRoute } from "@gs/service/auth.server";
+import type { ModifyCacheMethod } from "@gs/service/cache.server";
 import {
   getCache,
   getCachedKey,
@@ -25,44 +25,46 @@ import {
   hasCachedKey,
   modifyCache,
   parseCacheKey,
-} from "@gs/service/cache.server"
-import Action from "@gs/ui/Action"
-import CodeBlock from "@gs/ui/CodeBlock"
-import { ErrorSection } from "@gs/ui/Error"
-import { Caption, Paragraph } from "@gs/ui/Text"
-import { transformMsToReadableString } from "@gs/utils/format"
-import invariant from "@gs/utils/invariant"
+} from "@gs/service/cache.server";
+import Action from "@gs/ui/Action";
+import CodeBlock from "@gs/ui/CodeBlock";
+import { ErrorSection } from "@gs/ui/Error";
+import { Caption, Paragraph } from "@gs/ui/Text";
+import { transformMsToReadableString } from "@gs/utils/format";
+import invariant from "@gs/utils/invariant";
 
 interface LoaderData {
-  key: string
-  type: string
-  value?: string
-  data: any
-  ttl: number
+  key: string;
+  type: string;
+  value?: string;
+  data: unknown;
+  ttl: number;
 }
 
-const adminApp = adminRegistry.getApp(AdminAppId.Cache)
-const onlyCacheTypeError = "cache-type" as const
+const adminApp = adminRegistry.getApp(AdminAppId.Cache);
+const onlyCacheTypeError = "cache-type" as const;
 
 export const loader: LoaderFunction = async ({ params, request }) => {
-  await authenticateRoute(request)
-  const key = params["*"]
-  invariant(key, "Cache key is required.")
+  await authenticateRoute(request);
+  const key = params["*"];
+  invariant(key, "Cache key is required.");
 
-  const { type, value } = parseCacheKey(key) || {}
-  const allTypes = getCachedTypes()
-  if (!type || !allTypes.includes(type)) {
-    throw new Error(`Cache type "${type}" is invalid.`)
+  const { type, value } = parseCacheKey(key) || {};
+  const allTypes = getCachedTypes();
+  if (!(type && allTypes.includes(type))) {
+    throw new Error(`Cache type "${type}" is invalid.`);
   }
 
   if (!hasCachedKey(key)) {
-    if (!value) throw new Error(onlyCacheTypeError + ":" + type)
+    if (!value) {
+      throw new Error(`${onlyCacheTypeError}:${type}`);
+    }
 
-    return redirect(adminApp.linkPath + type)
+    return redirect(adminApp.linkPath + type);
   }
 
-  const data = await getCachedKey(key)
-  const ttl = getCache().getRemainingTTL(key)
+  const data = await getCachedKey(key);
+  const ttl = getCache().getRemainingTTL(key);
 
   return json<LoaderData>({
     key,
@@ -70,27 +72,27 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     value,
     data,
     ttl,
-  })
-}
+  });
+};
 
 export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request);
 
-  const { pathname } = new URL(request.url)
-  const form = await request.formData()
-  const key = form.get("key")?.toString()
+  const { pathname } = new URL(request.url);
+  const form = await request.formData();
+  const key = form.get("key")?.toString();
 
-  invariant(key, "Cache key is required")
-  await modifyCache(request.method as ModifyCacheMethod, key)
+  invariant(key, "Cache key is required");
+  await modifyCache(request.method as ModifyCacheMethod, key);
 
   if (request.method === "DELETE") {
-    return redirect(adminApp.linkPath)
+    return redirect(adminApp.linkPath);
   }
-  return redirect(pathname)
-}
+  return redirect(pathname);
+};
 
 export default function CacheDetails(): JSX.Element | null {
-  const { key, data } = useLoaderData<LoaderData>()
+  const { key, data } = useLoaderData<LoaderData>();
 
   const actions: NavigationLinkProps[] = [
     {
@@ -107,7 +109,7 @@ export default function CacheDetails(): JSX.Element | null {
         </Action>
       ),
     },
-  ]
+  ];
 
   return (
     <AdminLayout
@@ -133,15 +135,15 @@ export default function CacheDetails(): JSX.Element | null {
         </Paragraph>
       )}
     </AdminLayout>
-  )
+  );
 }
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   if (!error.message.startsWith(onlyCacheTypeError)) {
-    return <ErrorSection title="Problem with Cache key" error={error} />
+    return <ErrorSection title="Problem with Cache key" error={error} />;
   }
 
-  const type = error.message.split(":")[1]
+  const type = error.message.split(":")[1];
 
   return (
     <div className="h-full flex-col gap-4 flex-center">
@@ -160,18 +162,18 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
         Clear cache
       </Action>
     </div>
-  )
-}
+  );
+};
 
 export const meta: MetaFunction = ({ data }) => {
-  return createAdminMeta(data?.key)
-}
+  return createAdminMeta(data?.key);
+};
 
 //
 
 function Footer() {
-  const { ttl } = useLoaderData<LoaderData>()
-  const isMobileWidth = useMediaQuery("(max-width: 768px)")
+  const { ttl } = useLoaderData<LoaderData>();
+  const isMobileWidth = useMediaQuery("(max-width: 768px)");
 
   return (
     <div className="text-sm text-disabled">
@@ -183,5 +185,5 @@ function Footer() {
           }).format(ttl / ONE_HOUR_IN_MS)
         : transformMsToReadableString(ttl)}
     </div>
-  )
+  );
 }

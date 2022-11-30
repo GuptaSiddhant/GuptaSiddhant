@@ -1,15 +1,16 @@
-import AdminIcon from "remixicon-react/AdminFillIcon"
-import CacheIcon from "remixicon-react/Database2FillIcon"
-import EditorIcon from "remixicon-react/EditBoxFillIcon"
-import StorageIcon from "remixicon-react/HardDrive2FillIcon"
-import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon"
-import SettingsIcon from "remixicon-react/Settings3FillIcon"
-import GraphQLIcon from "remixicon-react/TerminalWindowFillIcon"
+import AdminIcon from "remixicon-react/AdminFillIcon";
+import CacheIcon from "remixicon-react/Database2FillIcon";
+import EditorIcon from "remixicon-react/EditBoxFillIcon";
+import StorageIcon from "remixicon-react/HardDrive2FillIcon";
+import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon";
+import SettingsIcon from "remixicon-react/Settings3FillIcon";
+import GraphQLIcon from "remixicon-react/TerminalWindowFillIcon";
+import LogsIcon from "remixicon-react/ListSettingsFillIcon";
 
-import AdminRegistry from "./registry"
-import type { AdminAction, AdminApp } from "./types"
+import AdminRegistry from "./registry";
+import type { AdminAction, AdminApp } from "./types";
 
-export { AdminAction, AdminApp as AdminAppProps, AdminIcon }
+export { AdminAction, AdminApp as AdminAppProps, AdminIcon };
 
 export enum AdminAppId {
   Editor = "editor",
@@ -17,6 +18,7 @@ export enum AdminAppId {
   Cache = "cache",
   Storage = "storage",
   GraphQL = "graphql",
+  Logs = "logs",
 }
 
 export const adminRegistry = new AdminRegistry<AdminAppId>({
@@ -42,9 +44,13 @@ export const adminRegistry = new AdminRegistry<AdminAppId>({
     title: "GraphQL",
     icon: <GraphQLIcon />,
   })
+  .registerApp(AdminAppId.Logs, {
+    title: "Logs",
+    icon: <LogsIcon />,
+  })
   .registerAction({
     id: "logout",
     title: "Logout",
     icon: <LogoutIcon />,
     linkPath: "/logout",
-  })
+  });

@@ -72,10 +72,12 @@ export async function getAreFeaturesEnabled<T extends FeatureFlagKey>(
 ): Promise<RemoteConfigBooleanMap<T>> {
   const featureFlagsMap = await getAllFeatureFlags();
   if (!featureFlagsMap) {
-    return keys.reduce(
-      (acc, key) => ({ ...acc, [key]: true }),
-      {} as RemoteConfigBooleanMap<T>,
-    );
+    const remoteConfigBooleanMap = {} as RemoteConfigBooleanMap<T>;
+    keys.forEach((key) => {
+      remoteConfigBooleanMap[key] = true;
+    });
+
+    return remoteConfigBooleanMap;
   }
 
   return keys.reduce((acc, key) => {

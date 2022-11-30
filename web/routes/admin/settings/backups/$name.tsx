@@ -1,68 +1,68 @@
-import { useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { json, redirect } from "@remix-run/server-runtime"
+import { useLoaderData } from "@remix-run/react";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
+import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin"
-import { generateBackupPathFromBackupName } from "@gs/admin/backup/service.server"
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { DeleteIcon } from "@gs/icons"
-import useRootContext from "@gs/root/RootContext"
-import { authenticateRoute } from "@gs/service/auth.server"
-import type { StorageFile } from "@gs/service/storage.server"
-import Storage from "@gs/service/storage.server"
-import Action from "@gs/ui/Action"
-import CodeBlock from "@gs/ui/CodeBlock"
-import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm"
-import { formatDateTime } from "@gs/utils/format"
-import invariant from "@gs/utils/invariant"
+import { AdminAppId, adminRegistry } from "@gs/admin";
+import { generateBackupPathFromBackupName } from "@gs/admin/backup/service.server";
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { DeleteIcon } from "@gs/icons";
+import useRootContext from "@gs/root/RootContext";
+import { authenticateRoute } from "@gs/service/auth.server";
+import type { StorageFile } from "@gs/service/storage.server";
+import Storage from "@gs/service/storage.server";
+import Action from "@gs/ui/Action";
+import CodeBlock from "@gs/ui/CodeBlock";
+import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
+import { formatDateTime } from "@gs/utils/format";
+import invariant from "@gs/utils/invariant";
 
-const adminApp = adminRegistry.getApp(AdminAppId.Settings)
+const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
 interface LoaderData {
-  name: string
-  path: string
-  asset: StorageFile
-  data: string
+  name: string;
+  path: string;
+  asset: StorageFile;
+  data: string;
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
-  await authenticateRoute(request)
-  const name = params["name"]
-  invariant(name, "Filename is required")
+  await authenticateRoute(request);
+  const name = params["name"];
+  invariant(name, "Filename is required");
 
-  const path = generateBackupPathFromBackupName(name)
+  const path = generateBackupPathFromBackupName(name);
 
   try {
-    const asset = await Storage.queryAsset(path)
-    const file = await Storage.downloadAsset(path)
-    const data = JSON.stringify(JSON.parse(await file.text()), null, 2)
+    const asset = await Storage.queryAsset(path);
+    const file = await Storage.downloadAsset(path);
+    const data = JSON.stringify(JSON.parse(await file.text()), null, 2);
 
-    return json<LoaderData>({ asset, name, path, data })
+    return json<LoaderData>({ asset, name, path, data });
   } catch {
-    return redirect(adminApp.linkPath + "backups")
+    return redirect(`${adminApp.linkPath}backups`);
   }
-}
+};
 
 export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request);
 
-  const form = await request.formData()
-  const originPath = form.get("originPath")?.toString() || "/"
+  const form = await request.formData();
+  const originPath = form.get("originPath")?.toString() || "/";
 
   if (request.method === "DELETE") {
-    const path = form.get("path")?.toString()
-    invariant(path, "Asset path is required.")
-    await Storage.mutateAsset(path)
+    const path = form.get("path")?.toString();
+    invariant(path, "Asset path is required.");
+    await Storage.mutateAsset(path);
 
-    return redirect(adminApp.linkPath + "backups")
+    return redirect(`${adminApp.linkPath}backups`);
   }
 
-  return redirect(originPath)
-}
+  return redirect(originPath);
+};
 
 export default function StoragePath(): JSX.Element | null {
-  const { name, path, data, asset } = useLoaderData<LoaderData>()
-  const { locale } = useRootContext()
+  const { name, path, data, asset } = useLoaderData<LoaderData>();
+  const { locale } = useRootContext();
 
   return (
     <AdminLayout
@@ -95,5 +95,5 @@ export default function StoragePath(): JSX.Element | null {
         {data}
       </CodeBlock>
     </AdminLayout>
-  )
+  );
 }

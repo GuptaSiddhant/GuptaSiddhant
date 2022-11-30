@@ -1,17 +1,6 @@
 import { type Log, Logging } from "@google-cloud/logging-min";
-
-// See: https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity
-export enum LogSeverity {
-  DEFAULT = "DEFAULT",
-  DEBUG = "DEBUG",
-  INFO = "INFO",
-  NOTICE = "NOTICE",
-  WARNING = "WARNING",
-  ERROR = "ERROR",
-  CRITICAL = "CRITICAL",
-  ALERT = "ALERT",
-  EMERGENCY = "EMERGENCY",
-}
+import { LogSeverity } from "@gs/constants/logs-constants";
+import { GCP_PROJECT_ID } from "@gs/constants";
 
 export default class Logger {
   #name: string;
@@ -19,15 +8,17 @@ export default class Logger {
 
   constructor(name: string) {
     this.#name = name;
-    this.#logInstance = new Logging({ projectId: "guptasiddhant-com" }).log(
-      name,
-    );
+    this.#logInstance = new Logging({ projectId: GCP_PROJECT_ID }).log(name);
   }
 
   #createLoggerWithSeverity = (severity: LogSeverity, metadata?: object) => {
-    return async (text: string) => {
+    return async (text: string): Promise<void> => {
       try {
-        return await this.#logInstance.write(
+        // if (__IS_DEV__) {
+        //   return;
+        // }
+
+        await this.#logInstance.write(
           this.#logInstance.entry(
             {
               resource: { type: "global" },
