@@ -4,19 +4,23 @@ import { GCP_PROJECT_ID } from "@gs/constants";
 
 export default class Logger {
   #name: string;
-  #logInstance: Log;
+  #logInstance: Log | undefined;
 
   constructor(name: string) {
     this.#name = name;
-    this.#logInstance = new Logging({ projectId: GCP_PROJECT_ID }).log(name);
+    try {
+      this.#logInstance = new Logging({ projectId: GCP_PROJECT_ID }).log(name);
+    } catch {
+      this.#logInstance = undefined;
+    }
   }
 
   #createLoggerWithSeverity = (severity: LogSeverity, metadata?: object) => {
     return async (text: string): Promise<void> => {
       try {
-        // if (__IS_DEV__) {
-        //   return;
-        // }
+        if (!this.#logInstance) {
+          return;
+        }
 
         await this.#logInstance.write(
           this.#logInstance.entry(

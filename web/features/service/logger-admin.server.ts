@@ -10,12 +10,16 @@ function createCacheKey(...texts: string[]) {
   return [cacheKey, ...texts].filter(Boolean).join("/");
 }
 
-function createGCPLogging() {
-  return new Logging({ projectId: GCP_PROJECT_ID });
+function createGCPLogging(): Logging | undefined {
+  try {
+    return new Logging({ projectId: GCP_PROJECT_ID });
+  } catch {
+    return undefined;
+  }
 }
 
 export async function getLoggers(): Promise<Sink[]> {
-  const [loggers] = await createGCPLogging().getLogs();
+  const loggers = (await createGCPLogging()?.getLogs())?.[0] || [];
 
   return loggers.filter((logger) => !logger.name.includes("googleapis.com"));
 }
@@ -46,7 +50,7 @@ export async function getLogs(
 ): Promise<LogItem[]> {
   const { limit = 10, filter = "" } = options;
 
-  const logger = createGCPLogging().log(loggerName);
+  const logger = createGCPLogging()?.log(loggerName);
   invariant(logger, `Logger with name "${loggerName}" not found.`);
 
   const [entries] = await fetchCachedKey(
