@@ -56,7 +56,9 @@
     "react-dom": "^18.2.0",
     "remix-auth": "^3.3.0",
     "remix-auth-form": "^1.2.0",
+    "remix-utils": "^5.1.0",
     "remixicon-react": "^1.0.0",
+    "schema-dts": "^1.1.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {

@@ -32,6 +32,7 @@ import ShareTray from "@gs/ui/ShareTray";
 import TableOfContent from "@gs/ui/TableOfContent";
 import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
+import { generateStructuredDataForProject } from "@gs/models/projects";
 
 interface LoaderData {
   project: ProjectProps;
@@ -161,4 +162,8 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <ErrorSection caption="Error 404" title="Project not found" error={error} />
   );
+};
+
+export const handle = {
+  structuredData: generateStructuredDataForProject,
 };

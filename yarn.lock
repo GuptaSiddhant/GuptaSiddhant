@@ -9449,8 +9449,10 @@ __metadata:
     react-dom: ^18.2.0
     remix-auth: ^3.3.0
     remix-auth-form: ^1.2.0
+    remix-utils: ^5.1.0
     remixicon-react: ^1.0.0
     rome: ^10.0.0
+    schema-dts: ^1.1.0
     tailwindcss: ^3.2.2
     typescript: ^4.9.0
     vite-tsconfig-paths: ^3.5.2
@@ -10015,6 +10017,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"intl-parse-accept-language@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "intl-parse-accept-language@npm:1.0.0"
+  checksum: c1dcc0f520cb85be391f1cf4b5f691ab19183e5d8e8f5277c0d2210a78a6d01ee907b9bb70f7425c4a8d5a9ed86f8b18a8d53f089025772d89f5cbe39282f266
+  languageName: node
+  linkType: hard
+
 "invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
@@ -10024,7 +10033,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ip-regex@npm:^4.1.0":
+"ip-regex@npm:^4.0.0, ip-regex@npm:^4.1.0":
   version: 4.3.0
   resolution: "ip-regex@npm:4.3.0"
   checksum: 7ff904b891221b1847f3fdf3dbb3e6a8660dc39bc283f79eb7ed88f5338e1a3d1104b779bc83759159be266249c59c2160e779ee39446d79d4ed0890dfd06f08
@@ -10347,6 +10356,15 @@ __metadata:
   version: 1.0.0
   resolution: "is-interactive@npm:1.0.0"
   checksum: 824808776e2d468b2916cdd6c16acacebce060d844c35ca6d82267da692e92c3a16fdba624c50b54a63f38bdc4016055b6f443ce57d7147240de4f8cdabaf6f9
+  languageName: node
+  linkType: hard
+
+"is-ip@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "is-ip@npm:3.1.0"
+  dependencies:
+    ip-regex: ^4.0.0
+  checksum: da2c2b282407194adf2320bade0bad94be9c9d0bdab85ff45b1b62d8185f31c65dff3884519d57bf270277e5ea2046c7916a6e5a6db22fe4b7ddcdd3760f23eb
   languageName: node
   linkType: hard
 
@@ -14579,6 +14597,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remix-utils@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "remix-utils@npm:5.1.0"
+  dependencies:
+    intl-parse-accept-language: ^1.0.0
+    is-ip: ^3.1.0
+    schema-dts: ^1.1.0
+    type-fest: ^2.5.2
+    uuid: ^8.3.2
+  peerDependencies:
+    "@remix-run/react": ^1.5.1
+    "@remix-run/server-runtime": ^1.5.1
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    zod: ^3.19.1
+  checksum: f64cc4133d2686db6432fa524f5c5095fb821a4a2596ded0afb153b1c081b7cdae02bb0b422c865fe15c158858c9f4f1f36f4e6c102a9700c4653a6168888016
+  languageName: node
+  linkType: hard
+
 "remixicon-react@npm:^1.0.0":
   version: 1.0.0
   resolution: "remixicon-react@npm:1.0.0"
@@ -15065,6 +15101,15 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"schema-dts@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "schema-dts@npm:1.1.0"
+  peerDependencies:
+    typescript: ">=4.1.0"
+  checksum: 546af6d8707790d666f64665b755a683166675c11195406e78e2ac875e7b6f1f550b4306449c8b00a5ef0384a487a7837eac7b8b3f00c2ca2c8f231d931507d4
   languageName: node
   linkType: hard
 
@@ -16460,6 +16505,13 @@ __metadata:
   version: 1.4.0
   resolution: "type-fest@npm:1.4.0"
   checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.5.2":
+  version: 2.19.0
+  resolution: "type-fest@npm:2.19.0"
+  checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
   languageName: node
   linkType: hard
 

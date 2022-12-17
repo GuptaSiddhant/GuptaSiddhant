@@ -1,10 +1,10 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   type ErrorBoundaryComponent,
-  type LoaderFunction,
   type MetaFunction,
   json,
   redirect,
+  LoaderArgs,
 } from "@remix-run/server-runtime";
 
 import {
@@ -20,6 +20,7 @@ import {
   getBlogPost,
   getBlogPostCrossSell,
 } from "@gs/models/blog/index.server";
+import { generateStructuredDataForBlogPost } from "@gs/models/blog";
 import { getAuthUser } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
@@ -41,7 +42,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export const loader = async ({ params, request }: LoaderArgs) => {
   const id = params.id;
   if (!id) {
     throw new Error("Blog post id is required");
@@ -145,4 +146,8 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
       error={error}
     />
   );
+};
+
+export const handle = {
+  structuredData: generateStructuredDataForBlogPost,
 };
