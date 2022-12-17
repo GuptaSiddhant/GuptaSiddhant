@@ -1,6 +1,7 @@
 import { Entry, Logging, Sink } from "@google-cloud/logging-min";
 import { GCP_PROJECT_ID, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
+import { googleServiceAccount } from "@gs/firebase/credentials";
 import invariant from "@gs/utils/invariant";
 
 import { fetchCachedKey, deleteCachedKey } from "./cache.server";
@@ -12,7 +13,10 @@ function createCacheKey(...texts: string[]) {
 
 function createGCPLogging(): Logging | undefined {
   try {
-    return new Logging({ projectId: GCP_PROJECT_ID });
+    return new Logging({
+      projectId: GCP_PROJECT_ID,
+      credentials: googleServiceAccount(),
+    });
   } catch {
     return undefined;
   }

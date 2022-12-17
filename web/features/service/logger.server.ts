@@ -1,6 +1,7 @@
 import { type Log, Logging } from "@google-cloud/logging-min";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import { GCP_PROJECT_ID } from "@gs/constants";
+import { googleServiceAccount } from "@gs/firebase/credentials";
 
 export default class Logger {
   #name: string;
@@ -9,7 +10,10 @@ export default class Logger {
   constructor(name: string) {
     this.#name = name;
     try {
-      this.#logInstance = new Logging({ projectId: GCP_PROJECT_ID }).log(name);
+      this.#logInstance = new Logging({
+        projectId: GCP_PROJECT_ID,
+        credentials: googleServiceAccount(),
+      }).log(name);
     } catch {
       this.#logInstance = undefined;
     }
