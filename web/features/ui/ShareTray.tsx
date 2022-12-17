@@ -30,13 +30,13 @@ function TweetButton({ url }: ShareTrayProps): JSX.Element | null {
     url,
     text: "Check out this article by @guptasiddhant9",
   });
-
   const link = `https://twitter.com/intent/tweet?${searchParams.toString()}`;
+  const label = "Tweet this article";
 
   return (
-    <ExternalLink href={link}>
+    <ExternalLink href={link} tooltipLabel={label}>
       <TweetIcon />
-      <span className="sr-only">Tweet this article</span>
+      <span className="sr-only">{label}</span>
     </ExternalLink>
   );
 }
@@ -47,11 +47,12 @@ function LinkedInShareButton({
 }: ShareTrayProps): JSX.Element | null {
   const searchParams = new URLSearchParams({ url, title });
   const link = `https://www.linkedin.com/sharing/share-offsite/?${searchParams.toString()}`;
+  const label = "Share on LinkedIn";
 
   return (
-    <ExternalLink href={link}>
+    <ExternalLink href={link} tooltipLabel={label}>
       <LinkedInIcon />
-      <span className="sr-only">Share on LinkedIn</span>
+      <span className="sr-only">{label}</span>
     </ExternalLink>
   );
 }
@@ -59,11 +60,12 @@ function LinkedInShareButton({
 function FacebookShareButton({ url }: ShareTrayProps): JSX.Element | null {
   const searchParams = new URLSearchParams({ u: url });
   const link = `https://www.facebook.com/sharer/sharer.php?${searchParams.toString()}`;
+  const label = "Share on Facebook";
 
   return (
-    <ExternalLink href={link}>
+    <ExternalLink href={link} tooltipLabel={label}>
       <FacebookIcon />
-      <span className="sr-only">Share on Facebook</span>
+      <span className="sr-only">{label}</span>
     </ExternalLink>
   );
 }
