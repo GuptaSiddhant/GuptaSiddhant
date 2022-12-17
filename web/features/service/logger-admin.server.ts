@@ -62,7 +62,6 @@ export async function getLogs(
   const filter = [filterText, severity ? `severity = ${severity}` : ""]
     .filter(Boolean)
     .join(" AND ");
-  console.log({ filter });
 
   const [entries] = await fetchCachedKey(
     createCacheKey(loggerName, filter, limit.toString()),
