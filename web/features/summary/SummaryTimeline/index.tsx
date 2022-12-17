@@ -8,8 +8,9 @@ import { proseWidth } from "@gs/ui/Section";
 import { Caption } from "@gs/ui/Text";
 
 import type { SummaryItem } from "../types";
-import { createTimeline } from "./timeline-helpers";
+import { createTimeline, createTocFromLifeline } from "./timeline-helpers";
 import SummaryTimelineCard from "./TimelineCard";
+import TableOfContent from "@gs/ui/TableOfContent";
 
 export interface SummaryTimelineProps extends BaseProps {
   items: SummaryItem[];
@@ -24,6 +25,7 @@ export default function SummaryTimeline(
   }
 
   const timeline = createTimeline(items);
+  const toc = createTocFromLifeline(timeline);
 
   return (
     <Reader
@@ -33,14 +35,7 @@ export default function SummaryTimeline(
         "md:!min-w-0",
         "flex w-full flex-col gap-12 border-l border-divider py-12 pl-4",
       )}
-      //   rightColumn={<TableOfContent toc={toc} />}
-      //   leftColumn={
-      //     <LifelineFilter
-      //       tags={tags}
-      //       selectedTags={selectedTags}
-      //       selectedCategory={selectedCategory}
-      //     />
-      //   }
+      leftColumn={<TableOfContent toc={toc} />}
     >
       {timeline.map((item) => {
         if ("model" in item) {

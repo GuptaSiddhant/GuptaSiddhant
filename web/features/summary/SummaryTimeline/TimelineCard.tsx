@@ -16,7 +16,6 @@ import { getStylingByModelName } from "@gs/models";
 import useRootContext from "@gs/root/RootContext";
 import type { Gallery, LinkObject } from "@gs/types";
 import Button from "@gs/ui/Button";
-// import Mdx from "@gs/ui/Mdx";
 import { H5, H6, Paragraph } from "@gs/ui/Text";
 import { formatDate } from "@gs/utils/format";
 
@@ -196,6 +195,7 @@ function TimelineCardGallery({
       <img
         src={coverUrl}
         alt={alt}
+        loading="lazy"
         className="h-full w-full overflow-hidden rounded-b-md object-cover object-center"
       />
 
@@ -203,6 +203,7 @@ function TimelineCardGallery({
         <img
           src={iconUrl}
           alt={`${alt} icon`}
+          loading="lazy"
           className="absolute bottom-4 left-4 aspect-square h-10 rounded object-contain"
         />
       ) : null}

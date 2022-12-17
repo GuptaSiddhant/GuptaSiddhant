@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useMemo } from "react";
 import TocIcon from "remixicon-react/FileListLineIcon";
 
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 
 import {
   type TocItem,
@@ -169,12 +169,13 @@ function TocItemLink({
   activeId?: string;
   text: string;
 }): JSX.Element | null {
+  const { search } = useLocation();
   const isActive = activeId?.toLowerCase() === id.toLowerCase();
 
   return (
     <Link
       replace
-      to={`#${id}`}
+      to={{ hash: id, search }}
       className={clsx(
         isActive ? "font-bold text-primary" : "text-tertiary",
         "hover:text-default",

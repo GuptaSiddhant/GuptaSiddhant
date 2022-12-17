@@ -135,15 +135,16 @@ function SummarySliderCard({
           "aspect-[3/4] h-72 snap-center bg-secondary",
         )}
       >
-        <div
-          role="none"
+        <img
+          src={imageSrc || icon}
+          alt={title}
+          loading="lazy"
           className={clsx(
-            "absolute inset-0 bg-cover bg-center bg-no-repeat",
+            "absolute inset-0 w-full h-full object-cover",
             imageSrc
               ? "transition-[filter] duration-300 group-hocus:blur-sm"
               : "blur-md",
           )}
-          style={{ backgroundImage: `url(${imageSrc || icon})` }}
         />
 
         <div
