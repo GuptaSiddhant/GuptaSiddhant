@@ -22,7 +22,7 @@ export default function SearchInput({
   const isLoading = state === "submitting" || state === "loading" || isPending;
 
   useEffect(() => {
-    const timeout = setTimeout(() => inputRef.current?.focus(), 500);
+    const timeout = setTimeout(() => inputRef.current?.focus(), 1000);
 
     return () => clearTimeout(timeout);
   }, [inputRef]);
@@ -61,7 +61,6 @@ export default function SearchInput({
         type="search"
         placeholder="Search..."
         inputRef={inputRef}
-        autoFocus
         autoComplete="off"
         enterKeyHint="search"
         defaultValue={inputValue}

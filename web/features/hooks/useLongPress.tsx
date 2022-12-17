@@ -34,8 +34,12 @@ export default function useLongPress<T extends React.RefObject<HTMLElement>>(
     if (element) {
       element.addEventListener("mousedown", handleLongPress);
       element.addEventListener("mouseup", handleLongPressEnd);
-      element.addEventListener("touchstart", handleLongPress);
-      element.addEventListener("touchend", handleLongPressEnd);
+      element.addEventListener("touchstart", handleLongPress, {
+        passive: true,
+      });
+      element.addEventListener("touchend", handleLongPressEnd, {
+        passive: true,
+      });
 
       return () => {
         element.removeEventListener("mousedown", handleLongPress);

@@ -50,7 +50,7 @@ export default function HeroImage({
       ) : null}
       {iconUrl ? (
         <img
-          key={imageUrl}
+          key={iconUrl}
           src={iconUrl}
           alt={alt ? `${alt} icon` : undefined}
           className="absolute top-4 left-4 mb-2 h-12 rounded-md object-contain"
