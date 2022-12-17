@@ -79,7 +79,7 @@ function HorizontalTable<T extends object>({
   return (
     <>
       <thead>
-        <tr className={clsx(props.headRowClassName)}>
+        <tr className={clsx(props.headRowClassName, "sticky top-0")}>
           {columns.map((column) => (
             <th
               key={column.id.toString()}

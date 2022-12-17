@@ -22,7 +22,7 @@ export default class Logger {
   #createLoggerWithSeverity = (severity: LogSeverity, metadata?: object) => {
     return async (text: string): Promise<void> => {
       try {
-        if (!this.#logInstance) {
+        if (!this.#logInstance || __IS_DEV__) {
           return;
         }
 
