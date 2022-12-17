@@ -44,7 +44,7 @@ export default function SearchOutput({
   if (cmdMode) {
     return (
       <output
-        ref={resultsRef as any}
+        ref={resultsRef as unknown as React.RefObject<HTMLOutputElement>}
         className="flex h-auto flex-col gap-2 overflow-y-auto overflow-x-hidden p-2"
       >
         {commands.map((command) => (

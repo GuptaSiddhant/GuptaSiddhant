@@ -22,6 +22,12 @@ export default function SearchInput({
   const isLoading = state === "submitting" || state === "loading" || isPending;
 
   useEffect(() => {
+    const timeout = setTimeout(() => inputRef.current?.focus(), 500);
+
+    return () => clearTimeout(timeout);
+  }, [inputRef]);
+
+  useEffect(() => {
     const input = inputRef.current;
     if (isCommand(input?.value)) {
       return;
