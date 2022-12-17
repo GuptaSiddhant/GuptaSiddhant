@@ -24,17 +24,21 @@ import Action from "@gs/ui/Action";
 import { FilterIcon, RefreshIcon } from "@gs/icons";
 import { UserRole } from "@gs/models/users";
 import Select from "@gs/ui/Select";
-import Input from "@gs/ui/Input";
+import { InputWithRef } from "@gs/ui/Input";
 import Button from "@gs/ui/Button";
 import FormLabel from "@gs/ui/FormLabel";
+import { LogSeverity } from "@gs/constants/logs-constants";
+import Tags from "@gs/ui/Tags";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Logs);
+const DEFAULT_LIMIT = 20;
 
 interface LoaderData {
   name: string;
   logs: LogItem[];
   limit: number;
-  filter: string;
+  message: string;
+  severity?: LogSeverity;
 }
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -44,12 +48,13 @@ export async function loader({ request, params }: LoaderArgs) {
   invariant(name, "Logger name is missing.");
 
   const url = new URL(request.url);
-  const limit = Number(url.searchParams.get("limit") || 10);
-  const filter = String(url.searchParams.get("filter") || "");
+  const limit = Number(url.searchParams.get("limit") || DEFAULT_LIMIT);
+  const message = String(url.searchParams.get("message") || "");
+  const severity = url.searchParams.get("severity") as LogSeverity | undefined;
 
-  const logs = await getLogs(name, { limit, filter });
+  const logs = await getLogs(name, { limit, filter: message, severity });
 
-  return json<LoaderData>({ name, logs, limit, filter });
+  return json<LoaderData>({ name, logs, limit, message, severity });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -64,7 +69,7 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function LoggerList(): JSX.Element | null {
-  const { name, logs, limit, filter } = useLoaderData<LoaderData>();
+  const { name, logs, limit, message, severity } = useLoaderData<LoaderData>();
 
   const columns: TableColumnProps<LogItem>[] = useMemo(
     () => [
@@ -74,7 +79,10 @@ export default function LoggerList(): JSX.Element | null {
         cellClassName: clsx("whitespace-nowrap"),
         cell: (item) => (item.timestamp ? formatDateTime(item.timestamp) : ""),
       },
-      { id: "severity" },
+      {
+        id: "severity",
+        cell: (item) => <LogSeverityTag severity={item.severity} />,
+      },
       {
         id: "data",
         header: "Message",
@@ -97,10 +105,17 @@ export default function LoggerList(): JSX.Element | null {
 
   return (
     <AdminLayout
-      title={name}
+      title={`${name} Logger`}
       to={adminApp.linkPath + name}
       actions={actions}
-      footer={<FilterForm filter={filter} limit={limit} />}
+      footer={
+        <FilterForm
+          key={name}
+          message={message}
+          limit={limit}
+          severity={severity}
+        />
+      }
     >
       <Table
         columns={columns}
@@ -117,28 +132,80 @@ export default function LoggerList(): JSX.Element | null {
   );
 }
 
-function FilterForm({ filter, limit }: { filter: string; limit: number }) {
+function LogSeverityTag({
+  severity,
+}: { severity?: LogSeverity | null }): JSX.Element | null {
+  if (!severity) {
+    return null;
+  }
+
+  const className: string = (() => {
+    switch (severity) {
+      case LogSeverity.ALERT:
+      case LogSeverity.CRITICAL:
+      case LogSeverity.EMERGENCY:
+      case LogSeverity.ERROR:
+        return clsx(
+          "text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-900 border-red-300 dark:border-red-700",
+        );
+      case LogSeverity.WARNING:
+        return clsx(
+          "text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-900 border-orange-300 dark:border-orange-700",
+        );
+      case LogSeverity.NOTICE:
+      case LogSeverity.INFO:
+        return clsx(
+          "text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900 border-blue-300 dark:border-blue-700",
+        );
+      default:
+        return "";
+    }
+  })();
+
+  return (
+    <Tags.Tag className={clsx("!text-sm w-max", className)}>
+      {severity}
+    </Tags.Tag>
+  );
+}
+
+function FilterForm({
+  message,
+  limit,
+  severity,
+}: {
+  message: string;
+  limit: number;
+  severity?: LogSeverity;
+}): JSX.Element | null {
   const uuid = useId();
-  const filterInputId = `${uuid}-filter-input`;
+  const messageInputId = `${uuid}-message-input`;
   const limitSelectId = `${uuid}-limit-select`;
+  const severitySelectId = `${uuid}-severity-select`;
 
   return (
     <div className="flex gap-4 items-center w-full">
-      <div className="border-r pr-4 whitespace-nowrap">Filter logs</div>
+      <div className="border-r pr-4 whitespace-nowrap flex gap-2 items-center">
+        <FilterIcon /> Filter logs
+      </div>
       <Form
         method="get"
         className="flex gap-4 items-center justify-between w-full"
       >
-        <fieldset className="flex gap-2 items-center flex-wrap">
-          <FormLabel label="Text" className="text-sm" htmlFor={filterInputId}>
-            <Input
-              id={filterInputId}
-              name="filter"
-              type="search"
-              defaultValue={filter}
-              placeholder="Filter logs by text..."
-            />
-          </FormLabel>
+        <fieldset className="flex gap-2 items-center flex-wrap w-full">
+          <Select
+            label="Severity"
+            name="severity"
+            defaultValue={severity}
+            id={severitySelectId}
+          >
+            <Select.Option value={""}>ALL</Select.Option>
+            {Object.values(LogSeverity).map((value) => (
+              <Select.Option key={value} value={value}>
+                {value}
+              </Select.Option>
+            ))}
+          </Select>
           <Select
             label="Limit"
             name="limit"
@@ -151,10 +218,25 @@ function FilterForm({ filter, limit }: { filter: string; limit: number }) {
               </Select.Option>
             ))}
           </Select>
+          <FormLabel
+            label="Message"
+            className="text-sm flex-1"
+            labelClassName="!flex-initial"
+            htmlFor={messageInputId}
+          >
+            <InputWithRef
+              id={messageInputId}
+              name="Message"
+              type="search"
+              defaultValue={message}
+              placeholder="Filter by message..."
+              className="flex-1"
+            />
+          </FormLabel>
         </fieldset>
 
         <Button.Primary type="submit" className="!h-8">
-          <FilterIcon /> Filter
+          Filter
         </Button.Primary>
       </Form>
     </div>

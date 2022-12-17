@@ -3,6 +3,7 @@ import { GCP_PROJECT_ID, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import { googleServiceAccount } from "@gs/firebase/credentials";
 import invariant from "@gs/utils/invariant";
+import { boolean } from "zod";
 
 import { fetchCachedKey, deleteCachedKey } from "./cache.server";
 
@@ -46,16 +47,22 @@ export interface LogItem {
 export interface GetLogsOptions {
   limit?: number;
   filter?: string;
+  severity?: LogSeverity;
 }
 
 export async function getLogs(
   loggerName: string,
   options: GetLogsOptions = {},
 ): Promise<LogItem[]> {
-  const { limit = 10, filter = "" } = options;
+  const { limit = 10, filter: filterText = "", severity } = options;
 
   const logger = createGCPLogging()?.log(loggerName);
   invariant(logger, `Logger with name "${loggerName}" not found.`);
+
+  const filter = [filterText, severity ? `severity = ${severity}` : ""]
+    .filter(Boolean)
+    .join(" AND ");
+  console.log({ filter });
 
   const [entries] = await fetchCachedKey(
     createCacheKey(loggerName, filter, limit.toString()),

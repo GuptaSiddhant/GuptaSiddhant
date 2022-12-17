@@ -26,9 +26,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       return response;
     }
 
-    throw new Error("404");
+    throw new Error(`Error 404 Path not found - ${path}`);
   } catch (e: any) {
     appLogger.error(e.message);
+
     return redirect("/404");
   }
 };

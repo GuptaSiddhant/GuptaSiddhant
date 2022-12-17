@@ -36,6 +36,7 @@ export default function StorageAdminApp(): JSX.Element | null {
     <AdminLayout
       {...adminApp}
       header={<Caption>{adminApp.title}</Caption>}
+      filterPlaceholder="Filter Loggers"
       navGroups={[
         {
           id: "loggers",

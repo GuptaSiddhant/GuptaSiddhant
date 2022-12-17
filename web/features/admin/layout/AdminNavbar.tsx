@@ -20,6 +20,7 @@ export interface AdminNavbarProps {
   header?: ReactNode;
   actions?: NavigationLinkProps[];
   to?: To;
+  filterPlaceholder?: string;
 }
 
 export default function AdminNavbar({
@@ -29,6 +30,7 @@ export default function AdminNavbar({
   icon,
   actions,
   to,
+  filterPlaceholder,
 }: AdminNavbarProps): JSX.Element | null {
   const [navCollapsed, setNavCollapsed] = useState(false);
 
@@ -94,7 +96,7 @@ export default function AdminNavbar({
         </div>
       )}
       <AdminNavFooter
-        placeholder={`Filter ${title}`}
+        placeholder={filterPlaceholder || `Filter ${title}`}
         navCollapsed={navCollapsed}
         setFilterTerm={setFilterTerm}
         setNavCollapsed={setNavCollapsed}

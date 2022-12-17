@@ -1,18 +1,20 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 export interface FormLabelProps {
-  title?: string
-  className?: string
-  label?: React.ReactNode
-  children: React.ReactNode
-  htmlFor: string
-  onClick?: React.MouseEventHandler<HTMLLabelElement>
-  vertical?: boolean
+  title?: string;
+  className?: string;
+  labelClassName?: string;
+  label?: React.ReactNode;
+  children: React.ReactNode;
+  htmlFor: string;
+  onClick?: React.MouseEventHandler<HTMLLabelElement>;
+  vertical?: boolean;
 }
 
 export default function FormLabel({
   title,
   className,
+  labelClassName,
   label,
   children,
   htmlFor,
@@ -22,7 +24,7 @@ export default function FormLabel({
   const styleClassName = clsx(
     "bg-secondary hocus-within:bg-tertiary",
     "text-secondary hocus-within:text-tertiary",
-  )
+  );
 
   return (
     <fieldset
@@ -42,7 +44,10 @@ export default function FormLabel({
         <label
           htmlFor={htmlFor}
           onClick={onClick}
-          className="flex-1 leading-none peer-required:after:text-negative peer-required:after:content-['_*']"
+          className={clsx(
+            "flex-1 leading-none peer-required:after:text-negative peer-required:after:content-['_*']",
+            labelClassName,
+          )}
         >
           {label}
         </label>
@@ -61,5 +66,5 @@ export default function FormLabel({
         children
       )}
     </fieldset>
-  )
+  );
 }

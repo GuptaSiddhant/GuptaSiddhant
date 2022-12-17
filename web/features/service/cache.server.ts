@@ -85,12 +85,12 @@ export function deleteCachedKeysWith(key: string) {
 }
 
 export function deleteCachedKey(key: string) {
-  logger.info(`Deleted key "${key}": ${new Date().toISOString()}`);
+  logger.notice(`Deleted: ${key}`);
   return getCache().delete(key);
 }
 
 export function clearCache() {
-  logger.info(`Cleared: ${new Date().toISOString()}`);
+  logger.notice("Cleared");
   return getCache().clear();
 }
 
