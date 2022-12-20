@@ -35,7 +35,7 @@ export default function FormLabel({
         vertical
           ? "flex-col"
           : [
-              "min-h-input flex-row items-center gap-1 rounded px-2 text-base",
+              "min-h-input h-available flex-row items-center gap-1 rounded px-2 text-base",
               styleClassName,
             ],
       )}

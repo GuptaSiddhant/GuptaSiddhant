@@ -1,5 +1,5 @@
-const plugin = require("tailwindcss/plugin")
-const colors = require("tailwindcss/colors")
+const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -105,6 +105,9 @@ const config = {
       maxHeight: {
         "screen-main": "calc(100vh - 100px)",
       },
+      height: {
+        available: "-webkit-fill-available",
+      },
       maxWidth: {
         xxs: "15rem",
       },
@@ -133,12 +136,12 @@ const config = {
   plugins: [
     require("@tailwindcss/typography"),
     plugin(({ addVariant, addUtilities }) => {
-      addVariant("hocus", ["&:hover", "&:focus"])
-      addVariant("hocus-within", ["&:hover", "&:focus-within"])
-      addVariant("group-hocus", [".group:hover &", ".group:focus &"])
-      addVariant("group-selected", [".group.selected &"])
-      addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"])
-      addVariant("selected", ["&.selected"])
+      addVariant("hocus", ["&:hover", "&:focus"]);
+      addVariant("hocus-within", ["&:hover", "&:focus-within"]);
+      addVariant("group-hocus", [".group:hover &", ".group:focus &"]);
+      addVariant("group-selected", [".group.selected &"]);
+      addVariant("peer-hocus", [".peer:hover &", ".peer:focus &"]);
+      addVariant("selected", ["&.selected"]);
 
       addUtilities({
         ".flex-center": {
@@ -149,12 +152,12 @@ const config = {
         ".h-screen-webkit": {
           height: "-webkit-fill-available",
         },
-      })
+      });
     }),
   ],
-}
+};
 
-module.exports = config
+module.exports = config;
 
 // /** @type {TailwindColorGroup} */
 // const myGrayColors = {
