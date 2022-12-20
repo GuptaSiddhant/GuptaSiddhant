@@ -20,6 +20,7 @@ import { H5, H6, Paragraph } from "@gs/ui/Text";
 import { formatDate } from "@gs/utils/format";
 
 import type { SummaryItem } from "../types";
+import type { ModelStyling } from "@gs/models/types";
 
 export default function TimelineCard(props: {
   item: SummaryItem;
@@ -62,7 +63,7 @@ export default function TimelineCard(props: {
           modelStyling.borderHocus,
         )}
       >
-        <Sticker {...props.item} />
+        <Sticker {...props.item} styling={modelStyling} />
 
         <TimelineCardTitle
           icon={iconUrl ? <img src={iconUrl} alt={title} /> : modelStyling.icon}
@@ -256,14 +257,26 @@ function TimelineCardLinker({ links = [] }: { links?: LinkObject[] }) {
   );
 }
 
-export function Sticker({ draft }: SummaryItem): JSX.Element | null {
-  if (!draft) {
-    return null;
+export function Sticker({
+  draft,
+  featured,
+  styling,
+}: SummaryItem & { styling: ModelStyling }): JSX.Element | null {
+  const styleClassName = clsx(
+    "absolute top-0 right-0 rounded-bl-md rounded-tr-md px-2",
+  );
+
+  if (draft) {
+    return <div className={clsx(styleClassName, "bg-black")}>Draft</div>;
   }
 
-  return (
-    <div className="absolute top-0 right-0 rounded-bl-md rounded-tr-md bg-black px-2">
-      Draft
-    </div>
-  );
+  if (featured) {
+    return (
+      <div className={clsx(styleClassName, styling.bg, "text-white")}>
+        Featured
+      </div>
+    );
+  }
+
+  return null;
 }
