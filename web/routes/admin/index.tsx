@@ -1,27 +1,27 @@
-import clsx from "clsx"
-import PositiveIcon from "remixicon-react/CheckboxCircleFillIcon"
-import NegativeIcon from "remixicon-react/CloseCircleFillIcon"
+import clsx from "clsx";
+import PositiveIcon from "remixicon-react/CheckboxCircleFillIcon";
+import NegativeIcon from "remixicon-react/CloseCircleFillIcon";
 
-import { useLoaderData } from "@remix-run/react"
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime"
+import { useLoaderData } from "@remix-run/react";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
-import { createAdminMeta } from "@gs/admin/helpers"
-import { getAuthUser, isUserHasWriteAccess } from "@gs/service/auth.server"
-import { H1, Paragraph } from "@gs/ui/Text"
+import { createAdminMeta } from "@gs/admin/helpers";
+import { getAuthUser, isUserHasWriteAccess } from "@gs/service/auth.server";
+import { H1, Paragraph } from "@gs/ui/Text";
 
 interface LoaderData {
-  hasWriteAccess: boolean
+  hasWriteAccess: boolean;
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  const user = await getAuthUser(request)
-  const hasWriteAccess = await isUserHasWriteAccess(user)
+  const user = await getAuthUser(request);
+  const hasWriteAccess = await isUserHasWriteAccess(user);
 
-  return json<LoaderData>({ hasWriteAccess })
+  return json<LoaderData>({ hasWriteAccess });
 }
 
 export default function AdminIndex(): JSX.Element | null {
-  const { hasWriteAccess } = useLoaderData<LoaderData>()
+  const { hasWriteAccess } = useLoaderData<LoaderData>();
 
   return (
     <main className="hidden flex-col text-disabled sm:flex-center">
@@ -37,9 +37,9 @@ export default function AdminIndex(): JSX.Element | null {
         {hasWriteAccess ? <PositiveIcon /> : <NegativeIcon />}
       </Paragraph>
     </main>
-  )
+  );
 }
 
 export function meta() {
-  return createAdminMeta()
+  return createAdminMeta();
 }

@@ -5521,6 +5521,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"charts-css-react@npm:^0.0.9":
+  version: 0.0.9
+  resolution: "charts-css-react@npm:0.0.9"
+  dependencies:
+    charts.css: ^0.9.0
+  checksum: cd2a108ee745b339804dea88666cac91e25e080544c3d67f8b071b4e382c49dc333ee4d957684f183da782bf081fd1d2be2097d1f61e62e9aa444efdbb077bdf
+  languageName: node
+  linkType: hard
+
+"charts.css@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "charts.css@npm:0.9.0"
+  checksum: efade87167f66adfdc19d6f624ddf69fd4f09c5c3c5ee703da6f4ce1933698ec304a3207746275af88f234a35b455798cc120b6bc73863b898e4387489c2950c
+  languageName: node
+  linkType: hard
+
 "check-error@npm:^1.0.2":
   version: 1.0.2
   resolution: "check-error@npm:1.0.2"
@@ -9431,6 +9447,8 @@ __metadata:
     "@types/node": ^16.18.3
     "@types/react": ^18.0.25
     "@types/react-dom": ^18.0.8
+    charts-css-react: ^0.0.9
+    charts.css: ^0.9.0
     clsx: ^1.2.1
     cross-env: ^7.0.3
     eslint: ^8.26.0
