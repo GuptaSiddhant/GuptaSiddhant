@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/rome/configuration_schema.json",
   "formatter": {
     "enabled": true,
     "indentSize": 2,
@@ -8,17 +9,24 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "correctness": {
-        "noUnusedVariables": "warn",
-        "noUselessFragments": "warn",
-        "noDelete": "warn"
-      },
       "a11y": {
         "useKeyWithClickEvents": "off"
       },
+      "complexity": {
+        "noUselessFragments": "warn"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "warn",
+        "noUnusedVariables": "warn"
+      },
+      "performance": {
+        "noDelete": "warn"
+      },
+      "security": {},
+      "suspicious": {},
       "style": {
-        "useShorthandArrayType": "off",
-        "noImplicitBoolean": "off"
+        "noImplicitBoolean": "off",
+        "useShorthandArrayType": "off"
       },
       "nursery": {
         "noExplicitAny": "warn",
@@ -32,7 +40,8 @@
     "formatter": {
       "quoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "trailingComma": "all"
+      "trailingComma": "all",
+      "semicolons": "always"
     }
   }
 }
