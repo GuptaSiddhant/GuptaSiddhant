@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   const image = await fetch(
-    `https://europe-west1-guptasiddhant-com.cloudfunctions.net/socialImage?${params.toString()}`,
+    `https://next.guptasiddhant.com/api/og?${params.toString()}`,
   ).then((res) => res.blob());
 
   return new Response(image, {

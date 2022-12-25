@@ -15,7 +15,6 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@recanvas/node": "0.1.1",
     "axios": "^0.27.2",
     "firebase-admin": "*",
     "firebase-functions": "^4.0.2",

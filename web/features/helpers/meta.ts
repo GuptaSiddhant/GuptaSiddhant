@@ -47,6 +47,8 @@ export function generateArticleMeta<T extends SummaryItem>(
     imageUrl: cover || "",
     url: options?.url || linkUrl || "",
     caption: options?.section || "",
+    authorName: author,
+    authorImageUrl: "https://people.aalto.fi/files/1201903_x_512_3to4.jpg",
   });
 
   const socialImageUrl = `${
