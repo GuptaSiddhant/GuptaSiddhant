@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Link, NavLink, useLocation } from "@remix-run/react";
+import { Link, NavLink } from "@remix-run/react";
 
 import { Caption } from "@gs/ui/Text";
 
@@ -9,19 +9,18 @@ import { AdminIcon } from "../index";
 export interface AdminSidebarProps {
   apps: AdminLinkProps[];
   actions: AdminLinkProps[];
+  isChildPathVisible: boolean;
 }
 
 export default function AdminSidebar({
   apps,
   actions,
+  isChildPathVisible,
 }: AdminSidebarProps): JSX.Element | null {
-  const isChildPathVisible =
-    useLocation().pathname.split("/").filter(Boolean).length > 1;
-
   return (
     <aside
       className={clsx(
-        "flex h-full flex-col gap-2 border-divider transition-[width]",
+        "absolute inset-0 flex flex-col gap-2 border-divider transition-[width]",
         isChildPathVisible
           ? "w-12 items-center border-r"
           : "-w-screen-m4 sm:w-80 sm:border-r",
@@ -40,7 +39,7 @@ export default function AdminSidebar({
       {apps.length > 0 ? (
         <div
           className={clsx(
-            "flex flex-1 flex-col gap-2 overflow-auto",
+            "flex flex-1 flex-col gap-2 overflow-auto min-h-0 ",
             isChildPathVisible ? "" : "px-2",
           )}
         >
@@ -59,7 +58,7 @@ export default function AdminSidebar({
           className={clsx(
             "flex h-max min-h-[2.5rem] w-full gap-2 border-t border-divider",
             isChildPathVisible
-              ? "flex-col justify-end p-0 sm:py-1"
+              ? "flex-col justify-end px-0 py-0 sm:py-1"
               : "flex-row flex-wrap p-2",
           )}
         >

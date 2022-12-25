@@ -1,6 +1,10 @@
 import clsx from "clsx";
 
-import { type ShouldReloadFunction, Outlet } from "@remix-run/react";
+import {
+  type ShouldReloadFunction,
+  Outlet,
+  useLocation,
+} from "@remix-run/react";
 import {
   type ErrorBoundaryComponent,
   type LoaderArgs,
@@ -40,6 +44,8 @@ export function meta(): MetaDescriptor {
 
 export default function Admin(): JSX.Element {
   useBlockNativeScroll();
+  const isChildPathVisible =
+    useLocation().pathname.split("/").filter(Boolean).length > 1;
 
   return (
     <AdminContext.Provider value={{}}>
@@ -47,7 +53,8 @@ export default function Admin(): JSX.Element {
         id="admin"
         className={clsx(
           "fixed inset-0 m-4 bg-primary",
-          "grid grid-cols-[max-content_1fr]",
+          "grid grid-cols-[1fr] ",
+          isChildPathVisible ? "pl-12" : "pl-80",
         )}
         style={{
           marginTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
@@ -62,6 +69,7 @@ export default function Admin(): JSX.Element {
             ...action,
             children: action.icon,
           }))}
+          isChildPathVisible={isChildPathVisible}
         />
 
         <Outlet />
