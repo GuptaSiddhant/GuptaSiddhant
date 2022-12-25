@@ -14,12 +14,13 @@ const testDirs = ["packages/next"];
 const testFiles = [];
 
 pathList.forEach((path) => {
-  if (testFiles.includes(path) || testDirs.includes(path.split("/")[0]))
+  if (testFiles.includes(path) || testDirs.some((dir) => path.includes(dir))) {
+    console.log("Exit 1");
     process.exit(1);
+  }
 });
 
 console.log("Exit 0");
-
 process.exit(0);
 
 // Helpers

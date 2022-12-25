@@ -38,11 +38,18 @@ export default async function handler(req: NextRequest) {
   const ratio = Number(searchParams.get("ratio") ?? DEFAULT_RATIO);
   const height = Number(searchParams.get("height") ?? width / ratio);
 
+  const url = searchParams.get("url") ?? undefined;
   const subtitle = searchParams.get("subtitle") ?? undefined;
   const caption = searchParams.get("caption") ?? undefined;
-  const imageUrl = searchParams.get("imageUrl") ?? undefined;
   const authorName = searchParams.get("authorName") ?? undefined;
-  const authorImageUrl = searchParams.get("authorImageUrl") ?? undefined;
+
+  const _imageUrl = searchParams.get("imageUrl") ?? undefined;
+  const imageUrl = _imageUrl ? new URL(_imageUrl, url).toString() : undefined;
+
+  const _authorImageUrl = searchParams.get("authorImageUrl") ?? undefined;
+  const authorImageUrl = _authorImageUrl
+    ? new URL(_authorImageUrl, url).toString()
+    : undefined;
 
   // Fonts
   const [nunitoRegularFontData, nunitoBoldFontData] = await Promise.all([
