@@ -18,6 +18,8 @@ pathList.forEach((path) => {
     process.exit(1);
 });
 
+console.log("Exit 0");
+
 process.exit(0);
 
 // Helpers
