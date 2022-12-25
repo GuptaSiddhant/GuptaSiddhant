@@ -15,6 +15,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const caption = searchParams.get("caption") || "";
   const subtitle = searchParams.get("subtitle") || "";
   const imageUrl = searchParams.get("imageUrl") || "";
+  const authorName = searchParams.get("authorName") || "";
+  const authorImageUrl = searchParams.get("authorImageUrl") || "";
 
   const params = new URLSearchParams({
     title,
@@ -23,8 +25,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     textColor: theme.text.default,
     backgroundColor: theme.bg.primary,
     borderColor: theme.bg.default,
-    imageUrl,
     url,
+    authorName,
+    authorImageUrl: authorImageUrl
+      ? authorImageUrl.startsWith("http")
+        ? authorImageUrl
+        : new URL(authorImageUrl, url).toString()
+      : "",
+    imageUrl: imageUrl
+      ? imageUrl.startsWith("http")
+        ? imageUrl
+        : new URL(imageUrl, url).toString()
+      : "",
   });
 
   const image = await fetch(

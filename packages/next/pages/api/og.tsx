@@ -83,8 +83,10 @@ export default async function handler(req: NextRequest) {
         fonts,
       },
     );
-  } catch (error: any) {
-    console.log(`${error.message}`);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`${error.message}`);
+    }
 
     return new Response("Failed to generate the image", {
       status: 500,
