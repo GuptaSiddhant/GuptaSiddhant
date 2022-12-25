@@ -1,5 +1,7 @@
 /**
- * @name invariant
+ * @name tiny-invariant
+ * @author Alex Reardon <alexreardon@gmail.com>
+ * @license MIT https://unpkg.com/browse/tiny-invariant@1.2.0/LICENSE
  * @see https://unpkg.com/browse/tiny-invariant@1.2.0/src/tiny-invariant.ts
  */
 
