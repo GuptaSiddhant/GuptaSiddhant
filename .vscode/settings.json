@@ -52,7 +52,7 @@
   "[typescriptreact]": {
 		"editor.defaultFormatter": "rome.rome"
 	}
-  // "deno.enable": false,
+  "deno.enable": false,
   // "deno.lint": true,
   // "deno.unstable": true,
   // "deno.enablePaths": ["./apps/website"],

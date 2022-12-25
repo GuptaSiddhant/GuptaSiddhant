@@ -1,27 +1,30 @@
-import darkThemeColors from "./theme-dark"
-import lightThemeColors from "./theme-light"
-import { generateCSSValue } from "./utils"
+import darkThemeColors from "./theme-dark";
+import lightThemeColors from "./theme-light";
+import { generateCSSValue } from "./utils";
 
-export type ThemeName = "dark" | "light"
+export enum ThemeName {
+  Dark = "dark",
+  Light = "light",
+}
 
-export const DEFAULT_THEME: ThemeName = "dark"
+export const DEFAULT_THEME = ThemeName.Dark;
 
 export default function getCSSForThemeName(themeName?: ThemeName) {
-  return generateCSSValue(getThemeFromThemeName(themeName))
+  return generateCSSValue(getThemeFromThemeName(themeName));
 }
 
 export function getThemeFromThemeName(themeName?: ThemeName) {
   switch (themeName) {
-    case "light":
-      return lightThemeColors
-    case "dark":
+    case ThemeName.Light:
+      return lightThemeColors;
+    case ThemeName.Dark:
     default:
-      return darkThemeColors
+      return darkThemeColors;
   }
 }
 
 export function checkIfDarkTheme(name?: ThemeName) {
-  return name !== "light"
+  return name !== ThemeName.Light;
 }
 
-export type { ThemeColors } from "./utils"
+export type { ThemeColors } from "./utils";

@@ -7,9 +7,9 @@ import { getProjectsSummaryItems } from "@gs/models/projects/index.server";
 const apiTypes: Record<
   string,
   {
-    // rome-ignore lint(nursery/noExplicitAny): Catch-all
+    // rome-ignore lint/suspicious/noExplicitAny: Catch-all
     queryAll: () => Promise<any>;
-    // rome-ignore lint(nursery/noExplicitAny): Catch-all
+    // rome-ignore lint/suspicious/noExplicitAny: Catch-all
     queryById?: (id: string) => Promise<any>;
   }
 > = {
@@ -32,7 +32,7 @@ export async function search(query?: string, origin?: string) {
 
   for (const key of dataKeys) {
     if (key === query) {
-      // rome-ignore lint(nursery/noExplicitAny): Catch-all
+      // rome-ignore lint/suspicious/noExplicitAny: Catch-all
       const data: any[] = await apiTypes[key].queryAll();
       const enrichedData = data.map((item) =>
         generateLinkUrlBuilder(origin, key)(item),
@@ -46,7 +46,7 @@ export async function search(query?: string, origin?: string) {
     dataKeys.map((key) => apiTypes[key].queryAll()),
   );
 
-  // rome-ignore lint(nursery/noExplicitAny): Catch-all
+  // rome-ignore lint/suspicious/noExplicitAny: Catch-all
   const results: Map<string, any> = new Map();
   dataKeys.forEach((key, index) => {
     const data = allData[index];
@@ -74,7 +74,7 @@ export async function search(query?: string, origin?: string) {
   return Object.fromEntries(results.entries());
 }
 
-// rome-ignore lint(nursery/noExplicitAny): Catch-all
+// rome-ignore lint/suspicious/noExplicitAny: Catch-all
 function filterResultItemByQuery(item: any, query: string): boolean {
   if (!item || typeof item !== "object") {
     return false;

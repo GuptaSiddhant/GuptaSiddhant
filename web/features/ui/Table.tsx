@@ -59,7 +59,7 @@ function VerticalTable<T extends object>({
           </th>
           {data.map((row, i) => (
             <td
-              key={i}
+              key={row.toString() + i}
               className={clsx(props.bodyCellClassName, column.cellClassName)}
             >
               {getCellElement(column, row, data)}
@@ -92,7 +92,7 @@ function HorizontalTable<T extends object>({
       </thead>
       <tbody>
         {data.map((row, i) => (
-          <tr key={i} className={clsx(props.bodyRowClassName)}>
+          <tr key={row.toString() + i} className={clsx(props.bodyRowClassName)}>
             {columns.map((column) => (
               <td
                 key={column.id.toString()}
@@ -126,7 +126,7 @@ function getCellElement<T extends object>(
 ): React.ReactNode {
   const { id, cell } = column;
 
-  // rome-ignore lint(nursery/noExplicitAny): Too difficult
+  // rome-ignore lint/suspicious/noExplicitAny: Complex
   const content: any =
     typeof id === "string" &&
     preservedIds.includes(id as typeof preservedIds[number])

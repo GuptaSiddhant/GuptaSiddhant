@@ -16,23 +16,21 @@
         "noUselessFragments": "warn"
       },
       "correctness": {
-        "noUndeclaredVariables": "warn",
         "noUnusedVariables": "warn"
       },
       "performance": {
         "noDelete": "warn"
       },
       "security": {},
-      "suspicious": {},
+      "suspicious": {
+        "noExplicitAny": "warn"
+      },
       "style": {
         "noImplicitBoolean": "off",
         "useShorthandArrayType": "off"
       },
       "nursery": {
-        "noExplicitAny": "warn",
-        "useExhaustiveDependencies": "error",
-        "useFlatMap": "warn",
-        "useValidForDirection": "warn"
+        "useExhaustiveDependencies": "error"
       }
     }
   },

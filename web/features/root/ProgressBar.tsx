@@ -29,7 +29,7 @@ function useProgress(): RefObject<HTMLDivElement> {
   const timeout = useRef<NodeJS.Timeout>();
   const { location } = useTransition();
 
-  // rome-ignore lint(nursery/useExhaustiveDependencies): Incorrect linting
+  // rome-ignore lint/nursery/useExhaustiveDependencies: Complex
   const updateWidth = useCallback((ms: number) => {
     const element = elementRef.current;
     if (!element) {

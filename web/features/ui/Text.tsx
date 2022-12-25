@@ -102,7 +102,7 @@ export function Paragraph({
   const exceptionTypeNames = ["img", "pre", "figure"];
 
   if (Children.count(children) === 1) {
-    // rome-ignore lint(nursery/noExplicitAny): Complex
+    // rome-ignore lint/suspicious/noExplicitAny: Complex
     const onlyChild: any = Children.toArray(children)[0];
     const typeName: string = onlyChild?.type?.name;
 

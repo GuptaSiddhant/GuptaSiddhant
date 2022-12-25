@@ -65,7 +65,7 @@ export function ExternalLink({
   }
 
   return (
-    // rome-ignore lint(a11y/useValidAnchor): Need to stop click propagation
+    // rome-ignore lint/a11y/useValidAnchor: Need to stop click propagation
     <a
       {...props}
       href={href}

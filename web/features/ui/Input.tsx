@@ -2,6 +2,7 @@ import clsx from "clsx";
 import {
   type ComponentPropsWithoutRef,
   type ForwardedRef,
+  type ReactNode,
   forwardRef,
 } from "react";
 
@@ -9,7 +10,7 @@ export type InputProps = ComponentPropsWithoutRef<"input"> & {
   inputRef?: ForwardedRef<HTMLInputElement> | null;
   datalist?: string[];
   name: string;
-  label?: React.ReactNode;
+  label?: ReactNode;
   labelClassName?: string;
 };
 
