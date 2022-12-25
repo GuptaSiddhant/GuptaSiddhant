@@ -1,30 +1,45 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { type ShouldReloadFunction, Outlet } from "@remix-run/react"
+import { type ShouldReloadFunction, Outlet } from "@remix-run/react";
 import {
   type ErrorBoundaryComponent,
-  type LoaderFunction,
+  type LoaderArgs,
+  type MetaDescriptor,
   json,
-} from "@remix-run/server-runtime"
+} from "@remix-run/server-runtime";
 
-import { adminRegistry } from "@gs/admin"
-import AdminSidebar from "@gs/admin/components/AdminSidebar"
-import { AdminContext } from "@gs/admin/context"
-import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants"
-import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll"
-import { authenticateRoute } from "@gs/service/auth.server"
-import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error"
+import { adminRegistry } from "@gs/admin";
+import AdminSidebar from "@gs/admin/components/AdminSidebar";
+import { AdminContext } from "@gs/admin/context";
+import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
+import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll";
+import { authenticateRoute } from "@gs/service/auth.server";
+import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
 
+// rome-ignore lint/nursery/noEmptyInterface: For future reference
 interface LoaderData {}
 
-export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
+export async function loader({ request }: LoaderArgs) {
+  await authenticateRoute(request);
 
-  return json<LoaderData>({})
+  return json<LoaderData>({});
+}
+
+export function meta(): MetaDescriptor {
+  const viewport = [
+    "width=device-width",
+    "initial-scale=1.0",
+    "viewport-fit=cover",
+    "maximum-scale=1.0",
+  ]
+    .filter(Boolean)
+    .join(",");
+
+  return { viewport };
 }
 
 export default function Admin(): JSX.Element {
-  useBlockNativeScroll()
+  useBlockNativeScroll();
 
   return (
     <AdminContext.Provider value={{}}>
@@ -52,15 +67,15 @@ export default function Admin(): JSX.Element {
         <Outlet />
       </section>
     </AdminContext.Provider>
-  )
+  );
 }
 
 export const CatchBoundary = () => {
-  return <CatchBoundarySection />
-}
+  return <CatchBoundarySection />;
+};
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Oops. Admin broke!!!" error={error} />
-}
+  return <ErrorSection title="Oops. Admin broke!!!" error={error} />;
+};
 
-export const unstable_shouldReload: ShouldReloadFunction = () => false
+export const unstable_shouldReload: ShouldReloadFunction = () => false;

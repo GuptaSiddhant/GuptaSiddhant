@@ -1,23 +1,17 @@
-import { type Cookie, createCookie } from "@remix-run/node"
+import { createCookie } from "@remix-run/node";
 
-import { type ThemeName, DEFAULT_THEME } from "@gs/theme"
+import { parseCookie } from "@gs/service/cookie.server";
+import { type ThemeName, DEFAULT_THEME } from "@gs/theme";
 
-export const themeCookie = createCookie("theme")
-
-export async function parseCookie(request: Request, cookie: Cookie) {
-  const cookieHeader = request.headers.get("Cookie")
-  const parsedCookie = (await cookie.parse(cookieHeader)) || {}
-
-  return parsedCookie
-}
+export const themeCookie = createCookie("__gs_theme");
 
 export async function getThemeFromRequest(
   request: Request,
 ): Promise<ThemeName> {
-  const parsedCookie = await parseCookie(request, themeCookie)
+  const parsedCookie = await parseCookie(request, themeCookie);
   if (!parsedCookie.theme) {
-    parsedCookie.theme = DEFAULT_THEME
+    parsedCookie.theme = DEFAULT_THEME;
   }
 
-  return parsedCookie.theme
+  return parsedCookie.theme;
 }
