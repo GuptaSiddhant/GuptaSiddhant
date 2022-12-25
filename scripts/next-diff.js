@@ -10,17 +10,8 @@ const pathList = stdout.split("\n").filter(Boolean);
 
 console.log("Files changed:", pathList);
 
-const testDirs = ["web", "public"];
-const testFiles = [
-  "package.json",
-  ".eslintrc",
-  ".prettierrc.js",
-  "tsconfig.json",
-  "remix.env.d.ts",
-  "server.js",
-  "tailwind.config.js",
-  "vitest.config.js",
-];
+const testDirs = ["packages/next"];
+const testFiles = [];
 
 pathList.forEach((path) => {
   if (testFiles.includes(path) || testDirs.includes(path.split("/")[0]))
