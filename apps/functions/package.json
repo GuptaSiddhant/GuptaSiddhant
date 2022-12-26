@@ -1,5 +1,5 @@
 {
-  "name": "functions",
+  "name": "gs-functions",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
@@ -8,7 +8,8 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "npx firebase deploy --only functions",
-    "logs": "npx firebase functions:log"
+    "logs": "npx firebase functions:log",
+    "clear": "rm -rf lib"
   },
   "engines": {
     "node": "16"

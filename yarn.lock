@@ -7423,15 +7423,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-simple-import-sort@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "eslint-plugin-simple-import-sort@npm:8.0.0"
-  peerDependencies:
-    eslint: ">=5.0.0"
-  checksum: d2a92a7d148803ee9ad4f081892a8d03820198c36a0f4f16a97d9f686a714edc9c9a9e51cc79cb0ba1afff76a1fde6a5eae50e9e3754928068227c92a2db5d6b
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-testing-library@npm:^5.6.4":
   version: 5.9.1
   resolution: "eslint-plugin-testing-library@npm:5.9.1"
@@ -7504,7 +7495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:*, eslint@npm:^8.26.0, eslint@npm:^8.30.0":
+"eslint@npm:*, eslint@npm:^8.30.0":
   version: 8.30.0
   resolution: "eslint@npm:8.30.0"
   dependencies:
@@ -8539,26 +8530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"functions@workspace:packages/functions":
-  version: 0.0.0-use.local
-  resolution: "functions@workspace:packages/functions"
-  dependencies:
-    "@types/react": ^18.0.25
-    "@typescript-eslint/eslint-plugin": ^5.42.0
-    "@typescript-eslint/parser": ^5.42.0
-    axios: ^0.27.2
-    eslint: "*"
-    eslint-config-google: ^0.14.0
-    eslint-plugin-import: ^2.26.0
-    firebase-admin: "*"
-    firebase-functions: ^4.0.2
-    firebase-functions-test: ^3.0.0
-    firebase-tools: ^11.16.0
-    react: 18.2.0
-    typescript: "*"
-  languageName: unknown
-  linkType: soft
-
 "gauge@npm:^4.0.3":
   version: 4.0.4
   resolution: "gauge@npm:4.0.4"
@@ -9128,12 +9099,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gs-monorepo@workspace:.":
+"gs-functions@workspace:apps/functions":
   version: 0.0.0-use.local
-  resolution: "gs-monorepo@workspace:."
+  resolution: "gs-functions@workspace:apps/functions"
   dependencies:
-    npm-run-all: ^4.1.5
-    prettier: ^2.7.1
+    "@types/react": ^18.0.25
+    "@typescript-eslint/eslint-plugin": ^5.42.0
+    "@typescript-eslint/parser": ^5.42.0
+    axios: ^0.27.2
+    eslint: "*"
+    eslint-config-google: ^0.14.0
+    eslint-plugin-import: ^2.26.0
+    firebase-admin: "*"
+    firebase-functions: ^4.0.2
+    firebase-functions-test: ^3.0.0
+    firebase-tools: ^11.16.0
+    react: 18.2.0
+    typescript: "*"
   languageName: unknown
   linkType: soft
 
@@ -9182,9 +9164,6 @@ __metadata:
     "@types/react-dom": ^18.0.8
     clsx: ^1.2.1
     cross-env: ^7.0.3
-    eslint: ^8.26.0
-    eslint-plugin-import: ^2.26.0
-    eslint-plugin-simple-import-sort: ^8.0.0
     firebase-admin: ^11.2.0
     graphiql: ^2.0.13
     graphql: ^16.6.0
@@ -9192,7 +9171,6 @@ __metadata:
     lru-cache: ^7.14.1
     markdown-to-jsx: ^7.1.7
     npm-run-all: ^4.1.5
-    prettier: ^2.7.1
     prism-react-renderer: ^1.3.5
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -9207,6 +9185,14 @@ __metadata:
     vite-tsconfig-paths: ^3.5.2
     vitest: ^0.24.5
     zod: ^3.19.1
+  languageName: unknown
+  linkType: soft
+
+"gs@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "gs@workspace:."
+  dependencies:
+    prettier: ^2.7.1
   languageName: unknown
   linkType: soft
 
@@ -9257,11 +9243,8 @@ __metadata:
     "@types/react": ^17.0.0
     axios: ^0.27.2
     esbuild: ^0.15.13
-    eslint: ^8.26.0
     ink: ^3.2.0
     open: ^8.4.0
-    prettier: ^2.7.1
-    prettier-plugin-tailwindcss: ^0.1.13
     react: ^17.0.2
     typescript: ^4.8.4
   bin:
@@ -13506,15 +13489,6 @@ __metadata:
   version: 2.0.0
   resolution: "prepend-http@npm:2.0.0"
   checksum: 7694a9525405447662c1ffd352fcb41b6410c705b739b6f4e3a3e21cf5fdede8377890088e8934436b8b17ba55365a615f153960f30877bf0d0392f9e93503ea
-  languageName: node
-  linkType: hard
-
-"prettier-plugin-tailwindcss@npm:^0.1.13":
-  version: 0.1.13
-  resolution: "prettier-plugin-tailwindcss@npm:0.1.13"
-  peerDependencies:
-    prettier: ">=2.2.0"
-  checksum: 1b9000686e661be81de7d36d514c5ee34a98b11639b538bce8dd3a482c073c0148feb9d54b526babaede681d1c5ecb318ad97f38e8d71dd5cc26c33dfcaf8344
   languageName: node
   linkType: hard
 
