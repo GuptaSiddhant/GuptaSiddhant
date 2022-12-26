@@ -6,7 +6,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "clear": "yarn workspaces foreach -pi run clear",
+    "clear": "yarn workspaces foreach -Api run clear",
     "cli:build": "yarn workspace guptasiddhant build",
     "cli:dev": "yarn workspace guptasiddhant dev",
     "cli:start": "yarn workspace guptasiddhant start",
@@ -24,7 +24,8 @@
     "remix:dev": "yarn workspace gs-remix dev",
     "remix:dev:emulator": "yarn workspace gs-remix dev:emulator",
     "remix:start": "yarn workspace gs-remix start",
-    "remix:test": "yarn workspace gs-remix test"
+    "remix:test": "yarn workspace gs-remix test",
+    "remix:test:coverage": "yarn workspace gs-remix test:coverage"
   },
   "packageManager": "yarn@3.2.1",
   "devDependencies": {

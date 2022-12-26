@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clear": "rm -rf .next"
+    "clear": "rm -rf .next || true"
   },
   "dependencies": {
     "@vercel/og": "^0.0.21",

@@ -14,7 +14,7 @@
     "test:dev": "vitest dev --dir src",
     "test:coverage": "vitest run --dir src --coverage",
     "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json",
-    "clear": "rm -rf api public/build node_modules/.cache/remix"
+    "clear": "rm -rf api public/build node_modules/.cache/remix || true"
   },
   "sideEffects": false,
   "engines": {

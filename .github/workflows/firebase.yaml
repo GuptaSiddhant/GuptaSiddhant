@@ -4,13 +4,16 @@ on:
     branches:
       - main
     paths:
-      - packages/functions/**
+      - apps/functions/**
       - .github/workflows/firebase.yaml
 
 jobs:
   publish:
     name: Deploy Firebase functions
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./apps/functions"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,7 +23,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: "yarn"
 
       - name: Setup Credentials
@@ -29,7 +32,7 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-cred.json";
 
       - name: Install dependencies
-        run: yarn workspaces focus functions
+        run: yarn workspaces focus
 
       # - name: Install firebase tools
       #   run: npm install --location=global firebase-tools

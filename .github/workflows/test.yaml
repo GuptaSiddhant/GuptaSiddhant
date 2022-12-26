@@ -4,13 +4,16 @@ on:
     branches:
       - main
     paths:
-      - web
+      - apps/remix/**
       - .github/workflows/test.yaml
 
 jobs:
   publish:
     name: Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./apps/remix"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,11 +23,11 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn
+        run: yarn workspace focus
 
       - name: Run tests
-        run: yarn test
+        run: yarn test:coverage

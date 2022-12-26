@@ -9,10 +9,10 @@
     "start": "npm run shell",
     "deploy": "npx firebase deploy --only functions",
     "logs": "npx firebase functions:log",
-    "clear": "rm -rf lib"
+    "clear": "rm -rf lib || true"
   },
   "engines": {
-    "node": "16"
+    "node": "18"
   },
   "main": "lib/index.js",
   "dependencies": {
