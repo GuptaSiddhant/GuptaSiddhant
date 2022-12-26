@@ -1,9 +1,6 @@
 {
   "name": "gs-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "build": "run-s -l web:build:css web:build:remix",
     "start": "yarn remix-serve .",
