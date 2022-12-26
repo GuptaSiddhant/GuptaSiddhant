@@ -16,57 +16,59 @@ const ABORT_DELAY = 5_000;
 initFirebase();
 
 export default function handleRequest(
-	request: Request,
-	responseStatusCode: number,
-	responseHeaders: Headers,
-	remixContext: EntryContext,
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  remixContext: EntryContext,
 ) {
-	appLogger.logRequest(request);
+  appLogger.logRequest(request);
 
-	return new Promise((resolve, reject) => {
-		let didError = false;
+  return new Promise((resolve, reject) => {
+    let didError = false;
 
-		const { pipe, abort } = renderToPipeableStream(
-			<RemixServer context={remixContext} url={request.url} />,
-			{
-				onShellReady: () => {
-					const body = new PassThrough();
+    const { pipe, abort } = renderToPipeableStream(
+      <RemixServer context={remixContext} url={request.url} />,
+      {
+        onShellReady: () => {
+          const body = new PassThrough();
 
-					responseHeaders.set("Content-Type", "text/html; charset=utf-8");
-					responseHeaders.set("x-powered-by", "Remix.run");
+          responseHeaders.set("Content-Type", "text/html; charset=utf-8");
+          responseHeaders.set("x-powered-by", "Remix.run");
 
-					if (process.env.NODE_ENV !== "production") {
-						responseHeaders.set("Cache-Control", "no-store");
-					} else {
-						responseHeaders.set("Cache-Control", "3600");
-						responseHeaders.set("stale-while-revalidate", "86400");
-					}
+          if (process.env.NODE_ENV !== "production") {
+            responseHeaders.set("Cache-Control", "no-store");
+          } else {
+            responseHeaders.set("Cache-Control", "3600");
+            responseHeaders.set("stale-while-revalidate", "86400");
+          }
 
-					resolve(
-						new Response(body, {
-							headers: responseHeaders,
-							status: didError ? 500 : responseStatusCode,
-						}),
-					);
+          resolve(
+            new Response(body, {
+              headers: responseHeaders,
+              status: didError ? 500 : responseStatusCode,
+            }),
+          );
 
-					pipe(body);
-				},
+          pipe(body);
+        },
 
-				onShellError: reject,
+        onShellError: reject,
 
-				onError: (error) => {
-					didError = true;
+        onError: (error) => {
+          didError = true;
 
-					appLogger.error(getErrorMessage(error));
-				},
-			},
-		);
+          appLogger.error(getErrorMessage(error));
+        },
+      },
+    );
 
-		setTimeout(abort, ABORT_DELAY);
-	});
+    setTimeout(abort, ABORT_DELAY);
+  });
 }
 
 declare global {
-	var __IS_SERVER__: boolean;
-	var __IS_DEV__: boolean;
+  // rome-ignore lint/nursery/noVar: Global declaration
+  var __IS_SERVER__: boolean;
+  // rome-ignore lint/nursery/noVar: Global declaration
+  var __IS_DEV__: boolean;
 }

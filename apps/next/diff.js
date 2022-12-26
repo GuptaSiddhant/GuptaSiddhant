@@ -10,7 +10,7 @@ const pathList = stdout.split("\n").filter(Boolean);
 
 console.log("Files changed:", pathList);
 
-const testDirs = ["packages/next"];
+const testDirs = ["apps/next"];
 const testFiles = [];
 
 pathList.forEach((path) => {

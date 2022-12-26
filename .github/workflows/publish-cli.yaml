@@ -33,7 +33,7 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
 
       - name: Install dependencies
-        run: yarn workspaces focus guptasiddhant
+        run: yarn workspaces focus
 
       - name: Publish to NPM
         run: node scripts/publish.js
