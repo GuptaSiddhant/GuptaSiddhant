@@ -27,7 +27,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn workspace focus
+        run: yarn workspaces focus
 
       - name: Run tests
         run: yarn test:coverage

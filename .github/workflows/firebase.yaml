@@ -10,10 +10,7 @@ on:
 jobs:
   publish:
     name: Deploy Firebase functions
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./apps/functions"
+    runs-on: ubuntu-latest    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,7 +29,7 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-cred.json";
 
       - name: Install dependencies
-        run: yarn workspaces focus
+        run: yarn workspaces focus gs-functions
 
       # - name: Install firebase tools
       #   run: npm install --location=global firebase-tools
