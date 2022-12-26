@@ -6,10 +6,12 @@ import ShareIcon from "remixicon-react/ShareBoxLineIcon";
 import { appLogger } from "@gs/service/logger.server";
 import Button, { CopyButton } from "./Button";
 import { ExternalLink } from "./Link";
+import { useSyncExternalStore } from "react";
 
 export interface ShareTrayProps {
   url: string;
   title?: string;
+  text?: string;
 }
 
 export default function ShareTray(props: ShareTrayProps): JSX.Element | null {
@@ -29,8 +31,16 @@ export default function ShareTray(props: ShareTrayProps): JSX.Element | null {
 }
 
 function ShareButton(data: ShareTrayProps): JSX.Element | null {
-  if (!("share" in navigator)) return null;
-  if (!navigator.canShare(data)) return null;
+  const isButtonVisible: boolean = useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("load", callback);
+      return () => window.removeEventListener("load", callback);
+    },
+    () => "share" in window.navigator && window.navigator.canShare(data),
+    () => false,
+  );
+
+  if (!isButtonVisible) return null;
 
   return (
     <Button

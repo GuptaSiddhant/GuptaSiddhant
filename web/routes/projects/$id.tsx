@@ -138,7 +138,7 @@ export default function ProjectDetails(): JSX.Element {
         <Hero.Description description={description}>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Tags.List tags={tags.sort()} className="justify-start" />
-            <ShareTray url={url} />
+            <ShareTray url={url} title={title} text={subtitle} />
           </div>
         </Hero.Description>
 
