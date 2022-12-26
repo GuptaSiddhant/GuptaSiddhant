@@ -11,9 +11,9 @@ import useShortcutsCallback, {
   generateKeyDownArray,
   matchKeyDownArrays,
   ShortcutModifier,
-} from "./useShortcutsCallback";
+} from "../useShortcutsCallback";
 
-describe("generateKeyDownArray", () => {
+describe.concurrent("generateKeyDownArray", () => {
   test("Only Key", () => {
     const event = newKeyDownEvent({ key: "k" });
 
@@ -41,7 +41,7 @@ describe("generateKeyDownArray", () => {
   });
 });
 
-describe("matchKeyDownArrays", () => {
+describe.concurrent("matchKeyDownArrays", () => {
   test("Empty/missing arrays should return false", () => {
     expect(matchKeyDownArrays([], [])).toBe(false);
     expect(matchKeyDownArrays(undefined, [])).toBe(false);

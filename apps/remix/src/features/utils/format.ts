@@ -97,7 +97,7 @@ export function generateDurationString<
 
 export function formatUnit(
   value: number,
-  unit: string = "byte",
+  unit: string,
   locale: string = DEFAULT_LOCALE,
 ): string {
   return new Intl.NumberFormat(locale, {
@@ -126,7 +126,7 @@ export function formatList(
   list: string[],
   parts?: boolean,
   locale: string = DEFAULT_LOCALE,
-) {  
+) {
   const formatter = new Intl.ListFormat(locale, {
     style: "long",
     type: "conjunction",

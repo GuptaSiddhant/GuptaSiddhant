@@ -16,3 +16,5 @@ export const DEFAULT_LOCALE = "en-GB";
 
 // Google
 export const GCP_PROJECT_ID = "guptasiddhant-com";
+
+export * from "./logs-constants";

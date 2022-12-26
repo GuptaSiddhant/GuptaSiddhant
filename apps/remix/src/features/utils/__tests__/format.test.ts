@@ -11,12 +11,13 @@ import {
   formatTime,
   formatUnit,
   formatYYYYMMDD,
+  generateDurationString,
   toKebabCase,
   toTitleCase,
   transformMsToReadableString,
 } from "../format";
 
-describe("Formatting date-time", () => {
+describe.concurrent("Formatting date-time", () => {
   const date = new Date(2020, 3, 10, 10, 25, 30);
 
   test("formatDate", () => {
@@ -40,9 +41,21 @@ describe("Formatting date-time", () => {
   test("formatTime", () => {
     expect(formatTime(date)).toBe("10:25:30");
   });
+
+  test("generateDurationString", () => {
+    expect(generateDurationString({ startDate: date.toString() })).toBe(
+      "April 2020 - Present",
+    );
+    expect(
+      generateDurationString({
+        startDate: date.toString(),
+        endDate: "2020-12-01",
+      }),
+    ).toBe("April 2020 - December 2020");
+  });
 });
 
-describe("Formatting units", () => {
+describe.concurrent("Formatting units", () => {
   test("formatUnit - byte=1", () => {
     expect(formatUnit(1, "byte")).toMatchInlineSnapshot('"1 byte"');
   });
@@ -62,7 +75,7 @@ describe("Formatting units", () => {
   });
 });
 
-describe("Formatting list", () => {
+describe.concurrent("Formatting list", () => {
   const list = ["a", "b", "c"];
 
   test("formatList - string", () => {
@@ -97,7 +110,7 @@ describe("Formatting list", () => {
   });
 });
 
-describe("Formatting string", () => {
+describe.concurrent("Formatting string", () => {
   test("Duration is readable string", () => {
     const duration =
       ONE_DAY_IN_MS * 10 + ONE_HOUR_IN_MS * 6 + ONE_MIN_IN_MS * 39 + 56_789;
