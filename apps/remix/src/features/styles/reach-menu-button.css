@@ -1,0 +1,31 @@
+/* Used to detect in JavaScript if apps have loaded styles or not. */
+:root {
+  --reach-menu-button: 1;
+}
+
+[data-reach-menu] {
+  position: relative;
+}
+
+[data-reach-menu-item] {
+  display: block;
+  user-select: none;
+
+  /* reach-menu-item */
+  cursor: pointer;
+
+  /* a */
+  display: block;
+  font: inherit;
+  text-decoration: initial;
+}
+
+/* pseudo pseudo selector */
+[data-reach-menu-item][data-selected] {
+  outline: none;
+}
+
+[data-reach-menu-item][aria-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

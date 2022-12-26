@@ -1,0 +1,91 @@
+/* 
+Font: Nunito
+Author: Vernon Adams
+License: SIL Open Font License, 1.1
+License URL: http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL
+
+source 1: Local font
+source 2: Bundled font (/fonts/Nunito.woff2)
+source 3: Google font (https://fonts.google.com/specimen/Nunito)
+*/
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}
+@font-face {
+  font-family: "Nunito";
+  style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Nunito"), url(/fonts/Nunito.woff2) format("woff2"),
+    url(https://fonts.gstatic.com/s/nunito/v25/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+      format("woff2");
+}

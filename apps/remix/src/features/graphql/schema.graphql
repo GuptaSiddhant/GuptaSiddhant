@@ -1,0 +1,25 @@
+type Query {
+  test: Boolean
+  about: About
+  projects(limit: Int): [SummaryItem]
+  blog(limit: Int): [SummaryItem]
+  education(limit: Int): [SummaryItem]
+  career(limit: Int): [SummaryItem]
+  users(limit: Int): [String!]
+}
+
+type Mutation {
+  setMessage(message: String!): String!
+}
+
+type About {
+  name: String!
+}
+
+type SummaryItem {
+  id: String!
+  title: String!
+  subtitle: String
+  description: String
+  date: String
+}
