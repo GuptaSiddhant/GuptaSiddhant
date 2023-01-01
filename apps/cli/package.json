@@ -1,12 +1,12 @@
 {
   "name": "guptasiddhant",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Siddhant Gupta's CLI.",
   "bin": "./bin/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/GuptaSiddhant/GuptaSiddhant.git",
-    "directory": "packages/cli"
+    "directory": "apps/cli"
   },
   "author": "Siddhant Gupta <me@guptasiddhant.com>",
   "license": "MIT",
