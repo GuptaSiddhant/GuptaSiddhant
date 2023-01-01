@@ -1,8 +1,14 @@
 {
   "tailwindCSS.experimental.classRegex": [
-    ["clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    [
+      "clsx\\(([^)]*)\\)",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+    ]
   ],
-  "cSpell.words": ["remixicon", "tailwindcss"],
+  "cSpell.words": [
+    "remixicon",
+    "tailwindcss"
+  ],
   // "editor.rulers": [ 80 ],
   // "editor.codeActionsOnSave": {
   //   "source.fixAll.eslint": true
@@ -31,27 +37,37 @@
   "json.schemaDownload.enable": true,
   "json.schemas": [
     {
-      "fileMatch": ["**/education/index.json"],
+      "fileMatch": [
+        "**/education/index.json"
+      ],
       "url": "./.vscode/education.schema.json"
     },
     {
-      "fileMatch": ["**/career/index.json"],
+      "fileMatch": [
+        "**/career/index.json"
+      ],
       "url": "./.vscode/career.schema.json"
-    }
+    },
     {
-      "fileMatch": ["firebase.json"],
+      "fileMatch": [
+        "firebase.json"
+      ],
       "url": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json"
     }
   ],
+  "material-icon-theme.folders.associations": {
+    "next": "next",
+    "remix": "remix"
+  },
   "[javascript]": {
-		"editor.defaultFormatter": "rome.rome"
-	},
+    "editor.defaultFormatter": "rome.rome"
+  },
   "[typescript]": {
-		"editor.defaultFormatter": "rome.rome"
-	},
+    "editor.defaultFormatter": "rome.rome"
+  },
   "[typescriptreact]": {
-		"editor.defaultFormatter": "rome.rome"
-	}
+    "editor.defaultFormatter": "rome.rome"
+  }
   "deno.enable": false,
   // "deno.lint": true,
   // "deno.unstable": true,
