@@ -1,6 +1,6 @@
-# Siddhant Gupta
+# <a title="GS" href="https://www.guptasiddhant.org/" style="display:flex; align-items:center; gap: 1rem; font-weight: bold;"><img src="./assets/GS-black-192.png" alt="typescript" width="30" height="30" style="border-radius: 5px;" /> Siddhant Gupta</a>
 
-> My complete life-story at www.guptasiddhant.com.
+> Web-folio: www.guptasiddhant.com.
 
 ```sh
 # Get an interactive resume in your terminal.
@@ -23,7 +23,6 @@ Hi, I am Siddhant and I am a ...
 
 ## Projects
 
-- [Sybury](https://github.com/sybury). _A React meta-framework to ease my bootstrapping and management of new react applications._
 - [React Table UI](https://github.com/GuptaSiddhant/react-table-ui). _A UI library which wraps the headless **react-table@7** and provides a beautiful, accessible and ready-to-use Table component._
 - and more...
 
@@ -84,7 +83,7 @@ Dabbling with:
 <a title="ClojureScript" href="https://clojurescript.org"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/clojurescript/clojurescript-original.svg" alt="cclojurescript" width="20" height="20" /></a>
 <a title="Deno" href="https://deno.land"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/denojs/denojs-original.svg" alt="denojs" width="20" height="20" /></a>
 <a title="GatsbyJS" href="https://www.gatsbyjs.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-original.svg" alt="gatsby" width="20" height="20" /></a>
-<a title="Django" href="https://www.djangoproject.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-original.svg" alt="django" width="20" height="20" /></a>
+<a title="Django" href="https://www.djangoproject.com"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="django" width="20" height="20" /></a>
 <a title="Flutter" href="https://flutter.dev"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="flutter" width="20" height="20" /></a>
 
 ---
