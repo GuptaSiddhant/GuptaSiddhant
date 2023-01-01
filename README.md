@@ -1,6 +1,8 @@
-# <a title="GS" href="https://www.guptasiddhant.org/" style="display:flex; align-items:center; gap: 1rem; font-weight: bold;"><img src="./assets/GS-black-192.png" alt="typescript" width="30" height="30" style="border-radius: 5px;" /> Siddhant Gupta</a>
+# <img src="./assets/GS-black-192.png" alt="typescript" width="30" height="30" style="border-radius: 5px;" /> Siddhant Gupta
 
-> Web-folio: www.guptasiddhant.com.
+> Web-folio: [guptasiddhant.com](https://www.guptasiddhant.com)
+>
+> LinkedIn: [linkedin.com/in/GuptaSiddhant9](https://www.linkedin.com/in/GuptaSiddhant9/)
 
 ```sh
 # Get an interactive resume in your terminal.
