@@ -1,13 +1,13 @@
 // @ts-check
 
-import { spawnSync } from "child_process";
+const { spawnSync } = require("child_process");
 
 /**
  * @param {string[]} testDirs
  * @param {string[]=} testFiles
  * @param {{ logging?: boolean }=} options
  */
-export default function diff(testDirs, testFiles = [], options = {}) {
+module.exports = function diff(testDirs, testFiles = [], options = {}) {
   const { logging = true } = options;
   const { stdout } = spawnSync(
     ...transformCommand("git diff --name-only HEAD~1 HEAD"),
@@ -30,7 +30,7 @@ export default function diff(testDirs, testFiles = [], options = {}) {
   if (logging) console.log("Exit 0, nothing changed.");
 
   process.exit(0);
-}
+};
 
 // Helpers
 
