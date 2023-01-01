@@ -1,0 +1,7 @@
+{
+    "name": "@gs/diff",
+    "version": "0.0.0",
+    "main": "index.js",
+    "typing": "index.d.ts",
+    "type": "module"
+}
