@@ -1,13 +1,13 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
-import useSafeLayoutEffect from "./useSafeLayoutEffect"
+import useSafeLayoutEffect from "./useSafeLayoutEffect";
 
 export default function usePreviousValue<T>(value: T): T {
-  const ref = useRef<T>(value)
+  const ref = useRef<T>(value);
 
   useSafeLayoutEffect(() => {
-    ref.current = value
-  }, [value])
+    ref.current = value;
+  }, [value]);
 
-  return ref.current
+  return ref.current;
 }

@@ -1,16 +1,16 @@
-import clsx from "clsx"
-import { type ReactNode, useEffect, useRef } from "react"
+import clsx from "clsx";
+import { type ReactNode, useEffect, useRef } from "react";
 
-import { Outlet } from "@remix-run/react"
+import { Outlet } from "@remix-run/react";
 
-import AdminHeader from "./AdminHeader"
-import AdminNavbar, { type AdminNavbarProps } from "./AdminNavbar"
+import AdminHeader from "./AdminHeader";
+import AdminNavbar, { type AdminNavbarProps } from "./AdminNavbar";
 
 export interface AdminLayoutProps extends AdminNavbarProps {
-  children?: ReactNode
-  className?: string
-  footer?: ReactNode
-  sectionClassName?: string
+  children?: ReactNode;
+  className?: string;
+  footer?: ReactNode;
+  sectionClassName?: string;
 }
 
 export default function AdminLayout({
@@ -25,10 +25,10 @@ export default function AdminLayout({
   sectionClassName,
   ...props
 }: AdminLayoutProps): JSX.Element | null {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isRenderNavbar = (props.navGroups?.length || 0) > 0
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isRenderNavbar = (props.navGroups?.length || 0) > 0;
 
-  useEffect(() => sectionRef.current?.scrollIntoView(), [])
+  useEffect(() => sectionRef.current?.scrollIntoView(), []);
 
   return (
     <section
@@ -69,5 +69,5 @@ export default function AdminLayout({
         </footer>
       )}
     </section>
-  )
+  );
 }

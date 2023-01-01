@@ -1,13 +1,13 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
-import { Link, useNavigate } from "@remix-run/react"
+import { Link, useNavigate } from "@remix-run/react";
 
-import useLongPress from "@gs/hooks/useLongPress"
+import useLongPress from "@gs/hooks/useLongPress";
 
 export default function Logo(): JSX.Element | null {
-  const ref = useRef<HTMLAnchorElement>(null)
-  const navigate = useNavigate()
-  useLongPress(ref, () => navigate("/admin"))
+  const ref = useRef<HTMLAnchorElement>(null);
+  const navigate = useNavigate();
+  useLongPress(ref, () => navigate("/admin"));
 
   return (
     <Link
@@ -31,5 +31,5 @@ export default function Logo(): JSX.Element | null {
         GS
       </span>
     </Link>
-  )
+  );
 }

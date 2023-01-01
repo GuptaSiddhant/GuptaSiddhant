@@ -1,12 +1,12 @@
-import { Text, View } from "@react-pdf/renderer"
+import { Text, View } from "@react-pdf/renderer";
 
-import { useStyleSheet } from "../helpers"
-import type { BasePdfProps } from "../types"
+import { useStyleSheet } from "../helpers";
+import type { BasePdfProps } from "../types";
 
 export interface SectionProps extends BasePdfProps {
-  title?: string
-  disable?: boolean
-  wrap?: boolean
+  title?: string;
+  disable?: boolean;
+  wrap?: boolean;
 }
 
 export default function ResumeSection({
@@ -22,18 +22,14 @@ export default function ResumeSection({
       marginHorizontal: 32,
     },
     titleText: { ...texts.h2, marginVertical: 4, color: colors.black },
-  }))
+  }));
 
-  if (disable) return null
+  if (disable) return null;
 
   return (
-    <View
-      wrap={wrap}
-      style={[styles.section, style]}
-      {...({ bookmark: title } as any)}
-    >
+    <View wrap={wrap} style={[styles.section, style]} {...{ bookmark: title }}>
       {title ? <Text style={styles.titleText}>{title}</Text> : null}
       {children}
     </View>
-  )
+  );
 }

@@ -6,10 +6,10 @@ import {
   sky,
   slate,
   white,
-} from "tailwindcss/colors"
+} from "tailwindcss/colors";
 
-import { type ResumeFonts, ResumePalettes } from "./constants"
-import type { Style } from "./types"
+import { type ResumeFonts, ResumePalettes } from "./constants";
+import type { Style } from "./types";
 
 const fonts = {
   mono: "Courier",
@@ -18,7 +18,7 @@ const fonts = {
   sansBold: "Helvetica-Bold",
   serif: "Times-Roman",
   serifBold: "Times-Bold",
-}
+};
 
 // Functions
 
@@ -26,17 +26,17 @@ export function generateColors(color?: ResumePalettes) {
   const palette = (() => {
     switch (color) {
       case ResumePalettes.Red:
-        return rose
+        return rose;
       case ResumePalettes.Blue:
-        return sky
+        return sky;
       case ResumePalettes.Green:
-        return emerald
+        return emerald;
       case ResumePalettes.Purple:
-        return purple
+        return purple;
       default:
-        return slate
+        return slate;
     }
-  })()
+  })();
 
   return {
     white,
@@ -50,26 +50,35 @@ export function generateColors(color?: ResumePalettes) {
     bgFloat: palette[50],
     // border
     border: palette[200],
-  } as const
+  } as const;
 }
 
-export type ResumeColors = ReturnType<typeof generateColors>
+export type ResumeColors = ReturnType<typeof generateColors>;
 
 // Texts
 
-type TextType = `h1` | `h2` | `h3` | `h4` | `h5` | `h6` | `p` | "mono" | "small"
+type TextType =
+  | `h1`
+  | `h2`
+  | `h3`
+  | `h4`
+  | `h5`
+  | `h6`
+  | `p`
+  | "mono"
+  | "small";
 
-export type ResumeTexts = Record<TextType, Style>
+export type ResumeTexts = Record<TextType, Style>;
 
 export function generateTexts(font: ResumeFonts): ResumeTexts {
   const fontRegular =
-    font === "serif" ? fonts.serif : font === "sans" ? fonts.sans : fonts.mono
+    font === "serif" ? fonts.serif : font === "sans" ? fonts.sans : fonts.mono;
   const fontBold =
     font === "serif"
       ? fonts.serifBold
       : font === "sans"
       ? fonts.sansBold
-      : fonts.monoBold
+      : fonts.monoBold;
 
   const texts: ResumeTexts = {
     h1: {
@@ -105,7 +114,7 @@ export function generateTexts(font: ResumeFonts): ResumeTexts {
       fontSize: 10,
     },
     mono: { fontFamily: fonts.mono, fontSize: 12 },
-  }
+  };
 
-  return texts
+  return texts;
 }

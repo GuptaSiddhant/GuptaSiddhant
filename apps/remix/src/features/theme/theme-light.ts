@@ -1,4 +1,4 @@
-import { type ThemeColors, black, blue, gray, green, red } from "./utils"
+import { type ThemeColors, black, blue, gray, green, red } from "./utils";
 
 const lightThemeColors: ThemeColors = {
   text: {
@@ -28,6 +28,6 @@ const lightThemeColors: ThemeColors = {
   border: {
     divider: gray[200],
   },
-}
+};
 
-export default lightThemeColors
+export default lightThemeColors;

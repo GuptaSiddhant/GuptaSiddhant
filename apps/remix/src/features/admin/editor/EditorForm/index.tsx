@@ -8,7 +8,7 @@ import EditorObjectInput from "./EditorObjectInput";
 import EditorTextInput from "./EditorScalerInput";
 import { objectGridClassName } from "./helpers";
 
-export interface EditorFormProps<T extends Record<string, any>> {
+export interface EditorFormProps<T extends Record<string, unknown>> {
   formId: string;
   data?: T;
   model: Model;

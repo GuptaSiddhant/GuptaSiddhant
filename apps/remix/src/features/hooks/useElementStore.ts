@@ -1,6 +1,6 @@
-import { type RefObject, useRef, useSyncExternalStore } from "react"
+import { type RefObject, useRef, useSyncExternalStore } from "react";
 
-type EventMap = HTMLElementEventMap
+type EventMap = HTMLElementEventMap;
 
 /**
  * Sync the value of a property of a
@@ -18,20 +18,20 @@ export default function useElementStore<T, K extends keyof EventMap>(
   getState: (e?: EventMap[K]) => T,
   getServerState?: () => T,
 ): T {
-  const eventRef = useRef<EventMap[K]>()
+  const eventRef = useRef<EventMap[K]>();
 
   return useSyncExternalStore(
     (callback) => {
       const listener = (event: EventMap[K]) => {
-        eventRef.current = event
-        callback()
-      }
+        eventRef.current = event;
+        callback();
+      };
 
-      elementRef.current?.addEventListener(eventType, listener)
+      elementRef.current?.addEventListener(eventType, listener);
 
-      return () => elementRef.current?.removeEventListener(eventType, listener)
+      return () => elementRef.current?.removeEventListener(eventType, listener);
     },
     () => getState(eventRef.current),
     getServerState,
-  )
+  );
 }

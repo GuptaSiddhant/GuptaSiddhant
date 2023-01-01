@@ -1,14 +1,14 @@
-import clsx from "clsx"
-import { type Language } from "prism-react-renderer"
+import clsx from "clsx";
+import { type Language } from "prism-react-renderer";
 
 interface SupportedLanguageProperties {
-  lang: Language
-  label?: string
-  className?: string
+  lang: Language;
+  label?: string;
+  className?: string;
 }
 
-const javascriptClassName = clsx("bg-yellow-400 dark:bg-yellow-700")
-const typescriptClassName = clsx("bg-blue-300 dark:bg-blue-700")
+const javascriptClassName = clsx("bg-yellow-400 dark:bg-yellow-700");
+const typescriptClassName = clsx("bg-blue-300 dark:bg-blue-700");
 
 export const supportedLanguages: SupportedLanguageProperties[] = [
   { lang: "markup" },
@@ -51,25 +51,25 @@ export const supportedLanguages: SupportedLanguageProperties[] = [
   },
   { lang: "wasm" },
   { lang: "yaml" },
-]
+];
 
 export function getLanguageBadgeProperties(
   language: Language,
 ): SupportedLanguageProperties | undefined {
-  return supportedLanguages.find(({ lang }) => lang === language)
+  return supportedLanguages.find(({ lang }) => lang === language);
 }
 
 export function isLanguageSupported(language: string): boolean {
   return supportedLanguages
     .map(({ lang }) => lang)
-    .includes(language as Language)
+    .includes(language as Language);
 }
 
 export function getLanguageFromClassName(className: string): Language {
-  const match = className.match(/lang-(\w+)/)
-  const lang = match ? match[1] : ""
+  const match = className.match(/lang-(\w+)/);
+  const lang = match ? match[1] : "";
 
-  return isLanguageSupported(lang) ? (lang as Language) : "bash"
+  return isLanguageSupported(lang) ? (lang as Language) : "bash";
 }
 
-export { Language }
+export { Language };

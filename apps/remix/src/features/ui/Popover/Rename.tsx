@@ -1,19 +1,19 @@
-import { Form } from "@remix-run/react"
+import { Form } from "@remix-run/react";
 
-import Button from "../Button"
-import Input from "../Input"
-import { H6 } from "../Text"
-import { usePopoverContext } from "."
+import Button from "../Button";
+import Input from "../Input";
+import { H6 } from "../Text";
+import { usePopoverContext } from ".";
 
 export interface PopoverRenameContentProps {
-  previousName: string
+  previousName: string;
 }
 
 export default function PopoverRenameContent({
   previousName,
 }: PopoverRenameContentProps): JSX.Element | null {
   const { closePopover, initialFocusRef } =
-    usePopoverContext<HTMLInputElement>()
+    usePopoverContext<HTMLInputElement>();
 
   return (
     <Form
@@ -39,5 +39,5 @@ export default function PopoverRenameContent({
         <Button.Primary type="submit">Rename</Button.Primary>
       </div>
     </Form>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import { useCatch } from "@remix-run/react"
+import { useCatch } from "@remix-run/react";
 
-import Hero from "@gs/hero"
-import Logo from "@gs/root/Logo"
+import Hero from "@gs/hero";
+import Logo from "@gs/root/Logo";
 
-import CodeBlock from "./CodeBlock"
+import CodeBlock from "./CodeBlock";
 
 export interface ErrorSectionProps {
-  message?: string
-  title?: string
-  children?: React.ReactNode
-  caption?: string
-  className?: string
-  error?: Error
+  message?: string;
+  title?: string;
+  children?: React.ReactNode;
+  caption?: string;
+  className?: string;
+  error?: Error;
 }
 
 export function ErrorSection({
@@ -24,7 +24,7 @@ export function ErrorSection({
   className,
   error,
 }: ErrorSectionProps): JSX.Element | null {
-  const description = message || error?.message
+  const description = message || error?.message;
 
   return (
     <Hero className={className}>
@@ -45,7 +45,7 @@ export function ErrorSection({
         ) : null}
       </Hero.Description>
     </Hero>
-  )
+  );
 }
 
 export function ErrorPage({
@@ -66,7 +66,7 @@ export function ErrorPage({
 
       {children}
     </ErrorSection>
-  )
+  );
 }
 
 // CatchBoundarySection
@@ -74,12 +74,12 @@ export function ErrorPage({
 export function CatchBoundarySection({
   messages,
 }: {
-  messages?: Partial<Record<401 | 404, string>>
+  messages?: Partial<Record<401 | 404, string>>;
 }): JSX.Element | null {
-  const caught = useCatch()
-  const message = useCatchBoundaryMessage(messages)
+  const caught = useCatch();
+  const message = useCatchBoundaryMessage(messages);
 
-  const title = `${caught.status}: ${caught.statusText}`
+  const title = `${caught.status}: ${caught.statusText}`;
 
   return (
     <ErrorSection
@@ -87,25 +87,25 @@ export function CatchBoundarySection({
       message={message}
       caption={caught.status.toString()}
     />
-  )
+  );
 }
 
 export function useCatchBoundaryMessage(
   messages?: Partial<Record<401 | 404, string>>,
 ) {
-  const { data, status, statusText } = useCatch()
+  const { data, status, statusText } = useCatch();
 
   const defaultMessages: Record<401 | 404, string> = {
     401: "Oops! Looks like you tried to visit a page that you do not have access to.",
     404: "Oops! Looks like you tried to visit a page that does not exist.",
-  }
+  };
 
   switch (status) {
     case 401:
     case 404:
-      return messages?.[status] || defaultMessages[status]
+      return messages?.[status] || defaultMessages[status];
 
     default:
-      throw new Error(data || statusText)
+      throw new Error(data || statusText);
   }
 }

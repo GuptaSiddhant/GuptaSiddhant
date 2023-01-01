@@ -1,11 +1,11 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 export function RoundedCorner({
   className,
   size = 16,
 }: {
-  className?: string
-  size?: number
+  className?: string;
+  size?: number;
 }) {
   return (
     <svg
@@ -18,5 +18,5 @@ export function RoundedCorner({
     >
       <path d="M16 0H0V16C0 7.16344 7.16344 0 16 0Z" />
     </svg>
-  )
+  );
 }

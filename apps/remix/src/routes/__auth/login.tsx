@@ -1,45 +1,47 @@
-import { Form, useActionData, useLoaderData } from "@remix-run/react"
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime"
-import { json } from "@remix-run/server-runtime"
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
+import { json } from "@remix-run/server-runtime";
 
-import Hero from "@gs/hero"
-import authenticator, { loginUser } from "@gs/service/auth.server"
-import Button from "@gs/ui/Button"
-import Input from "@gs/ui/Input"
-import { Paragraph } from "@gs/ui/Text"
+import Hero from "@gs/hero";
+import authenticator, { loginUser } from "@gs/service/auth.server";
+import Button from "@gs/ui/Button";
+import Input from "@gs/ui/Input";
+import { Paragraph } from "@gs/ui/Text";
+import { getErrorMessage } from "@gs/utils/error";
 
 interface LoaderData {
-  redirectTo?: string
+  redirectTo?: string;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  console.log("login-loader")
+  console.log("login-loader");
   const redirectTo = new URL(request.url).searchParams
     .get("redirectTo")
-    ?.toString()
+    ?.toString();
 
   await authenticator.isAuthenticated(request, {
     successRedirect: "/admin",
-  })
+  });
 
-  return json<LoaderData>({ redirectTo })
-}
+  return json<LoaderData>({ redirectTo });
+};
 
 interface ActionData {
-  error?: string
+  error?: string;
 }
 
 export const action: ActionFunction = async ({ request }) => {
   try {
-    return await loginUser(request)
-  } catch (e: any) {
-    return json<ActionData>({ error: e.message }, 400)
+    return await loginUser(request);
+  } catch (e) {
+    const message = getErrorMessage(e);
+    return json<ActionData>({ error: message }, 400);
   }
-}
+};
 
 export default function Login(): JSX.Element {
-  const { redirectTo } = useLoaderData<LoaderData>()
-  const actionData = useActionData<ActionData>()
+  const { redirectTo } = useLoaderData<LoaderData>();
+  const actionData = useActionData<ActionData>();
 
   return (
     <Hero>
@@ -77,5 +79,5 @@ export default function Login(): JSX.Element {
         </Form>
       </Hero.Description>
     </Hero>
-  )
+  );
 }

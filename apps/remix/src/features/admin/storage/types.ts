@@ -1,20 +1,20 @@
-import type { StorageFile } from "@gs/service/storage.server"
+import type { StorageFile } from "@gs/service/storage.server";
 
 export enum StoragePathType {
   Dir = "dir",
   File = "file",
 }
 
-export type StoragePathProps = StorageDirProps | StorageFileProps
+export type StoragePathProps = StorageDirProps | StorageFileProps;
 
 export interface StorageDirProps {
-  path: string
-  type: StoragePathType.Dir
-  dirs: string[]
-  files: StorageFile[]
+  path: string;
+  type: StoragePathType.Dir;
+  dirs: string[];
+  files: StorageFile[];
 }
 export interface StorageFileProps {
-  path: string
-  type: StoragePathType.File
-  data: StorageFile
+  path: string;
+  type: StoragePathType.File;
+  data: StorageFile;
 }

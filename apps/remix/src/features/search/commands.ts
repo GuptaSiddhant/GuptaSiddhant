@@ -1,27 +1,27 @@
-import { useMemo } from "react"
+import { useMemo } from "react";
 
-import { useNavigate } from "@remix-run/react"
+import { useNavigate } from "@remix-run/react";
 
-import { useToggleTheme } from "@gs/theme/ThemeToggleButton"
+import { useToggleTheme } from "@gs/theme/ThemeToggleButton";
 
-import useSearch from "."
+import useSearch from ".";
 
-const COMMAND_KEY = ">"
+const COMMAND_KEY = ">";
 
 export interface Command {
-  id: string
-  onClick: () => void
-  title: string
+  id: string;
+  onClick: () => void;
+  title: string;
 }
 
 export function isCommand(str: string = ""): boolean {
-  return Boolean(str?.startsWith(COMMAND_KEY))
+  return Boolean(str?.startsWith(COMMAND_KEY));
 }
 
 export function useCommands(): Command[] {
-  const toggleTheme = useToggleTheme()
-  const navigate = useNavigate()
-  const { inputValue = "" } = useSearch()
+  const toggleTheme = useToggleTheme();
+  const navigate = useNavigate();
+  const { inputValue = "" } = useSearch();
 
   const commandValue = inputValue
     .trim()
@@ -29,7 +29,7 @@ export function useCommands(): Command[] {
     .slice(1)
     .map((t) => t.trim())
     .join(COMMAND_KEY)
-    .toLowerCase()
+    .toLowerCase();
 
   const commands: Command[] = useMemo(
     () => [
@@ -46,11 +46,11 @@ export function useCommands(): Command[] {
       },
     ],
     [toggleTheme, navigate],
-  )
+  );
 
   return useMemo(
     () =>
       commands.filter((cmd) => cmd.title.toLowerCase().includes(commandValue)),
     [commands, commandValue],
-  )
+  );
 }

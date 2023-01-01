@@ -11,6 +11,7 @@ import {
   generateColumnClassNameForModeSize,
 } from "./helpers";
 
+// rome-ignore lint/suspicious/noExplicitAny: Complicated // todo
 export interface EditorScalerInputProps<T = any> {
   name: string;
   model: ModelScalerType;

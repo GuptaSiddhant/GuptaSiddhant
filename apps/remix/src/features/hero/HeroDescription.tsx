@@ -1,12 +1,12 @@
-import clsx from "clsx"
-import { type ReactNode } from "react"
+import clsx from "clsx";
+import { type ReactNode } from "react";
 
-import { proseWidth } from "@gs/ui/Section"
-import { Paragraph } from "@gs/ui/Text"
+import { proseWidth } from "@gs/ui/Section";
+import { Paragraph } from "@gs/ui/Text";
 
 export interface HeroDescriptionProps {
-  description?: string
-  children?: ReactNode
+  description?: string;
+  children?: ReactNode;
 }
 
 export default function HeroDescription({
@@ -18,5 +18,5 @@ export default function HeroDescription({
       {description ? <Paragraph>{description}</Paragraph> : null}
       {children}
     </div>
-  )
+  );
 }

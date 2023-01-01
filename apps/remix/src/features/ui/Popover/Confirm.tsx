@@ -1,16 +1,16 @@
-import Button from "../Button"
-import { H6 } from "../Text"
-import { usePopoverContext } from "."
+import Button from "../Button";
+import { H6 } from "../Text";
+import { usePopoverContext } from ".";
 
 export interface PopoverConfirmProps {
-  title?: React.ReactNode
-  children?: React.ReactNode
-  cancelElement?: React.ReactNode
-  cancelClassName?: string
-  confirmElement?: React.ReactNode
-  confirmClassName?: string
-  onCancel?: () => void
-  onConfirm: () => void
+  title?: React.ReactNode;
+  children?: React.ReactNode;
+  cancelElement?: React.ReactNode;
+  cancelClassName?: string;
+  confirmElement?: React.ReactNode;
+  confirmClassName?: string;
+  onCancel?: () => void;
+  onConfirm: () => void;
 }
 
 export default function PopoverConfirmContent({
@@ -23,16 +23,16 @@ export default function PopoverConfirmContent({
   cancelClassName,
   confirmClassName,
 }: PopoverConfirmProps): JSX.Element | null {
-  const { closePopover, initialFocusRef } = usePopoverContext()
+  const { closePopover, initialFocusRef } = usePopoverContext();
 
   const handleCancel = () => {
-    onCancel?.()
-    closePopover()
-  }
+    onCancel?.();
+    closePopover();
+  };
   const handleConfirm = () => {
-    onConfirm()
-    closePopover()
-  }
+    onConfirm();
+    closePopover();
+  };
 
   return (
     <div className="flex flex-col gap-2 p-4">
@@ -58,7 +58,7 @@ export default function PopoverConfirmContent({
         </Button.Primary>
       </ul>
     </div>
-  )
+  );
 }
 
 export function getDeleteConfirmProps(
@@ -68,5 +68,5 @@ export function getDeleteConfirmProps(
     children: `Are you sure you want to delete the ${name}?`,
     confirmElement: "Delete",
     confirmClassName: "!bg-negative !text-white",
-  }
+  };
 }

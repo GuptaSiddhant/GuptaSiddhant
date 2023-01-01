@@ -1,6 +1,6 @@
 import {
-  type ShouldReloadFunction,
   Outlet,
+  type ShouldReloadFunction,
   useLoaderData,
 } from "@remix-run/react";
 import {
@@ -17,7 +17,9 @@ import {
 import { createMetaTitle } from "@gs/helpers/meta";
 import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
 
-interface LoaderData {}
+interface LoaderData {
+  foo?: string;
+}
 
 export const loader: LoaderFunction = async () => {
   return json<LoaderData>({});

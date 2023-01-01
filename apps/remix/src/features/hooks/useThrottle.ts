@@ -10,7 +10,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * @source https://github.com/imbhargav5/rooks/blob/main/src/hooks/useThrottle.ts
  */
 export default function useThrottle(
-  function_: Function,
+  function_: (...args: unknown[]) => unknown,
   timeout: number = 300,
 ): [(...args: unknown[]) => unknown, boolean] {
   const [ready, setReady] = useState(true);

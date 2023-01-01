@@ -1,11 +1,11 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import type { BaseProps } from "@gs/types"
-import Section, { proseWidth } from "@gs/ui/Section"
+import type { BaseProps } from "@gs/types";
+import Section, { proseWidth } from "@gs/ui/Section";
 
-import HeroDescription from "./HeroDescription"
-import HeroHeader from "./HeroHeader"
-import HeroImage from "./HeroImage"
+import HeroDescription from "./HeroDescription";
+import HeroHeader from "./HeroHeader";
+import HeroImage from "./HeroImage";
 
 export default function Hero({
   className,
@@ -22,9 +22,9 @@ export default function Hero({
         prose && proseWidth,
       )}
     />
-  )
+  );
 }
 
-Hero.Header = HeroHeader
-Hero.Description = HeroDescription
-Hero.Image = HeroImage
+Hero.Header = HeroHeader;
+Hero.Description = HeroDescription;
+Hero.Image = HeroImage;

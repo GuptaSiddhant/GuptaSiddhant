@@ -1,10 +1,10 @@
-import { Text, View } from "@react-pdf/renderer"
+import { Text, View } from "@react-pdf/renderer";
 
-import { useStyleSheet } from "../helpers"
+import { useStyleSheet } from "../helpers";
 
 export interface HeaderProps {
-  title: string
-  subject: string
+  title: string;
+  subject: string;
 }
 
 export default function ResumeHeader({
@@ -28,7 +28,7 @@ export default function ResumeHeader({
       ...texts.small,
       color: colors.textDisabled,
     },
-  }))
+  }));
 
   return (
     <View
@@ -43,5 +43,5 @@ export default function ResumeHeader({
         ) : null
       }
     />
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import { Link, Text, View } from "@react-pdf/renderer"
+import { Link, Text, View } from "@react-pdf/renderer";
 
-import { useStyleSheet } from "../helpers"
-import type { ContactLinkProps } from "../types"
+import { useStyleSheet } from "../helpers";
+import type { ContactLinkProps } from "../types";
 
 export interface HeroProps {
-  title: string
-  subtitle: string
-  contactLinks: ContactLinkProps[]
-  children?: React.ReactNode
+  title: string;
+  subtitle: string;
+  contactLinks: ContactLinkProps[];
+  children?: React.ReactNode;
 }
 
 export default function Hero({
@@ -33,7 +33,7 @@ export default function Hero({
     subtitle: { ...texts.h5, color: colors.black },
     codeBlock: { ...texts.mono, marginTop: 16 },
     codeComment: { ...texts.mono, color: colors.textDisabled },
-  }))
+  }));
 
   return (
     <View style={styles.container}>
@@ -47,12 +47,12 @@ export default function Hero({
       </View>
       <ContactBox links={contactLinks} />
     </View>
-  )
+  );
 }
 
 function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
-  const maxKeyLength = Math.max(...links.map(({ key }) => key.length))
-  const styles = useStyleSheet(({ colors, texts }) => ({
+  const maxKeyLength = Math.max(...links.map(({ key }) => key.length));
+  const styles = useStyleSheet(({ colors }) => ({
     contactContainer: {
       justifyContent: "flex-end",
       height: "100%",
@@ -64,7 +64,7 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
       color: colors.textSecondary,
       textDecoration: "none",
     },
-  }))
+  }));
 
   return (
     <View style={styles.contactContainer}>
@@ -81,5 +81,5 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
         </Text>
       ))}
     </View>
-  )
+  );
 }

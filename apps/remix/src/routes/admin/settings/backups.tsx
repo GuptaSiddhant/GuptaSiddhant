@@ -1,51 +1,51 @@
-import BackupIcon from "remixicon-react/UploadCloud2FillIcon"
+import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
 
-import { Outlet, useLoaderData } from "@remix-run/react"
+import { Outlet, useLoaderData } from "@remix-run/react";
 import {
   type ActionFunction,
   type LoaderFunction,
   json,
   redirect,
-} from "@remix-run/server-runtime"
+} from "@remix-run/server-runtime";
 
 import {
   backupDatabase,
   generateBackupNameFromBackupPath,
-} from "@gs/admin/backup/service.server"
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { UserRole } from "@gs/models/users"
-import { authenticateRoute } from "@gs/service/auth.server"
-import Storage, { type StorageFile } from "@gs/service/storage.server"
-import Action from "@gs/ui/Action"
+} from "@gs/admin/backup/service.server";
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { UserRole } from "@gs/models/users";
+import { authenticateRoute } from "@gs/service/auth.server";
+import Storage, { type StorageFile } from "@gs/service/storage.server";
+import Action from "@gs/ui/Action";
 
 interface LoaderData {
-  list: string[]
-  files: StorageFile[]
+  list: string[];
+  files: StorageFile[];
 }
 
-const pathname = "/admin/settings/backups/"
+const pathname = "/admin/settings/backups/";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request, UserRole.EDITOR)
-  const { files } = await Storage.queryDir("backup/")
-  const list = files.map((file) => generateBackupNameFromBackupPath(file.name))
+  await authenticateRoute(request, UserRole.EDITOR);
+  const { files } = await Storage.queryDir("backup/");
+  const list = files.map((file) => generateBackupNameFromBackupPath(file.name));
 
-  return json<LoaderData>({ list, files })
-}
+  return json<LoaderData>({ list, files });
+};
 
 export const action: ActionFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request);
 
   if (request.method === "POST") {
-    const filePath = await backupDatabase()
-    return redirect(`${pathname}${filePath}`)
+    const filePath = await backupDatabase();
+    return redirect(`${pathname}${filePath}`);
   }
 
-  return null
-}
+  return null;
+};
 
 export default function Backups(): JSX.Element | null {
-  const { list, files } = useLoaderData<LoaderData>()
+  const { list, files } = useLoaderData<LoaderData>();
 
   return (
     <AdminLayout
@@ -75,5 +75,5 @@ export default function Backups(): JSX.Element | null {
     >
       <Outlet context={{ files }} />
     </AdminLayout>
-  )
+  );
 }

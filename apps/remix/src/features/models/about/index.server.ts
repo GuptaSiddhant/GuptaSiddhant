@@ -1,48 +1,48 @@
-import { redirect } from "@remix-run/server-runtime"
+import { redirect } from "@remix-run/server-runtime";
 
-import { ModelName } from "@gs/models"
-import Database from "@gs/service/database.server"
+import { ModelName } from "@gs/models";
+import Database from "@gs/service/database.server";
 
-import type { AboutInfo } from "./info"
-import type { Skills } from "./skills"
+import type { AboutInfo } from "./info";
+import type { Skills } from "./skills";
 
-const modelName = ModelName.About
-const db = new Database(modelName)
+const modelName = ModelName.About;
+const db = new Database(modelName);
 
-export const aboutInfoKey = "info"
-export const aboutSkillsKey = "skills"
+export const aboutInfoKey = "info";
+export const aboutSkillsKey = "skills";
 
 export function getAboutModelName() {
-  return modelName
+  return modelName;
 }
 export function getAboutSkillsModelName() {
-  return ModelName.Skills
+  return ModelName.Skills;
 }
 
 export function getAboutDatabase() {
-  return db
+  return db;
 }
 
 export async function getAboutKeys() {
-  return db.queryKeys()
+  return db.queryKeys();
 }
 
 export async function getAboutInfo() {
-  return db.queryById<AboutInfo>(aboutInfoKey)
+  return db.queryById<AboutInfo>(aboutInfoKey);
 }
 
 export async function getAboutSkills() {
-  return db.queryById<Skills>(aboutSkillsKey)
+  return db.queryById<Skills>(aboutSkillsKey);
 }
 
-export { AboutInfo, Skills }
+export { AboutInfo, Skills };
 
 export function redirectToAbout(path?: string) {
   const pathWithoutSlash =
     path
       ?.split("/")
       .filter((t) => t !== "")
-      .join("-") || ""
+      .join("-") || "";
 
-  return redirect(`/about/#${pathWithoutSlash}`, 301)
+  return redirect(`/about/#${pathWithoutSlash}`, 301);
 }

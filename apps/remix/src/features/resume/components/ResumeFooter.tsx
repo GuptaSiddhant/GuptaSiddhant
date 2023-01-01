@@ -1,12 +1,10 @@
-import { Text, View } from "@react-pdf/renderer"
+import { Text, View } from "@react-pdf/renderer";
 
-import { formatDate } from "@gs/utils/format"
+import { formatDate } from "@gs/utils/format";
 
-import { useStyleSheet } from "../helpers"
+import { useStyleSheet } from "../helpers";
 
-export interface FooterProps {}
-
-export default function ResumeFooter(_: FooterProps): JSX.Element | null {
+export default function ResumeFooter(): JSX.Element | null {
   const styles = useStyleSheet(({ texts, colors }) => ({
     footer: {
       marginHorizontal: 32,
@@ -26,7 +24,7 @@ export default function ResumeFooter(_: FooterProps): JSX.Element | null {
       ...texts.small,
       color: colors.textDisabled,
     },
-  }))
+  }));
 
   return (
     <View style={styles.footer} fixed>
@@ -38,5 +36,5 @@ export default function ResumeFooter(_: FooterProps): JSX.Element | null {
         }
       />
     </View>
-  )
+  );
 }

@@ -9,16 +9,6 @@
     "remixicon",
     "tailwindcss"
   ],
-  // "editor.rulers": [ 80 ],
-  // "editor.codeActionsOnSave": {
-  //   "source.fixAll.eslint": true
-  // },
-  // "eslint.validate": [
-  //   "javascript",
-  //   "javascriptreact",
-  //   "typescript",
-  //   "typescriptreact"
-  // ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
@@ -69,6 +59,9 @@
     "editor.defaultFormatter": "rome.rome"
   }
   "deno.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.rome": true
+  },
   // "deno.lint": true,
   // "deno.unstable": true,
   // "deno.enablePaths": ["./apps/website"],

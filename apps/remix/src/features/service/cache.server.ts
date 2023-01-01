@@ -7,6 +7,7 @@ import Logger from "./logger.server";
 const logger = new Logger("Cache");
 
 declare global {
+  // rome-ignore lint/nursery/noVar: Global declaration
   var appCache: LRUCache<string, unknown>;
 }
 

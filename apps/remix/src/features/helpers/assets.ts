@@ -56,16 +56,16 @@ export function generateAssetTransformations(
   if (Object.keys(options).length > 0) {
     transformations.append("c", options.resize || "fill"); // crop/resize
   }
-  if (options.dpr){ 
+  if (options.dpr) {
     transformations.append("dpr", options.dpr.toString());
   }
-  if (options.resizeOrigin){ 
+  if (options.resizeOrigin) {
     transformations.append("g", options.resizeOrigin);
   }
-  if (options.width){ 
+  if (options.width) {
     transformations.append("w", options.width.toString());
   }
-  if (options.height){ 
+  if (options.height) {
     transformations.append("h", options.height.toString());
   }
   if (options.aspectRatio) {

@@ -4,8 +4,8 @@ import { type SummaryItem } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 import { generateDurationString } from "@gs/utils/format";
 
-import { getProjectsSummaryItems } from "../projects/index.server";
 import type { EducationProps } from ".";
+import { getProjectsSummaryItems } from "../projects/index.server";
 
 const modelName = ModelName.Education;
 const db = new Database<EducationProps>(modelName);
@@ -51,7 +51,7 @@ export async function getEducationItem(
   id: string,
   transform?: boolean,
   ignoreCache?: boolean,
-): Promise<any> {
+): Promise<unknown> {
   const item = await db.queryById(id, ignoreCache);
   const cover: string | undefined = item.gallery?.[0]?.url;
 

@@ -1,4 +1,4 @@
-import { type ModelObjectType, ModelSize } from "../types"
+import { type ModelObjectType, ModelSize } from "../types";
 
 export enum UserRole {
   GUEST = "GUEST",
@@ -23,13 +23,13 @@ const model: ModelObjectType = {
       enum: Object.values(UserRole),
     },
   },
-}
+};
 
-export default { model }
+export default { model };
 
 export interface UserProps {
-  id: string
-  name: string
-  email: string
-  role: UserRole
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
 }

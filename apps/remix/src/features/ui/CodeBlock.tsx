@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import Highlight, { defaultProps } from "prism-react-renderer";
-import { type ComponentPropsWithoutRef, Children } from "react";
+import { Children, type ComponentPropsWithoutRef } from "react";
 
 import {
   type Language,
@@ -83,7 +83,7 @@ function CodePre({
         <code className={clsx(className, "match-braces")} style={{}}>
           {tokens.map((line, i) => (
             <div
-              key={i}
+              key={i.toString()}
               {...getLineProps({ line, key: i })}
               style={{
                 whiteSpace: wrap ? "pre-wrap" : undefined,
@@ -94,7 +94,7 @@ function CodePre({
                 const tokenProps = getTokenProps({ token, key });
                 return (
                   <span
-                    key={key}
+                    key={key.toString()}
                     {...tokenProps}
                     className={clsx(tokenProps.className)}
                     style={{}}

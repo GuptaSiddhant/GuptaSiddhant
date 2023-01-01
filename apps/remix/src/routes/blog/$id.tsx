@@ -1,10 +1,10 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   type ErrorBoundaryComponent,
+  LoaderArgs,
   type MetaFunction,
   json,
   redirect,
-  LoaderArgs,
 } from "@remix-run/server-runtime";
 
 import {
@@ -15,12 +15,12 @@ import { generateArticleMeta } from "@gs/helpers/meta";
 import { type TocItem } from "@gs/helpers/table-of-contents";
 import Hero from "@gs/hero";
 import { EditIcon } from "@gs/icons";
+import { generateStructuredDataForBlogPost } from "@gs/models/blog";
 import {
   type BlogPostProps,
   getBlogPost,
   getBlogPostCrossSell,
 } from "@gs/models/blog/index.server";
-import { generateStructuredDataForBlogPost } from "@gs/models/blog";
 import { getAuthUser } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
@@ -32,6 +32,7 @@ import ShareTray from "@gs/ui/ShareTray";
 import TableOfContent from "@gs/ui/TableOfContent";
 import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
+import { getErrorMessage } from "@gs/utils/error";
 
 interface LoaderData {
   post: BlogPostProps;
@@ -68,8 +69,9 @@ export const loader = async ({ params, request }: LoaderArgs) => {
       crossSell,
       isAuthenticated,
     });
-  } catch (e: any) {
-    const reason = __IS_DEV__ ? `Reason: ${e?.message}` : "";
+  } catch (e) {
+    const message = getErrorMessage(e);
+    const reason = __IS_DEV__ ? `Reason: ${message}` : "";
     throw new Error(`Failed to load blog post '${id}'. ${reason}`);
   }
 };

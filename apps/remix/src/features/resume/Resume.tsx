@@ -1,34 +1,34 @@
-import { Document, Page, Text } from "@react-pdf/renderer"
+import { Document, Page, Text } from "@react-pdf/renderer";
 
-import type { SkillCategory, Skills } from "@gs/models/about/skills"
-import type { SummaryItem } from "@gs/summary"
-import { capitalize } from "@gs/utils/format"
+import type { SkillCategory, Skills } from "@gs/models/about/skills";
+import type { SummaryItem } from "@gs/summary";
+import { capitalize } from "@gs/utils/format";
 
-import type { ResumeCardProps } from "./components/ResumeCard"
-import ResumeCard from "./components/ResumeCard"
-import ResumeFooter from "./components/ResumeFooter"
-import ResumeHeader from "./components/ResumeHeader"
-import ResumeHero from "./components/ResumeHero"
-import ResumeSection from "./components/ResumeSection"
-import { ResumeSections } from "./constants"
-import { createAboutLink } from "./helpers"
-import useResumeContext from "./ResumeContext"
-import type { ContactLinkProps } from "./types"
+import useResumeContext from "./ResumeContext";
+import type { ResumeCardProps } from "./components/ResumeCard";
+import ResumeCard from "./components/ResumeCard";
+import ResumeFooter from "./components/ResumeFooter";
+import ResumeHeader from "./components/ResumeHeader";
+import ResumeHero from "./components/ResumeHero";
+import ResumeSection from "./components/ResumeSection";
+import { ResumeSections } from "./constants";
+import { createAboutLink } from "./helpers";
+import type { ContactLinkProps } from "./types";
 
 export interface ResumeProps {
-  domain: string
-  language?: string
-  subject?: string
+  domain: string;
+  language?: string;
+  subject?: string;
 
-  name: string
-  position: string
-  terminalResumeCode: string
-  contactLinks: ContactLinkProps[]
+  name: string;
+  position: string;
+  terminalResumeCode: string;
+  contactLinks: ContactLinkProps[];
 
-  aboutTexts?: string[]
-  experiences?: SummaryItem[]
-  educations?: SummaryItem[]
-  skills?: Skills
+  aboutTexts?: string[];
+  experiences?: SummaryItem[];
+  educations?: SummaryItem[];
+  skills?: Skills;
 }
 
 export default function Resume({
@@ -44,7 +44,7 @@ export default function Resume({
   aboutTexts = [],
   skills,
 }: ResumeProps): JSX.Element {
-  const { texts, colors } = useResumeContext()
+  const { texts, colors } = useResumeContext();
 
   return (
     <Document
@@ -70,7 +70,7 @@ export default function Resume({
 
         <ResumeSection disable={aboutTexts.length === 0}>
           {aboutTexts.map((text, index) => (
-            <Text key={index} style={{ marginBottom: 4 }}>
+            <Text key={index.toString()} style={{ marginBottom: 4 }}>
               {text}
             </Text>
           ))}
@@ -120,16 +120,16 @@ export default function Resume({
         <ResumeFooter />
       </Page>
     </Document>
-  )
+  );
 }
 
 function genCardProps(item: SummaryItem, domain: string): ResumeCardProps {
-  const { id, title, subtitle, description } = item
+  const { id, title, subtitle, description } = item;
   return {
     link: createAboutLink(domain, id),
     title,
     subtitle,
     caption: item.duration,
     children: description,
-  }
+  };
 }

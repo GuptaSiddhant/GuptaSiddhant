@@ -3,6 +3,7 @@ import Database from "@gs/service/database.server";
 import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
+import type { ProjectProps } from ".";
 import {
   getCareerItem,
   getCareerKeys,
@@ -13,7 +14,6 @@ import {
   getEducationKeys,
   getEducationModelName,
 } from "../education/index.server";
-import type { ProjectProps } from ".";
 
 const modelName = ModelName.Projects;
 const db = new Database<ProjectProps>(modelName);
@@ -73,7 +73,7 @@ export async function getProjectAssociationById(
   if (assocId.includes("/")) {
     const [modelName, id] = assocId.split("/");
 
-    return Database.queryModelById(modelName, id) as any;
+    return Database.queryModelById(modelName, id) as Promise<SummaryItem>;
   }
 
   const [educationItem, careerItem] = await Promise.allSettled([

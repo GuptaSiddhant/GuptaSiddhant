@@ -1,15 +1,15 @@
-import clsx from "clsx"
-import { type ComponentPropsWithoutRef } from "react"
+import clsx from "clsx";
+import { type ComponentPropsWithoutRef } from "react";
 
-import { type BaseProps } from "@gs//types"
-import { capitalize } from "@gs/utils/format"
+import { type BaseProps } from "@gs//types";
+import { capitalize } from "@gs/utils/format";
 
 export default {
   List: TagList,
   Tag: Tag,
   Button: TagButton,
   Checkbox: TagCheckbox,
-}
+};
 
 function TagList({
   tags,
@@ -19,15 +19,15 @@ function TagList({
   suffixElement,
   limitBy,
 }: {
-  tags: string[]
-  className?: string
-  tagElement?: JSX.Element
-  TagComponent?: (props: { tag: string }) => JSX.Element
-  prefixElement?: JSX.Element
-  suffixElement?: JSX.Element
-  limitBy?: number
+  tags: string[];
+  className?: string;
+  tagElement?: JSX.Element;
+  TagComponent?: (props: { tag: string }) => JSX.Element;
+  prefixElement?: JSX.Element;
+  suffixElement?: JSX.Element;
+  limitBy?: number;
 }): JSX.Element {
-  const limit = limitBy ?? tags.length
+  const limit = limitBy ?? tags.length;
   return (
     <fieldset
       className={clsx("relative flex flex-wrap items-center gap-2", className)}
@@ -38,10 +38,10 @@ function TagList({
       ))}
       {suffixElement}
     </fieldset>
-  )
+  );
 }
 
-const tagCommonStyle = clsx("text-base")
+const tagCommonStyle = clsx("text-base");
 
 function Tag({ className, ...props }: BaseProps) {
   return (
@@ -54,7 +54,7 @@ function Tag({ className, ...props }: BaseProps) {
         className,
       )}
     />
-  )
+  );
 }
 
 function TagButton({
@@ -71,7 +71,7 @@ function TagButton({
         className,
       )}
     />
-  )
+  );
 }
 
 function TagCheckbox({
@@ -81,7 +81,7 @@ function TagCheckbox({
   label,
   ...props
 }: ComponentPropsWithoutRef<"input"> & { label?: string }) {
-  const htmlId = id || `tag-${value}`
+  const htmlId = id || `tag-${value}`;
   return (
     <span>
       <input
@@ -108,5 +108,5 @@ function TagCheckbox({
         {label || value}
       </label>
     </span>
-  )
+  );
 }

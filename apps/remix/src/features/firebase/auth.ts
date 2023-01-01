@@ -49,6 +49,6 @@ interface SignInWithEmailPasswordErrorResponse {
   error: {
     code: number;
     message: string;
-    errors: {}[];
+    errors: unknown[];
   };
 }

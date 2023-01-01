@@ -1,13 +1,13 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import about from "./about/info"
-import skills from "./about/skills"
-import blog from "./blog"
-import career from "./career"
-import education from "./education"
-import projects from "./projects"
-import type { Model, ModelStyling } from "./types"
-import users from "./users"
+import about from "./about/info";
+import skills from "./about/skills";
+import blog from "./blog";
+import career from "./career";
+import education from "./education";
+import projects from "./projects";
+import type { Model, ModelStyling } from "./types";
+import users from "./users";
 
 export enum ModelName {
   Projects = "projects",
@@ -21,39 +21,39 @@ export enum ModelName {
   Skills = "skills",
 }
 
-export type { Model }
+export type { Model };
 
 export function getModelByModelName(modelName: ModelName) {
   switch (modelName) {
     case ModelName.Career:
-      return career.model
+      return career.model;
     case ModelName.Education:
-      return education.model
+      return education.model;
     case ModelName.Blog:
-      return blog.model
+      return blog.model;
     case ModelName.Projects:
-      return projects.model
+      return projects.model;
     case ModelName.About:
-      return about.model
+      return about.model;
     case ModelName.Skills:
-      return skills.model
+      return skills.model;
     case ModelName.Users:
-      return users.model
+      return users.model;
     default:
-      throw new Error(`Unknown model name: ${modelName}`)
+      throw new Error(`Unknown model name: ${modelName}`);
   }
 }
 
 export function getStylingByModelName(modelName: ModelName): ModelStyling {
   switch (modelName) {
     case ModelName.Career:
-      return career.styling
+      return career.styling;
     case ModelName.Education:
-      return education.styling
+      return education.styling;
     case ModelName.Projects:
-      return projects.styling
+      return projects.styling;
     case ModelName.Blog:
-      return blog.styling
+      return blog.styling;
     default: {
       return {
         bg: clsx("bg-secondary"),
@@ -62,24 +62,24 @@ export function getStylingByModelName(modelName: ModelName): ModelStyling {
         borderHocus: clsx(
           "selected:border-secondary group-hocus:border-secondary",
         ),
-      }
+      };
     }
   }
 }
 
 export function getLabelByModelName(modelName: ModelName): string {
-  let label: string = ""
+  let label: string = "";
   Object.entries(ModelName).forEach(([key, value]) => {
     if (value === modelName) {
-      label = key
+      label = key;
     }
-  })
+  });
 
-  return label
+  return label;
 }
 
 export function verifyValidModelName(name: string): boolean {
-  const modelNames = Object.values(ModelName) as string[]
+  const modelNames = Object.values(ModelName) as string[];
 
-  return modelNames.includes(name)
+  return modelNames.includes(name);
 }

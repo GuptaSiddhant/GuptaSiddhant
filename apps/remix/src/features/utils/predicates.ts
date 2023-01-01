@@ -6,6 +6,12 @@ export function typedBooleanFilterPredicate<T>(
   return Boolean(value);
 }
 
+export function formDataStringOnlyEntriesFilterPredicate<
+  T extends FormDataEntryValue,
+>(entry: [string, T]): entry is [string, Exclude<T, File>] {
+  return typeof entry[1] === "string";
+}
+
 export function uniqueFilterPredicate<T>(
   item: T,
   index: number,

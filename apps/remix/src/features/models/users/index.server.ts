@@ -1,33 +1,33 @@
-import { ModelName } from "@gs/models"
-import Database from "@gs/service/database.server"
-import { querySummaryItemsByModelName } from "@gs/summary/service.server"
+import { ModelName } from "@gs/models";
+import Database from "@gs/service/database.server";
+import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
-import type { UserProps } from "."
+import type { UserProps } from ".";
 
-const modelName = ModelName.Users
-const db = new Database<UserProps>(modelName)
+const modelName = ModelName.Users;
+const db = new Database<UserProps>(modelName);
 
 export function getUsersModelName() {
-  return modelName
+  return modelName;
 }
 
 export function getUsersDatabase() {
-  return db
+  return db;
 }
 
 export async function getUsersKeys() {
-  return db.queryKeys()
+  return db.queryKeys();
 }
 
 export async function getBlogSummaryItems() {
-  return querySummaryItemsByModelName(modelName)
+  return querySummaryItemsByModelName(modelName);
 }
 
 export async function getUser(
   id: string,
   ignoreCache?: boolean,
 ): Promise<UserProps> {
-  return await db.queryById(id, ignoreCache)
+  return await db.queryById(id, ignoreCache);
 }
 
-export { UserProps }
+export { UserProps };

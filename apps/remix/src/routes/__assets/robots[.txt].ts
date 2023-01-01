@@ -1,7 +1,7 @@
-import type { LoaderFunction } from "@remix-run/server-runtime"
+import type { LoaderFunction } from "@remix-run/server-runtime";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const { origin } = new URL(request.url)
+  const { origin } = new URL(request.url);
 
   const robotText = `
 User-agent: Googlebot
@@ -16,12 +16,12 @@ Allow: /
 Disallow: /admin/
 
 Sitemap: ${origin}/sitemap.xml
-    `
+    `;
 
   return new Response(robotText, {
     status: 200,
     headers: { "Content-Type": "text/plain" },
-  })
-}
+  });
+};
 
 export function CatchBoundary() {}

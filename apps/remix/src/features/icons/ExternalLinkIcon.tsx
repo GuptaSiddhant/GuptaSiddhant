@@ -1,4 +1,4 @@
-import LinkIcon from "remixicon-react/ExternalLinkLineIcon"
+import LinkIcon from "remixicon-react/ExternalLinkLineIcon";
 
 export function ExternalLinkIcon(): JSX.Element {
   return (
@@ -11,5 +11,5 @@ export function ExternalLinkIcon(): JSX.Element {
       }}
       size="1em"
     />
-  )
+  );
 }

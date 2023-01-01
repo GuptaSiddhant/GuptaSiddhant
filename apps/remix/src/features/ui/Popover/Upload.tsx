@@ -1,19 +1,19 @@
-import { Form } from "@remix-run/react"
+import { Form } from "@remix-run/react";
 
-import Button from "../Button"
-import Input from "../Input"
-import { H6 } from "../Text"
-import { usePopoverContext } from "."
+import Button from "../Button";
+import Input from "../Input";
+import { H6 } from "../Text";
+import { usePopoverContext } from ".";
 
 export interface PopoverUploadContentProps {
-  multiple?: boolean
+  multiple?: boolean;
 }
 
 export default function PopoverUploadContent({
   multiple = true,
 }: PopoverUploadContentProps): JSX.Element | null {
   const { closePopover, initialFocusRef } =
-    usePopoverContext<HTMLInputElement>()
+    usePopoverContext<HTMLInputElement>();
 
   return (
     <Form
@@ -47,5 +47,5 @@ export default function PopoverUploadContent({
         <Button.Primary type="submit">Upload</Button.Primary>
       </div>
     </Form>
-  )
+  );
 }

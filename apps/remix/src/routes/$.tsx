@@ -5,6 +5,7 @@ import { ONE_DAY_IN_S } from "@gs/constants";
 import { generateCloudinaryUrl } from "@gs/helpers/assets";
 import { appLogger } from "@gs/service/logger.server";
 import Storage from "@gs/service/storage.server";
+import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -27,8 +28,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     }
 
     throw new Error(`Error 404 Path not found - ${path}`);
-  } catch (e: any) {
-    appLogger.error(e.message);
+  } catch (e) {
+    appLogger.error(getErrorMessage(e));
 
     return redirect("/404");
   }

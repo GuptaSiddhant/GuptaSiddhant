@@ -1,10 +1,13 @@
-import { describe, test, expect } from "vitest";
-import { z } from "zod";
+/** @vitest-environment jsdom */
+
 import {
   dateSortPredicate,
+  formDataStringOnlyEntriesFilterPredicate,
   typedBooleanFilterPredicate,
   uniqueFilterPredicate,
 } from "../predicates";
+import { describe, expect, test } from "vitest";
+import { z } from "zod";
 
 describe("dateSortPredicate", () => {
   const todayDate = new Date();
@@ -87,6 +90,33 @@ describe("typedBooleanFilterPredicate", () => {
       expectedSchema.safeParse(array.filter(typedBooleanFilterPredicate))
         .success,
     ).toBe(true);
+  });
+});
+
+describe("formDataStringOnlyEntriesFilterPredicate", () => {
+  const file = new File([], "filename");
+
+  test("returns false when entry contains File value", () => {
+    expect(formDataStringOnlyEntriesFilterPredicate(["key", file])).toBe(false);
+  });
+
+  test("returns true when entry contains string value", () => {
+    expect(formDataStringOnlyEntriesFilterPredicate(["key", "value"])).toBe(
+      true,
+    );
+  });
+
+  test("returns filtered entries with only string values", () => {
+    const formEntries: [string, FormDataEntryValue][] = [
+      ["key1", "string"],
+      ["key2", file],
+      // @ts-expect-error
+      ["key2", false],
+    ];
+
+    expect(
+      formEntries.filter(formDataStringOnlyEntriesFilterPredicate),
+    ).toEqual([["key1", "string"]]);
   });
 });
 

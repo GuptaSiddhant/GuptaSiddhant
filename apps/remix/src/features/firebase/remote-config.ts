@@ -97,6 +97,7 @@ export async function mutateFirebaseRemoteConfigMap(
 
   Object.entries(configMap).forEach(([key, value]) => {
     if (value === undefined) {
+      // rome-ignore lint/performance/noDelete: Need to delete
       return delete template.parameters[key];
     }
 

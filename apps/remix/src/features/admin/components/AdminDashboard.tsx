@@ -1,13 +1,13 @@
-import clsx from "clsx"
-import type { ReactNode } from "react"
+import clsx from "clsx";
+import type { ReactNode } from "react";
 
-import Table, { type TableProps } from "@gs/ui/Table"
-import { Caption } from "@gs/ui/Text"
+import Table, { type TableProps } from "@gs/ui/Table";
+import { Caption } from "@gs/ui/Text";
 
 export interface AdminDashboardProps {
-  children: ReactNode
-  icon: ReactNode
-  title: string
+  children: ReactNode;
+  icon: ReactNode;
+  title: string;
 }
 
 export default function AdminDashboard({
@@ -21,10 +21,10 @@ export default function AdminDashboard({
       <Caption className="w-full pb-4 text-center">{title}</Caption>
       {children}
     </div>
-  )
+  );
 }
 
-AdminDashboard.Table = AdminDashboardTable
+AdminDashboard.Table = AdminDashboardTable;
 
 function AdminDashboardTable<T extends object>(
   props: TableProps<T>,
@@ -38,5 +38,5 @@ function AdminDashboardTable<T extends object>(
       bodyCellClassName="px-4 py-2 min-w-[4rem]  text-left"
       bodyRowClassName="border-b border-divider"
     />
-  )
+  );
 }

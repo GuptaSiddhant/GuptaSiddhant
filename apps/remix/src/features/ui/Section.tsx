@@ -1,6 +1,6 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
-import type { BaseProps } from "@gs/types"
+import type { BaseProps } from "@gs/types";
 
 export default function Section({
   children,
@@ -21,19 +21,19 @@ export default function Section({
     >
       {children}
     </section>
-  )
+  );
 }
 
-Section.Prose = SectionProse
+Section.Prose = SectionProse;
 
 export const proseWidth = clsx(
   "min-w-full md:min-w-[65ch] max-w-[65ch] mx-auto px-4",
-)
+);
 
 function SectionProse({ className, ...props }: BaseProps): JSX.Element {
-  return <Section {...props} className={clsx(proseWidth, className)} />
+  return <Section {...props} className={clsx(proseWidth, className)} />;
 }
 
 export const proseReaderClassName = clsx(
   "prose prose-blockquote:-ml-4 dark:prose-invert small-only:!max-w-full",
-)
+);

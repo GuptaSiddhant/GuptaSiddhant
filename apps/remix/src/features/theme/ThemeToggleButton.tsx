@@ -1,17 +1,17 @@
-import DarkModeIcon from "remixicon-react/MoonFillIcon"
-import LightModeIcon from "remixicon-react/SunFillIcon"
+import DarkModeIcon from "remixicon-react/MoonFillIcon";
+import LightModeIcon from "remixicon-react/SunFillIcon";
 
-import { useFetcher } from "@remix-run/react"
+import { useFetcher } from "@remix-run/react";
 
-import useWindowStore from "@gs/hooks/useWindowStore"
-import Action from "@gs/ui/Action"
+import useWindowStore from "@gs/hooks/useWindowStore";
+import Action from "@gs/ui/Action";
 
-import { type ThemeName } from "."
+import { type ThemeName } from ".";
 
 export default function ThemeToggleButton({
   themeName,
 }: {
-  themeName: ThemeName
+  themeName: ThemeName;
 }) {
   return (
     <Action.Form
@@ -24,29 +24,29 @@ export default function ThemeToggleButton({
     >
       {themeName === "light" ? <DarkModeIcon /> : <LightModeIcon />}
     </Action.Form>
-  )
+  );
 }
 
 export function ThemeIcon({ themeName }: { themeName: ThemeName }) {
-  return themeName === "light" ? <DarkModeIcon /> : <LightModeIcon />
+  return themeName === "light" ? <DarkModeIcon /> : <LightModeIcon />;
 }
 
 export function useToggleTheme() {
-  const { submit, type } = useFetcher()
+  const { submit, type } = useFetcher();
   const originPath = useWindowStore(
     "load",
     () => window.location.href,
     () => "",
-  )
+  );
 
   if (type === "done") {
-    window.location.replace(originPath)
+    window.location.replace(originPath);
   }
 
   return () => {
     submit(
       { theme: "toggle", originPath },
       { action: "/theme.css", method: "post" },
-    )
-  }
+    );
+  };
 }

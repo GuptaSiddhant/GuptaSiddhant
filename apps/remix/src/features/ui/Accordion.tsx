@@ -1,14 +1,14 @@
-import clsx from "clsx"
+import clsx from "clsx";
 
 export interface AccordionProps {
-  open?: boolean | "always"
-  summary?: React.ReactNode
-  children: React.ReactNode
-  className?: string
-  summaryClassName?: string
-  summaryLeadingElement?: React.ReactNode
-  accordionRef?: React.Ref<HTMLDetailsElement>
-  summaryRef?: React.Ref<HTMLElement>
+  open?: boolean | "always";
+  summary?: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+  summaryClassName?: string;
+  summaryLeadingElement?: React.ReactNode;
+  accordionRef?: React.Ref<HTMLDetailsElement>;
+  summaryRef?: React.Ref<HTMLElement>;
 }
 
 export default function Accordion({
@@ -21,8 +21,8 @@ export default function Accordion({
   accordionRef,
   summaryRef,
 }: AccordionProps): JSX.Element | null {
-  const alwaysOpen = open === "always"
-  const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "details"
+  const alwaysOpen = open === "always";
+  const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "details";
 
   return (
     <TagName
@@ -32,6 +32,7 @@ export default function Accordion({
         "relative w-full rounded-md",
         "transition-[height]",
       )}
+      // rome-ignore lint/suspicious/noExplicitAny: Can be "div" or "summary"
       ref={accordionRef as React.Ref<any>}
     >
       {summary && (
@@ -46,17 +47,17 @@ export default function Accordion({
       )}
       {children}
     </TagName>
-  )
+  );
 }
 
-Accordion.Summary = AccordionSummary
+Accordion.Summary = AccordionSummary;
 
 export interface AccordionSummaryProps {
-  children: React.ReactNode
-  className?: string
-  leadingElement?: React.ReactNode
-  alwaysOpen?: boolean
-  summaryRef?: React.Ref<HTMLElement>
+  children: React.ReactNode;
+  className?: string;
+  leadingElement?: React.ReactNode;
+  alwaysOpen?: boolean;
+  summaryRef?: React.Ref<HTMLElement>;
 }
 
 function AccordionSummary({
@@ -66,10 +67,11 @@ function AccordionSummary({
   alwaysOpen,
   summaryRef,
 }: AccordionSummaryProps): JSX.Element | null {
-  const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "summary"
+  const TagName: keyof JSX.IntrinsicElements = alwaysOpen ? "div" : "summary";
 
   return (
     <TagName
+      // rome-ignore lint/suspicious/noExplicitAny: Can be "div" or "summary"
       ref={summaryRef as React.Ref<any>}
       className={clsx(
         className,
@@ -92,5 +94,5 @@ function AccordionSummary({
         ) : null}
       </div>
     </TagName>
-  )
+  );
 }

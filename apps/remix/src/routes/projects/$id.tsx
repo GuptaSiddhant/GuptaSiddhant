@@ -15,6 +15,7 @@ import { generateArticleMeta } from "@gs/helpers/meta";
 import { type TocItem } from "@gs/helpers/table-of-contents";
 import Hero from "@gs/hero";
 import { EditIcon } from "@gs/icons";
+import { generateStructuredDataForProject } from "@gs/models/projects";
 import {
   type ProjectProps,
   getProject,
@@ -32,7 +33,7 @@ import ShareTray from "@gs/ui/ShareTray";
 import TableOfContent from "@gs/ui/TableOfContent";
 import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
-import { generateStructuredDataForProject } from "@gs/models/projects";
+import { getErrorMessage } from "@gs/utils/error";
 
 interface LoaderData {
   project: ProjectProps;
@@ -73,8 +74,9 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       associationItem,
       isAuthenticated,
     });
-  } catch (e: any) {
-    const reason = __IS_DEV__ ? `Reason: ${e?.message}` : "";
+  } catch (e) {
+    const message = getErrorMessage(e);
+    const reason = __IS_DEV__ ? `Reason: ${message}` : "";
     throw new Error(`Failed to load project '${id}'. ${reason}`);
   }
 };

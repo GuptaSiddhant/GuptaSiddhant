@@ -1,15 +1,15 @@
-import { type ReactNode } from "react"
+import { type ReactNode } from "react";
 
-import Hero from "@gs/hero"
+import Hero from "@gs/hero";
 
 import SummaryFilterSortForm, {
   type SummaryFilterSortFormProps,
-} from "./SummaryFilterSortForm"
+} from "./SummaryFilterSortForm";
 
 export interface SummaryHeroProps extends SummaryFilterSortFormProps {
-  children?: ReactNode
-  title: string
-  subtitle?: string
+  children?: ReactNode;
+  title: string;
+  subtitle?: string;
 }
 
 export default function SummaryHero({
@@ -26,5 +26,5 @@ export default function SummaryHero({
         <SummaryFilterSortForm {...props} />
       </Hero.Description>
     </Hero>
-  )
+  );
 }

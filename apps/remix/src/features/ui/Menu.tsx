@@ -6,26 +6,26 @@ import {
   MenuItems,
   MenuLink,
   MenuPopover,
-} from "@reach/menu-button"
-import clsx from "clsx"
-import CloseIcon from "remixicon-react/CloseCircleLineIcon"
+} from "@reach/menu-button";
+import clsx from "clsx";
+import CloseIcon from "remixicon-react/CloseCircleLineIcon";
 
-import { Link } from "@remix-run/react"
+import { Link } from "@remix-run/react";
 
-import type { To } from "@gs/types"
+import type { To } from "@gs/types";
 
 export interface MenuProps {
-  className?: string
-  children?: React.ReactNode
-  actions: MenuActionProps[]
-  header?: React.ReactNode
-  footer?: React.ReactNode
+  className?: string;
+  children?: React.ReactNode;
+  actions: MenuActionProps[];
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
 export type MenuActionProps = {
-  id: string
-  children: React.ReactNode
-} & ({ to: To } | { onSelect: MenuItemProps["onSelect"] })
+  id: string;
+  children: React.ReactNode;
+} & ({ to: To } | { onSelect: MenuItemProps["onSelect"] });
 
 export default function Menu({
   className,
@@ -38,7 +38,7 @@ export default function Menu({
     "px-4 py-2 text-secondary",
     "[&[data-selected]]:bg-blue-200 dark:[&[data-selected]]:bg-blue-800",
     "[&[data-selected]]:text-primary",
-  )
+  );
 
   return (
     <ReachMenu>
@@ -81,7 +81,7 @@ export default function Menu({
         </>
       )}
     </ReachMenu>
-  )
+  );
 }
 
-Menu.Button = MenuButton
+Menu.Button = MenuButton;

@@ -1,11 +1,11 @@
-import type { To } from "@gs/types"
+import type { To } from "@gs/types";
 
 export interface NavigationLinkProps {
-  id: string
-  children: React.ReactNode
-  to?: To
-  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  download?: string
-  external?: boolean
-  shortcut?: string[]
+  id: string;
+  children: React.ReactNode;
+  to?: To;
+  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  download?: string;
+  external?: boolean;
+  shortcut?: string[];
 }

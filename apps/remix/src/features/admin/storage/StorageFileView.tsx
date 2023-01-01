@@ -14,14 +14,14 @@ import { formatDateTime, formatUnit } from "@gs/utils/format";
 
 import AdminDashboard from "../components/AdminDashboard";
 import {
-  extractLastPartOfFilePath,
   FileType,
+  extractLastPartOfFilePath,
   getFileTypeFromFileContentType,
   getIconFromFileType,
 } from "./helpers";
 import { type StorageFileProps } from "./types";
 
-export interface StorageFileViewProps extends StorageFileProps {}
+export type StorageFileViewProps = StorageFileProps;
 
 export default function StorageFileView({
   path,

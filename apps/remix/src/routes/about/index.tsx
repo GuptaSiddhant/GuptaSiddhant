@@ -77,7 +77,7 @@ function AboutHero(): JSX.Element | null {
       />
       <Hero.Description>
         {aboutTexts.map((text, index) => (
-          <Paragraph className="text-tertiary" key={index}>
+          <Paragraph className="text-tertiary" key={index.toString()}>
             {text}
           </Paragraph>
         ))}

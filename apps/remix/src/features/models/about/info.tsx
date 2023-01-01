@@ -1,5 +1,5 @@
-import type { Model } from "../types"
-import { ModelSize } from "../types"
+import type { Model } from "../types";
+import { ModelSize } from "../types";
 
 const model: Model = {
   type: "object",
@@ -52,27 +52,27 @@ const model: Model = {
       },
     },
   },
-}
+};
 
-export default { model }
+export default { model };
 
 export interface AboutInfo {
-  id: string
-  name: string
-  shortName: string
-  title: string
+  id: string;
+  name: string;
+  shortName: string;
+  title: string;
   terminalResume: {
-    code: string
-    copyText?: string
-  }
+    code: string;
+    copyText?: string;
+  };
   hero: {
-    title: string
-    adjectives: string[]
-  }
-  currentCompany?: string
-  techStack?: string[]
-  heroAdjectives?: string[]
-  link?: Record<AboutLinkKey, string>
+    title: string;
+    adjectives: string[];
+  };
+  currentCompany?: string;
+  techStack?: string[];
+  heroAdjectives?: string[];
+  link?: Record<AboutLinkKey, string>;
 }
 
-export type AboutLinkKey = "linkedin" | "github" | "email" | "website"
+export type AboutLinkKey = "linkedin" | "github" | "email" | "website";

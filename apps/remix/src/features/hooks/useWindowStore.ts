@@ -1,6 +1,6 @@
-import { useRef, useSyncExternalStore } from "react"
+import { useRef, useSyncExternalStore } from "react";
 
-type EventMap = WindowEventMap
+type EventMap = WindowEventMap;
 
 /**
  * Sync the value of a property of a
@@ -16,19 +16,19 @@ export default function useWindowStore<T, K extends keyof EventMap>(
   getState: (e?: EventMap[K]) => T,
   getServerState?: () => T,
 ): T {
-  const eventRef = useRef<EventMap[K]>()
+  const eventRef = useRef<EventMap[K]>();
 
   return useSyncExternalStore(
     (callback) => {
       const listener = (event: EventMap[K]) => {
-        eventRef.current = event
-        callback()
-      }
-      window.addEventListener(eventType, listener, { passive: true })
+        eventRef.current = event;
+        callback();
+      };
+      window.addEventListener(eventType, listener, { passive: true });
 
-      return () => window.removeEventListener(eventType, listener)
+      return () => window.removeEventListener(eventType, listener);
     },
     () => getState(eventRef.current),
     getServerState,
-  )
+  );
 }

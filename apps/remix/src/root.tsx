@@ -14,14 +14,14 @@ import { getAboutInfo } from "@gs/models/about/index.server";
 import { getNavigationRemoteConfig } from "@gs/navigation/service.server";
 import { type RootLoaderData } from "@gs/root";
 import AppLayout from "@gs/root/AppLayout";
-import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries";
 import Document from "@gs/root/Document";
+import { RootContext } from "@gs/root/RootContext";
+import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries";
 import links from "@gs/root/links";
 import meta from "@gs/root/meta";
-import { RootContext } from "@gs/root/RootContext";
 import { getAuthUser } from "@gs/service/auth.server";
-import { getThemeFromRequest } from "@gs/theme/cookie.server";
 import { getPwaFromRequest } from "@gs/service/pwa.server";
+import { getThemeFromRequest } from "@gs/theme/cookie.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const locale =

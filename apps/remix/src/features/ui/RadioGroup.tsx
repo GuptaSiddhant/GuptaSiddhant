@@ -1,14 +1,14 @@
-import clsx from "clsx"
+import clsx from "clsx";
 import {
   type ComponentPropsWithoutRef,
   type ForwardedRef,
   type ReactNode,
-} from "react"
+} from "react";
 
 export interface RadioGroupProps extends ComponentPropsWithoutRef<"fieldset"> {
-  options: InputWithLabelProps[]
-  value?: string
-  name: string
+  options: InputWithLabelProps[];
+  value?: string;
+  name: string;
 }
 
 export default function RadioGroup({
@@ -29,7 +29,7 @@ export default function RadioGroup({
       )}
     >
       {options.map((props) => {
-        const id = props.id || `radio-${props.name}-${props.value}`
+        const id = props.id || `radio-${props.name}-${props.value}`;
 
         return (
           <RadioButton
@@ -39,16 +39,16 @@ export default function RadioGroup({
             checked={value === props.value}
             {...props}
           />
-        )
+        );
       })}
     </fieldset>
-  )
+  );
 }
 
 export type InputWithLabelProps = ComponentPropsWithoutRef<"input"> & {
-  inputRef?: ForwardedRef<HTMLInputElement> | null
-  label: ReactNode
-}
+  inputRef?: ForwardedRef<HTMLInputElement> | null;
+  label: ReactNode;
+};
 
 function RadioButton({
   id,
@@ -79,5 +79,5 @@ function RadioButton({
         {label}
       </div>
     </label>
-  )
+  );
 }

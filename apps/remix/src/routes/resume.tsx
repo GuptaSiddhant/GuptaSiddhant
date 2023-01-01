@@ -26,6 +26,7 @@ import Select from "@gs/ui/Select";
 import Tags from "@gs/ui/Tags";
 import { H1 } from "@gs/ui/Text";
 import { capitalize } from "@gs/utils/format";
+import { formDataStringOnlyEntriesFilterPredicate } from "@gs/utils/predicates";
 
 interface LoaderData {
   origin: string;
@@ -61,15 +62,19 @@ export default function Resume(): JSX.Element {
   );
 
   const handleSubmit = (form: HTMLFormElement): void => {
-    const formData = new FormData(form).entries();
-    const searchParams = new URLSearchParams(formData as any);
+    const formData = new FormData(form);
+    const searchParams = new URLSearchParams(
+      Array.from(formData).filter(formDataStringOnlyEntriesFilterPredicate),
+    );
+
     for (const x of searchParams.keys()) {
       const value = searchParams.get(x);
 
-      if (value === "") {
+      if (!value || value === "") {
         searchParams.delete(x);
       }
     }
+
     setQuery(searchParams.toString());
   };
 

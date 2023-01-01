@@ -1,5 +1,5 @@
-import type { ModelArrayType, ModelObjectType } from "./types"
-import { ModelSize } from "./types"
+import type { ModelArrayType, ModelObjectType } from "./types";
+import { ModelSize } from "./types";
 
 export const linksModel: ModelArrayType = {
   type: "array",
@@ -25,7 +25,7 @@ export const linksModel: ModelArrayType = {
       },
     },
   },
-}
+};
 
 export const galleryModel: ModelArrayType = {
   type: "array",
@@ -36,7 +36,7 @@ export const galleryModel: ModelArrayType = {
       alt: { type: "string", required: true, size: ModelSize.MEDIUM },
     },
   },
-}
+};
 
 export const summaryModel: ModelObjectType = {
   type: "object",
@@ -49,7 +49,7 @@ export const summaryModel: ModelObjectType = {
     featured: { type: "boolean" },
     draft: { type: "boolean" },
   },
-}
+};
 
 export const commonCareerEducationModel: ModelObjectType = {
   type: "object",
@@ -61,7 +61,7 @@ export const commonCareerEducationModel: ModelObjectType = {
     endDate: { type: "string" },
     location: { type: "string", size: ModelSize.MEDIUM },
   },
-}
+};
 
 export const commonBlogProjectModel: ModelObjectType = {
   type: "object",
@@ -73,4 +73,4 @@ export const commonBlogProjectModel: ModelObjectType = {
     description: { type: "string", size: ModelSize.LARGE },
     content: { type: "string", format: "markdown" },
   },
-}
+};

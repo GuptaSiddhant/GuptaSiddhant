@@ -1,11 +1,11 @@
-import clsx from "clsx"
-import CareerIcon from "remixicon-react/Briefcase5FillIcon"
+import clsx from "clsx";
+import CareerIcon from "remixicon-react/Briefcase5FillIcon";
 
-import type { SummaryItem } from "@gs/summary"
-import type { Gallery } from "@gs/types"
+import type { SummaryItem } from "@gs/summary";
+import type { Gallery } from "@gs/types";
 
-import { commonCareerEducationModel } from "../common-models"
-import { type ModelObjectType, type ModelStyling, ModelSize } from "../types"
+import { commonCareerEducationModel } from "../common-models";
+import { type ModelObjectType, type ModelStyling, ModelSize } from "../types";
 
 const model: ModelObjectType = {
   type: "object",
@@ -18,7 +18,7 @@ const model: ModelObjectType = {
       enum: ["full-time", "part-time", "freelancer", "intern", "contract"],
     },
   },
-}
+};
 
 const styling: ModelStyling = {
   bg: clsx("bg-purple-500"),
@@ -26,9 +26,9 @@ const styling: ModelStyling = {
   border: clsx("border-purple-500"),
   borderHocus: clsx("group-hocus:border-purple-500 selected:border-purple-500"),
   icon: <CareerIcon />,
-}
+};
 
-export default { model, styling }
+export default { model, styling };
 
 export enum CareerRoleType {
   FullTime = "full-time",
@@ -39,13 +39,13 @@ export enum CareerRoleType {
 }
 
 export interface CareerProps extends Omit<SummaryItem, "title" | "model"> {
-  position: string
-  company: string
-  type?: CareerRoleType
-  gallery?: Gallery
-  startDate: string
-  endDate?: string
-  location?: string
+  position: string;
+  company: string;
+  type?: CareerRoleType;
+  gallery?: Gallery;
+  startDate: string;
+  endDate?: string;
+  location?: string;
 }
 
-export { CareerIcon }
+export { CareerIcon };

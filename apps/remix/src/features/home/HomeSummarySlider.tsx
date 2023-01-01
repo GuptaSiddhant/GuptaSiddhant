@@ -1,20 +1,20 @@
 import {
   type HeroHeaderCaptionIconType,
   HeroHeaderCaption,
-} from "@gs/hero/HeroHeader"
-import type { SummaryItem } from "@gs/summary"
-import SummarySlider from "@gs/summary/SummarySlider"
-import { InternalLink } from "@gs/ui/Link"
-import { H2 } from "@gs/ui/Text"
+} from "@gs/hero/HeroHeader";
+import type { SummaryItem } from "@gs/summary";
+import SummarySlider from "@gs/summary/SummarySlider";
+import { InternalLink } from "@gs/ui/Link";
+import { H2 } from "@gs/ui/Text";
 
 export interface HomeSummarySliderProps {
-  caption: string
-  children: React.ReactNode
-  id: string
-  linkText?: string
-  items: SummaryItem[]
-  icon?: HeroHeaderCaptionIconType
-  showCardSubtitle?: boolean
+  caption: string;
+  children: React.ReactNode;
+  id: string;
+  linkText?: string;
+  items: SummaryItem[];
+  icon?: HeroHeaderCaptionIconType;
+  showCardSubtitle?: boolean;
 }
 
 export default function HomeSummarySlider({
@@ -40,5 +40,5 @@ export default function HomeSummarySlider({
 
       {linkText ? <InternalLink to={`/${id}/`}>{linkText}</InternalLink> : null}
     </SummarySlider>
-  )
+  );
 }

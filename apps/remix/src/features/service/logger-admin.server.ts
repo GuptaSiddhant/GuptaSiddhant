@@ -3,9 +3,8 @@ import { GCP_PROJECT_ID, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import { googleServiceAccount } from "@gs/firebase/credentials";
 import invariant from "@gs/utils/invariant";
-import { boolean } from "zod";
 
-import { fetchCachedKey, deleteCachedKey } from "./cache.server";
+import { deleteCachedKey, fetchCachedKey } from "./cache.server";
 
 const cacheKey = "logger";
 function createCacheKey(...texts: string[]) {

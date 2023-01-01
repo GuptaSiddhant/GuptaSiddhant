@@ -1,5 +1,5 @@
-import type { ModelArrayType, ModelObjectType } from "../types"
-import { ModelSize } from "../types"
+import type { ModelArrayType, ModelObjectType } from "../types";
+import { ModelSize } from "../types";
 
 const skillModel: ModelArrayType = {
   type: "array",
@@ -17,7 +17,7 @@ const skillModel: ModelArrayType = {
       },
     },
   },
-}
+};
 
 const model: ModelObjectType = {
   type: "object",
@@ -29,12 +29,12 @@ const model: ModelObjectType = {
     design: skillModel,
     language: skillModel,
   },
-}
+};
 
-export default { model }
+export default { model };
 
 export interface Skills extends Record<SkillCategory, SkillObject[]> {
-  id: string
+  id: string;
 }
 
 export type SkillCategory =
@@ -42,11 +42,11 @@ export type SkillCategory =
   | "frontend"
   | "backend"
   | "design"
-  | "language"
+  | "language";
 
 export interface SkillObject {
-  title: string
-  linkUrl?: string
-  iconUrl?: string
-  level?: "advanced" | "intermediate" | "basic"
+  title: string;
+  linkUrl?: string;
+  iconUrl?: string;
+  level?: "advanced" | "intermediate" | "basic";
 }

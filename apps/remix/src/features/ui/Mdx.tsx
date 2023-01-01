@@ -6,7 +6,7 @@ import { generateHeadingId } from "@gs/helpers";
 import { Pre } from "./CodeBlock";
 import Img from "./Img";
 import { AnchorLink } from "./Link";
-import { type HeadingProps, H1, H2, H3, H4, H5, H6, Paragraph } from "./Text";
+import { H1, H2, H3, H4, H5, H6, type HeadingProps, Paragraph } from "./Text";
 
 export interface MdxProps {
   mdx?: string;
@@ -56,7 +56,7 @@ export default Mdx;
 // Helpers
 
 function headingGenerator(Component: (props: HeadingProps) => JSX.Element) {
-  return function Heading(props: Object & { children: React.ReactNode }) {
+  return function Heading(props: { children: React.ReactNode }) {
     return <Component {...props} link id={generateHeadingId(props.children)} />;
   };
 }

@@ -1,21 +1,21 @@
-import type { CSSProperties, ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react";
 
-import { type LinkProps } from "@remix-run/react"
+import { type LinkProps } from "@remix-run/react";
 
-export type To = LinkProps["to"]
+export type To = LinkProps["to"];
 
 export interface BaseProps<TRef extends HTMLElement = HTMLElement> {
-  id?: string
-  className?: string
-  style?: CSSProperties
-  elementRef?: React.Ref<TRef>
-  children?: ReactNode
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
+  elementRef?: React.Ref<TRef>;
+  children?: ReactNode;
 }
 
 export interface LinkObject<T = LinkType> {
-  url: string
-  title?: string
-  type?: T
+  url: string;
+  title?: string;
+  type?: T;
 }
 
 export type LinkType =
@@ -28,9 +28,9 @@ export type LinkType =
   | "blog"
   | "npm"
   | "prototype"
-  | "design"
+  | "design";
 
-export type Gallery = Array<{ url: string; alt: string }>
+export type Gallery = Array<{ url: string; alt: string }>;
 
 export type RemixSubmitFunctionTarget =
   | HTMLFormElement
@@ -39,6 +39,6 @@ export type RemixSubmitFunctionTarget =
   | FormData
   | URLSearchParams
   | {
-      [name: string]: string
+      [name: string]: string;
     }
-  | null
+  | null;

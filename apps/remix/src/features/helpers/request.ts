@@ -9,5 +9,5 @@ export function parseGetAllSearchParams(
       .split(",")
       .filter(Boolean)
       .map((s) => s.trim()) || []
-  )
+  );
 }

@@ -2,24 +2,24 @@ import type {
   ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
-} from "@remix-run/server-runtime"
+} from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin"
-import { createAdminMeta } from "@gs/admin/helpers"
-import AdminLayout from "@gs/admin/layout/AdminLayout"
-import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar"
-import type { AdminAppHandle } from "@gs/admin/types"
-import { authenticateRoute } from "@gs/service/auth.server"
-import { ErrorSection } from "@gs/ui/Error"
-import { Caption } from "@gs/ui/Text"
+import { AdminAppId, adminRegistry } from "@gs/admin";
+import { createAdminMeta } from "@gs/admin/helpers";
+import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar";
+import type { AdminAppHandle } from "@gs/admin/types";
+import { authenticateRoute } from "@gs/service/auth.server";
+import { ErrorSection } from "@gs/ui/Error";
+import { Caption } from "@gs/ui/Text";
 
-const adminApp = adminRegistry.getApp(AdminAppId.Settings)
+const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticateRoute(request)
+  await authenticateRoute(request);
 
-  return null
-}
+  return null;
+};
 
 export default function SettingsAdminApp(): JSX.Element | null {
   const navGroups: AdminNavbarGroupProps[] = [
@@ -40,7 +40,7 @@ export default function SettingsAdminApp(): JSX.Element | null {
         },
       ],
     },
-  ]
+  ];
 
   return (
     <AdminLayout
@@ -48,15 +48,15 @@ export default function SettingsAdminApp(): JSX.Element | null {
       header={<Caption>{adminApp.title}</Caption>}
       navGroups={navGroups}
     />
-  )
+  );
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.title)
+export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
-  )
-}
+  );
+};
 
-export const handle: AdminAppHandle = { adminApp }
+export const handle: AdminAppHandle = { adminApp };

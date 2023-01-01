@@ -1,16 +1,16 @@
-import type { Style } from "@react-pdf/types/style"
+import type { Style } from "@react-pdf/types/style";
 
-export { Style }
+export { Style };
 
 export interface ContactLinkProps {
-  key: string
-  value: string
-  linkUrl?: string
-  style?: Style
+  key: string;
+  value: string;
+  linkUrl?: string;
+  style?: Style;
 }
 
 export interface BasePdfProps {
-  id?: string
-  children?: React.ReactNode
-  style?: Style
+  id?: string;
+  children?: React.ReactNode;
+  style?: Style;
 }
