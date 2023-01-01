@@ -10,7 +10,6 @@
     "dev:css": "tailwindcss -w -o ./src/features/styles/tailwind.generated.css",
     "dev:remix": "remix dev",
     "dev:emulator": "bash ./scripts/emulator-dev.sh",
-    "diff": "node diff.mjs",
     "format": "rome format src",
     "format:fix": "rome format --write src",
     "lint": "rome check src",
