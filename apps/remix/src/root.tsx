@@ -1,4 +1,3 @@
-import type { ShouldReloadFunction } from "@remix-run/react";
 import {
   LiveReload,
   Outlet,
@@ -22,6 +21,7 @@ import meta from "@gs/root/meta";
 import { getAuthUser } from "@gs/service/auth.server";
 import { getPwaFromRequest } from "@gs/service/pwa.server";
 import { getThemeFromRequest } from "@gs/theme/cookie.server";
+import type { ShouldRevalidateFunctionArgs } from "@gs/types";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const locale =
@@ -74,4 +74,6 @@ export { CatchBoundary, ErrorBoundary, links, meta };
 //   ),
 // }
 
-export const unstable_shouldReload: ShouldReloadFunction = () => false;
+export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
+  return true;
+}

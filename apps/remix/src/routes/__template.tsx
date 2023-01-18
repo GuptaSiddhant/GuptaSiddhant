@@ -1,8 +1,4 @@
-import {
-  Outlet,
-  type ShouldReloadFunction,
-  useLoaderData,
-} from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import {
   // type ActionFunction,
   type ErrorBoundaryComponent,
@@ -15,6 +11,7 @@ import {
 } from "@remix-run/server-runtime";
 
 import { createMetaTitle } from "@gs/helpers/meta";
+import type { ShouldRevalidateFunctionArgs } from "@gs/types";
 import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
 
 interface LoaderData {
@@ -53,6 +50,8 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection error={error} />;
 };
 
-export const unstable_shouldReload: ShouldReloadFunction = () => true;
+export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
+  return true;
+}
 
 export const handle = {};

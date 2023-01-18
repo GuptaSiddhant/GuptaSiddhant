@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { type LinkProps } from "@remix-run/react";
+import { type LinkProps, ShouldRevalidateFunction } from "@remix-run/react";
 
 export type To = LinkProps["to"];
 
@@ -42,3 +42,6 @@ export type RemixSubmitFunctionTarget =
       [name: string]: string;
     }
   | null;
+
+export type ShouldRevalidateFunctionArgs =
+  Parameters<ShouldRevalidateFunction>[0];

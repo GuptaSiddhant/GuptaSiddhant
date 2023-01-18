@@ -1,10 +1,6 @@
 import clsx from "clsx";
 
-import {
-  type ShouldReloadFunction,
-  Outlet,
-  useLocation,
-} from "@remix-run/react";
+import { Outlet, useLocation } from "@remix-run/react";
 import {
   type ErrorBoundaryComponent,
   type LoaderArgs,
@@ -18,6 +14,7 @@ import { AdminContext } from "@gs/admin/context";
 import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { ShouldRevalidateFunctionArgs } from "@gs/types";
 import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
 
 // rome-ignore lint/nursery/noEmptyInterface: For future reference
@@ -86,4 +83,6 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return <ErrorSection title="Oops. Admin broke!!!" error={error} />;
 };
 
-export const unstable_shouldReload: ShouldReloadFunction = () => false;
+export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
+  return true;
+}
