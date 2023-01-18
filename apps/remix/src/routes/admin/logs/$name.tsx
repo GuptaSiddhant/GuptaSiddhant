@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData, useRevalidator } from "@remix-run/react";
 import {
   ActionArgs,
   LoaderArgs,
@@ -10,7 +10,9 @@ import { useId, useMemo, useState } from "react";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import AdminLayout from "@gs/admin/layout/AdminLayout";
+import { ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
+import useInterval from "@gs/hooks/useInterval";
 import { CloseIcon, FilterIcon, RefreshIcon } from "@gs/icons";
 import { UserRole } from "@gs/models/users";
 import { NavigationLinkProps } from "@gs/navigation/types";
@@ -70,6 +72,10 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function LoggerList(): JSX.Element | null {
   const { name, logs, limit, message, severity } = useLoaderData<LoaderData>();
+  const { revalidate, state: revalidationState } = useRevalidator();
+  const isRevalidating = revalidationState !== "idle";
+
+  useInterval(revalidate, ONE_MIN_IN_MS);
 
   const columns: TableColumnProps<LogItem>[] = useMemo(
     () => [
@@ -96,8 +102,13 @@ export default function LoggerList(): JSX.Element | null {
     {
       id: "Reload",
       children: (
-        <Action title="Reload logs" method="post" toast="Reloading logs">
-          <RefreshIcon />
+        <Action
+          title="Reload logs"
+          method="post"
+          toast="Reloading logs"
+          disabled={isRevalidating}
+        >
+          {isRevalidating ? "Refreshing..." : <RefreshIcon />}
         </Action>
       ),
     },
@@ -200,7 +211,10 @@ function FilterForm({
   return (
     <Form
       method="get"
-      className="flex flex-col  sm:flex-row gap-4 sm:items-center justify-between w-full overflow-y-auto py-2"
+      className={clsx(
+        "flex flex-col sm:flex-row gap-4 sm:items-center justify-between",
+        "w-full overflow-y-auto py-2 sm:py-0",
+      )}
     >
       <fieldset className="flex gap-2 items-center flex-wrap w-full">
         <Select

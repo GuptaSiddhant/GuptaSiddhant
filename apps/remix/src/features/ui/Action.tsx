@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 import {
-  type FormProps,
   Form,
+  type FormProps,
   useFetcher,
   useLocation,
   useSubmit,
@@ -24,6 +24,7 @@ export interface ActionProps extends FormProps {
   body?: Record<string, unknown>;
   confirm?: Partial<PopoverConfirmProps> | string;
   toast?: string | Omit<ToastProps, "id">;
+  disabled?: boolean;
 }
 
 export default function Action({
@@ -38,6 +39,7 @@ export default function Action({
   encType,
   replace = true,
   id,
+  disabled,
 }: ActionProps): JSX.Element | null {
   const originPath = useOriginPath();
 
@@ -84,7 +86,7 @@ export default function Action({
       type="button"
       className={clsx(className, "gap-2 flex-center")}
       onClick={handleSubmit}
-      disabled={isSubmitting}
+      disabled={disabled || isSubmitting}
     >
       {children}
     </Button>
