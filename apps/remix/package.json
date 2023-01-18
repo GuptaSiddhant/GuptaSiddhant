@@ -34,6 +34,7 @@
     "@remix-run/react": "^1.10.0",
     "@remix-run/server-runtime": "^1.10.0",
     "@remix-run/vercel": "^1.10.0",
+    "@upstash/redis": "^1.19.1",
     "clsx": "^1.2.1",
     "firebase-admin": "^11.2.0",
     "graphiql": "^2.0.13",
