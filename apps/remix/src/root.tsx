@@ -18,7 +18,7 @@ import { RootContext } from "@gs/root/RootContext";
 import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries";
 import links from "@gs/root/links";
 import meta from "@gs/root/meta";
-import { useLogPageViewEvent } from "@gs/service/analytics.client";
+import { useLogPageViewEvent } from "@gs/service/analytics";
 import { getAuthUser } from "@gs/service/auth.server";
 import { getPwaFromRequest } from "@gs/service/pwa.server";
 import { getThemeFromRequest } from "@gs/theme/cookie.server";

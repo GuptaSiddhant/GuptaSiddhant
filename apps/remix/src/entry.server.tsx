@@ -5,7 +5,7 @@ import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import type { EntryContext } from "@remix-run/server-runtime";
 
-import { initFirebase } from "@gs/firebase/init";
+import { initFirebase } from "@gs/firebase/init.server";
 import { appLogger } from "@gs/service/logger.server";
 import { getErrorMessage } from "@gs/utils/error";
 
