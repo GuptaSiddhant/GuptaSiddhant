@@ -45,3 +45,5 @@ export type RemixSubmitFunctionTarget =
 
 export type ShouldRevalidateFunctionArgs =
   Parameters<ShouldRevalidateFunction>[0];
+
+export type MaybePromise<T> = T | Promise<T>;

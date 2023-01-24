@@ -1,31 +1,56 @@
+import { Await, Link } from "@remix-run/react";
 import clsx from "clsx";
-import { useCallback, useRef } from "react";
+import { Suspense, useCallback, useRef } from "react";
 import type { RemixiconReactIconComponentType } from "remixicon-react";
 import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon";
 import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon";
 
-import { Link } from "@remix-run/react";
-
 import { generateAssetTransformedUrl } from "@gs/helpers/assets";
 import useElementStore from "@gs/hooks/useElementStore";
 import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll";
-import type { BaseProps } from "@gs/types";
+import type { BaseProps, MaybePromise } from "@gs/types";
 import Section, { proseWidth } from "@gs/ui/Section";
 
-import type { SummaryItem } from "./types";
 import SummarySticker from "./SummarySticker";
+import type { SummaryItem } from "./types";
 
 export interface SummarySliderProps extends BaseProps {
-  items: SummaryItem[];
+  items: MaybePromise<SummaryItem[]>;
   children?: React.ReactNode;
   crossSell?: boolean;
   showCardSubtitle?: boolean;
 }
 
-export default function SummarySlider(
-  props: SummarySliderProps,
-): JSX.Element | null {
-  const { children, crossSell, items, showCardSubtitle, ...rest } = props;
+export default function SummarySlider({
+  children,
+  ...props
+}: SummarySliderProps): JSX.Element | null {
+  return (
+    <Section {...props}>
+      {children ? (
+        <header className={clsx("flex w-full flex-col gap-4", proseWidth)}>
+          {children}
+        </header>
+      ) : null}
+
+      <Suspense fallback={<span>Loading...</span>}>
+        <Await
+          resolve={props.items}
+          errorElement={<span>No items are available.</span>}
+        >
+          {(items) => <SummarySliderScrollArea {...props} items={items} />}
+        </Await>
+      </Suspense>
+    </Section>
+  );
+}
+
+function SummarySliderScrollArea(
+  props: Pick<SummarySliderProps, "crossSell" | "showCardSubtitle"> & {
+    items: SummaryItem[];
+  },
+) {
+  const { crossSell, items, showCardSubtitle } = props;
 
   const sliderRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
@@ -56,50 +81,42 @@ export default function SummarySlider(
   }
 
   return (
-    <Section {...rest}>
-      {children ? (
-        <header className={clsx("flex w-full flex-col gap-4", proseWidth)}>
-          {children}
-        </header>
-      ) : null}
+    <main className="relative">
+      <div
+        ref={sliderRef}
+        className={clsx(
+          "flex gap-4 sm:gap-8",
+          "w-full overflow-auto p-8 pt-4",
+          "hide-scroll snap-x snap-mandatory",
+        )}
+        style={{ paddingInline: "max(1rem, calc((100vw - 64ch) / 2))" }}
+      >
+        {items.map((item) => (
+          <SummarySliderCard
+            key={item.id}
+            className={crossSell ? "" : "sm:h-96"}
+            item={item}
+            cardRef={cardRef}
+            showSubtitle={showCardSubtitle}
+          />
+        ))}
+      </div>
 
-      <main className="relative">
-        <div
-          ref={sliderRef}
-          className={clsx(
-            "flex gap-4 sm:gap-8",
-            "w-full overflow-auto p-8 pt-4",
-            "hide-scroll snap-x snap-mandatory",
-          )}
-          style={{ paddingInline: "max(1rem, calc((100vw - 64ch) / 2))" }}
-        >
-          {items.map((item) => (
-            <SummarySliderCard
-              key={item.id}
-              className={crossSell ? "" : "sm:h-96"}
-              item={item}
-              cardRef={cardRef}
-              showSubtitle={showCardSubtitle}
-            />
-          ))}
-        </div>
-
-        <SummarySliderButtonOverlay
-          direction="previous"
-          isDisabled={!isScrollStarted}
-          scrollDistanceRatio={scrollDistanceRatio}
-          scrollSlider={scrollSliderByCardWidth}
-          Icon={ArrowLeftIcon}
-        />
-        <SummarySliderButtonOverlay
-          direction="next"
-          isDisabled={isScrollCompleted}
-          scrollDistanceRatio={1 - scrollDistanceRatio}
-          scrollSlider={scrollSliderByCardWidth}
-          Icon={ArrowRightIcon}
-        />
-      </main>
-    </Section>
+      <SummarySliderButtonOverlay
+        direction="previous"
+        isDisabled={!isScrollStarted}
+        scrollDistanceRatio={scrollDistanceRatio}
+        scrollSlider={scrollSliderByCardWidth}
+        Icon={ArrowLeftIcon}
+      />
+      <SummarySliderButtonOverlay
+        direction="next"
+        isDisabled={isScrollCompleted}
+        scrollDistanceRatio={1 - scrollDistanceRatio}
+        scrollSlider={scrollSliderByCardWidth}
+        Icon={ArrowRightIcon}
+      />
+    </main>
   );
 }
 

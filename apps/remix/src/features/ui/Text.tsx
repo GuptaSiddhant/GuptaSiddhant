@@ -1,12 +1,6 @@
-import clsx from "clsx";
-import {
-  type ComponentPropsWithoutRef,
-  Children,
-  useEffect,
-  useState,
-} from "react";
-
 import { Link } from "@remix-run/react";
+import clsx from "clsx";
+import { Children, type ComponentPropsWithoutRef } from "react";
 
 import { generateHeadingId } from "@gs/helpers";
 import type { BaseProps } from "@gs/types";
@@ -150,31 +144,5 @@ function HeadingWrapper({
         </Link>
       ) : null}
     </Component>
-  );
-}
-
-export function ChangingText({
-  texts,
-  duration = 4000,
-}: {
-  texts: string[];
-  duration?: number;
-}): JSX.Element {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((currentIndex) => (currentIndex + 1) % texts.length);
-    }, duration);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [texts, duration]);
-
-  return (
-    <span className="inline-block animate-appear-btt" key={index}>
-      {texts[index]}
-    </span>
   );
 }

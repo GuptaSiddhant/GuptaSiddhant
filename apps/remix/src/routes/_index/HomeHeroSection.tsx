@@ -3,8 +3,9 @@ import { type AboutInfo } from "@gs/models/about/info";
 import type { CareerProps } from "@gs/models/career";
 import CodeBlock from "@gs/ui/CodeBlock";
 import { ExternalLink, InternalLink } from "@gs/ui/Link";
-import { ChangingText, H1 } from "@gs/ui/Text";
+import { H1 } from "@gs/ui/Text";
 import { formatList } from "@gs/utils/format";
+import { useEffect, useState } from "react";
 
 export default function HomeHeroSection({
   about,
@@ -84,5 +85,31 @@ function CurrentCompany({
       ) : null}
       .
     </p>
+  );
+}
+
+function ChangingText({
+  texts,
+  duration = 4000,
+}: {
+  texts: string[];
+  duration?: number;
+}): JSX.Element {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((currentIndex) => (currentIndex + 1) % texts.length);
+    }, duration);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [texts, duration]);
+
+  return (
+    <span className="inline-block animate-appear-btt" key={index}>
+      {texts[index]}
+    </span>
   );
 }

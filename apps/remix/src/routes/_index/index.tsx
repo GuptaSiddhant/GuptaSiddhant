@@ -1,15 +1,11 @@
 import { useLoaderData } from "@remix-run/react";
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { ErrorBoundaryComponent, defer } from "@remix-run/server-runtime";
 
-import HomeHeroSection from "@gs/home/HomeHeroSection";
-import HomeSummarySlider from "@gs/home/HomeSummarySlider";
-import { type AboutInfo, getAboutInfo } from "@gs/models/about/index.server";
+import { getAboutInfo } from "@gs/models/about/index.server";
 import { BlogIcon } from "@gs/models/blog";
 import { getBlogSummaryItems } from "@gs/models/blog/index.server";
 import { CareerIcon } from "@gs/models/career";
 import {
-  type CareerProps,
   getCareerItem,
   getCareerSummaryItems,
 } from "@gs/models/career/index.server";
@@ -20,41 +16,36 @@ import { getProjectsSummaryItems } from "@gs/models/projects/index.server";
 import type { SummaryItem } from "@gs/summary";
 import { ErrorSection } from "@gs/ui/Error";
 
-interface LoaderData {
-  about: AboutInfo;
-  projects: SummaryItem[];
-  blogPosts: SummaryItem[];
-  career: SummaryItem[];
-  education: SummaryItem[];
-  currentCompany?: CareerProps;
-}
+import HomeHeroSection from "./HomeHeroSection";
+import HomeSummarySlider from "./HomeSummarySlider";
 
 export async function loader() {
   const limit = 6;
-  const [about, projects, blogPosts, career, education] = await Promise.all([
-    getAboutInfo(),
-    getProjectsSummaryItems(),
-    getBlogSummaryItems(),
-    getCareerSummaryItems(),
-    getEducationSummaryItems(),
-  ]);
+  const about = await getAboutInfo();
   const currentCompany = about.currentCompany
     ? await getCareerItem(about.currentCompany)
     : undefined;
 
-  return json<LoaderData>({
+  const itemsModifier = async (items: SummaryItem[]) => items.slice(0, limit);
+
+  const projects = getProjectsSummaryItems().then(itemsModifier);
+  const blogPosts = getBlogSummaryItems().then(itemsModifier);
+  const career = getCareerSummaryItems().then(itemsModifier);
+  const education = getEducationSummaryItems().then(itemsModifier);
+
+  return defer({
     about,
     currentCompany,
-    projects: projects.slice(0, limit),
-    blogPosts: blogPosts.slice(0, limit),
-    career: career.slice(0, limit),
-    education: education.slice(0, limit),
+    projects,
+    blogPosts,
+    career,
+    education,
   });
 }
 
 export default function Index() {
   const { about, currentCompany, projects, blogPosts, career, education } =
-    useLoaderData<LoaderData>();
+    useLoaderData<typeof loader>();
 
   return (
     <>

@@ -1,9 +1,10 @@
 import {
-  type HeroHeaderCaptionIconType,
   HeroHeaderCaption,
+  type HeroHeaderCaptionIconType,
 } from "@gs/hero/HeroHeader";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
+import type { MaybePromise } from "@gs/types";
 import { InternalLink } from "@gs/ui/Link";
 import { H2 } from "@gs/ui/Text";
 
@@ -12,7 +13,7 @@ export interface HomeSummarySliderProps {
   children: React.ReactNode;
   id: string;
   linkText?: string;
-  items: SummaryItem[];
+  items: MaybePromise<SummaryItem[]>;
   icon?: HeroHeaderCaptionIconType;
   showCardSubtitle?: boolean;
 }
