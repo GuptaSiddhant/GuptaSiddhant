@@ -7,7 +7,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
 
-import FeatureFlagsTable from "@gs/admin/featureFlags/FeatureFlagsTable";
 import { createAdminMeta } from "@gs/admin/helpers";
 import AdminLayout from "@gs/admin/layout/AdminLayout";
 import { UserRole } from "@gs/models/users";
@@ -24,6 +23,8 @@ import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToa
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import invariant from "@gs/utils/invariant";
+
+import FeatureFlagsTable from "./FeatureFlagsTable";
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap;

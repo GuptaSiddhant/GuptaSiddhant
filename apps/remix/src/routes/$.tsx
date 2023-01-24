@@ -51,7 +51,15 @@ async function assetLoader(
   path: string,
   params?: Record<string, string>,
 ): Promise<Response | void> {
-  const assetOriginalExts = ["mp4", "webm", "ogg", "mp3", "wav", "flac"];
+  const assetOriginalExts = [
+    "mp4",
+    "webm",
+    "ogg",
+    "mp3",
+    "wav",
+    "flac",
+    "json",
+  ];
   const assetRedirectExts = [
     "png",
     "jpg",
