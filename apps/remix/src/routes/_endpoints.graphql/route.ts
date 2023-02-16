@@ -2,8 +2,8 @@ import { buildSchema, graphql } from "graphql";
 
 import { type LoaderArgs, redirect } from "@remix-run/server-runtime";
 
-import * as resolvers from "@gs/graphql/resolvers";
-import schemaFile from "@gs/graphql/schema.graphql";
+import * as resolvers from "./resolvers.server";
+import schemaFile from "./schema.graphql";
 
 export async function action({ request }: LoaderArgs) {
   const schema = buildSchema(schemaFile);
