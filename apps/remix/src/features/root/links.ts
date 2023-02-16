@@ -4,7 +4,7 @@ import fontStyles from "@gs/styles/font.css";
 import globalStyles from "@gs/styles/global.css";
 import prismThemeStyles from "@gs/styles/prism-vscode-dark.css";
 import reachMenuButtonStyles from "@gs/styles/reach-menu-button.css";
-import tailwindStyles from "@gs/styles/tailwind.generated.css";
+import tailwindStyles from "@gs/styles/tailwind.css";
 
 const stylesheets = [
   fontStyles,

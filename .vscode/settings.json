@@ -48,7 +48,7 @@
   ],
   "material-icon-theme.folders.associations": {
     "next": "next",
-    "remix": "remix"
+    "remix": "app"
   },
   "[javascript]": {
     "editor.defaultFormatter": "rome.rome"

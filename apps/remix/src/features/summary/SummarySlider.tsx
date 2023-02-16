@@ -23,6 +23,7 @@ export interface SummarySliderProps extends BaseProps {
 
 export default function SummarySlider({
   children,
+  showCardSubtitle,
   ...props
 }: SummarySliderProps): JSX.Element | null {
   return (
@@ -38,7 +39,13 @@ export default function SummarySlider({
           resolve={props.items}
           errorElement={<span>No items are available.</span>}
         >
-          {(items) => <SummarySliderScrollArea {...props} items={items} />}
+          {(items) => (
+            <SummarySliderScrollArea
+              {...props}
+              items={items}
+              showCardSubtitle={showCardSubtitle}
+            />
+          )}
         </Await>
       </Suspense>
     </Section>
