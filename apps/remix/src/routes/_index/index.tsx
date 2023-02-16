@@ -96,6 +96,4 @@ export default function Index() {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection error={error} />;
-};
+export const ErrorBoundary: ErrorBoundaryComponent = ErrorSection;
