@@ -1,5 +1,3 @@
-import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
-
 import { Outlet, useLoaderData } from "@remix-run/react";
 import {
   type ActionFunction,
@@ -7,11 +5,11 @@ import {
   json,
   redirect,
 } from "@remix-run/server-runtime";
+import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
 
-import {
-  backupDatabase,
+import backupDatabase, {
   generateBackupNameFromBackupPath,
-} from "@gs/admin/backup/service.server";
+} from "@gs/admin/backup.server";
 import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -28,7 +26,9 @@ const pathname = "/admin/settings/backups/";
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticateRoute(request, UserRole.EDITOR);
   const { files } = await Storage.queryDir("backup/");
-  const list = files.map((file) => generateBackupNameFromBackupPath(file.name));
+  const list = files
+    .map((file) => generateBackupNameFromBackupPath(file.name))
+    .sort((a, b) => (b > a ? 1 : -1));
 
   return json<LoaderData>({ list, files });
 };

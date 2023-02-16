@@ -4,7 +4,7 @@ import { json, redirect } from "@remix-run/server-runtime";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import EditorPage from "@gs/admin/editor/EditorPage";
-import { adminLogger } from "@gs/admin/service.server";
+import { adminLogger } from "@gs/admin/logger.server";
 import {
   type Model,
   ModelName,

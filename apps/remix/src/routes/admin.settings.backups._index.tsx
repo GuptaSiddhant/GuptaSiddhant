@@ -1,6 +1,5 @@
-import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
-
 import { useOutletContext } from "@remix-run/react";
+import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
 
 import AdminDashboard from "@gs/admin/components/AdminDashboard";
 import useRootContext from "@gs/root/RootContext";

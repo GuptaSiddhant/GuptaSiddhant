@@ -2,7 +2,7 @@ import Storage from "@gs/service/storage.server";
 import invariant from "@gs/utils/invariant";
 import { typedBooleanFilterPredicate } from "@gs/utils/predicates";
 
-import { createAdminLogger } from "../service.server";
+import { createAdminLogger } from "../logger.server";
 import { generatePathsFromPath } from "./helpers";
 import {
   type StorageDirProps,
