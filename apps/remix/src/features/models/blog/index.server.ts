@@ -1,4 +1,5 @@
 import { ModelName } from "@gs/models";
+import generateRss from "@gs/rss.server";
 import Database from "@gs/service/database.server";
 import {
   type SummaryItem,
@@ -6,7 +7,6 @@ import {
   sortSummaryItemsByDateLatestFirstPredicate,
 } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
-import { generateRss } from "@gs/utils/rss";
 
 import type { BlogPostProps } from ".";
 

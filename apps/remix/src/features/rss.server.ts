@@ -15,7 +15,7 @@ export interface GenerateRssOptions {
   origin: string;
 }
 
-export function generateRss({
+export default function generateRss({
   description,
   entries,
   link,
