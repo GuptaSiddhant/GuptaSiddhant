@@ -1,21 +1,4 @@
-export function isTagsAndMatch(
-  selectedTags: string[] = [],
-  tags: string[] = [],
-) {
-  if (!selectedTags.length) {
-    return true;
-  }
-
-  const lowercaseTags = tags.map((t) => t.toLowerCase());
-  const lowercaseSelectedTags = selectedTags.map((t) => t.toLowerCase());
-
-  return lowercaseSelectedTags.every((tag) => lowercaseTags.includes(tag));
-}
-
-export interface UniqueTag {
-  value: string;
-  occurrence: number;
-}
+import { UniqueTag } from "@gs/types";
 
 export function filterUniqueTagsByOccurrence(tags: string[]): UniqueTag[] {
   const tagOccurrenceMap: Record<string, number> = {};

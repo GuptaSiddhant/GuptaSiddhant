@@ -6,7 +6,7 @@ import SortIcon from "remixicon-react/SortDescIcon";
 
 import { Form, useSubmit } from "@remix-run/react";
 
-import type { UniqueTag } from "@gs/helpers/filter";
+import type { UniqueTag } from "@gs/types";
 import RadioGroup from "@gs/ui/RadioGroup";
 import Select from "@gs/ui/Select";
 import { capitalize } from "@gs/utils/format";

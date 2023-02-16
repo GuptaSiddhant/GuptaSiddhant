@@ -7,10 +7,6 @@ import {
   redirect,
 } from "@remix-run/server-runtime";
 
-import {
-  extractTocFromMdx,
-  transformContentToMdx,
-} from "@gs/helpers/mdx.server";
 import { generateArticleMeta } from "@gs/helpers/meta";
 import { type TocItem } from "@gs/helpers/table-of-contents";
 import Hero from "@gs/hero";
@@ -34,6 +30,7 @@ import TableOfContent from "@gs/ui/TableOfContent";
 import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
 import { getErrorMessage } from "@gs/utils/error";
+import { extractTocFromMdx, transformContentToMdx } from "@gs/utils/mdx";
 
 interface LoaderData {
   project: ProjectProps;

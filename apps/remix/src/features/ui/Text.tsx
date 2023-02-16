@@ -2,8 +2,8 @@ import { Link } from "@remix-run/react";
 import clsx from "clsx";
 import { Children, type ComponentPropsWithoutRef } from "react";
 
-import { generateHeadingId } from "@gs/helpers";
 import type { BaseProps } from "@gs/types";
+import { generateHeadingId } from "@gs/utils/mdx";
 
 const commonHeadingClassName = clsx("font-bold leading-tight !m-0");
 

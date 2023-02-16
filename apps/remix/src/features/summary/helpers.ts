@@ -1,8 +1,8 @@
-import { filterUniqueTagsByOccurrence } from "@gs/helpers/filter";
 import {
   dateSortPredicate,
   typedBooleanFilterPredicate,
 } from "@gs/utils/predicates";
+import { filterUniqueTagsByOccurrence } from "@gs/utils/tags";
 
 import type { SummaryItem } from "./types";
 
@@ -74,7 +74,7 @@ export function sortSummaryItemsByDateOldestFirstPredicate(
   a: SummaryItem,
   b: SummaryItem,
 ) {
-  return dateSortPredicate(a.date, b.date, true);
+  return dateSortPredicate.ascending(a.date, b.date);
 }
 
 export function sortSummaryItemsByFeaturedPredicate(

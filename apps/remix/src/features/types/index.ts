@@ -47,3 +47,8 @@ export type ShouldRevalidateFunctionArgs =
   Parameters<ShouldRevalidateFunction>[0];
 
 export type MaybePromise<T> = T | Promise<T>;
+
+export interface UniqueTag {
+  value: string;
+  occurrence: number;
+}

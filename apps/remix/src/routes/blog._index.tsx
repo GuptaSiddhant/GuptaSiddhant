@@ -6,20 +6,20 @@ import {
   json,
 } from "@remix-run/server-runtime";
 
-import type { UniqueTag } from "@gs/helpers/filter";
 import { createMetaTitle } from "@gs/helpers/meta";
 import { parseGetAllSearchParams } from "@gs/helpers/request";
 import { getBlogSummaryItems } from "@gs/models/blog/index.server";
 import {
+  SortByOption,
   type SummaryItem,
+  ViewAsOption,
   filterSortSummaryItems,
   getUniqueTagsFromSummaryItems,
-  SortByOption,
-  ViewAsOption,
 } from "@gs/summary";
 import SummaryGrid from "@gs/summary/SummaryGrid";
 import SummaryHero from "@gs/summary/SummaryHero";
 import SummaryTimeline from "@gs/summary/SummaryTimeline";
+import type { UniqueTag } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 
 interface LoaderData {

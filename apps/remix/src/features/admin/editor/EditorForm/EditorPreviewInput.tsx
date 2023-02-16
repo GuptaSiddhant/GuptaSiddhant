@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { useState } from "react";
 
-import { type Language, supportedLanguages } from "@gs/helpers/code-lang";
 import useFullscreen from "@gs/hooks/useFullscreen";
 import type { ModelStringType } from "@gs/models/types";
 import Accordion from "@gs/ui/Accordion";
@@ -9,6 +8,7 @@ import { FullscreenButton } from "@gs/ui/Button";
 import CodeBlock from "@gs/ui/CodeBlock";
 import Mdx from "@gs/ui/Mdx";
 import Select from "@gs/ui/Select";
+import { type Language, supportedLanguages } from "@gs/utils/code-lang";
 
 import { useEditorForm } from "./context";
 import {

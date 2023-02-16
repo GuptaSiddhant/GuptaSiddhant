@@ -7,7 +7,7 @@ import {
   getLanguageBadgeProperties,
   getLanguageFromClassName,
   isLanguageSupported,
-} from "@gs/helpers/code-lang";
+} from "@gs/utils/code-lang";
 
 import { CopyButton } from "./Button";
 

@@ -1,7 +1,12 @@
+import type { ReactNode } from "react";
+
 import { DEFAULT_TOC_MAX_LEVEL } from "@gs/constants";
 import { type TocItem } from "@gs/helpers/table-of-contents";
+import { toKebabCase } from "@gs/utils/format";
 
-import { generateHeadingId } from ".";
+export function generateHeadingId(children: ReactNode): string {
+  return toKebabCase(children?.toString() || "");
+}
 
 export function extractTocFromMdx(
   mdx?: string,
