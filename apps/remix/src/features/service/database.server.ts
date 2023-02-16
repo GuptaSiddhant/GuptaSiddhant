@@ -6,6 +6,7 @@ import {
 } from "@gs/firebase/firestore";
 import { ModelName } from "@gs/models";
 import invariant from "@gs/utils/invariant";
+import { typedBooleanFilterPredicate } from "@gs/utils/predicates";
 
 import {
   deleteCachedKey,
@@ -30,8 +31,8 @@ export default class Database<T extends DatabaseDocument = DatabaseDocument> {
     return this.#modelName;
   }
 
-  #createCacheKey = (id?: string) =>
-    [cacheKey, this.#modelName, id].filter(Boolean).join("/");
+  #createCacheKey = (id?: string): string[] =>
+    [cacheKey, this.#modelName, id].filter(typedBooleanFilterPredicate);
 
   #invalidateIndexKey = () =>
     deleteCachedKey([cacheKey, ModelName.Index, this.#modelName].join("/"));

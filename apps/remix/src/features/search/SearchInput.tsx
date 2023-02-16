@@ -5,10 +5,10 @@ import { CloseIcon, LoadingIcon } from "@gs/icons";
 import Button from "@gs/ui/Button";
 import Input from "@gs/ui/Input";
 
-import useSearch from ".";
 import SearchIcon from "./SearchButton";
 import { SearchOutputData } from "./SearchOutput";
 import { isCommand } from "./commands";
+import useSearch from "./context";
 
 export default function SearchInput({
   Form,

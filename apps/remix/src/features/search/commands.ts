@@ -1,10 +1,9 @@
-import { useMemo } from "react";
-
 import { useNavigate } from "@remix-run/react";
+import { useMemo } from "react";
 
 import { useToggleTheme } from "@gs/theme/ThemeToggleButton";
 
-import useSearch from ".";
+import useSearch from "./context";
 
 const COMMAND_KEY = ">";
 

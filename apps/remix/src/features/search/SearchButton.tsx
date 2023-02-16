@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Icon from "remixicon-react/Search2LineIcon";
 
-export default function SearchIcon() {
+export default function SearchButton() {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {

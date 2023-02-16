@@ -1,39 +1,12 @@
-import {
-  createContext,
-  startTransition,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { startTransition, useRef, useState } from "react";
 
 import useStableCallback from "@gs/hooks/useStableCallback";
-import invariant from "@gs/utils/invariant";
 
 import { useDialog } from "../ui/Dialog";
 import SearchDialog from "./SearchDialog";
+import useSearch, { SearchContext, SearchContextValue } from "./context";
 
-export interface SearchContextValue {
-  isSearchOpen: boolean;
-  inputValue: string;
-  changeInputValue: (value: string) => void;
-  toggleSearchOpen: () => void;
-  openSearch: () => void;
-  closeSearch: () => void;
-  openSearchWithInput: (input: string) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
-  resultsRef: React.RefObject<HTMLDivElement>;
-}
-
-const SearchContext = createContext<SearchContextValue | undefined>(undefined);
-
-export default function useSearch(): SearchContextValue {
-  const context = useContext(SearchContext);
-  invariant(context, "useSearch must be used within a Search Provider.");
-
-  return context;
-}
-
-export function Search({
+export default function Search({
   children,
 }: {
   children: React.ReactNode;
@@ -81,3 +54,6 @@ export function Search({
     </SearchContext.Provider>
   );
 }
+
+export { useSearch };
+export type { SearchContextValue };

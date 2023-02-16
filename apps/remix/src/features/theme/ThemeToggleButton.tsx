@@ -1,7 +1,6 @@
+import { useFetcher } from "@remix-run/react";
 import DarkModeIcon from "remixicon-react/MoonFillIcon";
 import LightModeIcon from "remixicon-react/SunFillIcon";
-
-import { useFetcher } from "@remix-run/react";
 
 import useWindowStore from "@gs/hooks/useWindowStore";
 import Action from "@gs/ui/Action";
@@ -22,7 +21,7 @@ export default function ThemeToggleButton({
       body={{ theme: "toggle" }}
       reloadDocument
     >
-      {themeName === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+      <ThemeIcon themeName={themeName} />
     </Action.Form>
   );
 }

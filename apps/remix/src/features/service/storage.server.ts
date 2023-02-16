@@ -34,8 +34,7 @@ export type StorageFile = {
 export type StorageMetadata = Awaited<ReturnType<typeof Storage.queryMetadata>>;
 
 export default class Storage {
-  static #createCacheKey = (path: string) =>
-    [cacheKey, path].filter(Boolean).join("/");
+  static #createCacheKey = (path: string) => [cacheKey, path].filter(Boolean);
 
   static queryMetadata = async () => queryFirebaseStorageMetaData();
 

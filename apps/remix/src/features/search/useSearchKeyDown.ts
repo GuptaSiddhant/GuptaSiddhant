@@ -1,7 +1,7 @@
 import { KeyboardKey } from "@gs/hooks/useShortcutsCallback";
 import useStableCallback from "@gs/hooks/useStableCallback";
 
-import useSearch from ".";
+import useSearch from "./context";
 
 const inputTagNames = ["input", "textarea", "select"];
 const alphanumerics = "abcdefghijklmnopqrstuvwxyz0123456789".split("");

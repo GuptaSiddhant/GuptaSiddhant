@@ -1,10 +1,11 @@
 import { useFetcher } from "@remix-run/react";
 
-import Dialog from "../ui/Dialog";
-import useSearch from ".";
-import { useCommands } from "./commands";
+import Dialog from "@gs/ui/Dialog";
+
 import SearchInput from "./SearchInput";
 import SearchOutput, { type SearchOutputData } from "./SearchOutput";
+import { useCommands } from "./commands";
+import useSearch from "./context";
 import useSearchKeyDown from "./useSearchKeyDown";
 
 export default function SearchDialog({

@@ -19,6 +19,8 @@ const appCache =
     ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
   }));
 
+type CacheKey = string | string[];
+
 // Utils
 
 export function getCache() {
@@ -33,32 +35,35 @@ export function getCachedTypes(): string[] {
   return [...new Set(getCachedKeys().map((key) => parseCacheKey(key).type))];
 }
 
-export function hasCachedKey(key: string): boolean {
-  return getCache().has(key);
+export function hasCachedKey(key: CacheKey): boolean {
+  return getCache().has(normaliseCacheKey(key));
 }
 
-export function getCachedKey(key: string) {
+export function getCachedKey(key: CacheKey) {
   const cache = getCache();
-  if (cache.has(key)) {
-    return cache.get(key);
+  const _key = normaliseCacheKey(key);
+
+  if (cache.has(_key)) {
+    return cache.get(_key);
   }
 }
 
 export async function fetchCachedKey<T>(
-  key: string,
+  key: CacheKey,
   fn: () => Promise<T>,
   options?: Options<string, unknown>,
 ): Promise<T> {
   const cache = getCache();
+  const _key = normaliseCacheKey(key);
 
-  if (cache.has(key)) {
-    return cache.get(key) as T;
+  if (cache.has(_key)) {
+    return cache.get(_key) as T;
   }
 
-  logger.info(`Fetching: ${key}`);
+  logger.info(`Fetching: ${_key}`);
   const result = await fn();
 
-  cache.set(key, result, options);
+  cache.set(_key, result, options);
 
   return result;
 }
@@ -67,7 +72,7 @@ export enum ModifyCacheMethod {
   DELETE = "DELETE",
 }
 
-export async function modifyCache(method: ModifyCacheMethod, key?: string) {
+export async function modifyCache(method: ModifyCacheMethod, key?: CacheKey) {
   switch (method) {
     case ModifyCacheMethod.DELETE: {
       if (key) {
@@ -79,19 +84,24 @@ export async function modifyCache(method: ModifyCacheMethod, key?: string) {
   }
 }
 
-export function deleteCachedKeysWith(key: string) {
+export function deleteCachedKeysWith(key: CacheKey) {
+  const _key = normaliseCacheKey(key);
+
   return getCachedKeys()
-    .filter((k) => k.includes(key))
+    .filter((k) => k.includes(_key))
     .forEach(deleteCachedKey);
 }
 
-export function deleteCachedKey(key: string) {
-  logger.notice(`Deleted: ${key}`);
-  return getCache().delete(key);
+export function deleteCachedKey(key: CacheKey) {
+  const _key = normaliseCacheKey(key);
+  logger.notice(`Deleted: ${_key}`);
+
+  return getCache().delete(_key);
 }
 
 export function clearCache() {
   logger.notice("Cleared");
+
   return getCache().clear();
 }
 
@@ -99,7 +109,13 @@ export function createCacheKey(type: string, value: string) {
   return [type, value].filter(Boolean).join("::");
 }
 
-export function parseCacheKey(key: string): { type: string; value: string } {
-  const [type, ...value] = key.split("/");
+export function parseCacheKey(key: CacheKey): { type: string; value: string } {
+  const _key = normaliseCacheKey(key);
+  const [type, ...value] = _key.split("/");
+
   return { type, value: value.join("/") };
+}
+
+function normaliseCacheKey(key: CacheKey): string {
+  return typeof key === "string" ? key : key.join("/");
 }

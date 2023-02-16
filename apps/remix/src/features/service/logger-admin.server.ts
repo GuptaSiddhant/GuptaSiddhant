@@ -3,12 +3,13 @@ import { GCP_PROJECT_ID, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import { googleServiceAccount } from "@gs/firebase/credentials";
 import invariant from "@gs/utils/invariant";
+import { typedBooleanFilterPredicate } from "@gs/utils/predicates";
 
 import { deleteCachedKey, fetchCachedKey } from "./cache.server";
 
 const cacheKey = "logger";
-function createCacheKey(...texts: string[]) {
-  return [cacheKey, ...texts].filter(Boolean).join("/");
+function createCacheKey(...texts: string[]): string[] {
+  return [cacheKey, ...texts].filter(typedBooleanFilterPredicate);
 }
 
 function createGCPLogging(): Logging | undefined {

@@ -6,7 +6,7 @@ import useScroll from "@gs/hooks/useScroll";
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight";
 import { RoundedCorner } from "@gs/icons";
 import Navigation from "@gs/navigation/Navigation";
-import { Search } from "@gs/search";
+import Search from "@gs/search";
 import { Toaster } from "@gs/toaster";
 import { FAB } from "@gs/ui/Button";
 

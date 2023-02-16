@@ -6,17 +6,16 @@ import {
   generateAssetTransformedUrl,
 } from "@gs/helpers/assets";
 import type { SummaryItem } from "@gs/summary";
+import Mdx from "@gs/ui/Mdx";
+import Tags from "@gs/ui/Tags";
 
-// import type { AboutInfo, Skills } from "../about"
-import Mdx from "../ui/Mdx";
-import Tags from "../ui/Tags";
-import useSearch from ".";
-import type { Command } from "./commands";
 import {
-  type SearchResultItemProps,
   CommandItem,
   SearchResultGroup,
+  type SearchResultItemProps,
 } from "./SearchResult";
+import type { Command } from "./commands";
+import useSearch from "./context";
 
 export interface SearchOutputData {
   projects?: SummaryItem[];

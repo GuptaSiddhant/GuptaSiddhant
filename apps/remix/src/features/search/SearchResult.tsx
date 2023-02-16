@@ -6,12 +6,12 @@ import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
 } from "@gs/helpers/assets";
+import type { Gallery } from "@gs/types";
+import Accordion from "@gs/ui/Accordion";
 import Button from "@gs/ui/Button";
 
-import type { Gallery } from "../types";
-import Accordion from "../ui/Accordion";
-import useSearch from ".";
 import type { Command } from "./commands";
+import useSearch from "./context";
 
 export interface SearchResultGroupProps {
   label: string;

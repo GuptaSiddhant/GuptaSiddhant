@@ -6,7 +6,7 @@ import useShortcutsCallback, {
 } from "@gs/hooks/useShortcutsCallback";
 import type { NavigationLinkProps } from "@gs/navigation/types";
 import useNavigationLinks from "@gs/navigation/useNavigationLinks";
-import useSearch from "@gs/search";
+import { useSearch } from "@gs/search";
 import { useToggleTheme } from "@gs/theme/ThemeToggleButton";
 
 export default function Shortcuts(): JSX.Element | null {

@@ -7,7 +7,7 @@ import { useLoaderData } from "@remix-run/react";
 import { type AboutInfo } from "@gs/models/about/info";
 import type { NavigationLinkProps } from "@gs/navigation/types";
 import type { RootLoaderData } from "@gs/root";
-import useSearch from "@gs/search";
+import { useSearch } from "@gs/search";
 import SearchButton from "@gs/search/SearchButton";
 import type { ThemeName } from "@gs/theme";
 import ThemeToggleButton from "@gs/theme/ThemeToggleButton";
