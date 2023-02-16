@@ -1,6 +1,6 @@
-import { typedBoolean } from "@gs/helpers";
 import Storage from "@gs/service/storage.server";
 import invariant from "@gs/utils/invariant";
+import { typedBooleanFilterPredicate } from "@gs/utils/predicates";
 
 import { createAdminLogger } from "../service.server";
 import { generatePathsFromPath } from "./helpers";
@@ -40,7 +40,7 @@ export async function getStoragePaths(
 
   return res
     .map((res) => (res.status === "fulfilled" ? res.value : undefined))
-    .filter(typedBoolean);
+    .filter(typedBooleanFilterPredicate);
 }
 
 export async function modifyStorage(

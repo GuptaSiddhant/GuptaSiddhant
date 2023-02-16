@@ -3,8 +3,8 @@ import NavMenuIcon from "remixicon-react/Menu3LineIcon";
 
 import { NavLink } from "@remix-run/react";
 
-import { isExternalLink } from "@gs/helpers";
 import Menu, { type MenuActionProps } from "@gs/ui/Menu";
+import { isExternalLink } from "@gs/utils/navigation";
 
 import type { NavigationLinkProps } from "./types";
 import useNavigationLinks from "./useNavigationLinks";
