@@ -12,8 +12,7 @@ import { json, redirect } from "@remix-run/server-runtime";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { createAdminMeta, useAdminApp } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
-import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar";
+import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
 import type { AdminAppHandle } from "@gs/admin/types";
 import { DeleteIcon } from "@gs/icons";
 import type { NavigationLinkProps } from "@gs/navigation/types";

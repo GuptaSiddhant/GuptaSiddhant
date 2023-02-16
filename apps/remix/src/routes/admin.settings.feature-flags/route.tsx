@@ -8,7 +8,7 @@ import type {
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
 
 import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users";
 import type { NavigationLinkProps } from "@gs/navigation/types";
 import { authenticateRoute } from "@gs/service/auth.server";

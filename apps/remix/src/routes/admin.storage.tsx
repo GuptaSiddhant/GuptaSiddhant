@@ -9,7 +9,7 @@ import { json, redirect } from "@remix-run/server-runtime";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import { generateNavbarGroupsFromStorageDirContents } from "@gs/admin/storage/helpers";
 import { modifyStorage } from "@gs/admin/storage/service.server";
 import type { AdminAppHandle } from "@gs/admin/types";

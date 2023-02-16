@@ -12,7 +12,7 @@ import {
   backupDatabase,
   generateBackupNameFromBackupPath,
 } from "@gs/admin/backup/service.server";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Storage, { type StorageFile } from "@gs/service/storage.server";

@@ -6,8 +6,7 @@ import type {
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
-import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar";
+import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
 import type { AdminAppHandle } from "@gs/admin/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ErrorSection } from "@gs/ui/Error";

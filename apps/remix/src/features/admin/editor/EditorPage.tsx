@@ -13,7 +13,7 @@ import Action from "@gs/ui/Action";
 import Button from "@gs/ui/Button";
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
 
-import AdminLayout from "../layout/AdminLayout";
+import AdminLayout from "../layout";
 import EditorForm from "./EditorForm";
 
 interface EditorPageProps<T> {

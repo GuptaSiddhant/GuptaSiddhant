@@ -4,7 +4,7 @@ import { json, redirect } from "@remix-run/server-runtime";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { generateBackupPathFromBackupName } from "@gs/admin/backup/service.server";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import { DeleteIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";

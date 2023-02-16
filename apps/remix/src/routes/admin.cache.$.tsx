@@ -11,7 +11,7 @@ import { json, redirect } from "@remix-run/server-runtime";
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import { ONE_HOUR_IN_MS } from "@gs/constants";
 import useMediaQuery from "@gs/hooks/useMediaQuery";
 import { DeleteIcon } from "@gs/icons";

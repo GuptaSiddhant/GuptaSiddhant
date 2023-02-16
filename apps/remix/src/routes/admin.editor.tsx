@@ -10,10 +10,9 @@ import {
 
 import { AdminAppId, adminRegistry } from "@gs/admin";
 import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout/AdminLayout";
-import { type AdminNavbarGroupProps } from "@gs/admin/layout/AdminNavbar";
+import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
 import type { AdminAppHandle } from "@gs/admin/types";
-import { getLabelByModelName, ModelName } from "@gs/models";
+import { ModelName, getLabelByModelName } from "@gs/models";
 import { getAboutKeys } from "@gs/models/about/index.server";
 import { getBlogKeys } from "@gs/models/blog/index.server";
 import { getCareerKeys } from "@gs/models/career/index.server";

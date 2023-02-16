@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import AdminLayout from "@gs/admin/layout/AdminLayout";
+import AdminLayout from "@gs/admin/layout";
 import useWindowStore from "@gs/hooks/useWindowStore";
 import { DeleteIcon, DownloadIcon, RenameIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
