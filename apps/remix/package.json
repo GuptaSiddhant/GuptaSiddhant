@@ -55,6 +55,7 @@
     "@tailwindcss/typography": "^0.5.7",
     "@testing-library/react": "^13.4.0",
     "@testing-library/react-hooks": "^8.0.1",
+    "@total-typescript/ts-reset": "^0.3.7",
     "@types/eslint": "^8.4.10",
     "@types/jsdom": "^20.0.0",
     "@types/node": "^18.0.0",

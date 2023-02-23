@@ -3897,6 +3897,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@total-typescript/ts-reset@npm:^0.3.7":
+  version: 0.3.7
+  resolution: "@total-typescript/ts-reset@npm:0.3.7"
+  checksum: 81e05fca49cff25f36edd5d1d219eaecf42d857349cf4b6e7b37f2ffb719b96130681e4c701bcfc6efef4e07a17ba2548addd9adad77adc03cf8055c6e2a83b6
+  languageName: node
+  linkType: hard
+
 "@types/acorn@npm:^4.0.0":
   version: 4.0.6
   resolution: "@types/acorn@npm:4.0.6"
@@ -9398,6 +9405,7 @@ __metadata:
     "@tailwindcss/typography": ^0.5.7
     "@testing-library/react": ^13.4.0
     "@testing-library/react-hooks": ^8.0.1
+    "@total-typescript/ts-reset": ^0.3.7
     "@types/eslint": ^8.4.10
     "@types/jsdom": ^20.0.0
     "@types/node": ^18.0.0

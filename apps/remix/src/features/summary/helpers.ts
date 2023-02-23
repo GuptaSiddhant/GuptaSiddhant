@@ -1,7 +1,4 @@
-import {
-  dateSortPredicate,
-  typedBooleanFilterPredicate,
-} from "@gs/utils/predicates";
+import { dateSortPredicate } from "@gs/utils/predicates";
 import { filterUniqueTagsByOccurrence } from "@gs/utils/tags";
 
 import type { SummaryItem } from "./types";
@@ -21,7 +18,7 @@ export function getUniqueTagsFromSummaryItems<T extends { tags?: string[] }>(
   items: T[],
 ) {
   return filterUniqueTagsByOccurrence(
-    items.flatMap((item) => item.tags).filter(typedBooleanFilterPredicate),
+    items.flatMap((item) => item.tags).filter(Boolean),
   );
 }
 
@@ -115,7 +112,7 @@ export function filterSummaryItemsByQueryAndTagsPredicate(
   if (
     lowerCaseQuery &&
     [title, subtitle]
-      .filter(typedBooleanFilterPredicate)
+      .filter(Boolean)
       .map((t) => t.toLowerCase())
       .some((t) => t.includes(lowerCaseQuery))
   ) {

@@ -3,11 +3,9 @@
 import {
   dateSortPredicate,
   formDataStringOnlyEntriesFilterPredicate,
-  typedBooleanFilterPredicate,
   uniqueFilterPredicate,
 } from "../predicates";
 import { describe, expect, test } from "vitest";
-import { z } from "zod";
 
 describe("dateSortPredicate", () => {
   const todayDate = new Date();
@@ -67,32 +65,6 @@ describe("dateSortPredicate", () => {
   });
 });
 
-describe("typedBooleanFilterPredicate", () => {
-  test("returns false for falsy value", () => {
-    expect(typedBooleanFilterPredicate(0)).toBe(false);
-    expect(typedBooleanFilterPredicate("")).toBe(false);
-    expect(typedBooleanFilterPredicate(null)).toBe(false);
-    expect(typedBooleanFilterPredicate(undefined)).toBe(false);
-    expect(typedBooleanFilterPredicate(false)).toBe(false);
-  });
-
-  test("returns true for truthy value", () => {
-    expect(typedBooleanFilterPredicate(1)).toBe(true);
-    expect(typedBooleanFilterPredicate("0")).toBe(true);
-    expect(typedBooleanFilterPredicate(true)).toBe(true);
-  });
-
-  test("returns string array from a list of falsy values and a truthy string", () => {
-    const array = ["", 0, undefined, null, false, "hello"] as const;
-    const expectedSchema = z.string().array();
-
-    expect(
-      expectedSchema.safeParse(array.filter(typedBooleanFilterPredicate))
-        .success,
-    ).toBe(true);
-  });
-});
-
 describe("formDataStringOnlyEntriesFilterPredicate", () => {
   const file = new File([], "filename");
 
@@ -147,20 +119,21 @@ describe("uniqueFilterPredicate", () => {
 
   describe("uniqueFilterPredicate.withMatcher", () => {
     test("returns filtered array for non-primitive array when provided correct matcher", () => {
-      const objectArray: Array<{ id: string }> = [
+      type ObjectWithId = { id: string };
+
+      const objectArray: Array<ObjectWithId> = [
         { id: "0" },
         { id: "1" },
         { id: "0" },
       ];
 
-      const objectUniqueArray: Array<{ id: string }> = [
-        { id: "0" },
-        { id: "1" },
-      ];
+      const objectUniqueArray: Array<ObjectWithId> = [{ id: "0" }, { id: "1" }];
 
       expect(
         objectArray.filter(
-          uniqueFilterPredicate.withMatcher((a, b) => a.id === b.id),
+          uniqueFilterPredicate.withMatcher(
+            (a: ObjectWithId, b: ObjectWithId) => a.id === b.id,
+          ),
         ),
       ).toEqual(objectUniqueArray);
     });
