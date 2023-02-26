@@ -2,7 +2,7 @@ import { type ReactNode, useEffect, useRef } from "react";
 
 import { Link } from "@remix-run/react";
 
-import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { NavigationLinkProps } from "@gs/types";
 import type { To } from "@gs/types";
 import { AnchorLink } from "@gs/ui/Link";
 

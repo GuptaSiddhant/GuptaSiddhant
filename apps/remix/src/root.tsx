@@ -10,7 +10,6 @@ import { json } from "@remix-run/server-runtime";
 
 import usePullDownRefresh from "@gs/hooks/usePullDownRefresh";
 import { getAboutInfo } from "@gs/models/about/index.server";
-import { getNavigationRemoteConfig } from "@gs/navigation/service.server";
 import { type RootLoaderData } from "@gs/root";
 import AppLayout from "@gs/root/AppLayout";
 import Document from "@gs/root/Document";
@@ -18,6 +17,7 @@ import { RootContext } from "@gs/root/RootContext";
 import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries";
 import links from "@gs/root/links";
 import meta from "@gs/root/meta";
+import { getNavigationRemoteConfig } from "@gs/root/service.server";
 import { useLogPageViewEvent } from "@gs/service/analytics";
 import { getAuthUser } from "@gs/service/auth.server";
 import { getPwaFromRequest } from "@gs/service/pwa.server";

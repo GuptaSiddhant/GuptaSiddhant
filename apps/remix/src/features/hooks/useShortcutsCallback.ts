@@ -1,7 +1,7 @@
 import { useNavigate } from "@remix-run/react";
 
 import useStableCallback from "@gs/hooks/useStableCallback";
-import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { NavigationLinkProps } from "@gs/types";
 import { isExternalLink } from "@gs/utils/navigation";
 
 const inputTagNames = ["input", "textarea", "select"];

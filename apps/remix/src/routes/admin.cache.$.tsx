@@ -15,7 +15,6 @@ import AdminLayout from "@gs/admin/layout";
 import { ONE_HOUR_IN_MS } from "@gs/constants";
 import useMediaQuery from "@gs/hooks/useMediaQuery";
 import { DeleteIcon } from "@gs/icons";
-import type { NavigationLinkProps } from "@gs/navigation/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import type { ModifyCacheMethod } from "@gs/service/cache.server";
 import {
@@ -26,6 +25,7 @@ import {
   modifyCache,
   parseCacheKey,
 } from "@gs/service/cache.server";
+import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import CodeBlock from "@gs/ui/CodeBlock";
 import { ErrorSection } from "@gs/ui/Error";

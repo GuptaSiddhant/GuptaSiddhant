@@ -5,12 +5,12 @@ import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test, vi } from "vitest";
 
-import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { NavigationLinkProps } from "@gs/types";
 
 import useShortcutsCallback, {
+  ShortcutModifier,
   generateKeyDownArray,
   matchKeyDownArrays,
-  ShortcutModifier,
 } from "../useShortcutsCallback";
 
 describe.concurrent("generateKeyDownArray", () => {

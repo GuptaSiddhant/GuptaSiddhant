@@ -15,7 +15,6 @@ import { createAdminMeta, useAdminApp } from "@gs/admin/helpers";
 import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
 import type { AdminAppHandle } from "@gs/admin/types";
 import { DeleteIcon } from "@gs/icons";
-import type { NavigationLinkProps } from "@gs/navigation/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
   type ModifyCacheMethod,
@@ -23,6 +22,7 @@ import {
   modifyCache,
   parseCacheKey,
 } from "@gs/service/cache.server";
+import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption } from "@gs/ui/Text";

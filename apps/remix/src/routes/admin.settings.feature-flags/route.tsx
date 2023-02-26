@@ -10,7 +10,6 @@ import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
 import { createAdminMeta } from "@gs/admin/helpers";
 import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users";
-import type { NavigationLinkProps } from "@gs/navigation/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
   type FeatureFlagsMap,
@@ -20,6 +19,7 @@ import {
   setFeatureFlag,
 } from "@gs/service/feature-flag.server";
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
+import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import invariant from "@gs/utils/invariant";

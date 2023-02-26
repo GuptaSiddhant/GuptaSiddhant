@@ -2,7 +2,7 @@ import type { LoaderArgs } from "@remix-run/server-runtime";
 
 import { ONE_DAY_IN_S } from "@gs/constants";
 import { getAboutInfo } from "@gs/models/about/index.server";
-import { internalNavigationLinks } from "@gs/navigation/useNavigationLinks";
+import { internalNavigationLinks } from "@gs/root/useNavigationLinks";
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme";
 import type { WebApplicationManifest } from "@gs/types/webmanifest";
 

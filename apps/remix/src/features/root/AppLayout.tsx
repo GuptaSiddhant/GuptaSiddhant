@@ -5,7 +5,7 @@ import UpIcon from "remixicon-react/ArrowUpLineIcon";
 import useScroll from "@gs/hooks/useScroll";
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight";
 import { RoundedCorner } from "@gs/icons";
-import Navigation from "@gs/navigation/Navigation";
+import Navigation from "@gs/root/Navigation";
 import Search from "@gs/search";
 import { Toaster } from "@gs/toaster";
 import { FAB } from "@gs/ui/Button";

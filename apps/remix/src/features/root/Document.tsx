@@ -1,22 +1,20 @@
-import clsx from "clsx";
-
 import { Links, Meta } from "@remix-run/react";
+import clsx from "clsx";
 import { StructuredData } from "remix-utils";
 
 import { type ThemeName, checkIfDarkTheme } from "@gs/theme";
 
-const intlListFormatPolyfillScript =
-  "https://polyfill.io/v3/polyfill.min.js?features=Intl.ListFormat,Intl.ListFormat.~locale.en";
+export interface DocumentProps {
+  children: React.ReactNode;
+  error?: boolean;
+  themeName?: ThemeName;
+}
 
 export default function Document({
   children,
   error,
   themeName,
-}: {
-  children: React.ReactNode;
-  error?: boolean;
-  themeName?: ThemeName;
-}): JSX.Element | null {
+}: DocumentProps): JSX.Element | null {
   const isDarkTheme = checkIfDarkTheme(themeName);
 
   return (
@@ -31,7 +29,7 @@ export default function Document({
       <head>
         {error ? null : <Meta />}
         <Links />
-        {error ? null : <script src={intlListFormatPolyfillScript} defer />}
+        {error ? null : <script src={generatePolyfillUrl()} defer />}
         <StructuredData />
       </head>
       <body className={clsx("m-0 p-0", "bg-default text-default")}>
@@ -39,4 +37,11 @@ export default function Document({
       </body>
     </html>
   );
+}
+
+function generatePolyfillUrl() {
+  const baseUrl = "https://polyfill.io/v3/polyfill.min.js?features=";
+  const features = ["Intl.ListFormat", "Intl.ListFormat.~locale.en"];
+
+  return `${baseUrl}${features.join(",")}`;
 }

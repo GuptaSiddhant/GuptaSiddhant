@@ -19,11 +19,11 @@ import { getCareerKeys } from "@gs/models/career/index.server";
 import { getEducationKeys } from "@gs/models/education/index.server";
 import { getProjectsKeys } from "@gs/models/projects/index.server";
 import { getUsersKeys } from "@gs/models/users/index.server";
-import type { NavigationLinkProps } from "@gs/navigation/types";
 import {
   authenticateRoute,
   isUserHasWriteAccess,
 } from "@gs/service/auth.server";
+import type { NavigationLinkProps } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 import Menu from "@gs/ui/Menu";
 import { Caption } from "@gs/ui/Text";

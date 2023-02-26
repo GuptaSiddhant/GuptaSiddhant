@@ -7,7 +7,7 @@ import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon";
 import { NavLink, useLocation } from "@remix-run/react";
 
 import useMediaQuery from "@gs/hooks/useMediaQuery";
-import type { NavigationLinkProps } from "@gs/navigation/types";
+import type { NavigationLinkProps } from "@gs/types";
 import type { To } from "@gs/types";
 import Accordion from "@gs/ui/Accordion";
 

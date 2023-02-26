@@ -7,8 +7,8 @@ import {
 } from "@gs/helpers/assets";
 import { DeleteIcon, RefreshIcon } from "@gs/icons";
 import { type Model } from "@gs/models";
-import type { NavigationLinkProps } from "@gs/navigation/types";
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
+import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import Button from "@gs/ui/Button";
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";

@@ -15,13 +15,13 @@ import { LogSeverity } from "@gs/constants/logs-constants";
 import useInterval from "@gs/hooks/useInterval";
 import { CloseIcon, FilterIcon, RefreshIcon } from "@gs/icons";
 import { UserRole } from "@gs/models/users";
-import { NavigationLinkProps } from "@gs/navigation/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
   LogItem,
   clearLogCache,
   getLogs,
 } from "@gs/service/logger-admin.server";
+import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import Button from "@gs/ui/Button";
 import FormLabel from "@gs/ui/FormLabel";

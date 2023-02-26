@@ -4,10 +4,10 @@ import useEventListener from "@gs/hooks/useEventListener";
 import useShortcutsCallback, {
   ShortcutModifier,
 } from "@gs/hooks/useShortcutsCallback";
-import type { NavigationLinkProps } from "@gs/navigation/types";
-import useNavigationLinks from "@gs/navigation/useNavigationLinks";
+import useNavigationLinks from "@gs/root/useNavigationLinks";
 import { useSearch } from "@gs/search";
 import { useToggleTheme } from "@gs/theme/ThemeToggleButton";
+import type { NavigationLinkProps } from "@gs/types";
 
 export default function Shortcuts(): JSX.Element | null {
   const navigate = useNavigate();
