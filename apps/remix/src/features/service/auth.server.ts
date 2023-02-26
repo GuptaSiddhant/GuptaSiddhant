@@ -4,6 +4,7 @@ import { FormStrategy } from "remix-auth-form";
 
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
+import parsedEnv from "@gs/env";
 import { signInWithEmailPassword } from "@gs/firebase/auth";
 import { UserRole } from "@gs/models/users";
 import { type UserProps, getUser } from "@gs/models/users/index.server";
@@ -11,17 +12,11 @@ import invariant from "@gs/utils/invariant";
 
 // Auth Session
 
-const sessionSecret = process.env.SESSION_SECRET;
-
-if (!sessionSecret) {
-  throw new Error("SESSION_SECRET must be set");
-}
-
 const cookieSession = createCookieSessionStorage({
   cookie: {
     name: "__session",
     secure: true,
-    secrets: [sessionSecret],
+    secrets: [parsedEnv.SESSION_SECRET],
     sameSite: "lax", // to help with CSRF
     path: "/",
     maxAge: 60 * 60 * 24 * 5, // 5 days

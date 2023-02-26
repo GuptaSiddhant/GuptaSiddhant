@@ -1,13 +1,12 @@
-import invariant from "@gs/utils/invariant";
 import { Redis as UpstashRedis } from "@upstash/redis";
 import type { SetCommandOptions } from "@upstash/redis/types/pkg/commands/set";
 
+import parsedEnv from "@gs/env";
+
 export default class Redis {
   static get client() {
-    const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-    invariant(token, "Redis env UPSTASH_REDIS_REST_TOKEN is missing.");
-    const url = process.env.UPSTASH_REDIS_REST_URL;
-    invariant(url, "Redis env UPSTASH_REDIS_REST_URL is missing.");
+    const token = parsedEnv.UPSTASH_REDIS_REST_TOKEN;
+    const url = parsedEnv.UPSTASH_REDIS_REST_URL;
 
     return new UpstashRedis({ url, token });
   }

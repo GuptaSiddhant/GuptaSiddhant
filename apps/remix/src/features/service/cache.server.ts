@@ -3,6 +3,7 @@ import LRUCache, { type Options } from "lru-cache";
 import { ONE_DAY_IN_MS } from "@gs/constants";
 
 import Logger from "./logger.server";
+import parsedEnv from "@gs/env";
 
 const logger = new Logger("Cache");
 
@@ -16,7 +17,7 @@ const appCache =
   (global.appCache = new LRUCache<string, unknown>({
     max: 300,
     allowStale: true,
-    ttl: Number.parseInt(process.env?.CACHE_TTL || "0", 10) || ONE_DAY_IN_MS,
+    ttl: parsedEnv.CACHE_TTL || ONE_DAY_IN_MS,
   }));
 
 type CacheKey = string | string[];

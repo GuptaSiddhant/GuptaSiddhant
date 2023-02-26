@@ -1,10 +1,10 @@
-import invariant from "@gs/utils/invariant";
+import parsedEnv from "@gs/env";
 
 const FIREBASE_AUTH_BASE_URL =
   "https://identitytoolkit.googleapis.com/v1/accounts:";
 
 export async function signInWithEmailPassword(email: string, password: string) {
-  const searchParams = new URLSearchParams({ key: getFirebaseApiKey() });
+  const searchParams = new URLSearchParams({ key: parsedEnv.FIREBASE_API_KEY });
 
   const response = await fetch(
     `${FIREBASE_AUTH_BASE_URL}signInWithPassword?${searchParams.toString()}`,
@@ -21,15 +21,6 @@ export async function signInWithEmailPassword(email: string, password: string) {
   }
 
   return data as SignInWithEmailPasswordSuccessResponse;
-}
-
-// Helpers
-
-function getFirebaseApiKey(): string {
-  const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
-  invariant(FIREBASE_API_KEY, "FIREBASE_API_KEY must be set");
-
-  return FIREBASE_API_KEY;
 }
 
 // Types

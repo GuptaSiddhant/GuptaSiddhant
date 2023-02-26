@@ -9437,6 +9437,7 @@ __metadata:
     vite: ^4.1.3
     vite-tsconfig-paths: ^4.0.0
     vitest: ^0.26.0
+    znv: ^0.3.2
     zod: ^3.19.1
   languageName: unknown
   linkType: soft
@@ -17247,6 +17248,17 @@ __metadata:
     compress-commons: ^4.1.0
     readable-stream: ^3.6.0
   checksum: 4a73da856738b0634700b52f4ab3fe0bf0a532bea6820ad962d0bda0163d2d5525df4859f89a7238e204a378384e12551985049790c1894c3ac191866e85887f
+  languageName: node
+  linkType: hard
+
+"znv@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "znv@npm:0.3.2"
+  dependencies:
+    colorette: ^2.0.19
+  peerDependencies:
+    zod: ^3.11.6
+  checksum: 8e392664de5eabd2bdbc3ed17cce8be35fd8246134015b2f179466dc63746112a5324f740c3c40e6b7d88975292ef0b9f953ae276d4946f09aefe9e4525b9268
   languageName: node
   linkType: hard
 
