@@ -19,6 +19,6 @@ export const FIREBASE_SERVICE_ACCOUNT_KEY = z
   .min(1)
   .startsWith("{")
   .endsWith("}")
-  .transform(firebaseServiceAccountKeySchema.parse);
+  .transform((val) => firebaseServiceAccountKeySchema.parse(JSON.parse(val)));
 
 export const FIREBASE_API_KEY = z.string().min(1);
