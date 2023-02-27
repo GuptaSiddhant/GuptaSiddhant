@@ -7,6 +7,10 @@ import { getUsersKeys } from "@gs/models/users/index.server";
 import { authenticate } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 
+interface Context {
+  request: Request;
+}
+
 export function test() {
   return true;
 }
@@ -15,52 +19,54 @@ export async function about() {
   return await getAboutInfo();
 }
 
+// List queries
+
 interface QueryListOptions {
   limit?: number;
 }
 
-interface Context {
-  request: Request;
+async function getItemList<Item>(
+  getterFn: () => Promise<Item[]>,
+  { limit }: QueryListOptions,
+): Promise<Item[]> {
+  const items = await getterFn();
+
+  if (!limit) return items;
+  return items.slice(0, limit);
 }
 
-export async function projects({ limit }: QueryListOptions): Promise<
-  SummaryItem[]
-> {
-  const items = await getProjectsSummaryItems();
-  if (limit) return items.slice(0, limit);
-  else return items;
+export async function projects(
+  options: QueryListOptions,
+): Promise<SummaryItem[]> {
+  return getItemList(getProjectsSummaryItems, options);
 }
-export async function blog({ limit }: QueryListOptions): Promise<
-  SummaryItem[]
-> {
-  const items = await getBlogSummaryItems();
-  if (limit) return items.slice(0, limit);
-  else return items;
+
+export async function blog(options: QueryListOptions): Promise<SummaryItem[]> {
+  return getItemList(getBlogSummaryItems, options);
 }
-export async function education({ limit }: QueryListOptions): Promise<
-  SummaryItem[]
-> {
-  const items = await getEducationSummaryItems();
-  if (limit) return items.slice(0, limit);
-  else return items;
+
+export async function education(
+  options: QueryListOptions,
+): Promise<SummaryItem[]> {
+  return getItemList(getEducationSummaryItems, options);
 }
-export async function career({ limit }: QueryListOptions): Promise<
-  SummaryItem[]
-> {
-  const items = await getCareerSummaryItems();
-  if (limit) return items.slice(0, limit);
-  else return items;
+
+export async function career(
+  options: QueryListOptions,
+): Promise<SummaryItem[]> {
+  return getItemList(getCareerSummaryItems, options);
 }
+
 export async function users(
-  { limit }: QueryListOptions,
+  options: QueryListOptions,
   { request }: Context,
 ): Promise<string[]> {
   await authenticate(request);
 
-  const items = await getUsersKeys();
-  if (limit) return items.slice(0, limit);
-  else return items;
+  return getItemList(getUsersKeys, options);
 }
+
+// Mutations
 
 export async function setMessage(
   { message }: { message: string },

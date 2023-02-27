@@ -5,15 +5,16 @@ import { z } from "zod";
 import * as resolvers from "./resolvers.server";
 import schemaFile from "./schema.graphql";
 
+const schema = buildSchema(schemaFile);
+
 export async function action({ request }: LoaderArgs) {
-  const schema = buildSchema(schemaFile);
   const { query, variables, operationName } = z
     .object({
       query: z.string(),
-      variables: z.record(z.string(), z.any()).optional(),
+      variables: z.record(z.unknown()).optional(),
       operationName: z.string().optional(),
     })
-    .parse(await request.json());
+    .parse(await request.clone().json());
 
   return graphql({
     schema,

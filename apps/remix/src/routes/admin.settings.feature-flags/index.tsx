@@ -1,11 +1,10 @@
-import RefetchIcon from "remixicon-react/RestartLineIcon";
-
 import { useLoaderData } from "@remix-run/react";
 import type {
   ActionFunction,
   ErrorBoundaryComponent,
 } from "@remix-run/server-runtime";
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
+import RefetchIcon from "remixicon-react/RestartLineIcon";
 
 import { createAdminMeta } from "@gs/admin/helpers";
 import AdminLayout from "@gs/admin/layout";
