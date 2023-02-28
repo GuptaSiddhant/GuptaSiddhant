@@ -2,16 +2,16 @@ import clsx from "clsx";
 
 import { Link } from "@remix-run/react";
 
+import { getStylingByModelName } from "@gs/models";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets";
-import { getStylingByModelName } from "@gs/models";
+} from "@gs/service/cloudinary";
 import type { BaseProps } from "@gs/types";
 import Section from "@gs/ui/Section";
 
-import type { SummaryItem } from "./types";
 import SummarySticker from "./SummarySticker";
+import type { SummaryItem } from "./types";
 
 export interface SummaryGridProps extends BaseProps {
   items: SummaryItem[];

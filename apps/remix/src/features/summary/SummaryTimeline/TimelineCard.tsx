@@ -7,12 +7,12 @@ import HomepageIcon from "remixicon-react/GlobalLineIcon";
 import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon";
 import NpmIcon from "remixicon-react/NpmjsLineIcon";
 
+import { getStylingByModelName } from "@gs/models";
+import useRootContext from "@gs/root/RootContext";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets";
-import { getStylingByModelName } from "@gs/models";
-import useRootContext from "@gs/root/RootContext";
+} from "@gs/service/cloudinary";
 import type { Gallery, LinkObject } from "@gs/types";
 import Button from "@gs/ui/Button";
 import { H5, H6, Paragraph } from "@gs/ui/Text";

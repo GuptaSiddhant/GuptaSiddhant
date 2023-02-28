@@ -37,15 +37,40 @@ export interface AssetTransformationOptions {
   quality?: number;
 }
 
-export function generateAssetTransformations(
+export function generateAssetTransformedUrl(
+  url: string,
+  options?: AssetTransformationOptions,
+): string;
+export function generateAssetTransformedUrl(
+  url: string | undefined,
+  options?: AssetTransformationOptions,
+): string | undefined;
+export function generateAssetTransformedUrl(
+  url: string | undefined,
+  options?: AssetTransformationOptions,
+) {
+  if (!url) {
+    return undefined;
+  }
+
+  return `${url}?${generateAssetTransformations(options || {})}`;
+}
+
+export const assetTransformationOptions = {
+  ICON: { aspectRatio: 1, height: 50, dpr: 2, resize: "fit" },
+} as const satisfies Record<string, AssetTransformationOptions>;
+
+// Helper function to generate transformations
+
+function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject?: false | undefined,
 ): string;
-export function generateAssetTransformations(
+function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject: true,
 ): Record<string, string>;
-export function generateAssetTransformations(
+function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject?: boolean,
 ): unknown {
@@ -85,29 +110,3 @@ export function generateAssetTransformations(
 
   return transformations.toString();
 }
-
-export function generateAssetTransformedUrl(
-  url: string,
-  options?: AssetTransformationOptions,
-): string;
-export function generateAssetTransformedUrl(
-  url: string | undefined,
-  options?: AssetTransformationOptions,
-): string | undefined;
-export function generateAssetTransformedUrl(
-  url: string | undefined,
-  options?: AssetTransformationOptions,
-) {
-  if (!url) {
-    return undefined;
-  }
-
-  return `${url}?${generateAssetTransformations(options || {})}`;
-}
-
-export const assetTransformationOptions: Record<
-  "ICON",
-  AssetTransformationOptions
-> = {
-  ICON: { aspectRatio: 1, height: 50, dpr: 2, resize: "fit" },
-};

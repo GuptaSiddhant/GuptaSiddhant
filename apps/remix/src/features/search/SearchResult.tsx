@@ -5,7 +5,7 @@ import { Link, useNavigate } from "@remix-run/react";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets";
+} from "@gs/service/cloudinary";
 import type { Gallery } from "@gs/types";
 import Accordion from "@gs/ui/Accordion";
 import Button from "@gs/ui/Button";

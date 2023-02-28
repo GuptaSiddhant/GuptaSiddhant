@@ -5,9 +5,9 @@ import type { RemixiconReactIconComponentType } from "remixicon-react";
 import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon";
 import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon";
 
-import { generateAssetTransformedUrl } from "@gs/helpers/assets";
 import useElementStore from "@gs/hooks/useElementStore";
 import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll";
+import { generateAssetTransformedUrl } from "@gs/service/cloudinary";
 import type { BaseProps, MaybePromise } from "@gs/types";
 import Section, { proseWidth } from "@gs/ui/Section";
 

@@ -1,12 +1,12 @@
 import PreviewIcon from "remixicon-react/EyeLineIcon";
 import SaveIcon from "remixicon-react/Save2FillIcon";
 
+import { DeleteIcon, RefreshIcon } from "@gs/icons";
+import { type Model } from "@gs/models";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets";
-import { DeleteIcon, RefreshIcon } from "@gs/icons";
-import { type Model } from "@gs/models";
+} from "@gs/service/cloudinary";
 import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
 import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";

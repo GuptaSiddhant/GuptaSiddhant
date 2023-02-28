@@ -2,7 +2,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime";
 import { redirect } from "@remix-run/server-runtime";
 
 import { ONE_DAY_IN_S } from "@gs/constants";
-import { generateCloudinaryUrl } from "@gs/helpers/assets";
+import { generateCloudinaryUrl } from "@gs/service/cloudinary";
 import { appLogger } from "@gs/service/logger.server";
 import Storage from "@gs/service/storage.server";
 import { getErrorMessage } from "@gs/utils/error";

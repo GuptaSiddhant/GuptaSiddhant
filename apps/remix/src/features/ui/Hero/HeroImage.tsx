@@ -3,7 +3,7 @@ import clsx from "clsx";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/helpers/assets";
+} from "@gs/service/cloudinary";
 
 export interface HeroImageProps {
   src?: string;
