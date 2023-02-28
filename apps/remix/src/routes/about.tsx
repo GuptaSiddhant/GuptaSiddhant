@@ -5,7 +5,6 @@ import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
 import { aboutTexts } from "@gs/about";
-import { createMetaTitle } from "@gs/helpers/meta";
 import { ModelName } from "@gs/models";
 import { getAboutInfo } from "@gs/models/about/index.server";
 import type { AboutInfo } from "@gs/models/about/info";
@@ -17,6 +16,7 @@ import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import Hero from "@gs/ui/Hero";
 import { ExternalLink } from "@gs/ui/Link";
 import { Paragraph } from "@gs/ui/Text";
+import { createMetaTitle } from "@gs/utils/meta";
 
 interface LoaderData {
   isAuthenticated: boolean;

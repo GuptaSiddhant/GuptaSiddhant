@@ -8,7 +8,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
-import { createMetaTitle } from "@gs/helpers/meta";
 import { getCareerSummaryItems } from "@gs/models/career/index.server";
 import { getEducationSummaryItems } from "@gs/models/education/index.server";
 import {
@@ -25,6 +24,7 @@ import Select from "@gs/ui/Select";
 import Tags from "@gs/ui/Tags";
 import { H1 } from "@gs/ui/Text";
 import { capitalize } from "@gs/utils/format";
+import { createMetaTitle } from "@gs/utils/meta";
 import { formDataStringOnlyEntriesFilterPredicate } from "@gs/utils/predicates";
 import { filterUniqueTagsByOccurrence } from "@gs/utils/tags";
 

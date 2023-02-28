@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/server-runtime";
 
-import { createMetaTitle } from "@gs/helpers/meta";
 import { ErrorSection } from "@gs/ui/Error";
+import { createMetaTitle } from "@gs/utils/meta";
 
 export const meta: MetaFunction = () => ({
   title: createMetaTitle("Error 404"),

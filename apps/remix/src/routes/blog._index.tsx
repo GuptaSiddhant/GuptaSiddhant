@@ -6,7 +6,6 @@ import {
   json,
 } from "@remix-run/server-runtime";
 
-import { createMetaTitle } from "@gs/helpers/meta";
 import { parseGetAllSearchParams } from "@gs/helpers/request";
 import { getBlogSummaryItems } from "@gs/models/blog/index.server";
 import {
@@ -21,6 +20,7 @@ import SummaryHero from "@gs/summary/SummaryHero";
 import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import type { UniqueTag } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
+import { createMetaTitle } from "@gs/utils/meta";
 
 interface LoaderData {
   title: string;
