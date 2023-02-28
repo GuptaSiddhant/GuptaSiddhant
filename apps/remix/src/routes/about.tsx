@@ -6,7 +6,6 @@ import { json } from "@remix-run/server-runtime";
 
 import { aboutTexts } from "@gs/about";
 import { createMetaTitle } from "@gs/helpers/meta";
-import Hero from "@gs/hero";
 import { ModelName } from "@gs/models";
 import { getAboutInfo } from "@gs/models/about/index.server";
 import type { AboutInfo } from "@gs/models/about/info";
@@ -15,6 +14,7 @@ import { getEducationSummaryItems } from "@gs/models/education/index.server";
 import { getAuthUser } from "@gs/service/auth.server";
 import { type SummaryItem, filterSortSummaryItems } from "@gs/summary";
 import SummaryTimeline from "@gs/summary/SummaryTimeline";
+import Hero from "@gs/ui/Hero";
 import { ExternalLink } from "@gs/ui/Link";
 import { Paragraph } from "@gs/ui/Text";
 

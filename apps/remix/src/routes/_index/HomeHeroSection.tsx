@@ -1,7 +1,7 @@
-import Hero from "@gs/hero";
 import { type AboutInfo } from "@gs/models/about/info";
 import type { CareerProps } from "@gs/models/career";
 import CodeBlock from "@gs/ui/CodeBlock";
+import Hero from "@gs/ui/Hero";
 import { ExternalLink, InternalLink } from "@gs/ui/Link";
 import { H1 } from "@gs/ui/Text";
 import { formatList } from "@gs/utils/format";

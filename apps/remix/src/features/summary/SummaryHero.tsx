@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
 
-import Hero from "@gs/hero";
+import Hero from "@gs/ui/Hero";
 
 import SummaryFilterSortForm, {
   type SummaryFilterSortFormProps,

@@ -28,3 +28,7 @@ export default function Hero({
 Hero.Header = HeroHeader;
 Hero.Description = HeroDescription;
 Hero.Image = HeroImage;
+
+export type { HeroDescriptionProps } from "./HeroDescription";
+export type { HeroHeaderProps } from "./HeroHeader";
+export type { HeroImageProps } from "./HeroImage";

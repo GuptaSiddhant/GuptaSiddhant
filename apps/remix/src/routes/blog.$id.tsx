@@ -9,7 +9,6 @@ import {
 
 import { generateArticleMeta } from "@gs/helpers/meta";
 import { type TocItem } from "@gs/helpers/table-of-contents";
-import Hero from "@gs/hero";
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForBlogPost } from "@gs/models/blog";
 import {
@@ -22,6 +21,7 @@ import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
 import Divider from "@gs/ui/Divider";
 import { ErrorSection } from "@gs/ui/Error";
+import Hero from "@gs/ui/Hero";
 import Mdx from "@gs/ui/Mdx";
 import Reader from "@gs/ui/Reader";
 import ShareTray from "@gs/ui/ShareTray";

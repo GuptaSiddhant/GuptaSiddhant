@@ -1,10 +1,10 @@
-import {
-  HeroHeaderCaption,
-  type HeroHeaderCaptionIconType,
-} from "@gs/hero/HeroHeader";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
 import type { MaybePromise } from "@gs/types";
+import {
+  HeroHeaderCaption,
+  type HeroHeaderCaptionIconType,
+} from "@gs/ui/Hero/HeroHeader";
 import { InternalLink } from "@gs/ui/Link";
 import { H2 } from "@gs/ui/Text";
 

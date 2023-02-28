@@ -2,9 +2,9 @@ import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
-import Hero from "@gs/hero";
 import authenticator, { loginUser } from "@gs/service/auth.server";
 import Button from "@gs/ui/Button";
+import Hero from "@gs/ui/Hero";
 import Input from "@gs/ui/Input";
 import { Paragraph } from "@gs/ui/Text";
 import { getErrorMessage } from "@gs/utils/error";
