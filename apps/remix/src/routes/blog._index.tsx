@@ -6,7 +6,6 @@ import {
   json,
 } from "@remix-run/server-runtime";
 
-import { parseGetAllSearchParams } from "@gs/helpers/request";
 import { getBlogSummaryItems } from "@gs/models/blog/index.server";
 import {
   SortByOption,
@@ -21,6 +20,7 @@ import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import type { UniqueTag } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 import { createMetaTitle } from "@gs/utils/meta";
+import { parseGetAllSearchParams } from "@gs/utils/request";
 
 interface LoaderData {
   title: string;

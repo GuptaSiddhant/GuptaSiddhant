@@ -1,11 +1,11 @@
 import { StyleSheet } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { parseGetAllSearchParams } from "@gs/helpers/request";
 import { type AboutInfo } from "@gs/models/about/info";
+import { parseGetAllSearchParams } from "@gs/utils/request";
 
-import { ResumeSections } from "./constants";
 import useResumeContext from "./ResumeContext";
+import { ResumeSections } from "./constants";
 import { type ResumeColors, type ResumeTexts } from "./theme";
 import type { ContactLinkProps } from "./types";
 
