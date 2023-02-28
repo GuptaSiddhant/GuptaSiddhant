@@ -4,15 +4,9 @@ import { useLocation } from "@remix-run/react";
 
 import useEventListener from "@gs/hooks/useEventListener";
 
-import { __IS_SERVER_WIN__ } from "../constants";
-import useThrottle from "../hooks/useThrottle";
-
-export interface TocItem {
-  level: number;
-  id: string;
-  text: string;
-  children: TocItem[];
-}
+import { __IS_SERVER_WIN__ } from "../../constants";
+import useThrottle from "../../hooks/useThrottle";
+import type { TocItem } from "./types";
 
 export function arrangeTocByLevels(
   toc: TocItem[],

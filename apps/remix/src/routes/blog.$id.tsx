@@ -7,7 +7,6 @@ import {
   redirect,
 } from "@remix-run/server-runtime";
 
-import { type TocItem } from "@gs/helpers/table-of-contents";
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForBlogPost } from "@gs/models/blog";
 import {
@@ -25,6 +24,7 @@ import Mdx from "@gs/ui/Mdx";
 import Reader from "@gs/ui/Reader";
 import ShareTray from "@gs/ui/ShareTray";
 import TableOfContent from "@gs/ui/TableOfContent";
+import { type TocItem } from "@gs/ui/TableOfContent/helpers";
 import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
 import { getErrorMessage } from "@gs/utils/error";

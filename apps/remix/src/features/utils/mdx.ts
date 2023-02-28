@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { DEFAULT_TOC_MAX_LEVEL } from "@gs/constants";
-import { type TocItem } from "@gs/helpers/table-of-contents";
+import { type TocItem } from "@gs/ui/TableOfContent/helpers";
 import { toKebabCase } from "@gs/utils/format";
 
 export function generateHeadingId(children: ReactNode): string {

@@ -1,5 +1,5 @@
-import { TocItem } from "@gs/helpers/table-of-contents";
 import type { SummaryItem, SummaryTimelineDivider } from "../types";
+import { TocItem } from "@gs/ui/TableOfContent";
 
 export type TimelineItem = SummaryItem | SummaryTimelineDivider;
 

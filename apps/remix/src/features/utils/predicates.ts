@@ -39,8 +39,12 @@ export function dateSortPredicate(
   b?: Date | string | number,
 ): number {
   const defaultDateValue: number = new Date().valueOf();
-  const aDateValue: number = a ? Number(a.valueOf()) : defaultDateValue;
-  const bDateValue: number = b ? Number(b.valueOf()) : defaultDateValue;
+  const aDateValue: number = a
+    ? Number(new Date(a).valueOf())
+    : defaultDateValue;
+  const bDateValue: number = b
+    ? Number(new Date(b).valueOf())
+    : defaultDateValue;
 
   if (aDateValue === bDateValue) {
     return 0;
