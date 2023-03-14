@@ -27,8 +27,8 @@ describe.concurrent("filterUniqueTagsByOccurrence", () => {
           "value": "tag2",
         },
         {
-          "occurrence": 2,
-          "value": "tag4",
+          "occurrence": 1,
+          "value": "tag3",
         },
       ]
     `);

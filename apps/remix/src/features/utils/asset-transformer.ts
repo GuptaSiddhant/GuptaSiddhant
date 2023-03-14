@@ -45,15 +45,15 @@ export const assetTransformationOptions = {
 
 // Helper function to generate transformations
 
-function generateAssetTransformations(
+export function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject?: false | undefined,
 ): string;
-function generateAssetTransformations(
+export function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject: true,
 ): Record<string, string>;
-function generateAssetTransformations(
+export function generateAssetTransformations(
   options: AssetTransformationOptions,
   returnAsObject?: boolean,
 ): unknown {

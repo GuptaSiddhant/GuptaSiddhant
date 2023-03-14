@@ -2,8 +2,8 @@
 
 import { expect, test } from "vitest";
 
-import parseFormDataWithModelObject from "./parser";
-import type { ModelObjectType } from "./types";
+import parseFormDataWithModelObject from "../helpers/parser";
+import type { ModelObjectType } from "../helpers/types";
 
 test("FormData with object model", () => {
   const model: ModelObjectType = {
