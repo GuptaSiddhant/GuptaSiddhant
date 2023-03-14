@@ -1,7 +1,7 @@
 import { isExternalLink, parseGetAllSearchParams } from "../navigation";
 import { describe, expect, test } from "vitest";
 
-describe("isExternalLink", () => {
+describe.concurrent("isExternalLink", () => {
   test("return false when not an external link", () => {
     expect(isExternalLink("/path")).toBe(false);
   });
@@ -12,7 +12,7 @@ describe("isExternalLink", () => {
   });
 });
 
-describe("parseGetAllSearchParams", () => {
+describe.concurrent("parseGetAllSearchParams", () => {
   const searchParams = new URLSearchParams();
   searchParams.append("query", "dev");
   searchParams.append("tag", "work");

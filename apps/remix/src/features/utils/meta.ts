@@ -1,19 +1,16 @@
 import { type HtmlMetaDescriptor } from "@remix-run/server-runtime";
 
+import { AUTHOR_NAME, AUTHOR_SHORT_NAME } from "@gs/constants";
 import { type SummaryItem } from "@gs/summary";
 
-const author = "Siddhant Gupta";
-
 export function createMetaTitle(title?: string) {
-  if (!title) {
-    return author;
-  }
+  if (!title) return AUTHOR_NAME;
 
-  return `${title} | GS`;
+  return `${title} | ${AUTHOR_SHORT_NAME}`;
 }
 
-export function generateArticleMeta<T extends SummaryItem>(
-  article?: T,
+export function generateArticleMeta(
+  article?: SummaryItem,
   options?: {
     id?: string;
     section?: string;
@@ -21,11 +18,11 @@ export function generateArticleMeta<T extends SummaryItem>(
   },
 ): HtmlMetaDescriptor {
   if (!article) {
+    const section = options?.section || "Article";
+
     return {
-      title: "Blog 404",
-      description: `${options?.section || "Article"} '${
-        options?.id
-      }' not found`,
+      title: `${section} 404`,
+      description: `${section} '${options?.id}' not found`,
     };
   }
 
@@ -47,7 +44,7 @@ export function generateArticleMeta<T extends SummaryItem>(
     imageUrl: cover || "",
     url: options?.url || linkUrl || "",
     caption: options?.section || "",
-    authorName: author,
+    authorName: AUTHOR_NAME,
     authorImageUrl: "https://people.aalto.fi/files/1201903_x_512_3to4.jpg",
   });
 
@@ -62,7 +59,7 @@ export function generateArticleMeta<T extends SummaryItem>(
     description,
     "og:title": title,
     "og:description": description,
-    "og:author": author,
+    "og:author": AUTHOR_NAME,
     "og:image": socialImageUrl,
     "og:url": options?.url,
     "og:type": "article",

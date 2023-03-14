@@ -7,7 +7,7 @@ import {
   uniqueFilterPredicate,
 } from "../predicates";
 
-describe("dateSortPredicate", () => {
+describe.concurrent("dateSortPredicate", () => {
   const todayDate = new Date();
   const futureDate = new Date(
     todayDate.getFullYear() + 1,
@@ -65,7 +65,7 @@ describe("dateSortPredicate", () => {
   });
 });
 
-describe("formDataStringOnlyEntriesFilterPredicate", () => {
+describe.concurrent("formDataStringOnlyEntriesFilterPredicate", () => {
   const file = new File([], "filename");
 
   test("returns false when entry contains File value", () => {
@@ -92,7 +92,7 @@ describe("formDataStringOnlyEntriesFilterPredicate", () => {
   });
 });
 
-describe("uniqueFilterPredicate", () => {
+describe.concurrent("uniqueFilterPredicate", () => {
   const numericArray = [0, 1, 2, 3, 2, 1, 0];
 
   test("returns true when index match the first occurrence", () => {

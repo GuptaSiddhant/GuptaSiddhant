@@ -18,3 +18,7 @@ export const DEFAULT_LOCALE = "en-GB";
 export const GCP_PROJECT_ID = "guptasiddhant-com";
 
 export * from "./logs-constants";
+
+//
+export const AUTHOR_NAME = "Siddhant Gupta";
+export const AUTHOR_SHORT_NAME = "GS";

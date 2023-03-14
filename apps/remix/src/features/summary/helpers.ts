@@ -17,9 +17,7 @@ export enum SortByOption {
 export function getUniqueTagsFromSummaryItems<T extends { tags?: string[] }>(
   items: T[],
 ) {
-  return filterUniqueTagsByOccurrence(
-    items.flatMap((item) => item.tags).filter(Boolean),
-  );
+  return filterUniqueTagsByOccurrence(items.flatMap((item) => item.tags));
 }
 
 // Filter and sort the items
