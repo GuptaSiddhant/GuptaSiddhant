@@ -20,7 +20,7 @@ import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import type { UniqueTag } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 import { createMetaTitle } from "@gs/utils/meta";
-import { parseGetAllSearchParams } from "@gs/utils/request";
+import { parseGetAllSearchParams } from "@gs/utils/navigation";
 
 interface LoaderData {
   title: string;

@@ -2,7 +2,7 @@ import { StyleSheet } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
 import { type AboutInfo } from "@gs/models/about/info";
-import { parseGetAllSearchParams } from "@gs/utils/request";
+import { parseGetAllSearchParams } from "@gs/utils/navigation";
 
 import useResumeContext from "./ResumeContext";
 import { ResumeSections } from "./constants";
