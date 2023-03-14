@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import invariant from "../invariant";
 
 describe.concurrent("invariant", () => {

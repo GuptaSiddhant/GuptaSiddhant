@@ -57,6 +57,12 @@ export default Mdx;
 
 function headingGenerator(Component: (props: HeadingProps) => JSX.Element) {
   return function Heading(props: { children: React.ReactNode }) {
-    return <Component {...props} link id={generateHeadingId(props.children)} />;
+    return (
+      <Component
+        {...props}
+        link
+        id={generateHeadingId(props.children?.toString() || "")}
+      />
+    );
   };
 }

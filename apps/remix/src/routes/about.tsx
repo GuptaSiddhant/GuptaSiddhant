@@ -11,11 +11,7 @@ import type { AboutInfo } from "@gs/models/about/info";
 import { getCareerSummaryItems } from "@gs/models/career/index.server";
 import { getEducationSummaryItems } from "@gs/models/education/index.server";
 import { getAuthUser } from "@gs/service/auth.server";
-import {
-  SortByOption,
-  type SummaryItem,
-  filterSortSummaryItems,
-} from "@gs/summary";
+import { type SummaryItem, filterSortSummaryItems } from "@gs/summary";
 import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import Hero from "@gs/ui/Hero";
 import { ExternalLink } from "@gs/ui/Link";

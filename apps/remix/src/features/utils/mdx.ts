@@ -1,11 +1,9 @@
-import type { ReactNode } from "react";
-
 import { DEFAULT_TOC_MAX_LEVEL } from "@gs/constants";
-import { type TocItem } from "@gs/ui/TableOfContent/helpers";
+import { type TocItem } from "@gs/ui/TableOfContent/types";
 import { toKebabCase } from "@gs/utils/format";
 
-export function generateHeadingId(children: ReactNode): string {
-  return toKebabCase(children?.toString() || "");
+export function generateHeadingId(children: string | number): string {
+  return toKebabCase(children.toString());
 }
 
 export function extractTocFromMdx(
@@ -35,8 +33,10 @@ export function extractTocFromMdx(
 }
 
 export function transformContentToMdx(content?: string): string | undefined {
+  if (!content) return undefined;
+
   try {
-    return content?.startsWith('"') ? (JSON.parse(content) as string) : content;
+    return content.startsWith('"') ? (JSON.parse(content) as string) : content;
   } catch {
     return content;
   }

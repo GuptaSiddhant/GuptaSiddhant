@@ -1,5 +1,6 @@
-import isEqual from "../is-equal";
 import { describe, expect, test } from "vitest";
+
+import isEqual from "../is-equal";
 
 describe.concurrent("isEqual", () => {
   test("return true for similar arrays", () => {

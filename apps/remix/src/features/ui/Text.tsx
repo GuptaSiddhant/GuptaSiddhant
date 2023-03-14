@@ -123,7 +123,7 @@ function HeadingWrapper({
   headingClassName?: string;
   headingRef?: React.Ref<HTMLHeadingElement>;
 }): JSX.Element | null {
-  const uid = id || generateHeadingId(children);
+  const uid = id || generateHeadingId(children?.toString() || "");
 
   return (
     <Component

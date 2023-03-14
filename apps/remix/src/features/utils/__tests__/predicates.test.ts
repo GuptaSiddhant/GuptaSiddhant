@@ -1,11 +1,11 @@
 /** @vitest-environment jsdom */
+import { describe, expect, test } from "vitest";
 
 import {
   dateSortPredicate,
   formDataStringOnlyEntriesFilterPredicate,
   uniqueFilterPredicate,
 } from "../predicates";
-import { describe, expect, test } from "vitest";
 
 describe("dateSortPredicate", () => {
   const todayDate = new Date();
