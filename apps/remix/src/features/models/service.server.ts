@@ -2,17 +2,12 @@ import type { DatabaseDocument } from "@gs/service/database.server";
 import type Database from "@gs/service/database.server";
 
 import { ModelName, getModelByModelName } from ".";
-import {
-  type AboutInfo,
-  type Skills,
-  getAboutInfo,
-  getAboutSkills,
-} from "./about.server";
-import { type BlogPostProps, getBlogPost } from "./blog.server";
-import { type CareerProps, getCareerItem } from "./career.server";
-import { type EducationProps, getEducationItem } from "./education.server";
+import { getAboutInfo, getAboutSkills } from "./about.server";
+import { getBlogPost } from "./blog.server";
+import { getCareerItem } from "./career.server";
+import { getEducationItem } from "./education.server";
 import parseFormDataWithModelObject from "./helpers/parser";
-import { type ProjectProps, getProject } from "./projects.server";
+import { getProject } from "./projects.server";
 import { getUser } from "./users.server";
 
 export async function mutateDatabaseByModelNameAndFormData(
@@ -35,44 +30,13 @@ export async function mutateDatabaseByModelNameAndFormData(
   }
 }
 
-export async function getItemByModelName(
-  modelName: ModelName.Career,
-  id: string,
-): Promise<CareerProps>;
-export async function getItemByModelName(
-  modelName: ModelName.Education,
-  id: string,
-): Promise<EducationProps>;
-export async function getItemByModelName(
-  modelName: ModelName.Projects,
-  id: string,
-): Promise<ProjectProps>;
-export async function getItemByModelName(
-  modelName: ModelName.Blog,
-  id: string,
-): Promise<BlogPostProps>;
-export async function getItemByModelName(
-  modelName: ModelName.About,
-  id: never,
-): Promise<AboutInfo>;
-export async function getItemByModelName(
-  modelName: ModelName.Skills,
-  id: never,
-): Promise<Skills>;
-export async function getItemByModelName(
-  modelName: ModelName,
-  id: string,
-): Promise<{ id: string; [key: string]: unknown }>;
-export async function getItemByModelName(
-  modelName: ModelName,
-  id?: string,
-): Promise<unknown> {
+export async function getItemByModelName(modelName: ModelName, id?: string) {
   if (!id) {
     switch (modelName) {
       case ModelName.About:
-        return getAboutInfo;
+        return getAboutInfo();
       case ModelName.Skills:
-        return getAboutSkills;
+        return getAboutSkills();
       default:
         throw new Error(`Unknown model name: ${modelName}`);
     }

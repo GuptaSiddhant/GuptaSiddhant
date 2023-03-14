@@ -6,7 +6,7 @@ import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 import parsedEnv from "@gs/env";
 import { signInWithEmailPassword } from "@gs/firebase/auth";
-import { UserRole } from "@gs/models/users";
+import { UserRole } from "@gs/models/users.model";
 import { type UserProps, getUser } from "@gs/models/users.server";
 import invariant from "@gs/utils/invariant";
 

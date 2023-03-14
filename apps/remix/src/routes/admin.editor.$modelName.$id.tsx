@@ -27,11 +27,13 @@ import invariant from "@gs/utils/invariant";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor);
 
+interface LoaderDataItem {
+  [key: string]: unknown;
+  id: string;
+}
+
 interface LoaderData {
-  item?: {
-    [key: string]: unknown;
-    id: string;
-  };
+  item?: LoaderDataItem;
   model: Model;
   modelName: ModelName;
   modelLabel: string;
@@ -55,7 +57,9 @@ export async function loader({ params, request }: DataFunctionArgs) {
     return json<LoaderData>({ model, modelName, modelLabel, hasWriteAccess });
 
   try {
-    const item = await getItemByModelName(modelName, id);
+    const item = (await getItemByModelName(modelName, id)) as unknown as
+      | LoaderDataItem
+      | undefined;
     invariant(item, `${modelLabel} item not found.`);
 
     const enrichedModel = await enrichModel(modelName, model);

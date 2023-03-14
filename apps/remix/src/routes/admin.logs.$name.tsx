@@ -14,7 +14,7 @@ import { ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import useInterval from "@gs/hooks/useInterval";
 import { CloseIcon, FilterIcon, RefreshIcon } from "@gs/icons";
-import { UserRole } from "@gs/models/users";
+import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
   LogItem,

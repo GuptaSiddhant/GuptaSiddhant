@@ -1,12 +1,12 @@
 import clsx from "clsx";
 
-import * as projects from ".";
-import * as education from ".";
-import * as career from ".";
-import * as blog from ".";
 import * as about from "./about-info.model";
 import * as skills from "./about-skills.model";
+import * as blog from "./blog.model";
+import * as career from "./career.model";
+import * as education from "./education.model";
 import type { Model, ModelObjectType, ModelStyling } from "./helpers/types";
+import * as projects from "./projects.model";
 import * as users from "./users.model";
 
 export enum ModelName {
@@ -79,7 +79,5 @@ export function getLabelByModelName(modelName: ModelName): string {
 }
 
 export function verifyValidModelName(name: string): boolean {
-  const modelNames = Object.values(ModelName) as string[];
-
-  return modelNames.includes(name);
+  return Object.values(ModelName).includes(name);
 }

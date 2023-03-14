@@ -14,7 +14,7 @@ import { generateNavbarGroupsFromStorageDirContents } from "@gs/admin/storage/he
 import { modifyStorage } from "@gs/admin/storage/service.server";
 import type { AdminAppHandle } from "@gs/admin/types";
 import { RefreshIcon, UploadIcon } from "@gs/icons";
-import { UserRole } from "@gs/models/users";
+import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Storage, { type StorageDir } from "@gs/service/storage.server";
 import type { NavigationLinkProps } from "@gs/types";
