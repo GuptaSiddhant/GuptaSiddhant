@@ -1,18 +1,15 @@
 import { useLoaderData } from "@remix-run/react";
 import { ErrorBoundaryComponent, defer } from "@remix-run/server-runtime";
 
-import { getAboutInfo } from "@gs/models/about/index.server";
-import { BlogIcon } from "@gs/models/blog";
-import { getBlogSummaryItems } from "@gs/models/blog/index.server";
-import { CareerIcon } from "@gs/models/career";
-import {
-  getCareerItem,
-  getCareerSummaryItems,
-} from "@gs/models/career/index.server";
-import { EducationIcon } from "@gs/models/education";
-import { getEducationSummaryItems } from "@gs/models/education/index.server";
-import { ProjectsIcon } from "@gs/models/projects";
-import { getProjectsSummaryItems } from "@gs/models/projects/index.server";
+import { getAboutInfo } from "@gs/models/about.server";
+import { BlogIcon } from "@gs/models/blog.model";
+import { getBlogSummaryItems } from "@gs/models/blog.server";
+import { CareerIcon } from "@gs/models/career.model";
+import { getCareerItem, getCareerSummaryItems } from "@gs/models/career.server";
+import { EducationIcon } from "@gs/models/education.model";
+import { getEducationSummaryItems } from "@gs/models/education.server";
+import { ProjectsIcon } from "@gs/models/projects.model";
+import { getProjectsSummaryItems } from "@gs/models/projects.server";
 import type { SummaryItem } from "@gs/summary";
 import { ErrorSection } from "@gs/ui/Error";
 

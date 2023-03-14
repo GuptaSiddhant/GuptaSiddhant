@@ -8,7 +8,7 @@ import {
 } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
-import type { BlogPostProps } from ".";
+import type { BlogPostProps } from "./blog.model";
 
 const modelName = ModelName.Blog;
 const db = new Database<BlogPostProps>(modelName);

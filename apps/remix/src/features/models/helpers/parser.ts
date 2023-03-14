@@ -1,10 +1,8 @@
 import type { ModelArrayType, ModelObjectType, ModelScalerType } from "./types";
 
-export function parseFormDataWithModelObject<T extends Record<string, unknown>>(
-  formData: FormData,
-  model: ModelObjectType,
-  prefix = "",
-): T {
+export default function parseFormDataWithModelObject<
+  T extends Record<string, unknown>,
+>(formData: FormData, model: ModelObjectType, prefix = ""): T {
   const data: Record<string, unknown> = {};
   const { properties } = model;
 
@@ -58,13 +56,12 @@ function parseFormDataWithModelArray(
   }
 
   // Scaler
-  const formValues =
-    formData
-      .getAll(key)
-      .join(",")
-      .split(",")
-      .filter(Boolean)
-      .map((s) => s.trim()) || [];
+  const formValues = formData
+    .getAll(key)
+    .join(",")
+    .split(",")
+    .filter(Boolean)
+    .map((s) => s.trim());
 
   return formValues.map((value) =>
     parseFormValueWithModelScaler(value, itemModel),

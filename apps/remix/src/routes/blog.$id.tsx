@@ -8,12 +8,12 @@ import {
 } from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
-import { generateStructuredDataForBlogPost } from "@gs/models/blog";
+import { generateStructuredDataForBlogPost } from "@gs/models/blog.model";
 import {
   type BlogPostProps,
   getBlogPost,
   getBlogPostCrossSell,
-} from "@gs/models/blog/index.server";
+} from "@gs/models/blog.server";
 import { getAuthUser } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";

@@ -1,19 +1,19 @@
 import { renderToString } from "@react-pdf/renderer";
 
 import { aboutTexts } from "@gs/about";
-import { getAboutInfo, getAboutSkills } from "@gs/models/about/index.server";
-import { getCareerSummaryItems } from "@gs/models/career/index.server";
-import { getEducationSummaryItems } from "@gs/models/education/index.server";
+import { getAboutInfo, getAboutSkills } from "@gs/models/about.server";
+import { getCareerSummaryItems } from "@gs/models/career.server";
+import { getEducationSummaryItems } from "@gs/models/education.server";
 import type { SummaryItem } from "@gs/summary";
 
+import Resume, { type ResumeProps } from "./Resume";
+import { ResumeContextProvider } from "./ResumeContext";
 import type { ResumePalettes } from "./constants";
 import { type ResumeFonts, ResumeSections } from "./constants";
 import {
   getFiltersFromSearchParams,
   transformAboutLinkToContactLinks,
 } from "./helpers";
-import Resume, { type ResumeProps } from "./Resume";
-import { ResumeContextProvider } from "./ResumeContext";
 
 export default async function generateResumeFromUrl(url: URL): Promise<string> {
   const filters = getFiltersFromSearchParams(url.searchParams);

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import type { ModelScalerType } from "@gs/models/types";
+import type { ModelScalerType } from "@gs/models/helpers/types";
 import FormLabel from "@gs/ui/FormLabel";
 import Input from "@gs/ui/Input";
 import Select from "@gs/ui/Select";

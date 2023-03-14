@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 
 import { DeleteIcon } from "@gs/icons";
-import type { ModelArrayType, ModelObjectType } from "@gs/models/types";
+import type { ModelArrayType, ModelObjectType } from "@gs/models/helpers/types";
 import Button from "@gs/ui/Button";
 
 import EditorObjectInput from "./EditorObjectInput";

@@ -1,7 +1,7 @@
-import type { ModelArrayType, ModelObjectType } from "../types";
-import { ModelSize } from "../types";
+import type { ModelArrayType, ModelObjectType } from "./helpers/types";
+import { ModelSize } from "./helpers/types";
 
-const skillModel: ModelArrayType = {
+export const skillModel: ModelArrayType = {
   type: "array",
   items: {
     type: "object",
@@ -19,7 +19,7 @@ const skillModel: ModelArrayType = {
   },
 };
 
-const model: ModelObjectType = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
@@ -30,8 +30,6 @@ const model: ModelObjectType = {
     language: skillModel,
   },
 };
-
-export default { model };
 
 export interface Skills extends Record<SkillCategory, SkillObject[]> {
   id: string;

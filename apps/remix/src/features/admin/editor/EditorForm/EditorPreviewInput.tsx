@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 
 import useFullscreen from "@gs/hooks/useFullscreen";
-import type { ModelStringType } from "@gs/models/types";
+import type { ModelStringType } from "@gs/models/helpers/types";
 import Accordion from "@gs/ui/Accordion";
 import { FullscreenButton } from "@gs/ui/Button";
 import CodeBlock from "@gs/ui/CodeBlock";

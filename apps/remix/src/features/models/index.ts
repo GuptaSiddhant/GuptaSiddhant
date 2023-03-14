@@ -1,13 +1,13 @@
 import clsx from "clsx";
 
-import about from "./about/info";
-import skills from "./about/skills";
-import blog from "./blog";
-import career from "./career";
-import education from "./education";
-import projects from "./projects";
-import type { Model, ModelStyling } from "./types";
-import users from "./users";
+import * as projects from ".";
+import * as education from ".";
+import * as career from ".";
+import * as blog from ".";
+import * as about from "./about-info.model";
+import * as skills from "./about-skills.model";
+import type { Model, ModelObjectType, ModelStyling } from "./helpers/types";
+import * as users from "./users.model";
 
 export enum ModelName {
   Projects = "projects",
@@ -23,7 +23,7 @@ export enum ModelName {
 
 export type { Model };
 
-export function getModelByModelName(modelName: ModelName) {
+export function getModelByModelName(modelName: ModelName): ModelObjectType {
   switch (modelName) {
     case ModelName.Career:
       return career.model;

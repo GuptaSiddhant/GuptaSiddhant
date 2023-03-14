@@ -1,4 +1,4 @@
-import { type ModelObjectType, ModelSize } from "../types";
+import { type ModelObjectType, ModelSize } from "./helpers/types";
 
 export enum UserRole {
   GUEST = "GUEST",
@@ -6,7 +6,7 @@ export enum UserRole {
   ADMIN = "ADMIN",
 }
 
-const model: ModelObjectType = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
@@ -24,8 +24,6 @@ const model: ModelObjectType = {
     },
   },
 };
-
-export default { model };
 
 export interface UserProps {
   id: string;

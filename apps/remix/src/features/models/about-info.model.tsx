@@ -1,7 +1,7 @@
-import type { Model } from "../types";
-import { ModelSize } from "../types";
+import type { ModelObjectType } from "./helpers/types";
+import { ModelSize } from "./helpers/types";
 
-const model: Model = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     id: { type: "string", required: true },
@@ -53,8 +53,6 @@ const model: Model = {
     },
   },
 };
-
-export default { model };
 
 export interface AboutInfo {
   id: string;

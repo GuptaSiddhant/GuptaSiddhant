@@ -1,6 +1,6 @@
 import { LoaderArgs } from "@remix-run/server-runtime";
 
-import { generateBlogFeed } from "@gs/models/blog/index.server";
+import { generateBlogFeed } from "@gs/models/blog.server";
 
 export async function loader({ request }: LoaderArgs) {
   const { origin } = new URL(request.url);

@@ -6,7 +6,7 @@ import {
   json,
 } from "@remix-run/server-runtime";
 
-import { getProjectsSummaryItems } from "@gs/models/projects/index.server";
+import { getProjectsSummaryItems } from "@gs/models/projects.server";
 import {
   SortByOption,
   type SummaryItem,

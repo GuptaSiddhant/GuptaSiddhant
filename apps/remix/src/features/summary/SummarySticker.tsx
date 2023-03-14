@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import type { ModelStyling } from "@gs/models/types";
+import type { ModelStyling } from "@gs/models/helpers/types";
 
 import type { SummaryItem } from "./types";
 

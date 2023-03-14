@@ -4,10 +4,14 @@ import CareerIcon from "remixicon-react/Briefcase5FillIcon";
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";
 
-import { commonCareerEducationModel } from "../common-models";
-import { type ModelObjectType, type ModelStyling, ModelSize } from "../types";
+import { commonCareerEducationModel } from "./helpers/common-models";
+import {
+  type ModelObjectType,
+  ModelSize,
+  type ModelStyling,
+} from "./helpers/types";
 
-const model: ModelObjectType = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonCareerEducationModel.properties,
@@ -20,15 +24,13 @@ const model: ModelObjectType = {
   },
 };
 
-const styling: ModelStyling = {
+export const styling: ModelStyling = {
   bg: clsx("bg-purple-500"),
   text: clsx("text-purple-500"),
   border: clsx("border-purple-500"),
   borderHocus: clsx("group-hocus:border-purple-500 selected:border-purple-500"),
   icon: <CareerIcon />,
 };
-
-export default { model, styling };
 
 export enum CareerRoleType {
   FullTime = "full-time",

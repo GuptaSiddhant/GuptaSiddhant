@@ -4,8 +4,8 @@ import { type SummaryItem } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 import { generateDurationString } from "@gs/utils/format";
 
-import type { EducationProps } from ".";
-import { getProjectsSummaryItems } from "../projects/index.server";
+import type { EducationProps } from "./education.model";
+import { getProjectsSummaryItems } from "./projects.server";
 
 const modelName = ModelName.Education;
 const db = new Database<EducationProps>(modelName);

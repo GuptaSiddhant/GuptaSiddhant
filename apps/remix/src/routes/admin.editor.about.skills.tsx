@@ -6,13 +6,13 @@ import { AdminAppId, adminRegistry } from "@gs/admin";
 import EditorPage from "@gs/admin/editor/EditorPage";
 import { adminLogger } from "@gs/admin/logger.server";
 import { type Model, type ModelName, getModelByModelName } from "@gs/models";
-import type { Skills } from "@gs/models/about/index.server";
+import type { Skills } from "@gs/models/about.server";
 import {
   aboutSkillsKey,
   getAboutDatabase,
   getAboutSkills,
   getAboutSkillsModelName,
-} from "@gs/models/about/index.server";
+} from "@gs/models/about.server";
 import { mutateDatabaseByModelNameAndFormData } from "@gs/models/service.server";
 import {
   authenticateRoute,

@@ -2,7 +2,7 @@ import { ModelName } from "@gs/models";
 import Database from "@gs/service/database.server";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
-import type { UserProps } from ".";
+import type { UserProps } from "./users.model";
 
 const modelName = ModelName.Users;
 const db = new Database<UserProps>(modelName);

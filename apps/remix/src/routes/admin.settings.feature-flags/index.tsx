@@ -8,7 +8,7 @@ import RefetchIcon from "remixicon-react/RestartLineIcon";
 
 import { createAdminMeta } from "@gs/admin/helpers";
 import AdminLayout from "@gs/admin/layout";
-import { UserRole } from "@gs/models/users";
+import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
   type FeatureFlagsMap,

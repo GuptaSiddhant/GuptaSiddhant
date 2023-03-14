@@ -8,8 +8,8 @@ import type {
 } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
-import { getCareerSummaryItems } from "@gs/models/career/index.server";
-import { getEducationSummaryItems } from "@gs/models/education/index.server";
+import { getCareerSummaryItems } from "@gs/models/career.server";
+import { getEducationSummaryItems } from "@gs/models/education.server";
 import {
   ResumeFonts,
   ResumePalettes,

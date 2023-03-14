@@ -11,7 +11,7 @@ import backupDatabase, {
   generateBackupNameFromBackupPath,
 } from "@gs/admin/backup.server";
 import AdminLayout from "@gs/admin/layout";
-import { UserRole } from "@gs/models/users";
+import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Storage, { type StorageFile } from "@gs/service/storage.server";
 import Action from "@gs/ui/Action";

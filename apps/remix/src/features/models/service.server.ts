@@ -1,22 +1,19 @@
 import type { DatabaseDocument } from "@gs/service/database.server";
 import type Database from "@gs/service/database.server";
 
-import { getModelByModelName, ModelName } from ".";
+import { ModelName, getModelByModelName } from ".";
 import {
   type AboutInfo,
   type Skills,
   getAboutInfo,
   getAboutSkills,
-} from "./about/index.server";
-import { type BlogPostProps, getBlogPost } from "./blog/index.server";
-import { type CareerProps, getCareerItem } from "./career/index.server";
-import {
-  type EducationProps,
-  getEducationItem,
-} from "./education/index.server";
-import { parseFormDataWithModelObject } from "./parser";
-import { type ProjectProps, getProject } from "./projects/index.server";
-import { getUser } from "./users/index.server";
+} from "./about.server";
+import { type BlogPostProps, getBlogPost } from "./blog.server";
+import { type CareerProps, getCareerItem } from "./career.server";
+import { type EducationProps, getEducationItem } from "./education.server";
+import parseFormDataWithModelObject from "./helpers/parser";
+import { type ProjectProps, getProject } from "./projects.server";
+import { getUser } from "./users.server";
 
 export async function mutateDatabaseByModelNameAndFormData(
   modelName: ModelName,
@@ -30,8 +27,6 @@ export async function mutateDatabaseByModelNameAndFormData(
     formData,
     model,
   ) as unknown as DatabaseDocument;
-
-  // console.log({ invalidate, model, data, database, id })
 
   if (invalidate) {
     database.invalidateCacheById(id);

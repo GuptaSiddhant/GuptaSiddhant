@@ -1,19 +1,16 @@
 import { type LoaderFunction, json } from "@remix-run/server-runtime";
 
-import { getAboutInfo, getAboutSkills } from "@gs/models/about/index.server";
-import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog/index.server";
-import {
-  getCareerItem,
-  getCareerSummaryItems,
-} from "@gs/models/career/index.server";
+import { getAboutInfo, getAboutSkills } from "@gs/models/about.server";
+import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog.server";
+import { getCareerItem, getCareerSummaryItems } from "@gs/models/career.server";
 import {
   getEducationItem,
   getEducationSummaryItems,
-} from "@gs/models/education/index.server";
+} from "@gs/models/education.server";
 import {
   getProject,
   getProjectsSummaryItems,
-} from "@gs/models/projects/index.server";
+} from "@gs/models/projects.server";
 
 const apiTypes: Record<
   string,

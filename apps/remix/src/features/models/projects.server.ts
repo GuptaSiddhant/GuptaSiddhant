@@ -3,17 +3,17 @@ import Database from "@gs/service/database.server";
 import { type SummaryItem, getCrossSellSummaryItems } from "@gs/summary";
 import { querySummaryItemsByModelName } from "@gs/summary/service.server";
 
-import type { ProjectProps } from ".";
 import {
   getCareerItem,
   getCareerKeys,
   getCareerModelName,
-} from "../career/index.server";
+} from "./career.server";
 import {
   getEducationItem,
   getEducationKeys,
   getEducationModelName,
-} from "../education/index.server";
+} from "./education.server";
+import type { ProjectProps } from "./projects.model";
 
 const modelName = ModelName.Projects;
 const db = new Database<ProjectProps>(modelName);

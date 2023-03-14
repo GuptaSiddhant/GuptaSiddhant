@@ -4,10 +4,14 @@ import EducationIcon from "remixicon-react/BookFillIcon";
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";
 
-import { commonCareerEducationModel } from "../common-models";
-import { type ModelObjectType, type ModelStyling, ModelSize } from "../types";
+import { commonCareerEducationModel } from "./helpers/common-models";
+import {
+  type ModelObjectType,
+  ModelSize,
+  type ModelStyling,
+} from "./helpers/types";
 
-const model: ModelObjectType = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonCareerEducationModel.properties,
@@ -17,15 +21,13 @@ const model: ModelObjectType = {
   },
 };
 
-const styling: ModelStyling = {
+export const styling: ModelStyling = {
   bg: clsx("bg-red-500"),
   text: clsx("text-red-500"),
   border: clsx("border-red-500"),
   borderHocus: clsx("group-hocus:border-red-500 selected:border-red-500"),
   icon: <EducationIcon />,
 };
-
-export default { model, styling };
 
 export interface EducationProps extends Omit<SummaryItem, "title" | "model"> {
   degree: string;

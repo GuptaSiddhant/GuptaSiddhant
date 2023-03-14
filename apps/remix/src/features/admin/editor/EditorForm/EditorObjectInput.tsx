@@ -5,12 +5,12 @@ import type {
   ModelObjectType,
   ModelScalerType,
   ModelStringType,
-} from "@gs/models/types";
+} from "@gs/models/helpers/types";
 
-import { EditorFormContextProvider, useEditorForm } from "./context";
 import EditorArrayInput from "./EditorArrayInput";
 import EditorPreviewInput from "./EditorPreviewInput";
 import EditorTextInput from "./EditorScalerInput";
+import { EditorFormContextProvider, useEditorForm } from "./context";
 import {
   EditorInputLabel,
   fieldsetClassName,

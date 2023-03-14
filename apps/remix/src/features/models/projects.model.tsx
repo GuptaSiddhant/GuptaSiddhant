@@ -4,12 +4,16 @@ import ProjectsIcon from "remixicon-react/ArtboardLineIcon";
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";
 
-import { commonBlogProjectModel } from "../common-models";
-import { type ModelObjectType, type ModelStyling, ModelSize } from "../types";
-import type { AboutInfo } from "../about/info";
+import type { AboutInfo } from "./about-info.model";
+import { commonBlogProjectModel } from "./helpers/common-models";
+import {
+  type ModelObjectType,
+  ModelSize,
+  type ModelStyling,
+} from "./helpers/types";
 import type { BlogPosting, WithContext } from "schema-dts";
 
-const model: ModelObjectType = {
+export const model: ModelObjectType = {
   type: "object",
   properties: {
     ...commonBlogProjectModel.properties,
@@ -19,15 +23,13 @@ const model: ModelObjectType = {
   },
 };
 
-const styling: ModelStyling = {
+export const styling: ModelStyling = {
   bg: clsx("bg-green-500"),
   text: clsx("text-green-600"),
   border: clsx("border-green-500"),
   borderHocus: clsx("group-hocus:border-green-500 selected:border-green-500"),
   icon: <ProjectsIcon />,
 };
-
-export default { model, styling };
 
 export interface ProjectProps extends SummaryItem {
   association?: string;

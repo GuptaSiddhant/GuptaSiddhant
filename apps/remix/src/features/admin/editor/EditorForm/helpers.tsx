@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { type Model, ModelSize } from "@gs/models/types";
+import { type Model, ModelSize } from "@gs/models/helpers/types";
 import { toTitleCase } from "@gs/utils/format";
 
 export const objectGridClassName = clsx(

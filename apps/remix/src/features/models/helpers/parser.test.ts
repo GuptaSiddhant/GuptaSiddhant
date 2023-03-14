@@ -2,7 +2,7 @@
 
 import { expect, test } from "vitest";
 
-import { parseFormDataWithModelObject } from "./parser";
+import parseFormDataWithModelObject from "./parser";
 import type { ModelObjectType } from "./types";
 
 test("FormData with object model", () => {

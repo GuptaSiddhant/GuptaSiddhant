@@ -9,7 +9,7 @@ import type { LoaderFunction } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
 import usePullDownRefresh from "@gs/hooks/usePullDownRefresh";
-import { getAboutInfo } from "@gs/models/about/index.server";
+import { getAboutInfo } from "@gs/models/about.server";
 import { type RootLoaderData } from "@gs/root";
 import AppLayout from "@gs/root/AppLayout";
 import Document from "@gs/root/Document";

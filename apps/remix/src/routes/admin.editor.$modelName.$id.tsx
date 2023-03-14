@@ -12,7 +12,7 @@ import {
   getModelByModelName,
   verifyValidModelName,
 } from "@gs/models";
-import { getProjectAssociationKeys } from "@gs/models/projects/index.server";
+import { getProjectAssociationKeys } from "@gs/models/projects.server";
 import {
   getItemByModelName,
   mutateDatabaseByModelNameAndFormData,

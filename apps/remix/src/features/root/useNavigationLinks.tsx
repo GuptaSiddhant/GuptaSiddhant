@@ -4,7 +4,7 @@ import MailIcon from "remixicon-react/MailLineIcon";
 
 import { useLoaderData } from "@remix-run/react";
 
-import { type AboutInfo } from "@gs/models/about/info";
+import { type AboutInfo } from "@gs/models/about-info.model";
 import type { RootLoaderData } from "@gs/root";
 import { useSearch } from "@gs/search";
 import SearchButton from "@gs/search/SearchButton";

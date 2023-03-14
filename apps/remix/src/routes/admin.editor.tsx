@@ -13,12 +13,12 @@ import { createAdminMeta } from "@gs/admin/helpers";
 import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
 import type { AdminAppHandle } from "@gs/admin/types";
 import { ModelName, getLabelByModelName } from "@gs/models";
-import { getAboutKeys } from "@gs/models/about/index.server";
-import { getBlogKeys } from "@gs/models/blog/index.server";
-import { getCareerKeys } from "@gs/models/career/index.server";
-import { getEducationKeys } from "@gs/models/education/index.server";
-import { getProjectsKeys } from "@gs/models/projects/index.server";
-import { getUsersKeys } from "@gs/models/users/index.server";
+import { getAboutKeys } from "@gs/models/about.server";
+import { getBlogKeys } from "@gs/models/blog.server";
+import { getCareerKeys } from "@gs/models/career.server";
+import { getEducationKeys } from "@gs/models/education.server";
+import { getProjectsKeys } from "@gs/models/projects.server";
+import { getUsersKeys } from "@gs/models/users.server";
 import {
   authenticateRoute,
   isUserHasWriteAccess,
