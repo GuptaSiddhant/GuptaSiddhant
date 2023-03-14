@@ -2,13 +2,13 @@ import clsx from "clsx";
 
 import { Link, useNavigate } from "@remix-run/react";
 
-import {
-  assetTransformationOptions,
-  generateAssetTransformedUrl,
-} from "@gs/service/cloudinary";
 import type { Gallery } from "@gs/types";
 import Accordion from "@gs/ui/Accordion";
 import Button from "@gs/ui/Button";
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/utils/asset-transformer";
 
 import type { Command } from "./commands";
 import useSearch from "./context";

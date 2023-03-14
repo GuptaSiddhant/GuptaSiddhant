@@ -7,9 +7,9 @@ import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon";
 
 import useElementStore from "@gs/hooks/useElementStore";
 import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll";
-import { generateAssetTransformedUrl } from "@gs/service/cloudinary";
 import type { BaseProps, MaybePromise } from "@gs/types";
 import Section, { proseWidth } from "@gs/ui/Section";
+import { generateAssetTransformedUrl } from "@gs/utils/asset-transformer";
 
 import SummarySticker from "./SummarySticker";
 import type { SummaryItem } from "./types";

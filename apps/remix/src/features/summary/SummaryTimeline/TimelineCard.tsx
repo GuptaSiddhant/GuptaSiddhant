@@ -9,13 +9,13 @@ import NpmIcon from "remixicon-react/NpmjsLineIcon";
 
 import { getStylingByModelName } from "@gs/models";
 import useRootContext from "@gs/root/RootContext";
-import {
-  assetTransformationOptions,
-  generateAssetTransformedUrl,
-} from "@gs/service/cloudinary";
 import type { Gallery, LinkObject } from "@gs/types";
 import Button from "@gs/ui/Button";
 import { H5, H6, Paragraph } from "@gs/ui/Text";
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/utils/asset-transformer";
 import { formatDate } from "@gs/utils/format";
 
 import SummarySticker from "../SummarySticker";

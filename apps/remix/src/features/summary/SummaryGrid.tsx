@@ -3,12 +3,12 @@ import clsx from "clsx";
 import { Link } from "@remix-run/react";
 
 import { getStylingByModelName } from "@gs/models";
+import type { BaseProps } from "@gs/types";
+import Section from "@gs/ui/Section";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
-} from "@gs/service/cloudinary";
-import type { BaseProps } from "@gs/types";
-import Section from "@gs/ui/Section";
+} from "@gs/utils/asset-transformer";
 
 import SummarySticker from "./SummarySticker";
 import type { SummaryItem } from "./types";

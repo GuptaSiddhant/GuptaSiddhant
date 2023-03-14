@@ -1,13 +1,13 @@
 import clsx from "clsx";
 import { useMemo, useState } from "react";
 
-import {
-  assetTransformationOptions,
-  generateAssetTransformedUrl,
-} from "@gs/service/cloudinary";
 import type { SummaryItem } from "@gs/summary";
 import Mdx from "@gs/ui/Mdx";
 import Tags from "@gs/ui/Tags";
+import {
+  assetTransformationOptions,
+  generateAssetTransformedUrl,
+} from "@gs/utils/asset-transformer";
 
 import {
   CommandItem,
