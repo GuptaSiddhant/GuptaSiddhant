@@ -25,11 +25,19 @@ describe.concurrent("transformContentToMdx", () => {
   test("returns parsed string if it is wrapped in quotes", () => {
     expect(transformContentToMdx('"hello-world"')).toBe("hello-world");
   });
+
+  test("return same input if json parsing fail", () => {
+    expect(transformContentToMdx('"hello-world')).toBe('"hello-world');
+  });
 });
 
 describe.concurrent("extractTocFromMdx", () => {
   test("return empty list when mdx string is not provided/undefined", () => {
-    expect(extractTocFromMdx()).toEqual([]);
+    expect(extractTocFromMdx("no headings")).toEqual([]);
+  });
+
+  test("return empty list when mdx string contains no headings", () => {
+    expect(extractTocFromMdx("no headings")).toEqual([]);
   });
 
   const mdxString = `
@@ -45,7 +53,7 @@ describe.concurrent("extractTocFromMdx", () => {
   Content under heading 3-2
   `;
 
-  test("", () => {
+  test("returns a list of parsed headings when mdx string contains headings", () => {
     expect(extractTocFromMdx(mdxString)).toMatchInlineSnapshot(`
       [
         {
@@ -77,6 +85,31 @@ describe.concurrent("extractTocFromMdx", () => {
           "id": "heading-3-2",
           "level": 3,
           "text": "Heading 3-2",
+        },
+      ]
+    `);
+  });
+
+  test("returns a list of parsed headings till a max level when mdx string contains headings", () => {
+    expect(extractTocFromMdx(mdxString, 2)).toMatchInlineSnapshot(`
+      [
+        {
+          "children": [],
+          "id": "heading-1",
+          "level": 1,
+          "text": "Heading 1",
+        },
+        {
+          "children": [],
+          "id": "heading-2-1",
+          "level": 2,
+          "text": "Heading 2-1",
+        },
+        {
+          "children": [],
+          "id": "heading-2-2",
+          "level": 2,
+          "text": "Heading 2-2",
         },
       ]
     `);

@@ -6,32 +6,6 @@ export function generateHeadingId(children: string | number): string {
   return toKebabCase(children.toString());
 }
 
-export function extractTocFromMdx(
-  mdx?: string,
-  maxLevel: number = DEFAULT_TOC_MAX_LEVEL,
-): TocItem[] {
-  if (!mdx) {
-    return [];
-  }
-
-  const regex = /#+.+/g;
-  const headings = mdx
-    .match(regex)
-    ?.map((h) => {
-      const text = h.split("# ")[1];
-      return {
-        text: h.split("# ")[1],
-        level: h.split(" ")[0].length,
-        id: generateHeadingId(text),
-        children: [],
-      };
-    })
-    .filter((h, i) => (i > 0 ? h.level > 1 : true))
-    .filter((h) => h.level <= maxLevel);
-
-  return headings || [];
-}
-
 export function transformContentToMdx(content?: string): string | undefined {
   if (!content) return undefined;
 
@@ -40,4 +14,26 @@ export function transformContentToMdx(content?: string): string | undefined {
   } catch {
     return content;
   }
+}
+
+export function extractTocFromMdx(
+  mdx?: string,
+  maxLevel: number = DEFAULT_TOC_MAX_LEVEL,
+): TocItem[] {
+  const headings = mdx?.match(/#+.+/g) || [];
+
+  return headings
+    .map(mapHeadingTextToTocItem)
+    .filter((h, i) => (i > 0 ? h.level > 1 : true) && h.level <= maxLevel);
+}
+
+function mapHeadingTextToTocItem(heading: string): TocItem {
+  const text = heading.split("# ")[1];
+
+  return {
+    text: heading.split("# ")[1],
+    level: heading.split(" ")[0].length,
+    id: generateHeadingId(text),
+    children: [],
+  };
 }

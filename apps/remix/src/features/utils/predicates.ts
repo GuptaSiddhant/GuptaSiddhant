@@ -1,11 +1,5 @@
 // Filter
 
-export function typedBooleanFilterPredicate<T>(
-  value: T,
-): value is Exclude<T, "" | 0 | false | null | undefined> {
-  return Boolean(value);
-}
-
 export function formDataStringOnlyEntriesFilterPredicate<
   T extends FormDataEntryValue,
 >(entry: [string, T]): entry is [string, Exclude<T, File>] {
