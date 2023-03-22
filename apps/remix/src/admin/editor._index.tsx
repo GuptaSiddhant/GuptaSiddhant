@@ -4,7 +4,7 @@ import AdminDashboard from "@gs/admin/components/AdminDashboard";
 import { useAdminApp } from "@gs/admin/helpers";
 import Table from "@gs/ui/Table";
 
-import { type LoaderData } from "./admin.editor";
+import { type LoaderData } from "./editor";
 
 export default function EditorIndex(): JSX.Element | null {
   const { entries } = useOutletContext<LoaderData>();
