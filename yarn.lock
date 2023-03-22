@@ -9429,7 +9429,7 @@ __metadata:
     react-dom: ^18.2.0
     remix-auth: ^3.3.0
     remix-auth-form: ^1.2.0
-    remix-routes-folder: "*"
+    remix-routes-folder: ^0.1.0
     remix-utils: ^5.1.0
     remixicon-react: ^1.0.0
     rome: ^11.0.0
@@ -14332,7 +14332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remix-routes-folder@npm:*":
+"remix-routes-folder@npm:^0.1.0":
   version: 0.1.0
   resolution: "remix-routes-folder@npm:0.1.0"
   peerDependencies:
