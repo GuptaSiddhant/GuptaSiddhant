@@ -1,19 +1,17 @@
 // @ts-check
-const mountDirToPath = require("./scripts/remix-plugin-mountDirToPath");
+const { addRoutesFolder } = require("remix-routes-folder");
+
+const appDirectory = "src";
 
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
   serverBuildPath: "api/index.js",
   ignoredRouteFiles: ["**/.*"],
-  appDirectory: "src",
+  appDirectory,
   future: {
     v2_routeConvention: true,
     unstable_tailwind: true,
   },
-  routes() {
-    const adminRoutes = mountDirToPath("admin");
-
-    return { ...adminRoutes };
-  },
+  routes: () => addRoutesFolder("admin", { appDirectory }),
 };
