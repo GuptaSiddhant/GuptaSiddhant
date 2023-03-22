@@ -2,12 +2,13 @@ import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { generatePathsFromPath } from "@gs/admin/storage/helpers";
-import { getStoragePaths } from "@gs/admin/storage/service.server";
-import StorageDirView from "@gs/admin/storage/StorageDirView";
-import { type StoragePathProps } from "@gs/admin/storage/types";
 import { authenticateRoute } from "@gs/service/auth.server";
+
+import { AdminAppId, adminRegistry } from "./features";
+import StorageDirView from "./features/storage/StorageDirView";
+import { generatePathsFromPath } from "./features/storage/helpers";
+import { getStoragePaths } from "./features/storage/service.server";
+import { type StoragePathProps } from "./features/storage/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage);
 

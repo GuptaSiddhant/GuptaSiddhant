@@ -6,14 +6,15 @@ import type {
 } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout";
-import type { AdminAppHandle } from "@gs/admin/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import { getLoggerNames } from "@gs/service/logger-admin.server";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption } from "@gs/ui/Text";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout from "./features/layout";
+import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Logs);
 

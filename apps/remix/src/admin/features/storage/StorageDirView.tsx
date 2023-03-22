@@ -1,11 +1,11 @@
 import FolderIcon from "remixicon-react/Folder3FillIcon";
 
-import AdminLayout from "@gs/admin/layout";
 import { DeleteIcon } from "@gs/icons";
 import Action from "@gs/ui/Action";
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
 
 import AdminDashboard from "../components/AdminDashboard";
+import AdminLayout from "../layout";
 import StorageFileView from "./StorageFileView";
 import {
   extractLastPartOfFilePath,

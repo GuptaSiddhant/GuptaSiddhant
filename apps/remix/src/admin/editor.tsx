@@ -8,10 +8,6 @@ import {
   json,
 } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
-import type { AdminAppHandle } from "@gs/admin/types";
 import { ModelName, getLabelByModelName } from "@gs/models";
 import { getAboutKeys } from "@gs/models/about.server";
 import { getBlogKeys } from "@gs/models/blog.server";
@@ -27,6 +23,11 @@ import type { NavigationLinkProps } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 import Menu from "@gs/ui/Menu";
 import { Caption } from "@gs/ui/Text";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout, { type AdminNavbarGroupProps } from "./features/layout";
+import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor);
 

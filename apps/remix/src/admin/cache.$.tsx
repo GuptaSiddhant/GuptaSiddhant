@@ -9,9 +9,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout";
 import { ONE_HOUR_IN_MS } from "@gs/constants";
 import useMediaQuery from "@gs/hooks/useMediaQuery";
 import { DeleteIcon } from "@gs/icons";
@@ -32,6 +29,10 @@ import { ErrorSection } from "@gs/ui/Error";
 import { Caption, Paragraph } from "@gs/ui/Text";
 import { transformMsToReadableString } from "@gs/utils/format";
 import invariant from "@gs/utils/invariant";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout from "./features/layout";
 
 interface LoaderData {
   key: string;

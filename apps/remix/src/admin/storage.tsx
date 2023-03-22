@@ -7,12 +7,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout";
-import { generateNavbarGroupsFromStorageDirContents } from "@gs/admin/storage/helpers";
-import { modifyStorage } from "@gs/admin/storage/service.server";
-import type { AdminAppHandle } from "@gs/admin/types";
 import { RefreshIcon, UploadIcon } from "@gs/icons";
 import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -23,6 +17,13 @@ import { ErrorSection } from "@gs/ui/Error";
 import Popover from "@gs/ui/Popover";
 import PopoverUpload from "@gs/ui/Popover/Upload";
 import { Caption } from "@gs/ui/Text";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout from "./features/layout";
+import { generateNavbarGroupsFromStorageDirContents } from "./features/storage/helpers";
+import { modifyStorage } from "./features/storage/service.server";
+import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage);
 

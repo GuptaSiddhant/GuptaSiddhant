@@ -2,9 +2,6 @@ import { useLoaderData } from "@remix-run/react";
 import type { DataFunctionArgs } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import EditorPage from "@gs/admin/editor/EditorPage";
-import { adminLogger } from "@gs/admin/logger.server";
 import {
   type Model,
   ModelName,
@@ -24,6 +21,10 @@ import {
 import Database from "@gs/service/database.server";
 import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
+
+import { AdminAppId, adminRegistry } from "./features";
+import EditorPage from "./features/editor/EditorPage";
+import { adminLogger } from "./features/logger.server";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor);
 

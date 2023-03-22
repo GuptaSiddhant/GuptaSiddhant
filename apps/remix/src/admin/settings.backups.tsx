@@ -7,14 +7,15 @@ import {
 } from "@remix-run/server-runtime";
 import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
 
-import backupDatabase, {
-  generateBackupNameFromBackupPath,
-} from "@gs/admin/backup.server";
-import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Storage, { type StorageFile } from "@gs/service/storage.server";
 import Action from "@gs/ui/Action";
+
+import backupDatabase, {
+  generateBackupNameFromBackupPath,
+} from "./features/backup.server";
+import AdminLayout from "./features/layout";
 
 interface LoaderData {
   list: string[];

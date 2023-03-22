@@ -6,7 +6,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
 import { ModelName } from "@gs/models";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Database from "@gs/service/database.server";
@@ -14,6 +13,8 @@ import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption, Paragraph } from "@gs/ui/Text";
 import invariant from "@gs/utils/invariant";
+
+import { AdminAppId, adminRegistry } from "./features";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Storage);
 

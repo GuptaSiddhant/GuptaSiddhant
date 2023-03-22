@@ -6,8 +6,6 @@ import type {
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
 import RefetchIcon from "remixicon-react/RestartLineIcon";
 
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout from "@gs/admin/layout";
 import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
@@ -23,6 +21,8 @@ import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import invariant from "@gs/utils/invariant";
 
+import { createAdminMeta } from "../features/helpers";
+import AdminLayout from "../features/layout";
 import FeatureFlagsTable from "./FeatureFlagsTable";
 
 interface LoaderData {

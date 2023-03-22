@@ -1,10 +1,11 @@
 import { useLoaderData } from "@remix-run/react";
 import { type LoaderFunction, json } from "@remix-run/server-runtime";
 
-import AdminDashboard from "@gs/admin/components/AdminDashboard";
-import { useAdminApp } from "@gs/admin/helpers";
 import { authenticateRoute } from "@gs/service/auth.server";
 import { getLoggerNames } from "@gs/service/logger-admin.server";
+
+import AdminDashboard from "./features/components/AdminDashboard";
+import { useAdminApp } from "./features/helpers";
 
 interface LoaderData {
   names: string[];

@@ -8,8 +8,6 @@ import {
 import clsx from "clsx";
 import { useId, useMemo, useState } from "react";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import AdminLayout from "@gs/admin/layout";
 import { ONE_MIN_IN_MS } from "@gs/constants";
 import { LogSeverity } from "@gs/constants/logs-constants";
 import useInterval from "@gs/hooks/useInterval";
@@ -31,6 +29,9 @@ import Table, { TableColumnProps } from "@gs/ui/Table";
 import Tags from "@gs/ui/Tags";
 import { formatDateTime } from "@gs/utils/format";
 import invariant from "@gs/utils/invariant";
+
+import { AdminAppId, adminRegistry } from "./features";
+import AdminLayout from "./features/layout";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Logs);
 const DEFAULT_LIMIT = 20;

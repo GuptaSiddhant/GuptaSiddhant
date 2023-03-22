@@ -1,6 +1,6 @@
 {
   "name": "remix-routes-folder",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "main": "index.js",
   "types": "index.d.ts",
   "description": "A Remix plugin that allows you to organize your routes in multiple route-folders.",
@@ -11,6 +11,10 @@
     "organize",
     "plugin",
     "typescript"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "tsc",

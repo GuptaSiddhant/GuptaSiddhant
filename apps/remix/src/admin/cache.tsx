@@ -10,10 +10,6 @@ import type {
 } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta, useAdminApp } from "@gs/admin/helpers";
-import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
-import type { AdminAppHandle } from "@gs/admin/types";
 import { DeleteIcon } from "@gs/icons";
 import { authenticateRoute } from "@gs/service/auth.server";
 import {
@@ -26,6 +22,11 @@ import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption } from "@gs/ui/Text";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta, useAdminApp } from "./features/helpers";
+import AdminLayout, { type AdminNavbarGroupProps } from "./features/layout";
+import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache);
 

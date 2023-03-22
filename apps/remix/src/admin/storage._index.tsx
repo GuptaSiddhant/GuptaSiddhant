@@ -2,13 +2,14 @@ import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
-import AdminDashboard from "@gs/admin/components/AdminDashboard";
-import { useAdminApp } from "@gs/admin/helpers";
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";
 import Storage, { type StorageMetadata } from "@gs/service/storage.server";
 import { ExternalLink } from "@gs/ui/Link";
 import { formatDateTime } from "@gs/utils/format";
+
+import AdminDashboard from "./features/components/AdminDashboard";
+import { useAdminApp } from "./features/helpers";
 
 interface LoaderData {
   metadata?: StorageMetadata;

@@ -1,13 +1,13 @@
+import { useLoaderData } from "@remix-run/react";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 import clsx from "clsx";
 import PositiveIcon from "remixicon-react/CheckboxCircleFillIcon";
 import NegativeIcon from "remixicon-react/CloseCircleFillIcon";
 
-import { useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
-
-import { createAdminMeta } from "@gs/admin/helpers";
 import { getAuthUser, isUserHasWriteAccess } from "@gs/service/auth.server";
 import { H1, Paragraph } from "@gs/ui/Text";
+
+import { createAdminMeta } from "./features/helpers";
 
 interface LoaderData {
   hasWriteAccess: boolean;

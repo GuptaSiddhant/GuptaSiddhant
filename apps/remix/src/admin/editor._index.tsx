@@ -1,8 +1,9 @@
 import { useOutletContext } from "@remix-run/react";
 
-import AdminDashboard from "@gs/admin/components/AdminDashboard";
-import { useAdminApp } from "@gs/admin/helpers";
 import Table from "@gs/ui/Table";
+
+import AdminDashboard from "./features/components/AdminDashboard";
+import { useAdminApp } from "./features/helpers";
 
 import { type LoaderData } from "./editor";
 

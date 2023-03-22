@@ -13,5 +13,12 @@ module.exports = {
     v2_routeConvention: true,
     unstable_tailwind: true,
   },
-  routes: () => addRoutesFolder("admin", { appDirectory }),
+  routes: () => {
+    const adminRoutes = addRoutesFolder("admin", {
+      appDirectory,
+      ignoredRouteFiles: ["features/**"],
+    });
+
+    return { ...adminRoutes };
+  },
 };

@@ -2,9 +2,6 @@ import { useLoaderData } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import EditorPage from "@gs/admin/editor/EditorPage";
-import { adminLogger } from "@gs/admin/logger.server";
 import { type Model, ModelName, getModelByModelName } from "@gs/models";
 import type { AboutInfo } from "@gs/models/about.server";
 import {
@@ -20,6 +17,10 @@ import {
   isUserHasWriteAccess,
 } from "@gs/service/auth.server";
 import { getErrorMessage } from "@gs/utils/error";
+
+import { AdminAppId, adminRegistry } from "./features";
+import EditorPage from "./features/editor/EditorPage";
+import { adminLogger } from "./features/logger.server";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Editor);
 

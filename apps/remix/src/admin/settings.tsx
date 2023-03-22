@@ -4,13 +4,14 @@ import type {
   MetaFunction,
 } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { createAdminMeta } from "@gs/admin/helpers";
-import AdminLayout, { type AdminNavbarGroupProps } from "@gs/admin/layout";
-import type { AdminAppHandle } from "@gs/admin/types";
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption } from "@gs/ui/Text";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout, { type AdminNavbarGroupProps } from "./features/layout";
+import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 

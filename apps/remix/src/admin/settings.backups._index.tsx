@@ -1,10 +1,11 @@
 import { useOutletContext } from "@remix-run/react";
 import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
 
-import AdminDashboard from "@gs/admin/components/AdminDashboard";
 import useRootContext from "@gs/root/RootContext";
 import type { StorageFile } from "@gs/service/storage.server";
 import { formatDateTime } from "@gs/utils/format";
+
+import AdminDashboard from "./features/components/AdminDashboard";
 
 export default function BackupsIndex(): JSX.Element | null {
   const { locale } = useRootContext();

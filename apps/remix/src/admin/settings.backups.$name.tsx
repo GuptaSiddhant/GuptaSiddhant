@@ -2,9 +2,6 @@ import { useLoaderData } from "@remix-run/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
-import { AdminAppId, adminRegistry } from "@gs/admin";
-import { generateBackupPathFromBackupName } from "@gs/admin/backup.server";
-import AdminLayout from "@gs/admin/layout";
 import { DeleteIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -15,6 +12,10 @@ import CodeBlock from "@gs/ui/CodeBlock";
 import { getDeleteConfirmProps } from "@gs/ui/Popover/Confirm";
 import { formatDateTime } from "@gs/utils/format";
 import invariant from "@gs/utils/invariant";
+
+import { AdminAppId, adminRegistry } from "./features";
+import { generateBackupPathFromBackupName } from "./features/backup.server";
+import AdminLayout from "./features/layout";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
