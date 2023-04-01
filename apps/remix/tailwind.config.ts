@@ -1,8 +1,16 @@
-const plugin = require("tailwindcss/plugin");
-const colors = require("tailwindcss/colors");
+import type { Config } from "tailwindcss";
+import {
+  amber,
+  cyan,
+  emerald,
+  neutral,
+  purple,
+  rose,
+  sky,
+} from "tailwindcss/colors";
+import plugin from "tailwindcss/plugin";
 
-/** @type {import('tailwindcss').Config} */
-const config = {
+export default {
   darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
@@ -12,53 +20,53 @@ const config = {
       monospace: ["Fira Code", "Menlo", "monospace"],
     },
     zIndex: {
-      hide: -1,
+      hide: "-1",
       auto: "auto",
-      0: 0,
-      layout: 20,
-      popover: 30,
-      toast: 40,
-      tooltip: 50,
+      "0": "0",
+      layout: "20",
+      popover: "30",
+      toast: "40",
+      tooltip: "50",
     },
     colors: {
       black: "#000000",
       white: "#ffffff",
       transparent: "transparent",
       current: "currentColor",
-      blue: colors.sky,
-      red: colors.rose,
-      green: colors.emerald,
-      gray: colors.neutral,
-      purple: colors.purple,
-      orange: colors.amber,
-      cyan: colors.cyan,
+      blue: sky,
+      red: rose,
+      green: emerald,
+      gray: neutral,
+      purple: purple,
+      orange: amber,
+      cyan: cyan,
     },
     extend: {
       colors: {
-        DEFAULT: "var(--color-text-default)",
-        default: "var(--color-text-default)",
-        primary: "var(--color-text-primary)",
-        secondary: "var(--color-text-secondary)",
-        tertiary: "var(--color-text-tertiary)",
-        disabled: "var(--color-text-disabled)",
-        inverse: "var(--color-text-inverse)",
-        link: "var(--color-text-link)",
-        "link-hover": "var(--color-text-link)",
-        positive: "var(--color-text-positive)",
-        negative: "var(--color-text-negative)",
+        DEFAULT: createColorTextCssVar("default"),
+        default: createColorTextCssVar("default"),
+        primary: createColorTextCssVar("primary"),
+        secondary: createColorTextCssVar("secondary"),
+        tertiary: createColorTextCssVar("tertiary"),
+        disabled: createColorTextCssVar("disabled"),
+        inverse: createColorTextCssVar("inverse"),
+        link: createColorTextCssVar("link"),
+        "link-hover": createColorTextCssVar("link"),
+        positive: createColorTextCssVar("positive"),
+        negative: createColorTextCssVar("negative"),
       },
       backgroundColor: {
-        DEFAULT: "var(--color-bg-default)",
-        default: "var(--color-bg-default)",
-        primary: "var(--color-bg-primary)",
-        secondary: "var(--color-bg-secondary)",
-        tertiary: "var(--color-bg-tertiary)",
-        disabled: "var(--color-bg-disabled)",
-        inverse: "var(--color-bg-inverse)",
-        progress: "var(--color-bg-progress)",
-        positive: "var(--color-bg-positive)",
-        negative: "var(--color-bg-negative)",
-        float: "var(--color-bg-float)",
+        DEFAULT: createColorBgCssVar("default"),
+        default: createColorBgCssVar("default"),
+        primary: createColorBgCssVar("primary"),
+        secondary: createColorBgCssVar("secondary"),
+        tertiary: createColorBgCssVar("tertiary"),
+        disabled: createColorBgCssVar("disabled"),
+        inverse: createColorBgCssVar("inverse"),
+        progress: createColorBgCssVar("progress"),
+        positive: createColorBgCssVar("positive"),
+        negative: createColorBgCssVar("negative"),
+        float: createColorBgCssVar("float"),
       },
       borderColor: {
         DEFAULT: "var(--color-border-divider)",
@@ -86,16 +94,16 @@ const config = {
       },
       keyframes: {
         appear: {
-          "0%": { opacity: 0.5 },
+          "0%": { opacity: "0.5" },
         },
         "appear-btt": {
-          "0%": { transform: "translateY(50%)", opacity: 0.5 },
+          "0%": { transform: "translateY(50%)", opacity: "0.5" },
         },
         "appear-rtl": {
-          "0%": { transform: "translateX(10%)", opacity: 0.5 },
+          "0%": { transform: "translateX(10%)", opacity: "0.5" },
         },
         "disappear-ltr": {
-          "100%": { transform: "translateX(100%)", opacity: 0 },
+          "100%": { transform: "translateX(100%)", opacity: "0" },
         },
       },
       minHeight: {
@@ -155,9 +163,18 @@ const config = {
       });
     }),
   ],
-};
+} satisfies Config;
 
-module.exports = config;
+function createColorTextCssVar(name: string) {
+  return createCssVarValue("color", "text", name);
+}
+function createColorBgCssVar(name: string) {
+  return createCssVarValue("color", "bg", name);
+}
+
+function createCssVarValue(type: string, subType?: string, name?: string) {
+  return `var(--${[type, subType, name].filter(Boolean).join("-")})`;
+}
 
 // /** @type {TailwindColorGroup} */
 // const myGrayColors = {
