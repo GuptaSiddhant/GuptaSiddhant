@@ -21,9 +21,9 @@ import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
 import invariant from "@gs/utils/invariant";
 
-import { createAdminMeta } from "../features/helpers";
-import AdminLayout from "../features/layout";
-import FeatureFlagsTable from "./FeatureFlagsTable";
+import FeatureFlagsTable from "./features/components/FeatureFlagsTable";
+import { createAdminMeta } from "./features/helpers";
+import AdminLayout from "./features/layout";
 
 interface LoaderData {
   featureFlags: FeatureFlagsMap;
