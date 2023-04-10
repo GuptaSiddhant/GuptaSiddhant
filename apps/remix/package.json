@@ -14,7 +14,9 @@
     "test": "vitest --dir src",
     "test:dev": "vitest dev --dir src",
     "test:coverage": "vitest --dir src --coverage",
-    "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json"
+    "test:clear": "rm -rf ./coverage; rm node_modules/.vitest/results.json",
+    "vercel:build": "yarn vercel:build:css; yarn build",
+    "vercel:build:css": "cross-env NODE_ENV=production tailwindcss -o ./src/features/styles/tailwind.css --minify"
   },
   "sideEffects": false,
   "engines": {
