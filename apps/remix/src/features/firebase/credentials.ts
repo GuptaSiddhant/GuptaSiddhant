@@ -1,8 +1,9 @@
 import type { ServiceAccount } from "firebase-admin/lib/app/credential";
+import type { CredentialBody } from "google-auth-library/build/src/auth/credentials";
 
 import parsedEnv from "@gs/env";
 
-export function googleServiceAccount(): ServiceAccount {
+export function googleServiceAccount(): CredentialBody & ServiceAccount {
   const serviceAccount = parsedEnv.FIREBASE_SERVICE_ACCOUNT_KEY;
 
   return {

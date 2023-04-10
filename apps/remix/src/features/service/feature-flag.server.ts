@@ -46,7 +46,12 @@ export async function getAllFeatureFlags(): Promise<FeatureFlagsMap | null> {
         }
         case "JSON": {
           const jsonValue = JSON.parse(value);
-          if ("dev" in jsonValue && "prod" in jsonValue) {
+          if (
+            jsonValue &&
+            typeof jsonValue === "object" &&
+            "dev" in jsonValue &&
+            "prod" in jsonValue
+          ) {
             return { ...acc, [key]: jsonValue };
           }
         }

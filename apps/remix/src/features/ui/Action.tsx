@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 import {
   Form,
+  type FormEncType,
   type FormProps,
   useFetcher,
   useLocation,
@@ -60,7 +61,10 @@ export default function Action({
   );
 
   const handleSubmit = useStableCallback(() =>
-    submit({ ...body, originPath }, { replace, method, action, encType }),
+    submit(
+      { ...body, originPath },
+      { replace, method, action, encType: encType as FormEncType | undefined },
+    ),
   );
 
   if (confirm) {
@@ -102,6 +106,7 @@ function FormAction({
   children,
   confirm,
   method = "get",
+  encType,
   ...props
 }: Omit<ActionProps, "toast" | "method"> & {
   method: "get" | "post";
@@ -134,6 +139,7 @@ function FormAction({
               {
                 method,
                 replace: true,
+                encType: encType as FormEncType | undefined,
                 ...props,
               },
             );

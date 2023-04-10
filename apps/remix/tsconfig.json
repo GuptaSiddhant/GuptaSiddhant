@@ -1,14 +1,32 @@
 {
-  "include": ["remix.env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "include": [
+    "remix.env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+  ],
   "compilerOptions": {
     "paths": {
-      "@gs/*": ["./src/features/*"],
-      "~/*": ["./src/*"]
+      "@gs/*": [
+        "./src/features/*"
+      ],
+      "~/*": [
+        "./src/*"
+      ]
     },
     "baseUrl": ".",
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "DOM.Iterable", "ES2021"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2021"
+    ],
     "strict": true,
     "target": "ES2019",
     "esModuleInterop": true,
@@ -16,6 +34,7 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   }
 }

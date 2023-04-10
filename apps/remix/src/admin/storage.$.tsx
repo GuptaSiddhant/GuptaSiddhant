@@ -41,5 +41,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export default function StoragePath(): JSX.Element | null {
   const { storagePaths } = useLoaderData<LoaderData>();
 
+  // @ts-expect-error
   return <StorageDirView storagePaths={storagePaths} />;
 }

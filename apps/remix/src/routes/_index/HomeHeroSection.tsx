@@ -1,5 +1,5 @@
 import { type AboutInfo } from "@gs/models/about-info.model";
-import type { CareerProps } from "@gs/models/career";
+import type { CareerProps } from "@gs/models/career.model";
 import CodeBlock from "@gs/ui/CodeBlock";
 import Hero from "@gs/ui/Hero";
 import { ExternalLink, InternalLink } from "@gs/ui/Link";

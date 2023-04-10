@@ -79,13 +79,16 @@ export async function queryFirebaseRemoteConfigMap(
     ),
   );
 
-  return keysTypeValueList.reduce(
-    (acc, item) =>
-      item
-        ? { ...acc, [item.key]: parseFirebaseRemoteConfigKeyTypeValue(item) }
-        : acc,
-    {} as FirebaseRemoteConfigMap,
-  );
+  const configMap: FirebaseRemoteConfigMap = {};
+
+  keysTypeValueList.forEach((item) => {
+    if (item) {
+      // rome-ignore lint/suspicious/noExplicitAny: unknown JSON value
+      configMap[item.key] = parseFirebaseRemoteConfigKeyTypeValue(item) as any;
+    }
+  });
+
+  return configMap;
 }
 
 /** Mutate Firebase remote-config with a partial object */
@@ -134,7 +137,7 @@ export type FirebaseRemoteConfigMap = Record<
 export function parseFirebaseRemoteConfigKeyTypeValue({
   type,
   value,
-}: Partial<FirebaseRemoteConfigKeyTypeValue>) {
+}: Partial<FirebaseRemoteConfigKeyTypeValue>): unknown {
   if (!value) {
     return undefined;
   }

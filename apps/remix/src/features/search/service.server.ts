@@ -64,7 +64,8 @@ export async function search(query?: string, origin?: string) {
               filterResultItemByQuery(item, query.toLowerCase())
             : true,
         )
-        .map((item) => enrichDataWithLinkUrl(item))
+        // rome-ignore lint/suspicious/noExplicitAny: Catch-all
+        .map((item: any) => enrichDataWithLinkUrl(item))
         .slice(0, query ? 5 : 3);
 
       return results.set(key, filteredData);
