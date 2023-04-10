@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "remix build",
-    "clear": "rm -rf api public/build node_modules/.cache/remix || true",
+    "clear": "rm -rf api public/build .cache || true",
     "dev": "remix dev",
     "dev:emulator": "bash ./scripts/emulator-dev.sh",
     "format": "rome format src",

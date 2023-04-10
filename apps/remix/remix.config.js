@@ -3,16 +3,33 @@ const { addRoutesFolder } = require("remix-routes-folder");
 
 const appDirectory = "src";
 
-/** @type {import('@remix-run/dev').AppConfig} */
+/**
+ * Remix App Config
+ * https://remix.run/docs/en/main/file-conventions/remix-config
+ * @type {import('@remix-run/dev').AppConfig}
+ */
 module.exports = {
-  server: process.env.NODE_ENV === "development" ? undefined : "./server.js",
-  serverBuildPath: "api/index.js",
-  ignoredRouteFiles: ["**/.*"],
   appDirectory,
+
+  // Vercel
+  // https://remix.run/docs/en/main/pages/v2#vercel
+  publicPath: "/build/",
+  serverBuildPath: "api/index.js",
+  serverMainFields: ["main", "module"],
+  serverModuleFormat: "cjs",
+  serverPlatform: "node",
+  serverMinify: false,
+
+  // Feature flags
+  // https://remix.run/docs/en/main/pages/api-development-strategy#current-future-flags
   future: {
     v2_routeConvention: true,
     unstable_tailwind: true,
   },
+
+  // Custom routes
+  // https://remix.run/docs/en/main/file-conventions/remix-config#routes
+  ignoredRouteFiles: ["**/.*"],
   routes: () => {
     const adminRoutes = addRoutesFolder("admin", {
       appDirectory,
