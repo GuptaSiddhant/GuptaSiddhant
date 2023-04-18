@@ -14,6 +14,8 @@ build
 **/build
 **/*/build
 
+storybook-static
+
 **/*/package-lock.json
 
 coverage
