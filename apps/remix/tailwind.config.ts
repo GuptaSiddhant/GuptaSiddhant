@@ -51,7 +51,7 @@ export default {
         disabled: createColorTextCssVar("disabled"),
         inverse: createColorTextCssVar("inverse"),
         link: createColorTextCssVar("link"),
-        "link-hover": createColorTextCssVar("link"),
+        "link-hover": createColorTextCssVar("link-hover"),
         positive: createColorTextCssVar("positive"),
         negative: createColorTextCssVar("negative"),
       },

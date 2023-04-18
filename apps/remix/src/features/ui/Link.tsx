@@ -41,7 +41,7 @@ export function InternalLink({
     <Link
       {...props}
       className={clsx(
-        "text-link no-underline active:text-link hocus:text-link-hover hocus:underline",
+        "text-link underline active:text-link hocus:text-link-hover",
         className,
       )}
     >
@@ -70,7 +70,7 @@ export function ExternalLink({
       {...props}
       href={href}
       className={clsx(
-        "text-link",
+        "text-link underline hocus:text-link-hover",
         className,
         !disableUnderline && "hocus:underline",
       )}
