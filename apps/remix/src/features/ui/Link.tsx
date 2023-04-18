@@ -32,6 +32,8 @@ export function AnchorLink({
   return <InternalLink to={href} {...props} />;
 }
 
+export default AnchorLink;
+
 export function InternalLink({
   className,
   children,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { AnchorLink } from "../Link";
+import AnchorLink from "./Link";
 
 const component = AnchorLink;
 type ComponentType = typeof component;
