@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function LogsIndex(): JSX.Element | null {
-  const { names } = useLoaderData<LoaderData>();
+  const { names = [] } = useLoaderData<LoaderData>();
   const adminApp = useAdminApp();
 
   return (

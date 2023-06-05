@@ -31,7 +31,7 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function StorageAdminApp(): JSX.Element | null {
-  const { names } = useLoaderData<LoaderData>();
+  const { names = [] } = useLoaderData<LoaderData>();
 
   return (
     <AdminLayout

@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   } catch (e) {
     appLogger.error(getErrorMessage(e));
 
-    return redirect("/404");
+    throw new Response(null, { status: 404, statusText: "Not Found" });
   }
 };
 
