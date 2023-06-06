@@ -33,7 +33,7 @@ export async function getBlogSummaryItems() {
 
 export async function getBlogPost(id: string): Promise<BlogPostProps> {
   const post = await db.queryById(id);
-  const cover: string | undefined = post.gallery?.[0]?.url;
+  const cover: string | undefined = post?.gallery?.[0]?.url;
 
   return { ...post, cover };
 }

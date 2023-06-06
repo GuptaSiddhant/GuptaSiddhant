@@ -34,9 +34,11 @@ export function generateStructuredDataForBlogPost({
   data,
   parentsData,
 }: {
-  data: { post: BlogPostProps; url: string };
+  data?: { post: BlogPostProps; url: string };
   parentsData: [{ about: AboutInfo }];
-}): WithContext<BlogPosting> {
+}): WithContext<BlogPosting> | null {
+  if (!data?.post) return null;
+
   const { date, gallery, title, subtitle, description } = data.post;
   const url = data.url;
   const authorName = parentsData[0]?.about?.name || "";

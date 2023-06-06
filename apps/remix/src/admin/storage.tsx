@@ -1,7 +1,6 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useRouteError } from "@remix-run/react";
 import type {
   ActionFunction,
-  ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/server-runtime";
@@ -80,10 +79,13 @@ export default function StorageAdminApp(): JSX.Element | null {
 
 export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export function ErrorBoundary() {
   return (
-    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+    <ErrorSection
+      error={useRouteError()}
+      title={`Problem with ${adminApp.title}.`}
+    />
   );
-};
+}
 
 export const handle: AdminAppHandle = { adminApp };

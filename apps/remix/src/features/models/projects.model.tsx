@@ -45,9 +45,11 @@ export function generateStructuredDataForProject({
   data,
   parentsData,
 }: {
-  data: { project: ProjectProps; url: string };
+  data?: { project: ProjectProps; url: string };
   parentsData: [{ about: AboutInfo }];
-}): WithContext<BlogPosting> {
+}): WithContext<BlogPosting> | null {
+  if (!data?.project) return null;
+
   const { date, gallery, title, subtitle, description } = data.project;
   const url = data.url;
   const authorName = parentsData[0]?.about?.name || "";

@@ -1,8 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
-import type {
-  ActionFunction,
-  ErrorBoundaryComponent,
-} from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "@remix-run/react";
+import type { ActionFunction } from "@remix-run/server-runtime";
 import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
 import RefetchIcon from "remixicon-react/RestartLineIcon";
 
@@ -93,9 +90,14 @@ export default function CacheIndex(): JSX.Element | null {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Problem with Feature flags" error={error} />;
-};
+export function ErrorBoundary() {
+  return (
+    <ErrorSection
+      error={useRouteError()}
+      title={"Problem with Feature flags."}
+    />
+  );
+}
 
 export function meta() {
   return createAdminMeta("Feature flags");

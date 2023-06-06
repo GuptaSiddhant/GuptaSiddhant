@@ -1,6 +1,7 @@
 import clsx from "clsx";
 
-import { useCatch } from "@remix-run/react";
+import { isRouteErrorResponse } from "@remix-run/react";
+import type { ErrorResponse } from "@remix-run/router";
 
 import Logo from "@gs/root/Logo";
 import Hero from "@gs/ui/Hero";
@@ -13,39 +14,7 @@ export interface ErrorSectionProps {
   children?: React.ReactNode;
   caption?: string;
   className?: string;
-  error?: Error;
-}
-
-export function ErrorSection({
-  caption = "Error",
-  title = "Something went wrong!",
-  message,
-  children,
-  className,
-  error,
-}: ErrorSectionProps): JSX.Element | null {
-  const description = message || error?.message;
-
-  return (
-    <Hero className={className}>
-      <Hero.Header caption={{ label: caption, icon: "error" }} title={title} />
-      <Hero.Description description={description}>
-        {children}
-
-        <button
-          type="button"
-          className="w-max"
-          onClick={() => typeof window !== "undefined" && window.history.go(-1)}
-        >
-          {"< Go back."}
-        </button>
-
-        {__IS_DEV__ && error?.stack ? (
-          <CodeBlock lang="bash">{error.stack}</CodeBlock>
-        ) : null}
-      </Hero.Description>
-    </Hero>
-  );
+  error?: unknown;
 }
 
 export function ErrorPage({
@@ -69,43 +38,92 @@ export function ErrorPage({
   );
 }
 
-// CatchBoundarySection
-
-export function CatchBoundarySection({
-  messages,
-}: {
-  messages?: Partial<Record<401 | 404, string>>;
-}): JSX.Element | null {
-  const caught = useCatch();
-  const message = useCatchBoundaryMessage(messages);
-
-  const title = `${caught.status}: ${caught.statusText}`;
+export function ErrorSection({
+  children,
+  className,
+  error,
+  ...props
+}: ErrorSectionProps): JSX.Element | null {
+  const errorTexts = getRouteErrorTexts(error);
+  const title = props.title || errorTexts.title;
+  const caption = props.caption || errorTexts.caption;
+  const message = props.message || errorTexts.message;
+  const data = errorTexts.data;
 
   return (
-    <ErrorSection
-      title={title}
-      message={message}
-      caption={caught.status.toString()}
-    />
+    <Hero className={className}>
+      <Hero.Header caption={{ label: caption, icon: "error" }} title={title} />
+      <Hero.Description description={message}>
+        {children}
+
+        <button
+          type="button"
+          className="w-max"
+          onClick={() => typeof window !== "undefined" && window.history.go(-1)}
+        >
+          {"< Go back."}
+        </button>
+
+        {__IS_DEV__ && data ? (
+          <CodeBlock lang="bash">{data.toString()}</CodeBlock>
+        ) : null}
+      </Hero.Description>
+    </Hero>
   );
 }
 
-export function useCatchBoundaryMessage(
-  messages?: Partial<Record<401 | 404, string>>,
-) {
-  const { data, status, statusText } = useCatch();
-
-  const defaultMessages: Record<401 | 404, string> = {
-    401: "Oops! Looks like you tried to visit a page that you do not have access to.",
-    404: "Oops! Looks like you tried to visit a page that does not exist.",
+function getRouteErrorTexts(error: unknown): {
+  title: string;
+  caption: string;
+  message?: string;
+  data: unknown;
+} {
+  const defaultResult = {
+    title: "Something went wrong.",
+    caption: "Error",
+    message: undefined,
+    data: undefined,
   };
 
-  switch (status) {
-    case 401:
-    case 404:
-      return messages?.[status] || defaultMessages[status];
+  if (!error) return defaultResult;
 
-    default:
-      throw new Error(data || statusText);
+  if (isRouteErrorResponse(error)) {
+    return {
+      title: getErrorResponseTitle(error),
+      caption: `Error ${error.status.toString()}`,
+      message: undefined,
+      data: error.data,
+    };
   }
+
+  if (error instanceof Error) {
+    return {
+      title: error.name,
+      caption: "Error",
+      message: error.message,
+      data: error.stack,
+    };
+  }
+
+  return defaultResult;
+}
+
+export function getErrorResponseTitle(error: ErrorResponse): string {
+  const { status, statusText, data } = error;
+
+  const defaultMessages = {
+    400: "Oops! There is something wrong with what you requested.",
+    401: "Oops! Looks like you tried to visit a page that you do not have access to.",
+    402: "Oops! Looks like you need to pay the piper to access this page.",
+    403: "Oops! Looks like you tried to visit a page that you do not have access to.",
+    404: "Oops! Looks like you tried to visit a page that does not exist.",
+    405: "Oops! Looks like you tried to use an unsupported METHOD.",
+    500: "Oops! This one is on us. We are working on fixing it.",
+  } satisfies Record<number, string>;
+
+  return (
+    statusText ||
+    defaultMessages[status as keyof typeof defaultMessages] ||
+    String(data)
+  );
 }

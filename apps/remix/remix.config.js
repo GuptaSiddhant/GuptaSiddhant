@@ -20,11 +20,14 @@ module.exports = {
   serverPlatform: "node",
   serverMinify: false,
 
+  // Features
+  tailwind: true,
+
   // Feature flags
   // https://remix.run/docs/en/main/pages/api-development-strategy#current-future-flags
   future: {
     v2_routeConvention: true,
-    unstable_tailwind: true,
+    v2_errorBoundary: true,
   },
 
   // Custom routes

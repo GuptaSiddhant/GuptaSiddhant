@@ -1,8 +1,4 @@
-import type {
-  ErrorBoundaryComponent,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime";
+import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ErrorSection } from "@gs/ui/Error";
@@ -12,6 +8,7 @@ import { AdminAppId, adminRegistry } from "./features";
 import { createAdminMeta } from "./features/helpers";
 import AdminLayout, { type AdminNavbarGroupProps } from "./features/layout";
 import type { AdminAppHandle } from "./features/types";
+import { useRouteError } from "@remix-run/react";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
@@ -53,10 +50,13 @@ export default function SettingsAdminApp(): JSX.Element | null {
 
 export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export function ErrorBoundary() {
   return (
-    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+    <ErrorSection
+      error={useRouteError()}
+      title={`Problem with ${adminApp.title}.`}
+    />
   );
-};
+}
 
 export const handle: AdminAppHandle = { adminApp };

@@ -1,11 +1,7 @@
 import { useMemo, useState } from "react";
 
-import { useLoaderData } from "@remix-run/react";
-import type {
-  ErrorBoundaryComponent,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "@remix-run/react";
+import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
 import { getCareerSummaryItems } from "@gs/models/career.server";
@@ -120,9 +116,11 @@ export default function Resume(): JSX.Element {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Problem with resume" error={error} />;
-};
+export function ErrorBoundary() {
+  return (
+    <ErrorSection error={useRouteError()} title={"Problem with resume."} />
+  );
+}
 
 // Components
 

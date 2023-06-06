@@ -14,7 +14,7 @@ import { type RootLoaderData } from "@gs/root";
 import AppLayout from "@gs/root/AppLayout";
 import Document from "@gs/root/Document";
 import { RootContext } from "@gs/root/RootContext";
-import { CatchBoundary, ErrorBoundary } from "@gs/root/boundaries";
+import ErrorBoundary from "@gs/root/RootErrorBoundary";
 import links from "@gs/root/links";
 import meta from "@gs/root/meta";
 import { getNavigationRemoteConfig } from "@gs/root/service.server";
@@ -67,7 +67,7 @@ export default function App() {
   );
 }
 
-export { CatchBoundary, ErrorBoundary, links, meta };
+export { ErrorBoundary, links, meta };
 
 // export const handle = {
 //   breadcrumb: (match: MatchedCrumbProps<LoaderData>): JSX.Element => (

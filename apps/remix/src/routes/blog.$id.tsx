@@ -1,7 +1,6 @@
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type ErrorBoundaryComponent,
-  LoaderArgs,
+  type LoaderArgs,
   type MetaFunction,
   json,
   redirect,
@@ -136,15 +135,15 @@ export default function BlogPostDetails(): JSX.Element {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export function ErrorBoundary() {
   return (
     <ErrorSection
+      error={useRouteError()}
       caption="Error 404"
       title="Blog post not found"
-      error={error}
     />
   );
-};
+}
 
 export const handle = {
   structuredData: generateStructuredDataForBlogPost,

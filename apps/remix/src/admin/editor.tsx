@@ -1,8 +1,7 @@
 import NewIcon from "remixicon-react/AddBoxFillIcon";
 
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type ErrorBoundaryComponent,
   type LoaderFunction,
   type MetaFunction,
   json,
@@ -125,10 +124,13 @@ export default function EditorAdminApp(): JSX.Element | null {
 
 export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export function ErrorBoundary() {
   return (
-    <ErrorSection title={`Problem with ${adminApp.title}.`} error={error} />
+    <ErrorSection
+      error={useRouteError()}
+      title={`Problem with ${adminApp.title}.`}
+    />
   );
-};
+}
 
 export const handle: AdminAppHandle = { adminApp };

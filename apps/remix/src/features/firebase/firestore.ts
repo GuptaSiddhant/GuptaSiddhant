@@ -1,8 +1,8 @@
 import {
   type DocumentData,
   type QueryDocumentSnapshot,
-  type WriteResult,
   Timestamp,
+  type WriteResult,
 } from "firebase-admin/firestore";
 
 import invariant from "@gs/utils/invariant";
@@ -29,6 +29,9 @@ export async function queryFireStoreDocument<T extends TransformedDocument>(
   const doc = getFirestoreDocumentRef<T>(collectionPath, documentPath);
   const data = (await doc.get()).data();
   // throws error if document does not exist in converter
+  if (!data) {
+    throw new Error(`Document with id "${doc.id}" does not exist`);
+  }
   return data as T;
 }
 

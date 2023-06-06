@@ -1,8 +1,7 @@
 import clsx from "clsx";
 
-import { Outlet, useLocation } from "@remix-run/react";
+import { Outlet, useLocation, useRouteError } from "@remix-run/react";
 import {
-  type ErrorBoundaryComponent,
   type LoaderArgs,
   type MetaDescriptor,
   json,
@@ -12,7 +11,7 @@ import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll";
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ShouldRevalidateFunctionArgs } from "@gs/types";
-import { CatchBoundarySection, ErrorSection } from "@gs/ui/Error";
+import { ErrorSection } from "@gs/ui/Error";
 
 import { adminRegistry } from "./features";
 import AdminSidebar from "./features/components/AdminSidebar";
@@ -76,13 +75,9 @@ export default function Admin(): JSX.Element {
   );
 }
 
-export const CatchBoundary = () => {
-  return <CatchBoundarySection />;
-};
-
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Oops. Admin broke!!!" error={error} />;
-};
+export function ErrorBoundary() {
+  return <ErrorSection error={useRouteError()} title="Oops. Admin broke!!!" />;
+}
 
 export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
   return true;

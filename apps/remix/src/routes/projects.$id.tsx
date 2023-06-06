@@ -1,5 +1,4 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime";
+import { Link, useLoaderData, useRouteError } from "@remix-run/react";
 import {
   type LoaderFunction,
   type MetaFunction,
@@ -44,7 +43,7 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ params, request }) => {
   const id = params.id;
   if (!id) {
-    throw new Error("Project id is required");
+    throw new Response("Project id is required", { status: 400 });
   }
 
   const isAuthenticated = Boolean(await getAuthUser(request));
@@ -52,7 +51,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   try {
     const { content, association, ...project } = await getProject(id);
 
-    if (!__IS_DEV__ && project.draft) {
+    if (!__IS_DEV__ && project?.draft) {
       return redirect("/projects/");
     }
 
@@ -156,11 +155,15 @@ export default function ProjectDetails(): JSX.Element {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export function ErrorBoundary() {
   return (
-    <ErrorSection caption="Error 404" title="Project not found" error={error} />
+    <ErrorSection
+      error={useRouteError()}
+      caption="Error 404"
+      title="Project not found"
+    />
   );
-};
+}
 
 export const handle = {
   structuredData: generateStructuredDataForProject,

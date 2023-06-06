@@ -1,5 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
-import { ErrorBoundaryComponent, defer } from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "@remix-run/react";
+import { defer } from "@remix-run/server-runtime";
 
 import { getAboutInfo } from "@gs/models/about.server";
 import { BlogIcon } from "@gs/models/blog.model";
@@ -93,4 +93,6 @@ export default function Index() {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ErrorSection;
+export function ErrorBoundary() {
+  return <ErrorSection error={useRouteError()} />;
+}

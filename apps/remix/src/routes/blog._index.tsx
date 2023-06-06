@@ -1,5 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
-import type { ErrorBoundaryComponent } from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "@remix-run/react";
 import {
   type LoaderFunction,
   type MetaFunction,
@@ -86,6 +85,8 @@ export default function Blog(): JSX.Element {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  return <ErrorSection title="Could not load blog" error={error} />;
-};
+export function ErrorBoundary() {
+  return (
+    <ErrorSection error={useRouteError()} title={"Could not load blog."} />
+  );
+}

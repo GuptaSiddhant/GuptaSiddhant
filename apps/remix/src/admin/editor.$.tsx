@@ -1,9 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
-import type {
-  ActionFunction,
-  ErrorBoundaryComponent,
-  LoaderFunction,
-} from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "@remix-run/react";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
 import { ModelName } from "@gs/models";
@@ -72,12 +68,13 @@ export default function Error404(): JSX.Element | null {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = () => {
+export function ErrorBoundary() {
   return (
     <ErrorSection
       caption={"Error 404"}
       title="Editor id not found"
       message="Oops! Looks like you tried to visit an entry that does not exist."
+      error={useRouteError()}
     />
   );
-};
+}

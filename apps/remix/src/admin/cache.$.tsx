@@ -1,9 +1,8 @@
 import clsx from "clsx";
 
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useRouteError } from "@remix-run/react";
 import type {
   ActionFunction,
-  ErrorBoundaryComponent,
   LoaderFunction,
   MetaFunction,
 } from "@remix-run/server-runtime";
@@ -33,6 +32,7 @@ import invariant from "@gs/utils/invariant";
 import { AdminAppId, adminRegistry } from "./features";
 import { createAdminMeta } from "./features/helpers";
 import AdminLayout from "./features/layout";
+import { getErrorMessage } from "@gs/utils/error";
 
 interface LoaderData {
   key: string;
@@ -139,12 +139,15 @@ export default function CacheDetails(): JSX.Element | null {
   );
 }
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
-  if (!error.message.startsWith(onlyCacheTypeError)) {
-    return <ErrorSection title="Problem with Cache key" error={error} />;
+export function ErrorBoundary() {
+  const error = useRouteError();
+  const message = getErrorMessage(error);
+
+  if (!message.startsWith(onlyCacheTypeError)) {
+    return <ErrorSection error={error} title="Problem with Cache key" />;
   }
 
-  const type = error.message.split(":")[1];
+  const type = message.split(":")[1];
 
   return (
     <div className="h-full flex-col gap-4 flex-center">
@@ -164,7 +167,7 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
       </Action>
     </div>
   );
-};
+}
 
 export const meta: MetaFunction = ({ data }) => {
   return createAdminMeta(data?.key);
