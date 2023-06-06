@@ -12,7 +12,7 @@ import {
   invalidateFeatureFlagsCache,
   setFeatureFlag,
 } from "@gs/service/feature-flag.server";
-import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
+import useNavigationSubmissionToast from "@gs/toaster/useNavigationSubmissionToast";
 import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
@@ -76,7 +76,7 @@ export default function CacheIndex(): JSX.Element | null {
     },
   ];
 
-  useTransitionSubmissionToast({
+  useNavigationSubmissionToast({
     PUT: "Refetching feature flags",
     POST: "Creating feature flag",
     DELETE: "Deleting feature flag",

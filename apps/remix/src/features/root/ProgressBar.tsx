@@ -1,6 +1,6 @@
 import { type RefObject, useCallback, useEffect, useRef } from "react";
 
-import { useTransition } from "@remix-run/react";
+import { useNavigation } from "@remix-run/react";
 
 import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 
@@ -27,7 +27,7 @@ export default function ProgressBar(): JSX.Element {
 function useProgress(): RefObject<HTMLDivElement> {
   const elementRef = useRef<HTMLDivElement>(null);
   const timeout = useRef<NodeJS.Timeout>();
-  const { location } = useTransition();
+  const { location } = useNavigation();
 
   // rome-ignore lint/nursery/useExhaustiveDependencies: Complex
   const updateWidth = useCallback((ms: number) => {

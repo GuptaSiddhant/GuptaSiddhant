@@ -3,7 +3,7 @@ import SaveIcon from "remixicon-react/Save2FillIcon";
 
 import { DeleteIcon, RefreshIcon } from "@gs/icons";
 import { type Model } from "@gs/models";
-import useTransitionSubmissionToast from "@gs/toaster/useTransitionSubmissionToast";
+import useNavigationSubmissionToast from "@gs/toaster/useNavigationSubmissionToast";
 import type { NavigationLinkProps } from "@gs/types";
 import Action from "@gs/ui/Action";
 import Button from "@gs/ui/Button";
@@ -76,7 +76,7 @@ export default function EditorPage<T extends EditorHeaderProps>({
     }
   }
 
-  useTransitionSubmissionToast({
+  useNavigationSubmissionToast({
     GET: "Loading entry...",
     POST: "Creating entry...",
     PUT: "Updating entry...",

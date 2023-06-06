@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 
-import { useTransition } from "@remix-run/react";
+import { useNavigation } from "@remix-run/react";
 
 import useToaster from ".";
 
-export default function useTransitionStateToast(
+export default function useNavigationStateToast(
   loadingTitle: string = "Loading...",
   submittingTitle: string = loadingTitle,
 ) {
-  const { state } = useTransition();
+  const { state } = useNavigation();
   const { addToast, dismissToast } = useToaster();
   const idRef = useRef<string>();
   const title: string = state === "submitting" ? submittingTitle : loadingTitle;

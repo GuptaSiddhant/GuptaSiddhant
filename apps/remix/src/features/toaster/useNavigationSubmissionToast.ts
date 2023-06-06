@@ -1,25 +1,27 @@
 import { useEffect, useMemo } from "react";
 
-import { useTransition } from "@remix-run/react";
+import { useNavigation } from "@remix-run/react";
 
 import useToaster from "@gs/toaster";
 
 import { type ToastProps } from "./Toast";
 
 export type SubmissionMethodType = "PUT" | "POST" | "DELETE" | "PATCH" | "GET";
-export type TransitionSubmissionToastTitles = Record<
+export type NavigationSubmissionToastTitles = Record<
   SubmissionMethodType,
   undefined | string | Omit<ToastProps, "id">
 >;
 
-export default function useTransitionSubmissionToast(
-  titles: Partial<TransitionSubmissionToastTitles>,
+export default function useNavigationSubmissionToast(
+  titles: Partial<NavigationSubmissionToastTitles>,
 ) {
   const { addToast, dismissToast } = useToaster();
-  const { submission } = useTransition();
+  const { formMethod } = useNavigation();
+
   const id = "submission";
-  const method = submission?.method;
-  const toast = method ? titles[method] : undefined;
+  const toast = formMethod
+    ? titles[formMethod.toUpperCase() as SubmissionMethodType]
+    : undefined;
 
   const newToast: ToastProps | undefined = useMemo(() => {
     if (typeof toast === "object") {
@@ -33,12 +35,12 @@ export default function useTransitionSubmissionToast(
   }, [toast]);
 
   useEffect(() => {
-    if (!method) {
+    if (!formMethod) {
       dismissToast(id);
       return;
     }
     if (newToast) {
       addToast(newToast);
     }
-  }, [method, newToast, addToast, dismissToast]);
+  }, [formMethod, newToast, addToast, dismissToast]);
 }
