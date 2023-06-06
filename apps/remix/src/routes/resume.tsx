@@ -79,7 +79,7 @@ export default function Resume(): JSX.Element {
       <H1 className="col-span-full">Resume builder</H1>
 
       <form
-        method="get"
+        method="GET"
         action="/resume.pdf"
         className="flex flex-col gap-4"
         onSubmit={(e) => {

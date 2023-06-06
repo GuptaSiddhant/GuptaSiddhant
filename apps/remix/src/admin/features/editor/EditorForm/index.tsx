@@ -27,7 +27,7 @@ export default function EditorForm<T extends { id: string }>({
   return (
     <Form
       id={formId}
-      method={"post"}
+      method={"POST"}
       replace
       className={clsx(objectGridClassName)}
     >

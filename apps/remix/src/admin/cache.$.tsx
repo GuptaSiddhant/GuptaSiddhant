@@ -102,7 +102,7 @@ export default function CacheDetails(): JSX.Element | null {
         <Action
           body={{ key }}
           title="Delete cache item"
-          method="delete"
+          method="DELETE"
           action={adminApp.linkPath + key}
           toast={"Deleting cache item"}
         >
@@ -157,7 +157,7 @@ export function ErrorBoundary() {
       </Paragraph>
       <Action
         title={`Clear cache for '${type}'.`}
-        method="delete"
+        method="DELETE"
         confirm={`Are you sure about clearing '${type}' cache?`}
         toast={`Clearing '${type}' cache ...`}
         action={adminApp.linkPath + type}

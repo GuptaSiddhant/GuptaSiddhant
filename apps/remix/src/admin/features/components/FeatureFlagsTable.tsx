@@ -127,7 +127,7 @@ function ToggleCell({
   return (
     <div className="flex">
       <Action.Form
-        method="post"
+        method="POST"
         title="Toggle flag"
         body={{ ...row, [dev ? "dev" : "prod"]: !value, intent: "toggle" }}
       >
@@ -154,7 +154,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
       <div className="flex flex-wrap gap-4">
         <Action.Form
           id={FORM_ID}
-          method="post"
+          method="POST"
           title="Create flag"
           className={clsx(buttonClassName, "pr-2 text-base")}
         >
@@ -168,9 +168,9 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
   return (
     <div className="flex gap-2">
       <Action.Form
-        method="post"
+        method="POST"
         title="Delete flag"
-        body={{ flag, intent: "delete" }}
+        body={{ flag, intent: "DELETE" }}
         className={buttonClassName}
         confirm={getDeleteConfirmProps(`'${flag}' flag`)}
       >
@@ -179,7 +179,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
       {dev && prod ? (
         <Action.Form
-          method="post"
+          method="POST"
           title="Disable all"
           body={{ flag, dev: false, prod: false }}
           className={buttonClassName}
@@ -190,7 +190,7 @@ function ActionCell({ flag, dev, prod }: FeatureFlagsTableData) {
 
       {dev || prod ? null : (
         <Action.Form
-          method="post"
+          method="POST"
           title="Enable all"
           body={{ flag, dev: true, prod: true }}
           className={buttonClassName}

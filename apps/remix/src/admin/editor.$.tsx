@@ -57,7 +57,7 @@ export default function Error404(): JSX.Element | null {
         Pick an entry from the sidebar.
       </Paragraph>
       <Action
-        method="patch"
+        method="PATCH"
         body={{ collection }}
         title="Clear cache"
         toast={`Clearing ${collection} cache...`}

@@ -16,7 +16,7 @@ export default function ThemeToggleButton({
     <Action.Form
       role={"presentation"}
       action="/theme.css"
-      method="post"
+      method="POST"
       title="Toggle dark mode"
       body={{ theme: "toggle" }}
       reloadDocument
@@ -45,7 +45,7 @@ export function useToggleTheme() {
   return () => {
     submit(
       { theme: "toggle", originPath },
-      { action: "/theme.css", method: "post" },
+      { action: "/theme.css", method: "POST" },
     );
   };
 }

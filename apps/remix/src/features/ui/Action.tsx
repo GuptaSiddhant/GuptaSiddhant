@@ -34,7 +34,7 @@ export default function Action({
   body = {},
   title,
   className,
-  method = "post",
+  method = "POST",
   toast: toastProps,
   action,
   encType,
@@ -105,11 +105,11 @@ function FormAction({
   className,
   children,
   confirm,
-  method = "get",
+  method = "GET",
   encType,
   ...props
 }: Omit<ActionProps, "toast" | "method"> & {
-  method: "get" | "post";
+  method: "GET" | "POST";
 }): JSX.Element | null {
   const originPath = useOriginPath();
   const submit = useSubmit();

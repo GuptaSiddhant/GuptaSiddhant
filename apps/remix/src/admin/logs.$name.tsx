@@ -105,7 +105,7 @@ export default function LoggerList(): JSX.Element | null {
       children: (
         <Action
           title="Reload logs"
-          method="post"
+          method="POST"
           toast="Reloading logs"
           disabled={isRevalidating}
         >
@@ -211,7 +211,7 @@ function FilterForm({
 
   return (
     <Form
-      method="get"
+      method="GET"
       className={clsx(
         "flex flex-col sm:flex-row gap-4 sm:items-center justify-between",
         "w-full overflow-y-auto py-2 sm:py-0",

@@ -59,7 +59,7 @@ export default function CacheAdminApp(): JSX.Element | null {
     actions: (
       <Action
         title={`Clear cache for '${type}'.`}
-        method="delete"
+        method="DELETE"
         confirm={`Are you sure about clearing '${type}' cache?`}
         toast={`Clearing '${type}' cache ...`}
         action={adminApp.linkPath + type}
@@ -76,7 +76,7 @@ export default function CacheAdminApp(): JSX.Element | null {
       children: (
         <Action
           title="Refresh cache"
-          method="patch"
+          method="PATCH"
           toast="Refreshing cache..."
           action={adminApp.linkPath}
         >
@@ -89,7 +89,7 @@ export default function CacheAdminApp(): JSX.Element | null {
       children: (
         <Action
           title="Clear cache"
-          method="delete"
+          method="DELETE"
           confirm="Are you sure about clearing cache?"
           toast="Clearing cache..."
           action={adminApp.linkPath}

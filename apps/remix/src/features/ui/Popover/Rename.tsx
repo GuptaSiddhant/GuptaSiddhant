@@ -1,9 +1,9 @@
 import { Form } from "@remix-run/react";
 
+import { usePopoverContext } from ".";
 import Button from "../Button";
 import Input from "../Input";
 import { H6 } from "../Text";
-import { usePopoverContext } from ".";
 
 export interface PopoverRenameContentProps {
   previousName: string;
@@ -17,7 +17,7 @@ export default function PopoverRenameContent({
 
   return (
     <Form
-      method="patch"
+      method="PATCH"
       className="flex flex-col gap-2 p-4"
       onSubmit={closePopover}
     >

@@ -67,7 +67,7 @@ export default function Backups(): JSX.Element | null {
         {
           id: "backup",
           children: (
-            <Action action={pathname} method="post" title="Backup database">
+            <Action action={pathname} method="POST" title="Backup database">
               <BackupIcon />
             </Action>
           ),

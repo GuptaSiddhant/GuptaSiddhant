@@ -41,7 +41,7 @@ export default function SearchInput({
   return (
     <Form
       className="relative flex w-full gap-2"
-      method="get"
+      method="GET"
       action="/search"
       onChange={(e) => {
         const value = inputRef.current?.value || "";

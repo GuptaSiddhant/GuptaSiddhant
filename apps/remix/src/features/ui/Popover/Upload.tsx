@@ -1,9 +1,9 @@
 import { Form } from "@remix-run/react";
 
+import { usePopoverContext } from ".";
 import Button from "../Button";
 import Input from "../Input";
 import { H6 } from "../Text";
-import { usePopoverContext } from ".";
 
 export interface PopoverUploadContentProps {
   multiple?: boolean;
@@ -17,7 +17,7 @@ export default function PopoverUploadContent({
 
   return (
     <Form
-      method="post"
+      method="POST"
       encType="multipart/form-data"
       className="flex flex-col gap-2 p-4"
       onSubmit={closePopover}

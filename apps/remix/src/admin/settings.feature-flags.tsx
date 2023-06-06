@@ -42,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
   const flag = form.get("flag")?.toString();
   const intent = form.get("intent")?.toString();
 
-  if (intent === "delete") {
+  if (intent?.toUpperCase() === "DELETE") {
     invariant(flag, "flag is required");
     await deleteFeatureFlag(flag);
   } else {
@@ -70,7 +70,7 @@ export default function CacheIndex(): JSX.Element | null {
         <Action
           title="Invalidate cache"
           children={<RefetchIcon />}
-          method="patch"
+          method="PATCH"
         />
       ),
     },

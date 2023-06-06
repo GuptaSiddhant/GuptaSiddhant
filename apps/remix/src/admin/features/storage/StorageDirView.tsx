@@ -46,7 +46,7 @@ export default function StorageDirView({
           id: "Delete",
           children: (
             <Action
-              method="delete"
+              method="DELETE"
               body={{ prefix: currentPath.path, type: "dir" }}
               title="Delete folder"
               confirm={getDeleteConfirmProps("folder")}

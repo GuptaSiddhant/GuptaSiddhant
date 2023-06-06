@@ -63,7 +63,7 @@ export default function StorageFileView({
           id: "Delete",
           children: (
             <Action
-              method="delete"
+              method="DELETE"
               body={{ path }}
               title="Delete file"
               confirm={getDeleteConfirmProps("file")}

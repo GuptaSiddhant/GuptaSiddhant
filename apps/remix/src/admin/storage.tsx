@@ -59,7 +59,7 @@ export default function StorageAdminApp(): JSX.Element | null {
     {
       id: "refresh",
       children: (
-        <Action.Form method="get" title="Refresh">
+        <Action.Form method="GET" title="Refresh">
           <RefreshIcon />
         </Action.Form>
       ),

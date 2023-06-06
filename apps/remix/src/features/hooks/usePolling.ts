@@ -67,7 +67,7 @@ export function useLoaderPolling(
   options: { duration?: number; defaultPause?: boolean } = {},
 ) {
   return usePolling({
-    method: "get",
+    method: "GET",
     target: body,
     ...options,
   });

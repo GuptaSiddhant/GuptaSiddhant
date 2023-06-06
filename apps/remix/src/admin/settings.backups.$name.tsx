@@ -80,7 +80,7 @@ export default function StoragePath(): JSX.Element | null {
           id: "Delete",
           children: (
             <Action
-              method="delete"
+              method="DELETE"
               body={{ path }}
               title="Delete backup"
               confirm={getDeleteConfirmProps("backup")}

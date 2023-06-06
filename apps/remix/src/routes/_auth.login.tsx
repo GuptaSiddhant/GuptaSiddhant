@@ -47,7 +47,7 @@ export default function Login(): JSX.Element {
     <Hero>
       <Hero.Header title="Login" />
       <Hero.Description>
-        <Form method="post" className="flex flex-col gap-4">
+        <Form method="POST" className="flex flex-col gap-4">
           <fieldset className="flex flex-col gap-4 md:flex-row md:items-end">
             <Input
               label={<div>Email</div>}
