@@ -1,9 +1,5 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import {
-  type LoaderFunction,
-  type MetaFunction,
-  json,
-} from "@remix-run/server-runtime";
+import { type LoaderArgs, json } from "@remix-run/server-runtime";
 
 import { getProjectsSummaryItems } from "@gs/models/projects.server";
 import {
@@ -18,7 +14,12 @@ import SummaryHero from "@gs/summary/SummaryHero";
 import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import type { UniqueTag } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
-import { createMetaTitle } from "@gs/utils/meta";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  createMetaTitle,
+  extractMetaFromMetaMatches,
+} from "@gs/utils/meta";
 import { parseGetAllSearchParams } from "@gs/utils/navigation";
 
 interface LoaderData {
@@ -30,7 +31,7 @@ interface LoaderData {
   tags: UniqueTag[];
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const { searchParams } = new URL(request.url);
   const items = await getProjectsSummaryItems();
   const selectedTags = parseGetAllSearchParams(searchParams, "tag") ?? [];
@@ -53,11 +54,16 @@ export const loader: LoaderFunction = async ({ request }) => {
     viewAs,
     tags,
   });
-};
+}
 
-export const meta: MetaFunction = ({ data }: { data: LoaderData }) => ({
-  title: createMetaTitle(data?.title),
-});
+export function meta({
+  data,
+  matches,
+}: MetaArgs<typeof loader>): MetaDescriptors {
+  const rootMeta = extractMetaFromMetaMatches(matches, { exclude: ["title"] });
+
+  return [{ title: createMetaTitle(data?.title) }, ...rootMeta];
+}
 
 export default function Projects(): JSX.Element {
   const { title, summaryItems, viewAs, selectedTag, sortBy, tags } =

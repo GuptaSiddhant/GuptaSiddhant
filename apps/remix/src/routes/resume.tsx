@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { type LoaderArgs, json } from "@remix-run/server-runtime";
 
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
@@ -20,7 +19,12 @@ import Select from "@gs/ui/Select";
 import Tags from "@gs/ui/Tags";
 import { H1 } from "@gs/ui/Text";
 import { capitalize } from "@gs/utils/format";
-import { createMetaTitle } from "@gs/utils/meta";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  createMetaTitle,
+  extractMetaFromMetaMatches,
+} from "@gs/utils/meta";
 import { formDataStringOnlyEntriesFilterPredicate } from "@gs/utils/predicates";
 import { filterUniqueTagsByOccurrence } from "@gs/utils/tags";
 
@@ -29,7 +33,7 @@ interface LoaderData {
   tags: string[];
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const { origin } = new URL(request.url);
   const [educationList, careerList] = await Promise.all([
     getEducationSummaryItems(),
@@ -42,11 +46,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     ).map((t) => t.value.toLowerCase()) || [];
 
   return json<LoaderData>({ origin, tags });
-};
+}
 
-export const meta: MetaFunction = () => ({
-  title: createMetaTitle("Resume builder"),
-});
+export function meta({ matches }: MetaArgs<typeof loader>): MetaDescriptors {
+  const rootMeta = extractMetaFromMetaMatches(matches, { exclude: ["title"] });
+
+  return [{ title: createMetaTitle("Resume builder") }, ...rootMeta];
+}
 
 export default function Resume(): JSX.Element {
   const { origin, tags } = useLoaderData<LoaderData>();

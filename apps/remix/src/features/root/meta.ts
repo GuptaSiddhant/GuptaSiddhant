@@ -1,16 +1,22 @@
-import { type MetaDescriptor } from "@remix-run/server-runtime";
+import type { WebSite, WithContext } from "schema-dts";
 
 import { getThemeFromThemeName } from "@gs/theme";
+import type { MetaArgs, MetaDescriptors } from "@gs/types";
 
 import type { RootLoaderData } from ".";
 
-export default function meta({
-  data,
-}: {
-  data: RootLoaderData;
-}): MetaDescriptor {
-  const { themeName, about, isPwa } = data;
-  const { name = "Siddhant Gupta", shortName = "GS" } = about;
+type RootMetaArgs = MetaArgs<() => RootLoaderData>;
+
+const domainUrl = "https://GuptaSiddhant.com";
+const thumbnailUrl =
+  "https://GuptaSiddhant.com/assets/android-chrome-512x512.png";
+
+export default function meta({ data }: RootMetaArgs): MetaDescriptors {
+  const themeName = data?.themeName;
+  const isPwa = data?.isPwa ?? false;
+  const name = data?.about?.name ?? "Siddhant Gupta";
+  const shortName = data?.about?.shortName ?? "GS";
+  const jobTitle = data?.about?.title;
   const description = "Webfolio of a creator.";
 
   const theme = getThemeFromThemeName(themeName);
@@ -24,27 +30,49 @@ export default function meta({
     .filter(Boolean)
     .join(",");
 
-  return {
-    title: name,
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: domainUrl,
+    name,
     description,
-    charset: "utf-8",
-    viewport,
+    thumbnailUrl,
+    creator: {
+      "@type": "Person",
+      name,
+      gender: "male",
+      jobTitle,
+    },
+  } satisfies WithContext<WebSite>;
 
-    "application-name": shortName,
-    "apple-mobile-web-app-title": shortName,
-    "theme-color": themeColor,
-    "msapplication-TileColor": themeColor,
-    "msapplication-config": "/assets/browserconfig.xml",
+  return [
+    { title: name },
+    { charset: "utf-8" },
+
+    { name: "description", content: description },
+    { name: "viewport", content: viewport },
+    { name: "application-name", content: shortName },
+    { name: "apple-mobile-web-app-title", content: shortName },
+    { name: "theme-color", content: themeColor },
+    { name: "msapplication-TileColor", content: themeColor },
+    { name: "msapplication-config", content: "/assets/browserconfig.xml" },
 
     // Open graph
-    "og:title": name,
-    "og:description": description,
-    "og:locale": "en_GB",
-    "og:type": "website",
-    "og:site_name": shortName,
+    { property: "og:title", content: name },
+    { property: "og:description", content: description },
+    { property: "og:url", content: domainUrl },
+    { property: "og:locale", content: "en_GB" },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: shortName },
+    { property: "og:image", content: thumbnailUrl },
 
     // Twitter
-    "twitter:creator": "@guptasiddhant9",
-    "twitter:card": "summary",
-  };
+    { name: "twitter:creator", content: "@guptasiddhant9" },
+    { name: "twitter:card", content: "summary" },
+    { name: "twitter:title", content: name },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: thumbnailUrl },
+
+    { "script:ld+json": structuredData },
+  ];
 }

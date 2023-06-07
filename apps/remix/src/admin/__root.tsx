@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderArgs) {
   return json<LoaderData>({});
 }
 
-export function meta(): MetaDescriptor {
+export function meta(): MetaDescriptor[] {
   const viewport = [
     "width=device-width",
     "initial-scale=1.0",
@@ -36,7 +36,7 @@ export function meta(): MetaDescriptor {
     .filter(Boolean)
     .join(",");
 
-  return { viewport };
+  return [{ viewport }];
 }
 
 export default function Admin(): JSX.Element {
@@ -53,9 +53,7 @@ export default function Admin(): JSX.Element {
           "grid grid-cols-[1fr] ",
           isChildPathVisible ? "pl-12" : "pl-80",
         )}
-        style={{
-          marginTop: `var(${CSS_VAR_HEADER_HEIGHT})`,
-        }}
+        style={{ marginTop: `var(${CSS_VAR_HEADER_HEIGHT})` }}
       >
         <AdminSidebar
           apps={adminRegistry.apps.map((app) => ({

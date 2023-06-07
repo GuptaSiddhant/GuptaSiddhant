@@ -1,11 +1,7 @@
 import NewIcon from "remixicon-react/AddBoxFillIcon";
 
 import { Outlet, useLoaderData, useRouteError } from "@remix-run/react";
-import {
-  type LoaderFunction,
-  type MetaFunction,
-  json,
-} from "@remix-run/server-runtime";
+import { type LoaderFunction, json } from "@remix-run/server-runtime";
 
 import { ModelName, getLabelByModelName } from "@gs/models";
 import { getAboutKeys } from "@gs/models/about.server";
@@ -122,7 +118,7 @@ export default function EditorAdminApp(): JSX.Element | null {
   );
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
+export const meta = createAdminMeta(adminApp.title);
 
 export function ErrorBoundary() {
   return (

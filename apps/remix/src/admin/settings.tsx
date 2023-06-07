@@ -1,4 +1,4 @@
-import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
+import type { LoaderFunction } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ErrorSection } from "@gs/ui/Error";
@@ -48,7 +48,7 @@ export default function SettingsAdminApp(): JSX.Element | null {
   );
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
+export const meta = createAdminMeta(adminApp.title);
 
 export function ErrorBoundary() {
   return (

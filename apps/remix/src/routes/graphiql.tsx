@@ -5,6 +5,12 @@ import { useEffect, useState } from "react";
 import type { LinkDescriptor } from "@remix-run/server-runtime";
 
 import graphiqlStyles from "@gs/styles/graphiql.css";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  createMetaTitle,
+  extractEssentialMetaFromMetaMatches,
+} from "@gs/utils/meta";
 
 export default function GraphQL() {
   const [show, setShow] = useState(false);
@@ -56,4 +62,11 @@ fragment Item on SummaryItem {
 
 export function links(): LinkDescriptor[] {
   return [{ rel: "stylesheet", href: graphiqlStyles }];
+}
+
+export function meta({ matches }: MetaArgs): MetaDescriptors {
+  return [
+    ...extractEssentialMetaFromMetaMatches(matches),
+    { title: createMetaTitle("GraphQL") },
+  ];
 }

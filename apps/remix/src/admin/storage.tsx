@@ -1,9 +1,5 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type {
-  ActionFunction,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
 import { RefreshIcon, UploadIcon } from "@gs/icons";
@@ -77,7 +73,7 @@ export default function StorageAdminApp(): JSX.Element | null {
   );
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
+export const meta = createAdminMeta(adminApp.title);
 
 export function ErrorBoundary() {
   return (

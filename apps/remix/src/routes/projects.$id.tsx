@@ -1,10 +1,5 @@
 import { Link, useLoaderData, useRouteError } from "@remix-run/react";
-import {
-  type LoaderFunction,
-  type MetaFunction,
-  json,
-  redirect,
-} from "@remix-run/server-runtime";
+import { type LoaderArgs, json, redirect } from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForProject } from "@gs/models/projects.model";
@@ -17,6 +12,7 @@ import {
 import { getAuthUser } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 import SummarySlider from "@gs/summary/SummarySlider";
+import type { MetaArgs, MetaDescriptors } from "@gs/types";
 import Divider from "@gs/ui/Divider";
 import { ErrorSection } from "@gs/ui/Error";
 import Hero from "@gs/ui/Hero";
@@ -40,7 +36,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export async function loader({ params, request }: LoaderArgs) {
   const id = params.id;
   if (!id) {
     throw new Response("Project id is required", { status: 400 });
@@ -74,14 +70,20 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const reason = __IS_DEV__ ? `Reason: ${message}` : "";
     throw new Error(`Failed to load project '${id}'. ${reason}`);
   }
-};
+}
 
-export const meta: MetaFunction = ({ data, params }) =>
-  generateArticleMeta(data?.project, {
+export function meta({
+  data,
+  params,
+  matches,
+}: MetaArgs<typeof loader>): MetaDescriptors {
+  return generateArticleMeta(data?.project, {
     url: data?.url,
     id: params.id,
     section: "Project",
+    matches,
   });
+}
 
 export default function ProjectDetails(): JSX.Element {
   const {

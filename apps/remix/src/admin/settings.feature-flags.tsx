@@ -99,6 +99,4 @@ export function ErrorBoundary() {
   );
 }
 
-export function meta() {
-  return createAdminMeta("Feature flags");
-}
+export const meta = createAdminMeta("Feature flags");

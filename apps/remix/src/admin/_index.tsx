@@ -40,6 +40,4 @@ export default function AdminIndex(): JSX.Element | null {
   );
 }
 
-export function meta() {
-  return createAdminMeta();
-}
+export const meta = createAdminMeta();

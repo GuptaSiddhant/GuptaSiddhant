@@ -2,11 +2,7 @@ import ClearIcon from "remixicon-react/DeleteBin2FillIcon";
 import RefreshIcon from "remixicon-react/RefreshFillIcon";
 
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type {
-  ActionFunction,
-  LoaderArgs,
-  MetaFunction,
-} from "@remix-run/server-runtime";
+import type { ActionFunction, LoaderArgs } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
 import { DeleteIcon } from "@gs/icons";
@@ -128,7 +124,7 @@ function createGroupMapFromKeys(keys: string[]) {
   return groupMap;
 }
 
-export const meta: MetaFunction = () => createAdminMeta(adminApp.title);
+export const meta = createAdminMeta(adminApp.title);
 
 export function ErrorBoundary() {
   return (

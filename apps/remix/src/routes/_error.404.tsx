@@ -1,12 +1,19 @@
 import { useRouteError } from "@remix-run/react";
-import type { MetaFunction } from "@remix-run/server-runtime";
 
 import { ErrorSection } from "@gs/ui/Error";
-import { createMetaTitle } from "@gs/utils/meta";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  createMetaTitle,
+  extractEssentialMetaFromMetaMatches,
+} from "@gs/utils/meta";
 
-export const meta: MetaFunction = () => ({
-  title: createMetaTitle("Error 404"),
-});
+export function meta({ matches }: MetaArgs): MetaDescriptors {
+  return [
+    ...extractEssentialMetaFromMetaMatches(matches),
+    { title: createMetaTitle("Error 404") },
+  ];
+}
 
 export default function Error404(): JSX.Element | null {
   return (

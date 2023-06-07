@@ -1,11 +1,7 @@
 import clsx from "clsx";
 
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type {
-  ActionFunction,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/server-runtime";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import { json, redirect } from "@remix-run/server-runtime";
 
 import { ONE_HOUR_IN_MS } from "@gs/constants";
@@ -169,9 +165,7 @@ export function ErrorBoundary() {
   );
 }
 
-export const meta: MetaFunction = ({ data }) => {
-  return createAdminMeta(data?.key);
-};
+export const meta = createAdminMeta<LoaderData>((data) => data?.key);
 
 //
 

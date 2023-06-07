@@ -6,6 +6,11 @@ import type { LinkDescriptor } from "@remix-run/server-runtime";
 
 import graphiqlStyles from "@gs/styles/graphiql.css";
 
+import { AdminAppId, adminRegistry } from "./features";
+import { createAdminMeta } from "./features/helpers";
+
+const adminApp = adminRegistry.getApp(AdminAppId.GraphQL);
+
 export default function GraphQL() {
   const [show, setShow] = useState(false);
   useEffect(() => setShow(true), []);
@@ -36,3 +41,5 @@ export default function GraphQL() {
 export function links(): LinkDescriptor[] {
   return [{ rel: "stylesheet", href: graphiqlStyles }];
 }
+
+export const meta = createAdminMeta(adminApp.title);

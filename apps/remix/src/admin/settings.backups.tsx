@@ -15,6 +15,7 @@ import Action from "@gs/ui/Action";
 import backupDatabase, {
   generateBackupNameFromBackupPath,
 } from "./features/backup.server";
+import { createAdminMeta } from "./features/helpers";
 import AdminLayout from "./features/layout";
 
 interface LoaderData {
@@ -78,3 +79,5 @@ export default function Backups(): JSX.Element | null {
     </AdminLayout>
   );
 }
+
+export const meta = createAdminMeta("Backups");

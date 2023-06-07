@@ -1,10 +1,5 @@
 import { Link, useLoaderData, useRouteError } from "@remix-run/react";
-import {
-  type LoaderArgs,
-  type MetaFunction,
-  json,
-  redirect,
-} from "@remix-run/server-runtime";
+import { type LoaderArgs, json, redirect } from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForBlogPost } from "@gs/models/blog.model";
@@ -27,7 +22,11 @@ import Tags from "@gs/ui/Tags";
 import { H2 } from "@gs/ui/Text";
 import { getErrorMessage } from "@gs/utils/error";
 import { extractTocFromMdx, transformContentToMdx } from "@gs/utils/mdx";
-import { generateArticleMeta } from "@gs/utils/meta";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  generateArticleMeta,
+} from "@gs/utils/meta";
 
 interface LoaderData {
   post: BlogPostProps;
@@ -38,7 +37,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export const loader = async ({ params, request }: LoaderArgs) => {
+export async function loader({ params, request }: LoaderArgs) {
   const id = params.id;
   if (!id) {
     throw new Error("Blog post id is required");
@@ -69,14 +68,20 @@ export const loader = async ({ params, request }: LoaderArgs) => {
     const reason = __IS_DEV__ ? `Reason: ${message}` : "";
     throw new Error(`Failed to load blog post '${id}'. ${reason}`);
   }
-};
+}
 
-export const meta: MetaFunction = ({ data, params }) =>
-  generateArticleMeta(data?.post, {
+export function meta({
+  data,
+  params,
+  matches,
+}: MetaArgs<typeof loader>): MetaDescriptors {
+  return generateArticleMeta(data?.post, {
     url: data?.url,
     id: params.id,
     section: "Blog",
+    matches,
   });
+}
 
 export default function BlogPostDetails(): JSX.Element {
   const {

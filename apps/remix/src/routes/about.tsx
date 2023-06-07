@@ -1,7 +1,7 @@
 import ResumeIcon from "remixicon-react/FileUserLineIcon";
 
 import { Link, useLoaderData } from "@remix-run/react";
-import type { LoaderFunction, MetaFunction } from "@remix-run/server-runtime";
+import type { LoaderArgs } from "@remix-run/server-runtime";
 import { json } from "@remix-run/server-runtime";
 
 import { aboutTexts } from "@gs/about";
@@ -16,7 +16,12 @@ import SummaryTimeline from "@gs/summary/SummaryTimeline";
 import Hero from "@gs/ui/Hero";
 import { ExternalLink } from "@gs/ui/Link";
 import { Paragraph } from "@gs/ui/Text";
-import { createMetaTitle } from "@gs/utils/meta";
+import {
+  type MetaArgs,
+  type MetaDescriptors,
+  createMetaTitle,
+  extractMetaFromMetaMatches,
+} from "@gs/utils/meta";
 
 interface LoaderData {
   isAuthenticated: boolean;
@@ -24,7 +29,7 @@ interface LoaderData {
   items: SummaryItem[];
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   const { searchParams } = new URL(request.url);
 
   const isAuthenticated = Boolean(await getAuthUser(request));
@@ -52,9 +57,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     aboutInfo,
     items,
   });
-};
+}
 
-export const meta: MetaFunction = () => ({ title: createMetaTitle("About") });
+export function meta({ matches }: MetaArgs<typeof loader>): MetaDescriptors {
+  const rootMeta = extractMetaFromMetaMatches(matches, { exclude: ["title"] });
+
+  return [{ title: createMetaTitle("About") }, ...rootMeta];
+}
 
 export default function About(): JSX.Element {
   const { items } = useLoaderData<LoaderData>();

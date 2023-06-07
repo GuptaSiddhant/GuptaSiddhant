@@ -1,6 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { type LinkProps, ShouldRevalidateFunction } from "@remix-run/react";
+import type { LinkProps, ShouldRevalidateFunction } from "@remix-run/react";
+import type {
+  V2_ServerRuntimeMetaArgs,
+  V2_ServerRuntimeMetaDescriptor,
+} from "@remix-run/server-runtime";
 
 export type To = LinkProps["to"];
 
@@ -62,3 +66,6 @@ export interface NavigationLinkProps {
   external?: boolean;
   shortcut?: string[];
 }
+
+export { V2_ServerRuntimeMetaArgs as MetaArgs };
+export type MetaDescriptors = V2_ServerRuntimeMetaDescriptor[];
