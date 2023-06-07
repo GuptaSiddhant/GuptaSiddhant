@@ -6,6 +6,7 @@ import useWindowStore from "@gs/hooks/useWindowStore";
 import Action from "@gs/ui/Action";
 
 import { type ThemeName } from ".";
+import { useEffect } from "react";
 
 export default function ThemeToggleButton({
   themeName,
@@ -31,16 +32,21 @@ export function ThemeIcon({ themeName }: { themeName: ThemeName }) {
 }
 
 export function useToggleTheme() {
-  const { submit, type } = useFetcher();
+  const { submit, state, data } = useFetcher();
+
   const originPath = useWindowStore(
     "load",
     () => window.location.href,
     () => "",
   );
 
-  if (type === "done") {
-    window.location.replace(originPath);
-  }
+  const isDone = state === "idle" && data != null;
+
+  useEffect(() => {
+    if (isDone) {
+      window.location.replace(originPath);
+    }
+  }, [isDone, originPath]);
 
   return () => {
     submit(
