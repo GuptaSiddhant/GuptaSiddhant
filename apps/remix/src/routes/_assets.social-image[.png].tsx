@@ -1,8 +1,8 @@
-import type { LoaderFunction } from "@remix-run/server-runtime";
+import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams, origin } = new URL(request.url);
   const theme = getThemeFromThemeName(DEFAULT_THEME);
 
@@ -50,6 +50,6 @@ export const loader: LoaderFunction = async ({ request }) => {
       "Cache-Control": "public, max-age=31536000",
     },
   });
-};
+}
 
 export function CatchBoundary() {}

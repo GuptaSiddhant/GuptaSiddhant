@@ -1,5 +1,9 @@
 import { Link, useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderArgs, json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForBlogPost } from "@gs/models/blog.model";
@@ -37,7 +41,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: DataFunctionArgs) {
   const id = params.id;
   if (!id) {
     throw new Error("Blog post id is required");

@@ -1,4 +1,4 @@
-import { type LoaderArgs, redirect } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, redirect } from "@remix-run/server-runtime";
 import { buildSchema, graphql } from "graphql";
 import { z } from "zod";
 
@@ -7,7 +7,7 @@ import schemaFile from "./schema.graphql";
 
 const schema = buildSchema(schemaFile);
 
-export async function action({ request }: LoaderArgs) {
+export async function action({ request }: DataFunctionArgs) {
   const { query, variables, operationName } = z
     .object({
       query: z.string(),

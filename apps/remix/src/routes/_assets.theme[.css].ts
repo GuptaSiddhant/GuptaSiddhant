@@ -1,14 +1,10 @@
-import {
-  type ActionFunction,
-  type LoaderFunction,
-  redirect,
-} from "@remix-run/server-runtime";
+import { type DataFunctionArgs, redirect } from "@remix-run/server-runtime";
 
 import { parseCookie } from "@gs/service/cookie.server";
-import getCSSForThemeName, { type ThemeName, DEFAULT_THEME } from "@gs/theme";
+import getCSSForThemeName, { DEFAULT_THEME, type ThemeName } from "@gs/theme";
 import { getThemeFromRequest, themeCookie } from "@gs/theme/cookie.server";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const themeName = await getThemeFromRequest(request);
   const css = getCSSForThemeName(themeName);
 
@@ -19,9 +15,9 @@ export const loader: LoaderFunction = async ({ request }) => {
       "Cache-Control": "public, max-age=0",
     },
   });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   const parsedCookie = await parseCookie(request, themeCookie);
   const formData = await request.formData();
 
@@ -37,6 +33,6 @@ export const action: ActionFunction = async ({ request }) => {
   return redirect(redirectTo, {
     headers: { "Set-Cookie": await themeCookie.serialize(parsedCookie) },
   });
-};
+}
 
 export function CatchBoundary() {}

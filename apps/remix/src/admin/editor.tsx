@@ -1,7 +1,7 @@
 import NewIcon from "remixicon-react/AddBoxFillIcon";
 
 import { Outlet, useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderFunction, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { ModelName, getLabelByModelName } from "@gs/models";
 import { getAboutKeys } from "@gs/models/about.server";
@@ -36,7 +36,7 @@ export interface LoaderData {
   hasWriteAccess: boolean;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const user = await authenticateRoute(request);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
@@ -68,7 +68,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     .sort((a, b) => a.label.localeCompare(b.label));
 
   return json<LoaderData>({ entries, hasWriteAccess });
-};
+}
 
 export default function EditorAdminApp(): JSX.Element | null {
   const loaderData = useLoaderData<LoaderData>();

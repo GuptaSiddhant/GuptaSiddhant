@@ -1,9 +1,9 @@
-import { type LoaderFunction, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
-import { modifyCache, ModifyCacheMethod } from "@gs/service/cache.server";
+import { ModifyCacheMethod, modifyCache } from "@gs/service/cache.server";
 import invariant from "@gs/utils/invariant";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams } = new URL(request.url);
   const key = searchParams.get("key")?.toString().trim();
 
@@ -15,6 +15,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   } catch {
     return json(`Could not find/clear cache for key: '${key}'.`, 404);
   }
-};
+}
 
 export function CatchBoundary() {}

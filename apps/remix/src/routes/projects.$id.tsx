@@ -1,5 +1,9 @@
 import { Link, useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderArgs, json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
 import { generateStructuredDataForProject } from "@gs/models/projects.model";
@@ -36,7 +40,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export async function loader({ params, request }: LoaderArgs) {
+export async function loader({ params, request }: DataFunctionArgs) {
   const id = params.id;
   if (!id) {
     throw new Response("Project id is required", { status: 400 });

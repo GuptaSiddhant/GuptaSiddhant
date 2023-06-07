@@ -1,6 +1,5 @@
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import authenticator, { loginUser } from "@gs/service/auth.server";
 import Button from "@gs/ui/Button";
@@ -13,7 +12,7 @@ interface LoaderData {
   redirectTo?: string;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   console.log("login-loader");
   const redirectTo = new URL(request.url).searchParams
     .get("redirectTo")
@@ -24,20 +23,20 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return json<LoaderData>({ redirectTo });
-};
+}
 
 interface ActionData {
   error?: string;
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   try {
     return await loginUser(request);
   } catch (e) {
     const message = getErrorMessage(e);
     return json<ActionData>({ error: message }, 400);
   }
-};
+}
 
 export default function Login(): JSX.Element {
   const { redirectTo } = useLoaderData<LoaderData>();

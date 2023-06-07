@@ -1,6 +1,9 @@
 import { useLoaderData } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { type Model, type ModelName, getModelByModelName } from "@gs/models";
 import type { Skills } from "@gs/models/about.server";
@@ -30,7 +33,7 @@ interface LoaderData {
   hasWriteAccess: boolean;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const user = await authenticateRoute(request);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
@@ -46,9 +49,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
     return redirect(adminApp.linkPath + modelName);
   }
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();
@@ -63,7 +66,7 @@ export const action: ActionFunction = async ({ request }) => {
   );
 
   return redirect(pathname);
-};
+}
 
 export default function Editor(): JSX.Element | null {
   const { skills, model, hasWriteAccess } = useLoaderData<LoaderData>();

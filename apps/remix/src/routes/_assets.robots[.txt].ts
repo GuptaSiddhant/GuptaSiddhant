@@ -1,6 +1,6 @@
-import type { LoaderFunction } from "@remix-run/server-runtime";
+import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const { origin } = new URL(request.url);
 
   const robotText = `
@@ -22,6 +22,6 @@ Sitemap: ${origin}/sitemap.xml
     status: 200,
     headers: { "Content-Type": "text/plain" },
   });
-};
+}
 
 export function CatchBoundary() {}

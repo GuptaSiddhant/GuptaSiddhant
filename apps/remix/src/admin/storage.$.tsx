@@ -1,6 +1,9 @@
 import { useLoaderData } from "@remix-run/react";
-import type { LoaderFunction } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 
@@ -16,7 +19,7 @@ interface LoaderData {
   storagePaths: StoragePathProps[];
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export async function loader({ params, request }: DataFunctionArgs) {
   await authenticateRoute(request);
   const path = params["*"];
 
@@ -36,7 +39,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     return redirect(redirectRootPath + (redirectPath || ""));
   }
-};
+}
 
 export default function StoragePath(): JSX.Element | null {
   const { storagePaths } = useLoaderData<LoaderData>();

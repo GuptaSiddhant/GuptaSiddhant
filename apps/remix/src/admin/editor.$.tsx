@@ -1,6 +1,9 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { ModelName } from "@gs/models";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -18,7 +21,7 @@ interface LoaderData {
   collection?: string;
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export async function loader({ params, request }: DataFunctionArgs) {
   await authenticateRoute(request);
 
   const path = params["*"];
@@ -31,9 +34,9 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (!Object.values(ModelName).includes(collection as ModelName)) {
     return redirect(adminApp.linkPath);
   } else return json<LoaderData>({ collection });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();
@@ -45,7 +48,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   return redirect(pathname);
-};
+}
 
 export default function Error404(): JSX.Element | null {
   const { collection } = useLoaderData<LoaderData>();

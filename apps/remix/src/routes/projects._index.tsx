@@ -1,5 +1,5 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderArgs, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { getProjectsSummaryItems } from "@gs/models/projects.server";
 import {
@@ -31,7 +31,7 @@ interface LoaderData {
   tags: UniqueTag[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams } = new URL(request.url);
   const items = await getProjectsSummaryItems();
   const selectedTags = parseGetAllSearchParams(searchParams, "tag") ?? [];

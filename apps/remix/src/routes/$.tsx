@@ -1,5 +1,4 @@
-import type { LoaderFunction } from "@remix-run/server-runtime";
-import { redirect } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, redirect } from "@remix-run/server-runtime";
 
 import { ONE_DAY_IN_S } from "@gs/constants";
 import { generateCloudinaryUrl } from "@gs/service/cloudinary";
@@ -8,7 +7,7 @@ import Storage from "@gs/service/storage.server";
 import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export async function loader({ params, request }: DataFunctionArgs) {
   const path = params["*"];
   const { searchParams } = new URL(request.url);
 
@@ -33,7 +32,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
     throw new Response(null, { status: 404, statusText: "Not Found" });
   }
-};
+}
 
 export function CatchBoundary() {}
 

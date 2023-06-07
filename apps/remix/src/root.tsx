@@ -5,8 +5,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import type { LoaderFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import usePullDownRefresh from "@gs/hooks/usePullDownRefresh";
 import { getAboutInfo } from "@gs/models/about.server";
@@ -24,7 +23,7 @@ import { getPwaFromRequest } from "@gs/service/pwa.server";
 import { getThemeFromRequest } from "@gs/theme/cookie.server";
 import type { ShouldRevalidateFunctionArgs } from "@gs/types";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const locale =
     request.headers.get("Accept-Language")?.split(",")[0] || "en-GB";
 
@@ -45,7 +44,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     locale,
     isPwa,
   });
-};
+}
 
 export default function App() {
   const { themeName, locale } = useLoaderData<RootLoaderData>();

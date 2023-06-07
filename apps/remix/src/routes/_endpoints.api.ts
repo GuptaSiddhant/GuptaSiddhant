@@ -1,4 +1,4 @@
-import { type LoaderFunction, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { getAboutInfo, getAboutSkills } from "@gs/models/about.server";
 import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog.server";
@@ -45,7 +45,7 @@ const apiTypes: Record<
 
 const supportedTypes = Object.keys(apiTypes);
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams, origin } = new URL(request.url);
   const type = searchParams.get("type")?.toString();
   const id = searchParams.get("id")?.toString();
@@ -94,7 +94,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       404,
     );
   }
-};
+}
 
 export function CatchBoundary() {}
 

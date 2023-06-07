@@ -1,6 +1,9 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import type { ActionFunction } from "@remix-run/server-runtime";
-import { type LoaderFunction, json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 import RefetchIcon from "remixicon-react/RestartLineIcon";
 
 import { UserRole } from "@gs/models/users.model";
@@ -26,15 +29,15 @@ interface LoaderData {
   featureFlags: FeatureFlagsMap;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const featureFlags = await getAllFeatureFlags();
   invariant(featureFlags, "featureFlags could not be loaded");
 
   return json<LoaderData>({ featureFlags });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
   const { pathname } = new URL(request.url);
 
@@ -58,7 +61,7 @@ export const action: ActionFunction = async ({ request }) => {
   invalidateFeatureFlagsCache();
 
   return redirect(pathname);
-};
+}
 
 export default function CacheIndex(): JSX.Element | null {
   const { featureFlags } = useLoaderData<LoaderData>();

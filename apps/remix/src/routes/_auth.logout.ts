@@ -1,13 +1,13 @@
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
+import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
 import authenticator from "@gs/service/auth.server";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   return authenticator.logout(request, { redirectTo: "/" });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   return authenticator.logout(request, { redirectTo: "/login" });
-};
+}
 
 export function CatchBoundary() {}

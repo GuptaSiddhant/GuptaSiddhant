@@ -1,6 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
-import type { LoaderFunction } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { type LoaderArgs, json } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { getCache } from "@gs/service/cache.server";
@@ -15,12 +14,12 @@ interface LoaderData {
   ttl: number;
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: LoaderArgs) {
   await authenticateRoute(request);
   const { size, max, ttl } = getCache();
 
   return json<LoaderData>({ size, max, ttl });
-};
+}
 
 export default function CacheIndex(): JSX.Element | null {
   const { size, max, ttl } = useLoaderData<LoaderData>();

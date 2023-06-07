@@ -1,6 +1,9 @@
 import { useLoaderData } from "@remix-run/react";
-import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 
 import { DeleteIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
@@ -26,7 +29,7 @@ interface LoaderData {
   data: string;
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export async function loader({ request, params }: DataFunctionArgs) {
   await authenticateRoute(request);
   const name = params["name"];
   invariant(name, "Filename is required");
@@ -42,9 +45,9 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   } catch {
     return redirect(`${adminApp.linkPath}backups`);
   }
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
 
   const form = await request.formData();
@@ -59,7 +62,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   return redirect(originPath);
-};
+}
 
 export default function StoragePath(): JSX.Element | null {
   const { name, path, data, asset } = useLoaderData<LoaderData>();

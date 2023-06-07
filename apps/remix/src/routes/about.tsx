@@ -1,8 +1,6 @@
-import ResumeIcon from "remixicon-react/FileUserLineIcon";
-
 import { Link, useLoaderData } from "@remix-run/react";
-import type { LoaderArgs } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import ResumeIcon from "remixicon-react/FileUserLineIcon";
 
 import { aboutTexts } from "@gs/about";
 import { ModelName } from "@gs/models";
@@ -29,7 +27,7 @@ interface LoaderData {
   items: SummaryItem[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams } = new URL(request.url);
 
   const isAuthenticated = Boolean(await getAuthUser(request));

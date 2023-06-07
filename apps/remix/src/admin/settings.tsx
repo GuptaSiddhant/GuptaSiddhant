@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/server-runtime";
+import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { ErrorSection } from "@gs/ui/Error";
@@ -12,11 +12,11 @@ import { useRouteError } from "@remix-run/react";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
 
   return null;
-};
+}
 
 export default function SettingsAdminApp(): JSX.Element | null {
   const navGroups: AdminNavbarGroupProps[] = [

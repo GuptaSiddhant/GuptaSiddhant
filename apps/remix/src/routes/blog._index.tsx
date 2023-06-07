@@ -1,5 +1,5 @@
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderArgs, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { getBlogSummaryItems } from "@gs/models/blog.server";
 import {
@@ -31,7 +31,7 @@ interface LoaderData {
   tags: UniqueTag[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: DataFunctionArgs) {
   const { searchParams } = new URL(request.url);
 
   const items = await getBlogSummaryItems();

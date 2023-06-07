@@ -1,7 +1,7 @@
 import { ONE_DAY_IN_S } from "@gs/constants";
-import type { LoaderFunction } from "@remix-run/server-runtime";
+import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   const { origin } = new URL(request.url);
 
   /** @todo add all routes */
@@ -24,6 +24,6 @@ export const loader: LoaderFunction = async ({ request }) => {
       "Cache-Control": ONE_DAY_IN_S.toString(),
     },
   });
-};
+}
 
 export function CatchBoundary() {}

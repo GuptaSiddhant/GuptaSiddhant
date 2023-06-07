@@ -1,9 +1,11 @@
+import { useLoaderData, useRouteError } from "@remix-run/react";
+import {
+  type DataFunctionArgs,
+  json,
+  redirect,
+} from "@remix-run/server-runtime";
 import ClearIcon from "remixicon-react/DeleteBin2FillIcon";
 import RefreshIcon from "remixicon-react/RefreshFillIcon";
-
-import { useLoaderData, useRouteError } from "@remix-run/react";
-import type { ActionFunction, LoaderArgs } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
 
 import { DeleteIcon } from "@gs/icons";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -25,23 +27,23 @@ import type { AdminAppHandle } from "./features/types";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Cache);
 
-export const loader = async ({ request }: LoaderArgs) => {
+export async function loader({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
 
   const keys = [...getCache().keys()].sort();
 
   const groupMap = createGroupMapFromKeys(keys);
   return json({ keys, groupMap });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
   const { pathname } = new URL(request.url);
 
   await modifyCache(request.method as ModifyCacheMethod);
 
   return redirect(pathname);
-};
+}
 
 export default function CacheAdminApp(): JSX.Element | null {
   const adminApp = useAdminApp();

@@ -1,7 +1,6 @@
 import { Outlet, useLoaderData } from "@remix-run/react";
 import {
-  type ActionFunction,
-  type LoaderFunction,
+  type DataFunctionArgs,
   json,
   redirect,
 } from "@remix-run/server-runtime";
@@ -25,7 +24,7 @@ interface LoaderData {
 
 const pathname = "/admin/settings/backups/";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export async function loader({ request }: DataFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const { files } = await Storage.queryDir("backup/");
   const list = files
@@ -33,9 +32,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     .sort((a, b) => (b > a ? 1 : -1));
 
   return json<LoaderData>({ list, files });
-};
+}
 
-export const action: ActionFunction = async ({ request }) => {
+export async function action({ request }: DataFunctionArgs) {
   await authenticateRoute(request);
 
   if (request.method === "POST") {
@@ -44,7 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   return null;
-};
+}
 
 export default function Backups(): JSX.Element | null {
   const { list, files } = useLoaderData<LoaderData>();

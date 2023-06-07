@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { useLoaderData, useRouteError } from "@remix-run/react";
-import { type LoaderArgs, json } from "@remix-run/server-runtime";
+import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
@@ -33,7 +33,7 @@ interface LoaderData {
   tags: string[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: DataFunctionArgs) {
   const { origin } = new URL(request.url);
   const [educationList, careerList] = await Promise.all([
     getEducationSummaryItems(),
