@@ -1,6 +1,5 @@
 import { Links, Meta } from "@remix-run/react";
 import clsx from "clsx";
-import { StructuredData } from "remix-utils";
 
 import { type ThemeName, checkIfDarkTheme } from "@gs/theme";
 
@@ -30,7 +29,6 @@ export default function Document({
         {error ? null : <Meta />}
         <Links />
         {error ? null : <script src={generatePolyfillUrl()} defer />}
-        <StructuredData />
       </head>
       <body className={clsx("m-0 p-0", "bg-default text-default")}>
         {children}

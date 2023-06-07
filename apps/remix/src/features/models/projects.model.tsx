@@ -11,7 +11,6 @@ import {
   ModelSize,
   type ModelStyling,
 } from "./helpers/types";
-import type { BlogPosting, WithContext } from "schema-dts";
 
 export const model: ModelObjectType = {
   type: "object",
@@ -40,36 +39,3 @@ export interface ProjectProps extends SummaryItem {
 }
 
 export { ProjectsIcon };
-
-export function generateStructuredDataForProject({
-  data,
-  parentsData,
-}: {
-  data?: { project: ProjectProps; url: string };
-  parentsData: [{ about: AboutInfo }];
-}): WithContext<BlogPosting> | null {
-  if (!data?.project) return null;
-
-  const { date, gallery, title, subtitle, description } = data.project;
-  const url = data.url;
-  const authorName = parentsData[0]?.about?.name || "";
-  const baseUrl = new URL(url).origin;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    url,
-    description: subtitle || description,
-    datePublished: date,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": url,
-    },
-    image: gallery?.map((img) => baseUrl + img.url),
-    author: {
-      "@type": "Person",
-      name: authorName,
-    },
-  };
-}

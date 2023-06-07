@@ -6,7 +6,6 @@ import {
 } from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
-import { generateStructuredDataForBlogPost } from "@gs/models/blog.model";
 import {
   type BlogPostProps,
   getBlogPost,
@@ -153,7 +152,3 @@ export function ErrorBoundary() {
     />
   );
 }
-
-export const handle = {
-  structuredData: generateStructuredDataForBlogPost,
-};

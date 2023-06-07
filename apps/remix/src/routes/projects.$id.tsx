@@ -6,7 +6,6 @@ import {
 } from "@remix-run/server-runtime";
 
 import { EditIcon } from "@gs/icons";
-import { generateStructuredDataForProject } from "@gs/models/projects.model";
 import {
   type ProjectProps,
   getProject,
@@ -170,7 +169,3 @@ export function ErrorBoundary() {
     />
   );
 }
-
-export const handle = {
-  structuredData: generateStructuredDataForProject,
-};

@@ -1,8 +1,11 @@
 import type { V2_ServerRuntimeMetaArgs } from "@remix-run/server-runtime";
 
 import { AUTHOR_NAME, AUTHOR_SHORT_NAME } from "@gs/constants";
+import type { BlogPostProps } from "@gs/models/blog.model";
+import type { ProjectProps } from "@gs/models/projects.model";
 import { type SummaryItem } from "@gs/summary";
 import type { MetaDescriptors } from "@gs/types";
+import { BlogPosting, WithContext } from "schema-dts";
 
 export function createMetaTitle(title?: string) {
   if (!title) return AUTHOR_NAME;
@@ -83,6 +86,14 @@ export function generateArticleMeta(
     { property: "og:article:section", content: options?.section },
     { property: "og:article:tag", content: tags.join(",") },
     { property: "og:article:author", content: AUTHOR_NAME },
+
+    {
+      "script:ld+json": generateStructuredDataForArticle({
+        article,
+        url: url?.toString() || "",
+        authorName: AUTHOR_NAME,
+      }),
+    },
   ];
 }
 
@@ -143,3 +154,36 @@ export function extractEssentialMetaFromMetaMatches(
 }
 
 export type { MetaArgs, MetaDescriptors } from "@gs/types";
+
+function generateStructuredDataForArticle({
+  article,
+  url,
+  authorName,
+}: {
+  article?: ProjectProps | BlogPostProps;
+  url: string;
+  authorName: string;
+}): WithContext<BlogPosting> | null {
+  if (!article) return null;
+
+  const { date, gallery, title, subtitle, description } = article;
+  const baseUrl = new URL(url).origin;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    url,
+    description: subtitle || description,
+    datePublished: date,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    image: gallery?.map((img) => baseUrl + img.url),
+    author: {
+      "@type": "Person",
+      name: authorName,
+    },
+  };
+}
