@@ -40,7 +40,7 @@ export async function loader({ request }: DataFunctionArgs) {
   });
 
   const image = await fetch(
-    `https://next.guptasiddhant.com/api/og?${params.toString()}`,
+    `https://next.guptasiddhant.com/og?${params.toString()}`,
   ).then((res) => res.blob());
 
   return new Response(image, {
