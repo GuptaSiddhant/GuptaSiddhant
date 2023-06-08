@@ -26,10 +26,11 @@ module.exports = {
   // Feature flags
   // https://remix.run/docs/en/main/pages/api-development-strategy#current-future-flags
   future: {
-    v2_routeConvention: true,
     v2_errorBoundary: true,
-    v2_normalizeFormMethod: true,
+    v2_headers: true,
     v2_meta: true,
+    v2_normalizeFormMethod: true,
+    v2_routeConvention: true,
     unstable_dev: true,
   },
 
