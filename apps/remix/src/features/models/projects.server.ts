@@ -37,8 +37,9 @@ export async function getProjectsSummaryItems() {
 export async function getProject(id: string): Promise<ProjectProps> {
   const project = await db.queryById(id);
   const cover: string | undefined = project?.gallery?.[0]?.url;
+  const coverHash = project?.gallery?.[0]?.metadata?.hash;
 
-  return { ...project, cover };
+  return { ...project, cover, coverHash };
 }
 
 export async function getProjectCrossSell(

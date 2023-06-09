@@ -11,6 +11,7 @@ export interface SummaryItem {
   date?: string;
   icon?: string;
   cover?: string;
+  coverHash?: string;
   tags?: string[];
   links?: LinkObject[];
   linkUrl?: string;

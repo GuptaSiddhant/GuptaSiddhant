@@ -1,5 +1,7 @@
 import clsx from "clsx";
+import { useRef } from "react";
 
+import BlurImg from "@gs/ui/BlurImg";
 import {
   assetTransformationOptions,
   generateAssetTransformedUrl,
@@ -10,6 +12,7 @@ export interface HeroImageProps {
   icon?: string;
   alt?: string;
   caption?: string;
+  hash?: string;
 }
 
 export default function HeroImage({
@@ -17,10 +20,11 @@ export default function HeroImage({
   caption,
   icon,
   src,
+  hash,
 }: HeroImageProps): JSX.Element | null {
-  if (!src) {
-    return null;
-  }
+  const figureRef = useRef<HTMLElement>(null);
+
+  if (!src) return null;
 
   const iconUrl = generateAssetTransformedUrl(
     icon,
@@ -30,18 +34,18 @@ export default function HeroImage({
 
   return (
     <figure
+      ref={figureRef}
       className={clsx(
-        "relative",
+        "relative rounded-md",
         "mx-4 -w-full-m4 md:mx-8 md:-w-full-m8",
         "md:aspect-video md:max-h-screen",
       )}
     >
-      <img
-        key={imageUrl}
+      <BlurImg
         src={imageUrl}
-        alt={alt}
-        className="h-full min-h-[50vh] w-full rounded-md object-cover"
-        loading="eager"
+        alt={alt || ""}
+        hash={hash}
+        parentRef={figureRef}
       />
       {caption ? (
         <figcaption className="py-2 text-sm text-tertiary">

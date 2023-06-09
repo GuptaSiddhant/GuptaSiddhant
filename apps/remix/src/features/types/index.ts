@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
+import type { BlurhashData } from "@gs/utils/blurhash.client";
 import type { LinkProps, ShouldRevalidateFunction } from "@remix-run/react";
 import type {
   V2_ServerRuntimeMetaArgs,
@@ -34,7 +35,11 @@ export type LinkType =
   | "prototype"
   | "design";
 
-export type Gallery = Array<{ url: string; alt: string }>;
+export type Gallery = Array<{
+  url: string;
+  alt: string;
+  metadata?: BlurhashData;
+}>;
 
 export type RemixSubmitFunctionTarget =
   | HTMLFormElement

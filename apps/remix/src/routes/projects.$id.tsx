@@ -98,7 +98,16 @@ export default function ProjectDetails(): JSX.Element {
     associationItem,
     isAuthenticated,
   } = useLoaderData<LoaderData>();
-  const { id, title, subtitle, description, cover, icon, tags = [] } = project;
+  const {
+    id,
+    title,
+    subtitle,
+    description,
+    cover,
+    coverHash,
+    icon,
+    tags = [],
+  } = project;
 
   return (
     <>
@@ -144,7 +153,7 @@ export default function ProjectDetails(): JSX.Element {
           </div>
         </Hero.Description>
 
-        <Hero.Image src={cover} alt={title} icon={icon} />
+        <Hero.Image src={cover} alt={title} icon={icon} hash={coverHash} />
       </Hero>
 
       <Reader id="main-content" leftColumn={<TableOfContent toc={toc} />}>
