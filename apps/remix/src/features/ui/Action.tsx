@@ -43,14 +43,12 @@ export default function Action({
   disabled,
 }: ActionProps): JSX.Element | null {
   const originPath = useOriginPath();
-
-  const { submit, submission, state } = useFetcher();
-  const key = submission?.key;
+  const { submit, state } = useFetcher();
   const isSubmitting = state === "submitting";
 
   useToastWithMinDuration(
     {
-      id: key!,
+      id: state,
       persistent: true,
       variant: "info",
       ...(typeof toastProps === "string"

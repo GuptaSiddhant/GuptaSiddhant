@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useCallback, useMemo, useState } from "react";
 
 import type {
   ModelArrayType,
@@ -6,8 +7,10 @@ import type {
   ModelScalerType,
   ModelStringType,
 } from "@gs/models/helpers/types";
+import { ModelSize, ModelTitle } from "@gs/models/helpers/types";
 
 import EditorArrayInput from "./EditorArrayInput";
+import EditorImageMetadata from "./EditorImageMetadata";
 import EditorPreviewInput from "./EditorPreviewInput";
 import EditorTextInput from "./EditorScalerInput";
 import { EditorFormContextProvider, useEditorForm } from "./context";
@@ -17,28 +20,68 @@ import {
   objectGridClassName,
   sortPredicate,
 } from "./helpers";
+import type { BlurhashData } from "@gs/utils/blurhash.client";
 
 export interface EditorObjectInputProps<V = unknown, T = Record<string, V>> {
   data?: T;
   model: ModelObjectType;
   prefix?: string;
+  onChange?: (key: string, data: T) => void;
 }
 
 export default function EditorObjectInput<T extends { id?: string }>(
   props: EditorObjectInputProps<string, T>,
 ): JSX.Element | null {
-  const id = props.data?.id;
+  const { model, data, prefix } = props;
+  const id = data?.id;
+  const [state, setState] = useState<T | undefined>(data);
+
+  const isImageObject = model.title === ModelTitle.Image;
+  const imageUrl =
+    state && isImageObject && "url" in state && typeof state.url === "string"
+      ? state.url
+      : undefined;
+
+  const handleChange = useCallback(
+    (key: string, value: unknown) => {
+      if (typeof value !== "string") return;
+      if (isImageObject && key.endsWith(".url") && typeof value === "string") {
+        setState((prev) => (prev ? { ...prev, url: value } : prev));
+      }
+    },
+    [isImageObject],
+  );
+
+  const handleSetMetadata = useCallback(
+    (metadata: BlurhashData) =>
+      setState((prev) => (prev ? { ...prev, metadata } : prev)),
+    [],
+  );
+  const imageMetadata = useMemo(
+    () =>
+      state && "metadata" in state
+        ? (state?.metadata as BlurhashData)
+        : undefined,
+    [state],
+  );
 
   return (
     <EditorFormContextProvider
       itemId={id || "new"}
       newItem={!id}
-      prefix={props.prefix}
+      prefix={prefix}
     >
-      <ScalerInputs {...props} />
-      <ArrayInputs {...props} />
-      <PreviewInputs {...props} />
-      <ObjectInputs {...props} />
+      <ScalerInputs data={state} model={model} onChange={handleChange} />
+      <ArrayInputs data={state} model={model} />
+      <PreviewInputs data={state} model={model} />
+      <ObjectInputs data={state} model={model} />
+
+      <EditorImageMetadata
+        imageUrl={imageUrl}
+        setMetadata={handleSetMetadata}
+        prefix={prefix}
+        metadata={imageMetadata}
+      />
     </EditorFormContextProvider>
   );
 }
@@ -63,6 +106,7 @@ function ScalerInputs(props: EditorObjectInputProps): JSX.Element | null {
           name={addPrefix(name)}
           data={props.data?.[name]}
           model={model}
+          onChange={props.onChange}
         />
       ))}
     </>
@@ -119,23 +163,24 @@ function ObjectInputs(props: EditorObjectInputProps): JSX.Element | null {
 
   return (
     <>
-      {entries.map(([name, model]) => (
-        <fieldset
-          aria-required={model.required}
-          key={addPrefix(name)}
-          className={clsx(objectGridClassName, fieldsetClassName)}
-        >
-          <legend className="px-1 text-base">
-            <EditorInputLabel name={name} required={model.required} />
-          </legend>
-
-          <EditorObjectInput
-            data={props.data?.[name] as { id?: string }}
-            model={model}
-            prefix={name}
-          />
-        </fieldset>
-      ))}
+      {entries.map(([name, model]) =>
+        model.size === ModelSize.NONE ? null : (
+          <fieldset
+            aria-required={model.required}
+            key={addPrefix(name)}
+            className={clsx(objectGridClassName, fieldsetClassName)}
+          >
+            <legend className="px-1 text-base">
+              <EditorInputLabel name={name} required={model.required} />
+            </legend>
+            <EditorObjectInput
+              data={props.data?.[name] as { id?: string }}
+              model={model}
+              prefix={name}
+            />
+          </fieldset>
+        ),
+      )}
     </>
   );
 }

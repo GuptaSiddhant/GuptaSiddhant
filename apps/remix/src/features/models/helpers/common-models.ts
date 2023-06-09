@@ -1,9 +1,10 @@
 import type { ModelArrayType, ModelObjectType } from "./types";
-import { ModelSize } from "./types";
+import { ModelSize, ModelTitle } from "./types";
 
 export const linksModel: ModelArrayType = {
   type: "array",
   items: {
+    title: ModelTitle.Link,
     type: "object",
     properties: {
       url: { type: "string", required: true, size: ModelSize.LARGE },
@@ -27,18 +28,34 @@ export const linksModel: ModelArrayType = {
   },
 };
 
-export const galleryModel: ModelArrayType = {
-  type: "array",
-  items: {
-    type: "object",
-    properties: {
-      url: { type: "string", required: true, size: ModelSize.LARGE },
-      alt: { type: "string", required: true, size: ModelSize.MEDIUM },
+export const imageModel: ModelObjectType = {
+  title: ModelTitle.Image,
+  type: "object",
+  properties: {
+    url: { type: "string", required: true, size: ModelSize.LARGE },
+    alt: { type: "string", required: true, size: ModelSize.MEDIUM },
+    metadata: {
+      title: ModelTitle.Metadata,
+      type: "object",
+      size: ModelSize.NONE,
+      properties: {
+        hash: { type: "string", readonly: true },
+        width: { type: "number", readonly: true },
+        height: { type: "number", readonly: true },
+        colorSpace: { type: "string", readonly: true },
+      },
     },
   },
 };
 
+export const galleryModel: ModelArrayType = {
+  title: ModelTitle.Gallery,
+  type: "array",
+  items: imageModel,
+};
+
 export const summaryModel: ModelObjectType = {
+  title: ModelTitle.Summary,
   type: "object",
   properties: {
     id: { type: "string", required: true },

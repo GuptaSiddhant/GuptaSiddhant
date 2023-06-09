@@ -4,7 +4,6 @@ import ProjectsIcon from "remixicon-react/ArtboardLineIcon";
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";
 
-import type { AboutInfo } from "./about-info.model";
 import { commonBlogProjectModel } from "./helpers/common-models";
 import {
   type ModelObjectType,

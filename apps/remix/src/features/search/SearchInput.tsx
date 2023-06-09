@@ -15,7 +15,10 @@ export default function SearchInput({
   submit,
   state,
   load,
-}: FetcherWithComponents<SearchOutputData>): JSX.Element | null {
+}: Pick<
+  FetcherWithComponents<SearchOutputData>,
+  "Form" | "submit" | "state" | "load"
+>): JSX.Element | null {
   const { closeSearch, inputRef, isSearchOpen, inputValue, changeInputValue } =
     useSearch();
   const [isPending, startTransition] = useTransition();

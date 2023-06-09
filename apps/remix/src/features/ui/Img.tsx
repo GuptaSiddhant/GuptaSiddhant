@@ -10,12 +10,15 @@ export type ImgProps = ComponentPropsWithoutRef<"img"> & {
   imgRef?: ForwardedRef<HTMLImageElement> | null;
   link?: boolean;
   children?: ReactNode;
+  figureClassName?: string;
 };
 
 export default function Img({
   link,
   children,
   src,
+  imgRef,
+  figureClassName,
   ...props
 }: ImgProps): JSX.Element | null {
   if (!src) {
@@ -25,13 +28,17 @@ export default function Img({
   const imageElement = (
     <img
       alt=""
+      src={src}
       {...props}
       className={clsx(props.className, "!m-0 rounded", "min-h-[200px]")}
+      ref={imgRef}
     />
   );
 
   return (
-    <figure className="relative -mx-4 overflow-clip rounded">
+    <figure
+      className={clsx("relative -mx-4 overflow-clip rounded", figureClassName)}
+    >
       {link ? (
         <a href={src} target="_blank" rel="noreferrer">
           {imageElement}

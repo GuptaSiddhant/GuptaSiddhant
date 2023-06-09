@@ -3,10 +3,19 @@ export type ModelsMap = {
 };
 
 export enum ModelSize {
+  NONE = "none",
   SMALL = "small",
   MEDIUM = "medium",
   LARGE = "large",
   FULL = "full",
+}
+
+export enum ModelTitle {
+  Image = "Image",
+  Metadata = "Metadata",
+  Gallery = "Gallery",
+  Link = "Link",
+  Summary = "Summary",
 }
 
 export type Model = ModelScalerType | ModelObjectType | ModelArrayType;
@@ -50,6 +59,8 @@ export interface ModelStyling {
 }
 
 interface ModelCommon {
+  title?: string;
   required?: boolean;
   size?: ModelSize;
+  readonly?: boolean;
 }

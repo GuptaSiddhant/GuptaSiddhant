@@ -16,7 +16,8 @@ export default function SearchDialog({
   const { isSearchOpen, closeSearch } = useSearch();
 
   const handleSearchKeyDown = useSearchKeyDown();
-  const fetcher = useFetcher<SearchOutputData>();
+  const { data, formData, Form, load, state, submit } =
+    useFetcher<SearchOutputData>();
   const commands = useCommands();
 
   return (
@@ -28,11 +29,11 @@ export default function SearchDialog({
       className="flex h-[90vh] flex-col gap-4 lg:h-[60vh]"
       onKeyDown={handleSearchKeyDown}
     >
-      <SearchInput {...fetcher} />
+      <SearchInput Form={Form} load={load} state={state} submit={submit} />
       <SearchOutput
-        data={fetcher.data}
+        data={data}
         commands={commands}
-        query={fetcher.submission?.formData.get("query")?.toString()}
+        query={formData?.get("query")?.toString()}
       />
     </Dialog>
   );

@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { useCallback } from "react";
 
 import type { ModelScalerType } from "@gs/models/helpers/types";
 import FormLabel from "@gs/ui/FormLabel";
@@ -20,12 +21,14 @@ export interface EditorScalerInputProps<T = any> {
   required?: boolean;
   className?: string;
   placeholder?: string;
+  onChange?: (key: string, value: T) => void;
 }
 
 export default function EditorScalerInput(
   props: EditorScalerInputProps,
 ): JSX.Element | null {
   const { name, model } = props;
+
   if (model.type === "boolean") {
     return <EditorCheckboxInput {...props} />;
   }
@@ -55,13 +58,21 @@ export default function EditorScalerInput(
 function EditorSingleLineTextInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className, placeholder } = props;
+  const { name, model, data, className, placeholder, onChange } = props;
   const required = props.required || model.required;
+  const readonly = props.readonly || model.readonly;
 
   const isUrl = name.toLowerCase().includes("url");
   const isEmail = name.toLowerCase().includes("email");
   const placeholderText =
     placeholder || (isUrl ? "https://" : isEmail ? "abc@xyx" : "");
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(name, event.currentTarget.value);
+    },
+    [onChange, name],
+  );
 
   return (
     <Input
@@ -74,11 +85,13 @@ function EditorSingleLineTextInput(
       )}
       className={"w-full"}
       name={name}
-      defaultValue={data}
+      defaultValue={readonly ? undefined : data}
+      value={readonly ? data : undefined}
       required={required}
       readOnly={readonly}
       placeholder={placeholderText}
       type={isEmail ? "email" : "text"}
+      onChange={handleChange}
     />
   );
 }
@@ -86,8 +99,15 @@ function EditorSingleLineTextInput(
 function EditorMultiLineTextInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className } = props;
+  const { name, model, data, readonly, className, onChange } = props;
   const required = props.required || model.required;
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onChange?.(name, event.currentTarget.value);
+    },
+    [onChange, name],
+  );
 
   return (
     <FormLabel
@@ -108,6 +128,7 @@ function EditorMultiLineTextInput(
         required={required}
         readOnly={readonly}
         placeholder="Enter description here"
+        onChange={handleChange}
       />
     </FormLabel>
   );
@@ -116,8 +137,16 @@ function EditorMultiLineTextInput(
 function EditorDateInput(
   props: EditorScalerInputProps<string>,
 ): JSX.Element | null {
-  const { name, model, data, readonly, className } = props;
+  const { name, model, data, readonly, className, onChange } = props;
   const required = props.required || model.required;
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const date = formatYYYYMMDD(new Date(event.currentTarget.value));
+      date && onChange?.(name, date);
+    },
+    [onChange, name],
+  );
 
   return (
     <Input
@@ -135,6 +164,7 @@ function EditorDateInput(
       required={required}
       readOnly={readonly}
       defaultValue={data ? formatYYYYMMDD(new Date(data)) : undefined}
+      onChange={handleChange}
     />
   );
 }
@@ -142,8 +172,23 @@ function EditorDateInput(
 function EditorSelectInput(
   props: EditorScalerInputProps<string> & { options?: string[] },
 ): JSX.Element | null {
-  const { name, model, data, readonly, className, options = [] } = props;
+  const {
+    name,
+    model,
+    data,
+    readonly,
+    className,
+    options = [],
+    onChange,
+  } = props;
   const required = props.required || model.required;
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      onChange?.(name, event.currentTarget.value);
+    },
+    [onChange, name],
+  );
 
   return (
     <Select
@@ -158,6 +203,7 @@ function EditorSelectInput(
       defaultValue={data}
       vertical
       required={required}
+      onChange={handleChange}
     >
       {options.map((option) => (
         <Select.Option key={option} value={option}>
@@ -171,8 +217,15 @@ function EditorSelectInput(
 function EditorCheckboxInput(
   props: EditorScalerInputProps<boolean>,
 ): JSX.Element | null {
-  const { name, className, data, readonly, model } = props;
+  const { name, className, data, readonly, model, onChange } = props;
   const required = props.required || model.required;
+
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(name, event.currentTarget.checked);
+    },
+    [onChange, name],
+  );
 
   return (
     <FormLabel
@@ -191,6 +244,7 @@ function EditorCheckboxInput(
         defaultChecked={data}
         required={required}
         readOnly={readonly}
+        onChange={handleChange}
       />
     </FormLabel>
   );

@@ -103,6 +103,7 @@ export async function action({ request, params }: DataFunctionArgs) {
     return redirect(generateRedirectUrl(modelName, deleted ? "" : id));
   }
 
+  console.log("formData", Array.from(formData.entries()));
   await mutateDatabaseByModelNameAndFormData(modelName, formData, database, id);
 
   return redirect(generateRedirectUrl(modelName, id) || pathname);
