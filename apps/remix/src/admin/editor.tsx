@@ -9,7 +9,7 @@ import { getBlogKeys } from "@gs/models/blog.server";
 import { getCareerKeys } from "@gs/models/career.server";
 import { getEducationKeys } from "@gs/models/education.server";
 import { getProjectsKeys } from "@gs/models/projects.server";
-import { getUsersKeys } from "@gs/models/users.server";
+import { getUserKeys } from "@gs/models/users.server";
 import {
   authenticateRoute,
   isUserHasWriteAccess,
@@ -53,7 +53,7 @@ export async function loader({ request }: DataFunctionArgs) {
     getBlogKeys(),
     getProjectsKeys(),
     getAboutKeys(),
-    getUsersKeys(),
+    getUserKeys(),
   ]);
 
   const entries: LoaderData["entries"] = [

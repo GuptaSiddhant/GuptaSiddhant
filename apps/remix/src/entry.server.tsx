@@ -56,7 +56,6 @@ export default function handleRequest(
 
         onError: (error) => {
           didError = true;
-
           appLogger.error(getErrorMessage(error));
         },
       },
@@ -64,6 +63,19 @@ export default function handleRequest(
 
     setTimeout(abort, ABORT_DELAY);
   });
+}
+
+// entry.server.tsx
+export function handleError(
+  error: unknown,
+  // { request, params, context }: DataFunctionArgs,
+): void {
+  if (error instanceof Error) {
+    appLogger.error(getErrorMessage(error));
+  } else {
+    const unknownError = new Error("Unknown Server Error");
+    appLogger.error(getErrorMessage(unknownError));
+  }
 }
 
 declare global {

@@ -1,26 +1,38 @@
 import parsedEnv from "@gs/env";
 
 const FIREBASE_AUTH_BASE_URL =
-  "https://identitytoolkit.googleapis.com/v1/accounts:";
+  "https://identitytoolkit.googleapis.com/v1/accounts";
 
 export async function signInWithEmailPassword(email: string, password: string) {
   const searchParams = new URLSearchParams({ key: parsedEnv.FIREBASE_API_KEY });
-
   const response = await fetch(
-    `${FIREBASE_AUTH_BASE_URL}signInWithPassword?${searchParams.toString()}`,
+    `${FIREBASE_AUTH_BASE_URL}:signInWithPassword?${searchParams.toString()}`,
     {
       method: "POST",
       body: JSON.stringify({ returnSecureToken: true, email, password }),
+      headers: { "Content-Type": "application/json" },
     },
   );
 
-  const data = await response.json();
+  return (await response.json()) as
+    | AuthErrorResponse
+    | SignInWithEmailPasswordSuccessResponse;
+}
 
-  if (response.status !== 200) {
-    return data as SignInWithEmailPasswordErrorResponse;
-  }
+export async function signUpAnonymously() {
+  const searchParams = new URLSearchParams({ key: parsedEnv.FIREBASE_API_KEY });
+  const response = await fetch(
+    `${FIREBASE_AUTH_BASE_URL}:signUp?${searchParams.toString()}`,
+    {
+      method: "POST",
+      body: JSON.stringify({ returnSecureToken: true }),
+      headers: { "Content-Type": "application/json" },
+    },
+  );
 
-  return data as SignInWithEmailPasswordSuccessResponse;
+  return (await response.json()) as
+    | AuthErrorResponse
+    | AnonymousSignUpSuccessResponse;
 }
 
 // Types
@@ -36,10 +48,18 @@ interface SignInWithEmailPasswordSuccessResponse {
   expiresIn: string;
 }
 
-interface SignInWithEmailPasswordErrorResponse {
+interface AuthErrorResponse {
   error: {
     code: number;
     message: string;
     errors: unknown[];
   };
+}
+
+interface AnonymousSignUpSuccessResponse {
+  idToken: string;
+  email: "";
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
 }

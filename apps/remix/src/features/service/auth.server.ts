@@ -1,13 +1,19 @@
-import type { Strategy } from "remix-auth";
-import { Authenticator } from "remix-auth";
+import { AuthenticateOptions, Authenticator, Strategy } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import {
+  SessionData,
+  SessionStorage,
+  createCookieSessionStorage,
+  redirect,
+} from "@remix-run/node";
 
+import AnonymousStrategy from "./remix-auth-anonymous.server";
 import parsedEnv from "@gs/env";
-import { signInWithEmailPassword } from "@gs/firebase/auth";
+import { signInWithEmailPassword, signUpAnonymously } from "@gs/firebase/auth";
 import { UserRole } from "@gs/models/users.model";
-import { type UserProps, getUser } from "@gs/models/users.server";
+import { type UserProps, getUserById } from "@gs/models/users.server";
+import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
 // Auth Session
@@ -39,6 +45,7 @@ export default authenticator;
 
 export enum AuthMethod {
   EmailPassword = "emailPassword",
+  Anonymous = "anonymous",
 }
 
 // Auth helpers
@@ -77,13 +84,13 @@ export async function authenticate(request: Request, ...userRoles: UserRole[]) {
   return user;
 }
 
-export async function getAuthUser(request: Request): Promise<UserProps | null> {
-  const user = await authenticator.isAuthenticated(request);
-  if (!user) {
+export async function getAuthUser(request: Request) {
+  const authUser = await authenticator.isAuthenticated(request);
+  if (!authUser) {
     return null;
   }
 
-  return await getUser(user.email);
+  return getUserById(authUser.email);
 }
 
 export async function isUserHasWriteAccess<T extends { email: string }>(
@@ -111,7 +118,7 @@ export async function isUserHasAccess<T extends { email: string }>(
     // rome-ignore lint/suspicious/noExplicitAny: '"role" in user' does not help
     role = (user as any).role;
   } else {
-    const authUser = await getUser(user.email);
+    const authUser = await getUserById(user.email);
     role = authUser.role;
   }
 
@@ -137,6 +144,25 @@ export async function loginUser(request: Request) {
   return redirect(redirectTo, { headers });
 }
 
+export async function signUpAnonymousUser(request: Request) {
+  if (await authenticator.isAuthenticated(request)) {
+    console.log("---- isAuthenticated");
+    return;
+  }
+  console.log("---- signUpAnonymousUser");
+  const user = await authenticator.authenticate(AuthMethod.Anonymous, request, {
+    throwOnError: true,
+  });
+  console.log(user);
+  const session = await cookieSession.getSession(request.headers.get("cookie"));
+  session.set(authenticator.sessionKey, user);
+  const headers = new Headers({
+    "Set-Cookie": await cookieSession.commitSession(session),
+  });
+  console.dir(headers);
+  return redirect(request.url, { headers });
+}
+
 // Auth method: emailPassword
 
 const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
@@ -151,7 +177,7 @@ const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
     throw new Error(user.error.message);
   }
 
-  const userFromDatabase = await getUser(user.email);
+  const userFromDatabase = await getUserById(user.email);
 
   const authUser: AuthUser = {
     idToken: user.idToken,
@@ -162,6 +188,28 @@ const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
   };
 
   return authUser;
-}) as unknown as Strategy<AuthUser, never>;
+});
 
 authenticator.use(emailPasswordStrategy, AuthMethod.EmailPassword);
+
+// Auth method: anonymous
+
+const anonymousStrategy = new AnonymousStrategy(async () => {
+  const user = await signUpAnonymously();
+  if ("error" in user) {
+    throw new Error(user.error.message);
+  }
+
+  const authUser: AuthUser = {
+    id: user.localId,
+    name: "Anonymous",
+    role: UserRole.GUEST,
+    email: user.email,
+    idToken: user.idToken,
+    refreshToken: user.refreshToken,
+    expiresIn: user.expiresIn,
+  };
+  return authUser;
+});
+
+authenticator.use(anonymousStrategy, AuthMethod.Anonymous);

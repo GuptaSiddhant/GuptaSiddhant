@@ -8,7 +8,7 @@ import { getCareerItem } from "./career.server";
 import { getEducationItem } from "./education.server";
 import parseFormDataWithModelObject from "./helpers/parser";
 import { getProject } from "./projects.server";
-import { getUser } from "./users.server";
+import { getUserById } from "./users.server";
 
 export async function mutateDatabaseByModelNameAndFormData(
   modelName: ModelName,
@@ -52,7 +52,7 @@ export async function getItemByModelName(modelName: ModelName, id?: string) {
     case ModelName.Projects:
       return getProject(id);
     case ModelName.Users:
-      return getUser(id);
+      return getUserById(id);
     default:
       throw new Error(`Unknown model name: ${modelName}`);
   }

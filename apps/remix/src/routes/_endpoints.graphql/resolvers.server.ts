@@ -3,7 +3,7 @@ import { getBlogSummaryItems } from "@gs/models/blog.server";
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
 import { getProjectsSummaryItems } from "@gs/models/projects.server";
-import { getUsersKeys } from "@gs/models/users.server";
+import { getUserKeys } from "@gs/models/users.server";
 import { authenticate } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
 
@@ -63,7 +63,7 @@ export async function users(
 ): Promise<string[]> {
   await authenticate(request);
 
-  return getItemList(getUsersKeys, options);
+  return getItemList(getUserKeys, options);
 }
 
 // Mutations
