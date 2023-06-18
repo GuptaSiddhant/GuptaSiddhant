@@ -51,6 +51,10 @@ export const model: ModelObjectType = {
         website: { type: "string", size: ModelSize.LARGE },
       },
     },
+    bio: {
+      type: "string",
+      format: "markdown",
+    },
   },
 };
 
@@ -71,6 +75,7 @@ export interface AboutInfo {
   techStack?: string[];
   heroAdjectives?: string[];
   link?: Record<AboutLinkKey, string>;
+  bio?: string;
 }
 
 export type AboutLinkKey = "linkedin" | "github" | "email" | "website";

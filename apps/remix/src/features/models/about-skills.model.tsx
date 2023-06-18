@@ -28,6 +28,7 @@ export const model: ModelObjectType = {
     backend: skillModel,
     design: skillModel,
     language: skillModel,
+    tooling: skillModel,
   },
 };
 
@@ -40,7 +41,8 @@ export type SkillCategory =
   | "frontend"
   | "backend"
   | "design"
-  | "language";
+  | "language"
+  | "tooling";
 
 export interface SkillObject {
   title: string;

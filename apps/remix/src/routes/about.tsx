@@ -2,7 +2,6 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 import ResumeIcon from "remixicon-react/FileUserLineIcon";
 
-import { aboutTexts } from "@gs/about";
 import { ModelName } from "@gs/models";
 import type { AboutInfo } from "@gs/models/about-info.model";
 import { getAboutInfo } from "@gs/models/about.server";
@@ -64,18 +63,18 @@ export function meta({ matches }: MetaArgs<typeof loader>): MetaDescriptors {
 }
 
 export default function About(): JSX.Element {
-  const { items } = useLoaderData<LoaderData>();
+  const { items, aboutInfo } = useLoaderData<LoaderData>();
 
   return (
     <>
-      <AboutHero />
+      <AboutHero bio={aboutInfo.bio?.split("\n")} />
 
       <SummaryTimeline items={items} />
     </>
   );
 }
 
-function AboutHero(): JSX.Element | null {
+function AboutHero({ bio = [] }: { bio?: string[] }): JSX.Element | null {
   return (
     <Hero>
       <Hero.Header
@@ -83,7 +82,7 @@ function AboutHero(): JSX.Element | null {
         subtitle={["Full-stack developer", "UI designer"].join(" | ")}
       />
       <Hero.Description>
-        {aboutTexts.map((text, index) => (
+        {bio.map((text, index) => (
           <Paragraph className="text-tertiary" key={index.toString()}>
             {text}
           </Paragraph>

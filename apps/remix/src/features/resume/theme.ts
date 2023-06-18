@@ -66,7 +66,8 @@ type TextType =
   | `h6`
   | `p`
   | "mono"
-  | "small";
+  | "small"
+  | "strong";
 
 export type ResumeTexts = Record<TextType, Style>;
 
@@ -114,6 +115,7 @@ export function generateTexts(font: ResumeFonts): ResumeTexts {
       fontSize: 10,
     },
     mono: { fontFamily: fonts.mono, fontSize: 12 },
+    strong: { fontFamily: fontBold, fontSize: 12 },
   };
 
   return texts;

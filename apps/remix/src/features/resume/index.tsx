@@ -1,6 +1,5 @@
 import { renderToString } from "@react-pdf/renderer";
 
-import { aboutTexts } from "@gs/about";
 import { getAboutInfo, getAboutSkills } from "@gs/models/about.server";
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
@@ -32,7 +31,7 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
       ResumeSections.education,
     ),
   ]);
-  const { link, name, title, terminalResume } = aboutInfo;
+  const { link, name, title, terminalResume, bio } = aboutInfo;
 
   const resumeProps: ResumeProps = {
     name,
@@ -45,7 +44,7 @@ export default async function generateResumeFromUrl(url: URL): Promise<string> {
     skills: filters.disabledSections?.skills
       ? undefined
       : { ...skills, id: "" },
-    aboutTexts,
+    bio,
   };
 
   return renderToString(

@@ -1,4 +1,5 @@
 import { Document, Page, Text } from "@react-pdf/renderer";
+import MdxToJsx from "markdown-to-jsx";
 
 import type { SkillCategory, Skills } from "@gs/models/about-skills.model";
 import type { SummaryItem } from "@gs/summary";
@@ -25,7 +26,7 @@ export interface ResumeProps {
   terminalResumeCode: string;
   contactLinks: ContactLinkProps[];
 
-  aboutTexts?: string[];
+  bio?: string;
   experiences?: SummaryItem[];
   educations?: SummaryItem[];
   skills?: Skills;
@@ -41,7 +42,7 @@ export default function Resume({
   terminalResumeCode,
   experiences = [],
   educations = [],
-  aboutTexts = [],
+  bio,
   skills,
 }: ResumeProps): JSX.Element {
   const { texts, colors } = useResumeContext();
@@ -68,12 +69,8 @@ export default function Resume({
           {terminalResumeCode}
         </ResumeHero>
 
-        <ResumeSection disable={aboutTexts.length === 0}>
-          {aboutTexts.map((text, index) => (
-            <Text key={index.toString()} style={{ marginBottom: 4 }}>
-              {text}
-            </Text>
-          ))}
+        <ResumeSection disable={!bio}>
+          <MdxPdf mdx={bio} />
         </ResumeSection>
 
         <ResumeSection
@@ -132,4 +129,36 @@ function genCardProps(item: SummaryItem, domain: string): ResumeCardProps {
     caption: item.duration,
     children: description,
   };
+}
+
+function MdxPdf({ mdx }: { mdx?: string }): JSX.Element | null {
+  const { texts } = useResumeContext();
+
+  if (!mdx) return null;
+
+  return (
+    <MdxToJsx
+      options={{
+        overrides: {
+          strong: ({ children }) => (
+            <Text style={texts.strong}>{children}</Text>
+          ),
+          p: ({ children }) => (
+            <Text style={{ marginBottom: 4 }}>{children}</Text>
+          ),
+          small: ({ children }) => <Text style={texts.small}>{children}</Text>,
+          h1: ({ children }) => <Text style={texts.h1}>{children}</Text>,
+          h2: ({ children }) => <Text style={texts.h2}>{children}</Text>,
+          h3: ({ children }) => <Text style={texts.h3}>{children}</Text>,
+          h4: ({ children }) => <Text style={texts.h4}>{children}</Text>,
+          h5: ({ children }) => <Text style={texts.h5}>{children}</Text>,
+          h6: ({ children }) => <Text style={texts.h6}>{children}</Text>,
+          code: ({ children }) => <Text style={texts.mono}>{children}</Text>,
+          pre: ({ children }) => <Text style={texts.mono}>{children}</Text>,
+        },
+      }}
+    >
+      {mdx}
+    </MdxToJsx>
+  );
 }

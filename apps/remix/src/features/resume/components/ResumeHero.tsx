@@ -72,8 +72,17 @@ function ContactBox({ links }: { links: ContactLinkProps[] }): JSX.Element {
         <Text key={key} style={[styles.text]}>
           <Text style={styles.textKey}>{key.padEnd(maxKeyLength)}:</Text>{" "}
           {linkUrl ? (
-            <Link src={linkUrl} style={styles.text}>
-              {value}
+            <Link
+              src={
+                key !== "email"
+                  ? linkUrl
+                  : linkUrl.includes("mailto")
+                  ? linkUrl
+                  : `mailto:${linkUrl}`
+              }
+              style={styles.text}
+            >
+              {value || linkUrl}
             </Link>
           ) : (
             value

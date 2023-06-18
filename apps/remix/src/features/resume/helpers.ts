@@ -32,7 +32,9 @@ export function transformAboutLinkToContactLinks(
     .map(([key, linkUrl]) => {
       const value =
         key.toLowerCase() === "email"
-          ? linkUrl.split(":")[1]
+          ? linkUrl.includes(":")
+            ? linkUrl.split(":")[1]
+            : linkUrl
           : key.toLowerCase() === "website"
           ? linkUrl.split("//")[1]
           : key.toLowerCase() === "linkedin"
