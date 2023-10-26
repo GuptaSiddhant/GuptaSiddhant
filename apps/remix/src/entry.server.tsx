@@ -1,7 +1,7 @@
+import { PassThrough } from "node:stream";
 import { renderToPipeableStream } from "react-dom/server";
-import { PassThrough } from "stream";
 
-import { Response } from "@remix-run/node";
+import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import type { EntryContext } from "@remix-run/server-runtime";
 
@@ -43,7 +43,7 @@ export default function handleRequest(
           }
 
           resolve(
-            new Response(body, {
+            new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
             }),
