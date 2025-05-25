@@ -33,7 +33,6 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "yarn@3.2.1",
   "dependencies": {
     "@google-cloud/logging-min": "^10.3.1",
     "@reach/menu-button": "^0.18.0",

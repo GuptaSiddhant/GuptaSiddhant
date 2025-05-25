@@ -27,7 +27,7 @@
     "remix:test": "yarn workspace gs-remix test",
     "remix:test:coverage": "yarn workspace gs-remix test:coverage"
   },
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@4.9.1",
   "devDependencies": {
     "prettier": "^2.7.1",
     "typescript": "^5.1.0"
