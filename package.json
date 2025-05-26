@@ -4,7 +4,13 @@
   "workspaces": [
     "./www"
   ],
-  "scripts": {},
+  "scripts": {
+    "www:dev": "yarn workspace gs-www dev",
+    "www:docker:build": "docker build -f Dockerfile.www -t gs-www .",
+    "www:docker:start": "docker run --rm --name gs-www -dp 3000:3000 gs-www",
+    "www:docker:stop": "docker stop gs-www",
+    "www:deploy": "fly deploy --config ./www/fly.toml --dockerfile ./www/Dockerfile"
+  },
   "packageManager": "yarn@4.9.1",
   "devDependencies": {
     "typescript": "^5.8.0"

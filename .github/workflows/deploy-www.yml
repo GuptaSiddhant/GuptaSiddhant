@@ -1,0 +1,17 @@
+name: WWW
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/2025
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --config www/fly.toml --dockerfile www/Dockerfile
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_GS_WWW_TOKEN }}

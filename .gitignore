@@ -3,32 +3,24 @@ node_modules
 
 bin
 **/bin
-**/*/bin
-cli/bin
+**/bin
 
 dist
 **/dist
-**/*/dist
+**/dist
 
 build
 **/build
-**/*/build
+**/build
 
 storybook-static
-
-**/*/package-lock.json
-
 coverage
 
-# Local Netlify folder
-.netlify
-
 *.log
-
 .turbo
 .cache
 **/.cache
-**/*/.cache
+**/.cache
 
 **/*.generated.css
 
@@ -47,4 +39,5 @@ coverage
 
 temp
 
-.firebase-*
+*/.react-router/
+*/data

@@ -6,11 +6,7 @@
 */Dockerfile
 */.dockerignore
 /assets/
-/apps/cli/
-/apps/functions/
-/apps/next
-/apps/remix
-
 */.env*
 .git/
 */.cache
+*/data

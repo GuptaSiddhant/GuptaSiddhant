@@ -1,23 +1,9 @@
 {
-  "tailwindCSS.experimental.classRegex": [
-    [
-      "clsx\\(([^)]*)\\)",
-      "(?:'|\"|`)([^']*)(?:'|\"|`)"
-    ]
-  ],
-  "cSpell.words": [
-    "remixicon",
-    "tailwindcss"
-  ],
+  "cSpell.words": ["remixicon", "tailwindcss"],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "package.json": "yarn*, .eslintrc*, .git*, .yarnrc.*, tsconfig.*, jsconfig.*, prettier*, .prettier*, lint-staged.*",
-    "remix.config.js": "vercel.json, server.*, .babelrc*, .codecov, .cssnanorc*, .htmlnanorc*, .lighthouserc.*, .mocha*, .postcssrc*, .terserrc*, api-extractor.json, ava.config.*, babel.config.*, cssnano.config.*, cypress.json, env.d.ts, htmlnanorc.*, jasmine.*, jest.config.*, karma*, lighthouserc.*, playwright.config.*, postcss.config.*, puppeteer.config.*, remix.*, svgo.config.*, tsdoc.*, unocss.config.*, webpack.config.*, windi.config.*",
-    "vite.config.js": "vitest.config.*",
-    ".env": ".env.*, *.env, .envrc",
-    "tailwind.config.js": "tailwind*",
-    "firebase.json": ".firebase*, firebase.*, firestore.*, storage.*, remoteconfig.*, firebase-*.log, firestore-*.log, *-debug.log",
+    ".env": ".env.*, *.env, .envrc"
   },
   //
   "javascript.suggest.autoImports": true,
@@ -26,45 +12,5 @@
   "typescript.suggest.completeFunctionCalls": false,
   // JSON Schemas
   "json.schemaDownload.enable": true,
-  "json.schemas": [
-    {
-      "fileMatch": [
-        "**/education/index.json"
-      ],
-      "url": "./.vscode/education.schema.json"
-    },
-    {
-      "fileMatch": [
-        "**/career/index.json"
-      ],
-      "url": "./.vscode/career.schema.json"
-    },
-    {
-      "fileMatch": [
-        "firebase.json"
-      ],
-      "url": "https://raw.githubusercontent.com/firebase/firebase-tools/master/schema/firebase-config.json"
-    }
-  ],
-  "material-icon-theme.folders.associations": {
-    "next": "next",
-    "remix": "app"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "rome.rome"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "rome.rome"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "rome.rome"
-  }
-  "deno.enable": false,
-  "editor.codeActionsOnSave": {
-    "source.organizeImports.rome": true
-  },
-  // "deno.lint": true,
-  // "deno.unstable": true,
-  // "deno.enablePaths": ["./apps/website"],
-  // "deno.importMap": "./.vscode/resolve_npm_imports.json"
+  "json.schemas": []
 }

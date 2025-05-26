@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  www:
+    build:
+      context: .
+      dockerfile: ./www/Dockerfile
+    image: gs-www
+    ports:
+      - "3000:3000"
+    restart: always
+    volumes:
+      - "./www/data/:/app/data/"
