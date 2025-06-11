@@ -9,8 +9,6 @@
 > npx guptasiddhant
 ```
 
-<img src="https://github-readme-stats.vercel.app/api?username=guptasiddhant&show_icons=true" alt="guptasiddhant" />
-
 ---
 
 ## About me
