@@ -13,18 +13,7 @@
 
 ## About me
 
-Hi, I am Siddhant and I am a ...
-
-- **Frontend developer**
-- UI Designer
-- Entrepreneur (wannabe)
-- Student (of somethings...)
-- enjoyer of binging TV and racing games
-
-## Projects
-
-- [React Table UI](https://github.com/GuptaSiddhant/react-table-ui). _A UI library which wraps the headless **react-table@7** and provides a beautiful, accessible and ready-to-use Table component._
-- and more...
+Hi, I am Siddhant and I am a **Product Engineer**.
 
 ## Skills
 
