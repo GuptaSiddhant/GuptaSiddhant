@@ -13,16 +13,19 @@ jobs:
     runs-on: ubuntu-latest    
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: "yarn"
 
+      # NOTE: This step is currently a no-op. FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM
+      # is not mapped from secrets, so the file it writes is empty. The deploy relies
+      # on FIREBASE_TOKEN (see "Deploy to Firebase" below), not on this credentials file.
       - name: Setup Credentials
         run: |
           echo $FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM > $HOME/firebase-cred.json;
