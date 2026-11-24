@@ -4,6 +4,18 @@ import type { SatoriOptions } from "satori";
 
 export const runtime = "edge";
 
+const MIN_SIZE = 200;
+const MAX_SIZE = 2400;
+
+const ALLOWED_IMAGE_HOSTS = new Set([
+  "guptasiddhant.com",
+  "www.guptasiddhant.com",
+  "next.guptasiddhant.com",
+  "res.cloudinary.com",
+  "firebasestorage.googleapis.com",
+  "storage.googleapis.com",
+]);
+
 const nunitoRegularFontBuffer = fetch(
   new URL("../../public/Nunito-Regular.ttf", import.meta.url),
 ).then((res) => res.arrayBuffer());
@@ -11,34 +23,92 @@ const nunitoBoldFontBuffer = fetch(
   new URL("../../public/Nunito-Bold.ttf", import.meta.url),
 ).then((res) => res.arrayBuffer());
 
+/** Parses a size param as an integer clamped to [MIN_SIZE, MAX_SIZE]. */
+function parseSize(value: string | null, fallback: number): number {
+  const num = Number(value ?? fallback);
+  if (!Number.isFinite(num)) return fallback;
+  return Math.min(MAX_SIZE, Math.max(MIN_SIZE, Math.round(num)));
+}
+
+/**
+ * Resolves an image URL against the page URL. Throws on malformed input,
+ * returns undefined for URLs that are not https or not on the allowlist.
+ */
+function parseImageUrl(
+  value: string | null,
+  base?: string,
+): string | undefined {
+  if (!value) return undefined;
+  const parsed = new URL(value, base);
+  if (
+    parsed.protocol !== "https:" ||
+    parsed.port !== "" ||
+    !ALLOWED_IMAGE_HOSTS.has(parsed.hostname)
+  ) {
+    return undefined;
+  }
+  return parsed.toString();
+}
+
+function parseParams(requestUrl: string) {
+  const { searchParams } = new URL(requestUrl);
+
+  const title = searchParams.get("title");
+  if (!title) {
+    throw new Error("Query param 'title' is required.");
+  }
+
+  const url = searchParams.get("url") ?? undefined;
+
+  const ratio = Number(searchParams.get("ratio") ?? DEFAULT_RATIO);
+  const validRatio =
+    Number.isFinite(ratio) && ratio > 0 ? ratio : DEFAULT_RATIO;
+
+  const width = parseSize(searchParams.get("width"), DEFAULT_WIDTH);
+  const height = parseSize(
+    searchParams.get("height"),
+    Math.round(width / validRatio),
+  );
+
+  const authorName = searchParams.get("authorName") ?? undefined;
+
+  return {
+    title,
+    width,
+    height,
+    url,
+    subtitle: searchParams.get("subtitle") ?? undefined,
+    caption: searchParams.get("caption") ?? undefined,
+    authorName,
+    imageUrl: parseImageUrl(searchParams.get("imageUrl"), url),
+    authorImageUrl: parseImageUrl(searchParams.get("authorImageUrl"), url),
+  };
+}
+
 export async function GET(request: Request) {
   if (!request.url) {
     return new Response("Server error. URL not found.", { status: 500 });
   }
 
-  const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title");
-
-  if (!title) {
-    return new Response("Query param 'title' is required.", { status: 400 });
+  let params: ReturnType<typeof parseParams>;
+  try {
+    params = parseParams(request.url);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Invalid query params.";
+    return new Response(message, { status: 400 });
   }
 
-  const width = Number(searchParams.get("width") ?? DEFAULT_WIDTH);
-  const ratio = Number(searchParams.get("ratio") ?? DEFAULT_RATIO);
-  const height = Number(searchParams.get("height") ?? width / ratio);
-
-  const url = searchParams.get("url") ?? undefined;
-  const subtitle = searchParams.get("subtitle") ?? undefined;
-  const caption = searchParams.get("caption") ?? undefined;
-  const authorName = searchParams.get("authorName") ?? undefined;
-
-  const _imageUrl = searchParams.get("imageUrl") ?? undefined;
-  const imageUrl = _imageUrl ? new URL(_imageUrl, url).toString() : undefined;
-
-  const _authorImageUrl = searchParams.get("authorImageUrl") ?? undefined;
-  const authorImageUrl = _authorImageUrl
-    ? new URL(_authorImageUrl, url).toString()
-    : undefined;
+  const {
+    title,
+    width,
+    height,
+    subtitle,
+    caption,
+    authorName,
+    imageUrl,
+    authorImageUrl,
+  } = params;
 
   // Fonts
   const [nunitoRegularFontData, nunitoBoldFontData] = await Promise.all([
@@ -77,6 +147,10 @@ export async function GET(request: Request) {
         width,
         height,
         fonts,
+        headers: {
+          "Cache-Control":
+            "public, max-age=86400, s-maxage=604800, immutable",
+        },
       },
     );
   } catch (error) {
