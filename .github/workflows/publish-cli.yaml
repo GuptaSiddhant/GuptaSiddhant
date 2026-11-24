@@ -14,26 +14,27 @@ jobs:
   publish:
     name: Publish to NPM
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./apps/cli"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
+      - name: Enable pnpm (corepack)
+        run: corepack enable
+
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Setup NPM TOKEN
         run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
 
       - name: Install dependencies
-        run: yarn workspaces focus
+        run: pnpm install --frozen-lockfile --filter guptasiddhant...
 
       - name: Publish to NPM
+        working-directory: ./apps/cli
         run: node scripts/publish.js

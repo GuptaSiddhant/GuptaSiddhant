@@ -10,18 +10,22 @@ on:
 jobs:
   publish:
     name: Deploy Firebase functions
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
+      - name: Enable pnpm (corepack)
+        run: corepack enable
+
+      # The functions runtime stays on Node 18 (see apps/functions/package.json).
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: 18
-          cache: "yarn"
+          cache: pnpm
 
       - name: Setup Credentials
         run: |
@@ -29,12 +33,9 @@ jobs:
           export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-cred.json";
 
       - name: Install dependencies
-        run: yarn workspaces focus gs-functions
-
-      # - name: Install firebase tools
-      #   run: npm install --location=global firebase-tools
+        run: pnpm install --frozen-lockfile --filter gs-functions...
 
       - name: Deploy to Firebase
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: npx firebase deploy --only functions --token "$FIREBASE_TOKEN"
+        run: npx firebase-tools deploy --only functions --token "$FIREBASE_TOKEN"

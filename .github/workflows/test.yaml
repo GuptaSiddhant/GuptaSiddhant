@@ -11,23 +11,23 @@ jobs:
   publish:
     name: Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./apps/remix"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
 
+      - name: Enable pnpm (corepack)
+        run: corepack enable
+
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
-          node-version: 18
-          cache: "yarn"
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn workspaces focus
+        run: pnpm install --frozen-lockfile --filter gs-remix...
 
       - name: Run tests
-        run: yarn test:coverage
+        run: pnpm --filter gs-remix test:coverage
