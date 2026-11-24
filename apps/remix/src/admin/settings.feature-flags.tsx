@@ -38,7 +38,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const { pathname } = new URL(request.url);
 
   const form = await request.formData();

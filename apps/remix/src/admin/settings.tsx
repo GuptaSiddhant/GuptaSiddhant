@@ -1,6 +1,7 @@
 import type { DataFunctionArgs } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import { ErrorSection } from "@gs/ui/Error";
 import { Caption } from "@gs/ui/Text";
 
@@ -13,7 +14,7 @@ import { useRouteError } from "@remix-run/react";
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   return null;
 }

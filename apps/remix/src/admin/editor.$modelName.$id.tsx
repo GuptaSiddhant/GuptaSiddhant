@@ -18,6 +18,7 @@ import {
   authenticateRoute,
   isUserHasWriteAccess,
 } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import Database from "@gs/service/database.server";
 import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
@@ -42,7 +43,7 @@ interface LoaderData {
 }
 
 export async function loader({ params, request }: DataFunctionArgs) {
-  const user = await authenticateRoute(request);
+  const user = await authenticateRoute(request, UserRole.EDITOR);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
   const { modelName: name, id } = params;
@@ -80,7 +81,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
 }
 
 export async function action({ request, params }: DataFunctionArgs) {
-  const user = await authenticateRoute(request);
+  const user = await authenticateRoute(request, UserRole.EDITOR);
   invariant(
     await isUserHasWriteAccess(user),
     `The user '${user.email}' does not have write-access.`,

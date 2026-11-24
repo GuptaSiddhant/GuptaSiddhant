@@ -45,7 +45,7 @@ interface LoaderData {
 }
 
 export async function loader({ request, params }: LoaderArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const name = params.name;
   invariant(name, "Logger name is missing.");
@@ -61,7 +61,7 @@ export async function loader({ request, params }: LoaderArgs) {
 }
 
 export async function action({ request, params }: ActionArgs) {
-  await authenticateRoute(request, UserRole.EDITOR);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const name = params.name;
   invariant(name, "Logger name is missing.");

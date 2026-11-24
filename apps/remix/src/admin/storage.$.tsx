@@ -6,6 +6,7 @@ import {
 } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 
 import { AdminAppId, adminRegistry } from "./features";
 import StorageDirView from "./features/storage/StorageDirView";
@@ -20,7 +21,7 @@ interface LoaderData {
 }
 
 export async function loader({ params, request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
   const path = params["*"];
 
   if (!path) {

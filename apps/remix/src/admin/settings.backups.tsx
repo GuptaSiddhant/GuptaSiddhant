@@ -25,7 +25,7 @@ interface LoaderData {
 const pathname = "/admin/settings/backups/";
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request, UserRole.EDITOR);
+  await authenticateRoute(request, UserRole.ADMIN);
   const { files } = await Storage.queryDir("backup/");
   const list = files
     .map((file) => generateBackupNameFromBackupPath(file.name))
@@ -35,7 +35,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   if (request.method === "POST") {
     const filePath = await backupDatabase();

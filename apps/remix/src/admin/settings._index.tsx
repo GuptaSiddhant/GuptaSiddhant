@@ -6,6 +6,7 @@ import {
   queryFirebaseRemoteConfigTemplate,
 } from "@gs/firebase/remote-config";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 
 import AdminDashboard from "./features/components/AdminDashboard";
 import { useAdminApp } from "./features/helpers";
@@ -15,7 +16,7 @@ interface LoaderData {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const template = await queryFirebaseRemoteConfigTemplate();
   const featureConfigKeys = await queryFirebaseRemoteConfigKeys(template);
 

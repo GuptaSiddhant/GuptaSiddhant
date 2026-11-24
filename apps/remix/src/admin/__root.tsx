@@ -10,6 +10,7 @@ import {
 import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import { ShouldRevalidateFunctionArgs } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 
@@ -21,7 +22,7 @@ import { AdminContext } from "./features/context";
 interface LoaderData {}
 
 export async function loader({ request }: LoaderArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
 
   return json<LoaderData>({});
 }

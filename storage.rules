@@ -1,8 +1,10 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+    // The site serves files via Admin SDK signed URLs (which bypass these rules)
+    // and all uploads use the Admin SDK, so the client SDK needs no access.
     match /{allPaths=**} {
-      allow read, write: if request.auth!=null;
+      allow read, write: if false;
     }
   }
 }
