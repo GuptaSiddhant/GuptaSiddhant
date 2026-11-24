@@ -115,7 +115,7 @@ export async function isUserHasAccess<T extends { email: string }>(
 
   let role = UserRole.GUEST;
   if ("role" in user) {
-    // rome-ignore lint/suspicious/noExplicitAny: '"role" in user' does not help
+    // oxlint-disable-next-line typescript/no-explicit-any -- '"role" in user' does not help
     role = (user as any).role;
   } else {
     const authUser = await getUserById(user.email);

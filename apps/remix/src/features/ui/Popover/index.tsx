@@ -13,7 +13,7 @@ interface PopoverContextValue<T extends HTMLElement> {
   initialFocusRef: React.RefObject<T>;
 }
 
-// rome-ignore lint/suspicious/noExplicitAny: Defined in usePopoverContext
+// oxlint-disable-next-line typescript/no-explicit-any -- Defined in usePopoverContext
 const PopoverContext = createContext<PopoverContextValue<any> | undefined>(
   undefined,
 );

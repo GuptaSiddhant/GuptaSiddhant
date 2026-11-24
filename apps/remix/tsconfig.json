@@ -32,7 +32,8 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true

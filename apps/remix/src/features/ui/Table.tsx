@@ -126,7 +126,7 @@ function getCellElement<T extends object>(
 ): React.ReactNode {
   const { id, cell } = column;
 
-  // rome-ignore lint/suspicious/noExplicitAny: Complex
+  // oxlint-disable-next-line typescript/no-explicit-any -- Complex
   const content: any =
     typeof id === "string" &&
     preservedIds.includes(id as typeof preservedIds[number])

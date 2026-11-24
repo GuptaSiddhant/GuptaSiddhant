@@ -8,13 +8,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clear": "rm -rf .next || true"
+    "clear": "rm -rf .next || true",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@vercel/og": "^0.0.21",
-    "next": "^13.4.4",
+    "next": "~13.4.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "satori": "0.0.44"
   },
   "devDependencies": {
     "@types/eslint": "^8",

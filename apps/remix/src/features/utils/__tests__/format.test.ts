@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 
 import { ONE_DAY_IN_MS, ONE_HOUR_IN_MS, ONE_MIN_IN_MS } from "@gs/constants";
 

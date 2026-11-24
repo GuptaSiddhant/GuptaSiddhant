@@ -32,7 +32,7 @@ export default function Accordion({
         "relative w-full rounded-md",
         "transition-[height]",
       )}
-      // rome-ignore lint/suspicious/noExplicitAny: Can be "div" or "summary"
+      // oxlint-disable-next-line typescript/no-explicit-any -- Can be "div" or "summary"
       ref={accordionRef as React.Ref<any>}
     >
       {summary && (
@@ -71,7 +71,7 @@ function AccordionSummary({
 
   return (
     <TagName
-      // rome-ignore lint/suspicious/noExplicitAny: Can be "div" or "summary"
+      // oxlint-disable-next-line typescript/no-explicit-any -- Can be "div" or "summary"
       ref={summaryRef as React.Ref<any>}
       className={clsx(
         className,

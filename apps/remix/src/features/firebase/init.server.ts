@@ -18,8 +18,8 @@ export function initFirebase() {
 }
 
 declare global {
-  // rome-ignore lint/nursery/noVar: Global declaration
+  // oxlint-disable-next-line no-var -- Global declaration
   var firebaseApp: App;
-  // rome-ignore lint/nursery/noVar: Global declaration
+  // oxlint-disable-next-line no-var -- Global declaration
   var firestore: Firestore;
 }

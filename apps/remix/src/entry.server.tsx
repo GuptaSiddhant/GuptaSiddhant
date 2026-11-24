@@ -79,8 +79,8 @@ export function handleError(
 }
 
 declare global {
-  // rome-ignore lint/nursery/noVar: Global declaration
+  // oxlint-disable-next-line no-var -- Global declaration
   var __IS_SERVER__: boolean;
-  // rome-ignore lint/nursery/noVar: Global declaration
+  // oxlint-disable-next-line no-var -- Global declaration
   var __IS_DEV__: boolean;
 }

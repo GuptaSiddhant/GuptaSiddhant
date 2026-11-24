@@ -3,7 +3,7 @@
 import { renderHook } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vite-plus/test";
 
 import type { NavigationLinkProps } from "@gs/types";
 

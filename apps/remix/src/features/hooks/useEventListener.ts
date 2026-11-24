@@ -21,11 +21,11 @@ export default function useEventListener<K extends keyof WindowEventMap>(
       listener?.({} as WindowEventMap[K]);
     }
 
-    // rome-ignore lint/suspicious/noExplicitAny: Complex
+    // oxlint-disable-next-line typescript/no-explicit-any -- Complex
     (target || window)?.addEventListener(eventName, listener as any);
 
     return () => {
-      // rome-ignore lint/suspicious/noExplicitAny: Complex
+      // oxlint-disable-next-line typescript/no-explicit-any -- Complex
       (target || window)?.removeEventListener(eventName, listener as any);
     };
   }, [eventName, immediate, target, listener]);

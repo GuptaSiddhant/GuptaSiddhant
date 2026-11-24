@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - esbuild
+
+overrides:
+  # Avoid duplicate @types/node copies (16 vs 18), which breaks tsc in gs-functions.
+  "@types/node": "^18.19.0"
+  # wait-on@5 (storybook test-runner, dev only) pulls axios 0.21 with known CVEs.
+  "axios@<1": "^1.21.1"
