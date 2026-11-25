@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: ["typescript", "react", "jsx-a11y"],
     ignorePatterns: [
       "**/build/**",
+      "**/.react-router/**",
       "**/public/**",
       "**/.next/**",
       "**/lib/**",
@@ -34,6 +35,7 @@ export default defineConfig({
     quoteProps: "as-needed",
     ignorePatterns: [
       "**/build/**",
+      "**/.react-router/**",
       "**/public/**",
       "**/.next/**",
       "**/lib/**",

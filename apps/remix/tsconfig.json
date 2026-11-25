@@ -1,6 +1,9 @@
 {
   "include": [
-    "remix.env.d.ts",
+    "src/routes.ts",
+    "react-router.config.ts",
+    "vite.config.ts",
+    ".react-router/types/**/*",
     "src/**/*.ts",
     "src/**/*.tsx"
   ],
@@ -20,15 +23,17 @@
       ]
     },
     "baseUrl": ".",
+    "rootDirs": [".", "./.react-router/types"],
+    "types": ["node", "vite/client"],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ES2021"
+      "ES2022"
     ],
     "strict": true,
-    "target": "ES2019",
+    "target": "ES2022",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
