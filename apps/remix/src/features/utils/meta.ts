@@ -145,6 +145,8 @@ export function extractEssentialMetaFromMetaMatches(
     "msapplication-config",
   ];
 
+  if (!rootMeta) return [];
+
   return rootMeta.filter(
     (m) =>
       "name" in m &&
@@ -167,7 +169,7 @@ function generateStructuredDataForArticle({
   if (!article) return null;
 
   const { date, gallery, title, subtitle, description } = article;
-  const baseUrl = new URL(url).origin;
+  const baseUrl = url ? new URL(url).origin : "";
 
   return {
     "@context": "https://schema.org",

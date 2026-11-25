@@ -25,7 +25,6 @@ coverage
 
 .turbo
 
-.yarn
 .cache
 **/.cache
 **/*/.cache
@@ -34,13 +33,6 @@ coverage
 
 /api/
 
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 .vercel
 
 .env

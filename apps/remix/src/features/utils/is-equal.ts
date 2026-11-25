@@ -1,4 +1,4 @@
-// rome-ignore lint/suspicious/noExplicitAny: unknown cause object-key lookup to break;
+// oxlint-disable-next-line typescript/no-explicit-any -- unknown cause object-key lookup to break
 export default function isEqual(first: any, second: any): boolean {
   if (first === second) {
     return true;

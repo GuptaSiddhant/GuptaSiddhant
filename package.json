@@ -1,35 +1,41 @@
 {
   "name": "gs",
   "private": true,
-  "workspaces": [
-    "./apps/*",
-    "./packages/*"
-  ],
   "scripts": {
-    "clear": "yarn workspaces foreach -Api run clear",
-    "cli:build": "yarn workspace guptasiddhant build",
-    "cli:dev": "yarn workspace guptasiddhant dev",
-    "cli:start": "yarn workspace guptasiddhant start",
+    "build": "vp run -r build",
+    "clear": "vp run -r clear",
+    "cli:build": "pnpm --filter guptasiddhant build",
+    "cli:dev": "pnpm --filter guptasiddhant dev",
+    "cli:start": "pnpm --filter guptasiddhant start",
     "db:backup": "node ./scripts/db-backup.js",
     "db:restore": "FIRESTORE_EMULATOR_HOST=\"localhost:8080\" FIREBASE_STORAGE_EMULATOR_HOST=\"localhost:9199\" node ./scripts/db-restore.js",
-    "emulator": "npx firebase emulators:start --import=./.firebase-emulator --export-on-exit",
-    "functions:build": "yarn workspace gs-functions build",
-    "functions:dev": "yarn workspace gs-functions dev",
-    "functions:deploy": "yarn workspace gs-functions deploy",
-    "functions:serve": "yarn workspace gs-functions serve",
-    "next:build": "yarn workspace gs-next build",
-    "next:dev": "yarn workspace gs-next dev",
-    "next:start": "yarn workspace gs-next start",
-    "remix:build": "yarn workspace gs-remix build",
-    "remix:dev": "yarn workspace gs-remix dev",
-    "remix:dev:emulator": "yarn workspace gs-remix dev:emulator",
-    "remix:start": "yarn workspace gs-remix start",
-    "remix:test": "yarn workspace gs-remix test",
-    "remix:test:coverage": "yarn workspace gs-remix test:coverage"
+    "emulator": "npx firebase-tools emulators:start --import=./.firebase-emulator --export-on-exit",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "functions:build": "pnpm --filter gs-functions build",
+    "functions:dev": "pnpm --filter gs-functions dev",
+    "functions:deploy": "pnpm --filter gs-functions deploy",
+    "functions:serve": "pnpm --filter gs-functions serve",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "next:build": "pnpm --filter gs-next build",
+    "next:dev": "pnpm --filter gs-next dev",
+    "next:start": "pnpm --filter gs-next start",
+    "remix:build": "pnpm --filter gs-remix build",
+    "remix:dev": "pnpm --filter gs-remix dev",
+    "remix:dev:emulator": "pnpm --filter gs-remix dev:emulator",
+    "remix:start": "pnpm --filter gs-remix start",
+    "remix:test": "pnpm --filter gs-remix test",
+    "remix:test:coverage": "pnpm --filter gs-remix test:coverage",
+    "test": "vp run -r test",
+    "typecheck": "vp run -r typecheck"
   },
-  "packageManager": "yarn@3.2.1",
   "devDependencies": {
-    "prettier": "^2.7.1",
-    "typescript": "^5.1.0"
-  }
+    "typescript": "^5.1.0",
+    "vite-plus": "1.8.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.34.9"
 }

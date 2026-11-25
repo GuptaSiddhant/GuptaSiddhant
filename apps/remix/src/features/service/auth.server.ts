@@ -12,7 +12,6 @@ import parsedEnv from "@gs/env";
 import { signInWithEmailPassword } from "@gs/firebase/auth";
 import { UserRole } from "@gs/models/users.model";
 import { type UserProps, getUserById } from "@gs/models/users.server";
-import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
 // Auth Session

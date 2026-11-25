@@ -8,7 +8,7 @@ import parsedEnv from "@gs/env";
 const logger = new Logger("Cache");
 
 declare global {
-  // rome-ignore lint/nursery/noVar: Global declaration
+  // oxlint-disable-next-line no-var -- Global declaration
   var appCache: LRUCache<string, unknown>;
 }
 

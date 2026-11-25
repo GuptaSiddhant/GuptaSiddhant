@@ -83,7 +83,7 @@ export async function queryFirebaseRemoteConfigMap(
 
   keysTypeValueList.forEach((item) => {
     if (item) {
-      // rome-ignore lint/suspicious/noExplicitAny: unknown JSON value
+      // oxlint-disable-next-line typescript/no-explicit-any -- unknown JSON value
       configMap[item.key] = parseFirebaseRemoteConfigKeyTypeValue(item) as any;
     }
   });
@@ -100,7 +100,6 @@ export async function mutateFirebaseRemoteConfigMap(
 
   Object.entries(configMap).forEach(([key, value]) => {
     if (value === undefined) {
-      // rome-ignore lint/performance/noDelete: Need to delete
       return delete template.parameters[key];
     }
 

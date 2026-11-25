@@ -148,8 +148,7 @@ export async function GET(request: Request) {
         height,
         fonts,
         headers: {
-          "Cache-Control":
-            "public, max-age=86400, s-maxage=604800, immutable",
+          "Cache-Control": "public, max-age=86400, s-maxage=604800, immutable",
         },
       },
     );

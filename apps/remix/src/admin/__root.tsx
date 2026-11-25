@@ -18,7 +18,7 @@ import { adminRegistry } from "./features";
 import AdminSidebar from "./features/components/AdminSidebar";
 import { AdminContext } from "./features/context";
 
-// rome-ignore lint/nursery/noEmptyInterface: For future reference
+// oxlint-disable-next-line typescript/no-empty-interface -- For future reference
 interface LoaderData {}
 
 export async function loader({ request }: LoaderArgs) {

@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
 
-import { expect, test } from "vitest";
+import { expect, test } from "vite-plus/test";
 
 import parseFormDataWithModelObject from "../helpers/parser";
 import type { ModelObjectType } from "../helpers/types";

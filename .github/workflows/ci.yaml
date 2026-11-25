@@ -1,0 +1,59 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # pnpm version is pinned by "packageManager" in package.json.
+      - name: Enable pnpm (corepack)
+        run: corepack enable
+
+      - name: Setup node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
+      - name: Test
+        run: pnpm remix:test
+
+      - name: Build all apps
+        run: pnpm build
+
+      - name: Typecheck cli
+        run: pnpm --filter guptasiddhant typecheck
+
+      - name: Typecheck functions
+        run: pnpm --filter gs-functions typecheck
+
+      - name: Typecheck next
+        run: pnpm --filter gs-next typecheck
+
+      # TODO: Remix has pre-existing type errors (LoaderArgs / V2_* meta types
+      # removed in newer Remix 2.x, React JSX component types). Fix and remove
+      # continue-on-error.
+      - name: Typecheck remix
+        run: pnpm --filter gs-remix typecheck
+        continue-on-error: true

@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 
 import { CLOUDINARY_BASE_URL, generateCloudinaryUrl } from "../cloudinary";
 import { generateAssetTransformations } from "@gs/utils/asset-transformer";

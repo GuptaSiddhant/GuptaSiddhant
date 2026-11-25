@@ -1,5 +1,5 @@
 import { isExternalLink, parseGetAllSearchParams } from "../navigation";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 
 describe.concurrent("isExternalLink", () => {
   test("return false when not an external link", () => {

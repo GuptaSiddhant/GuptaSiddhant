@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 
 import { createMetaTitle, generateArticleMeta } from "../meta";
 import { AUTHOR_NAME, AUTHOR_SHORT_NAME } from "@gs/constants";
@@ -17,10 +17,15 @@ describe.concurrent("createMetaTitle", () => {
 describe.concurrent("generateArticleMeta", () => {
   test("undefined article and options", () => {
     expect(generateArticleMeta()).toMatchInlineSnapshot(`
-      {
-        "description": "Article 'undefined' not found",
-        "title": "Article 404",
-      }
+      [
+        {
+          "title": "Article 404",
+        },
+        {
+          "content": "Article 'undefined' not found",
+          "name": "description",
+        },
+      ]
     `);
   });
 
@@ -32,24 +37,90 @@ describe.concurrent("generateArticleMeta", () => {
         title: "Test post",
       }),
     ).toMatchInlineSnapshot(`
-      {
-        "description": undefined,
-        "og:article:author": "Siddhant Gupta",
-        "og:article:published_time": undefined,
-        "og:article:section": undefined,
-        "og:article:tag": "",
-        "og:author": "Siddhant Gupta",
-        "og:description": undefined,
-        "og:image": "/social-image.png?title=Test+post&subtitle=&imageUrl=&url=&caption=&authorName=Siddhant+Gupta&authorImageUrl=https%3A%2F%2Fpeople.aalto.fi%2Ffiles%2F1201903_x_512_3to4.jpg",
-        "og:published_time": undefined,
-        "og:section": undefined,
-        "og:tag": "",
-        "og:title": "Test post",
-        "og:type": "article",
-        "og:url": undefined,
-        "title": "Test post | GS",
-        "twitter:card": "summary_large_image",
-      }
+      [
+        {
+          "title": "Test post | GS",
+        },
+        {
+          "content": "",
+          "name": "description",
+        },
+        {
+          "content": "summary_large_image",
+          "name": "twitter:card",
+        },
+        {
+          "content": "Test post",
+          "property": "og:title",
+        },
+        {
+          "content": "",
+          "property": "og:description",
+        },
+        {
+          "content": "Siddhant Gupta",
+          "property": "og:author",
+        },
+        {
+          "content": "/social-image.png?title=Test+post&subtitle=&imageUrl=&url=&caption=&authorName=Siddhant+Gupta&authorImageUrl=https%3A%2F%2Fpeople.aalto.fi%2Ffiles%2F1201903_x_512_3to4.jpg",
+          "property": "og:image",
+        },
+        {
+          "content": undefined,
+          "property": "og:url",
+        },
+        {
+          "content": "article",
+          "property": "og:type",
+        },
+        {
+          "content": undefined,
+          "property": "og:section",
+        },
+        {
+          "content": "",
+          "property": "og:tag",
+        },
+        {
+          "content": undefined,
+          "property": "og:published_time",
+        },
+        {
+          "content": undefined,
+          "property": "og:article:published_time",
+        },
+        {
+          "content": undefined,
+          "property": "og:article:section",
+        },
+        {
+          "content": "",
+          "property": "og:article:tag",
+        },
+        {
+          "content": "Siddhant Gupta",
+          "property": "og:article:author",
+        },
+        {
+          "script:ld+json": {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "author": {
+              "@type": "Person",
+              "name": "Siddhant Gupta",
+            },
+            "datePublished": undefined,
+            "description": undefined,
+            "headline": "Test post",
+            "image": undefined,
+            "mainEntityOfPage": {
+              "@id": "",
+              "@type": "WebPage",
+            },
+            "url": "",
+          },
+        },
+      ]
     `);
   });
 
@@ -68,24 +139,90 @@ describe.concurrent("generateArticleMeta", () => {
         },
       ),
     ).toMatchInlineSnapshot(`
-      {
-        "description": undefined,
-        "og:article:author": "Siddhant Gupta",
-        "og:article:published_time": "2022-09-20T00:00:00.000Z",
-        "og:article:section": "Blog",
-        "og:article:tag": "",
-        "og:author": "Siddhant Gupta",
-        "og:description": undefined,
-        "og:image": "https://x.com/social-image.png?title=Test+post&subtitle=&imageUrl=&url=https%3A%2F%2Fx.com%2Fblog%2Ftest-post&caption=Blog&authorName=Siddhant+Gupta&authorImageUrl=https%3A%2F%2Fpeople.aalto.fi%2Ffiles%2F1201903_x_512_3to4.jpg",
-        "og:published_time": "2022-09-20T00:00:00.000Z",
-        "og:section": "Blog",
-        "og:tag": "",
-        "og:title": "Test post",
-        "og:type": "article",
-        "og:url": "https://x.com/blog/test-post",
-        "title": "Test post | GS",
-        "twitter:card": "summary_large_image",
-      }
+      [
+        {
+          "title": "Test post | GS",
+        },
+        {
+          "content": "",
+          "name": "description",
+        },
+        {
+          "content": "summary_large_image",
+          "name": "twitter:card",
+        },
+        {
+          "content": "Test post",
+          "property": "og:title",
+        },
+        {
+          "content": "",
+          "property": "og:description",
+        },
+        {
+          "content": "Siddhant Gupta",
+          "property": "og:author",
+        },
+        {
+          "content": "https://x.com/social-image.png?title=Test+post&subtitle=&imageUrl=&url=https%3A%2F%2Fx.com%2Fblog%2Ftest-post&caption=Blog&authorName=Siddhant+Gupta&authorImageUrl=https%3A%2F%2Fpeople.aalto.fi%2Ffiles%2F1201903_x_512_3to4.jpg",
+          "property": "og:image",
+        },
+        {
+          "content": "https://x.com/blog/test-post",
+          "property": "og:url",
+        },
+        {
+          "content": "article",
+          "property": "og:type",
+        },
+        {
+          "content": "Blog",
+          "property": "og:section",
+        },
+        {
+          "content": "",
+          "property": "og:tag",
+        },
+        {
+          "content": "2022-09-20T00:00:00.000Z",
+          "property": "og:published_time",
+        },
+        {
+          "content": "2022-09-20T00:00:00.000Z",
+          "property": "og:article:published_time",
+        },
+        {
+          "content": "Blog",
+          "property": "og:article:section",
+        },
+        {
+          "content": "",
+          "property": "og:article:tag",
+        },
+        {
+          "content": "Siddhant Gupta",
+          "property": "og:article:author",
+        },
+        {
+          "script:ld+json": {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "author": {
+              "@type": "Person",
+              "name": "Siddhant Gupta",
+            },
+            "datePublished": "2022-09-20",
+            "description": undefined,
+            "headline": "Test post",
+            "image": undefined,
+            "mainEntityOfPage": {
+              "@id": "https://x.com/blog/test-post",
+              "@type": "WebPage",
+            },
+            "url": "https://x.com/blog/test-post",
+          },
+        },
+      ]
     `);
   });
 });

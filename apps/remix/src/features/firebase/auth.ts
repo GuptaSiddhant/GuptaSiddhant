@@ -39,4 +39,3 @@ interface AuthErrorResponse {
     errors: unknown[];
   };
 }
-

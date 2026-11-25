@@ -3,7 +3,7 @@ import {
   isErrorWithMessage,
   toErrorWithMessage,
 } from "../error";
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from "vite-plus/test";
 
 describe.concurrent("isErrorWithMessage", () => {
   test("return false if not a valid error with message", () => {

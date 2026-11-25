@@ -12,7 +12,7 @@ import {
   generateColumnClassNameForModeSize,
 } from "./helpers";
 
-// rome-ignore lint/suspicious/noExplicitAny: Complicated // todo
+// oxlint-disable-next-line typescript/no-explicit-any -- Complicated // todo
 export interface EditorScalerInputProps<T = any> {
   name: string;
   model: ModelScalerType;
