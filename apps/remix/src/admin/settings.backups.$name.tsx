@@ -8,6 +8,7 @@ import {
 import { DeleteIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import type { StorageFile } from "@gs/service/storage.server";
 import Storage from "@gs/service/storage.server";
 import Action from "@gs/ui/Action";
@@ -30,7 +31,7 @@ interface LoaderData {
 }
 
 export async function loader({ request, params }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const name = params["name"];
   invariant(name, "Filename is required");
 
@@ -48,7 +49,7 @@ export async function loader({ request, params }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const form = await request.formData();
   const originPath = form.get("originPath")?.toString() || "/";

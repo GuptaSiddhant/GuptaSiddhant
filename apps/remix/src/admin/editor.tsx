@@ -14,6 +14,7 @@ import {
   authenticateRoute,
   isUserHasWriteAccess,
 } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import type { NavigationLinkProps } from "@gs/types";
 import { ErrorSection } from "@gs/ui/Error";
 import Menu from "@gs/ui/Menu";
@@ -37,7 +38,7 @@ export interface LoaderData {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  const user = await authenticateRoute(request);
+  const user = await authenticateRoute(request, UserRole.EDITOR);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
   const [

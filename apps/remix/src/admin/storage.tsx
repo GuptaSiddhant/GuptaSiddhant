@@ -28,7 +28,7 @@ const adminApp = adminRegistry.getApp(AdminAppId.Storage);
 type LoaderData = StorageDir;
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
   const { dirs, files } = await Storage.queryDir();
 
   return json<LoaderData>({ dirs, files });

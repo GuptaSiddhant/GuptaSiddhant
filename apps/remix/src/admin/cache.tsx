@@ -9,6 +9,7 @@ import RefreshIcon from "remixicon-react/RefreshFillIcon";
 
 import { DeleteIcon } from "@gs/icons";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import {
   type ModifyCacheMethod,
   getCache,
@@ -28,7 +29,7 @@ import type { AdminAppHandle } from "./features/types";
 const adminApp = adminRegistry.getApp(AdminAppId.Cache);
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const keys = [...getCache().keys()].sort();
 
@@ -37,7 +38,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const { pathname } = new URL(request.url);
 
   await modifyCache(request.method as ModifyCacheMethod);

@@ -3,6 +3,7 @@ import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import Storage, { type StorageMetadata } from "@gs/service/storage.server";
 import { ExternalLink } from "@gs/ui/Link";
 import { formatDateTime } from "@gs/utils/format";
@@ -15,7 +16,7 @@ interface LoaderData {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
   try {
     const metadata = await Storage.queryMetadata();
 

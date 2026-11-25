@@ -2,6 +2,7 @@ import { useLoaderData } from "@remix-run/react";
 import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import { getLoggerNames } from "@gs/service/logger-admin.server";
 
 import AdminDashboard from "./features/components/AdminDashboard";
@@ -12,7 +13,7 @@ interface LoaderData {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const names = await getLoggerNames();
 

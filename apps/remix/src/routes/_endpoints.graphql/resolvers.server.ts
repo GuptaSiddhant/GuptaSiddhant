@@ -3,6 +3,7 @@ import { getBlogSummaryItems } from "@gs/models/blog.server";
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
 import { getProjectsSummaryItems } from "@gs/models/projects.server";
+import { UserRole } from "@gs/models/users.model";
 import { getUserKeys } from "@gs/models/users.server";
 import { authenticate } from "@gs/service/auth.server";
 import type { SummaryItem } from "@gs/summary";
@@ -61,7 +62,7 @@ export async function users(
   options: QueryListOptions,
   { request }: Context,
 ): Promise<string[]> {
-  await authenticate(request);
+  await authenticate(request, UserRole.ADMIN);
 
   return getItemList(getUserKeys, options);
 }
@@ -72,7 +73,7 @@ export async function setMessage(
   { message }: { message: string },
   { request }: Context,
 ): Promise<string> {
-  await authenticate(request);
+  await authenticate(request, UserRole.EDITOR);
 
   return `Hi, ${message}`;
 }

@@ -19,6 +19,7 @@ import {
   authenticateRoute,
   isUserHasWriteAccess,
 } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import { getErrorMessage } from "@gs/utils/error";
 
 import { AdminAppId, adminRegistry } from "./features";
@@ -35,7 +36,7 @@ interface LoaderData {
 }
 
 export async function loader({ request }: DataFunctionArgs) {
-  const user = await authenticateRoute(request);
+  const user = await authenticateRoute(request, UserRole.EDITOR);
   const hasWriteAccess = await isUserHasWriteAccess(user);
   const modelName = getAboutModelName();
   const model = getModelByModelName(modelName);
@@ -58,7 +59,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();
   const database = getAboutDatabase();
