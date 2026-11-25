@@ -25,6 +25,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
+          # setup-node v5 auto-caches the packageManager (pnpm), which isn't installed in this job
+          package-manager-cache: false
       - name: Write service account
         env:
           SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM }}
