@@ -1,4 +1,4 @@
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "react-router";
 import { useMemo } from "react";
 
 import { useToggleTheme } from "@gs/theme/ThemeToggleButton";

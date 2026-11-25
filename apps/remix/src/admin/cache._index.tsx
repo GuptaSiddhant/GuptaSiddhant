@@ -1,5 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
-import { type LoaderArgs, json } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, data, useLoaderData } from "react-router";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { UserRole } from "@gs/models/users.model";
@@ -15,11 +14,11 @@ interface LoaderData {
   ttl: number;
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const { size, max, ttl } = getCache();
 
-  return json<LoaderData>({ size, max, ttl });
+  return data<LoaderData>({ size, max, ttl });
 }
 
 export default function CacheIndex(): JSX.Element | null {

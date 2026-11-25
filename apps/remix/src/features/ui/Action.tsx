@@ -7,7 +7,7 @@ import {
   useFetcher,
   useLocation,
   useSubmit,
-} from "@remix-run/react";
+} from "react-router";
 
 import useStableCallback from "@gs/hooks/useStableCallback";
 import { type ToastProps } from "@gs/toaster/Toast";
@@ -38,7 +38,6 @@ export default function Action({
   toast: toastProps,
   action,
   encType,
-  replace = true,
   id,
   disabled,
 }: ActionProps): JSX.Element | null {
@@ -61,7 +60,7 @@ export default function Action({
   const handleSubmit = useStableCallback(() =>
     submit(
       { ...body, originPath },
-      { replace, method, action, encType: encType as FormEncType | undefined },
+      { method, action, encType: encType as FormEncType | undefined },
     ),
   );
 

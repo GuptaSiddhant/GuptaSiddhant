@@ -1,10 +1,12 @@
-import { Outlet, useLoaderData } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  Outlet,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
-import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
+  useLoaderData,
+} from "react-router";
+import { RiUploadCloud2Fill as BackupIcon } from "@remixicon/react";
 
 import { UserRole } from "@gs/models/users.model";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -24,17 +26,17 @@ interface LoaderData {
 
 const pathname = "/admin/settings/backups/";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const { files } = await Storage.queryDir("backup/");
   const list = files
     .map((file) => generateBackupNameFromBackupPath(file.name))
     .sort((a, b) => (b > a ? 1 : -1));
 
-  return json<LoaderData>({ list, files });
+  return data<LoaderData>({ list, files });
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   if (request.method === "POST") {

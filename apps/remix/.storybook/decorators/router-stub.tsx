@@ -1,35 +1,10 @@
-import { RemixBrowser } from "@remix-run/react";
 import type { Decorator } from "@storybook/react";
-import React from "react";
+import { MemoryRouter } from "react-router";
 
-function RemixStub({ children }: { children: React.ReactNode }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const win = window as any;
-  win.__remixManifest = {
-    routes: {
-      "routes/$": {
-        id: "routes/$",
-        path: "*",
-      },
-    },
-  };
-  win.__remixRouteModules = {
-    "routes/$": {
-      default: () => children,
-    },
-  };
-  win.__remixContext = {
-    state: {},
-    future: {},
-  };
-
-  return <RemixBrowser />;
-}
-
-const remixStubDecorator: Decorator = (Story) => (
-  <RemixStub>
+const routerStubDecorator: Decorator = (Story) => (
+  <MemoryRouter>
     <Story />
-  </RemixStub>
+  </MemoryRouter>
 );
 
-export default remixStubDecorator;
+export default routerStubDecorator;

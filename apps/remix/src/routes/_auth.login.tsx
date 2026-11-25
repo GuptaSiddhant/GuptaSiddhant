@@ -1,5 +1,11 @@
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import {
+  type ActionFunctionArgs,
+  Form,
+  type LoaderFunctionArgs,
+  data,
+  useActionData,
+  useLoaderData,
+} from "react-router";
 
 import authenticator, { loginUser } from "@gs/service/auth.server";
 import Button from "@gs/ui/Button";
@@ -12,7 +18,7 @@ interface LoaderData {
   redirectTo?: string;
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   console.log("login-loader");
   const redirectTo = new URL(request.url).searchParams
     .get("redirectTo")
@@ -22,19 +28,19 @@ export async function loader({ request }: DataFunctionArgs) {
     successRedirect: "/admin",
   });
 
-  return json<LoaderData>({ redirectTo });
+  return data<LoaderData>({ redirectTo });
 }
 
 interface ActionData {
   error?: string;
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   try {
     return await loginUser(request);
   } catch (e) {
     const message = getErrorMessage(e);
-    return json<ActionData>({ error: message }, 400);
+    return data<ActionData>({ error: message }, 400);
   }
 }
 

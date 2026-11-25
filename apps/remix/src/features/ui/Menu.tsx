@@ -8,9 +8,9 @@ import {
   MenuPopover,
 } from "@reach/menu-button";
 import clsx from "clsx";
-import CloseIcon from "remixicon-react/CloseCircleLineIcon";
+import { RiCloseCircleLine as CloseIcon } from "@remixicon/react";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 import type { To } from "@gs/types";
 

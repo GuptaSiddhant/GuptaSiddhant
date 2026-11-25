@@ -1,4 +1,4 @@
-import { redirect } from "@remix-run/server-runtime";
+import { redirect } from "react-router";
 
 import { ModelName } from "@gs/models";
 import Database from "@gs/service/database.server";

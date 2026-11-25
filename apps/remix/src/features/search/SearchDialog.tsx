@@ -1,4 +1,4 @@
-import { useFetcher } from "@remix-run/react";
+import { useFetcher } from "react-router";
 
 import Dialog from "@gs/ui/Dialog";
 
@@ -11,7 +11,7 @@ import useSearchKeyDown from "./useSearchKeyDown";
 export default function SearchDialog({
   dialogRef,
 }: {
-  dialogRef: React.RefObject<HTMLDialogElement>;
+  dialogRef: React.RefObject<HTMLDialogElement | null>;
 }): JSX.Element | null {
   const { isSearchOpen, closeSearch } = useSearch();
 

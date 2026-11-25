@@ -1,8 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, data, useLoaderData } from "react-router";
 import clsx from "clsx";
-import PositiveIcon from "remixicon-react/CheckboxCircleFillIcon";
-import NegativeIcon from "remixicon-react/CloseCircleFillIcon";
+import {
+  RiCheckboxCircleFill as PositiveIcon,
+  RiCloseCircleFill as NegativeIcon,
+} from "@remixicon/react";
 
 import { getAuthUser, isUserHasWriteAccess } from "@gs/service/auth.server";
 import { H1, Paragraph } from "@gs/ui/Text";
@@ -13,11 +14,11 @@ interface LoaderData {
   hasWriteAccess: boolean;
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const user = await getAuthUser(request);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
-  return json<LoaderData>({ hasWriteAccess });
+  return data<LoaderData>({ hasWriteAccess });
 }
 
 export default function AdminIndex(): JSX.Element | null {

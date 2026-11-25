@@ -1,5 +1,4 @@
-import { Redis as UpstashRedis } from "@upstash/redis";
-import type { SetCommandOptions } from "@upstash/redis/types/pkg/commands/set";
+import { Redis as UpstashRedis, type SetCommandOptions } from "@upstash/redis";
 
 import parsedEnv from "@gs/env";
 

@@ -58,7 +58,7 @@ export function useScrollWindow({
 export default useScrollWindow;
 
 export function useScrollElement(
-  elementRef: React.RefObject<HTMLElement>,
+  elementRef: React.RefObject<HTMLElement | null>,
   { offset, direction }: ScrollOptions = {},
 ): ScrollState {
   const scrollDistance = useElementStore(

@@ -136,6 +136,7 @@ describe.concurrent("generateArticleMeta", () => {
         {
           url: "https://x.com/blog/test-post",
           section: "Blog",
+          matches: [],
         },
       ),
     ).toMatchInlineSnapshot(`

@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import FilterIcon from "remixicon-react/Filter3LineIcon";
+import { RiFilter3Line as FilterIcon } from "@remixicon/react";
 
-import { Form, useSubmit } from "@remix-run/react";
+import { Form, useSubmit } from "react-router";
 
 import Button from "@gs/ui/Button";
 import Select from "@gs/ui/Select";

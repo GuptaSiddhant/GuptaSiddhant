@@ -1,9 +1,11 @@
-import { useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { ModelName } from "@gs/models";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -22,7 +24,7 @@ interface LoaderData {
   collection?: string;
 }
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
 
   const path = params["*"];
@@ -34,10 +36,10 @@ export async function loader({ params, request }: DataFunctionArgs) {
 
   if (!Object.values(ModelName).includes(collection as ModelName)) {
     return redirect(adminApp.linkPath);
-  } else return json<LoaderData>({ collection });
+  } else return data<LoaderData>({ collection });
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();

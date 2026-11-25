@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export default function useLongPress<T extends React.RefObject<HTMLElement>>(
-  ref: T,
-  callback: () => void,
-  delay = 1000,
-) {
+export default function useLongPress<
+  T extends React.RefObject<HTMLElement | null>,
+>(ref: T, callback: () => void, delay = 1000) {
   const [isLongPressed, setIsLongPressed] = useState(false);
-  const timeout = useRef<number>();
+  const timeout = useRef<number | undefined>(undefined);
 
   const handleLongPress = useCallback(() => setIsLongPressed(true), []);
   const handleLongPressEnd = useCallback(() => {

@@ -1,7 +1,7 @@
 import { Fragment, useId, useMemo } from "react";
-import NavMenuIcon from "remixicon-react/Menu3LineIcon";
+import { RiMenu3Line as NavMenuIcon } from "@remixicon/react";
 
-import { NavLink } from "@remix-run/react";
+import { NavLink } from "react-router";
 
 import type { NavigationLinkProps } from "@gs/types";
 import Menu, { type MenuActionProps } from "@gs/ui/Menu";

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { useNavigation } from "@remix-run/react";
+import { useNavigation } from "react-router";
 
 import useToaster from ".";
 
@@ -10,7 +10,7 @@ export default function useNavigationStateToast(
 ) {
   const { state } = useNavigation();
   const { addToast, dismissToast } = useToaster();
-  const idRef = useRef<string>();
+  const idRef = useRef<string | undefined>(undefined);
   const title: string = state === "submitting" ? submittingTitle : loadingTitle;
 
   useEffect(() => {

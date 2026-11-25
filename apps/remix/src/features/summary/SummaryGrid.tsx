@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 import { getStylingByModelName } from "@gs/models";
 import type { BaseProps } from "@gs/types";

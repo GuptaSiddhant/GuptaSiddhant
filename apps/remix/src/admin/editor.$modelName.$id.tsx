@@ -1,6 +1,10 @@
-import { useLoaderData } from "@remix-run/react";
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
-import { json, redirect } from "@remix-run/server-runtime";
+import {
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
+  redirect,
+  useLoaderData,
+} from "react-router";
 
 import {
   type Model,
@@ -42,7 +46,7 @@ interface LoaderData {
   hasWriteAccess: boolean;
 }
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const user = await authenticateRoute(request, UserRole.EDITOR);
   const hasWriteAccess = await isUserHasWriteAccess(user);
 
@@ -56,7 +60,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
   const model = getModelByModelName(modelName);
 
   if (id === "new")
-    return json<LoaderData>({ model, modelName, modelLabel, hasWriteAccess });
+    return data<LoaderData>({ model, modelName, modelLabel, hasWriteAccess });
 
   try {
     const item = (await getItemByModelName(modelName, id)) as unknown as
@@ -66,7 +70,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
 
     const enrichedModel = await enrichModel(modelName, model);
 
-    return json<LoaderData>({
+    return data<LoaderData>({
       item,
       model: enrichedModel,
       modelLabel,
@@ -80,7 +84,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
   }
 }
 
-export async function action({ request, params }: DataFunctionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const user = await authenticateRoute(request, UserRole.EDITOR);
   invariant(
     await isUserHasWriteAccess(user),

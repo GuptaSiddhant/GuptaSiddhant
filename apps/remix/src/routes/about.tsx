@@ -1,6 +1,5 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
-import ResumeIcon from "remixicon-react/FileUserLineIcon";
+import { Link, type LoaderFunctionArgs, data, useLoaderData } from "react-router";
+import { RiFileUserLine as ResumeIcon } from "@remixicon/react";
 
 import { ModelName } from "@gs/models";
 import type { AboutInfo } from "@gs/models/about-info.model";
@@ -26,7 +25,7 @@ interface LoaderData {
   items: SummaryItem[];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams } = new URL(request.url);
 
   const isAuthenticated = Boolean(await getAuthUser(request));
@@ -49,7 +48,7 @@ export async function loader({ request }: DataFunctionArgs) {
 
   const items = filterSortSummaryItems(summaryItems);
 
-  return json<LoaderData>({
+  return data<LoaderData>({
     isAuthenticated,
     aboutInfo,
     items,

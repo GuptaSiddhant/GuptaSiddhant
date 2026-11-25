@@ -1,5 +1,5 @@
-import { useOutletContext } from "@remix-run/react";
-import BackupIcon from "remixicon-react/UploadCloud2FillIcon";
+import { useOutletContext } from "react-router";
+import { RiUploadCloud2Fill as BackupIcon } from "@remixicon/react";
 
 import useRootContext from "@gs/root/RootContext";
 import type { StorageFile } from "@gs/service/storage.server";

@@ -1,4 +1,4 @@
-import { type DataFunctionArgs, redirect } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, redirect } from "react-router";
 
 import { ONE_DAY_IN_S } from "@gs/constants";
 import { generateCloudinaryUrl } from "@gs/service/cloudinary";
@@ -7,7 +7,7 @@ import Storage from "@gs/service/storage.server";
 import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const path = params["*"];
   const { searchParams } = new URL(request.url);
 

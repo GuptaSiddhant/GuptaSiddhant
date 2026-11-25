@@ -1,4 +1,4 @@
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import type { LoaderFunctionArgs } from "react-router";
 
 import { getAboutInfo, getAboutSkills } from "@gs/models/about.server";
 import { getBlogPost, getBlogSummaryItems } from "@gs/models/blog.server";
@@ -45,22 +45,22 @@ const apiTypes: Record<
 
 const supportedTypes = Object.keys(apiTypes);
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams, origin } = new URL(request.url);
   const type = searchParams.get("type")?.toString();
   const id = searchParams.get("id")?.toString();
 
   if (!type) {
-    return json(
+    return Response.json(
       `type param is required. Should be one of ${supportedTypes}.`,
-      400,
+      { status: 400 },
     );
   }
 
   if (!supportedTypes.includes(type)) {
-    return json(
+    return Response.json(
       `type param '${type}' is not supported. Should be one of ${supportedTypes}.`,
-      400,
+      { status: 400 },
     );
   }
 
@@ -71,27 +71,27 @@ export async function loader({ request }: DataFunctionArgs) {
     if (id && queryById) {
       const data = await queryById(id);
 
-      return json(enrichDataWithLinkUrl(data, id));
+      return Response.json(enrichDataWithLinkUrl(data, id));
     }
 
     if (queryAll) {
       const data = await queryAll();
       const dataWithLink = data.map((item) => enrichDataWithLinkUrl(item));
 
-      return json(dataWithLink);
+      return Response.json(dataWithLink);
     }
 
     if (query) {
       const data = enrichDataWithLinkUrl((await query()) || {});
 
-      return json(data);
+      return Response.json(data);
     }
 
     throw new Error("Method to query data does not exist.");
   } catch {
-    return json(
+    return Response.json(
       `Could not find data for type: '${type}' ${id ? `and id: '${id}'.` : ""}`,
-      404,
+      { status: 404 },
     );
   }
 }

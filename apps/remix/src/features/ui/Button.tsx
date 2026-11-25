@@ -4,9 +4,11 @@ import {
   type ForwardedRef,
   forwardRef,
 } from "react";
-import CopyIcon from "remixicon-react/FileCopyLineIcon";
-import FullscreenExitIcon from "remixicon-react/FullscreenExitLineIcon";
-import FullscreenEnterIcon from "remixicon-react/FullscreenLineIcon";
+import {
+  RiFileCopyLine as CopyIcon,
+  RiFullscreenExitLine as FullscreenExitIcon,
+  RiFullscreenLine as FullscreenEnterIcon,
+} from "@remixicon/react";
 
 import useCopy from "@gs/hooks/useCopy";
 

@@ -1,5 +1,9 @@
-import { useLoaderData, useRouteError } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import {
+  type LoaderFunctionArgs,
+  data,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { getBlogSummaryItems } from "@gs/models/blog.server";
 import {
@@ -31,7 +35,7 @@ interface LoaderData {
   tags: UniqueTag[];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams } = new URL(request.url);
 
   const items = await getBlogSummaryItems();
@@ -47,7 +51,7 @@ export async function loader({ request }: DataFunctionArgs) {
     sortBy,
   });
 
-  return json<LoaderData>({
+  return data<LoaderData>({
     title: "Blog",
     summaryItems,
     selectedTag: selectedTags[0],
@@ -58,7 +62,7 @@ export async function loader({ request }: DataFunctionArgs) {
 }
 
 export function meta({
-  data,
+  loaderData: data,
   matches,
 }: MetaArgs<typeof loader>): MetaDescriptors {
   const rootMeta = extractMetaFromMetaMatches(matches, { exclude: ["title"] });

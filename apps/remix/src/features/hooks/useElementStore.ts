@@ -13,12 +13,12 @@ type EventMap = HTMLElementEventMap;
  * @returns Current state
  */
 export default function useElementStore<T, K extends keyof EventMap>(
-  elementRef: RefObject<HTMLElement>,
+  elementRef: RefObject<HTMLElement | null>,
   eventType: K,
   getState: (e?: EventMap[K]) => T,
   getServerState?: () => T,
 ): T {
-  const eventRef = useRef<EventMap[K]>();
+  const eventRef = useRef<EventMap[K] | undefined>(undefined);
 
   return useSyncExternalStore(
     (callback) => {

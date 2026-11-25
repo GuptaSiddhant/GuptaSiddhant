@@ -1,4 +1,4 @@
-import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
+import { isRouteErrorResponse, useRouteError } from "react-router";
 
 import CodeBlock from "@gs/ui/CodeBlock";
 import { ErrorPage, getErrorResponseTitle } from "@gs/ui/Error";

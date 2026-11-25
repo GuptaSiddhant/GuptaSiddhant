@@ -140,5 +140,5 @@ export async function downloadFileFromFirebaseStorage(
   name: string,
 ): Promise<File> {
   const res = await getFirebaseStorageFileRef(name).download();
-  return new File(res, name);
+  return new File(res as unknown as BlobPart[], name);
 }

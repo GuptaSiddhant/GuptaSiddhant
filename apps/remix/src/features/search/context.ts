@@ -10,8 +10,8 @@ export interface SearchContextValue {
   openSearch: () => void;
   closeSearch: () => void;
   openSearchWithInput: (input: string) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
-  resultsRef: React.RefObject<HTMLDivElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  resultsRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const SearchContext = createContext<SearchContextValue | undefined>(

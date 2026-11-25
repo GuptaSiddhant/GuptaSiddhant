@@ -5,7 +5,7 @@ export interface BlurImgProps {
   src: string;
   alt: string;
   hash?: string;
-  parentRef?: React.RefObject<HTMLElement>;
+  parentRef?: React.RefObject<HTMLElement | null>;
 }
 
 export default function BlurImg({ src, alt, hash, parentRef }: BlurImgProps) {

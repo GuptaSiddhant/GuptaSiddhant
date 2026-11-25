@@ -1,10 +1,14 @@
-import { type DataFunctionArgs, redirect } from "@remix-run/server-runtime";
+import {
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  redirect,
+} from "react-router";
 
 import { parseCookie } from "@gs/service/cookie.server";
 import getCSSForThemeName, { DEFAULT_THEME, type ThemeName } from "@gs/theme";
 import { getThemeFromRequest, themeCookie } from "@gs/theme/cookie.server";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const themeName = await getThemeFromRequest(request);
   const css = getCSSForThemeName(themeName);
 
@@ -17,7 +21,7 @@ export async function loader({ request }: DataFunctionArgs) {
   });
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   const parsedCookie = await parseCookie(request, themeCookie);
   const formData = await request.formData();
 

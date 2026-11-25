@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Form } from "@remix-run/react";
+import { Form } from "react-router";
 
 import { type Model } from "@gs/models";
 

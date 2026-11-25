@@ -1,6 +1,9 @@
-import { useLoaderData, useRouteError } from "@remix-run/react";
-import type { LoaderArgs } from "@remix-run/server-runtime";
-import { json } from "@remix-run/server-runtime";
+import {
+  type LoaderFunctionArgs,
+  data,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { UserRole } from "@gs/models/users.model";
@@ -19,12 +22,12 @@ interface LoaderData {
   names: string[];
 }
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const names = await getLoggerNames();
 
-  return json<LoaderData>({ names });
+  return data<LoaderData>({ names });
 }
 
 export default function StorageAdminApp(): JSX.Element | null {

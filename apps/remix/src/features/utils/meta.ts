@@ -1,4 +1,4 @@
-import type { V2_ServerRuntimeMetaArgs } from "@remix-run/server-runtime";
+import { type MetaArgs } from "react-router";
 
 import { AUTHOR_NAME, AUTHOR_SHORT_NAME } from "@gs/constants";
 import type { BlogPostProps } from "@gs/models/blog.model";
@@ -19,7 +19,7 @@ export function generateArticleMeta(
     id?: string;
     section?: string;
     url?: string;
-    matches: V2_ServerRuntimeMetaArgs["matches"];
+    matches: MetaArgs["matches"];
   },
 ): MetaDescriptors {
   if (!article) {
@@ -98,7 +98,7 @@ export function generateArticleMeta(
 }
 
 export function extractMetaFromMetaMatches(
-  matches: V2_ServerRuntimeMetaArgs["matches"],
+  matches: MetaArgs["matches"],
   options: { exclude?: string[]; routeId?: string } = {},
 ) {
   const { exclude = [], routeId } = options;
@@ -132,7 +132,7 @@ export function extractMetaFromMetaMatches(
 }
 
 export function extractEssentialMetaFromMetaMatches(
-  matches: V2_ServerRuntimeMetaArgs["matches"],
+  matches: MetaArgs["matches"],
 ): MetaDescriptors {
   const rootMeta = matches[0]?.meta;
   const essentialMeta = [

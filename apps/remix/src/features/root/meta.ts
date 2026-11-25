@@ -11,7 +11,9 @@ const domainUrl = "https://GuptaSiddhant.com";
 const thumbnailUrl =
   "https://GuptaSiddhant.com/assets/android-chrome-512x512.png";
 
-export default function meta({ data }: RootMetaArgs): MetaDescriptors {
+export default function meta({
+  loaderData: data,
+}: RootMetaArgs): MetaDescriptors {
   const themeName = data?.themeName;
   const isPwa = data?.isPwa ?? false;
   const name = data?.about?.name ?? "Siddhant Gupta";

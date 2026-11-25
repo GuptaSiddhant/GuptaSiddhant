@@ -1,15 +1,11 @@
-import { createGraphiQLFetcher } from "@graphiql/toolkit";
-import GraphiQL from "graphiql";
-import { useEffect, useState } from "react";
-
-import type { LinkDescriptor } from "@remix-run/server-runtime";
-
-import graphiqlStyles from "@gs/styles/graphiql.css";
+import { Suspense, lazy, useEffect, useState } from "react";
 
 import { AdminAppId, adminRegistry } from "./features";
 import { createAdminMeta } from "./features/helpers";
 
 const adminApp = adminRegistry.getApp(AdminAppId.GraphQL);
+
+const GraphiQLClient = lazy(() => import("@gs/graphql/GraphiQLClient"));
 
 export default function GraphQL() {
   const [show, setShow] = useState(false);
@@ -30,16 +26,10 @@ export default function GraphQL() {
 }`;
 
   return (
-    <GraphiQL
-      fetcher={createGraphiQLFetcher({ url: "/graphql" })}
-      defaultQuery={defaultQuery}
-      variables={variables}
-    />
+    <Suspense fallback={null}>
+      <GraphiQLClient defaultQuery={defaultQuery} variables={variables} />
+    </Suspense>
   );
-}
-
-export function links(): LinkDescriptor[] {
-  return [{ rel: "stylesheet", href: graphiqlStyles }];
 }
 
 export const meta = createAdminMeta(adminApp.title);

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Link, useNavigate } from "@remix-run/react";
+import { Link, useNavigate } from "react-router";
 
 import type { Gallery } from "@gs/types";
 import Accordion from "@gs/ui/Accordion";

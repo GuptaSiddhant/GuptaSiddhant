@@ -1,11 +1,13 @@
-import CodeIcon from "remixicon-react/FileCodeLineIcon";
-import FileIcon from "remixicon-react/FileLineIcon";
-import PdfIcon from "remixicon-react/FilePdfLineIcon";
-import TextFileIcon from "remixicon-react/FileTextLineIcon";
-import ZipIcon from "remixicon-react/FileZipLineIcon";
-import FontIcon from "remixicon-react/FontSizeIcon";
-import ImageIcon from "remixicon-react/ImageLineIcon";
-import VideoIcon from "remixicon-react/VideoLineIcon";
+import {
+  RiFileCodeLine as CodeIcon,
+  RiFileLine as FileIcon,
+  RiFilePdfLine as PdfIcon,
+  RiFileTextLine as TextFileIcon,
+  RiFileZipLine as ZipIcon,
+  RiFontSize as FontIcon,
+  RiImageLine as ImageIcon,
+  RiVideoLine as VideoIcon,
+} from "@remixicon/react";
 
 import { type StorageFile } from "@gs/service/storage.server";
 

@@ -1,9 +1,10 @@
-import FacebookIcon from "remixicon-react/FacebookCircleFillIcon";
-import LinkedInIcon from "remixicon-react/LinkedinBoxFillIcon";
-import TweetIcon from "remixicon-react/TwitterFillIcon";
-import ShareIcon from "remixicon-react/ShareBoxLineIcon";
+import {
+  RiFacebookCircleFill as FacebookIcon,
+  RiLinkedinBoxFill as LinkedInIcon,
+  RiShareBoxLine as ShareIcon,
+  RiTwitterFill as TweetIcon,
+} from "@remixicon/react";
 
-import { appLogger } from "@gs/service/logger.server";
 import Button, { CopyButton } from "./Button";
 import { ExternalLink } from "./Link";
 import { useSyncExternalStore } from "react";
@@ -45,7 +46,7 @@ function ShareButton(data: ShareTrayProps): JSX.Element | null {
   return (
     <Button
       title="Share"
-      onClick={() => navigator.share(data).catch(appLogger.error)}
+      onClick={() => navigator.share(data).catch(console.error)}
     >
       <ShareIcon />
     </Button>

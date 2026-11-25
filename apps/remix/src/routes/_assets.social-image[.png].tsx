@@ -1,8 +1,8 @@
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs } from "react-router";
 
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams, origin } = new URL(request.url);
   const theme = getThemeFromThemeName(DEFAULT_THEME);
 

@@ -1,9 +1,10 @@
-import { useLoaderData } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+} from "react-router";
 
 import { type Model, ModelName, getModelByModelName } from "@gs/models";
 import type { AboutInfo } from "@gs/models/about.server";
@@ -35,7 +36,7 @@ interface LoaderData {
   hasWriteAccess: boolean;
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const user = await authenticateRoute(request, UserRole.EDITOR);
   const hasWriteAccess = await isUserHasWriteAccess(user);
   const modelName = getAboutModelName();
@@ -45,7 +46,7 @@ export async function loader({ request }: DataFunctionArgs) {
     const info = await getAboutInfo();
     const enrichedModel = await enrichModel(modelName, model);
 
-    return json<LoaderData>({
+    return data<LoaderData>({
       info,
       model: enrichedModel,
       modelName,
@@ -58,7 +59,7 @@ export async function loader({ request }: DataFunctionArgs) {
   }
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();

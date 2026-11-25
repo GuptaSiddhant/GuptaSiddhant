@@ -1,4 +1,4 @@
-import type { FetcherWithComponents } from "@remix-run/react";
+import { type FetcherWithComponents } from "react-router";
 import { useEffect, useTransition } from "react";
 
 import { CloseIcon, LoadingIcon } from "@gs/icons";

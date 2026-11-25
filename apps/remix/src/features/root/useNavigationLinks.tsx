@@ -1,8 +1,10 @@
-import GithubIcon from "remixicon-react/GithubFillIcon";
-import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon";
-import MailIcon from "remixicon-react/MailLineIcon";
+import {
+  RiGithubFill as GithubIcon,
+  RiLinkedinBoxFill as LinkedinIcon,
+  RiMailLine as MailIcon,
+} from "@remixicon/react";
 
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 
 import { type AboutInfo } from "@gs/models/about-info.model";
 import type { RootLoaderData } from "@gs/root";

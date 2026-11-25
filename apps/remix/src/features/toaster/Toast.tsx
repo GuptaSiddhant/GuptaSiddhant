@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import CloseIcon from "remixicon-react/CloseCircleLineIcon";
+import { RiCloseCircleLine as CloseIcon } from "@remixicon/react";
 
 import useAnimationFrame from "@gs/hooks/useAnimationFrame";
 import invariant from "@gs/utils/invariant";

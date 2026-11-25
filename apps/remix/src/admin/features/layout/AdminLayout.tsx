@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { type ReactNode, useEffect, useRef } from "react";
 
-import { Outlet } from "@remix-run/react";
+import { Outlet } from "react-router";
 
 import AdminHeader from "./AdminHeader";
 import AdminNavbar, { type AdminNavbarProps } from "./AdminNavbar";

@@ -1,5 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, data, useLoaderData } from "react-router";
 
 import useRootContext from "@gs/root/RootContext";
 import { authenticateRoute } from "@gs/service/auth.server";
@@ -15,14 +14,14 @@ interface LoaderData {
   metadata?: StorageMetadata;
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   try {
     const metadata = await Storage.queryMetadata();
 
-    return json<LoaderData>({ metadata });
+    return data<LoaderData>({ metadata });
   } catch {
-    return json<LoaderData>({});
+    return data<LoaderData>({});
   }
 }
 

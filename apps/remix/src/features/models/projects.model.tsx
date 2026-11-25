@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import ProjectsIcon from "remixicon-react/ArtboardLineIcon";
+import { RiArtboardLine as ProjectsIcon } from "@remixicon/react";
 
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";

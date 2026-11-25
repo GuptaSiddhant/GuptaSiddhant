@@ -16,7 +16,7 @@ export default function useWindowStore<T, K extends keyof EventMap>(
   getState: (e?: EventMap[K]) => T,
   getServerState?: () => T,
 ): T {
-  const eventRef = useRef<EventMap[K]>();
+  const eventRef = useRef<EventMap[K] | undefined>(undefined);
 
   return useSyncExternalStore(
     (callback) => {

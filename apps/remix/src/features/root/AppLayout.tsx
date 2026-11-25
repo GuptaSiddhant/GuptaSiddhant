@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { type ReactNode, useCallback } from "react";
-import UpIcon from "remixicon-react/ArrowUpLineIcon";
+import { RiArrowUpLine as UpIcon } from "@remixicon/react";
 
 import useScroll from "@gs/hooks/useScroll";
 import useSetHeaderHeight from "@gs/hooks/useSetHeaderHeight";

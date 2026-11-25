@@ -1,4 +1,4 @@
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import type { LoaderFunctionArgs } from "react-router";
 
 import { ONE_HOUR_IN_MS } from "@gs/constants";
 import { search } from "@gs/search/service.server";
@@ -6,7 +6,7 @@ import { fetchCachedKey } from "@gs/service/cache.server";
 
 const searchCacheKey = "search";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams, origin } = new URL(request.url);
   const query = searchParams.get("query")?.toString().trim();
 
@@ -17,9 +17,11 @@ export async function loader({ request }: DataFunctionArgs) {
       { ttl: ONE_HOUR_IN_MS },
     );
 
-    return json(results);
+    return Response.json(results);
   } catch {
-    return json(`Could not find data for query: '${query}'.`, 404);
+    return Response.json(`Could not find data for query: '${query}'.`, {
+      status: 404,
+    });
   }
 }
 

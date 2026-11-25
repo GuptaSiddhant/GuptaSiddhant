@@ -1,11 +1,13 @@
 import clsx from "clsx";
 
-import { useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { ONE_HOUR_IN_MS } from "@gs/constants";
 import useMediaQuery from "@gs/hooks/useMediaQuery";
@@ -45,7 +47,7 @@ interface LoaderData {
 const adminApp = adminRegistry.getApp(AdminAppId.Cache);
 const onlyCacheTypeError = "cache-type" as const;
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const key = params["*"];
   invariant(key, "Cache key is required.");
@@ -64,19 +66,19 @@ export async function loader({ params, request }: DataFunctionArgs) {
     return redirect(adminApp.linkPath + type);
   }
 
-  const data = await getCachedKey(key);
+  const cachedData = await getCachedKey(key);
   const ttl = getCache().getRemainingTTL(key);
 
-  return json<LoaderData>({
+  return data<LoaderData>({
     key,
     type,
     value,
-    data,
+    data: cachedData,
     ttl,
   });
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const { pathname } = new URL(request.url);

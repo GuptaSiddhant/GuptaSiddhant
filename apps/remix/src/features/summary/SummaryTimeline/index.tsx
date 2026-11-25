@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 import type { BaseProps } from "@gs/types";
 import Reader from "@gs/ui/Reader";

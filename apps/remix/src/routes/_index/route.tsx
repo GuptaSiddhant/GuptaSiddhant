@@ -1,5 +1,4 @@
-import { useLoaderData, useRouteError } from "@remix-run/react";
-import { defer } from "@remix-run/server-runtime";
+import { useLoaderData, useRouteError } from "react-router";
 
 import { getAboutInfo } from "@gs/models/about.server";
 import { BlogIcon } from "@gs/models/blog.model";
@@ -30,14 +29,14 @@ export async function loader() {
   const career = getCareerSummaryItems().then(itemsModifier);
   const education = getEducationSummaryItems().then(itemsModifier);
 
-  return defer({
+  return {
     about,
     currentCompany,
     projects,
     blogPosts,
     career,
     education,
-  });
+  };
 }
 
 export default function Index() {

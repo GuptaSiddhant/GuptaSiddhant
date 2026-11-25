@@ -1,4 +1,4 @@
-import FolderIcon from "remixicon-react/Folder3FillIcon";
+import { RiFolder3Fill as FolderIcon } from "@remixicon/react";
 
 import { DeleteIcon } from "@gs/icons";
 import Action from "@gs/ui/Action";

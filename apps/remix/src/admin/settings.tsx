@@ -1,4 +1,4 @@
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, useRouteError } from "react-router";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { UserRole } from "@gs/models/users.model";
@@ -9,11 +9,10 @@ import { AdminAppId, adminRegistry } from "./features";
 import { createAdminMeta } from "./features/helpers";
 import AdminLayout, { type AdminNavbarGroupProps } from "./features/layout";
 import type { AdminAppHandle } from "./features/types";
-import { useRouteError } from "@remix-run/react";
 
 const adminApp = adminRegistry.getApp(AdminAppId.Settings);
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   return null;

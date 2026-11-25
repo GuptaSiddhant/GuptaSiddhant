@@ -1,7 +1,6 @@
 import clsx from "clsx";
 
-import { isRouteErrorResponse } from "@remix-run/react";
-import type { ErrorResponse } from "@remix-run/router";
+import { type ErrorResponse, isRouteErrorResponse } from "react-router";
 
 import Logo from "@gs/root/Logo";
 import Hero from "@gs/ui/Hero";
