@@ -19,22 +19,6 @@ export async function signInWithEmailPassword(email: string, password: string) {
     | SignInWithEmailPasswordSuccessResponse;
 }
 
-export async function signUpAnonymously() {
-  const searchParams = new URLSearchParams({ key: parsedEnv.FIREBASE_API_KEY });
-  const response = await fetch(
-    `${FIREBASE_AUTH_BASE_URL}:signUp?${searchParams.toString()}`,
-    {
-      method: "POST",
-      body: JSON.stringify({ returnSecureToken: true }),
-      headers: { "Content-Type": "application/json" },
-    },
-  );
-
-  return (await response.json()) as
-    | AuthErrorResponse
-    | AnonymousSignUpSuccessResponse;
-}
-
 // Types
 
 interface SignInWithEmailPasswordSuccessResponse {
@@ -54,12 +38,4 @@ interface AuthErrorResponse {
     message: string;
     errors: unknown[];
   };
-}
-
-interface AnonymousSignUpSuccessResponse {
-  idToken: string;
-  email: "";
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
 }

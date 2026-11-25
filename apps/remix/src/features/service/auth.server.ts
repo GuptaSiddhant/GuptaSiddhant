@@ -8,12 +8,10 @@ import {
   redirect,
 } from "@remix-run/node";
 
-import AnonymousStrategy from "./remix-auth-anonymous.server";
 import parsedEnv from "@gs/env";
-import { signInWithEmailPassword, signUpAnonymously } from "@gs/firebase/auth";
+import { signInWithEmailPassword } from "@gs/firebase/auth";
 import { UserRole } from "@gs/models/users.model";
 import { type UserProps, getUserById } from "@gs/models/users.server";
-import { getErrorMessage } from "@gs/utils/error";
 import invariant from "@gs/utils/invariant";
 
 // Auth Session
@@ -45,7 +43,6 @@ export default authenticator;
 
 export enum AuthMethod {
   EmailPassword = "emailPassword",
-  Anonymous = "anonymous",
 }
 
 // Auth helpers
@@ -55,30 +52,36 @@ const successRedirect = "/admin";
 
 export async function authenticateRoute(
   request: Request,
-  ...userRoles: UserRole[]
+  // At least one role is required so that routes never default to "any logged-in user".
+  ...userRoles: [UserRole, ...UserRole[]]
 ): Promise<AuthUser> {
   return authenticate(request, ...userRoles).catch(() => {
-    throw redirect(`${failureRedirect}?redirectTo=${request.url}`);
+    const { pathname, search } = new URL(request.url);
+    throw redirect(
+      `${failureRedirect}?redirectTo=${encodeURIComponent(pathname + search)}`,
+    );
   });
 }
 
-export async function authenticate(request: Request, ...userRoles: UserRole[]) {
+export async function authenticate(
+  request: Request,
+  ...userRoles: [UserRole, ...UserRole[]]
+) {
   const user = await authenticator.isAuthenticated(request);
   if (!user) {
     throw new Error("Unauthorised");
   }
 
-  if (userRoles.length > 0) {
-    if (userRoles.includes(UserRole.GUEST)) {
-      userRoles.push(UserRole.EDITOR, UserRole.ADMIN);
-    } else if (userRoles.includes(UserRole.EDITOR)) {
-      userRoles.push(UserRole.ADMIN);
-    }
+  const allowedRoles = [...userRoles];
+  if (allowedRoles.includes(UserRole.GUEST)) {
+    allowedRoles.push(UserRole.EDITOR, UserRole.ADMIN);
+  } else if (allowedRoles.includes(UserRole.EDITOR)) {
+    allowedRoles.push(UserRole.ADMIN);
+  }
 
-    const hasAccess = await isUserHasAccess(user, ...userRoles);
-    if (!hasAccess) {
-      throw new Error("Access restricted");
-    }
+  const hasAccess = await isUserHasAccess(user, ...allowedRoles);
+  if (!hasAccess) {
+    throw new Error("Access restricted");
   }
 
   return user;
@@ -90,7 +93,7 @@ export async function getAuthUser(request: Request) {
     return null;
   }
 
-  return getUserById(authUser.email);
+  return getUserById(authUser.email).catch(() => null);
 }
 
 export async function isUserHasWriteAccess<T extends { email: string }>(
@@ -113,16 +116,28 @@ export async function isUserHasAccess<T extends { email: string }>(
     return false;
   }
 
-  let role = UserRole.GUEST;
-  if ("role" in user) {
-    // oxlint-disable-next-line typescript/no-explicit-any -- '"role" in user' does not help
-    role = (user as any).role;
-  } else {
-    const authUser = await getUserById(user.email);
-    role = authUser.role;
+  // Always check the database: the session cookie may hold a stale role, and
+  // an unknown user (not in the users collection) has no access.
+  const dbUser = await getUserById(user.email).catch(() => null);
+  if (!dbUser) {
+    return false;
   }
 
-  return roles.includes(role);
+  return roles.includes(dbUser.role);
+}
+
+/** Only allow same-origin relative paths to prevent open redirects. */
+function getSafeRedirectPath(value: FormDataEntryValue | null): string {
+  const path = value?.toString();
+  if (
+    path &&
+    path.startsWith("/") &&
+    !path.startsWith("//") &&
+    !path.includes("\\")
+  ) {
+    return path;
+  }
+  return successRedirect;
 }
 
 export async function loginUser(request: Request) {
@@ -139,28 +154,7 @@ export async function loginUser(request: Request) {
     "Set-Cookie": await cookieSession.commitSession(session),
   });
 
-  const redirectTo = formData.get("redirectTo")?.toString() || successRedirect;
-
-  return redirect(redirectTo, { headers });
-}
-
-export async function signUpAnonymousUser(request: Request) {
-  if (await authenticator.isAuthenticated(request)) {
-    console.log("---- isAuthenticated");
-    return;
-  }
-  console.log("---- signUpAnonymousUser");
-  const user = await authenticator.authenticate(AuthMethod.Anonymous, request, {
-    throwOnError: true,
-  });
-  console.log(user);
-  const session = await cookieSession.getSession(request.headers.get("cookie"));
-  session.set(authenticator.sessionKey, user);
-  const headers = new Headers({
-    "Set-Cookie": await cookieSession.commitSession(session),
-  });
-  console.dir(headers);
-  return redirect(request.url, { headers });
+  return redirect(getSafeRedirectPath(formData.get("redirectTo")), { headers });
 }
 
 // Auth method: emailPassword
@@ -191,25 +185,3 @@ const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
 });
 
 authenticator.use(emailPasswordStrategy, AuthMethod.EmailPassword);
-
-// Auth method: anonymous
-
-const anonymousStrategy = new AnonymousStrategy(async () => {
-  const user = await signUpAnonymously();
-  if ("error" in user) {
-    throw new Error(user.error.message);
-  }
-
-  const authUser: AuthUser = {
-    id: user.localId,
-    name: "Anonymous",
-    role: UserRole.GUEST,
-    email: user.email,
-    idToken: user.idToken,
-    refreshToken: user.refreshToken,
-    expiresIn: user.expiresIn,
-  };
-  return authUser;
-});
-
-authenticator.use(anonymousStrategy, AuthMethod.Anonymous);

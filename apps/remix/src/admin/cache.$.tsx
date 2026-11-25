@@ -11,6 +11,7 @@ import { ONE_HOUR_IN_MS } from "@gs/constants";
 import useMediaQuery from "@gs/hooks/useMediaQuery";
 import { DeleteIcon } from "@gs/icons";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import type { ModifyCacheMethod } from "@gs/service/cache.server";
 import {
   getCache,
@@ -45,7 +46,7 @@ const adminApp = adminRegistry.getApp(AdminAppId.Cache);
 const onlyCacheTypeError = "cache-type" as const;
 
 export async function loader({ params, request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const key = params["*"];
   invariant(key, "Cache key is required.");
 
@@ -76,7 +77,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
 
   const { pathname } = new URL(request.url);
   const form = await request.formData();

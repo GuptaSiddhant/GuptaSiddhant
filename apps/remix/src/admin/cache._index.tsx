@@ -2,6 +2,7 @@ import { useLoaderData } from "@remix-run/react";
 import { type LoaderArgs, json } from "@remix-run/server-runtime";
 
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import { getCache } from "@gs/service/cache.server";
 import { transformMsToReadableString } from "@gs/utils/format";
 
@@ -15,7 +16,7 @@ interface LoaderData {
 }
 
 export async function loader({ request }: LoaderArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.ADMIN);
   const { size, max, ttl } = getCache();
 
   return json<LoaderData>({ size, max, ttl });

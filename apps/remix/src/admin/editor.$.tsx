@@ -7,6 +7,7 @@ import {
 
 import { ModelName } from "@gs/models";
 import { authenticateRoute } from "@gs/service/auth.server";
+import { UserRole } from "@gs/models/users.model";
 import Database from "@gs/service/database.server";
 import Action from "@gs/ui/Action";
 import { ErrorSection } from "@gs/ui/Error";
@@ -22,7 +23,7 @@ interface LoaderData {
 }
 
 export async function loader({ params, request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
 
   const path = params["*"];
   if (!path) return redirect(adminApp.linkPath);
@@ -37,7 +38,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
 }
 
 export async function action({ request }: DataFunctionArgs) {
-  await authenticateRoute(request);
+  await authenticateRoute(request, UserRole.EDITOR);
   const { pathname } = new URL(request.url);
   const formData = await request.formData();
   const collection = formData.get("collection")?.toString();
