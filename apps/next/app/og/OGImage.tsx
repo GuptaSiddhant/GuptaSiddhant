@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 export const DEFAULT_WIDTH = 800;
 export const DEFAULT_RATIO = 16 / 9;
 export const DEFAULT_SPACING = DEFAULT_WIDTH / 40;
@@ -11,6 +9,7 @@ export const DEFAULT_BORDER_COLOR = "#000000";
 
 interface OGImageProps {
   style?: React.CSSProperties;
+  logoSrc: string;
   imageUrl?: string;
   imageAlt?: string;
   caption?: string;
@@ -20,6 +19,7 @@ interface OGImageProps {
 }
 
 export default function OGImage({
+  logoSrc,
   title,
   caption,
   subtitle,
@@ -27,7 +27,7 @@ export default function OGImage({
   imageUrl,
   imageAlt,
   author,
-}: OGImageProps): JSX.Element {
+}: OGImageProps): React.JSX.Element {
   return (
     <div
       style={{
@@ -65,7 +65,7 @@ export default function OGImage({
           }}
         >
           <img
-            src="https://guptasiddhant.com/assets/GS-white.png"
+            src={logoSrc}
             alt="GS"
             style={{
               width: DEFAULT_SPACING * 2,

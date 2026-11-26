@@ -8,7 +8,7 @@ const navigationRemoteConfigKeys: Readonly<FeatureFlagKey[]> = [] as const;
 // Helpers
 
 export type NavigationRemoteConfig = Record<
-  typeof navigationRemoteConfigKeys[number],
+  (typeof navigationRemoteConfigKeys)[number],
   boolean
 >;
 

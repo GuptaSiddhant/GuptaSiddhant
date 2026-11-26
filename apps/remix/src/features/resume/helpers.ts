@@ -36,12 +36,12 @@ export function transformAboutLinkToContactLinks(
             ? linkUrl.split(":")[1]
             : linkUrl
           : key.toLowerCase() === "website"
-          ? linkUrl.split("//")[1]
-          : key.toLowerCase() === "linkedin"
-          ? linkUrl.split("in/")[1]
-          : key.toLowerCase() === "github"
-          ? linkUrl.split("com/")[1]
-          : linkUrl;
+            ? linkUrl.split("//")[1]
+            : key.toLowerCase() === "linkedin"
+              ? linkUrl.split("in/")[1]
+              : key.toLowerCase() === "github"
+                ? linkUrl.split("com/")[1]
+                : linkUrl;
 
       return {
         key,

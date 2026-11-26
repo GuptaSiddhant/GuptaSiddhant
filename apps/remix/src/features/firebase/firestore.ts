@@ -38,9 +38,8 @@ export async function queryFireStoreDocument<T extends TransformedDocument>(
 export async function queryFireStoreCollectionIds(
   collectionPath: string,
 ): Promise<string[]> {
-  const documentRefs = await getFirestoreCollectionRef(
-    collectionPath,
-  ).listDocuments();
+  const documentRefs =
+    await getFirestoreCollectionRef(collectionPath).listDocuments();
 
   return documentRefs.map((doc) => doc.id);
 }
@@ -52,9 +51,8 @@ export async function mutateFirestoreCollection<T extends TransformedDocument>(
   dataList?: Array<T>,
 ) {
   if (!dataList) {
-    const documents = await getFirestoreCollectionRef(
-      collectionPath,
-    ).listDocuments();
+    const documents =
+      await getFirestoreCollectionRef(collectionPath).listDocuments();
 
     return Promise.all(
       documents.map((doc) => mutateFirestoreDocument(collectionPath, doc.id)),

@@ -1,6 +1,6 @@
 // @ts-check
 
-const { setFirestoreDocument } = require("./firebase")
+const { setFirestoreDocument } = require("./firebase");
 
 /** @typedef {{title: string, linkUrl?: string, iconUrl?: string, level?: 'advanced' | 'intermediate' | 'basic'}} Skill */
 
@@ -10,7 +10,7 @@ const language = [
   { title: "Hindi", level: "advanced" },
   { title: "Finnish", level: "basic" },
   { title: "French", level: "basic" },
-]
+];
 
 /** @type {Skill[]} */
 const soft = [
@@ -20,7 +20,7 @@ const soft = [
   { title: "teamwork" },
   { title: "entrepreneurship" },
   { title: "leadership" },
-]
+];
 
 /** @type {Skill[]} */
 const frontend = [
@@ -94,7 +94,7 @@ const frontend = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
     level: "advanced",
   },
-]
+];
 
 /** @type {Skill[]} */
 const backend = [
@@ -133,7 +133,7 @@ const backend = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
     level: "intermediate",
   },
-]
+];
 
 /** @type {Skill[]} */
 const design = [
@@ -158,7 +158,7 @@ const design = [
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
     level: "advanced",
   },
-]
+];
 
 /** @type {Record<string, Skill[]>} */
 const skills = {
@@ -167,6 +167,6 @@ const skills = {
   backend,
   design,
   language,
-}
+};
 
-setFirestoreDocument("about", "skills", skills)
+setFirestoreDocument("about", "skills", skills);

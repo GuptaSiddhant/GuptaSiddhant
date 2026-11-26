@@ -1,8 +1,7 @@
 import OGImage, { DEFAULT_RATIO, DEFAULT_WIDTH } from "./OGImage";
-import { ImageResponse } from "@vercel/og";
-import type { SatoriOptions } from "satori";
-
-export const runtime = "edge";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { ImageResponse } from "next/og";
 
 const MIN_SIZE = 200;
 const MAX_SIZE = 2400;
@@ -16,12 +15,34 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   "storage.googleapis.com",
 ]);
 
-const nunitoRegularFontBuffer = fetch(
-  new URL("../../public/Nunito-Regular.ttf", import.meta.url),
-).then((res) => res.arrayBuffer());
-const nunitoBoldFontBuffer = fetch(
-  new URL("../../public/Nunito-Bold.ttf", import.meta.url),
-).then((res) => res.arrayBuffer());
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+
+// Loaded lazily once per process; bundled locally so no network fetch is needed.
+let assetsPromise: Promise<{
+  nunitoRegular: ArrayBuffer;
+  nunitoBold: ArrayBuffer;
+  logoDataUrl: string;
+}> | null = null;
+
+function toArrayBuffer(buf: Buffer): ArrayBuffer {
+  return buf.buffer.slice(
+    buf.byteOffset,
+    buf.byteOffset + buf.byteLength,
+  ) as ArrayBuffer;
+}
+
+function loadAssets() {
+  assetsPromise ??= Promise.all([
+    readFile(path.join(PUBLIC_DIR, "Nunito-Regular.ttf")),
+    readFile(path.join(PUBLIC_DIR, "Nunito-Bold.ttf")),
+    readFile(path.join(PUBLIC_DIR, "GS-white.png")),
+  ]).then(([nunitoRegular, nunitoBold, logo]) => ({
+    nunitoRegular: toArrayBuffer(nunitoRegular),
+    nunitoBold: toArrayBuffer(nunitoBold),
+    logoDataUrl: `data:image/png;base64,${logo.toString("base64")}`,
+  }));
+  return assetsPromise;
+}
 
 /** Parses a size param as an integer clamped to [MIN_SIZE, MAX_SIZE]. */
 function parseSize(value: string | null, fallback: number): number {
@@ -110,12 +131,22 @@ export async function GET(request: Request) {
     authorImageUrl,
   } = params;
 
-  // Fonts
-  const [nunitoRegularFontData, nunitoBoldFontData] = await Promise.all([
-    nunitoRegularFontBuffer,
-    nunitoBoldFontBuffer,
-  ]);
-  const fonts: SatoriOptions["fonts"] = [
+  let assets: Awaited<ReturnType<typeof loadAssets>>;
+  try {
+    assets = await loadAssets();
+  } catch (error) {
+    assetsPromise = null;
+    console.log(error instanceof Error ? error.message : String(error));
+    return new Response("Failed to load assets", { status: 500 });
+  }
+  const {
+    nunitoRegular: nunitoRegularFontData,
+    nunitoBold: nunitoBoldFontData,
+    logoDataUrl,
+  } = assets;
+  const fonts: NonNullable<
+    ConstructorParameters<typeof ImageResponse>[1]
+  >["fonts"] = [
     {
       name: "Nunito",
       data: nunitoRegularFontData,
@@ -133,6 +164,7 @@ export async function GET(request: Request) {
   try {
     return new ImageResponse(
       <OGImage
+        logoSrc={logoDataUrl}
         imageUrl={imageUrl}
         caption={caption}
         subtitle={subtitle}

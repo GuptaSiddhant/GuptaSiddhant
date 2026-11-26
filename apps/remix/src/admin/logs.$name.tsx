@@ -1,4 +1,12 @@
-import { ActionFunctionArgs, Form, LoaderFunctionArgs, data, redirect, useLoaderData, useRevalidator } from "react-router";
+import {
+  ActionFunctionArgs,
+  Form,
+  LoaderFunctionArgs,
+  data,
+  redirect,
+  useLoaderData,
+  useRevalidator,
+} from "react-router";
 import clsx from "clsx";
 import { useId, useMemo, useState } from "react";
 
@@ -140,7 +148,9 @@ export default function LoggerList(): JSX.Element | null {
 
 function LogSeverityTag({
   severity,
-}: { severity?: LogSeverity | null }): JSX.Element | null {
+}: {
+  severity?: LogSeverity | null;
+}): JSX.Element | null {
   if (!severity) {
     return null;
   }

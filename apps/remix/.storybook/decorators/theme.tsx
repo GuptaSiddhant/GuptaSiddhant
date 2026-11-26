@@ -37,8 +37,8 @@ const themeDecorator: Decorator = (Story) => {
     backgroundValue === Background.Dark.value
       ? ThemeName.Dark
       : backgroundValue === Background.Light.value
-      ? ThemeName.Light
-      : DEFAULT_THEME;
+        ? ThemeName.Light
+        : DEFAULT_THEME;
 
   return (
     <>

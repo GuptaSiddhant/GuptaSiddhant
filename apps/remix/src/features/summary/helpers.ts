@@ -52,8 +52,8 @@ export function filterSortSummaryItems(
     sortBy === SortByOption.Featured
       ? sortSummaryItemsByFeaturedPredicate
       : sortBy === SortByOption.Oldest
-      ? sortSummaryItemsByDateOldestFirstPredicate
-      : sortSummaryItemsByDateLatestFirstPredicate;
+        ? sortSummaryItemsByDateOldestFirstPredicate
+        : sortSummaryItemsByDateLatestFirstPredicate;
 
   return filteredItems.sort(sortPredicate);
 }
