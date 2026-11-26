@@ -56,3 +56,7 @@ packageExtensions:
   "@reach/polymorphic":
     peerDependencies:
       "@types/react": "*"
+  # next/link typings import "react"; resolve this app's @types/react 19.
+  "next":
+    peerDependencies:
+      "@types/react": "*"

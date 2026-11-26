@@ -1,6 +1,5 @@
 import OGImage, { DEFAULT_RATIO, DEFAULT_WIDTH } from "./OGImage";
-import { ImageResponse } from "@vercel/og";
-import type { SatoriOptions } from "satori";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
@@ -115,7 +114,9 @@ export async function GET(request: Request) {
     nunitoRegularFontBuffer,
     nunitoBoldFontBuffer,
   ]);
-  const fonts: SatoriOptions["fonts"] = [
+  const fonts: NonNullable<
+    ConstructorParameters<typeof ImageResponse>[1]
+  >["fonts"] = [
     {
       name: "Nunito",
       data: nunitoRegularFontData,
