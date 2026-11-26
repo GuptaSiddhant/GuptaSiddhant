@@ -9,6 +9,7 @@ export const DEFAULT_BORDER_COLOR = "#000000";
 
 interface OGImageProps {
   style?: React.CSSProperties;
+  logoSrc: string;
   imageUrl?: string;
   imageAlt?: string;
   caption?: string;
@@ -18,6 +19,7 @@ interface OGImageProps {
 }
 
 export default function OGImage({
+  logoSrc,
   title,
   caption,
   subtitle,
@@ -63,7 +65,7 @@ export default function OGImage({
           }}
         >
           <img
-            src="https://guptasiddhant.com/assets/GS-white.png"
+            src={logoSrc}
             alt="GS"
             style={{
               width: DEFAULT_SPACING * 2,
