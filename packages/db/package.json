@@ -1,0 +1,31 @@
+{
+  "name": "gs-db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Drizzle schema, libSQL (Turso) client and migration helpers for guptasiddhant.com",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts",
+    "./migrate": "./src/migrate/index.ts"
+  },
+  "scripts": {
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "test": "vp test run",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "drizzle-orm": "^0.45.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130",
+    "drizzle-kit": "^0.31.11",
+    "typescript": "^5.9.3"
+  }
+}

@@ -39,8 +39,17 @@ jobs:
       - name: Test
         run: pnpm remix:test
 
+      - name: Test db package (Drizzle schema + Firestore migration)
+        run: pnpm --filter gs-db test
+
       - name: Build all apps
         run: pnpm build
+
+      - name: Typecheck db package
+        run: pnpm --filter gs-db typecheck
+
+      - name: Typecheck migration scripts
+        run: pnpm typecheck:scripts
 
       - name: Typecheck cli
         run: pnpm --filter guptasiddhant typecheck
