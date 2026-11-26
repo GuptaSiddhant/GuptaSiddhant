@@ -55,15 +55,15 @@ function transformFirestoreDataToIndexItem(
     model === Model.Education
       ? [data.degree, data.field].filter(Boolean).join(" - ")
       : model === Model.Career
-      ? data.position
-      : data.title;
+        ? data.position
+        : data.title;
 
   const subtitle =
     model === Model.Education
       ? [data.school, data.location].filter(Boolean).join(", ")
       : model === Model.Career
-      ? [data.company, data.location].filter(Boolean).join(", ")
-      : data.subtitle;
+        ? [data.company, data.location].filter(Boolean).join(", ")
+        : data.subtitle;
 
   const linkUrl = `/${model}/${docId}/`;
 

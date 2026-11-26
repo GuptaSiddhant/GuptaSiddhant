@@ -85,8 +85,8 @@ export async function getProjectAssociationById(
   return careerItem.status === "fulfilled"
     ? careerItem.value
     : educationItem.status === "fulfilled"
-    ? educationItem.value
-    : undefined;
+      ? educationItem.value
+      : undefined;
 }
 
 export { ProjectProps };

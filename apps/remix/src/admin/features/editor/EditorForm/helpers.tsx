@@ -43,10 +43,10 @@ export function generateColumnClassNameForModeSize(size?: ModelSize) {
     size === ModelSize.FULL
       ? "col-span-full"
       : size === ModelSize.LARGE
-      ? "col-span-full md:col-span-3"
-      : size === ModelSize.MEDIUM
-      ? "col-span-2"
-      : "col-span-1",
+        ? "col-span-full md:col-span-3"
+        : size === ModelSize.MEDIUM
+          ? "col-span-2"
+          : "col-span-1",
   );
 }
 
@@ -55,10 +55,10 @@ export function generateInputHeightClassNameForModeSize(size?: ModelSize) {
     size === ModelSize.FULL
       ? "h-screen"
       : size === ModelSize.LARGE
-      ? "h-[75vh]"
-      : size === ModelSize.SMALL
-      ? "h-[25vh]"
-      : "h-[50vh]",
+        ? "h-[75vh]"
+        : size === ModelSize.SMALL
+          ? "h-[25vh]"
+          : "h-[50vh]",
   );
 }
 

@@ -1,6 +1,6 @@
 // @ts-check
 
-const { setFirestoreDocument } = require("./firebase")
+const { setFirestoreDocument } = require("./firebase");
 
 /** @type {Record<string, any>} */
 const about = {
@@ -32,6 +32,6 @@ const about = {
     code: '"# An interactive resume in your terminal, made with React and ink. \\n$ npx guptasiddhant"',
     copyText: "npx guptasiddhant",
   },
-}
+};
 
-setFirestoreDocument("about", "info", about)
+setFirestoreDocument("about", "info", about);

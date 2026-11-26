@@ -109,10 +109,10 @@ export async function mutateFirebaseRemoteConfigMap(
         typeof value === "string"
           ? "STRING"
           : typeof value === "number"
-          ? "NUMBER"
-          : typeof value === "boolean"
-          ? "BOOLEAN"
-          : "JSON",
+            ? "NUMBER"
+            : typeof value === "boolean"
+              ? "BOOLEAN"
+              : "JSON",
       defaultValue: {
         value: JSON.stringify(value),
       },
