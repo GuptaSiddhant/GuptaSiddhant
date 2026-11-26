@@ -1,6 +1,6 @@
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs } from "react-router";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { origin } = new URL(request.url);
 
   const robotText = `

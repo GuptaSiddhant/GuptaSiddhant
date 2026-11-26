@@ -51,9 +51,6 @@ jobs:
       - name: Typecheck next
         run: pnpm --filter gs-next typecheck
 
-      # TODO: Remix has pre-existing type errors (LoaderArgs / V2_* meta types
-      # removed in newer Remix 2.x, React JSX component types). Fix and remove
-      # continue-on-error.
+      # Runs `react-router typegen` first, then `tsc --noEmit`.
       - name: Typecheck remix
         run: pnpm --filter gs-remix typecheck
-        continue-on-error: true

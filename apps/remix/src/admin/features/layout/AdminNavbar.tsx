@@ -1,10 +1,12 @@
 import clsx from "clsx";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import CollapseSidebarIcon from "remixicon-react/ArrowLeftSLineIcon";
-import ExpandSidebarIcon from "remixicon-react/ArrowRightSLineIcon";
+import {
+  RiArrowLeftSLine as CollapseSidebarIcon,
+  RiArrowRightSLine as ExpandSidebarIcon,
+} from "@remixicon/react";
 
-import { NavLink, useLocation } from "@remix-run/react";
+import { NavLink, useLocation } from "react-router";
 
 import useMediaQuery from "@gs/hooks/useMediaQuery";
 import type { NavigationLinkProps } from "@gs/types";

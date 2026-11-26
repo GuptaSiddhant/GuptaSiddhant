@@ -1,9 +1,11 @@
-import { Await, Link } from "@remix-run/react";
+import { Await, Link } from "react-router";
 import clsx from "clsx";
 import { Suspense, useCallback, useRef } from "react";
-import type { RemixiconReactIconComponentType } from "remixicon-react";
-import ArrowLeftIcon from "remixicon-react/ArrowLeftCircleLineIcon";
-import ArrowRightIcon from "remixicon-react/ArrowRightCircleLineIcon";
+import type { RemixiconComponentType } from "@remixicon/react";
+import {
+  RiArrowLeftCircleLine as ArrowLeftIcon,
+  RiArrowRightCircleLine as ArrowRightIcon,
+} from "@remixicon/react";
 
 import useElementStore from "@gs/hooks/useElementStore";
 import { ScrollDirection, useScrollElement } from "@gs/hooks/useScroll";
@@ -135,7 +137,7 @@ function SummarySliderCard({
 }: {
   item: SummaryItem;
   className?: string;
-  cardRef?: React.RefObject<HTMLElement>;
+  cardRef?: React.RefObject<HTMLElement | null>;
   showSubtitle?: boolean;
 }): JSX.Element {
   const { id, title, cover, linkUrl, subtitle, icon } = item;
@@ -205,7 +207,7 @@ interface SummarySliderButtonOverlayProps {
   scrollDistanceRatio: number;
   isDisabled: boolean;
   scrollSlider: (isNext: boolean) => void;
-  Icon: RemixiconReactIconComponentType;
+  Icon: RemixiconComponentType;
 }
 
 function SummarySliderButtonOverlay({

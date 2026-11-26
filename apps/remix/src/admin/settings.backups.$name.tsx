@@ -1,9 +1,10 @@
-import { useLoaderData } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+} from "react-router";
 
 import { DeleteIcon } from "@gs/icons";
 import useRootContext from "@gs/root/RootContext";
@@ -30,7 +31,7 @@ interface LoaderData {
   data: string;
 }
 
-export async function loader({ request, params }: DataFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const name = params["name"];
   invariant(name, "Filename is required");
@@ -40,15 +41,15 @@ export async function loader({ request, params }: DataFunctionArgs) {
   try {
     const asset = await Storage.queryAsset(path);
     const file = await Storage.downloadAsset(path);
-    const data = JSON.stringify(JSON.parse(await file.text()), null, 2);
+    const fileData = JSON.stringify(JSON.parse(await file.text()), null, 2);
 
-    return json<LoaderData>({ asset, name, path, data });
+    return data<LoaderData>({ asset, name, path, data: fileData });
   } catch {
     return redirect(`${adminApp.linkPath}backups`);
   }
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const form = await request.formData();

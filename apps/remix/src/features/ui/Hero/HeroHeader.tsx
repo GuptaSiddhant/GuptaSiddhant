@@ -1,10 +1,12 @@
 import clsx from "clsx";
 import { type ReactElement, type ReactNode, useEffect, useRef } from "react";
-import BackIcon from "remixicon-react/ArrowLeftLineIcon";
-import ErrorIcon from "remixicon-react/ErrorWarningLineIcon";
-import HashIcon from "remixicon-react/HashtagIcon";
+import {
+  RiArrowLeftLine as BackIcon,
+  RiErrorWarningLine as ErrorIcon,
+  RiHashtag as HashIcon,
+} from "@remixicon/react";
 
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 
 import { proseWidth } from "@gs/ui/Section";
 import { Caption, H1, SubHeading } from "@gs/ui/Text";

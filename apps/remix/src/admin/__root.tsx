@@ -1,11 +1,13 @@
 import clsx from "clsx";
 
-import { Outlet, useLocation, useRouteError } from "@remix-run/react";
 import {
-  type LoaderArgs,
+  type LoaderFunctionArgs,
   type MetaDescriptor,
-  json,
-} from "@remix-run/server-runtime";
+  Outlet,
+  data,
+  useLocation,
+  useRouteError,
+} from "react-router";
 
 import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 import useBlockNativeScroll from "@gs/hooks/useBlockNativeScroll";
@@ -21,10 +23,10 @@ import { AdminContext } from "./features/context";
 // oxlint-disable-next-line typescript/no-empty-interface -- For future reference
 interface LoaderData {}
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
 
-  return json<LoaderData>({});
+  return data<LoaderData>({});
 }
 
 export function meta(): MetaDescriptor[] {

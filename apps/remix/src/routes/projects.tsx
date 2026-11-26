@@ -1,4 +1,4 @@
-import { Outlet, useRouteError } from "@remix-run/react";
+import { Outlet, useRouteError } from "react-router";
 
 import { ErrorSection } from "@gs/ui/Error";
 

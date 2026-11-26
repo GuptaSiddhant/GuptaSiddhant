@@ -1,5 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, data, useLoaderData } from "react-router";
 
 import {
   queryFirebaseRemoteConfigKeys,
@@ -15,12 +14,12 @@ interface LoaderData {
   featureConfigKeys: string[];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
   const template = await queryFirebaseRemoteConfigTemplate();
   const featureConfigKeys = await queryFirebaseRemoteConfigKeys(template);
 
-  return json<LoaderData>({ featureConfigKeys });
+  return data<LoaderData>({ featureConfigKeys });
 }
 
 export default function SettingsIndex(): JSX.Element | null {

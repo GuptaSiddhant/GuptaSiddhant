@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import { Link, useNavigate } from "@remix-run/react";
+import { Link, useNavigate } from "react-router";
 
 import useLongPress from "@gs/hooks/useLongPress";
 

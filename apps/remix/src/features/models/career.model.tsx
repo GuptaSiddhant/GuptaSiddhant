@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import CareerIcon from "remixicon-react/Briefcase5FillIcon";
+import { RiBriefcase5Fill as CareerIcon } from "@remixicon/react";
 
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";

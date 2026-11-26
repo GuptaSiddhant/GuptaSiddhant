@@ -1,10 +1,10 @@
-import { type LinkDescriptor } from "@remix-run/server-runtime";
+import { type LinkDescriptor } from "react-router";
 
-import fontStyles from "@gs/styles/font.css";
-import globalStyles from "@gs/styles/global.css";
-import prismThemeStyles from "@gs/styles/prism-vscode-dark.css";
-import reachMenuButtonStyles from "@gs/styles/reach-menu-button.css";
-import tailwindStyles from "@gs/styles/tailwind.css";
+import fontStyles from "@gs/styles/font.css?url";
+import globalStyles from "@gs/styles/global.css?url";
+import prismThemeStyles from "@gs/styles/prism-vscode-dark.css?url";
+import reachMenuButtonStyles from "@gs/styles/reach-menu-button.css?url";
+import tailwindStyles from "@gs/styles/tailwind.css?url";
 
 const stylesheets = [
   fontStyles,

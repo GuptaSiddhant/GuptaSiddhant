@@ -1,10 +1,4 @@
-import { Form, useLoaderData, useRevalidator } from "@remix-run/react";
-import {
-  ActionArgs,
-  LoaderArgs,
-  json,
-  redirect,
-} from "@remix-run/server-runtime";
+import { ActionFunctionArgs, Form, LoaderFunctionArgs, data, redirect, useLoaderData, useRevalidator } from "react-router";
 import clsx from "clsx";
 import { useId, useMemo, useState } from "react";
 
@@ -44,7 +38,7 @@ interface LoaderData {
   severity?: LogSeverity;
 }
 
-export async function loader({ request, params }: LoaderArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const name = params.name;
@@ -57,10 +51,10 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const logs = await getLogs(name, { limit, filter: message, severity });
 
-  return json<LoaderData>({ name, logs, limit, message, severity });
+  return data<LoaderData>({ name, logs, limit, message, severity });
 }
 
-export async function action({ request, params }: ActionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const name = params.name;

@@ -1,7 +1,11 @@
 import { useMemo, useState } from "react";
 
-import { useLoaderData, useRouteError } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import {
+  type LoaderFunctionArgs,
+  data,
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { getCareerSummaryItems } from "@gs/models/career.server";
 import { getEducationSummaryItems } from "@gs/models/education.server";
@@ -33,7 +37,7 @@ interface LoaderData {
   tags: string[];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { origin } = new URL(request.url);
   const [educationList, careerList] = await Promise.all([
     getEducationSummaryItems(),
@@ -45,7 +49,7 @@ export async function loader({ request }: DataFunctionArgs) {
       [...educationList, ...careerList].flatMap((item) => item.tags || []),
     ).map((t) => t.value.toLowerCase()) || [];
 
-  return json<LoaderData>({ origin, tags });
+  return data<LoaderData>({ origin, tags });
 }
 
 export function meta({ matches }: MetaArgs<typeof loader>): MetaDescriptors {

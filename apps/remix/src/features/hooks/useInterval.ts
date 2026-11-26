@@ -7,7 +7,7 @@ export default function useInterval(
 ) {
   const startTimeRef = useRef<number>(0);
   const remainingTimeRef = useRef<number>(intervalInMs);
-  const intervalRef = useRef<number>();
+  const intervalRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (isPaused) {

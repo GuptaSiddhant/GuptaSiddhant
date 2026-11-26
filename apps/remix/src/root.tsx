@@ -1,11 +1,11 @@
 import {
-  LiveReload,
+  type LoaderFunctionArgs,
   Outlet,
   Scripts,
   ScrollRestoration,
+  data,
   useLoaderData,
-} from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+} from "react-router";
 
 import usePullDownRefresh from "@gs/hooks/usePullDownRefresh";
 import { getAboutInfo } from "@gs/models/about.server";
@@ -23,7 +23,7 @@ import { getPwaFromRequest } from "@gs/service/pwa.server";
 import { getThemeFromRequest } from "@gs/theme/cookie.server";
 import type { ShouldRevalidateFunctionArgs } from "@gs/types";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const locale =
     request.headers.get("Accept-Language")?.split(",")[0] || "en-GB";
 
@@ -36,7 +36,7 @@ export async function loader({ request }: DataFunctionArgs) {
       getPwaFromRequest(request),
     ]);
 
-  return json<RootLoaderData>({
+  return data<RootLoaderData>({
     about,
     navigationRemoteConfig,
     isAuthenticated: !!authUser,
@@ -59,7 +59,6 @@ export default function App() {
           <Outlet />
           <ScrollRestoration />
           <Scripts />
-          <LiveReload />
         </AppLayout>
       </Document>
     </RootContext.Provider>

@@ -1,7 +1,7 @@
 import { ONE_DAY_IN_S } from "@gs/constants";
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs } from "react-router";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { origin } = new URL(request.url);
 
   /** @todo add all routes */

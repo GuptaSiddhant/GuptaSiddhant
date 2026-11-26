@@ -1,4 +1,4 @@
-import type { ServiceAccount } from "firebase-admin/lib/app/credential";
+import type { ServiceAccount } from "firebase-admin/app";
 import type { CredentialBody } from "google-auth-library/build/src/auth/credentials";
 
 import parsedEnv from "@gs/env";

@@ -1,6 +1,8 @@
-import { useFetcher } from "@remix-run/react";
-import DarkModeIcon from "remixicon-react/MoonFillIcon";
-import LightModeIcon from "remixicon-react/SunFillIcon";
+import { useFetcher } from "react-router";
+import {
+  RiMoonFill as DarkModeIcon,
+  RiSunFill as LightModeIcon,
+} from "@remixicon/react";
 
 import useWindowStore from "@gs/hooks/useWindowStore";
 import Action from "@gs/ui/Action";

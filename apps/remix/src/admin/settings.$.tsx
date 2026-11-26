@@ -1,5 +1,5 @@
 import { ErrorSection } from "@gs/ui/Error";
-import { useRouteError } from "@remix-run/react";
+import { useRouteError } from "react-router";
 
 export default function Error404(): JSX.Element | null {
   return (

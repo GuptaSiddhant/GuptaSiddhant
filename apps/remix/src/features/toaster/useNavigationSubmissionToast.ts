@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 
-import { useNavigation } from "@remix-run/react";
+import { useNavigation } from "react-router";
 
 import useToaster from "@gs/toaster";
 

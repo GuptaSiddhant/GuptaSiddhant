@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react";
 
-import remixStubDecorator from "./decorators/remix-stub";
+import routerStubDecorator from "./decorators/router-stub";
 import themeDecorator, { backgrounds } from "./decorators/theme";
 import "./tailwind.generated.css";
 
@@ -17,5 +17,5 @@ export default {
     layout: "fullscreen",
   },
 
-  decorators: [remixStubDecorator, themeDecorator],
+  decorators: [routerStubDecorator, themeDecorator],
 } satisfies Preview;

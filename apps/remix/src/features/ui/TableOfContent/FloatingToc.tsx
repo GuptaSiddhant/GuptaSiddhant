@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useMemo } from "react";
-import TocIcon from "remixicon-react/FileListLineIcon";
+import { RiFileListLine as TocIcon } from "@remixicon/react";
 
 import { fabBottomLeftClassName } from "@gs/ui/Button";
 import Menu, { type MenuActionProps } from "@gs/ui/Menu";

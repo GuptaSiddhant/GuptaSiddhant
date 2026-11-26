@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { type ReactNode, createContext, useContext } from "react";
-import ClearIcon from "remixicon-react/CloseCircleLineIcon";
+import { RiCloseCircleLine as ClearIcon } from "@remixicon/react";
 
 import invariant from "@gs/utils/invariant";
 

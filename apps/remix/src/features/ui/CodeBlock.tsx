@@ -11,6 +11,11 @@ import {
 
 import { CopyButton } from "./Button";
 
+// prism-react-renderer v1 is CommonJS (`exports.default`): Node ESM (SSR) gives
+// the whole `exports` object as the default import, so unwrap it.
+const HighlightComponent: typeof Highlight =
+  (Highlight as unknown as { default?: typeof Highlight }).default ?? Highlight;
+
 export interface CodeBlockProps {
   children: string;
   lang?: Language;
@@ -39,7 +44,7 @@ export default function CodeBlock({
         "relative -mx-4 block rounded-lg bg-inverse dark:bg-default",
       )}
     >
-      <Highlight
+      <HighlightComponent
         {...defaultProps}
         code={children.trim()}
         language={language}

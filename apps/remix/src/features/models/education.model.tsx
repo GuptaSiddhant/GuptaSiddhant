@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import EducationIcon from "remixicon-react/BookFillIcon";
+import { RiBookFill as EducationIcon } from "@remixicon/react";
 
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";

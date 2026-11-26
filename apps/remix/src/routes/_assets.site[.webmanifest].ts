@@ -1,4 +1,4 @@
-import type { DataFunctionArgs } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs } from "react-router";
 
 import { ONE_DAY_IN_S } from "@gs/constants";
 import { getAboutInfo } from "@gs/models/about.server";
@@ -6,7 +6,9 @@ import { internalNavigationLinks } from "@gs/root/useNavigationLinks";
 import { DEFAULT_THEME, getThemeFromThemeName } from "@gs/theme";
 import type { WebApplicationManifest } from "@gs/types/webmanifest";
 
-export async function loader({ request }: DataFunctionArgs): Promise<Response> {
+export async function loader({
+  request,
+}: LoaderFunctionArgs): Promise<Response> {
   const [about] = await Promise.all([getAboutInfo()]);
 
   const origin = new URL(request.url).origin;

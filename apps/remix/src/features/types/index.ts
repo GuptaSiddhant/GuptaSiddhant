@@ -1,11 +1,12 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import type { BlurhashData } from "@gs/utils/blurhash.client";
-import type { LinkProps, ShouldRevalidateFunction } from "@remix-run/react";
 import type {
-  V2_ServerRuntimeMetaArgs,
-  V2_ServerRuntimeMetaDescriptor,
-} from "@remix-run/server-runtime";
+  LinkProps,
+  MetaArgs,
+  MetaDescriptor,
+  ShouldRevalidateFunction,
+} from "react-router";
 
 export type To = LinkProps["to"];
 
@@ -72,5 +73,5 @@ export interface NavigationLinkProps {
   shortcut?: string[];
 }
 
-export { V2_ServerRuntimeMetaArgs as MetaArgs };
-export type MetaDescriptors = V2_ServerRuntimeMetaDescriptor[];
+export type { MetaArgs };
+export type MetaDescriptors = MetaDescriptor[];

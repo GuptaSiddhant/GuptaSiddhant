@@ -1,4 +1,4 @@
-import { type Cookie } from "@remix-run/node";
+import { type Cookie } from "react-router";
 
 export async function parseCookie(request: Request, cookie: Cookie) {
   const cookieHeader = request.headers.get("Cookie");

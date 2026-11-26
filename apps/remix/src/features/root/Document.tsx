@@ -1,4 +1,4 @@
-import { Links, Meta } from "@remix-run/react";
+import { Links, Meta } from "react-router";
 import clsx from "clsx";
 
 import { type ThemeName, checkIfDarkTheme } from "@gs/theme";

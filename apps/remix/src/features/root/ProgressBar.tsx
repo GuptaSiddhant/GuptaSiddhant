@@ -1,6 +1,6 @@
 import { type RefObject, useCallback, useEffect, useRef } from "react";
 
-import { useNavigation } from "@remix-run/react";
+import { useNavigation } from "react-router";
 
 import { CSS_VAR_HEADER_HEIGHT } from "@gs/constants";
 
@@ -24,9 +24,9 @@ export default function ProgressBar(): JSX.Element {
 /**
  * @see https://gist.github.com/edmundhung/023e85cc731466bb5f4b350590ab30ea
  */
-function useProgress(): RefObject<HTMLDivElement> {
+function useProgress(): RefObject<HTMLDivElement | null> {
   const elementRef = useRef<HTMLDivElement>(null);
-  const timeout = useRef<NodeJS.Timeout>();
+  const timeout = useRef<NodeJS.Timeout | undefined>(undefined);
   const { location } = useNavigation();
 
   // oxlint-disable-next-line react/exhaustive-deps -- Complex

@@ -1,4 +1,4 @@
-import { createCookie, redirect } from "@remix-run/node";
+import { createCookie, redirect } from "react-router";
 import { parseCookie } from "@gs/service/cookie.server";
 
 export const pwaCookie = createCookie("__gs_pwa");

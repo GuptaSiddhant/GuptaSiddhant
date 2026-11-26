@@ -1,5 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import { type LoaderFunctionArgs, data, useLoaderData } from "react-router";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { UserRole } from "@gs/models/users.model";
@@ -12,12 +11,12 @@ interface LoaderData {
   names: string[];
 }
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.ADMIN);
 
   const names = await getLoggerNames();
 
-  return json<LoaderData>({ names });
+  return data<LoaderData>({ names });
 }
 
 export default function LogsIndex(): JSX.Element | null {

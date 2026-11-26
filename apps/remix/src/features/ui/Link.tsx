@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { type ComponentPropsWithoutRef } from "react";
 
-import { Link, type LinkProps } from "@remix-run/react";
+import { Link, type LinkProps } from "react-router";
 
 import { ExternalLinkIcon } from "@gs/icons";
 import type { BaseProps } from "@gs/types";

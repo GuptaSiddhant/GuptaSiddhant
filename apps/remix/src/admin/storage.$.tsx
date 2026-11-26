@@ -1,9 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+} from "react-router";
 
 import { authenticateRoute } from "@gs/service/auth.server";
 import { UserRole } from "@gs/models/users.model";
@@ -20,7 +20,7 @@ interface LoaderData {
   storagePaths: StoragePathProps[];
 }
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const path = params["*"];
 
@@ -32,7 +32,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
   try {
     const storagePaths = await getStoragePaths(paths);
 
-    return json<LoaderData>({ storagePaths });
+    return data<LoaderData>({ storagePaths });
   } catch {
     const redirectRootPath = adminApp.linkPath;
     const redirectPath =

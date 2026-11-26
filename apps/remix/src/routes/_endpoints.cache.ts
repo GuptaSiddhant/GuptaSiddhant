@@ -1,9 +1,9 @@
-import { type DataFunctionArgs, json } from "@remix-run/server-runtime";
+import type { LoaderFunctionArgs } from "react-router";
 
 import { ModifyCacheMethod, modifyCache } from "@gs/service/cache.server";
 import invariant from "@gs/utils/invariant";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { searchParams } = new URL(request.url);
   const key = searchParams.get("key")?.toString().trim();
 
@@ -11,9 +11,11 @@ export async function loader({ request }: DataFunctionArgs) {
     invariant(key, "Cache key is required");
     await modifyCache(ModifyCacheMethod.DELETE, key);
 
-    return json(`Cleared cache for key: ${key}`, 200);
+    return Response.json(`Cleared cache for key: ${key}`);
   } catch {
-    return json(`Could not find/clear cache for key: '${key}'.`, 404);
+    return Response.json(`Could not find/clear cache for key: '${key}'.`, {
+      status: 404,
+    });
   }
 }
 

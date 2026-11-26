@@ -1,15 +1,10 @@
-import {
-  black,
-  emerald,
-  purple,
-  rose,
-  sky,
-  slate,
-  white,
-} from "tailwindcss/colors";
+import colors from "tailwindcss/colors";
 
 import { type ResumeFonts, ResumePalettes } from "./constants";
 import type { Style } from "./types";
+
+// `tailwindcss/colors` is CommonJS: named imports fail in the ESM server build.
+const { black, emerald, purple, rose, sky, slate, white } = colors;
 
 const fonts = {
   mono: "Courier",

@@ -1,7 +1,7 @@
 import type { SetStateAction } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { type SubmitOptions, useLocation, useSubmit } from "@remix-run/react";
+import { type SubmitOptions, useLocation, useSubmit } from "react-router";
 
 import type { RemixSubmitFunctionTarget } from "@gs/types";
 

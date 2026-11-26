@@ -30,7 +30,7 @@ export default function Reader({
       className={clsx(
         "relative mx-auto w-full max-w-full md:max-w-[1500px]",
         "grid grid-cols-1 gap-0 xl:grid-cols-[15rem_1fr_15rem]",
-        (leftColumn || rightColumn) && "md:grid-cols-[max-content_1fr]",
+        !!(leftColumn || rightColumn) && "md:grid-cols-[max-content_1fr]",
       )}
     >
       <aside className={clsx("z-[10] text-sm")}>

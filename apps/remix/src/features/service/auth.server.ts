@@ -1,12 +1,4 @@
-import { AuthenticateOptions, Authenticator, Strategy } from "remix-auth";
-import { FormStrategy } from "remix-auth-form";
-
-import {
-  SessionData,
-  SessionStorage,
-  createCookieSessionStorage,
-  redirect,
-} from "@remix-run/node";
+import { createCookieSessionStorage, redirect } from "react-router";
 
 import parsedEnv from "@gs/env";
 import { signInWithEmailPassword } from "@gs/firebase/auth";
@@ -37,13 +29,37 @@ export interface AuthUser extends UserProps {
   expiresIn: string;
 }
 
-const authenticator = new Authenticator<AuthUser>(cookieSession);
+/** Key under which the user is stored in the session cookie. */
+const SESSION_KEY = "user";
+
+const authenticator = {
+  /** Returns the logged-in user from the session cookie (or null). */
+  async isAuthenticated(
+    request: Request,
+    options: { successRedirect?: string } = {},
+  ): Promise<AuthUser | null> {
+    const session = await cookieSession.getSession(
+      request.headers.get("cookie"),
+    );
+    const user = (session.get(SESSION_KEY) as AuthUser | undefined) ?? null;
+    if (user && options.successRedirect) {
+      throw redirect(options.successRedirect);
+    }
+    return user;
+  },
+
+  /** Destroys the session and redirects. */
+  async logout(request: Request, { redirectTo }: { redirectTo: string }) {
+    const session = await cookieSession.getSession(
+      request.headers.get("cookie"),
+    );
+    throw redirect(redirectTo, {
+      headers: { "Set-Cookie": await cookieSession.destroySession(session) },
+    });
+  },
+};
 
 export default authenticator;
-
-export enum AuthMethod {
-  EmailPassword = "emailPassword",
-}
 
 // Auth helpers
 
@@ -143,13 +159,9 @@ function getSafeRedirectPath(value: FormDataEntryValue | null): string {
 export async function loginUser(request: Request) {
   const formData = await request.formData();
 
-  const user = await authenticator.authenticate(
-    AuthMethod.EmailPassword,
-    request,
-    { throwOnError: true, context: { formData } },
-  );
+  const user = await authenticateWithEmailPassword(formData);
   const session = await cookieSession.getSession(request.headers.get("cookie"));
-  session.set(authenticator.sessionKey, user);
+  session.set(SESSION_KEY, user);
   const headers = new Headers({
     "Set-Cookie": await cookieSession.commitSession(session),
   });
@@ -159,7 +171,7 @@ export async function loginUser(request: Request) {
 
 // Auth method: emailPassword
 
-const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
+async function authenticateWithEmailPassword(form: FormData) {
   const email = form.get("email")?.toString();
   invariant(email, "email is required");
 
@@ -182,6 +194,4 @@ const emailPasswordStrategy = new FormStrategy(async ({ form }) => {
   };
 
   return authUser;
-});
-
-authenticator.use(emailPasswordStrategy, AuthMethod.EmailPassword);
+}

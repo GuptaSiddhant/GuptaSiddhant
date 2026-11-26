@@ -1,8 +1,7 @@
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  resolve: { tsconfigPaths: true },
   test: {
     coverage: {
       provider: "istanbul",

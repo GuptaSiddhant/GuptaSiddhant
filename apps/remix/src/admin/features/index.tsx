@@ -1,11 +1,13 @@
-import AdminIcon from "remixicon-react/AdminFillIcon";
-import CacheIcon from "remixicon-react/Database2FillIcon";
-import EditorIcon from "remixicon-react/EditBoxFillIcon";
-import StorageIcon from "remixicon-react/HardDrive2FillIcon";
-import LogoutIcon from "remixicon-react/LogoutCircleRLineIcon";
-import SettingsIcon from "remixicon-react/Settings3FillIcon";
-import GraphQLIcon from "remixicon-react/TerminalWindowFillIcon";
-import LogsIcon from "remixicon-react/ListSettingsFillIcon";
+import {
+  RiAdminFill as AdminIcon,
+  RiDatabase2Fill as CacheIcon,
+  RiEditBoxFill as EditorIcon,
+  RiHardDrive2Fill as StorageIcon,
+  RiListSettingsFill as LogsIcon,
+  RiLogoutCircleRLine as LogoutIcon,
+  RiSettings3Fill as SettingsIcon,
+  RiTerminalWindowFill as GraphQLIcon,
+} from "@remixicon/react";
 
 import AdminRegistry from "./registry";
 import type { AdminAction, AdminApp } from "./types";

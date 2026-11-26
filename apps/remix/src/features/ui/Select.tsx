@@ -7,15 +7,17 @@ import {
   type RefObject,
   useRef,
 } from "react";
-import ArrowDownIcon from "remixicon-react/ArrowDownSFillIcon";
-import ClearIcon from "remixicon-react/CloseCircleLineIcon";
+import {
+  RiArrowDownSFill as ArrowDownIcon,
+  RiCloseCircleLine as ClearIcon,
+} from "@remixicon/react";
 
 import FormLabel from "./FormLabel";
 
 export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   selectRef?: ForwardedRef<HTMLSelectElement> | null;
   label?: ReactNode;
-  onClear?: (selectRef: RefObject<HTMLSelectElement>) => void;
+  onClear?: (selectRef: RefObject<HTMLSelectElement | null>) => void;
   vertical?: boolean;
   inputClassName?: string;
 };

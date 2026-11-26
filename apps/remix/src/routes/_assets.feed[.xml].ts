@@ -1,8 +1,8 @@
-import { DataFunctionArgs } from "@remix-run/server-runtime";
+import { LoaderFunctionArgs } from "react-router";
 
 import { generateBlogFeed } from "@gs/models/blog.server";
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const { origin } = new URL(request.url);
   const feed = await generateBlogFeed(origin);
 

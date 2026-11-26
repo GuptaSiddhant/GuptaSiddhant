@@ -1,9 +1,11 @@
-import { useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { RefreshIcon, UploadIcon } from "@gs/icons";
 import { UserRole } from "@gs/models/users.model";
@@ -27,14 +29,14 @@ const adminApp = adminRegistry.getApp(AdminAppId.Storage);
 
 type LoaderData = StorageDir;
 
-export async function loader({ request }: DataFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const { dirs, files } = await Storage.queryDir();
 
-  return json<LoaderData>({ dirs, files });
+  return data<LoaderData>({ dirs, files });
 }
 
-export async function action({ request }: DataFunctionArgs) {
+export async function action({ request }: ActionFunctionArgs) {
   await authenticateRoute(request, UserRole.EDITOR);
   const { method } = request;
   const form = await request.formData();

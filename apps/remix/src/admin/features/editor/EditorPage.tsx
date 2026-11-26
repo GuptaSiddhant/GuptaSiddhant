@@ -1,5 +1,7 @@
-import PreviewIcon from "remixicon-react/EyeLineIcon";
-import SaveIcon from "remixicon-react/Save2FillIcon";
+import {
+  RiEyeLine as PreviewIcon,
+  RiSave2Fill as SaveIcon,
+} from "@remixicon/react";
 
 import { DeleteIcon, RefreshIcon } from "@gs/icons";
 import { type Model } from "@gs/models";

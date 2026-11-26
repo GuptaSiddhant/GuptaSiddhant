@@ -14,8 +14,8 @@ export default (cb: (props: CallbackProps) => void) => {
     return;
   }
 
-  const cbRef = useRef<(props: CallbackProps) => void>();
-  const frame = useRef<number>();
+  const cbRef = useRef<((props: CallbackProps) => void) | undefined>(undefined);
+  const frame = useRef<number | undefined>(undefined);
   const init = useRef(performance.now());
   const last = useRef(performance.now());
 

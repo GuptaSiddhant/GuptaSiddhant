@@ -10,3 +10,49 @@ overrides:
   "@types/node": "^18.19.0"
   # wait-on@5 (storybook test-runner, dev only) pulls axios 0.21 with known CVEs.
   "axios@<1": "^1.21.1"
+
+packageExtensions:
+  # Icon typings import "react" without declaring @types/react; make pnpm
+  # resolve this app's @types/react 19 instead of a hoisted v17 (cli/ink).
+  "@remixicon/react":
+    peerDependencies:
+      "@types/react": "*"
+  "markdown-to-jsx":
+    peerDependencies:
+      "@types/react": "*"
+  "prism-react-renderer":
+    peerDependencies:
+      "@types/react": "*"
+  "@react-pdf/renderer":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/popover":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/menu-button":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/dropdown":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/auto-id":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/utils":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/rect":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/portal":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/machine":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/descendants":
+    peerDependencies:
+      "@types/react": "*"
+  "@reach/polymorphic":
+    peerDependencies:
+      "@types/react": "*"

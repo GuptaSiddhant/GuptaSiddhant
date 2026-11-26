@@ -1,11 +1,13 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import clsx from "clsx";
 import type { ReactNode } from "react";
-import PrototypeIcon from "remixicon-react/DeviceLineIcon";
-import GithubIcon from "remixicon-react/GithubFillIcon";
-import HomepageIcon from "remixicon-react/GlobalLineIcon";
-import LinkedinIcon from "remixicon-react/LinkedinBoxFillIcon";
-import NpmIcon from "remixicon-react/NpmjsLineIcon";
+import {
+  RiDeviceLine as PrototypeIcon,
+  RiGithubFill as GithubIcon,
+  RiGlobalLine as HomepageIcon,
+  RiLinkedinBoxFill as LinkedinIcon,
+  RiNpmjsLine as NpmIcon,
+} from "@remixicon/react";
 
 import { getStylingByModelName } from "@gs/models";
 import useRootContext from "@gs/root/RootContext";

@@ -1,9 +1,8 @@
 import { PassThrough } from "node:stream";
 import { renderToPipeableStream } from "react-dom/server";
 
-import { createReadableStreamFromReadable } from "@remix-run/node";
-import { RemixServer } from "@remix-run/react";
-import type { EntryContext } from "@remix-run/server-runtime";
+import { type EntryContext, ServerRouter } from "react-router";
+import { createReadableStreamFromReadable } from "@react-router/node";
 
 import { initFirebase } from "@gs/firebase/init.server";
 import { appLogger } from "@gs/service/logger.server";
@@ -19,7 +18,7 @@ export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  routerContext: EntryContext,
 ) {
   appLogger.logRequest(request);
 
@@ -27,13 +26,13 @@ export default function handleRequest(
     let didError = false;
 
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer context={remixContext} url={request.url} />,
+      <ServerRouter context={routerContext} url={request.url} />,
       {
         onShellReady: () => {
           const body = new PassThrough();
 
           responseHeaders.set("Content-Type", "text/html; charset=utf-8");
-          responseHeaders.set("x-powered-by", "Remix.run");
+          responseHeaders.set("x-powered-by", "React Router");
 
           if (process.env.NODE_ENV !== "production") {
             responseHeaders.set("Cache-Control", "no-store");
@@ -68,7 +67,7 @@ export default function handleRequest(
 // entry.server.tsx
 export function handleError(
   error: unknown,
-  // { request, params, context }: DataFunctionArgs,
+  // { request, params, context }: LoaderFunctionArgs,
 ): void {
   if (error instanceof Error) {
     appLogger.error(getErrorMessage(error));

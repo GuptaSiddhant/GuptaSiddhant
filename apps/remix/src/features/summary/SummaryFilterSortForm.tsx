@@ -1,10 +1,12 @@
 import clsx from "clsx";
-import FilterIcon from "remixicon-react/Filter3LineIcon";
-import GridIcon from "remixicon-react/GridLineIcon";
-import ListIcon from "remixicon-react/ListUnorderedIcon";
-import SortIcon from "remixicon-react/SortDescIcon";
+import {
+  RiFilter3Line as FilterIcon,
+  RiGridLine as GridIcon,
+  RiListUnordered as ListIcon,
+  RiSortDesc as SortIcon,
+} from "@remixicon/react";
 
-import { Form, useSubmit } from "@remix-run/react";
+import { Form, useSubmit } from "react-router";
 
 import type { UniqueTag } from "@gs/types";
 import RadioGroup from "@gs/ui/RadioGroup";

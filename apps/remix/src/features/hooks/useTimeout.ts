@@ -7,7 +7,7 @@ export default function useTimeout(
 ) {
   const startTimeRef = useRef<number>(0);
   const remainingTimeRef = useRef<number>(timeoutInMs);
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (isPaused) {

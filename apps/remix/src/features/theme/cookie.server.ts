@@ -1,4 +1,4 @@
-import { createCookie } from "@remix-run/node";
+import { createCookie } from "react-router";
 
 import { parseCookie } from "@gs/service/cookie.server";
 import { type ThemeName, DEFAULT_THEME } from "@gs/theme";

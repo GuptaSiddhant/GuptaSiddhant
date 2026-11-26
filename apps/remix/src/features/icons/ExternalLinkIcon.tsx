@@ -1,4 +1,4 @@
-import LinkIcon from "remixicon-react/ExternalLinkLineIcon";
+import { RiExternalLinkLine as LinkIcon } from "@remixicon/react";
 
 export function ExternalLinkIcon(): JSX.Element {
   return (

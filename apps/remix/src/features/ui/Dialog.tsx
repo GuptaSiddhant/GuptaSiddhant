@@ -8,7 +8,7 @@ import useStableCallback from "../hooks/useStableCallback";
 export interface DialogProps {
   isOpen: boolean;
   closeDialog: () => void;
-  dialogRef: React.RefObject<HTMLDialogElement>;
+  dialogRef: React.RefObject<HTMLDialogElement | null>;
   children: React.ReactNode;
   id?: string;
   className?: string;

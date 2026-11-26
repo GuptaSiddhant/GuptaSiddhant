@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import BlogIcon from "remixicon-react/QuillPenLineIcon";
+import { RiQuillPenLine as BlogIcon } from "@remixicon/react";
 
 import type { SummaryItem } from "@gs/summary";
 import type { Gallery } from "@gs/types";

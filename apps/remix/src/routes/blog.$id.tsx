@@ -1,9 +1,11 @@
-import { Link, useLoaderData, useRouteError } from "@remix-run/react";
 import {
-  type DataFunctionArgs,
-  json,
+  Link,
+  type LoaderFunctionArgs,
+  data,
   redirect,
-} from "@remix-run/server-runtime";
+  useLoaderData,
+  useRouteError,
+} from "react-router";
 
 import { EditIcon } from "@gs/icons";
 import {
@@ -40,7 +42,7 @@ interface LoaderData {
   isAuthenticated: boolean;
 }
 
-export async function loader({ params, request }: DataFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const id = params.id;
   if (!id) {
     throw new Error("Blog post id is required");
@@ -58,7 +60,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
     const toc = extractTocFromMdx(mdx);
     const crossSell = await getBlogPostCrossSell(id);
 
-    return json<LoaderData>({
+    return data<LoaderData>({
       post,
       url: request.url,
       mdx,
@@ -74,7 +76,7 @@ export async function loader({ params, request }: DataFunctionArgs) {
 }
 
 export function meta({
-  data,
+  loaderData: data,
   params,
   matches,
 }: MetaArgs<typeof loader>): MetaDescriptors {
