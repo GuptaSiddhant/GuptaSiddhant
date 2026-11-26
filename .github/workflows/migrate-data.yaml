@@ -1,0 +1,79 @@
+name: Migrate data (Firestore to Turso / R2)
+
+# Manual only. Defaults to a dry run; untick `dry_run` to write.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Read and report only; write nothing
+        type: boolean
+        default: true
+      migrate_database:
+        description: Migrate Firestore data to Turso
+        type: boolean
+        default: true
+      copy_storage:
+        description: Copy Firebase Storage objects to Cloudflare R2
+        type: boolean
+        default: false
+
+concurrency:
+  group: migrate-data
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DRY_RUN: ${{ inputs.dry_run }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # pnpm version is pinned by "packageManager" in package.json.
+      # pnpm is installed (corepack) before setup-node, so its cache works.
+      - name: Enable pnpm (corepack)
+        run: corepack enable
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Write service account
+        env:
+          SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM }}
+        run: |
+          test -n "$SA_JSON" || { echo "FIREBASE_SERVICE_ACCOUNT_GUPTASIDDHANT_COM secret is empty"; exit 1; }
+          printf '%s' "$SA_JSON" > "$RUNNER_TEMP/sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+
+      - name: Migrate Firestore data to Turso
+        if: ${{ inputs.migrate_database }}
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+        run: |
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          node scripts/migrate-firestore-to-turso/index.ts "${args[@]}"
+
+      - name: Copy Firebase Storage to R2
+        if: ${{ inputs.copy_storage }}
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          args=(--copy-storage)
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          node scripts/migrate-firestore-to-turso/index.ts "${args[@]}"
+
+      - name: Remove credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/sa.json"

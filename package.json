@@ -7,6 +7,9 @@
     "cli:build": "pnpm --filter guptasiddhant build",
     "cli:dev": "pnpm --filter guptasiddhant dev",
     "cli:start": "pnpm --filter guptasiddhant start",
+    "db:generate": "pnpm --filter gs-db db:generate",
+    "db:migrate:firestore": "node ./scripts/migrate-firestore-to-turso/index.ts",
+    "db:test": "pnpm --filter gs-db test",
     "db:backup": "node ./scripts/db-backup.js",
     "db:restore": "FIRESTORE_EMULATOR_HOST=\"localhost:8080\" FIREBASE_STORAGE_EMULATOR_HOST=\"localhost:9199\" node ./scripts/db-restore.js",
     "emulator": "npx firebase-tools emulators:start --import=./.firebase-emulator --export-on-exit",
@@ -28,9 +31,13 @@
     "remix:test": "pnpm --filter gs-remix test",
     "remix:test:coverage": "pnpm --filter gs-remix test:coverage",
     "test": "vp run -r test",
-    "typecheck": "vp run -r typecheck"
+    "typecheck": "vp run -r typecheck",
+    "typecheck:scripts": "tsc -p scripts/migrate-firestore-to-turso"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1178.0",
+    "@types/node": "^18.19.130",
+    "firebase-admin": "^11.11.1",
     "typescript": "^5.1.0",
     "vite-plus": "1.8.0"
   },
