@@ -1,10 +1,16 @@
 import axios, { type CancelTokenSource } from "axios"
 import { useCallback, useEffect, useState } from "react"
 
-const cache: Record<string, { data: any; timestamp: number }> = {}
+const cache: Record<string, { data: unknown; timestamp: number }> = {}
 const CACHE_TIME = 1000 * 60 // 1 minute
+const REQUEST_TIMEOUT = 10000 // 10 seconds
 // const BASE_URL = "http://localhost:3000/api?"
 const BASE_URL = "https://guptasiddhant.com/api?"
+
+const LOAD_ERROR_MESSAGE =
+  "Could not load this content. Please try again later."
+const TIMEOUT_ERROR_MESSAGE =
+  "This is taking too long to load. Please try again later."
 
 export interface UseQueryOptions {
   skip?: boolean
@@ -33,12 +39,12 @@ export default function useQuery<T>(
     let isMounted = true
     const cancelTokenSource = axios.CancelToken.source()
 
-    fetcher(query, { cancelTokenSource, cacheTime, baseUrl })
-      .then((data: any) => {
-        if (isMounted) setData(data as T)
+    fetcher<T>(query, { cancelTokenSource, cacheTime, baseUrl })
+      .then((result) => {
+        if (isMounted) setData(result)
       })
-      .catch((e) => {
-        if (isMounted) setError(new Error(e))
+      .catch((e: unknown) => {
+        if (isMounted) setError(toQueryError(e))
       })
       .finally(() => {
         if (isMounted) setLoading(false)
@@ -65,17 +71,6 @@ export function usePrefetchQuery(query: string): void {
   }, [query])
 }
 
-export function usePrefetchQueries(...queries: string[]): void {
-  useEffect(() => {
-    queries.forEach((query) => {
-      if (!cache[query]?.data) {
-        console.log("prefetching")
-        fetchFromServer(query)
-      }
-    })
-  }, [queries])
-}
-
 export function getCache() {
   return cache
 }
@@ -86,41 +81,50 @@ export function clearCache(): void {
 
 // Helpers
 
-async function fetcher(
+function toQueryError(e: unknown): Error {
+  const isTimeout =
+    axios.isAxiosError(e) &&
+    (e.code === "ECONNABORTED" || e.code === "ETIMEDOUT")
+
+  return new Error(isTimeout ? TIMEOUT_ERROR_MESSAGE : LOAD_ERROR_MESSAGE)
+}
+
+async function fetcher<T>(
   query: string,
   options: {
     cancelTokenSource?: CancelTokenSource
     cacheTime?: number
     baseUrl?: string
   },
-) {
+): Promise<T> {
   const { cancelTokenSource, cacheTime, baseUrl } = options
   try {
-    return getFromCache(query, cacheTime)
+    return getFromCache<T>(query, cacheTime)
   } catch {
-    return fetchFromServer(query, cancelTokenSource, baseUrl)
+    return fetchFromServer<T>(query, cancelTokenSource, baseUrl)
   }
 }
 
-async function fetchFromServer(
+async function fetchFromServer<T = unknown>(
   query: string,
   cancelTokenSource?: CancelTokenSource,
   baseUrl: string = BASE_URL,
-) {
-  const res = await axios.get<any>(baseUrl + query, {
+): Promise<T> {
+  const res = await axios.get<T>(baseUrl + query, {
     cancelToken: cancelTokenSource?.token,
+    timeout: REQUEST_TIMEOUT,
   })
   const data = res.data
   cache[query] = { data, timestamp: Date.now() }
   return data
 }
 
-function getFromCache(key: string, cacheTime: number = CACHE_TIME) {
+function getFromCache<T>(key: string, cacheTime: number = CACHE_TIME): T {
   const cacheValue = cache[key]
   if (cacheValue?.data) {
     const isValid = Date.now() - cacheValue.timestamp <= cacheTime
     if (isValid) {
-      return cacheValue.data
+      return cacheValue.data as T
     }
   }
   throw new Error("No cache found.")
