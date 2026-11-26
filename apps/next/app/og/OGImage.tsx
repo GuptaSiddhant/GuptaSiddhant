@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 export const DEFAULT_WIDTH = 800;
 export const DEFAULT_RATIO = 16 / 9;
 export const DEFAULT_SPACING = DEFAULT_WIDTH / 40;
@@ -27,7 +25,7 @@ export default function OGImage({
   imageUrl,
   imageAlt,
   author,
-}: OGImageProps): JSX.Element {
+}: OGImageProps): React.JSX.Element {
   return (
     <div
       style={{

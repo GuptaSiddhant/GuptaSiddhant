@@ -1,0 +1,38 @@
+.main {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+.card:hover {
+  border-color: var(--fg);
+}
+
+.card h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
