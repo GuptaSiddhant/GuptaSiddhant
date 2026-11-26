@@ -19,7 +19,7 @@ export interface TableProps<T extends object> {
 }
 
 export interface TableColumnProps<T extends object> {
-  id: keyof T | typeof preservedIds[number];
+  id: keyof T | (typeof preservedIds)[number];
   headerClassName?: string;
   cellClassName?: string;
   header?: ReactNode | ((data: T[]) => ReactNode);
@@ -116,7 +116,7 @@ function getHeaderElement<T extends object>(
 
   return typeof header === "function"
     ? header(data)
-    : header ?? capitalize(id.toString());
+    : (header ?? capitalize(id.toString()));
 }
 
 function getCellElement<T extends object>(
@@ -129,9 +129,9 @@ function getCellElement<T extends object>(
   // oxlint-disable-next-line typescript/no-explicit-any -- Complex
   const content: any =
     typeof id === "string" &&
-    preservedIds.includes(id as typeof preservedIds[number])
+    preservedIds.includes(id as (typeof preservedIds)[number])
       ? null
-      : row?.[id as keyof T] ?? null;
+      : (row?.[id as keyof T] ?? null);
 
   return cell?.(row, data) ?? content;
 }

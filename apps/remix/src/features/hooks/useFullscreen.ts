@@ -13,9 +13,9 @@ export default function useFullscreen<T extends HTMLElement>() {
   useSafeLayoutEffect(() => {
     const fullscreenEnabled = Boolean(
       window.document.fullscreenEnabled ||
-        window.document.webkitFullscreenEnabled ||
-        window.document.mozFullScreenEnabled ||
-        window.document.msFullscreenEnabled,
+      window.document.webkitFullscreenEnabled ||
+      window.document.mozFullScreenEnabled ||
+      window.document.msFullscreenEnabled,
     );
 
     setIsFullscreenEnabled(fullscreenEnabled);

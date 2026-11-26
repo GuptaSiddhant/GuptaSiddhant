@@ -1,4 +1,9 @@
-import { Link, type LoaderFunctionArgs, data, useLoaderData } from "react-router";
+import {
+  Link,
+  type LoaderFunctionArgs,
+  data,
+  useLoaderData,
+} from "react-router";
 import { RiFileUserLine as ResumeIcon } from "@remixicon/react";
 
 import { ModelName } from "@gs/models";
@@ -43,8 +48,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     lifelineSelectedCategory === ModelName.Education
       ? educationList
       : lifelineSelectedCategory === ModelName.Career
-      ? careerList
-      : [...careerList, ...educationList];
+        ? careerList
+        : [...careerList, ...educationList];
 
   const items = filterSortSummaryItems(summaryItems);
 

@@ -73,8 +73,8 @@ export function generateTexts(font: ResumeFonts): ResumeTexts {
     font === "serif"
       ? fonts.serifBold
       : font === "sans"
-      ? fonts.sansBold
-      : fonts.monoBold;
+        ? fonts.sansBold
+        : fonts.monoBold;
 
   const texts: ResumeTexts = {
     h1: {
